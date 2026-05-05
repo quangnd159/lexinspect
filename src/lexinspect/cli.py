@@ -14,7 +14,7 @@ import typer
 from rich.console import Console
 from rich.table import Table
 
-from lexinspect import __version__, awl, diversity, readability, tagger
+from lexinspect import __version__, awl, bnc_coca, diversity, ngsl, phrase, readability, tagger
 from lexinspect._io import read_text
 from lexinspect._schema import envelope
 
@@ -109,6 +109,30 @@ def awl_cmd(file: FileArg, format: FormatOpt = "json") -> None:
     _emit(envelope("awl", src, len(text), result), format)
 
 
+@app.command(name="bnc-coca")
+def bnc_coca_cmd(file: FileArg, format: FormatOpt = "json") -> None:
+    """Nation BNC/COCA frequency-band profile (1k–10k headwords, CC0 mirror)."""
+    text, src = read_text(file)
+    result = bnc_coca.analyze(text)
+    _emit(envelope("bnc_coca", src, len(text), result), format)
+
+
+@app.command(name="ngsl")
+def ngsl_cmd(file: FileArg, format: FormatOpt = "json") -> None:
+    """NGSL + NAWL coverage profile (Browne, Culligan, Phillips)."""
+    text, src = read_text(file)
+    result = ngsl.analyze(text)
+    _emit(envelope("ngsl", src, len(text), result), format)
+
+
+@app.command(name="phrase")
+def phrase_cmd(file: FileArg, format: FormatOpt = "json") -> None:
+    """PHRASE list detection (Martinez & Schmitt 2012, K1–K5 bands)."""
+    text, src = read_text(file)
+    result = phrase.analyze(text)
+    _emit(envelope("phrase", src, len(text), result), format)
+
+
 @app.command()
 def analyze(file: FileArg, format: FormatOpt = "json") -> None:
     """Run all modules and emit a combined report."""
@@ -122,6 +146,9 @@ def analyze(file: FileArg, format: FormatOpt = "json") -> None:
             "diversity": diversity.analyze(text),
             "tagger": tagger.analyze(text),
             "awl": awl.analyze(text),
+            "bnc_coca": bnc_coca.analyze(text),
+            "ngsl": ngsl.analyze(text),
+            "phrase": phrase.analyze(text),
         },
     }
     _emit(payload, format)

@@ -16,20 +16,23 @@ runner = CliRunner()
 
 
 @pytest.mark.parametrize(
-    "subcommand,fixture",
+    "subcommand,fixture,envelope_module",
     [
-        ("readability", SIMPLE),
-        ("diversity", SIMPLE),
-        ("tag", SIMPLE),
-        ("awl", ACADEMIC),
+        ("readability", SIMPLE, "readability"),
+        ("diversity", SIMPLE, "diversity"),
+        ("tag", SIMPLE, "tagger"),
+        ("awl", ACADEMIC, "awl"),
+        ("bnc-coca", ACADEMIC, "bnc_coca"),
+        ("ngsl", ACADEMIC, "ngsl"),
+        ("phrase", SIMPLE, "phrase"),
     ],
 )
-def test_subcommand_emits_valid_json(subcommand, fixture):
+def test_subcommand_emits_valid_json(subcommand, fixture, envelope_module):
     result = runner.invoke(app, [subcommand, fixture])
     assert result.exit_code == 0, result.stdout
     payload = json.loads(result.stdout)
     assert payload["schema_version"] == "1"
-    assert payload["module"] in {subcommand, "tagger"}  # tag → "tagger" envelope
+    assert payload["module"] == envelope_module
     assert "result" in payload
 
 
@@ -38,7 +41,15 @@ def test_analyze_combines_modules():
     assert result.exit_code == 0, result.stdout
     payload = json.loads(result.stdout)
     assert payload["module"] == "analyze"
-    assert set(payload["results"]) == {"readability", "diversity", "tagger", "awl"}
+    assert set(payload["results"]) == {
+        "readability",
+        "diversity",
+        "tagger",
+        "awl",
+        "bnc_coca",
+        "ngsl",
+        "phrase",
+    }
 
 
 def test_human_format_runs():

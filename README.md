@@ -20,7 +20,7 @@ uv pip install "https://github.com/explosion/spacy-models/releases/download/en_c
 Every command takes a file path or `-` for stdin and emits JSON by default. Pass `--format human` for a terminal-friendly view.
 
 ```bash
-# All four modules at once
+# All seven modules at once
 uv run lexinspect analyze passage.txt
 
 # Individual modules
@@ -28,6 +28,9 @@ uv run lexinspect readability passage.txt
 uv run lexinspect diversity passage.txt
 uv run lexinspect tag passage.txt
 uv run lexinspect awl passage.txt
+uv run lexinspect bnc-coca passage.txt
+uv run lexinspect ngsl passage.txt
+uv run lexinspect phrase passage.txt
 
 # Pipe from anywhere
 echo "The empirical analysis demonstrates significant variation." | uv run lexinspect analyze -
@@ -73,21 +76,33 @@ POS tagging via spaCy (`en_core_web_sm`). Emits Penn Treebank tag counts (`JJ`, 
 
 Coxhead Academic Word List (2000) coverage profile. Bundles 570 head words across 10 sublists, indexed by 3,111 inflected forms. Reports per-sublist token and family counts, overall coverage percentage, and the unique families found.
 
+### bnc-coca
+
+Nation BNC/COCA frequency-band profile. Bundles 9,998 head words across the first 10 thousand-word bands (CC0 mirror, headwords only — see [data/SOURCES.md](src/lexinspect/data/SOURCES.md) for the trade-off). Reports per-band tokens, headwords found, and a cumulative coverage curve — the standard ELT readout for "what proportion of this text is within the first N thousand words?".
+
+### ngsl
+
+NGSL + NAWL combined coverage (Browne, Culligan, Phillips). NGSL 1.2 covers ~92% of general English with 2,809 lemmas; NAWL 1.2 adds 959 academic lemmas for use after NGSL. Reports separate NGSL and NAWL coverage percentages plus the off-list residual.
+
+### phrase
+
+Martinez & Schmitt (2012) PHRASE list — 506 phrasal expressions across K1–K5 frequency bands. Detects multi-word spans (`HAVE TO`, `IN SPITE OF`, `ON THE OTHER HAND`) with verb-inflection tolerance, returning surface span, base form, rank, and band.
+
 ## Develop
 
 ```bash
-uv run pytest                 # 25 tests
+uv run pytest                 # 41 tests
 uv run ruff check .
 uv run ruff format .
 ```
 
 ## Roadmap
 
-- **Phase 2**: Nation BNC/COCA family-list profiling, NGSL/NAWL, Martinez–Schmitt PHRASE list.
+- **Phase 2** (done): BNC/COCA, NGSL + NAWL, Martinez–Schmitt PHRASE list.
 - **Phase 3**: CEFR profiling via CEFR-J Wordlist + Octanove C1/C2 (Open Language Profiles). Outputs band distribution; no single-number "score" — agents combine the components themselves.
 - **Phase 4**: Metadiscourse marker detection (Hyland taxonomy).
 - **Phase 5**: Optional FastAPI wrapper exposing the same functions over HTTP.
 
 ## Licence
 
-MIT. The bundled AWL data derives from Coxhead, A. (2000). *A new academic word list*. TESOL Quarterly, 34(2), 213–238 — cite accordingly in any publication.
+Code: MIT. Bundled data files have their own provenance and licences — see [src/lexinspect/data/SOURCES.md](src/lexinspect/data/SOURCES.md). Cite original creators in any publication.
