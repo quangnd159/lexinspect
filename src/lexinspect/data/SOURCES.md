@@ -30,6 +30,18 @@ For richer family-level matching see the `wen-zhi/the-bnc-coca-lists` 1k–9k CS
 
 959 academic lemmas with inflected forms, designed for use after NGSL. Source: [newgeneralservicelist.com](https://www.newgeneralservicelist.com/). **Licence: CC-BY-SA 4.0**.
 
+## cefr.json
+
+Two combined sources covering A1–C2:
+
+**CEFR-J Vocabulary Profile 1.5 (A1–B2).** Compiled by Yukio Tono, Tokyo University of Foreign Studies. ~5,875 lemmas across A1, A2, B1, B2. Source: [openlanguageprofiles/olp-en-cefrj](https://github.com/openlanguageprofiles/olp-en-cefrj). **Terms of use:** free for research and commercial use with citation. Copyright Tono Laboratory at TUFS.
+
+**Octanove Vocabulary Profile C1/C2 1.0.** Octanove Labs. ~1,815 lemmas across C1 and C2. Same repo. **Licence: CC-BY-SA 4.0**.
+
+Combined: 8,690 lemmas. When a lemma is annotated at multiple levels (e.g. as both an A2 verb and a B1 noun), the lowest level wins.
+
+**Not Cambridge English Vocabulary Profile.** Different corpora, different methodology — outputs will diverge from EVP-based tools. Do not present results as EVP-equivalent. Cite Tono (CEFR-J) and Octanove Labs in any publication.
+
 ## phrase.json
 
 **Martinez, R., & Schmitt, N. (2012).** A phrasal expressions list. *Applied Linguistics*, 33(3), 299–320.

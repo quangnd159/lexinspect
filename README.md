@@ -31,6 +31,7 @@ uv run lexinspect awl passage.txt
 uv run lexinspect bnc-coca passage.txt
 uv run lexinspect ngsl passage.txt
 uv run lexinspect phrase passage.txt
+uv run lexinspect cefr passage.txt
 
 # Pipe from anywhere
 echo "The empirical analysis demonstrates significant variation." | uv run lexinspect analyze -
@@ -88,10 +89,14 @@ NGSL + NAWL combined coverage (Browne, Culligan, Phillips). NGSL 1.2 covers ~92%
 
 Martinez & Schmitt (2012) PHRASE list — 506 phrasal expressions across K1–K5 frequency bands. Detects multi-word spans (`HAVE TO`, `IN SPITE OF`, `ON THE OTHER HAND`) with verb-inflection tolerance, returning surface span, base form, rank, and band.
 
+### cefr
+
+CEFR vocabulary profile (A1–C2). Combines CEFR-J Vocabulary Profile 1.5 (Tono, TUFS — A1 to B2) with Octanove Vocabulary Profile C1/C2 1.0 (Octanove Labs, CC-BY-SA 4.0 — C1 and C2). 8,690 lemmas total. Reports per-level token and lemma counts, cumulative coverage, dominant level, and a 95th-percentile heuristic level. **Not Cambridge EVP** — the underlying corpora and methodology differ; cite CEFR-J + Octanove in any output.
+
 ## Develop
 
 ```bash
-uv run pytest                 # 41 tests
+uv run pytest                 # 48 tests
 uv run ruff check .
 uv run ruff format .
 ```
@@ -99,7 +104,7 @@ uv run ruff format .
 ## Roadmap
 
 - **Phase 2** (done): BNC/COCA, NGSL + NAWL, Martinez–Schmitt PHRASE list.
-- **Phase 3**: CEFR profiling via CEFR-J Wordlist + Octanove C1/C2 (Open Language Profiles). Outputs band distribution; no single-number "score" — agents combine the components themselves.
+- **Phase 3** (done): CEFR profiling via CEFR-J 1.5 + Octanove C1/C2 1.0.
 - **Phase 4**: Metadiscourse marker detection (Hyland taxonomy).
 - **Phase 5**: Optional FastAPI wrapper exposing the same functions over HTTP.
 

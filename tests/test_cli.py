@@ -25,6 +25,7 @@ runner = CliRunner()
         ("bnc-coca", ACADEMIC, "bnc_coca"),
         ("ngsl", ACADEMIC, "ngsl"),
         ("phrase", SIMPLE, "phrase"),
+        ("cefr", ACADEMIC, "cefr"),
     ],
 )
 def test_subcommand_emits_valid_json(subcommand, fixture, envelope_module):
@@ -49,6 +50,7 @@ def test_analyze_combines_modules():
         "bnc_coca",
         "ngsl",
         "phrase",
+        "cefr",
     }
 
 

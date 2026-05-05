@@ -14,7 +14,17 @@ import typer
 from rich.console import Console
 from rich.table import Table
 
-from lexinspect import __version__, awl, bnc_coca, diversity, ngsl, phrase, readability, tagger
+from lexinspect import (
+    __version__,
+    awl,
+    bnc_coca,
+    cefr,
+    diversity,
+    ngsl,
+    phrase,
+    readability,
+    tagger,
+)
 from lexinspect._io import read_text
 from lexinspect._schema import envelope
 
@@ -133,6 +143,14 @@ def phrase_cmd(file: FileArg, format: FormatOpt = "json") -> None:
     _emit(envelope("phrase", src, len(text), result), format)
 
 
+@app.command(name="cefr")
+def cefr_cmd(file: FileArg, format: FormatOpt = "json") -> None:
+    """CEFR profile (A1–C2) using CEFR-J 1.5 + Octanove C1/C2 1.0."""
+    text, src = read_text(file)
+    result = cefr.analyze(text)
+    _emit(envelope("cefr", src, len(text), result), format)
+
+
 @app.command()
 def analyze(file: FileArg, format: FormatOpt = "json") -> None:
     """Run all modules and emit a combined report."""
@@ -149,6 +167,7 @@ def analyze(file: FileArg, format: FormatOpt = "json") -> None:
             "bnc_coca": bnc_coca.analyze(text),
             "ngsl": ngsl.analyze(text),
             "phrase": phrase.analyze(text),
+            "cefr": cefr.analyze(text),
         },
     }
     _emit(payload, format)
