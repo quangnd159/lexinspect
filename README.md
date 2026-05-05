@@ -100,18 +100,19 @@ CEFR vocabulary profile (A1–C2). Combines CEFR-J Vocabulary Profile 1.5 (Tono,
 
 Hyland (2005) metadiscourse marker detection — 10 categories across two dimensions: *interactive* (transitions, frame markers, endophoric markers, evidentials, code glosses) and *interactional* (hedges, boosters, attitude markers, engagement markers, self-mentions). 490 markers total. Hedges are a verbatim Hyland 2005 Appendix A mirror (HLTCHKUST); the other nine categories are a curated reference subset from canonical reproductions in the L2 academic-writing literature. Reports density per 1,000 content tokens, per-category and per-dimension hits, and the full hit list with token positions.
 
-## Serve as HTTP API
+## Serve as HTTP API + web UI
 
-Same JSON envelope, same nine modules, exposed over HTTP for browsers, agents, or future Skills that prefer a network call to a subprocess.
+Same JSON envelope, same nine modules, exposed over HTTP for browsers, agents, or future Skills that prefer a network call to a subprocess. The same server also ships a clean single-file web UI at `/` — paste text, hit Analyze, see all nine modules in tabbed views with bar charts, hit lists, and key-stat chips.
 
 ```bash
-uv run lexinspect serve                # 127.0.0.1:8000
+uv run lexinspect serve                # 127.0.0.1:8000 — open / in a browser
 uv run lexinspect serve --port 9000 --reload
 ```
 
 Endpoints:
 
 ```
+GET  /                   web UI (single-file HTML, no build step)
 POST /v1/readability     {"text": "...", "source": "passage"}
 POST /v1/diversity       (same body shape on every endpoint)
 POST /v1/tag             (+ "include_tokens": true to get per-token list)
@@ -125,6 +126,7 @@ POST /v1/analyze         all nine modules in one response
 GET  /v1/version
 GET  /v1/schema          schema_version + module catalog
 GET  /healthz
+GET  /docs               auto-generated Swagger UI
 ```
 
 Interactive docs at `http://127.0.0.1:8000/docs` (FastAPI auto-generates Swagger UI). Request body cap is 1 MB; CORS is open by default. Each worker holds spaCy in memory — `--workers N` if you need more parallelism. For production, put it behind a real reverse proxy and tighten CORS.

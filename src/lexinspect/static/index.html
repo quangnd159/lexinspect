@@ -1,0 +1,704 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>lexinspect</title>
+<style>
+  :root {
+    --bg: #faf8f3;
+    --surface: #ffffff;
+    --ink: #1a1f2e;
+    --muted: #6b7280;
+    --accent: #2c3e50;
+    --accent-soft: #e8eef5;
+    --bar: #4a6fa5;
+    --bar-soft: #c9d4e8;
+    --border: #e5e0d3;
+    --warn: #d97706;
+    --good: #059669;
+    --shadow: 0 1px 2px rgba(0,0,0,.04), 0 4px 12px rgba(0,0,0,.04);
+    --mono: ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
+    --serif: 'Georgia', 'Charter', serif;
+    --sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    font-family: var(--sans);
+    color: var(--ink);
+    background: var(--bg);
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+  }
+  .container {
+    max-width: 1080px;
+    margin: 0 auto;
+    padding: 32px 24px 80px;
+  }
+  header {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    margin-bottom: 24px;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 16px;
+  }
+  header h1 {
+    font-family: var(--serif);
+    font-weight: 600;
+    font-size: 28px;
+    margin: 0;
+    letter-spacing: -0.01em;
+  }
+  header .meta { color: var(--muted); font-size: 13px; font-family: var(--mono); }
+  textarea {
+    width: 100%;
+    min-height: 220px;
+    padding: 16px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    background: var(--surface);
+    font-family: var(--serif);
+    font-size: 16px;
+    line-height: 1.55;
+    color: var(--ink);
+    resize: vertical;
+    box-shadow: var(--shadow);
+  }
+  textarea:focus { outline: 2px solid var(--bar); outline-offset: 1px; }
+  .controls {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 12px;
+    margin-bottom: 24px;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  .stat-row { display: flex; gap: 18px; color: var(--muted); font-size: 13px; font-family: var(--mono); }
+  .stat-row span b { color: var(--ink); font-weight: 600; }
+  button {
+    background: var(--ink);
+    color: white;
+    border: none;
+    padding: 10px 22px;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    font-family: var(--sans);
+    letter-spacing: 0.01em;
+  }
+  button:hover { background: var(--accent); }
+  button:disabled { opacity: 0.5; cursor: wait; }
+  button.secondary {
+    background: var(--surface);
+    color: var(--ink);
+    border: 1px solid var(--border);
+  }
+  button.secondary:hover { background: var(--accent-soft); }
+  .examples { display: flex; gap: 6px; flex-wrap: wrap; }
+  .examples button { padding: 6px 12px; font-size: 12px; font-family: var(--mono); }
+
+  #status { color: var(--muted); font-size: 13px; min-height: 20px; margin-bottom: 16px; }
+  #status.error { color: var(--warn); }
+  #status.loading::after { content: ''; animation: dots 1.4s infinite; }
+  @keyframes dots {
+    0%, 20% { content: '.'; }
+    40% { content: '..'; }
+    60%, 100% { content: '...'; }
+  }
+
+  .results { display: none; }
+  .results.visible { display: block; }
+
+  .summary {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 8px;
+    margin-bottom: 20px;
+  }
+  .summary .chip {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 12px 14px;
+    box-shadow: var(--shadow);
+  }
+  .chip .label { color: var(--muted); font-size: 11px; text-transform: uppercase; letter-spacing: 0.04em; font-family: var(--mono); }
+  .chip .value { font-size: 22px; font-weight: 600; font-family: var(--serif); margin-top: 2px; }
+  .chip .sublabel { font-size: 11px; color: var(--muted); }
+
+  .tabs {
+    display: flex;
+    gap: 0;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 20px;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+  .tab {
+    background: transparent;
+    color: var(--muted);
+    border: none;
+    border-bottom: 2px solid transparent;
+    padding: 10px 16px;
+    font-size: 13px;
+    font-family: var(--sans);
+    cursor: pointer;
+    border-radius: 0;
+    white-space: nowrap;
+  }
+  .tab.active { color: var(--ink); border-bottom-color: var(--bar); }
+  .tab:hover:not(.active) { color: var(--accent); }
+
+  .panel { display: none; }
+  .panel.active { display: block; }
+
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+  @media (max-width: 700px) { .grid-2 { grid-template-columns: 1fr; } }
+
+  h3 {
+    font-family: var(--serif);
+    font-weight: 600;
+    font-size: 16px;
+    margin: 16px 0 8px;
+    color: var(--accent);
+  }
+  table.kv {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+    font-family: var(--mono);
+  }
+  table.kv td {
+    padding: 5px 8px;
+    border-bottom: 1px solid var(--border);
+  }
+  table.kv td:first-child { color: var(--muted); width: 60%; }
+  table.kv td:last-child { text-align: right; color: var(--ink); font-weight: 500; }
+
+  .bar-chart { margin-top: 8px; }
+  .bar-row {
+    display: grid;
+    grid-template-columns: 80px 1fr 70px;
+    align-items: center;
+    gap: 10px;
+    padding: 3px 0;
+    font-size: 12px;
+    font-family: var(--mono);
+  }
+  .bar-row .lbl { color: var(--ink); font-weight: 500; }
+  .bar-row .num { text-align: right; color: var(--muted); font-variant-numeric: tabular-nums; }
+  .bar-track {
+    background: var(--accent-soft);
+    height: 14px;
+    border-radius: 3px;
+    overflow: hidden;
+    position: relative;
+  }
+  .bar-fill {
+    background: var(--bar);
+    height: 100%;
+    transition: width .25s ease;
+  }
+  .bar-fill.cumulative { background: var(--bar-soft); }
+  .bar-fill.warn { background: var(--warn); }
+  .bar-fill.good { background: var(--good); }
+
+  .hits-list {
+    max-height: 360px;
+    overflow-y: auto;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    background: var(--surface);
+    padding: 4px;
+  }
+  .hit-item {
+    display: grid;
+    grid-template-columns: 90px 1fr 80px;
+    gap: 10px;
+    padding: 6px 10px;
+    font-size: 13px;
+    font-family: var(--mono);
+    border-bottom: 1px solid var(--border);
+  }
+  .hit-item:last-child { border-bottom: none; }
+  .hit-item .cat { color: var(--bar); font-size: 11px; text-transform: uppercase; letter-spacing: 0.04em; }
+  .hit-item .surface { color: var(--ink); font-weight: 500; }
+  .hit-item .meta { text-align: right; color: var(--muted); font-size: 11px; }
+
+  .pill {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 12px;
+    font-size: 11px;
+    font-family: var(--mono);
+    background: var(--accent-soft);
+    color: var(--accent);
+  }
+  .caveat {
+    font-size: 12px;
+    color: var(--muted);
+    background: #fffbeb;
+    border-left: 3px solid var(--warn);
+    padding: 8px 12px;
+    margin-top: 12px;
+    border-radius: 4px;
+    line-height: 1.5;
+  }
+  details { margin-top: 12px; font-size: 13px; }
+  details summary { cursor: pointer; color: var(--muted); padding: 4px 0; }
+  details pre { background: var(--surface); padding: 12px; border-radius: 6px; font-size: 11px; overflow-x: auto; border: 1px solid var(--border); }
+  footer { color: var(--muted); font-size: 12px; text-align: center; margin-top: 48px; font-family: var(--mono); }
+  footer a { color: var(--accent); text-decoration: none; }
+</style>
+</head>
+<body>
+<div class="container">
+  <header>
+    <h1>lexinspect</h1>
+    <span class="meta" id="version-meta">loading…</span>
+  </header>
+
+  <textarea id="text" placeholder="Paste English text here (essay, passage, exam item…) and hit Analyze."></textarea>
+
+  <div class="controls">
+    <div class="stat-row">
+      <span><b id="liveChars">0</b> chars</span>
+      <span><b id="liveWords">0</b> words</span>
+    </div>
+    <div class="examples">
+      <button class="secondary" data-fixture="simple">simple</button>
+      <button class="secondary" data-fixture="academic">academic</button>
+      <button class="secondary" data-fixture="narrative">narrative</button>
+      <button class="secondary" id="clearBtn">clear</button>
+      <button id="analyzeBtn">Analyze</button>
+    </div>
+  </div>
+
+  <div id="status"></div>
+
+  <div class="results" id="results">
+    <div class="summary" id="summary"></div>
+    <div class="tabs" id="tabs"></div>
+    <div id="panels"></div>
+  </div>
+
+  <footer>
+    <a href="/docs" target="_blank">API docs</a> · <a href="/v1/schema" target="_blank">schema</a> · <a href="https://github.com/quangnd159/lexinspect" target="_blank">repo</a>
+  </footer>
+</div>
+
+<script>
+const FIXTURES = {
+  simple: "The cat sat on the mat. The dog ran in the park. Birds fly high in the sky. Children play with toys every day. The sun is bright and warm.",
+  academic: "The empirical analysis demonstrates that significant variations in methodology produce substantially different outcomes across comparable contexts. Subsequent investigations have confirmed this hypothesis through rigorous statistical evaluation of comprehensive datasets. Research participants exhibited consistent patterns of behavioural adaptation when exposed to environmental modifications. The theoretical framework underlying this approach derives from established principles of cognitive psychology and contemporary neuroscience. Researchers consequently recommend further longitudinal studies to validate preliminary findings and explore potential implications for educational policy.",
+  narrative: "Maria had always loved the smell of rain on dry earth. As a child she would race outside the moment thunder rolled across the valley, splashing barefoot through the puddles that formed along the gravel road. Her grandmother would scold her gently, wrapping a thick towel around her shoulders and pressing a steaming mug of cocoa into her cold hands. Years later, walking home through a sudden downpour in a city far from those hills, she felt the same wild joy rising in her chest, and she laughed out loud at nothing at all."
+};
+
+const $ = id => document.getElementById(id);
+const text = $('text');
+const status = $('status');
+const results = $('results');
+const summary = $('summary');
+const tabs = $('tabs');
+const panels = $('panels');
+
+function liveCount() {
+  const t = text.value;
+  $('liveChars').textContent = t.length;
+  $('liveWords').textContent = (t.trim().match(/\S+/g) || []).length;
+}
+text.addEventListener('input', liveCount);
+
+document.querySelectorAll('[data-fixture]').forEach(btn => {
+  btn.addEventListener('click', () => { text.value = FIXTURES[btn.dataset.fixture]; liveCount(); });
+});
+$('clearBtn').addEventListener('click', () => { text.value = ''; results.classList.remove('visible'); status.textContent = ''; liveCount(); });
+
+fetch('/v1/version').then(r => r.json()).then(v => {
+  $('version-meta').textContent = `v${v.version} · schema ${v.schema_version}`;
+}).catch(() => { $('version-meta').textContent = 'offline'; });
+
+$('analyzeBtn').addEventListener('click', async () => {
+  const body = text.value.trim();
+  if (!body) { status.textContent = 'Paste some text first.'; status.className = 'error'; return; }
+  status.textContent = 'Analysing';
+  status.className = 'loading';
+  $('analyzeBtn').disabled = true;
+  results.classList.remove('visible');
+  try {
+    const r = await fetch('/v1/analyze', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ text: body, source: 'web-ui' })
+    });
+    if (!r.ok) throw new Error(`${r.status} ${r.statusText} — ${await r.text()}`);
+    const data = await r.json();
+    render(data);
+    status.textContent = '';
+    status.className = '';
+    results.classList.add('visible');
+  } catch (e) {
+    status.textContent = `Error: ${e.message}`;
+    status.className = 'error';
+  } finally {
+    $('analyzeBtn').disabled = false;
+  }
+});
+
+function render(data) {
+  const r = data.results;
+  summary.innerHTML = '';
+  tabs.innerHTML = '';
+  panels.innerHTML = '';
+
+  // Summary chips
+  const chips = [
+    { label: 'words', value: r.readability.counts.words, sub: `${r.readability.counts.sentences} sentences` },
+    { label: 'reading ease', value: r.readability.scores.flesch_reading_ease.toFixed(0), sub: 'Flesch' },
+    { label: 'FK grade', value: r.readability.scores.flesch_kincaid_grade.toFixed(1), sub: '' },
+    { label: 'MTLD', value: r.diversity.scores.mtld != null ? r.diversity.scores.mtld.toFixed(1) : '—', sub: 'lex. diversity' },
+    { label: 'AWL coverage', value: `${r.awl.coverage_pct.toFixed(1)}%`, sub: `${r.awl.counts.awl_families} families` },
+    { label: 'BNC/COCA on-list', value: `${r.bnc_coca.coverage_pct.toFixed(1)}%`, sub: 'K1–K10' },
+    { label: 'CEFR dominant', value: r.cefr.dominant_level || '—', sub: r.cefr.estimated_level_95th ? `95th: ${r.cefr.estimated_level_95th}` : '' },
+    { label: 'metadiscourse', value: r.metadiscourse.density_per_1000.toFixed(0), sub: 'per 1k tokens' },
+  ];
+  chips.forEach(c => {
+    const el = document.createElement('div');
+    el.className = 'chip';
+    el.innerHTML = `<div class="label">${c.label}</div><div class="value">${c.value}</div><div class="sublabel">${c.sub}</div>`;
+    summary.appendChild(el);
+  });
+
+  // Tabs
+  const renderers = {
+    'overview':       () => renderOverview(r),
+    'readability':    () => renderKV(r.readability.scores, r.readability.counts, r.readability.averages),
+    'diversity':      () => renderKV(r.diversity.scores, r.diversity.counts),
+    'tagger':         () => renderTagger(r.tagger),
+    'awl':            () => renderAwl(r.awl),
+    'bnc/coca':       () => renderBncCoca(r.bnc_coca),
+    'ngsl':           () => renderNgsl(r.ngsl),
+    'phrase':         () => renderPhrase(r.phrase),
+    'cefr':           () => renderCefr(r.cefr),
+    'metadiscourse':  () => renderMetadiscourse(r.metadiscourse),
+  };
+  Object.keys(renderers).forEach((name, idx) => {
+    const tab = document.createElement('button');
+    tab.className = 'tab' + (idx === 0 ? ' active' : '');
+    tab.textContent = name;
+    tab.addEventListener('click', () => {
+      document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+      document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+      tab.classList.add('active');
+      panels.children[idx].classList.add('active');
+    });
+    tabs.appendChild(tab);
+
+    const panel = document.createElement('div');
+    panel.className = 'panel' + (idx === 0 ? ' active' : '');
+    panel.appendChild(renderers[name]());
+    panels.appendChild(panel);
+  });
+}
+
+function el(tag, attrs = {}, children = []) {
+  const e = document.createElement(tag);
+  Object.entries(attrs).forEach(([k, v]) => {
+    if (k === 'class') e.className = v;
+    else if (k === 'html') e.innerHTML = v;
+    else e.setAttribute(k, v);
+  });
+  (Array.isArray(children) ? children : [children]).forEach(c => {
+    if (c == null) return;
+    e.appendChild(typeof c === 'string' ? document.createTextNode(c) : c);
+  });
+  return e;
+}
+
+function renderOverview(r) {
+  const wrap = el('div');
+  wrap.appendChild(el('p', { class: '', html:
+    `<span class="pill">9 modules ran</span> &nbsp; ${r.tagger.counts.total_tokens} tokens · ${r.tagger.counts.sentences} sentences. ` +
+    `Reading ease ${r.readability.scores.flesch_reading_ease.toFixed(0)} (Flesch). ` +
+    `MTLD ${r.diversity.scores.mtld != null ? r.diversity.scores.mtld.toFixed(0) : 'n/a'}. ` +
+    `${r.awl.counts.awl_families} AWL families. ${r.bnc_coca.coverage_pct.toFixed(0)}% within BNC/COCA K1–K10. ` +
+    `Dominant CEFR level ${r.cefr.dominant_level || 'n/a'}. ` +
+    `Metadiscourse density ${r.metadiscourse.density_per_1000.toFixed(0)} per 1k tokens.`
+  }));
+  wrap.appendChild(el('p', { html: `<small>Click any tab above for the full module output. The same JSON is at <code>POST /v1/analyze</code> for agents.</small>` }));
+  return wrap;
+}
+
+function kvTable(obj, formatter = String) {
+  const tbl = el('table', { class: 'kv' });
+  Object.entries(obj || {}).forEach(([k, v]) => {
+    const tr = el('tr', {}, [el('td', {}, k), el('td', {}, formatter(v))]);
+    tbl.appendChild(tr);
+  });
+  return tbl;
+}
+function fmtNum(v) {
+  if (v == null) return '—';
+  if (typeof v !== 'number') return String(v);
+  return Number.isInteger(v) ? v.toString() : v.toFixed(3);
+}
+function renderKV(...sections) {
+  const wrap = el('div', { class: 'grid-2' });
+  const labels = ['scores', 'counts', 'averages'];
+  sections.forEach((s, i) => {
+    if (!s) return;
+    const col = el('div');
+    col.appendChild(el('h3', {}, labels[i] || 'fields'));
+    col.appendChild(kvTable(s, fmtNum));
+    wrap.appendChild(col);
+  });
+  return wrap;
+}
+
+function renderTagger(t) {
+  const wrap = el('div', { class: 'grid-2' });
+  const left = el('div');
+  left.appendChild(el('h3', {}, 'Universal POS'));
+  left.appendChild(barChart(t.upos_distribution, t.counts.total_tokens));
+  const right = el('div');
+  right.appendChild(el('h3', {}, 'Penn Treebank tags'));
+  right.appendChild(barChart(t.ptb_distribution, t.counts.total_tokens));
+  wrap.appendChild(left);
+  wrap.appendChild(right);
+  return wrap;
+}
+
+function barChart(dist, total) {
+  const container = el('div', { class: 'bar-chart' });
+  const sorted = Object.entries(dist).sort((a, b) => b[1] - a[1]);
+  sorted.forEach(([label, n]) => {
+    const pct = total ? (n / total * 100) : 0;
+    const row = el('div', { class: 'bar-row' });
+    row.appendChild(el('div', { class: 'lbl' }, label));
+    const track = el('div', { class: 'bar-track' });
+    const fill = el('div', { class: 'bar-fill' });
+    fill.style.width = `${pct}%`;
+    track.appendChild(fill);
+    row.appendChild(track);
+    row.appendChild(el('div', { class: 'num' }, `${n} · ${pct.toFixed(1)}%`));
+    container.appendChild(row);
+  });
+  return container;
+}
+
+function renderAwl(a) {
+  const wrap = el('div');
+  const top = el('div', { class: 'grid-2' });
+  const stats = el('div');
+  stats.appendChild(el('h3', {}, 'AWL summary'));
+  stats.appendChild(kvTable({
+    'AWL coverage': a.coverage_pct + '%',
+    'AWL tokens': a.counts.awl_tokens,
+    'unique families': a.counts.awl_families,
+    'content tokens': a.counts.content_tokens,
+  }));
+  top.appendChild(stats);
+
+  const sublistDist = el('div');
+  sublistDist.appendChild(el('h3', {}, 'Per-sublist coverage'));
+  const dist = {};
+  Object.entries(a.per_sublist).forEach(([k, v]) => { dist[`sub ${k}`] = v.tokens; });
+  sublistDist.appendChild(barChart(dist, a.counts.content_tokens));
+  top.appendChild(sublistDist);
+  wrap.appendChild(top);
+
+  if (a.families_found && a.families_found.length) {
+    wrap.appendChild(el('h3', {}, `Families found (${a.families_found.length})`));
+    wrap.appendChild(el('div', { class: '', html: a.families_found.map(f => `<span class="pill" style="margin:2px">${f}</span>`).join('') }));
+  }
+  return wrap;
+}
+
+function renderBncCoca(b) {
+  const wrap = el('div');
+  const top = el('div', { class: 'grid-2' });
+  const stats = el('div');
+  stats.appendChild(el('h3', {}, 'BNC/COCA summary'));
+  stats.appendChild(kvTable({
+    'on-list coverage': b.coverage_pct + '%',
+    'on-list tokens': b.counts.on_list_tokens,
+    'off-list tokens': b.counts.off_list_tokens,
+    'content tokens': b.counts.content_tokens,
+  }));
+  top.appendChild(stats);
+
+  const cumChart = el('div');
+  cumChart.appendChild(el('h3', {}, 'Cumulative coverage curve'));
+  const cum = el('div', { class: 'bar-chart' });
+  Object.entries(b.per_band).forEach(([band, v]) => {
+    const row = el('div', { class: 'bar-row' });
+    row.appendChild(el('div', { class: 'lbl' }, `K${band}`));
+    const track = el('div', { class: 'bar-track' });
+    const fill = el('div', { class: 'bar-fill cumulative' });
+    fill.style.width = `${v.cumulative_coverage_pct}%`;
+    track.appendChild(fill);
+    row.appendChild(track);
+    row.appendChild(el('div', { class: 'num' }, `${v.cumulative_coverage_pct.toFixed(1)}%`));
+    cum.appendChild(row);
+  });
+  cumChart.appendChild(cum);
+  top.appendChild(cumChart);
+  wrap.appendChild(top);
+
+  if (b.off_list_sample && b.off_list_sample.length) {
+    wrap.appendChild(el('h3', {}, `Off-list sample (${b.off_list_sample.length})`));
+    wrap.appendChild(el('div', { html: b.off_list_sample.map(w => `<span class="pill" style="margin:2px">${w}</span>`).join('') }));
+  }
+  return wrap;
+}
+
+function renderNgsl(n) {
+  const wrap = el('div');
+  const top = el('div', { class: 'grid-2' });
+  const stats = el('div');
+  stats.appendChild(el('h3', {}, 'NGSL + NAWL'));
+  stats.appendChild(kvTable({
+    'NGSL coverage': n.coverage_pct.ngsl + '%',
+    'NAWL coverage': n.coverage_pct.nawl + '%',
+    'NGSL + NAWL': n.coverage_pct.ngsl_plus_nawl + '%',
+    'off-list': n.coverage_pct.off_list + '%',
+    'NGSL lemmas': n.counts.ngsl_lemmas,
+    'NAWL lemmas': n.counts.nawl_lemmas,
+  }));
+  top.appendChild(stats);
+
+  const split = el('div');
+  split.appendChild(el('h3', {}, 'Distribution'));
+  split.appendChild(barChart({
+    NGSL: n.counts.ngsl_tokens,
+    NAWL: n.counts.nawl_tokens,
+    'off-list': n.counts.off_list_tokens,
+  }, n.counts.content_tokens));
+  top.appendChild(split);
+  wrap.appendChild(top);
+  return wrap;
+}
+
+function renderPhrase(p) {
+  const wrap = el('div');
+  const top = el('div', { class: 'grid-2' });
+  const stats = el('div');
+  stats.appendChild(el('h3', {}, 'PHRASE list summary'));
+  stats.appendChild(kvTable({
+    'total hits': p.counts.total_hits,
+    'unique phrases': p.counts.unique_phrases,
+    'content tokens': p.counts.content_tokens,
+  }));
+  top.appendChild(stats);
+
+  const bandChart = el('div');
+  bandChart.appendChild(el('h3', {}, 'Hits per K-band'));
+  bandChart.appendChild(barChart(
+    Object.fromEntries(Object.entries(p.hits_per_k_band).map(([k, v]) => [`K${k}`, v])),
+    p.counts.total_hits || 1
+  ));
+  top.appendChild(bandChart);
+  wrap.appendChild(top);
+
+  if (p.hits && p.hits.length) {
+    wrap.appendChild(el('h3', {}, `Hits (${p.hits.length})`));
+    const list = el('div', { class: 'hits-list' });
+    p.hits.forEach(h => {
+      const item = el('div', { class: 'hit-item' });
+      item.appendChild(el('div', { class: 'cat' }, `K${h.k_band}`));
+      item.appendChild(el('div', { class: 'surface' }, h.phrase + (h.surface !== h.phrase.toLowerCase() ? ` ("${h.surface}")` : '')));
+      item.appendChild(el('div', { class: 'meta' }, `rank ${h.rank}`));
+      list.appendChild(item);
+    });
+    wrap.appendChild(list);
+  } else {
+    wrap.appendChild(el('p', { html: '<small>No PHRASE list expressions detected.</small>' }));
+  }
+  return wrap;
+}
+
+function renderCefr(c) {
+  const wrap = el('div');
+  const top = el('div', { class: 'grid-2' });
+  const stats = el('div');
+  stats.appendChild(el('h3', {}, 'CEFR summary'));
+  stats.appendChild(kvTable({
+    'on-list coverage': c.coverage_pct + '%',
+    'on-list tokens': c.counts.on_list_tokens,
+    'off-list tokens': c.counts.off_list_tokens,
+    'dominant level': c.dominant_level || '—',
+    '95th-percentile level': c.estimated_level_95th || '—',
+  }));
+  top.appendChild(stats);
+
+  const dist = el('div');
+  dist.appendChild(el('h3', {}, 'Per-level distribution'));
+  const chart = el('div', { class: 'bar-chart' });
+  Object.entries(c.per_level).forEach(([lvl, v]) => {
+    const row = el('div', { class: 'bar-row' });
+    row.appendChild(el('div', { class: 'lbl' }, lvl));
+    const track = el('div', { class: 'bar-track' });
+    const fill = el('div', { class: 'bar-fill' });
+    fill.style.width = `${v.coverage_pct}%`;
+    track.appendChild(fill);
+    const cum = el('div', { class: 'bar-fill cumulative' });
+    cum.style.width = `${v.cumulative_coverage_pct - v.coverage_pct}%`;
+    cum.style.position = 'absolute';
+    cum.style.left = `${v.coverage_pct}%`;
+    cum.style.top = '0';
+    track.appendChild(cum);
+    row.appendChild(track);
+    row.appendChild(el('div', { class: 'num' }, `${v.coverage_pct.toFixed(1)}% / ${v.cumulative_coverage_pct.toFixed(1)}%`));
+    chart.appendChild(row);
+  });
+  dist.appendChild(chart);
+  top.appendChild(dist);
+  wrap.appendChild(top);
+
+  wrap.appendChild(el('div', { class: 'caveat', html: c.caveat }));
+  return wrap;
+}
+
+function renderMetadiscourse(m) {
+  const wrap = el('div');
+  const top = el('div', { class: 'grid-2' });
+  const stats = el('div');
+  stats.appendChild(el('h3', {}, 'Metadiscourse summary'));
+  stats.appendChild(kvTable({
+    'total hits': m.counts.total_hits,
+    'interactive hits': m.counts.interactive_hits,
+    'interactional hits': m.counts.interactional_hits,
+    'density per 1k': m.density_per_1000,
+    'content tokens': m.counts.content_tokens,
+  }));
+  top.appendChild(stats);
+
+  const catChart = el('div');
+  catChart.appendChild(el('h3', {}, 'Per category (hits)'));
+  const cats = {};
+  Object.entries(m.per_category).forEach(([k, v]) => { cats[k] = v.hits; });
+  catChart.appendChild(barChart(cats, m.counts.total_hits || 1));
+  top.appendChild(catChart);
+  wrap.appendChild(top);
+
+  if (m.hits && m.hits.length) {
+    wrap.appendChild(el('h3', {}, `Hits (${m.hits.length})`));
+    const list = el('div', { class: 'hits-list' });
+    m.hits.forEach(h => {
+      const item = el('div', { class: 'hit-item' });
+      item.appendChild(el('div', { class: 'cat' }, h.category.replace(/_/g, ' ')));
+      item.appendChild(el('div', { class: 'surface' }, h.surface));
+      item.appendChild(el('div', { class: 'meta' }, h.dimension));
+      list.appendChild(item);
+    });
+    wrap.appendChild(list);
+  }
+  return wrap;
+}
+</script>
+</body>
+</html>

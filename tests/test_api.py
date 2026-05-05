@@ -26,6 +26,14 @@ def test_healthz(client):
     assert r.json()["status"] == "ok"
 
 
+def test_index_serves_html(client):
+    r = client.get("/")
+    assert r.status_code == 200
+    assert "text/html" in r.headers["content-type"]
+    assert "lexinspect" in r.text
+    assert "<textarea" in r.text
+
+
 def test_version(client):
     r = client.get("/v1/version")
     assert r.status_code == 200

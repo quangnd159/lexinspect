@@ -34,7 +34,7 @@ requires = ["uv_build>=0.10.10,<0.11.0"]
 build-backend = "uv_build"
 
 [tool.uv.build-backend]
-data = ["src/lexinspect/data/*.json"]
+data = ["src/lexinspect/data/*.json", "src/lexinspect/static/*.html"]
 
 [tool.ruff]
 line-length = 100

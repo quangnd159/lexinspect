@@ -21,10 +21,12 @@ Endpoints:
 from __future__ import annotations
 
 from contextlib import asynccontextmanager
+from importlib import resources
 from typing import Any
 
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import HTMLResponse
 from pydantic import BaseModel, Field
 
 from lexinspect import (
@@ -93,6 +95,12 @@ def _check(text: str) -> None:
 
 def _wrap(module_name: str, body: TextIn, result: dict[str, Any]) -> dict[str, Any]:
     return envelope(module_name, body.source, len(body.text), result)
+
+
+@app.get("/", include_in_schema=False, response_class=HTMLResponse)
+def index() -> HTMLResponse:
+    html = resources.files("lexinspect.static").joinpath("index.html").read_text(encoding="utf-8")
+    return HTMLResponse(content=html)
 
 
 @app.get("/healthz")
