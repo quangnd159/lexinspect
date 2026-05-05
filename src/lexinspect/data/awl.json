@@ -1,0 +1,6550 @@
+{
+  "source": "Coxhead, A. (2000). A new academic word list. TESOL Quarterly, 34(2), 213–238.",
+  "version": "Coxhead AWL (2000)",
+  "headword_count": 570,
+  "sublist_counts": {
+    "1": 60,
+    "2": 60,
+    "3": 60,
+    "4": 60,
+    "5": 60,
+    "6": 60,
+    "7": 60,
+    "8": 60,
+    "9": 60,
+    "10": 30
+  },
+  "families": [
+    {
+      "headword": "analyze",
+      "sublist": 1,
+      "forms": [
+        "analyse",
+        "analysed",
+        "analyser",
+        "analysers",
+        "analyses",
+        "analysing",
+        "analysis",
+        "analyst",
+        "analysts",
+        "analytic",
+        "analytical",
+        "analytically",
+        "analyze",
+        "analyzed",
+        "analyzes",
+        "analyzing"
+      ]
+    },
+    {
+      "headword": "approach",
+      "sublist": 1,
+      "forms": [
+        "approach",
+        "approachable",
+        "approached",
+        "approaches",
+        "approaching",
+        "unapproachable"
+      ]
+    },
+    {
+      "headword": "area",
+      "sublist": 1,
+      "forms": [
+        "area",
+        "areas"
+      ]
+    },
+    {
+      "headword": "assess",
+      "sublist": 1,
+      "forms": [
+        "assess",
+        "assessable",
+        "assessed",
+        "assesses",
+        "assessing",
+        "assessment",
+        "assessments",
+        "reassess",
+        "reassessed",
+        "reassessing",
+        "reassessment",
+        "unassessed"
+      ]
+    },
+    {
+      "headword": "assume",
+      "sublist": 1,
+      "forms": [
+        "assume",
+        "assumed",
+        "assumes",
+        "assuming",
+        "assumption",
+        "assumptions"
+      ]
+    },
+    {
+      "headword": "authority",
+      "sublist": 1,
+      "forms": [
+        "authoritative",
+        "authorities",
+        "authority"
+      ]
+    },
+    {
+      "headword": "available",
+      "sublist": 1,
+      "forms": [
+        "availability",
+        "available",
+        "unavailable"
+      ]
+    },
+    {
+      "headword": "benefit",
+      "sublist": 1,
+      "forms": [
+        "beneficial",
+        "beneficiaries",
+        "beneficiary",
+        "benefit",
+        "benefited",
+        "benefiting",
+        "benefits"
+      ]
+    },
+    {
+      "headword": "concept",
+      "sublist": 1,
+      "forms": [
+        "concept",
+        "conception",
+        "concepts",
+        "conceptual",
+        "conceptualisation",
+        "conceptualise",
+        "conceptualised",
+        "conceptualises",
+        "conceptualising",
+        "conceptually"
+      ]
+    },
+    {
+      "headword": "consist",
+      "sublist": 1,
+      "forms": [
+        "consist",
+        "consisted",
+        "consistency",
+        "consistent",
+        "consistently",
+        "consisting",
+        "consists",
+        "inconsistencies",
+        "inconsistency",
+        "inconsistent"
+      ]
+    },
+    {
+      "headword": "constitute",
+      "sublist": 1,
+      "forms": [
+        "constituencies",
+        "constituency",
+        "constituent",
+        "constituents",
+        "constitute",
+        "constituted",
+        "constitutes",
+        "constituting",
+        "constitution",
+        "constitutional",
+        "constitutionally",
+        "constitutions",
+        "constitutive",
+        "unconstitutional"
+      ]
+    },
+    {
+      "headword": "context",
+      "sublist": 1,
+      "forms": [
+        "context",
+        "contexts",
+        "contextual",
+        "contextualise",
+        "contextualised",
+        "contextualising",
+        "contextualize",
+        "contextualized",
+        "contextualizing",
+        "uncontextualised",
+        "uncontextualized"
+      ]
+    },
+    {
+      "headword": "contract",
+      "sublist": 1,
+      "forms": [
+        "contract",
+        "contracted",
+        "contracting",
+        "contractor",
+        "contractors",
+        "contracts"
+      ]
+    },
+    {
+      "headword": "create",
+      "sublist": 1,
+      "forms": [
+        "create",
+        "created",
+        "creates",
+        "creating",
+        "creation",
+        "creations",
+        "creative",
+        "creatively",
+        "creativity",
+        "creator",
+        "creators",
+        "recreate",
+        "recreated",
+        "recreates",
+        "recreating"
+      ]
+    },
+    {
+      "headword": "data",
+      "sublist": 1,
+      "forms": [
+        "data"
+      ]
+    },
+    {
+      "headword": "define",
+      "sublist": 1,
+      "forms": [
+        "definable",
+        "define",
+        "defined",
+        "defines",
+        "defining",
+        "definition",
+        "definitions",
+        "redefine",
+        "redefined",
+        "redefines",
+        "redefining",
+        "undefined"
+      ]
+    },
+    {
+      "headword": "derive",
+      "sublist": 1,
+      "forms": [
+        "derivation",
+        "derivations",
+        "derivative",
+        "derivatives",
+        "derive",
+        "derived",
+        "derives",
+        "deriving"
+      ]
+    },
+    {
+      "headword": "distribute",
+      "sublist": 1,
+      "forms": [
+        "distribute",
+        "distributed",
+        "distributing",
+        "distribution",
+        "distributional",
+        "distributions",
+        "distributive",
+        "distributor",
+        "distributors",
+        "redistribute",
+        "redistributed",
+        "redistributes",
+        "redistributing",
+        "redistribution"
+      ]
+    },
+    {
+      "headword": "economy",
+      "sublist": 1,
+      "forms": [
+        "economic",
+        "economical",
+        "economically",
+        "economics",
+        "economies",
+        "economist",
+        "economists",
+        "economy",
+        "uneconomical"
+      ]
+    },
+    {
+      "headword": "environment",
+      "sublist": 1,
+      "forms": [
+        "environment",
+        "environmental",
+        "environmentalist",
+        "environmentalists",
+        "environmentally",
+        "environments"
+      ]
+    },
+    {
+      "headword": "establish",
+      "sublist": 1,
+      "forms": [
+        "disestablish",
+        "disestablished",
+        "disestablishes",
+        "disestablishing",
+        "disestablishment",
+        "establish",
+        "established",
+        "establishes",
+        "establishing",
+        "establishment",
+        "establishments"
+      ]
+    },
+    {
+      "headword": "estimate",
+      "sublist": 1,
+      "forms": [
+        "estimate",
+        "estimated",
+        "estimates",
+        "estimating",
+        "estimation",
+        "estimations",
+        "over-estimate",
+        "overestimate",
+        "overestimated",
+        "overestimates",
+        "overestimating",
+        "underestimate",
+        "underestimated",
+        "underestimates",
+        "underestimating"
+      ]
+    },
+    {
+      "headword": "evident",
+      "sublist": 1,
+      "forms": [
+        "evidence",
+        "evidenced",
+        "evident",
+        "evidential",
+        "evidently"
+      ]
+    },
+    {
+      "headword": "export",
+      "sublist": 1,
+      "forms": [
+        "export",
+        "exported",
+        "exporter",
+        "exporters",
+        "exporting",
+        "exports"
+      ]
+    },
+    {
+      "headword": "factor",
+      "sublist": 1,
+      "forms": [
+        "factor",
+        "factored",
+        "factoring",
+        "factors"
+      ]
+    },
+    {
+      "headword": "finance",
+      "sublist": 1,
+      "forms": [
+        "finance",
+        "financed",
+        "finances",
+        "financial",
+        "financially",
+        "financier",
+        "financiers",
+        "financing"
+      ]
+    },
+    {
+      "headword": "formula",
+      "sublist": 1,
+      "forms": [
+        "formula",
+        "formulae",
+        "formulas",
+        "formulate",
+        "formulated",
+        "formulating",
+        "formulation",
+        "formulations",
+        "reformulate",
+        "reformulated",
+        "reformulating",
+        "reformulation",
+        "reformulations"
+      ]
+    },
+    {
+      "headword": "function",
+      "sublist": 1,
+      "forms": [
+        "function",
+        "functional",
+        "functionally",
+        "functioned",
+        "functioning",
+        "functions"
+      ]
+    },
+    {
+      "headword": "identify",
+      "sublist": 1,
+      "forms": [
+        "identifiable",
+        "identification",
+        "identified",
+        "identifies",
+        "identify",
+        "identifying",
+        "identities",
+        "identity",
+        "unidentifiable"
+      ]
+    },
+    {
+      "headword": "income",
+      "sublist": 1,
+      "forms": [
+        "income",
+        "incomes"
+      ]
+    },
+    {
+      "headword": "indicate",
+      "sublist": 1,
+      "forms": [
+        "indicate",
+        "indicated",
+        "indicates",
+        "indicating",
+        "indication",
+        "indications",
+        "indicative",
+        "indicator",
+        "indicators"
+      ]
+    },
+    {
+      "headword": "individual",
+      "sublist": 1,
+      "forms": [
+        "individual",
+        "individualised",
+        "individualism",
+        "individualist",
+        "individualistic",
+        "individualists",
+        "individuality",
+        "individually",
+        "individuals"
+      ]
+    },
+    {
+      "headword": "interpret",
+      "sublist": 1,
+      "forms": [
+        "interpret",
+        "interpretation",
+        "interpretations",
+        "interpretative",
+        "interpreted",
+        "interpreting",
+        "interpretive",
+        "interprets",
+        "misinterpret",
+        "misinterpretation",
+        "misinterpretations",
+        "misinterpreted",
+        "misinterpreting",
+        "misinterprets",
+        "reinterpret",
+        "reinterpretation",
+        "reinterpretations",
+        "reinterpreted",
+        "reinterpreting",
+        "reinterprets"
+      ]
+    },
+    {
+      "headword": "involve",
+      "sublist": 1,
+      "forms": [
+        "involve",
+        "involved",
+        "involvement",
+        "involves",
+        "involving",
+        "uninvolved"
+      ]
+    },
+    {
+      "headword": "issue",
+      "sublist": 1,
+      "forms": [
+        "issue",
+        "issued",
+        "issues",
+        "issuing"
+      ]
+    },
+    {
+      "headword": "labor",
+      "sublist": 1,
+      "forms": [
+        "labor",
+        "labored",
+        "labors",
+        "labour",
+        "laboured",
+        "labouring",
+        "labours"
+      ]
+    },
+    {
+      "headword": "legal",
+      "sublist": 1,
+      "forms": [
+        "illegal",
+        "illegality",
+        "illegally",
+        "legal",
+        "legality",
+        "legally"
+      ]
+    },
+    {
+      "headword": "legislate",
+      "sublist": 1,
+      "forms": [
+        "legislate",
+        "legislated",
+        "legislates",
+        "legislating",
+        "legislation",
+        "legislative",
+        "legislator",
+        "legislators",
+        "legislature"
+      ]
+    },
+    {
+      "headword": "major",
+      "sublist": 1,
+      "forms": [
+        "major",
+        "majorities",
+        "majority"
+      ]
+    },
+    {
+      "headword": "method",
+      "sublist": 1,
+      "forms": [
+        "method",
+        "methodical",
+        "methodological",
+        "methodologies",
+        "methodology",
+        "methods"
+      ]
+    },
+    {
+      "headword": "occur",
+      "sublist": 1,
+      "forms": [
+        "occur",
+        "occurred",
+        "occurrence",
+        "occurrences",
+        "occurring",
+        "occurs",
+        "reoccur",
+        "reoccurred",
+        "reoccurring",
+        "reoccurs"
+      ]
+    },
+    {
+      "headword": "percent",
+      "sublist": 1,
+      "forms": [
+        "percent",
+        "percentage",
+        "percentages"
+      ]
+    },
+    {
+      "headword": "period",
+      "sublist": 1,
+      "forms": [
+        "period",
+        "periodic",
+        "periodical",
+        "periodically",
+        "periodicals",
+        "periods"
+      ]
+    },
+    {
+      "headword": "policy",
+      "sublist": 1,
+      "forms": [
+        "policies",
+        "policy"
+      ]
+    },
+    {
+      "headword": "principle",
+      "sublist": 1,
+      "forms": [
+        "principle",
+        "principled",
+        "principles",
+        "unprincipled"
+      ]
+    },
+    {
+      "headword": "proceed",
+      "sublist": 1,
+      "forms": [
+        "procedural",
+        "procedure",
+        "procedures",
+        "proceed",
+        "proceeded",
+        "proceeding",
+        "proceedings",
+        "proceeds"
+      ]
+    },
+    {
+      "headword": "process",
+      "sublist": 1,
+      "forms": [
+        "process",
+        "processed",
+        "processes",
+        "processing"
+      ]
+    },
+    {
+      "headword": "require",
+      "sublist": 1,
+      "forms": [
+        "require",
+        "required",
+        "requirement",
+        "requirements",
+        "requires",
+        "requiring"
+      ]
+    },
+    {
+      "headword": "research",
+      "sublist": 1,
+      "forms": [
+        "research",
+        "researched",
+        "researcher",
+        "researchers",
+        "researches",
+        "researching"
+      ]
+    },
+    {
+      "headword": "respond",
+      "sublist": 1,
+      "forms": [
+        "respond",
+        "responded",
+        "respondent",
+        "respondents",
+        "responding",
+        "responds",
+        "response",
+        "responses",
+        "responsive",
+        "responsiveness",
+        "unresponsive"
+      ]
+    },
+    {
+      "headword": "role",
+      "sublist": 1,
+      "forms": [
+        "role",
+        "roles"
+      ]
+    },
+    {
+      "headword": "section",
+      "sublist": 1,
+      "forms": [
+        "section",
+        "sectioned",
+        "sectioning",
+        "sections"
+      ]
+    },
+    {
+      "headword": "sector",
+      "sublist": 1,
+      "forms": [
+        "sector",
+        "sectors"
+      ]
+    },
+    {
+      "headword": "significant",
+      "sublist": 1,
+      "forms": [
+        "insignificant",
+        "insignificantly",
+        "significance",
+        "significant",
+        "significantly",
+        "signified",
+        "signifies",
+        "signify",
+        "signifying"
+      ]
+    },
+    {
+      "headword": "similar",
+      "sublist": 1,
+      "forms": [
+        "dissimilar",
+        "similar",
+        "similarities",
+        "similarity",
+        "similarly"
+      ]
+    },
+    {
+      "headword": "source",
+      "sublist": 1,
+      "forms": [
+        "source",
+        "sourced",
+        "sources",
+        "sourcing"
+      ]
+    },
+    {
+      "headword": "specific",
+      "sublist": 1,
+      "forms": [
+        "specific",
+        "specifically",
+        "specification",
+        "specifications",
+        "specificity",
+        "specifics"
+      ]
+    },
+    {
+      "headword": "structure",
+      "sublist": 1,
+      "forms": [
+        "restructure",
+        "restructured",
+        "restructures",
+        "restructuring",
+        "structural",
+        "structurally",
+        "structure",
+        "structured",
+        "structures",
+        "structuring",
+        "unstructured"
+      ]
+    },
+    {
+      "headword": "theory",
+      "sublist": 1,
+      "forms": [
+        "theoretical",
+        "theoretically",
+        "theories",
+        "theorist",
+        "theorists",
+        "theory"
+      ]
+    },
+    {
+      "headword": "vary",
+      "sublist": 1,
+      "forms": [
+        "invariable",
+        "invariably",
+        "variability",
+        "variable",
+        "variables",
+        "variably",
+        "variance",
+        "variant",
+        "variants",
+        "variation",
+        "variations",
+        "varied",
+        "varies",
+        "vary",
+        "varying"
+      ]
+    },
+    {
+      "headword": "achieve",
+      "sublist": 2,
+      "forms": [
+        "achievable",
+        "achieve",
+        "achieved",
+        "achievement",
+        "achievements",
+        "achieves",
+        "achieving"
+      ]
+    },
+    {
+      "headword": "acquire",
+      "sublist": 2,
+      "forms": [
+        "acquire",
+        "acquired",
+        "acquires",
+        "acquiring",
+        "acquisition",
+        "acquisitions"
+      ]
+    },
+    {
+      "headword": "administrate",
+      "sublist": 2,
+      "forms": [
+        "administrate",
+        "administrates",
+        "administration",
+        "administrations",
+        "administrative",
+        "administratively",
+        "administrator",
+        "administrators"
+      ]
+    },
+    {
+      "headword": "affect",
+      "sublist": 2,
+      "forms": [
+        "affect",
+        "affected",
+        "affecting",
+        "affective",
+        "affectively",
+        "affects",
+        "unaffected"
+      ]
+    },
+    {
+      "headword": "appropriate",
+      "sublist": 2,
+      "forms": [
+        "appropriacy",
+        "appropriate",
+        "appropriately",
+        "appropriateness",
+        "inappropriacy",
+        "inappropriate",
+        "inappropriately"
+      ]
+    },
+    {
+      "headword": "aspect",
+      "sublist": 2,
+      "forms": [
+        "aspect",
+        "aspects"
+      ]
+    },
+    {
+      "headword": "assist",
+      "sublist": 2,
+      "forms": [
+        "assist",
+        "assistance",
+        "assistant",
+        "assistants",
+        "assisted",
+        "assisting",
+        "assists",
+        "unassisted"
+      ]
+    },
+    {
+      "headword": "category",
+      "sublist": 2,
+      "forms": [
+        "categories",
+        "categorisation",
+        "categorise",
+        "categorised",
+        "categorises",
+        "categorising",
+        "categorization",
+        "categorized",
+        "categorizes",
+        "categorizing",
+        "category"
+      ]
+    },
+    {
+      "headword": "chapter",
+      "sublist": 2,
+      "forms": [
+        "chapter",
+        "chapters"
+      ]
+    },
+    {
+      "headword": "commission",
+      "sublist": 2,
+      "forms": [
+        "commission",
+        "commissioned",
+        "commissioner",
+        "commissioners",
+        "commissioning",
+        "commissions"
+      ]
+    },
+    {
+      "headword": "community",
+      "sublist": 2,
+      "forms": [
+        "communities",
+        "community"
+      ]
+    },
+    {
+      "headword": "complex",
+      "sublist": 2,
+      "forms": [
+        "complex",
+        "complexities",
+        "complexity"
+      ]
+    },
+    {
+      "headword": "compute",
+      "sublist": 2,
+      "forms": [
+        "computable",
+        "computation",
+        "computational",
+        "computations",
+        "compute",
+        "computed",
+        "computer",
+        "computerised",
+        "computers",
+        "computing"
+      ]
+    },
+    {
+      "headword": "conclude",
+      "sublist": 2,
+      "forms": [
+        "conclude",
+        "concluded",
+        "concludes",
+        "concluding",
+        "conclusion",
+        "conclusions",
+        "conclusive",
+        "conclusively",
+        "inconclusive",
+        "inconclusively"
+      ]
+    },
+    {
+      "headword": "conduct",
+      "sublist": 2,
+      "forms": [
+        "conduct",
+        "conducted",
+        "conducting",
+        "conducts"
+      ]
+    },
+    {
+      "headword": "consequent",
+      "sublist": 2,
+      "forms": [
+        "consequence",
+        "consequences",
+        "consequent",
+        "consequently"
+      ]
+    },
+    {
+      "headword": "construct",
+      "sublist": 2,
+      "forms": [
+        "construct",
+        "constructed",
+        "constructing",
+        "construction",
+        "constructions",
+        "constructive",
+        "constructs",
+        "reconstruct",
+        "reconstructed",
+        "reconstructing",
+        "reconstruction",
+        "reconstructs"
+      ]
+    },
+    {
+      "headword": "consume",
+      "sublist": 2,
+      "forms": [
+        "consume",
+        "consumed",
+        "consumer",
+        "consumers",
+        "consumes",
+        "consuming",
+        "consumption"
+      ]
+    },
+    {
+      "headword": "credit",
+      "sublist": 2,
+      "forms": [
+        "credit",
+        "credited",
+        "crediting",
+        "creditor",
+        "creditors",
+        "credits"
+      ]
+    },
+    {
+      "headword": "culture",
+      "sublist": 2,
+      "forms": [
+        "cultural",
+        "culturally",
+        "culture",
+        "cultured",
+        "cultures",
+        "uncultured"
+      ]
+    },
+    {
+      "headword": "design",
+      "sublist": 2,
+      "forms": [
+        "design",
+        "designed",
+        "designer",
+        "designers",
+        "designing",
+        "designs"
+      ]
+    },
+    {
+      "headword": "distinct",
+      "sublist": 2,
+      "forms": [
+        "distinct",
+        "distinction",
+        "distinctions",
+        "distinctive",
+        "distinctively",
+        "distinctly",
+        "indistinct",
+        "indistinctly"
+      ]
+    },
+    {
+      "headword": "element",
+      "sublist": 2,
+      "forms": [
+        "element",
+        "elements"
+      ]
+    },
+    {
+      "headword": "equate",
+      "sublist": 2,
+      "forms": [
+        "equate",
+        "equated",
+        "equates",
+        "equating",
+        "equation",
+        "equations"
+      ]
+    },
+    {
+      "headword": "evaluate",
+      "sublist": 2,
+      "forms": [
+        "evaluate",
+        "evaluated",
+        "evaluates",
+        "evaluating",
+        "evaluation",
+        "evaluations",
+        "evaluative",
+        "re-evaluate",
+        "re-evaluated",
+        "re-evaluates",
+        "re-evaluating",
+        "re-evaluation"
+      ]
+    },
+    {
+      "headword": "feature",
+      "sublist": 2,
+      "forms": [
+        "feature",
+        "featured",
+        "features",
+        "featuring"
+      ]
+    },
+    {
+      "headword": "final",
+      "sublist": 2,
+      "forms": [
+        "final",
+        "finalise",
+        "finalised",
+        "finalises",
+        "finalising",
+        "finality",
+        "finalize",
+        "finalized",
+        "finalizes",
+        "finalizing",
+        "finally",
+        "finals"
+      ]
+    },
+    {
+      "headword": "focus",
+      "sublist": 2,
+      "forms": [
+        "focus",
+        "focused",
+        "focuses",
+        "focusing",
+        "focussed",
+        "focussing",
+        "refocus",
+        "refocused",
+        "refocuses",
+        "refocusing",
+        "refocussed",
+        "refocusses",
+        "refocussing"
+      ]
+    },
+    {
+      "headword": "impact",
+      "sublist": 2,
+      "forms": [
+        "impact",
+        "impacted",
+        "impacting",
+        "impacts"
+      ]
+    },
+    {
+      "headword": "injure",
+      "sublist": 2,
+      "forms": [
+        "injure",
+        "injured",
+        "injures",
+        "injuries",
+        "injuring",
+        "injury",
+        "uninjured"
+      ]
+    },
+    {
+      "headword": "institute",
+      "sublist": 2,
+      "forms": [
+        "institute",
+        "instituted",
+        "institutes",
+        "instituting",
+        "institution",
+        "institutional",
+        "institutionalise",
+        "institutionalised",
+        "institutionalises",
+        "institutionalising",
+        "institutionalized",
+        "institutionalizes",
+        "institutionalizing",
+        "institutionally",
+        "institutions"
+      ]
+    },
+    {
+      "headword": "invest",
+      "sublist": 2,
+      "forms": [
+        "invest",
+        "invested",
+        "investing",
+        "investment",
+        "investments",
+        "investor",
+        "investors",
+        "invests",
+        "reinvest",
+        "reinvested",
+        "reinvesting",
+        "reinvestment",
+        "reinvests"
+      ]
+    },
+    {
+      "headword": "item",
+      "sublist": 2,
+      "forms": [
+        "item",
+        "itemisation",
+        "itemise",
+        "itemised",
+        "itemises",
+        "itemising",
+        "items"
+      ]
+    },
+    {
+      "headword": "journal",
+      "sublist": 2,
+      "forms": [
+        "journal",
+        "journals"
+      ]
+    },
+    {
+      "headword": "maintain",
+      "sublist": 2,
+      "forms": [
+        "maintain",
+        "maintained",
+        "maintaining",
+        "maintains",
+        "maintenance"
+      ]
+    },
+    {
+      "headword": "normal",
+      "sublist": 2,
+      "forms": [
+        "abnormal",
+        "abnormally",
+        "normal",
+        "normalisation",
+        "normalise",
+        "normalised",
+        "normalises",
+        "normalising",
+        "normality",
+        "normalization",
+        "normalize",
+        "normalized",
+        "normalizes",
+        "normalizing",
+        "normally"
+      ]
+    },
+    {
+      "headword": "obtain",
+      "sublist": 2,
+      "forms": [
+        "obtain",
+        "obtainable",
+        "obtained",
+        "obtaining",
+        "obtains",
+        "unobtainable"
+      ]
+    },
+    {
+      "headword": "participate",
+      "sublist": 2,
+      "forms": [
+        "participant",
+        "participants",
+        "participate",
+        "participated",
+        "participates",
+        "participating",
+        "participation",
+        "participatory"
+      ]
+    },
+    {
+      "headword": "perceive",
+      "sublist": 2,
+      "forms": [
+        "perceive",
+        "perceived",
+        "perceives",
+        "perceiving",
+        "perception",
+        "perceptions"
+      ]
+    },
+    {
+      "headword": "positive",
+      "sublist": 2,
+      "forms": [
+        "positive",
+        "positively"
+      ]
+    },
+    {
+      "headword": "potential",
+      "sublist": 2,
+      "forms": [
+        "potential",
+        "potentially"
+      ]
+    },
+    {
+      "headword": "previous",
+      "sublist": 2,
+      "forms": [
+        "previous",
+        "previously"
+      ]
+    },
+    {
+      "headword": "primary",
+      "sublist": 2,
+      "forms": [
+        "primarily",
+        "primary"
+      ]
+    },
+    {
+      "headword": "purchase",
+      "sublist": 2,
+      "forms": [
+        "purchase",
+        "purchased",
+        "purchaser",
+        "purchasers",
+        "purchases",
+        "purchasing"
+      ]
+    },
+    {
+      "headword": "range",
+      "sublist": 2,
+      "forms": [
+        "range",
+        "ranged",
+        "ranges",
+        "ranging"
+      ]
+    },
+    {
+      "headword": "region",
+      "sublist": 2,
+      "forms": [
+        "region",
+        "regional",
+        "regionally",
+        "regions"
+      ]
+    },
+    {
+      "headword": "regulate",
+      "sublist": 2,
+      "forms": [
+        "deregulated",
+        "deregulates",
+        "deregulating",
+        "deregulation",
+        "regulate",
+        "regulated",
+        "regulates",
+        "regulating",
+        "regulation",
+        "regulations",
+        "regulator",
+        "regulators",
+        "regulatory",
+        "unregulated"
+      ]
+    },
+    {
+      "headword": "relevant",
+      "sublist": 2,
+      "forms": [
+        "irrelevance",
+        "irrelevant",
+        "relevance",
+        "relevant"
+      ]
+    },
+    {
+      "headword": "reside",
+      "sublist": 2,
+      "forms": [
+        "reside",
+        "resided",
+        "residence",
+        "resident",
+        "residential",
+        "residents",
+        "resides",
+        "residing"
+      ]
+    },
+    {
+      "headword": "resource",
+      "sublist": 2,
+      "forms": [
+        "resource",
+        "resourced",
+        "resourceful",
+        "resources",
+        "resourcing",
+        "under-resourced",
+        "unresourceful"
+      ]
+    },
+    {
+      "headword": "restrict",
+      "sublist": 2,
+      "forms": [
+        "restrict",
+        "restricted",
+        "restricting",
+        "restriction",
+        "restrictions",
+        "restrictive",
+        "restrictively",
+        "restricts",
+        "unrestricted",
+        "unrestrictive"
+      ]
+    },
+    {
+      "headword": "secure",
+      "sublist": 2,
+      "forms": [
+        "insecure",
+        "insecurities",
+        "insecurity",
+        "secure",
+        "secured",
+        "securely",
+        "secures",
+        "securing",
+        "securities",
+        "security"
+      ]
+    },
+    {
+      "headword": "seek",
+      "sublist": 2,
+      "forms": [
+        "seek",
+        "seeking",
+        "seeks",
+        "sought"
+      ]
+    },
+    {
+      "headword": "select",
+      "sublist": 2,
+      "forms": [
+        "select",
+        "selected",
+        "selecting",
+        "selection",
+        "selections",
+        "selective",
+        "selectively",
+        "selector",
+        "selectors",
+        "selects"
+      ]
+    },
+    {
+      "headword": "site",
+      "sublist": 2,
+      "forms": [
+        "site",
+        "sites"
+      ]
+    },
+    {
+      "headword": "strategy",
+      "sublist": 2,
+      "forms": [
+        "strategic",
+        "strategically",
+        "strategies",
+        "strategist",
+        "strategists",
+        "strategy"
+      ]
+    },
+    {
+      "headword": "survey",
+      "sublist": 2,
+      "forms": [
+        "survey",
+        "surveyed",
+        "surveying",
+        "surveys"
+      ]
+    },
+    {
+      "headword": "text",
+      "sublist": 2,
+      "forms": [
+        "text",
+        "texts",
+        "textual"
+      ]
+    },
+    {
+      "headword": "tradition",
+      "sublist": 2,
+      "forms": [
+        "non-traditional",
+        "tradition",
+        "traditional",
+        "traditionalist",
+        "traditionally",
+        "traditions"
+      ]
+    },
+    {
+      "headword": "transfer",
+      "sublist": 2,
+      "forms": [
+        "transfer",
+        "transferable",
+        "transference",
+        "transferred",
+        "transferring",
+        "transfers"
+      ]
+    },
+    {
+      "headword": "alternative",
+      "sublist": 3,
+      "forms": [
+        "alternative",
+        "alternatively",
+        "alternatives"
+      ]
+    },
+    {
+      "headword": "circumstance",
+      "sublist": 3,
+      "forms": [
+        "circumstance",
+        "circumstances"
+      ]
+    },
+    {
+      "headword": "comment",
+      "sublist": 3,
+      "forms": [
+        "comment",
+        "commentaries",
+        "commentary",
+        "commentator",
+        "commentators",
+        "commented",
+        "commenting",
+        "comments"
+      ]
+    },
+    {
+      "headword": "compensate",
+      "sublist": 3,
+      "forms": [
+        "compensate",
+        "compensated",
+        "compensates",
+        "compensating",
+        "compensation",
+        "compensations",
+        "compensatory"
+      ]
+    },
+    {
+      "headword": "component",
+      "sublist": 3,
+      "forms": [
+        "component",
+        "componentry",
+        "components"
+      ]
+    },
+    {
+      "headword": "consent",
+      "sublist": 3,
+      "forms": [
+        "consensus",
+        "consent",
+        "consented",
+        "consenting",
+        "consents"
+      ]
+    },
+    {
+      "headword": "considerable",
+      "sublist": 3,
+      "forms": [
+        "considerable",
+        "considerably"
+      ]
+    },
+    {
+      "headword": "constant",
+      "sublist": 3,
+      "forms": [
+        "constancy",
+        "constant",
+        "constantly",
+        "constants",
+        "inconstancy",
+        "inconstantly"
+      ]
+    },
+    {
+      "headword": "constrain",
+      "sublist": 3,
+      "forms": [
+        "constrain",
+        "constrained",
+        "constraining",
+        "constrains",
+        "constraint",
+        "constraints",
+        "unconstrained"
+      ]
+    },
+    {
+      "headword": "contribute",
+      "sublist": 3,
+      "forms": [
+        "contribute",
+        "contributed",
+        "contributes",
+        "contributing",
+        "contribution",
+        "contributions",
+        "contributor",
+        "contributors"
+      ]
+    },
+    {
+      "headword": "convene",
+      "sublist": 3,
+      "forms": [
+        "convene",
+        "convened",
+        "convenes",
+        "convening",
+        "convention",
+        "conventional",
+        "conventionally",
+        "conventions",
+        "unconventional"
+      ]
+    },
+    {
+      "headword": "coordinate",
+      "sublist": 3,
+      "forms": [
+        "co-ordinate",
+        "co-ordinated",
+        "co-ordinates",
+        "co-ordinating",
+        "co-ordination",
+        "co-ordinator",
+        "co-ordinators",
+        "coordinate",
+        "coordinated",
+        "coordinates",
+        "coordinating",
+        "coordination",
+        "coordinator",
+        "coordinators"
+      ]
+    },
+    {
+      "headword": "core",
+      "sublist": 3,
+      "forms": [
+        "core",
+        "cored",
+        "cores",
+        "coring"
+      ]
+    },
+    {
+      "headword": "corporate",
+      "sublist": 3,
+      "forms": [
+        "corporate",
+        "corporates",
+        "corporation",
+        "corporations"
+      ]
+    },
+    {
+      "headword": "correspond",
+      "sublist": 3,
+      "forms": [
+        "correspond",
+        "corresponded",
+        "correspondence",
+        "corresponding",
+        "correspondingly",
+        "corresponds"
+      ]
+    },
+    {
+      "headword": "criteria",
+      "sublist": 3,
+      "forms": [
+        "criteria",
+        "criterion"
+      ]
+    },
+    {
+      "headword": "deduce",
+      "sublist": 3,
+      "forms": [
+        "deduce",
+        "deduced",
+        "deduces",
+        "deducing",
+        "deduction",
+        "deductions"
+      ]
+    },
+    {
+      "headword": "demonstrate",
+      "sublist": 3,
+      "forms": [
+        "demonstrable",
+        "demonstrably",
+        "demonstrate",
+        "demonstrated",
+        "demonstrates",
+        "demonstrating",
+        "demonstration",
+        "demonstrations",
+        "demonstrative",
+        "demonstratively",
+        "demonstrator",
+        "demonstrators"
+      ]
+    },
+    {
+      "headword": "document",
+      "sublist": 3,
+      "forms": [
+        "document",
+        "documentation",
+        "documented",
+        "documenting",
+        "documents"
+      ]
+    },
+    {
+      "headword": "dominate",
+      "sublist": 3,
+      "forms": [
+        "dominance",
+        "dominant",
+        "dominate",
+        "dominated",
+        "dominates",
+        "dominating",
+        "domination"
+      ]
+    },
+    {
+      "headword": "emphasis",
+      "sublist": 3,
+      "forms": [
+        "emphasis",
+        "emphasise",
+        "emphasised",
+        "emphasising",
+        "emphasize",
+        "emphasized",
+        "emphasizes",
+        "emphasizing",
+        "emphatic",
+        "emphatically"
+      ]
+    },
+    {
+      "headword": "ensure",
+      "sublist": 3,
+      "forms": [
+        "ensure",
+        "ensured",
+        "ensures",
+        "ensuring"
+      ]
+    },
+    {
+      "headword": "exclude",
+      "sublist": 3,
+      "forms": [
+        "exclude",
+        "excluded",
+        "excludes",
+        "excluding",
+        "exclusion",
+        "exclusionary",
+        "exclusionist",
+        "exclusions",
+        "exclusive",
+        "exclusively"
+      ]
+    },
+    {
+      "headword": "framework",
+      "sublist": 3,
+      "forms": [
+        "framework",
+        "frameworks"
+      ]
+    },
+    {
+      "headword": "fund",
+      "sublist": 3,
+      "forms": [
+        "fund",
+        "funded",
+        "funder",
+        "funders",
+        "funding",
+        "funds"
+      ]
+    },
+    {
+      "headword": "illustrate",
+      "sublist": 3,
+      "forms": [
+        "illustrate",
+        "illustrated",
+        "illustrates",
+        "illustrating",
+        "illustration",
+        "illustrations",
+        "illustrative"
+      ]
+    },
+    {
+      "headword": "immigrate",
+      "sublist": 3,
+      "forms": [
+        "immigrant",
+        "immigrants",
+        "immigrate",
+        "immigrated",
+        "immigrates",
+        "immigrating",
+        "immigration"
+      ]
+    },
+    {
+      "headword": "imply",
+      "sublist": 3,
+      "forms": [
+        "implied",
+        "implies",
+        "imply",
+        "implying"
+      ]
+    },
+    {
+      "headword": "initial",
+      "sublist": 3,
+      "forms": [
+        "initial",
+        "initially"
+      ]
+    },
+    {
+      "headword": "instance",
+      "sublist": 3,
+      "forms": [
+        "instance",
+        "instances"
+      ]
+    },
+    {
+      "headword": "interact",
+      "sublist": 3,
+      "forms": [
+        "interact",
+        "interacted",
+        "interacting",
+        "interaction",
+        "interactions",
+        "interactive",
+        "interactively",
+        "interacts"
+      ]
+    },
+    {
+      "headword": "justify",
+      "sublist": 3,
+      "forms": [
+        "justifiable",
+        "justifiably",
+        "justification",
+        "justifications",
+        "justified",
+        "justifies",
+        "justify",
+        "justifying",
+        "unjustified"
+      ]
+    },
+    {
+      "headword": "layer",
+      "sublist": 3,
+      "forms": [
+        "layer",
+        "layered",
+        "layering",
+        "layers"
+      ]
+    },
+    {
+      "headword": "link",
+      "sublist": 3,
+      "forms": [
+        "link",
+        "linkage",
+        "linkages",
+        "linked",
+        "linking",
+        "links"
+      ]
+    },
+    {
+      "headword": "locate",
+      "sublist": 3,
+      "forms": [
+        "locate",
+        "located",
+        "locating",
+        "location",
+        "locations",
+        "relocate",
+        "relocated",
+        "relocates",
+        "relocating",
+        "relocation"
+      ]
+    },
+    {
+      "headword": "maximize",
+      "sublist": 3,
+      "forms": [
+        "max",
+        "maximisation",
+        "maximise",
+        "maximised",
+        "maximises",
+        "maximising",
+        "maximization",
+        "maximize",
+        "maximized",
+        "maximizes",
+        "maximizing",
+        "maximum"
+      ]
+    },
+    {
+      "headword": "minor",
+      "sublist": 3,
+      "forms": [
+        "minor",
+        "minorities",
+        "minority",
+        "minors"
+      ]
+    },
+    {
+      "headword": "negate",
+      "sublist": 3,
+      "forms": [
+        "negate",
+        "negated",
+        "negates",
+        "negating",
+        "negative",
+        "negatively",
+        "negatives"
+      ]
+    },
+    {
+      "headword": "outcome",
+      "sublist": 3,
+      "forms": [
+        "outcome",
+        "outcomes"
+      ]
+    },
+    {
+      "headword": "partner",
+      "sublist": 3,
+      "forms": [
+        "partner",
+        "partners",
+        "partnership",
+        "partnerships"
+      ]
+    },
+    {
+      "headword": "philosophy",
+      "sublist": 3,
+      "forms": [
+        "philosopher",
+        "philosophers",
+        "philosophical",
+        "philosophically",
+        "philosophies",
+        "philosophise",
+        "philosophised",
+        "philosophises",
+        "philosophising",
+        "philosophize",
+        "philosophized",
+        "philosophizes",
+        "philosophizing",
+        "philosophy"
+      ]
+    },
+    {
+      "headword": "physical",
+      "sublist": 3,
+      "forms": [
+        "physical",
+        "physically"
+      ]
+    },
+    {
+      "headword": "proportion",
+      "sublist": 3,
+      "forms": [
+        "disproportion",
+        "disproportionate",
+        "disproportionately",
+        "proportion",
+        "proportional",
+        "proportionally",
+        "proportionate",
+        "proportionately",
+        "proportions"
+      ]
+    },
+    {
+      "headword": "publish",
+      "sublist": 3,
+      "forms": [
+        "publish",
+        "published",
+        "publisher",
+        "publishers",
+        "publishes",
+        "publishing",
+        "unpublished"
+      ]
+    },
+    {
+      "headword": "react",
+      "sublist": 3,
+      "forms": [
+        "react",
+        "reacted",
+        "reacting",
+        "reaction",
+        "reactionaries",
+        "reactionary",
+        "reactions",
+        "reactivate",
+        "reactivation",
+        "reactive",
+        "reactor",
+        "reactors",
+        "reacts"
+      ]
+    },
+    {
+      "headword": "register",
+      "sublist": 3,
+      "forms": [
+        "deregister",
+        "deregistered",
+        "deregistering",
+        "deregisters",
+        "deregistration",
+        "register",
+        "registered",
+        "registering",
+        "registers",
+        "registration"
+      ]
+    },
+    {
+      "headword": "rely",
+      "sublist": 3,
+      "forms": [
+        "reliability",
+        "reliable",
+        "reliably",
+        "reliance",
+        "reliant",
+        "relied",
+        "relies",
+        "rely",
+        "relying",
+        "unreliable"
+      ]
+    },
+    {
+      "headword": "remove",
+      "sublist": 3,
+      "forms": [
+        "removable",
+        "removal",
+        "removals",
+        "remove",
+        "removed",
+        "removes",
+        "removing"
+      ]
+    },
+    {
+      "headword": "scheme",
+      "sublist": 3,
+      "forms": [
+        "schematic",
+        "schematically",
+        "scheme",
+        "schemed",
+        "schemes",
+        "scheming"
+      ]
+    },
+    {
+      "headword": "sequence",
+      "sublist": 3,
+      "forms": [
+        "sequence",
+        "sequenced",
+        "sequences",
+        "sequencing",
+        "sequential",
+        "sequentially"
+      ]
+    },
+    {
+      "headword": "sex",
+      "sublist": 3,
+      "forms": [
+        "sex",
+        "sexes",
+        "sexism",
+        "sexual",
+        "sexuality",
+        "sexually"
+      ]
+    },
+    {
+      "headword": "shift",
+      "sublist": 3,
+      "forms": [
+        "shift",
+        "shifted",
+        "shifting",
+        "shifts"
+      ]
+    },
+    {
+      "headword": "specify",
+      "sublist": 3,
+      "forms": [
+        "specifiable",
+        "specified",
+        "specifies",
+        "specify",
+        "specifying",
+        "unspecified"
+      ]
+    },
+    {
+      "headword": "sufficient",
+      "sublist": 3,
+      "forms": [
+        "insufficient",
+        "insufficiently",
+        "sufficiency",
+        "sufficient",
+        "sufficiently"
+      ]
+    },
+    {
+      "headword": "task",
+      "sublist": 3,
+      "forms": [
+        "task",
+        "tasks"
+      ]
+    },
+    {
+      "headword": "technical",
+      "sublist": 3,
+      "forms": [
+        "technical",
+        "technically"
+      ]
+    },
+    {
+      "headword": "technique",
+      "sublist": 3,
+      "forms": [
+        "technique",
+        "techniques"
+      ]
+    },
+    {
+      "headword": "technology",
+      "sublist": 3,
+      "forms": [
+        "technological",
+        "technologically",
+        "technology"
+      ]
+    },
+    {
+      "headword": "valid",
+      "sublist": 3,
+      "forms": [
+        "invalidate",
+        "invalidity",
+        "valid",
+        "validate",
+        "validated",
+        "validating",
+        "validation",
+        "validity",
+        "validly"
+      ]
+    },
+    {
+      "headword": "volume",
+      "sublist": 3,
+      "forms": [
+        "vol",
+        "volume",
+        "volumes"
+      ]
+    },
+    {
+      "headword": "access",
+      "sublist": 4,
+      "forms": [
+        "access",
+        "accessed",
+        "accesses",
+        "accessibility",
+        "accessible",
+        "accessing",
+        "inaccessible"
+      ]
+    },
+    {
+      "headword": "adequate",
+      "sublist": 4,
+      "forms": [
+        "adequacy",
+        "adequate",
+        "adequately",
+        "inadequacies",
+        "inadequacy",
+        "inadequate",
+        "inadequately"
+      ]
+    },
+    {
+      "headword": "annual",
+      "sublist": 4,
+      "forms": [
+        "annual",
+        "annually"
+      ]
+    },
+    {
+      "headword": "apparent",
+      "sublist": 4,
+      "forms": [
+        "apparent",
+        "apparently"
+      ]
+    },
+    {
+      "headword": "approximate",
+      "sublist": 4,
+      "forms": [
+        "approximate",
+        "approximated",
+        "approximately",
+        "approximates",
+        "approximating",
+        "approximation",
+        "approximations"
+      ]
+    },
+    {
+      "headword": "attitude",
+      "sublist": 4,
+      "forms": [
+        "attitude",
+        "attitudes"
+      ]
+    },
+    {
+      "headword": "attribute",
+      "sublist": 4,
+      "forms": [
+        "attributable",
+        "attribute",
+        "attributed",
+        "attributes",
+        "attributing",
+        "attribution"
+      ]
+    },
+    {
+      "headword": "civil",
+      "sublist": 4,
+      "forms": [
+        "civil"
+      ]
+    },
+    {
+      "headword": "code",
+      "sublist": 4,
+      "forms": [
+        "code",
+        "coded",
+        "codes",
+        "coding"
+      ]
+    },
+    {
+      "headword": "commit",
+      "sublist": 4,
+      "forms": [
+        "commit",
+        "commitment",
+        "commitments",
+        "commits",
+        "committed",
+        "committing"
+      ]
+    },
+    {
+      "headword": "communicate",
+      "sublist": 4,
+      "forms": [
+        "communicable",
+        "communicate",
+        "communicated",
+        "communicates",
+        "communicating",
+        "communication",
+        "communications",
+        "communicative",
+        "communicatively",
+        "uncommunicative"
+      ]
+    },
+    {
+      "headword": "concentrate",
+      "sublist": 4,
+      "forms": [
+        "concentrate",
+        "concentrated",
+        "concentrates",
+        "concentrating",
+        "concentration"
+      ]
+    },
+    {
+      "headword": "confer",
+      "sublist": 4,
+      "forms": [
+        "confer",
+        "conference",
+        "conferences",
+        "conferred",
+        "conferring",
+        "confers"
+      ]
+    },
+    {
+      "headword": "contrast",
+      "sublist": 4,
+      "forms": [
+        "contrast",
+        "contrasted",
+        "contrasting",
+        "contrastive",
+        "contrasts"
+      ]
+    },
+    {
+      "headword": "cycle",
+      "sublist": 4,
+      "forms": [
+        "cycle",
+        "cycled",
+        "cycles",
+        "cyclic",
+        "cyclical",
+        "cycling"
+      ]
+    },
+    {
+      "headword": "debate",
+      "sublist": 4,
+      "forms": [
+        "debatable",
+        "debate",
+        "debated",
+        "debates",
+        "debating"
+      ]
+    },
+    {
+      "headword": "despite",
+      "sublist": 4,
+      "forms": [
+        "despite"
+      ]
+    },
+    {
+      "headword": "dimension",
+      "sublist": 4,
+      "forms": [
+        "dimension",
+        "dimensional",
+        "dimensions",
+        "multidimensional"
+      ]
+    },
+    {
+      "headword": "domestic",
+      "sublist": 4,
+      "forms": [
+        "domestic",
+        "domestically",
+        "domesticate",
+        "domesticated",
+        "domesticating",
+        "domestics"
+      ]
+    },
+    {
+      "headword": "emerge",
+      "sublist": 4,
+      "forms": [
+        "emerge",
+        "emerged",
+        "emergence",
+        "emergent",
+        "emerges",
+        "emerging"
+      ]
+    },
+    {
+      "headword": "error",
+      "sublist": 4,
+      "forms": [
+        "erroneous",
+        "erroneously",
+        "error",
+        "errors"
+      ]
+    },
+    {
+      "headword": "ethnic",
+      "sublist": 4,
+      "forms": [
+        "ethnic",
+        "ethnicity"
+      ]
+    },
+    {
+      "headword": "goal",
+      "sublist": 4,
+      "forms": [
+        "goal",
+        "goals"
+      ]
+    },
+    {
+      "headword": "grant",
+      "sublist": 4,
+      "forms": [
+        "grant",
+        "granted",
+        "granting",
+        "grants"
+      ]
+    },
+    {
+      "headword": "hence",
+      "sublist": 4,
+      "forms": [
+        "hence"
+      ]
+    },
+    {
+      "headword": "hypothesis",
+      "sublist": 4,
+      "forms": [
+        "hypotheses",
+        "hypothesis",
+        "hypothesise",
+        "hypothesised",
+        "hypothesises",
+        "hypothesising",
+        "hypothesize",
+        "hypothesized",
+        "hypothesizes",
+        "hypothesizing",
+        "hypothetical",
+        "hypothetically"
+      ]
+    },
+    {
+      "headword": "implement",
+      "sublist": 4,
+      "forms": [
+        "implement",
+        "implementation",
+        "implemented",
+        "implementing",
+        "implements"
+      ]
+    },
+    {
+      "headword": "implicate",
+      "sublist": 4,
+      "forms": [
+        "implicate",
+        "implicated",
+        "implicates",
+        "implicating",
+        "implication",
+        "implications"
+      ]
+    },
+    {
+      "headword": "impose",
+      "sublist": 4,
+      "forms": [
+        "impose",
+        "imposed",
+        "imposes",
+        "imposing",
+        "imposition"
+      ]
+    },
+    {
+      "headword": "integrate",
+      "sublist": 4,
+      "forms": [
+        "integrate",
+        "integrated",
+        "integrates",
+        "integrating",
+        "integration"
+      ]
+    },
+    {
+      "headword": "internal",
+      "sublist": 4,
+      "forms": [
+        "internal",
+        "internalise",
+        "internalised",
+        "internalises",
+        "internalising",
+        "internalize",
+        "internalized",
+        "internalizes",
+        "internalizing",
+        "internally"
+      ]
+    },
+    {
+      "headword": "investigate",
+      "sublist": 4,
+      "forms": [
+        "investigate",
+        "investigated",
+        "investigates",
+        "investigating",
+        "investigation",
+        "investigations",
+        "investigative",
+        "investigator",
+        "investigators"
+      ]
+    },
+    {
+      "headword": "job",
+      "sublist": 4,
+      "forms": [
+        "job",
+        "jobs"
+      ]
+    },
+    {
+      "headword": "label",
+      "sublist": 4,
+      "forms": [
+        "label",
+        "labeled",
+        "labeling",
+        "labelled",
+        "labelling",
+        "labels"
+      ]
+    },
+    {
+      "headword": "mechanism",
+      "sublist": 4,
+      "forms": [
+        "mechanism",
+        "mechanisms"
+      ]
+    },
+    {
+      "headword": "obvious",
+      "sublist": 4,
+      "forms": [
+        "obvious",
+        "obviously"
+      ]
+    },
+    {
+      "headword": "occupy",
+      "sublist": 4,
+      "forms": [
+        "occupancy",
+        "occupant",
+        "occupants",
+        "occupation",
+        "occupational",
+        "occupations",
+        "occupied",
+        "occupier",
+        "occupiers",
+        "occupies",
+        "occupy",
+        "occupying"
+      ]
+    },
+    {
+      "headword": "option",
+      "sublist": 4,
+      "forms": [
+        "option",
+        "optional",
+        "options"
+      ]
+    },
+    {
+      "headword": "output",
+      "sublist": 4,
+      "forms": [
+        "output",
+        "outputs"
+      ]
+    },
+    {
+      "headword": "overall",
+      "sublist": 4,
+      "forms": [
+        "overall"
+      ]
+    },
+    {
+      "headword": "parallel",
+      "sublist": 4,
+      "forms": [
+        "parallel",
+        "paralleled",
+        "parallelled",
+        "parallelling",
+        "parallels",
+        "unparalleled"
+      ]
+    },
+    {
+      "headword": "parameter",
+      "sublist": 4,
+      "forms": [
+        "parameter",
+        "parameters"
+      ]
+    },
+    {
+      "headword": "phase",
+      "sublist": 4,
+      "forms": [
+        "phase",
+        "phased",
+        "phases",
+        "phasing"
+      ]
+    },
+    {
+      "headword": "predict",
+      "sublist": 4,
+      "forms": [
+        "predict",
+        "predictability",
+        "predictable",
+        "predictably",
+        "predicted",
+        "predicting",
+        "prediction",
+        "predictions",
+        "predicts",
+        "unpredictability",
+        "unpredictable"
+      ]
+    },
+    {
+      "headword": "principal",
+      "sublist": 4,
+      "forms": [
+        "principal",
+        "principally"
+      ]
+    },
+    {
+      "headword": "prior",
+      "sublist": 4,
+      "forms": [
+        "prior"
+      ]
+    },
+    {
+      "headword": "professional",
+      "sublist": 4,
+      "forms": [
+        "professional",
+        "professionalism",
+        "professionally",
+        "professionals"
+      ]
+    },
+    {
+      "headword": "project",
+      "sublist": 4,
+      "forms": [
+        "project",
+        "projected",
+        "projecting",
+        "projection",
+        "projections",
+        "projects"
+      ]
+    },
+    {
+      "headword": "promote",
+      "sublist": 4,
+      "forms": [
+        "promote",
+        "promoted",
+        "promoter",
+        "promoters",
+        "promotes",
+        "promoting",
+        "promotion",
+        "promotions"
+      ]
+    },
+    {
+      "headword": "regime",
+      "sublist": 4,
+      "forms": [
+        "regime",
+        "regimes"
+      ]
+    },
+    {
+      "headword": "resolve",
+      "sublist": 4,
+      "forms": [
+        "resolution",
+        "resolve",
+        "resolved",
+        "resolves",
+        "resolving",
+        "unresolved"
+      ]
+    },
+    {
+      "headword": "retain",
+      "sublist": 4,
+      "forms": [
+        "retain",
+        "retained",
+        "retainer",
+        "retainers",
+        "retaining",
+        "retains",
+        "retention",
+        "retentive"
+      ]
+    },
+    {
+      "headword": "series",
+      "sublist": 4,
+      "forms": [
+        "series"
+      ]
+    },
+    {
+      "headword": "statistic",
+      "sublist": 4,
+      "forms": [
+        "statistic",
+        "statistical",
+        "statistically",
+        "statistician",
+        "statisticians",
+        "statistics"
+      ]
+    },
+    {
+      "headword": "status",
+      "sublist": 4,
+      "forms": [
+        "status"
+      ]
+    },
+    {
+      "headword": "stress",
+      "sublist": 4,
+      "forms": [
+        "stress",
+        "stressed",
+        "stresses",
+        "stressful",
+        "stressing",
+        "unstressed"
+      ]
+    },
+    {
+      "headword": "subsequent",
+      "sublist": 4,
+      "forms": [
+        "subsequent",
+        "subsequently"
+      ]
+    },
+    {
+      "headword": "sum",
+      "sublist": 4,
+      "forms": [
+        "sum",
+        "summation",
+        "summed",
+        "summing",
+        "sums"
+      ]
+    },
+    {
+      "headword": "summary",
+      "sublist": 4,
+      "forms": [
+        "summaries",
+        "summarisation",
+        "summarisations",
+        "summarise",
+        "summarised",
+        "summarises",
+        "summarising",
+        "summarization",
+        "summarizations",
+        "summarize",
+        "summarized",
+        "summarizes",
+        "summarizing",
+        "summary"
+      ]
+    },
+    {
+      "headword": "undertake",
+      "sublist": 4,
+      "forms": [
+        "undertake",
+        "undertaken",
+        "undertakes",
+        "undertaking",
+        "undertook"
+      ]
+    },
+    {
+      "headword": "academy",
+      "sublist": 5,
+      "forms": [
+        "academia",
+        "academic",
+        "academically",
+        "academics",
+        "academies",
+        "academy"
+      ]
+    },
+    {
+      "headword": "adjust",
+      "sublist": 5,
+      "forms": [
+        "adjust",
+        "adjusted",
+        "adjusting",
+        "adjustment",
+        "adjustments",
+        "adjusts",
+        "readjust",
+        "readjusted",
+        "readjusting",
+        "readjustment",
+        "readjustments",
+        "readjusts"
+      ]
+    },
+    {
+      "headword": "alter",
+      "sublist": 5,
+      "forms": [
+        "alter",
+        "alterable",
+        "alteration",
+        "alterations",
+        "altered",
+        "altering",
+        "alternate",
+        "alternating",
+        "alters",
+        "unalterable",
+        "unaltered"
+      ]
+    },
+    {
+      "headword": "amend",
+      "sublist": 5,
+      "forms": [
+        "amend",
+        "amended",
+        "amending",
+        "amendment",
+        "amendments",
+        "amends"
+      ]
+    },
+    {
+      "headword": "aware",
+      "sublist": 5,
+      "forms": [
+        "aware",
+        "awareness",
+        "unaware"
+      ]
+    },
+    {
+      "headword": "capacity",
+      "sublist": 5,
+      "forms": [
+        "capacities",
+        "capacity",
+        "incapacitate",
+        "incapacitated"
+      ]
+    },
+    {
+      "headword": "challenge",
+      "sublist": 5,
+      "forms": [
+        "challenge",
+        "challenged",
+        "challenger",
+        "challengers",
+        "challenges",
+        "challenging"
+      ]
+    },
+    {
+      "headword": "clause",
+      "sublist": 5,
+      "forms": [
+        "clause",
+        "clauses"
+      ]
+    },
+    {
+      "headword": "compound",
+      "sublist": 5,
+      "forms": [
+        "compound",
+        "compounded",
+        "compounding",
+        "compounds"
+      ]
+    },
+    {
+      "headword": "conflict",
+      "sublist": 5,
+      "forms": [
+        "conflict",
+        "conflicted",
+        "conflicting",
+        "conflicts"
+      ]
+    },
+    {
+      "headword": "consult",
+      "sublist": 5,
+      "forms": [
+        "consult",
+        "consultancy",
+        "consultant",
+        "consultants",
+        "consultation",
+        "consultations",
+        "consultative",
+        "consulted",
+        "consulting",
+        "consults"
+      ]
+    },
+    {
+      "headword": "contact",
+      "sublist": 5,
+      "forms": [
+        "contact",
+        "contactable",
+        "contacted",
+        "contacting",
+        "contacts"
+      ]
+    },
+    {
+      "headword": "decline",
+      "sublist": 5,
+      "forms": [
+        "decline",
+        "declined",
+        "declines",
+        "declining"
+      ]
+    },
+    {
+      "headword": "discrete",
+      "sublist": 5,
+      "forms": [
+        "discrete",
+        "discretely",
+        "discretion",
+        "discretionary",
+        "indiscrete",
+        "indiscretion"
+      ]
+    },
+    {
+      "headword": "draft",
+      "sublist": 5,
+      "forms": [
+        "draft",
+        "drafted",
+        "drafting",
+        "drafts",
+        "redraft",
+        "redrafted",
+        "redrafting",
+        "redrafts"
+      ]
+    },
+    {
+      "headword": "enable",
+      "sublist": 5,
+      "forms": [
+        "enable",
+        "enabled",
+        "enables",
+        "enabling"
+      ]
+    },
+    {
+      "headword": "energy",
+      "sublist": 5,
+      "forms": [
+        "energetic",
+        "energetically",
+        "energies",
+        "energy"
+      ]
+    },
+    {
+      "headword": "enforce",
+      "sublist": 5,
+      "forms": [
+        "enforce",
+        "enforced",
+        "enforcement",
+        "enforces",
+        "enforcing"
+      ]
+    },
+    {
+      "headword": "entity",
+      "sublist": 5,
+      "forms": [
+        "entities",
+        "entity"
+      ]
+    },
+    {
+      "headword": "equivalent",
+      "sublist": 5,
+      "forms": [
+        "equivalence",
+        "equivalent"
+      ]
+    },
+    {
+      "headword": "evolve",
+      "sublist": 5,
+      "forms": [
+        "evolution",
+        "evolutionary",
+        "evolutionist",
+        "evolutionists",
+        "evolve",
+        "evolved",
+        "evolves",
+        "evolving"
+      ]
+    },
+    {
+      "headword": "expand",
+      "sublist": 5,
+      "forms": [
+        "expand",
+        "expanded",
+        "expanding",
+        "expands",
+        "expansion",
+        "expansionism",
+        "expansive"
+      ]
+    },
+    {
+      "headword": "expose",
+      "sublist": 5,
+      "forms": [
+        "expose",
+        "exposed",
+        "exposes",
+        "exposing",
+        "exposure",
+        "exposures"
+      ]
+    },
+    {
+      "headword": "external",
+      "sublist": 5,
+      "forms": [
+        "external",
+        "externalisation",
+        "externalise",
+        "externalised",
+        "externalises",
+        "externalising",
+        "externality",
+        "externalization",
+        "externalize",
+        "externalized",
+        "externalizes",
+        "externalizing",
+        "externally"
+      ]
+    },
+    {
+      "headword": "facilitate",
+      "sublist": 5,
+      "forms": [
+        "facilitate",
+        "facilitated",
+        "facilitates",
+        "facilitating",
+        "facilitation",
+        "facilitator",
+        "facilitators",
+        "facilities",
+        "facility"
+      ]
+    },
+    {
+      "headword": "fundamental",
+      "sublist": 5,
+      "forms": [
+        "fundamental",
+        "fundamentally"
+      ]
+    },
+    {
+      "headword": "generate",
+      "sublist": 5,
+      "forms": [
+        "generate",
+        "generated",
+        "generates",
+        "generating"
+      ]
+    },
+    {
+      "headword": "generation",
+      "sublist": 5,
+      "forms": [
+        "generation",
+        "generations"
+      ]
+    },
+    {
+      "headword": "image",
+      "sublist": 5,
+      "forms": [
+        "image",
+        "imagery",
+        "images"
+      ]
+    },
+    {
+      "headword": "liberal",
+      "sublist": 5,
+      "forms": [
+        "liberal",
+        "liberalisation",
+        "liberalise",
+        "liberalised",
+        "liberalises",
+        "liberalising",
+        "liberalism",
+        "liberalization",
+        "liberalize",
+        "liberalized",
+        "liberalizes",
+        "liberalizing",
+        "liberally",
+        "liberals",
+        "liberate",
+        "liberated",
+        "liberates",
+        "liberating",
+        "liberation",
+        "liberations",
+        "liberator",
+        "liberators"
+      ]
+    },
+    {
+      "headword": "licence",
+      "sublist": 5,
+      "forms": [
+        "licence",
+        "licences",
+        "license",
+        "licensed",
+        "licenses",
+        "licensing",
+        "unlicensed"
+      ]
+    },
+    {
+      "headword": "logic",
+      "sublist": 5,
+      "forms": [
+        "illogical",
+        "illogically",
+        "logic",
+        "logical",
+        "logically",
+        "logician",
+        "logicians"
+      ]
+    },
+    {
+      "headword": "margin",
+      "sublist": 5,
+      "forms": [
+        "margin",
+        "marginal",
+        "marginally",
+        "margins"
+      ]
+    },
+    {
+      "headword": "medical",
+      "sublist": 5,
+      "forms": [
+        "medical",
+        "medically"
+      ]
+    },
+    {
+      "headword": "mental",
+      "sublist": 5,
+      "forms": [
+        "mental",
+        "mentality",
+        "mentally"
+      ]
+    },
+    {
+      "headword": "modify",
+      "sublist": 5,
+      "forms": [
+        "modification",
+        "modifications",
+        "modified",
+        "modifies",
+        "modify",
+        "modifying",
+        "unmodified"
+      ]
+    },
+    {
+      "headword": "monitor",
+      "sublist": 5,
+      "forms": [
+        "monitor",
+        "monitored",
+        "monitoring",
+        "monitors",
+        "unmonitored"
+      ]
+    },
+    {
+      "headword": "network",
+      "sublist": 5,
+      "forms": [
+        "network",
+        "networked",
+        "networking",
+        "networks"
+      ]
+    },
+    {
+      "headword": "notion",
+      "sublist": 5,
+      "forms": [
+        "notion",
+        "notions"
+      ]
+    },
+    {
+      "headword": "objective",
+      "sublist": 5,
+      "forms": [
+        "objective",
+        "objectively",
+        "objectivity"
+      ]
+    },
+    {
+      "headword": "orient",
+      "sublist": 5,
+      "forms": [
+        "orient",
+        "orientate",
+        "orientated",
+        "orientates",
+        "orientating",
+        "orientation",
+        "oriented",
+        "orienting",
+        "orients",
+        "reorient",
+        "reorientation"
+      ]
+    },
+    {
+      "headword": "perspective",
+      "sublist": 5,
+      "forms": [
+        "perspective",
+        "perspectives"
+      ]
+    },
+    {
+      "headword": "precise",
+      "sublist": 5,
+      "forms": [
+        "imprecise",
+        "precise",
+        "precisely",
+        "precision"
+      ]
+    },
+    {
+      "headword": "prime",
+      "sublist": 5,
+      "forms": [
+        "primacy",
+        "prime"
+      ]
+    },
+    {
+      "headword": "psychology",
+      "sublist": 5,
+      "forms": [
+        "psychological",
+        "psychologically",
+        "psychologist",
+        "psychologists",
+        "psychology"
+      ]
+    },
+    {
+      "headword": "pursue",
+      "sublist": 5,
+      "forms": [
+        "pursue",
+        "pursued",
+        "pursues",
+        "pursuing",
+        "pursuit",
+        "pursuits"
+      ]
+    },
+    {
+      "headword": "ratio",
+      "sublist": 5,
+      "forms": [
+        "ratio",
+        "ratios"
+      ]
+    },
+    {
+      "headword": "reject",
+      "sublist": 5,
+      "forms": [
+        "reject",
+        "rejected",
+        "rejecting",
+        "rejection",
+        "rejections",
+        "rejects"
+      ]
+    },
+    {
+      "headword": "revenue",
+      "sublist": 5,
+      "forms": [
+        "revenue",
+        "revenues"
+      ]
+    },
+    {
+      "headword": "stable",
+      "sublist": 5,
+      "forms": [
+        "instability",
+        "stabilisation",
+        "stabilise",
+        "stabilised",
+        "stabilises",
+        "stabilising",
+        "stability",
+        "stabilization",
+        "stabilize",
+        "stabilized",
+        "stabilizes",
+        "stabilizing",
+        "stable",
+        "unstable"
+      ]
+    },
+    {
+      "headword": "style",
+      "sublist": 5,
+      "forms": [
+        "style",
+        "styled",
+        "styles",
+        "styling",
+        "stylise",
+        "stylised",
+        "stylises",
+        "stylish",
+        "stylising",
+        "stylize",
+        "stylized",
+        "stylizes",
+        "stylizing"
+      ]
+    },
+    {
+      "headword": "substitute",
+      "sublist": 5,
+      "forms": [
+        "substitute",
+        "substituted",
+        "substitutes",
+        "substituting",
+        "substitution"
+      ]
+    },
+    {
+      "headword": "sustain",
+      "sublist": 5,
+      "forms": [
+        "sustain",
+        "sustainability",
+        "sustainable",
+        "sustained",
+        "sustaining",
+        "sustains",
+        "sustenance",
+        "unsustainable"
+      ]
+    },
+    {
+      "headword": "symbol",
+      "sublist": 5,
+      "forms": [
+        "symbol",
+        "symbolic",
+        "symbolically",
+        "symbolise",
+        "symbolised",
+        "symbolises",
+        "symbolising",
+        "symbolism",
+        "symbolize",
+        "symbolized",
+        "symbolizes",
+        "symbolizing",
+        "symbols"
+      ]
+    },
+    {
+      "headword": "target",
+      "sublist": 5,
+      "forms": [
+        "target",
+        "targeted",
+        "targeting",
+        "targets"
+      ]
+    },
+    {
+      "headword": "transit",
+      "sublist": 5,
+      "forms": [
+        "transit",
+        "transited",
+        "transiting",
+        "transition",
+        "transitional",
+        "transitions",
+        "transitory",
+        "transits"
+      ]
+    },
+    {
+      "headword": "trend",
+      "sublist": 5,
+      "forms": [
+        "trend",
+        "trends"
+      ]
+    },
+    {
+      "headword": "version",
+      "sublist": 5,
+      "forms": [
+        "version",
+        "versions"
+      ]
+    },
+    {
+      "headword": "welfare",
+      "sublist": 5,
+      "forms": [
+        "welfare"
+      ]
+    },
+    {
+      "headword": "whereas",
+      "sublist": 5,
+      "forms": [
+        "whereas"
+      ]
+    },
+    {
+      "headword": "abstract",
+      "sublist": 6,
+      "forms": [
+        "abstract",
+        "abstraction",
+        "abstractions",
+        "abstractly",
+        "abstracts"
+      ]
+    },
+    {
+      "headword": "accurate",
+      "sublist": 6,
+      "forms": [
+        "accuracy",
+        "accurate",
+        "accurately",
+        "inaccuracies",
+        "inaccuracy",
+        "inaccurate"
+      ]
+    },
+    {
+      "headword": "acknowledge",
+      "sublist": 6,
+      "forms": [
+        "acknowledge",
+        "acknowledged",
+        "acknowledgement",
+        "acknowledgements",
+        "acknowledges",
+        "acknowledging"
+      ]
+    },
+    {
+      "headword": "aggregate",
+      "sublist": 6,
+      "forms": [
+        "aggregate",
+        "aggregated",
+        "aggregates",
+        "aggregating",
+        "aggregation"
+      ]
+    },
+    {
+      "headword": "allocate",
+      "sublist": 6,
+      "forms": [
+        "allocate",
+        "allocated",
+        "allocates",
+        "allocating",
+        "allocation",
+        "allocations"
+      ]
+    },
+    {
+      "headword": "assign",
+      "sublist": 6,
+      "forms": [
+        "assign",
+        "assigned",
+        "assigning",
+        "assignment",
+        "assignments",
+        "assigns",
+        "reassign",
+        "reassigned",
+        "reassigning",
+        "reassigns",
+        "unassigned"
+      ]
+    },
+    {
+      "headword": "attach",
+      "sublist": 6,
+      "forms": [
+        "attach",
+        "attached",
+        "attaches",
+        "attaching",
+        "attachment",
+        "attachments",
+        "unattached"
+      ]
+    },
+    {
+      "headword": "author",
+      "sublist": 6,
+      "forms": [
+        "author",
+        "authored",
+        "authoring",
+        "authors",
+        "authorship"
+      ]
+    },
+    {
+      "headword": "bond",
+      "sublist": 6,
+      "forms": [
+        "bond",
+        "bonded",
+        "bonding",
+        "bonds"
+      ]
+    },
+    {
+      "headword": "brief",
+      "sublist": 6,
+      "forms": [
+        "brevity",
+        "brief",
+        "briefed",
+        "briefing",
+        "briefly",
+        "briefs"
+      ]
+    },
+    {
+      "headword": "capable",
+      "sublist": 6,
+      "forms": [
+        "capabilities",
+        "capability",
+        "capable",
+        "incapable"
+      ]
+    },
+    {
+      "headword": "cite",
+      "sublist": 6,
+      "forms": [
+        "citation",
+        "citations",
+        "cite",
+        "cited",
+        "cites",
+        "citing"
+      ]
+    },
+    {
+      "headword": "cooperate",
+      "sublist": 6,
+      "forms": [
+        "co-operate",
+        "co-operated",
+        "co-operates",
+        "co-operation",
+        "co-operative",
+        "co-operatively",
+        "cooperate",
+        "cooperated",
+        "cooperates",
+        "cooperating",
+        "cooperation",
+        "cooperative",
+        "cooperatively"
+      ]
+    },
+    {
+      "headword": "discriminate",
+      "sublist": 6,
+      "forms": [
+        "discriminate",
+        "discriminated",
+        "discriminates",
+        "discriminating",
+        "discrimination"
+      ]
+    },
+    {
+      "headword": "display",
+      "sublist": 6,
+      "forms": [
+        "display",
+        "displayed",
+        "displaying",
+        "displays"
+      ]
+    },
+    {
+      "headword": "diverse",
+      "sublist": 6,
+      "forms": [
+        "diverse",
+        "diversely",
+        "diversification",
+        "diversified",
+        "diversifies",
+        "diversify",
+        "diversifying",
+        "diversity"
+      ]
+    },
+    {
+      "headword": "domain",
+      "sublist": 6,
+      "forms": [
+        "domain",
+        "domains"
+      ]
+    },
+    {
+      "headword": "edit",
+      "sublist": 6,
+      "forms": [
+        "edit",
+        "edited",
+        "editing",
+        "edition",
+        "editions",
+        "editor",
+        "editorial",
+        "editorials",
+        "editors",
+        "edits"
+      ]
+    },
+    {
+      "headword": "enhance",
+      "sublist": 6,
+      "forms": [
+        "enhance",
+        "enhanced",
+        "enhancement",
+        "enhances",
+        "enhancing"
+      ]
+    },
+    {
+      "headword": "estate",
+      "sublist": 6,
+      "forms": [
+        "estate",
+        "estates"
+      ]
+    },
+    {
+      "headword": "exceed",
+      "sublist": 6,
+      "forms": [
+        "exceed",
+        "exceeded",
+        "exceeding",
+        "exceeds"
+      ]
+    },
+    {
+      "headword": "expert",
+      "sublist": 6,
+      "forms": [
+        "expert",
+        "expertise",
+        "expertly",
+        "experts"
+      ]
+    },
+    {
+      "headword": "explicit",
+      "sublist": 6,
+      "forms": [
+        "explicit",
+        "explicitly"
+      ]
+    },
+    {
+      "headword": "federal",
+      "sublist": 6,
+      "forms": [
+        "federal",
+        "federation",
+        "federations"
+      ]
+    },
+    {
+      "headword": "fee",
+      "sublist": 6,
+      "forms": [
+        "fee",
+        "fees"
+      ]
+    },
+    {
+      "headword": "flexible",
+      "sublist": 6,
+      "forms": [
+        "flexibility",
+        "flexible",
+        "inflexibility",
+        "inflexible"
+      ]
+    },
+    {
+      "headword": "furthermore",
+      "sublist": 6,
+      "forms": [
+        "furthermore"
+      ]
+    },
+    {
+      "headword": "gender",
+      "sublist": 6,
+      "forms": [
+        "gender",
+        "genders"
+      ]
+    },
+    {
+      "headword": "ignorant",
+      "sublist": 6,
+      "forms": [
+        "ignorance",
+        "ignorant",
+        "ignore",
+        "ignored",
+        "ignores",
+        "ignoring"
+      ]
+    },
+    {
+      "headword": "incentive",
+      "sublist": 6,
+      "forms": [
+        "incentive",
+        "incentives"
+      ]
+    },
+    {
+      "headword": "incidence",
+      "sublist": 6,
+      "forms": [
+        "incidence",
+        "incident",
+        "incidentally",
+        "incidents"
+      ]
+    },
+    {
+      "headword": "incorporate",
+      "sublist": 6,
+      "forms": [
+        "incorporate",
+        "incorporated",
+        "incorporates",
+        "incorporating",
+        "incorporation"
+      ]
+    },
+    {
+      "headword": "index",
+      "sublist": 6,
+      "forms": [
+        "index",
+        "indexed",
+        "indexes",
+        "indexing"
+      ]
+    },
+    {
+      "headword": "inhibit",
+      "sublist": 6,
+      "forms": [
+        "inhibit",
+        "inhibited",
+        "inhibiting",
+        "inhibition",
+        "inhibitions",
+        "inhibits"
+      ]
+    },
+    {
+      "headword": "initiate",
+      "sublist": 6,
+      "forms": [
+        "initiate",
+        "initiated",
+        "initiates",
+        "initiating",
+        "initiation",
+        "initiations",
+        "initiative",
+        "initiatives",
+        "initiator",
+        "initiators"
+      ]
+    },
+    {
+      "headword": "input",
+      "sublist": 6,
+      "forms": [
+        "input",
+        "inputs"
+      ]
+    },
+    {
+      "headword": "instruct",
+      "sublist": 6,
+      "forms": [
+        "instruct",
+        "instructed",
+        "instructing",
+        "instruction",
+        "instructions",
+        "instructive",
+        "instructor",
+        "instructors",
+        "instructs"
+      ]
+    },
+    {
+      "headword": "intelligent",
+      "sublist": 6,
+      "forms": [
+        "intelligence",
+        "intelligent",
+        "intelligently",
+        "unintelligent"
+      ]
+    },
+    {
+      "headword": "interval",
+      "sublist": 6,
+      "forms": [
+        "interval",
+        "intervals"
+      ]
+    },
+    {
+      "headword": "lecture",
+      "sublist": 6,
+      "forms": [
+        "lecture",
+        "lectured",
+        "lecturer",
+        "lecturers",
+        "lectures",
+        "lecturing"
+      ]
+    },
+    {
+      "headword": "migrate",
+      "sublist": 6,
+      "forms": [
+        "migrant",
+        "migrants",
+        "migrate",
+        "migrated",
+        "migrates",
+        "migrating",
+        "migration",
+        "migrations",
+        "migratory"
+      ]
+    },
+    {
+      "headword": "minimum",
+      "sublist": 6,
+      "forms": [
+        "minimum"
+      ]
+    },
+    {
+      "headword": "ministry",
+      "sublist": 6,
+      "forms": [
+        "ministered",
+        "ministerial",
+        "ministering",
+        "ministries",
+        "ministry"
+      ]
+    },
+    {
+      "headword": "motive",
+      "sublist": 6,
+      "forms": [
+        "motivate",
+        "motivated",
+        "motivates",
+        "motivating",
+        "motivation",
+        "motivations",
+        "motive",
+        "motives",
+        "unmotivated"
+      ]
+    },
+    {
+      "headword": "neutral",
+      "sublist": 6,
+      "forms": [
+        "neutral",
+        "neutralisation",
+        "neutralise",
+        "neutralised",
+        "neutralises",
+        "neutralising",
+        "neutrality",
+        "neutralization",
+        "neutralize",
+        "neutralized",
+        "neutralizes",
+        "neutralizing"
+      ]
+    },
+    {
+      "headword": "nevertheless",
+      "sublist": 6,
+      "forms": [
+        "nevertheless"
+      ]
+    },
+    {
+      "headword": "overseas",
+      "sublist": 6,
+      "forms": [
+        "overseas"
+      ]
+    },
+    {
+      "headword": "precede",
+      "sublist": 6,
+      "forms": [
+        "precede",
+        "preceded",
+        "precedence",
+        "precedent",
+        "precedes",
+        "preceding",
+        "unprecedented"
+      ]
+    },
+    {
+      "headword": "presume",
+      "sublist": 6,
+      "forms": [
+        "presumably",
+        "presume",
+        "presumed",
+        "presumes",
+        "presuming",
+        "presumption",
+        "presumptions",
+        "presumptuous"
+      ]
+    },
+    {
+      "headword": "rational",
+      "sublist": 6,
+      "forms": [
+        "irrational",
+        "rational",
+        "rationalisation",
+        "rationalisations",
+        "rationalise",
+        "rationalised",
+        "rationalises",
+        "rationalising",
+        "rationalism",
+        "rationality",
+        "rationalization",
+        "rationalizations",
+        "rationalize",
+        "rationalized",
+        "rationalizes",
+        "rationally"
+      ]
+    },
+    {
+      "headword": "recover",
+      "sublist": 6,
+      "forms": [
+        "recover",
+        "recoverable",
+        "recovered",
+        "recovering",
+        "recovers",
+        "recovery"
+      ]
+    },
+    {
+      "headword": "reveal",
+      "sublist": 6,
+      "forms": [
+        "reveal",
+        "revealed",
+        "revealing",
+        "reveals",
+        "revelation",
+        "revelations"
+      ]
+    },
+    {
+      "headword": "scope",
+      "sublist": 6,
+      "forms": [
+        "scope"
+      ]
+    },
+    {
+      "headword": "subsidy",
+      "sublist": 6,
+      "forms": [
+        "subsidiary",
+        "subsidies",
+        "subsidise",
+        "subsidised",
+        "subsidises",
+        "subsidising",
+        "subsidize",
+        "subsidized",
+        "subsidizes",
+        "subsidizing",
+        "subsidy"
+      ]
+    },
+    {
+      "headword": "tape",
+      "sublist": 6,
+      "forms": [
+        "tape",
+        "taped",
+        "tapes",
+        "taping"
+      ]
+    },
+    {
+      "headword": "trace",
+      "sublist": 6,
+      "forms": [
+        "trace",
+        "traceable",
+        "traced",
+        "traces",
+        "tracing"
+      ]
+    },
+    {
+      "headword": "transform",
+      "sublist": 6,
+      "forms": [
+        "transform",
+        "transformation",
+        "transformations",
+        "transformed",
+        "transforming",
+        "transforms"
+      ]
+    },
+    {
+      "headword": "transport",
+      "sublist": 6,
+      "forms": [
+        "transport",
+        "transportation",
+        "transported",
+        "transporter",
+        "transporters",
+        "transporting",
+        "transports"
+      ]
+    },
+    {
+      "headword": "underlie",
+      "sublist": 6,
+      "forms": [
+        "underlay",
+        "underlie",
+        "underlies",
+        "underlying"
+      ]
+    },
+    {
+      "headword": "utilize",
+      "sublist": 6,
+      "forms": [
+        "utilisation",
+        "utilise",
+        "utilised",
+        "utiliser",
+        "utilisers",
+        "utilises",
+        "utilising",
+        "utilities",
+        "utility",
+        "utilization",
+        "utilize",
+        "utilized",
+        "utilizes",
+        "utilizing"
+      ]
+    },
+    {
+      "headword": "adapt",
+      "sublist": 7,
+      "forms": [
+        "adapt",
+        "adaptability",
+        "adaptable",
+        "adaptation",
+        "adaptations",
+        "adapted",
+        "adapting",
+        "adaptive",
+        "adapts"
+      ]
+    },
+    {
+      "headword": "adult",
+      "sublist": 7,
+      "forms": [
+        "adult",
+        "adulthood",
+        "adults"
+      ]
+    },
+    {
+      "headword": "advocate",
+      "sublist": 7,
+      "forms": [
+        "advocacy",
+        "advocate",
+        "advocated",
+        "advocates",
+        "advocating"
+      ]
+    },
+    {
+      "headword": "aid",
+      "sublist": 7,
+      "forms": [
+        "aid",
+        "aided",
+        "aiding",
+        "aids",
+        "unaided"
+      ]
+    },
+    {
+      "headword": "channel",
+      "sublist": 7,
+      "forms": [
+        "channel",
+        "channelled",
+        "channelling",
+        "channels"
+      ]
+    },
+    {
+      "headword": "chemical",
+      "sublist": 7,
+      "forms": [
+        "chemical",
+        "chemically",
+        "chemicals"
+      ]
+    },
+    {
+      "headword": "classic",
+      "sublist": 7,
+      "forms": [
+        "classic",
+        "classical",
+        "classics"
+      ]
+    },
+    {
+      "headword": "comprehensive",
+      "sublist": 7,
+      "forms": [
+        "comprehensive",
+        "comprehensively"
+      ]
+    },
+    {
+      "headword": "comprise",
+      "sublist": 7,
+      "forms": [
+        "comprise",
+        "comprised",
+        "comprises",
+        "comprising"
+      ]
+    },
+    {
+      "headword": "confirm",
+      "sublist": 7,
+      "forms": [
+        "confirm",
+        "confirmation",
+        "confirmed",
+        "confirming",
+        "confirms"
+      ]
+    },
+    {
+      "headword": "contrary",
+      "sublist": 7,
+      "forms": [
+        "contrarily",
+        "contrary"
+      ]
+    },
+    {
+      "headword": "convert",
+      "sublist": 7,
+      "forms": [
+        "conversion",
+        "conversions",
+        "convert",
+        "converted",
+        "convertible",
+        "converting",
+        "converts"
+      ]
+    },
+    {
+      "headword": "couple",
+      "sublist": 7,
+      "forms": [
+        "couple",
+        "coupled",
+        "couples",
+        "coupling"
+      ]
+    },
+    {
+      "headword": "decade",
+      "sublist": 7,
+      "forms": [
+        "decade",
+        "decades"
+      ]
+    },
+    {
+      "headword": "definite",
+      "sublist": 7,
+      "forms": [
+        "definite",
+        "definitely",
+        "definitive",
+        "indefinite",
+        "indefinitely"
+      ]
+    },
+    {
+      "headword": "deny",
+      "sublist": 7,
+      "forms": [
+        "deniable",
+        "denial",
+        "denials",
+        "denied",
+        "denies",
+        "deny",
+        "denying",
+        "undeniable"
+      ]
+    },
+    {
+      "headword": "differentiate",
+      "sublist": 7,
+      "forms": [
+        "differentiate",
+        "differentiated",
+        "differentiates",
+        "differentiating",
+        "differentiation"
+      ]
+    },
+    {
+      "headword": "dispose",
+      "sublist": 7,
+      "forms": [
+        "disposable",
+        "disposal",
+        "dispose",
+        "disposed",
+        "disposes",
+        "disposing"
+      ]
+    },
+    {
+      "headword": "dynamic",
+      "sublist": 7,
+      "forms": [
+        "dynamic",
+        "dynamically",
+        "dynamics"
+      ]
+    },
+    {
+      "headword": "eliminate",
+      "sublist": 7,
+      "forms": [
+        "eliminate",
+        "eliminated",
+        "eliminates",
+        "eliminating",
+        "elimination"
+      ]
+    },
+    {
+      "headword": "empirical",
+      "sublist": 7,
+      "forms": [
+        "empirical",
+        "empirically",
+        "empiricism"
+      ]
+    },
+    {
+      "headword": "equip",
+      "sublist": 7,
+      "forms": [
+        "equip",
+        "equipment",
+        "equipped",
+        "equipping",
+        "equips"
+      ]
+    },
+    {
+      "headword": "extract",
+      "sublist": 7,
+      "forms": [
+        "extract",
+        "extracted",
+        "extracting",
+        "extraction",
+        "extracts"
+      ]
+    },
+    {
+      "headword": "file",
+      "sublist": 7,
+      "forms": [
+        "file",
+        "filed",
+        "files",
+        "filing"
+      ]
+    },
+    {
+      "headword": "finite",
+      "sublist": 7,
+      "forms": [
+        "finite",
+        "infinite",
+        "infinitely"
+      ]
+    },
+    {
+      "headword": "foundation",
+      "sublist": 7,
+      "forms": [
+        "foundation",
+        "foundations"
+      ]
+    },
+    {
+      "headword": "globe",
+      "sublist": 7,
+      "forms": [
+        "global",
+        "globalisation",
+        "globalization",
+        "globally",
+        "globe"
+      ]
+    },
+    {
+      "headword": "grade",
+      "sublist": 7,
+      "forms": [
+        "grade",
+        "graded",
+        "grades",
+        "grading"
+      ]
+    },
+    {
+      "headword": "guarantee",
+      "sublist": 7,
+      "forms": [
+        "guarantee",
+        "guaranteed",
+        "guaranteeing",
+        "guarantees"
+      ]
+    },
+    {
+      "headword": "hierarchy",
+      "sublist": 7,
+      "forms": [
+        "hierarchical",
+        "hierarchies",
+        "hierarchy"
+      ]
+    },
+    {
+      "headword": "identical",
+      "sublist": 7,
+      "forms": [
+        "identical",
+        "identically"
+      ]
+    },
+    {
+      "headword": "ideology",
+      "sublist": 7,
+      "forms": [
+        "ideological",
+        "ideologically",
+        "ideologies",
+        "ideology"
+      ]
+    },
+    {
+      "headword": "infer",
+      "sublist": 7,
+      "forms": [
+        "infer",
+        "inference",
+        "inferences",
+        "inferred",
+        "inferring",
+        "infers"
+      ]
+    },
+    {
+      "headword": "innovate",
+      "sublist": 7,
+      "forms": [
+        "innovate",
+        "innovated",
+        "innovates",
+        "innovating",
+        "innovation",
+        "innovations",
+        "innovative",
+        "innovator",
+        "innovators"
+      ]
+    },
+    {
+      "headword": "insert",
+      "sublist": 7,
+      "forms": [
+        "insert",
+        "inserted",
+        "inserting",
+        "insertion",
+        "inserts"
+      ]
+    },
+    {
+      "headword": "intervene",
+      "sublist": 7,
+      "forms": [
+        "intervene",
+        "intervened",
+        "intervenes",
+        "intervening",
+        "intervention",
+        "interventions"
+      ]
+    },
+    {
+      "headword": "isolate",
+      "sublist": 7,
+      "forms": [
+        "isolate",
+        "isolated",
+        "isolates",
+        "isolating",
+        "isolation",
+        "isolationism"
+      ]
+    },
+    {
+      "headword": "media",
+      "sublist": 7,
+      "forms": [
+        "media"
+      ]
+    },
+    {
+      "headword": "mode",
+      "sublist": 7,
+      "forms": [
+        "mode",
+        "modes"
+      ]
+    },
+    {
+      "headword": "paradigm",
+      "sublist": 7,
+      "forms": [
+        "paradigm",
+        "paradigms"
+      ]
+    },
+    {
+      "headword": "phenomenon",
+      "sublist": 7,
+      "forms": [
+        "phenomena",
+        "phenomenal",
+        "phenomenon"
+      ]
+    },
+    {
+      "headword": "priority",
+      "sublist": 7,
+      "forms": [
+        "priorities",
+        "prioritisation",
+        "prioritise",
+        "prioritised",
+        "prioritises",
+        "prioritising",
+        "prioritization",
+        "prioritize",
+        "prioritized",
+        "prioritizes",
+        "prioritizing",
+        "priority"
+      ]
+    },
+    {
+      "headword": "prohibit",
+      "sublist": 7,
+      "forms": [
+        "prohibit",
+        "prohibited",
+        "prohibiting",
+        "prohibition",
+        "prohibitions",
+        "prohibitive",
+        "prohibits"
+      ]
+    },
+    {
+      "headword": "publication",
+      "sublist": 7,
+      "forms": [
+        "publication",
+        "publications"
+      ]
+    },
+    {
+      "headword": "quote",
+      "sublist": 7,
+      "forms": [
+        "quotation",
+        "quotations",
+        "quote",
+        "quoted",
+        "quotes",
+        "quoting"
+      ]
+    },
+    {
+      "headword": "release",
+      "sublist": 7,
+      "forms": [
+        "release",
+        "released",
+        "releases",
+        "releasing"
+      ]
+    },
+    {
+      "headword": "reverse",
+      "sublist": 7,
+      "forms": [
+        "irreversible",
+        "reversal",
+        "reversals",
+        "reverse",
+        "reversed",
+        "reverses",
+        "reversible",
+        "reversing"
+      ]
+    },
+    {
+      "headword": "simulate",
+      "sublist": 7,
+      "forms": [
+        "simulate",
+        "simulated",
+        "simulates",
+        "simulating",
+        "simulation"
+      ]
+    },
+    {
+      "headword": "sole",
+      "sublist": 7,
+      "forms": [
+        "sole",
+        "solely"
+      ]
+    },
+    {
+      "headword": "somewhat",
+      "sublist": 7,
+      "forms": [
+        "somewhat"
+      ]
+    },
+    {
+      "headword": "submit",
+      "sublist": 7,
+      "forms": [
+        "submission",
+        "submissions",
+        "submit",
+        "submits",
+        "submitted",
+        "submitting"
+      ]
+    },
+    {
+      "headword": "successor",
+      "sublist": 7,
+      "forms": [
+        "succession",
+        "successions",
+        "successive",
+        "successively",
+        "successor",
+        "successors"
+      ]
+    },
+    {
+      "headword": "survive",
+      "sublist": 7,
+      "forms": [
+        "survival",
+        "survive",
+        "survived",
+        "survives",
+        "surviving",
+        "survivor",
+        "survivors"
+      ]
+    },
+    {
+      "headword": "thesis",
+      "sublist": 7,
+      "forms": [
+        "theses",
+        "thesis"
+      ]
+    },
+    {
+      "headword": "topic",
+      "sublist": 7,
+      "forms": [
+        "topic",
+        "topical",
+        "topics"
+      ]
+    },
+    {
+      "headword": "transmit",
+      "sublist": 7,
+      "forms": [
+        "transmission",
+        "transmissions",
+        "transmit",
+        "transmits",
+        "transmitted",
+        "transmitting"
+      ]
+    },
+    {
+      "headword": "ultimate",
+      "sublist": 7,
+      "forms": [
+        "ultimate",
+        "ultimately"
+      ]
+    },
+    {
+      "headword": "unique",
+      "sublist": 7,
+      "forms": [
+        "unique",
+        "uniquely",
+        "uniqueness"
+      ]
+    },
+    {
+      "headword": "visible",
+      "sublist": 7,
+      "forms": [
+        "invisibility",
+        "invisible",
+        "visibility",
+        "visible",
+        "visibly"
+      ]
+    },
+    {
+      "headword": "voluntary",
+      "sublist": 7,
+      "forms": [
+        "voluntarily",
+        "voluntary",
+        "volunteer",
+        "volunteered",
+        "volunteering",
+        "volunteers"
+      ]
+    },
+    {
+      "headword": "abandon",
+      "sublist": 8,
+      "forms": [
+        "abandon",
+        "abandoned",
+        "abandoning",
+        "abandonment",
+        "abandons"
+      ]
+    },
+    {
+      "headword": "accompany",
+      "sublist": 8,
+      "forms": [
+        "accompanied",
+        "accompanies",
+        "accompaniment",
+        "accompany",
+        "accompanying",
+        "unaccompanied"
+      ]
+    },
+    {
+      "headword": "accumulate",
+      "sublist": 8,
+      "forms": [
+        "accumulate",
+        "accumulated",
+        "accumulates",
+        "accumulating",
+        "accumulation"
+      ]
+    },
+    {
+      "headword": "ambiguous",
+      "sublist": 8,
+      "forms": [
+        "ambiguities",
+        "ambiguity",
+        "ambiguous",
+        "unambiguous",
+        "unambiguously"
+      ]
+    },
+    {
+      "headword": "append",
+      "sublist": 8,
+      "forms": [
+        "append",
+        "appended",
+        "appendices",
+        "appending",
+        "appendix",
+        "appendixes",
+        "appends"
+      ]
+    },
+    {
+      "headword": "appreciate",
+      "sublist": 8,
+      "forms": [
+        "appreciable",
+        "appreciably",
+        "appreciate",
+        "appreciated",
+        "appreciates",
+        "appreciating",
+        "appreciation",
+        "unappreciated"
+      ]
+    },
+    {
+      "headword": "arbitrary",
+      "sublist": 8,
+      "forms": [
+        "arbitrarily",
+        "arbitrariness",
+        "arbitrary"
+      ]
+    },
+    {
+      "headword": "automate",
+      "sublist": 8,
+      "forms": [
+        "automate",
+        "automated",
+        "automates",
+        "automatic",
+        "automatically",
+        "automating",
+        "automation"
+      ]
+    },
+    {
+      "headword": "bias",
+      "sublist": 8,
+      "forms": [
+        "bias",
+        "biased",
+        "biases",
+        "biasing",
+        "unbiased"
+      ]
+    },
+    {
+      "headword": "chart",
+      "sublist": 8,
+      "forms": [
+        "chart",
+        "charted",
+        "charting",
+        "charts",
+        "uncharted"
+      ]
+    },
+    {
+      "headword": "clarify",
+      "sublist": 8,
+      "forms": [
+        "clarification",
+        "clarified",
+        "clarifies",
+        "clarify",
+        "clarifying",
+        "clarity"
+      ]
+    },
+    {
+      "headword": "commodity",
+      "sublist": 8,
+      "forms": [
+        "commodities",
+        "commodity"
+      ]
+    },
+    {
+      "headword": "complement",
+      "sublist": 8,
+      "forms": [
+        "complement",
+        "complementary",
+        "complemented",
+        "complementing",
+        "complements"
+      ]
+    },
+    {
+      "headword": "conform",
+      "sublist": 8,
+      "forms": [
+        "conform",
+        "conformability",
+        "conformable",
+        "conformance",
+        "conformation",
+        "conformed",
+        "conforming",
+        "conformist",
+        "conformists",
+        "conformity",
+        "conforms",
+        "non-conformist",
+        "non-conformists",
+        "non-conformity",
+        "nonconformist",
+        "nonconformists",
+        "nonconformity"
+      ]
+    },
+    {
+      "headword": "contemporary",
+      "sublist": 8,
+      "forms": [
+        "contemporaries",
+        "contemporary"
+      ]
+    },
+    {
+      "headword": "contradict",
+      "sublist": 8,
+      "forms": [
+        "contradict",
+        "contradicted",
+        "contradicting",
+        "contradiction",
+        "contradictions",
+        "contradictory",
+        "contradicts"
+      ]
+    },
+    {
+      "headword": "crucial",
+      "sublist": 8,
+      "forms": [
+        "crucial",
+        "crucially"
+      ]
+    },
+    {
+      "headword": "currency",
+      "sublist": 8,
+      "forms": [
+        "currencies",
+        "currency"
+      ]
+    },
+    {
+      "headword": "denote",
+      "sublist": 8,
+      "forms": [
+        "denotation",
+        "denotations",
+        "denote",
+        "denoted",
+        "denotes",
+        "denoting"
+      ]
+    },
+    {
+      "headword": "detect",
+      "sublist": 8,
+      "forms": [
+        "detect",
+        "detectable",
+        "detected",
+        "detecting",
+        "detection",
+        "detective",
+        "detectives",
+        "detector",
+        "detectors",
+        "detects"
+      ]
+    },
+    {
+      "headword": "deviate",
+      "sublist": 8,
+      "forms": [
+        "deviate",
+        "deviated",
+        "deviates",
+        "deviating",
+        "deviation",
+        "deviations"
+      ]
+    },
+    {
+      "headword": "displace",
+      "sublist": 8,
+      "forms": [
+        "displace",
+        "displaced",
+        "displacement",
+        "displaces",
+        "displacing"
+      ]
+    },
+    {
+      "headword": "drama",
+      "sublist": 8,
+      "forms": [
+        "drama",
+        "dramas",
+        "dramatic",
+        "dramatically",
+        "dramatisation",
+        "dramatisations",
+        "dramatise",
+        "dramatised",
+        "dramatises",
+        "dramatising",
+        "dramatist",
+        "dramatists",
+        "dramatization",
+        "dramatizations",
+        "dramatize",
+        "dramatized",
+        "dramatizes",
+        "dramatizing"
+      ]
+    },
+    {
+      "headword": "eventual",
+      "sublist": 8,
+      "forms": [
+        "eventual",
+        "eventuality",
+        "eventually"
+      ]
+    },
+    {
+      "headword": "exhibit",
+      "sublist": 8,
+      "forms": [
+        "exhibit",
+        "exhibited",
+        "exhibiting",
+        "exhibition",
+        "exhibitions",
+        "exhibits"
+      ]
+    },
+    {
+      "headword": "exploit",
+      "sublist": 8,
+      "forms": [
+        "exploit",
+        "exploitation",
+        "exploited",
+        "exploiting",
+        "exploits"
+      ]
+    },
+    {
+      "headword": "fluctuate",
+      "sublist": 8,
+      "forms": [
+        "fluctuate",
+        "fluctuated",
+        "fluctuates",
+        "fluctuating",
+        "fluctuation",
+        "fluctuations"
+      ]
+    },
+    {
+      "headword": "guideline",
+      "sublist": 8,
+      "forms": [
+        "guideline",
+        "guidelines"
+      ]
+    },
+    {
+      "headword": "highlight",
+      "sublist": 8,
+      "forms": [
+        "highlight",
+        "highlighted",
+        "highlighting",
+        "highlights"
+      ]
+    },
+    {
+      "headword": "implicit",
+      "sublist": 8,
+      "forms": [
+        "implicit",
+        "implicitly"
+      ]
+    },
+    {
+      "headword": "induce",
+      "sublist": 8,
+      "forms": [
+        "induce",
+        "induced",
+        "induces",
+        "inducing",
+        "induction"
+      ]
+    },
+    {
+      "headword": "inevitable",
+      "sublist": 8,
+      "forms": [
+        "inevitability",
+        "inevitable",
+        "inevitably"
+      ]
+    },
+    {
+      "headword": "infrastructure",
+      "sublist": 8,
+      "forms": [
+        "infrastructure",
+        "infrastructures"
+      ]
+    },
+    {
+      "headword": "inspect",
+      "sublist": 8,
+      "forms": [
+        "inspect",
+        "inspected",
+        "inspecting",
+        "inspection",
+        "inspections",
+        "inspector",
+        "inspectors",
+        "inspects"
+      ]
+    },
+    {
+      "headword": "intense",
+      "sublist": 8,
+      "forms": [
+        "intense",
+        "intensely",
+        "intenseness",
+        "intensification",
+        "intensified",
+        "intensifies",
+        "intensify",
+        "intensifying",
+        "intension",
+        "intensity",
+        "intensive",
+        "intensively"
+      ]
+    },
+    {
+      "headword": "manipulate",
+      "sublist": 8,
+      "forms": [
+        "manipulate",
+        "manipulated",
+        "manipulates",
+        "manipulating",
+        "manipulation",
+        "manipulations",
+        "manipulative"
+      ]
+    },
+    {
+      "headword": "minimize",
+      "sublist": 8,
+      "forms": [
+        "minimise",
+        "minimised",
+        "minimises",
+        "minimising",
+        "minimize",
+        "minimized",
+        "minimizes",
+        "minimizing"
+      ]
+    },
+    {
+      "headword": "nuclear",
+      "sublist": 8,
+      "forms": [
+        "nuclear"
+      ]
+    },
+    {
+      "headword": "offset",
+      "sublist": 8,
+      "forms": [
+        "offset",
+        "offsets",
+        "offsetting"
+      ]
+    },
+    {
+      "headword": "paragraph",
+      "sublist": 8,
+      "forms": [
+        "paragraph",
+        "paragraphing",
+        "paragraphs"
+      ]
+    },
+    {
+      "headword": "plus",
+      "sublist": 8,
+      "forms": [
+        "plus",
+        "pluses"
+      ]
+    },
+    {
+      "headword": "practitioner",
+      "sublist": 8,
+      "forms": [
+        "practitioner",
+        "practitioners"
+      ]
+    },
+    {
+      "headword": "predominant",
+      "sublist": 8,
+      "forms": [
+        "predominance",
+        "predominant",
+        "predominantly",
+        "predominate",
+        "predominated",
+        "predominates",
+        "predominating"
+      ]
+    },
+    {
+      "headword": "prospect",
+      "sublist": 8,
+      "forms": [
+        "prospect",
+        "prospective",
+        "prospects"
+      ]
+    },
+    {
+      "headword": "radical",
+      "sublist": 8,
+      "forms": [
+        "radical",
+        "radically",
+        "radicals"
+      ]
+    },
+    {
+      "headword": "random",
+      "sublist": 8,
+      "forms": [
+        "random",
+        "randomly",
+        "randomness"
+      ]
+    },
+    {
+      "headword": "reinforce",
+      "sublist": 8,
+      "forms": [
+        "reinforce",
+        "reinforced",
+        "reinforcement",
+        "reinforcements",
+        "reinforces",
+        "reinforcing"
+      ]
+    },
+    {
+      "headword": "restore",
+      "sublist": 8,
+      "forms": [
+        "restoration",
+        "restore",
+        "restored",
+        "restores",
+        "restoring"
+      ]
+    },
+    {
+      "headword": "revise",
+      "sublist": 8,
+      "forms": [
+        "revise",
+        "revised",
+        "revises",
+        "revising",
+        "revision",
+        "revisions"
+      ]
+    },
+    {
+      "headword": "schedule",
+      "sublist": 8,
+      "forms": [
+        "reschedule",
+        "rescheduled",
+        "reschedules",
+        "rescheduling",
+        "schedule",
+        "scheduled",
+        "schedules",
+        "scheduling",
+        "unscheduled"
+      ]
+    },
+    {
+      "headword": "tense",
+      "sublist": 8,
+      "forms": [
+        "tense",
+        "tensely",
+        "tenser",
+        "tensest",
+        "tension",
+        "tensions"
+      ]
+    },
+    {
+      "headword": "terminate",
+      "sublist": 8,
+      "forms": [
+        "terminal",
+        "terminals",
+        "terminate",
+        "terminated",
+        "terminates",
+        "terminating",
+        "termination",
+        "terminations"
+      ]
+    },
+    {
+      "headword": "theme",
+      "sublist": 8,
+      "forms": [
+        "thematic",
+        "thematically",
+        "theme",
+        "themes"
+      ]
+    },
+    {
+      "headword": "thereby",
+      "sublist": 8,
+      "forms": [
+        "thereby"
+      ]
+    },
+    {
+      "headword": "uniform",
+      "sublist": 8,
+      "forms": [
+        "uniform",
+        "uniformity",
+        "uniformly"
+      ]
+    },
+    {
+      "headword": "vehicle",
+      "sublist": 8,
+      "forms": [
+        "vehicle",
+        "vehicles"
+      ]
+    },
+    {
+      "headword": "via",
+      "sublist": 8,
+      "forms": [
+        "via"
+      ]
+    },
+    {
+      "headword": "virtual",
+      "sublist": 8,
+      "forms": [
+        "virtual",
+        "virtually"
+      ]
+    },
+    {
+      "headword": "visual",
+      "sublist": 8,
+      "forms": [
+        "visual",
+        "visualisation",
+        "visualise",
+        "visualised",
+        "visualising",
+        "visualization",
+        "visualize",
+        "visualized",
+        "visualizing",
+        "visually"
+      ]
+    },
+    {
+      "headword": "widespread",
+      "sublist": 8,
+      "forms": [
+        "widespread"
+      ]
+    },
+    {
+      "headword": "accommodate",
+      "sublist": 9,
+      "forms": [
+        "accommodate",
+        "accommodated",
+        "accommodates",
+        "accommodating",
+        "accommodation"
+      ]
+    },
+    {
+      "headword": "analogy",
+      "sublist": 9,
+      "forms": [
+        "analogies",
+        "analogous",
+        "analogy"
+      ]
+    },
+    {
+      "headword": "anticipate",
+      "sublist": 9,
+      "forms": [
+        "anticipate",
+        "anticipated",
+        "anticipates",
+        "anticipating",
+        "anticipation",
+        "unanticipated"
+      ]
+    },
+    {
+      "headword": "assure",
+      "sublist": 9,
+      "forms": [
+        "assurance",
+        "assurances",
+        "assure",
+        "assured",
+        "assuredly",
+        "assures",
+        "assuring"
+      ]
+    },
+    {
+      "headword": "attain",
+      "sublist": 9,
+      "forms": [
+        "attain",
+        "attainable",
+        "attained",
+        "attaining",
+        "attainment",
+        "attainments",
+        "attains",
+        "unattainable"
+      ]
+    },
+    {
+      "headword": "behalf",
+      "sublist": 9,
+      "forms": [
+        "behalf"
+      ]
+    },
+    {
+      "headword": "bulk",
+      "sublist": 9,
+      "forms": [
+        "bulk",
+        "bulky"
+      ]
+    },
+    {
+      "headword": "cease",
+      "sublist": 9,
+      "forms": [
+        "cease",
+        "ceased",
+        "ceaseless",
+        "ceases",
+        "ceasing"
+      ]
+    },
+    {
+      "headword": "coherent",
+      "sublist": 9,
+      "forms": [
+        "coherence",
+        "coherent",
+        "coherently",
+        "incoherent",
+        "incoherently"
+      ]
+    },
+    {
+      "headword": "coincide",
+      "sublist": 9,
+      "forms": [
+        "coincide",
+        "coincided",
+        "coincidence",
+        "coincidences",
+        "coincident",
+        "coincidental",
+        "coincides",
+        "coinciding"
+      ]
+    },
+    {
+      "headword": "commence",
+      "sublist": 9,
+      "forms": [
+        "commence",
+        "commenced",
+        "commencement",
+        "commences",
+        "commencing",
+        "recommenced",
+        "recommences",
+        "recommencing"
+      ]
+    },
+    {
+      "headword": "compatible",
+      "sublist": 9,
+      "forms": [
+        "compatibility",
+        "compatible",
+        "incompatibility",
+        "incompatible"
+      ]
+    },
+    {
+      "headword": "concurrent",
+      "sublist": 9,
+      "forms": [
+        "concurrent",
+        "concurrently"
+      ]
+    },
+    {
+      "headword": "confine",
+      "sublist": 9,
+      "forms": [
+        "confine",
+        "confined",
+        "confines",
+        "confining",
+        "unconfined"
+      ]
+    },
+    {
+      "headword": "controversy",
+      "sublist": 9,
+      "forms": [
+        "controversial",
+        "controversially",
+        "controversies",
+        "controversy",
+        "uncontroversial"
+      ]
+    },
+    {
+      "headword": "converse",
+      "sublist": 9,
+      "forms": [
+        "converse",
+        "conversely"
+      ]
+    },
+    {
+      "headword": "device",
+      "sublist": 9,
+      "forms": [
+        "device",
+        "devices"
+      ]
+    },
+    {
+      "headword": "devote",
+      "sublist": 9,
+      "forms": [
+        "devote",
+        "devoted",
+        "devotedly",
+        "devotes",
+        "devoting",
+        "devotion",
+        "devotions"
+      ]
+    },
+    {
+      "headword": "diminish",
+      "sublist": 9,
+      "forms": [
+        "diminish",
+        "diminished",
+        "diminishes",
+        "diminishing",
+        "diminution",
+        "undiminished"
+      ]
+    },
+    {
+      "headword": "distort",
+      "sublist": 9,
+      "forms": [
+        "distort",
+        "distorted",
+        "distorting",
+        "distortion",
+        "distortions",
+        "distorts"
+      ]
+    },
+    {
+      "headword": "duration",
+      "sublist": 9,
+      "forms": [
+        "duration"
+      ]
+    },
+    {
+      "headword": "erode",
+      "sublist": 9,
+      "forms": [
+        "erode",
+        "eroded",
+        "erodes",
+        "eroding",
+        "erosion"
+      ]
+    },
+    {
+      "headword": "ethic",
+      "sublist": 9,
+      "forms": [
+        "ethic",
+        "ethical",
+        "ethically",
+        "ethics",
+        "unethical"
+      ]
+    },
+    {
+      "headword": "format",
+      "sublist": 9,
+      "forms": [
+        "format",
+        "formats",
+        "formatted",
+        "formatting"
+      ]
+    },
+    {
+      "headword": "found",
+      "sublist": 9,
+      "forms": [
+        "found",
+        "founded",
+        "founder",
+        "founders",
+        "founding",
+        "unfounded"
+      ]
+    },
+    {
+      "headword": "inherent",
+      "sublist": 9,
+      "forms": [
+        "inherent",
+        "inherently"
+      ]
+    },
+    {
+      "headword": "insight",
+      "sublist": 9,
+      "forms": [
+        "insight",
+        "insightful",
+        "insights"
+      ]
+    },
+    {
+      "headword": "integral",
+      "sublist": 9,
+      "forms": [
+        "integral"
+      ]
+    },
+    {
+      "headword": "intermediate",
+      "sublist": 9,
+      "forms": [
+        "intermediate"
+      ]
+    },
+    {
+      "headword": "manual",
+      "sublist": 9,
+      "forms": [
+        "manual",
+        "manually",
+        "manuals"
+      ]
+    },
+    {
+      "headword": "mature",
+      "sublist": 9,
+      "forms": [
+        "immature",
+        "immaturity",
+        "maturation",
+        "maturational",
+        "mature",
+        "matured",
+        "matures",
+        "maturing",
+        "maturity"
+      ]
+    },
+    {
+      "headword": "mediate",
+      "sublist": 9,
+      "forms": [
+        "mediate",
+        "mediated",
+        "mediates",
+        "mediating",
+        "mediation"
+      ]
+    },
+    {
+      "headword": "medium",
+      "sublist": 9,
+      "forms": [
+        "medium"
+      ]
+    },
+    {
+      "headword": "military",
+      "sublist": 9,
+      "forms": [
+        "military"
+      ]
+    },
+    {
+      "headword": "minimal",
+      "sublist": 9,
+      "forms": [
+        "minimal",
+        "minimalisation",
+        "minimalise",
+        "minimalised",
+        "minimalises",
+        "minimalising",
+        "minimalist",
+        "minimalistic",
+        "minimalists",
+        "minimalization",
+        "minimalize",
+        "minimalized",
+        "minimalizes",
+        "minimalizing",
+        "minimally"
+      ]
+    },
+    {
+      "headword": "mutual",
+      "sublist": 9,
+      "forms": [
+        "mutual",
+        "mutually"
+      ]
+    },
+    {
+      "headword": "norm",
+      "sublist": 9,
+      "forms": [
+        "norm",
+        "norms"
+      ]
+    },
+    {
+      "headword": "overlap",
+      "sublist": 9,
+      "forms": [
+        "overlap",
+        "overlapped",
+        "overlapping",
+        "overlaps"
+      ]
+    },
+    {
+      "headword": "passive",
+      "sublist": 9,
+      "forms": [
+        "passive",
+        "passively",
+        "passivity"
+      ]
+    },
+    {
+      "headword": "portion",
+      "sublist": 9,
+      "forms": [
+        "portion",
+        "portions"
+      ]
+    },
+    {
+      "headword": "preliminary",
+      "sublist": 9,
+      "forms": [
+        "preliminaries",
+        "preliminary"
+      ]
+    },
+    {
+      "headword": "protocol",
+      "sublist": 9,
+      "forms": [
+        "protocol",
+        "protocols"
+      ]
+    },
+    {
+      "headword": "qualitative",
+      "sublist": 9,
+      "forms": [
+        "qualitative",
+        "qualitatively"
+      ]
+    },
+    {
+      "headword": "refine",
+      "sublist": 9,
+      "forms": [
+        "refine",
+        "refined",
+        "refinement",
+        "refinements",
+        "refines",
+        "refining"
+      ]
+    },
+    {
+      "headword": "relax",
+      "sublist": 9,
+      "forms": [
+        "relax",
+        "relaxation",
+        "relaxed",
+        "relaxes",
+        "relaxing"
+      ]
+    },
+    {
+      "headword": "restrain",
+      "sublist": 9,
+      "forms": [
+        "restrain",
+        "restrained",
+        "restraining",
+        "restrains",
+        "restraint",
+        "restraints",
+        "unrestrained"
+      ]
+    },
+    {
+      "headword": "revolution",
+      "sublist": 9,
+      "forms": [
+        "revolution",
+        "revolutionaries",
+        "revolutionary",
+        "revolutionise",
+        "revolutionised",
+        "revolutionises",
+        "revolutionising",
+        "revolutionist",
+        "revolutionists",
+        "revolutionize",
+        "revolutionized",
+        "revolutionizes",
+        "revolutionizing",
+        "revolutions"
+      ]
+    },
+    {
+      "headword": "rigid",
+      "sublist": 9,
+      "forms": [
+        "rigid",
+        "rigidities",
+        "rigidity",
+        "rigidly"
+      ]
+    },
+    {
+      "headword": "route",
+      "sublist": 9,
+      "forms": [
+        "route",
+        "routed",
+        "routes",
+        "routing"
+      ]
+    },
+    {
+      "headword": "scenario",
+      "sublist": 9,
+      "forms": [
+        "scenario",
+        "scenarios"
+      ]
+    },
+    {
+      "headword": "sphere",
+      "sublist": 9,
+      "forms": [
+        "sphere",
+        "spheres",
+        "spherical",
+        "spherically"
+      ]
+    },
+    {
+      "headword": "subordinate",
+      "sublist": 9,
+      "forms": [
+        "subordinate",
+        "subordinates",
+        "subordination"
+      ]
+    },
+    {
+      "headword": "supplement",
+      "sublist": 9,
+      "forms": [
+        "supplement",
+        "supplementary",
+        "supplemented",
+        "supplementing",
+        "supplements"
+      ]
+    },
+    {
+      "headword": "suspend",
+      "sublist": 9,
+      "forms": [
+        "suspend",
+        "suspended",
+        "suspending",
+        "suspends",
+        "suspension"
+      ]
+    },
+    {
+      "headword": "team",
+      "sublist": 9,
+      "forms": [
+        "team",
+        "teamed",
+        "teaming",
+        "teams"
+      ]
+    },
+    {
+      "headword": "temporary",
+      "sublist": 9,
+      "forms": [
+        "temporarily",
+        "temporary"
+      ]
+    },
+    {
+      "headword": "trigger",
+      "sublist": 9,
+      "forms": [
+        "trigger",
+        "triggered",
+        "triggering",
+        "triggers"
+      ]
+    },
+    {
+      "headword": "unify",
+      "sublist": 9,
+      "forms": [
+        "unification",
+        "unified",
+        "unifies",
+        "unify",
+        "unifying"
+      ]
+    },
+    {
+      "headword": "violate",
+      "sublist": 9,
+      "forms": [
+        "violate",
+        "violated",
+        "violates",
+        "violating",
+        "violation",
+        "violations"
+      ]
+    },
+    {
+      "headword": "vision",
+      "sublist": 9,
+      "forms": [
+        "vision",
+        "visions"
+      ]
+    },
+    {
+      "headword": "adjacent",
+      "sublist": 10,
+      "forms": [
+        "adjacent"
+      ]
+    },
+    {
+      "headword": "albeit",
+      "sublist": 10,
+      "forms": [
+        "albeit"
+      ]
+    },
+    {
+      "headword": "assemble",
+      "sublist": 10,
+      "forms": [
+        "assemble",
+        "assembled",
+        "assembles",
+        "assemblies",
+        "assembling",
+        "assembly"
+      ]
+    },
+    {
+      "headword": "collapse",
+      "sublist": 10,
+      "forms": [
+        "collapse",
+        "collapsed",
+        "collapses",
+        "collapsible",
+        "collapsing"
+      ]
+    },
+    {
+      "headword": "colleague",
+      "sublist": 10,
+      "forms": [
+        "colleague",
+        "colleagues"
+      ]
+    },
+    {
+      "headword": "compile",
+      "sublist": 10,
+      "forms": [
+        "compilation",
+        "compilations",
+        "compile",
+        "compiled",
+        "compiles",
+        "compiling"
+      ]
+    },
+    {
+      "headword": "conceive",
+      "sublist": 10,
+      "forms": [
+        "conceivable",
+        "conceivably",
+        "conceive",
+        "conceived",
+        "conceives",
+        "conceiving",
+        "inconceivable",
+        "inconceivably"
+      ]
+    },
+    {
+      "headword": "convince",
+      "sublist": 10,
+      "forms": [
+        "convince",
+        "convinced",
+        "convinces",
+        "convincing",
+        "convincingly",
+        "unconvinced"
+      ]
+    },
+    {
+      "headword": "depress",
+      "sublist": 10,
+      "forms": [
+        "depress",
+        "depressed",
+        "depresses",
+        "depressing",
+        "depression"
+      ]
+    },
+    {
+      "headword": "encounter",
+      "sublist": 10,
+      "forms": [
+        "encounter",
+        "encountered",
+        "encountering",
+        "encounters"
+      ]
+    },
+    {
+      "headword": "enormous",
+      "sublist": 10,
+      "forms": [
+        "enormity",
+        "enormous",
+        "enormously"
+      ]
+    },
+    {
+      "headword": "forthcoming",
+      "sublist": 10,
+      "forms": [
+        "forthcoming"
+      ]
+    },
+    {
+      "headword": "incline",
+      "sublist": 10,
+      "forms": [
+        "inclination",
+        "inclinations",
+        "incline",
+        "inclined",
+        "inclines",
+        "inclining"
+      ]
+    },
+    {
+      "headword": "integrity",
+      "sublist": 10,
+      "forms": [
+        "integrity"
+      ]
+    },
+    {
+      "headword": "intrinsic",
+      "sublist": 10,
+      "forms": [
+        "intrinsic",
+        "intrinsically"
+      ]
+    },
+    {
+      "headword": "invoke",
+      "sublist": 10,
+      "forms": [
+        "invoke",
+        "invoked",
+        "invokes",
+        "invoking"
+      ]
+    },
+    {
+      "headword": "levy",
+      "sublist": 10,
+      "forms": [
+        "levies",
+        "levy"
+      ]
+    },
+    {
+      "headword": "likewise",
+      "sublist": 10,
+      "forms": [
+        "likewise"
+      ]
+    },
+    {
+      "headword": "nonetheless",
+      "sublist": 10,
+      "forms": [
+        "nonetheless"
+      ]
+    },
+    {
+      "headword": "notwithstanding",
+      "sublist": 10,
+      "forms": [
+        "notwithstanding"
+      ]
+    },
+    {
+      "headword": "odd",
+      "sublist": 10,
+      "forms": [
+        "odd",
+        "odds"
+      ]
+    },
+    {
+      "headword": "ongoing",
+      "sublist": 10,
+      "forms": [
+        "ongoing"
+      ]
+    },
+    {
+      "headword": "panel",
+      "sublist": 10,
+      "forms": [
+        "panel",
+        "panelled",
+        "panelling",
+        "panels"
+      ]
+    },
+    {
+      "headword": "persist",
+      "sublist": 10,
+      "forms": [
+        "persist",
+        "persisted",
+        "persistence",
+        "persistent",
+        "persistently",
+        "persisting",
+        "persists"
+      ]
+    },
+    {
+      "headword": "pose",
+      "sublist": 10,
+      "forms": [
+        "pose",
+        "posed",
+        "poses",
+        "posing"
+      ]
+    },
+    {
+      "headword": "reluctance",
+      "sublist": 10,
+      "forms": [
+        "reluctance",
+        "reluctant",
+        "reluctantly"
+      ]
+    },
+    {
+      "headword": "so-called",
+      "sublist": 10,
+      "forms": [
+        "so-called"
+      ]
+    },
+    {
+      "headword": "straightforward",
+      "sublist": 10,
+      "forms": [
+        "straightforward"
+      ]
+    },
+    {
+      "headword": "undergo",
+      "sublist": 10,
+      "forms": [
+        "undergo",
+        "undergoes",
+        "undergoing",
+        "undergone",
+        "underwent"
+      ]
+    },
+    {
+      "headword": "whereby",
+      "sublist": 10,
+      "forms": [
+        "whereby"
+      ]
+    }
+  ]
+}
