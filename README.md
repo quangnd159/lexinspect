@@ -137,6 +137,12 @@ uv run ruff check .
 uv run ruff format .
 ```
 
+Data refresh: see `scripts/build_data/README.md`.
+
+## Caveats and improvement opportunities
+
+`CAVEATS.md` at the repo root catalogues every conscious trade-off — per module, transport, and ops — with concrete upgrade paths. Read it before basing high-stakes decisions on lexinspect output.
+
 ## Roadmap
 
 - **Phase 2** (done): BNC/COCA, NGSL + NAWL, Martinez–Schmitt PHRASE list.
