@@ -189,5 +189,28 @@ def version() -> None:
     typer.echo(__version__)
 
 
+@app.command()
+def serve(
+    host: Annotated[str, typer.Option(help="Bind host.")] = "127.0.0.1",
+    port: Annotated[int, typer.Option(help="Bind port.")] = 8000,
+    reload: Annotated[bool, typer.Option(help="Auto-reload on code change (dev only).")] = False,
+    workers: Annotated[int, typer.Option(help="Worker process count.")] = 1,
+) -> None:
+    """Run the FastAPI server (requires the `web` extra: uv sync --extra web)."""
+    try:
+        import uvicorn
+    except ImportError as e:
+        raise typer.Exit(
+            "FastAPI/uvicorn not installed. Run: uv sync --extra web"
+        ) from e
+    uvicorn.run(
+        "lexinspect.api:app",
+        host=host,
+        port=port,
+        reload=reload,
+        workers=workers if not reload else 1,
+    )
+
+
 if __name__ == "__main__":
     app()

@@ -11,9 +11,11 @@ Requires Python 3.12+ and [uv](https://docs.astral.sh/uv/).
 ```bash
 git clone git@github.com:quangnd159/lexinspect.git
 cd lexinspect
-uv sync --extra dev
+uv sync --extra dev --extra web
 uv pip install "https://github.com/explosion/spacy-models/releases/download/en_core_web_sm-3.8.0/en_core_web_sm-3.8.0-py3-none-any.whl"
 ```
+
+Drop `--extra web` if you only need the CLI. Note that any future `uv sync` rebuilds the venv from the lockfile and drops the spaCy model — re-run the wheel install line if that happens.
 
 ## Use
 
@@ -98,10 +100,39 @@ CEFR vocabulary profile (A1–C2). Combines CEFR-J Vocabulary Profile 1.5 (Tono,
 
 Hyland (2005) metadiscourse marker detection — 10 categories across two dimensions: *interactive* (transitions, frame markers, endophoric markers, evidentials, code glosses) and *interactional* (hedges, boosters, attitude markers, engagement markers, self-mentions). 490 markers total. Hedges are a verbatim Hyland 2005 Appendix A mirror (HLTCHKUST); the other nine categories are a curated reference subset from canonical reproductions in the L2 academic-writing literature. Reports density per 1,000 content tokens, per-category and per-dimension hits, and the full hit list with token positions.
 
+## Serve as HTTP API
+
+Same JSON envelope, same nine modules, exposed over HTTP for browsers, agents, or future Skills that prefer a network call to a subprocess.
+
+```bash
+uv run lexinspect serve                # 127.0.0.1:8000
+uv run lexinspect serve --port 9000 --reload
+```
+
+Endpoints:
+
+```
+POST /v1/readability     {"text": "...", "source": "passage"}
+POST /v1/diversity       (same body shape on every endpoint)
+POST /v1/tag             (+ "include_tokens": true to get per-token list)
+POST /v1/awl
+POST /v1/bnc-coca
+POST /v1/ngsl
+POST /v1/phrase
+POST /v1/cefr
+POST /v1/metadiscourse
+POST /v1/analyze         all nine modules in one response
+GET  /v1/version
+GET  /v1/schema          schema_version + module catalog
+GET  /healthz
+```
+
+Interactive docs at `http://127.0.0.1:8000/docs` (FastAPI auto-generates Swagger UI). Request body cap is 1 MB; CORS is open by default. Each worker holds spaCy in memory — `--workers N` if you need more parallelism. For production, put it behind a real reverse proxy and tighten CORS.
+
 ## Develop
 
 ```bash
-uv run pytest                 # 56 tests
+uv run pytest                 # 72 tests
 uv run ruff check .
 uv run ruff format .
 ```
@@ -111,7 +142,9 @@ uv run ruff format .
 - **Phase 2** (done): BNC/COCA, NGSL + NAWL, Martinez–Schmitt PHRASE list.
 - **Phase 3** (done): CEFR profiling via CEFR-J 1.5 + Octanove C1/C2 1.0.
 - **Phase 4** (done): Metadiscourse markers (Hyland 2005 10-category framework).
-- **Phase 5**: Optional FastAPI wrapper exposing the same functions over HTTP.
+- **Phase 5** (done): FastAPI wrapper. Same envelope as the CLI.
+
+The analytical surface is complete. Next moves are application-layer: write Skills that pipe `lexinspect analyze` into specific workflows (IELTS reading-passage profiling, exam-writing checks, materials grading), or build a thin browser frontend on the API.
 
 ## Licence
 
