@@ -20,6 +20,7 @@ from lexinspect import (
     bnc_coca,
     cefr,
     diversity,
+    metadiscourse,
     ngsl,
     phrase,
     readability,
@@ -151,6 +152,14 @@ def cefr_cmd(file: FileArg, format: FormatOpt = "json") -> None:
     _emit(envelope("cefr", src, len(text), result), format)
 
 
+@app.command(name="metadiscourse")
+def metadiscourse_cmd(file: FileArg, format: FormatOpt = "json") -> None:
+    """Hyland (2005) metadiscourse marker detection — 10 categories."""
+    text, src = read_text(file)
+    result = metadiscourse.analyze(text)
+    _emit(envelope("metadiscourse", src, len(text), result), format)
+
+
 @app.command()
 def analyze(file: FileArg, format: FormatOpt = "json") -> None:
     """Run all modules and emit a combined report."""
@@ -168,6 +177,7 @@ def analyze(file: FileArg, format: FormatOpt = "json") -> None:
             "ngsl": ngsl.analyze(text),
             "phrase": phrase.analyze(text),
             "cefr": cefr.analyze(text),
+            "metadiscourse": metadiscourse.analyze(text),
         },
     }
     _emit(payload, format)

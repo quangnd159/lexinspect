@@ -42,6 +42,18 @@ Combined: 8,690 lemmas. When a lemma is annotated at multiple levels (e.g. as bo
 
 **Not Cambridge English Vocabulary Profile.** Different corpora, different methodology — outputs will diverge from EVP-based tools. Do not present results as EVP-equivalent. Cite Tono (CEFR-J) and Octanove Labs in any publication.
 
+## metadiscourse.json
+
+**Hyland, K. (2005).** *Metadiscourse: Exploring Interaction in Writing.* Continuum, London and New York.
+
+10-category framework (Interactive: transitions, frame markers, endophoric markers, evidentials, code glosses. Interactional: hedges, boosters, attitude markers, engagement markers, self-mentions). 490 markers total.
+
+**Provenance:**
+- **Hedges (105 items):** verbatim mirror of Hyland 2005 Appendix A from [HLTCHKUST/framing-bias-metric](https://github.com/HLTCHKUST/framing-bias-metric/blob/main/data/lexicons/bias_related_lexicons/hedges_hyland2005.txt). No stated licence; treated as research and educational use.
+- **Other 9 categories:** curated reference subset drawn from canonical Hyland 2005 reproductions widely cited in the L2 academic-writing literature. Not the full Appendix A.
+
+**Caveat:** The marker lists themselves are factual lexical inventories; the 10-category taxonomy is Hyland's intellectual contribution. Cite Hyland (2005) in any output. Numbers will not match Text Inspector's metadiscourse module exactly — Text Inspector uses the Bax, Nakatsuhara & Waller (2019) 13-category extension, whose full marker inventory is not publicly available.
+
 ## phrase.json
 
 **Martinez, R., & Schmitt, N. (2012).** A phrasal expressions list. *Applied Linguistics*, 33(3), 299–320.

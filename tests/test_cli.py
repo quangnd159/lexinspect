@@ -26,6 +26,7 @@ runner = CliRunner()
         ("ngsl", ACADEMIC, "ngsl"),
         ("phrase", SIMPLE, "phrase"),
         ("cefr", ACADEMIC, "cefr"),
+        ("metadiscourse", ACADEMIC, "metadiscourse"),
     ],
 )
 def test_subcommand_emits_valid_json(subcommand, fixture, envelope_module):
@@ -51,6 +52,7 @@ def test_analyze_combines_modules():
         "ngsl",
         "phrase",
         "cefr",
+        "metadiscourse",
     }
 
 

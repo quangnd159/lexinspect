@@ -32,6 +32,7 @@ uv run lexinspect bnc-coca passage.txt
 uv run lexinspect ngsl passage.txt
 uv run lexinspect phrase passage.txt
 uv run lexinspect cefr passage.txt
+uv run lexinspect metadiscourse passage.txt
 
 # Pipe from anywhere
 echo "The empirical analysis demonstrates significant variation." | uv run lexinspect analyze -
@@ -93,10 +94,14 @@ Martinez & Schmitt (2012) PHRASE list — 506 phrasal expressions across K1–K5
 
 CEFR vocabulary profile (A1–C2). Combines CEFR-J Vocabulary Profile 1.5 (Tono, TUFS — A1 to B2) with Octanove Vocabulary Profile C1/C2 1.0 (Octanove Labs, CC-BY-SA 4.0 — C1 and C2). 8,690 lemmas total. Reports per-level token and lemma counts, cumulative coverage, dominant level, and a 95th-percentile heuristic level. **Not Cambridge EVP** — the underlying corpora and methodology differ; cite CEFR-J + Octanove in any output.
 
+### metadiscourse
+
+Hyland (2005) metadiscourse marker detection — 10 categories across two dimensions: *interactive* (transitions, frame markers, endophoric markers, evidentials, code glosses) and *interactional* (hedges, boosters, attitude markers, engagement markers, self-mentions). 490 markers total. Hedges are a verbatim Hyland 2005 Appendix A mirror (HLTCHKUST); the other nine categories are a curated reference subset from canonical reproductions in the L2 academic-writing literature. Reports density per 1,000 content tokens, per-category and per-dimension hits, and the full hit list with token positions.
+
 ## Develop
 
 ```bash
-uv run pytest                 # 48 tests
+uv run pytest                 # 56 tests
 uv run ruff check .
 uv run ruff format .
 ```
@@ -105,7 +110,7 @@ uv run ruff format .
 
 - **Phase 2** (done): BNC/COCA, NGSL + NAWL, Martinez–Schmitt PHRASE list.
 - **Phase 3** (done): CEFR profiling via CEFR-J 1.5 + Octanove C1/C2 1.0.
-- **Phase 4**: Metadiscourse marker detection (Hyland taxonomy).
+- **Phase 4** (done): Metadiscourse markers (Hyland 2005 10-category framework).
 - **Phase 5**: Optional FastAPI wrapper exposing the same functions over HTTP.
 
 ## Licence

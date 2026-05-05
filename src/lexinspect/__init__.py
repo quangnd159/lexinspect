@@ -2,7 +2,17 @@
 
 __version__ = "0.1.0"
 
-from lexinspect import awl, bnc_coca, cefr, diversity, ngsl, phrase, readability, tagger
+from lexinspect import (
+    awl,
+    bnc_coca,
+    cefr,
+    diversity,
+    metadiscourse,
+    ngsl,
+    phrase,
+    readability,
+    tagger,
+)
 
 __all__ = [
     "__version__",
@@ -14,4 +24,5 @@ __all__ = [
     "ngsl",
     "phrase",
     "cefr",
+    "metadiscourse",
 ]
