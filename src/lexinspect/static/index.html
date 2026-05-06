@@ -581,6 +581,10 @@ const MODULE_INTROS = {
     intro: '<b>Metadiscourse markers</b> (Hyland 2005). Words and phrases that organise the text (<i>interactive</i>: transitions, frame markers, evidentials…) or engage the reader (<i>interactional</i>: hedges, boosters, attitude markers…). Density per 1,000 tokens is the standard comparability metric.',
     caveat: '9 of 10 categories use a curated reference subset of canonical Hyland 2005 markers, not the full Appendix A. Hedges are the only verbatim mirror. Coverage is enough for diagnostic ELT work but under-reports on long academic texts versus tools with the complete inventory.',
   },
+  'cefr-level': {
+    intro: '<b>CEFR text-level classifier</b> (UniversalCEFR ModernBERT, Apache 2.0). Predicts a single CEFR band (A1–C2) for the whole text from a transformer fine-tuned on 505k labelled texts. Distinct from the <b>cefr</b> tab: that one profiles vocabulary; this one returns a judgement. Optional module — click <i>Run classifier</i> to fire it.',
+    caveat: 'Estimate, not a verdict. Adjacent-band confusion is irreducible (even human raters disagree at this granularity). Vocabulary features dominate the prediction; syntactic complexity and discourse organisation are under-weighted. Combine with the other tabs before reporting a level. Requires the optional <code>cefr-level</code> install extra; takes ~3–5s per call.',
+  },
 };
 
 function showExplainer(metricKey, value) {
@@ -731,6 +735,7 @@ function render(data) {
     'ngsl':           () => renderNgsl(r.ngsl),
     'phrase':         () => renderPhrase(r.phrase),
     'cefr':           () => renderCefr(r.cefr),
+    'cefr-level':     () => renderCefrLevel(),
     'metadiscourse':  () => renderMetadiscourse(r.metadiscourse),
   };
   Object.keys(renderers).forEach((name, idx) => {
@@ -1016,6 +1021,95 @@ function renderCefr(c) {
   wrap.appendChild(top);
 
   wrap.appendChild(el('div', { class: 'caveat', html: c.caveat }));
+  return wrap;
+}
+
+function renderCefrLevel() {
+  // No data preloaded: this module is heavy (~3–5s) and not in /v1/analyze.
+  // Render a Run button; on click, POST /v1/cefr-level and render the result.
+  const wrap = el('div');
+
+  const runBtn = el('button', {}, 'Run CEFR classifier');
+  const resultWrap = el('div');
+  resultWrap.style.marginTop = '14px';
+
+  runBtn.addEventListener('click', async () => {
+    const t = $('text').value;
+    if (!t || !t.trim()) {
+      resultWrap.innerHTML = '<p><small>Paste some text in the box above first.</small></p>';
+      return;
+    }
+    runBtn.disabled = true;
+    runBtn.textContent = 'Running classifier (~3–5s)…';
+    resultWrap.innerHTML = '<p><small>Sending to /v1/cefr-level …</small></p>';
+    try {
+      const r = await fetch('/v1/cefr-level', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ text: t, source: '<web>' }),
+      });
+      if (r.status === 503) {
+        const j = await r.json().catch(() => ({}));
+        const detail = (j.detail || 'Optional extra not installed.').replace(/\n/g, '<br>');
+        resultWrap.innerHTML = '<div class="caveat"><b>Optional extra not installed.</b><br>' + detail + '</div>';
+        return;
+      }
+      if (!r.ok) {
+        const txt = await r.text();
+        resultWrap.innerHTML = '<div class="caveat"><b>Error ' + r.status + '</b>: ' + txt + '</div>';
+        return;
+      }
+      const data = await r.json();
+      resultWrap.innerHTML = '';
+      resultWrap.appendChild(renderCefrLevelResult(data.result));
+    } catch (e) {
+      resultWrap.innerHTML = '<div class="caveat"><b>Network error</b>: ' + (e && e.message ? e.message : String(e)) + '</div>';
+    } finally {
+      runBtn.disabled = false;
+      runBtn.textContent = 'Run CEFR classifier';
+    }
+  });
+
+  wrap.appendChild(runBtn);
+  wrap.appendChild(resultWrap);
+  return wrap;
+}
+
+function renderCefrLevelResult(c) {
+  const wrap = el('div');
+  const top = el('div', { class: 'grid-2' });
+
+  const stats = el('div');
+  stats.appendChild(el('h3', {}, 'Prediction'));
+  stats.appendChild(kvTable({
+    'predicted level': c.level || '—',
+    'confidence': c.confidence != null ? (c.confidence * 100).toFixed(2) + '%' : '—',
+    'top-2': Array.isArray(c.top_2) && c.top_2.length ? c.top_2.join(' → ') : '—',
+    'model': c.model,
+    'method': c.method,
+  }));
+  top.appendChild(stats);
+
+  const distWrap = el('div');
+  distWrap.appendChild(el('h3', {}, 'Per-level probability'));
+  const chart = el('div', { class: 'bar-chart' });
+  Object.entries(c.all_levels || {}).forEach(([lvl, p]) => {
+    const pct = (typeof p === 'number' ? p : 0) * 100;
+    const row = el('div', { class: 'bar-row' });
+    row.appendChild(el('div', { class: 'lbl' }, lvl));
+    const track = el('div', { class: 'bar-track' });
+    const fill = el('div', { class: 'bar-fill' });
+    fill.style.width = pct + '%';
+    track.appendChild(fill);
+    row.appendChild(track);
+    row.appendChild(el('div', { class: 'num' }, pct.toFixed(2) + '%'));
+    chart.appendChild(row);
+  });
+  distWrap.appendChild(chart);
+  top.appendChild(distWrap);
+  wrap.appendChild(top);
+
+  if (c.caveat) wrap.appendChild(el('div', { class: 'caveat', html: c.caveat }));
   return wrap;
 }
 
