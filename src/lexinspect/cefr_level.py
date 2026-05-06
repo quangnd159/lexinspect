@@ -49,6 +49,7 @@ class CEFRLevelExtraNotInstalled(RuntimeError):
 @lru_cache(maxsize=1)
 def _pipeline():
     try:
+        from transformers import logging as hf_logging  # type: ignore
         from transformers import pipeline  # type: ignore
     except ImportError as e:
         raise CEFRLevelExtraNotInstalled(
@@ -57,6 +58,11 @@ def _pipeline():
             "or:\n"
             "    pip install 'lexinspect[cefr-level]'"
         ) from e
+
+    # Suppress info-level chatter (HF Hub anonymous-request warning,
+    # weight-loading progress) so the CLI's stderr stays clean. Errors
+    # still surface.
+    hf_logging.set_verbosity_error()
 
     # `top_k=None` returns scores for every class.
     return pipeline(

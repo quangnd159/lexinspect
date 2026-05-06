@@ -80,6 +80,8 @@ What lexinspect doesn't do well today, and where to look first if you decide to 
 
 **Not in the web UI yet.** The web UI is hardcoded to the 9 always-available `analyze` modules; `cefr_level` is reachable only via CLI (`lexinspect cefr-level`) and HTTP (`POST /v1/cefr-level`). Adding a UI tab is a follow-up — different fetch, extras-installed check, separate render path.
 
+**Stderr noise on first call.** transformers' internal info/warning logs are silenced via `transformers.logging.set_verbosity_error()` inside the module. Two lines still surface from sibling libraries: an "unauthenticated requests to the HF Hub" warning from `huggingface_hub`, and a weight-loading progress bar from `tqdm`. The JSON output to stdout is unaffected (agent consumption is clean). For full silence, set `HF_HUB_DISABLE_PROGRESS_BARS=1` and either `HF_TOKEN=<token>` or `HF_HUB_DISABLE_TELEMETRY=1` in the environment.
+
 ## metadiscourse
 
 **9 of 10 categories are curated reference subsets, not the full Hyland 2005 Appendix A.** Hedges are the only verbatim mirror. The rest are 30–60 canonical items per category. Coverage is enough for IELTS/ELT diagnostic work but will under-report on a long academic text vs a complete-Appendix tool.
