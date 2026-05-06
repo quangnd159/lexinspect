@@ -126,9 +126,83 @@
     padding: 12px 14px;
     box-shadow: var(--shadow);
   }
-  .chip .label { color: var(--muted); font-size: 11px; text-transform: uppercase; letter-spacing: 0.04em; font-family: var(--mono); }
+  .chip { position: relative; cursor: pointer; transition: border-color .15s ease, box-shadow .15s ease; }
+  .chip:hover { border-color: var(--bar-soft); box-shadow: 0 1px 2px rgba(0,0,0,.04), 0 6px 16px rgba(74,111,165,.12); }
+  .chip.active { border-color: var(--bar); box-shadow: 0 0 0 1px var(--bar) inset; }
+  .chip .label { color: var(--muted); font-size: 11px; text-transform: uppercase; letter-spacing: 0.04em; font-family: var(--mono); display: flex; align-items: center; justify-content: space-between; gap: 6px; }
+  .chip .info-mark { color: var(--bar); font-size: 11px; opacity: .55; font-family: var(--serif); font-style: italic; line-height: 1; }
+  .chip:hover .info-mark, .chip.active .info-mark { opacity: 1; }
   .chip .value { font-size: 22px; font-weight: 600; font-family: var(--serif); margin-top: 2px; }
   .chip .sublabel { font-size: 11px; color: var(--muted); }
+
+  .explainer {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--bar);
+    border-radius: 6px;
+    padding: 16px 20px;
+    margin-bottom: 20px;
+    box-shadow: var(--shadow);
+    display: none;
+  }
+  .explainer.visible { display: block; }
+  .explainer .ex-title { font-family: var(--serif); font-size: 18px; font-weight: 600; margin: 0 0 4px; color: var(--ink); }
+  .explainer .ex-value { font-family: var(--mono); font-size: 13px; color: var(--muted); margin-bottom: 12px; }
+  .explainer .ex-value b { color: var(--ink); font-weight: 600; }
+  .explainer .ex-desc { font-size: 14px; color: var(--ink); line-height: 1.55; margin: 0 0 14px; }
+  .explainer .ex-close {
+    position: absolute;
+    top: 10px; right: 12px;
+    background: transparent; color: var(--muted);
+    border: none; padding: 4px 8px; font-size: 16px; line-height: 1; cursor: pointer; border-radius: 4px;
+  }
+  .explainer .ex-close:hover { background: var(--accent-soft); color: var(--ink); }
+
+  .scale {
+    margin: 12px 0 8px;
+    position: relative;
+  }
+  .scale .scale-bar {
+    position: relative;
+    height: 8px;
+    border-radius: 4px;
+    background: linear-gradient(to right, var(--bar-soft), var(--bar));
+    margin-bottom: 6px;
+  }
+  .scale .scale-marker {
+    position: absolute;
+    top: -4px;
+    width: 4px;
+    height: 16px;
+    background: var(--ink);
+    border-radius: 2px;
+    transform: translateX(-50%);
+    box-shadow: 0 1px 3px rgba(0,0,0,.25);
+  }
+  .scale .scale-labels {
+    display: flex;
+    justify-content: space-between;
+    font-size: 11px;
+    font-family: var(--mono);
+    color: var(--muted);
+  }
+  .scale .scale-band {
+    margin-top: 8px;
+    font-size: 13px;
+    color: var(--ink);
+  }
+  .scale .scale-band b { color: var(--bar); font-weight: 600; }
+
+  .module-intro {
+    background: var(--accent-soft);
+    border-radius: 6px;
+    padding: 12px 16px;
+    margin-bottom: 16px;
+    font-size: 13px;
+    color: var(--ink);
+    line-height: 1.55;
+  }
+  .module-intro b { font-family: var(--serif); font-weight: 600; }
 
   .tabs {
     display: flex;
@@ -286,6 +360,10 @@
 
   <div class="results" id="results">
     <div class="summary" id="summary"></div>
+    <div class="explainer" id="explainer" style="position: relative;">
+      <button class="ex-close" id="exClose" aria-label="Close">×</button>
+      <div id="exContent"></div>
+    </div>
     <div class="tabs" id="tabs"></div>
     <div id="panels"></div>
   </div>
@@ -296,6 +374,148 @@
 </div>
 
 <script>
+// Plain-English metric explanations for headline chips.
+// Each entry: { title, desc, scale: {min,max,leftLabel,rightLabel}, bands: [[lo,hi,label]...], moreInfo? }
+const METRIC_INFO = {
+  words: {
+    title: 'Word count',
+    desc: 'How many running words are in the text. Useful for context — short samples (under ~50 words) make many other measures unreliable.',
+  },
+  flesch_reading_ease: {
+    title: 'Flesch Reading Ease',
+    desc: 'A 0–100 score where higher means easier to read. Based on how long the sentences and words are. Widely used in publishing and education to gauge accessibility.',
+    scale: { min: 0, max: 100, leftLabel: 'Hard', rightLabel: 'Easy' },
+    bands: [
+      [90, 100, 'Very easy — 5th grade reader'],
+      [80, 90, 'Easy — 6th grade reader'],
+      [70, 80, 'Fairly easy — 7th grade reader'],
+      [60, 70, 'Standard — 8th–9th grade reader'],
+      [50, 60, 'Fairly difficult — 10th–12th grade reader'],
+      [30, 50, 'Difficult — college reader'],
+      [-200, 30, 'Very difficult — postgraduate reader'],
+    ],
+  },
+  flesch_kincaid_grade: {
+    title: 'Flesch–Kincaid Grade',
+    desc: 'Estimates the US school grade level needed to comfortably read the text. A score of 8 means an 8th-grade student should follow it without much effort.',
+    scale: { min: 0, max: 18, leftLabel: 'Grade 0', rightLabel: 'Grade 18+' },
+    bands: [
+      [0, 5, 'Elementary'],
+      [5, 8, 'Middle school'],
+      [8, 12, 'High school'],
+      [12, 16, 'College'],
+      [16, 100, 'Postgraduate'],
+    ],
+  },
+  mtld: {
+    title: 'Lexical diversity (MTLD)',
+    desc: 'How wide the range of words is. A higher number means the writer keeps reaching for new words instead of repeating the same ones. Stable across different text lengths, unlike a simple type/token ratio.',
+    scale: { min: 0, max: 200, leftLabel: 'Repetitive', rightLabel: 'Diverse' },
+    bands: [
+      [0, 50, 'Very repetitive — common in basic spoken language'],
+      [50, 80, 'Limited variety — typical of A2/B1 student writing'],
+      [80, 120, 'Moderate variety — typical general writing'],
+      [120, 160, 'Strong variety — typical good academic writing'],
+      [160, 1000, 'Very wide variety — dense, sophisticated text'],
+    ],
+  },
+  awl_coverage: {
+    title: 'Academic vocabulary (AWL coverage)',
+    desc: 'How much of the text comes from Coxhead\'s 570 Academic Word List head words — vocabulary that appears across academic disciplines. A higher percentage signals an academic register.',
+    scale: { min: 0, max: 20, leftLabel: '0%', rightLabel: '20%+' },
+    bands: [
+      [0, 2, 'Very little — conversational or narrative'],
+      [2, 5, 'Some — general non-fiction'],
+      [5, 10, 'Notable — typical academic prose'],
+      [10, 100, 'Heavy — dense academic or technical writing'],
+    ],
+  },
+  bnc_coca_coverage: {
+    title: 'Within the 10,000 most common words (BNC/COCA)',
+    desc: 'How much of the text falls inside the first 10,000 most-frequent English head words (Nation\'s BNC/COCA bands). The remainder is rarer vocabulary — proper nouns, jargon, or words above this level.',
+    scale: { min: 0, max: 100, leftLabel: '0%', rightLabel: '100%' },
+    bands: [
+      [0, 70, 'High share of rare vocabulary — challenging for learners'],
+      [70, 85, 'Some rare vocabulary — typical academic or specialised text'],
+      [85, 95, 'Mostly common vocabulary — general writing'],
+      [95, 100, 'Almost all common vocabulary — accessible to most readers'],
+    ],
+  },
+  cefr_dominant: {
+    title: 'CEFR vocabulary level',
+    desc: 'Based on the CEFR-J wordlist (A1–B2) and the Octanove C1/C2 list, the level where most of the text\'s recognisable vocabulary sits. Read alongside the per-level distribution in the CEFR tab — function words ("the", "of") almost always make A1 the dominant slot, so this number alone is not a placement.',
+    bands: [
+      ['A1', 'A1', 'Beginner — basic everyday phrases'],
+      ['A2', 'A2', 'Elementary — familiar everyday topics'],
+      ['B1', 'B1', 'Intermediate — most everyday situations'],
+      ['B2', 'B2', 'Upper-intermediate — abstract and concrete topics'],
+      ['C1', 'C1', 'Advanced — complex texts on most subjects'],
+      ['C2', 'C2', 'Proficient — nuanced and idiomatic use'],
+    ],
+    isCategorical: true,
+  },
+  metadiscourse_density: {
+    title: 'Metadiscourse density',
+    desc: 'How often the text uses words and phrases that organise the argument ("however", "first", "in conclusion") or address the reader ("clearly", "we suggest", "you can see"). Reported per 1,000 content tokens — the standard comparability measure in academic writing research.',
+    scale: { min: 0, max: 200, leftLabel: 'Sparse', rightLabel: 'Heavy' },
+    bands: [
+      [0, 30, 'Sparse — typical of narrative or descriptive text'],
+      [30, 80, 'Moderate — general non-fiction'],
+      [80, 130, 'Dense — typical academic or argumentative writing'],
+      [130, 1000, 'Very dense — heavily signposted argument'],
+    ],
+  },
+};
+
+const MODULE_INTROS = {
+  overview: '<b>Overview</b> — a quick read of the eight headline numbers. Click any chip above for what it means and how to read it. Browse the tabs for the full breakdown.',
+  readability: '<b>Readability</b> measures how hard or easy a text is to read using sentence length and word length. The eight scores agree most of the time but use different scales (US grade level, Flesch index, etc.). Treat them as triangulation, not gospel.',
+  diversity: '<b>Lexical diversity</b> tells you whether the writer is reaching for new words or repeating the same ones. <b>MTLD</b> and <b>HD-D</b> are the most reliable across different text lengths; <b>TTR</b> is simple but skewed against longer texts.',
+  tagger: '<b>POS tagging</b> labels each word with its part of speech. Penn Treebank tags are detailed (e.g. NNS = plural noun, VBZ = 3rd-person singular verb); Universal POS is the broader category (NOUN, VERB, ADJ). Useful for spotting style — heavy noun phrases, verb-light prose, etc.',
+  awl: '<b>Academic Word List</b> coverage. Coxhead\'s 570 head words appear across academic disciplines and are not in the most common 2,000 English words. Higher coverage signals an academic register. Sublists 1–10 go from most common to least.',
+  'bnc/coca': '<b>BNC/COCA frequency bands</b>. Each band is 1,000 head words, ordered by frequency in real-world English. The cumulative curve answers "what proportion of this text is within the first N thousand most common words?" — the standard ELT readout for vocabulary load.',
+  ngsl: '<b>NGSL + NAWL</b> coverage. The New General Service List covers ~92% of general English with 2,809 lemmas; the New Academic Word List adds 959 academic lemmas for use after NGSL. Off-list residual is everything else — proper nouns, low-frequency or technical terms.',
+  phrase: '<b>PHRASE list</b> detection (Martinez & Schmitt 2012). 506 multi-word expressions from "have to" and "of course" to "on the other hand", banded by frequency (K1 most common, K5 least). Strong indicator of natural phrasing in writing.',
+  cefr: '<b>CEFR vocabulary profile</b>. Each lemma is mapped to the lowest CEFR level at which it\'s listed (A1 to C2). Read the full distribution, not just the dominant level — function words inflate A1 in any text. The 95th-percentile heuristic gives the lowest level at which the text becomes mostly familiar.',
+  metadiscourse: '<b>Metadiscourse markers</b> (Hyland 2005). Words and phrases that organise the text (<i>interactive</i>: transitions, frame markers, evidentials…) or engage the reader (<i>interactional</i>: hedges, boosters, attitude markers…). Density per 1,000 tokens is the standard comparability metric.',
+};
+
+function showExplainer(metricKey, value) {
+  const info = METRIC_INFO[metricKey];
+  if (!info) return;
+  const exBox = $('explainer');
+  const exContent = $('exContent');
+  let html = `<h3 class="ex-title">${info.title}</h3>`;
+  if (value != null) html += `<div class="ex-value">Your score: <b>${value}</b></div>`;
+  html += `<p class="ex-desc">${info.desc}</p>`;
+  if (info.scale && typeof value === 'number') {
+    const v = Math.max(info.scale.min, Math.min(info.scale.max, value));
+    const pct = ((v - info.scale.min) / (info.scale.max - info.scale.min)) * 100;
+    html += `<div class="scale">
+      <div class="scale-bar"><div class="scale-marker" style="left:${pct}%"></div></div>
+      <div class="scale-labels"><span>${info.scale.leftLabel} (${info.scale.min})</span><span>${info.scale.rightLabel} (${info.scale.max})</span></div>`;
+    if (info.bands) {
+      const band = info.bands.find(([lo, hi]) => value >= lo && value < hi) || info.bands[info.bands.length - 1];
+      if (band) html += `<div class="scale-band">Reading: <b>${band[2]}</b></div>`;
+    }
+    html += `</div>`;
+  } else if (info.bands && info.isCategorical) {
+    const band = info.bands.find(([key]) => key === value);
+    if (band) html += `<div class="scale-band" style="margin-top:0">Reading: <b>${band[2]}</b></div>`;
+  }
+  exContent.innerHTML = html;
+  exBox.classList.add('visible');
+  document.querySelectorAll('.chip').forEach(c => c.classList.toggle('active', c.dataset.metricKey === metricKey));
+  exBox.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+}
+
+function hideExplainer() {
+  $('explainer').classList.remove('visible');
+  document.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
+}
+
+$('exClose').addEventListener('click', hideExplainer);
+
 const FIXTURES = {
   simple: "The cat sat on the mat. The dog ran in the park. Birds fly high in the sky. Children play with toys every day. The sun is bright and warm.",
   academic: "The empirical analysis demonstrates that significant variations in methodology produce substantially different outcomes across comparable contexts. Subsequent investigations have confirmed this hypothesis through rigorous statistical evaluation of comprehensive datasets. Research participants exhibited consistent patterns of behavioural adaptation when exposed to environmental modifications. The theoretical framework underlying this approach derives from established principles of cognitive psychology and contemporary neuroscience. Researchers consequently recommend further longitudinal studies to validate preliminary findings and explore potential implications for educational policy.",
@@ -359,22 +579,32 @@ function render(data) {
   tabs.innerHTML = '';
   panels.innerHTML = '';
 
-  // Summary chips
+  // Summary chips with click-to-explain.
+  // metricKey points at METRIC_INFO; rawValue is the un-formatted number used for scale/band lookup.
+  const fre = r.readability.scores.flesch_reading_ease;
+  const fk = r.readability.scores.flesch_kincaid_grade;
+  const mtld = r.diversity.scores.mtld;
   const chips = [
-    { label: 'words', value: r.readability.counts.words, sub: `${r.readability.counts.sentences} sentences` },
-    { label: 'reading ease', value: r.readability.scores.flesch_reading_ease.toFixed(0), sub: 'Flesch' },
-    { label: 'FK grade', value: r.readability.scores.flesch_kincaid_grade.toFixed(1), sub: '' },
-    { label: 'MTLD', value: r.diversity.scores.mtld != null ? r.diversity.scores.mtld.toFixed(1) : '—', sub: 'lex. diversity' },
-    { label: 'AWL coverage', value: `${r.awl.coverage_pct.toFixed(1)}%`, sub: `${r.awl.counts.awl_families} families` },
-    { label: 'BNC/COCA on-list', value: `${r.bnc_coca.coverage_pct.toFixed(1)}%`, sub: 'K1–K10' },
-    { label: 'CEFR dominant', value: r.cefr.dominant_level || '—', sub: r.cefr.estimated_level_95th ? `95th: ${r.cefr.estimated_level_95th}` : '' },
-    { label: 'metadiscourse', value: r.metadiscourse.density_per_1000.toFixed(0), sub: 'per 1k tokens' },
+    { metricKey: 'words', label: 'words', value: r.readability.counts.words, rawValue: r.readability.counts.words, sub: `${r.readability.counts.sentences} sentences` },
+    { metricKey: 'flesch_reading_ease', label: 'reading ease', value: fre.toFixed(0), rawValue: fre, sub: 'Flesch' },
+    { metricKey: 'flesch_kincaid_grade', label: 'FK grade', value: fk.toFixed(1), rawValue: fk, sub: 'US school grade' },
+    { metricKey: 'mtld', label: 'MTLD', value: mtld != null ? mtld.toFixed(1) : '—', rawValue: mtld, sub: 'lex. diversity' },
+    { metricKey: 'awl_coverage', label: 'AWL coverage', value: `${r.awl.coverage_pct.toFixed(1)}%`, rawValue: r.awl.coverage_pct, sub: `${r.awl.counts.awl_families} families` },
+    { metricKey: 'bnc_coca_coverage', label: 'BNC/COCA on-list', value: `${r.bnc_coca.coverage_pct.toFixed(1)}%`, rawValue: r.bnc_coca.coverage_pct, sub: 'K1–K10' },
+    { metricKey: 'cefr_dominant', label: 'CEFR dominant', value: r.cefr.dominant_level || '—', rawValue: r.cefr.dominant_level, sub: r.cefr.estimated_level_95th ? `95th: ${r.cefr.estimated_level_95th}` : '' },
+    { metricKey: 'metadiscourse_density', label: 'metadiscourse', value: r.metadiscourse.density_per_1000.toFixed(0), rawValue: r.metadiscourse.density_per_1000, sub: 'per 1k tokens' },
   ];
+  hideExplainer();
   chips.forEach(c => {
-    const el = document.createElement('div');
-    el.className = 'chip';
-    el.innerHTML = `<div class="label">${c.label}</div><div class="value">${c.value}</div><div class="sublabel">${c.sub}</div>`;
-    summary.appendChild(el);
+    const elx = document.createElement('div');
+    elx.className = 'chip';
+    elx.dataset.metricKey = c.metricKey;
+    elx.innerHTML = `<div class="label"><span>${c.label}</span><span class="info-mark" title="What does this mean?">i</span></div><div class="value">${c.value}</div><div class="sublabel">${c.sub}</div>`;
+    elx.addEventListener('click', () => {
+      if (elx.classList.contains('active')) hideExplainer();
+      else showExplainer(c.metricKey, c.rawValue);
+    });
+    summary.appendChild(elx);
   });
 
   // Tabs
@@ -404,6 +634,12 @@ function render(data) {
 
     const panel = document.createElement('div');
     panel.className = 'panel' + (idx === 0 ? ' active' : '');
+    if (MODULE_INTROS[name]) {
+      const intro = document.createElement('div');
+      intro.className = 'module-intro';
+      intro.innerHTML = MODULE_INTROS[name];
+      panel.appendChild(intro);
+    }
     panel.appendChild(renderers[name]());
     panels.appendChild(panel);
   });
