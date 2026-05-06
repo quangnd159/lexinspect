@@ -90,7 +90,7 @@
     font-family: var(--sans);
     letter-spacing: 0.01em;
   }
-  button:hover { background: var(--accent); }
+  button:not(.tab):hover { background: var(--accent); }
   button:disabled { opacity: 0.5; cursor: wait; }
   button.secondary {
     background: var(--surface);
@@ -151,8 +151,11 @@
     white-space: nowrap;
   }
   .tab.active { color: var(--ink); border-bottom-color: var(--bar); }
-  .tab:hover, .tab:hover:not(.active), .tab.active:hover { background: transparent; }
-  .tab:hover:not(.active) { color: var(--accent); border-bottom-color: var(--bar-soft); }
+  .tab:hover:not(.active) {
+    background: var(--accent-soft);
+    color: var(--ink);
+    border-bottom-color: var(--bar-soft);
+  }
 
   .panel { display: none; }
   .panel.active { display: block; }
