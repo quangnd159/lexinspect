@@ -151,7 +151,8 @@
     white-space: nowrap;
   }
   .tab.active { color: var(--ink); border-bottom-color: var(--bar); }
-  .tab:hover:not(.active) { color: var(--accent); }
+  .tab:hover, .tab:hover:not(.active), .tab.active:hover { background: transparent; }
+  .tab:hover:not(.active) { color: var(--accent); border-bottom-color: var(--bar-soft); }
 
   .panel { display: none; }
   .panel.active { display: block; }
