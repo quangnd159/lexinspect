@@ -374,6 +374,8 @@
 </div>
 
 <script>
+const $ = id => document.getElementById(id);
+
 // Plain-English metric explanations for headline chips.
 // Each entry: { title, desc, scale: {min,max,leftLabel,rightLabel}, bands: [[lo,hi,label]...], moreInfo? }
 const METRIC_INFO = {
@@ -522,7 +524,6 @@ const FIXTURES = {
   narrative: "Maria had always loved the smell of rain on dry earth. As a child she would race outside the moment thunder rolled across the valley, splashing barefoot through the puddles that formed along the gravel road. Her grandmother would scold her gently, wrapping a thick towel around her shoulders and pressing a steaming mug of cocoa into her cold hands. Years later, walking home through a sudden downpour in a city far from those hills, she felt the same wild joy rising in her chest, and she laughed out loud at nothing at all."
 };
 
-const $ = id => document.getElementById(id);
 const text = $('text');
 const status = $('status');
 const results = $('results');
