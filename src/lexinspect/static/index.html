@@ -203,6 +203,31 @@
     line-height: 1.55;
   }
   .module-intro b { font-family: var(--serif); font-weight: 600; }
+  .module-intro .caveat-line {
+    display: block;
+    margin-top: 8px;
+    padding-top: 8px;
+    border-top: 1px dashed var(--border);
+    font-size: 12px;
+    color: var(--muted);
+    font-style: italic;
+  }
+  .module-intro .caveat-line::before { content: 'Heads-up: '; font-style: normal; color: var(--warn); font-weight: 600; }
+
+  .ex-caveats {
+    margin-top: 14px;
+    padding: 10px 12px;
+    background: #fffbeb;
+    border-left: 3px solid var(--warn);
+    border-radius: 4px;
+    font-size: 12px;
+    color: var(--muted);
+    line-height: 1.5;
+  }
+  .ex-caveats b { display: block; color: var(--warn); font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.04em; margin-bottom: 4px; font-weight: 600; }
+  .ex-caveats ul { margin: 0; padding-left: 16px; }
+  .ex-caveats li { margin-bottom: 3px; color: var(--ink); }
+  .ex-caveats li:last-child { margin-bottom: 0; }
 
   .tabs {
     display: flex;
@@ -382,6 +407,7 @@ const METRIC_INFO = {
   words: {
     title: 'Word count',
     desc: 'How many running words are in the text. Useful for context — short samples (under ~50 words) make many other measures unreliable.',
+    caveats: ['Under ~50 words, most diversity and CEFR signals get noisy. Treat very short samples as indicative, not diagnostic.'],
   },
   flesch_reading_ease: {
     title: 'Flesch Reading Ease',
@@ -396,6 +422,10 @@ const METRIC_INFO = {
       [30, 50, 'Difficult — college reader'],
       [-200, 30, 'Very difficult — postgraduate reader'],
     ],
+    caveats: [
+      'Counts only sentence and syllable length. It can\'t see grammar, vocabulary level, or topic — a short, syntactically simple text on quantum mechanics will look "easy" but read like a wall.',
+      'The syllable counter mis-counts rare technical words. Margins of error grow on jargon-dense text.',
+    ],
   },
   flesch_kincaid_grade: {
     title: 'Flesch–Kincaid Grade',
@@ -407,6 +437,10 @@ const METRIC_INFO = {
       [8, 12, 'High school'],
       [12, 16, 'College'],
       [16, 100, 'Postgraduate'],
+    ],
+    caveats: [
+      'Same blind spots as Flesch Reading Ease — sentence and syllable length only. Treat as a triage signal, not a placement test.',
+      'US grade levels don\'t map cleanly to UK / Vietnamese / IELTS levels. For CEFR or IELTS placement, prefer the CEFR tab and BNC/COCA coverage.',
     ],
   },
   mtld: {
@@ -420,6 +454,10 @@ const METRIC_INFO = {
       [120, 160, 'Strong variety — typical good academic writing'],
       [160, 1000, 'Very wide variety — dense, sophisticated text'],
     ],
+    caveats: [
+      'Wobbles on texts under ~50 tokens. The module returns nothing rather than a bad number, but very short samples won\'t produce a meaningful score.',
+      'Genre matters. Fiction and conversation reach higher MTLD than academic writing of the same level. Compare like with like.',
+    ],
   },
   awl_coverage: {
     title: 'Academic vocabulary (AWL coverage)',
@@ -431,6 +469,9 @@ const METRIC_INFO = {
       [5, 10, 'Notable — typical academic prose'],
       [10, 100, 'Heavy — dense academic or technical writing'],
     ],
+    caveats: [
+      'Coxhead 2000 is the original AWL. Newer alternatives — Gardner & Davies\'s AVL (2014), the NAWL — are built from larger corpora and arguably cover academic vocabulary more cleanly. Treat AWL as the canonical-but-dated baseline.',
+    ],
   },
   bnc_coca_coverage: {
     title: 'Within the 10,000 most common words (BNC/COCA)',
@@ -441,6 +482,10 @@ const METRIC_INFO = {
       [70, 85, 'Some rare vocabulary — typical academic or specialised text'],
       [85, 95, 'Mostly common vocabulary — general writing'],
       [95, 100, 'Almost all common vocabulary — accessible to most readers'],
+    ],
+    caveats: [
+      'The bundled list is head words only — derivationally related forms like "analytically" may not match the "analyse" head word. lexinspect tries the surface form and the lemma to compensate, but recall is lower than commercial tools that ship the full Nation family lists.',
+      'The off-list residual lumps together proper nouns, technical terms, and rarer vocabulary above the first 10,000. A high off-list percentage isn\'t automatically "hard" — it might just be a name-heavy text.',
     ],
   },
   cefr_dominant: {
@@ -455,6 +500,10 @@ const METRIC_INFO = {
       ['C2', 'C2', 'Proficient — nuanced and idiomatic use'],
     ],
     isCategorical: true,
+    caveats: [
+      'Function words ("the", "of", "and") are A1, so they dominate the count in any text. If this says A1 on an academic passage, it is not telling you the text is A1-level — it\'s telling you the most frequent tokens are function words. Always read the full per-level distribution in the CEFR tab.',
+      'Not Cambridge English Vocabulary Profile (EVP). The underlying CEFR-J + Octanove lists use different corpora and methodology, so numbers will diverge from EVP-based tools like Text Inspector\'s premium output.',
+    ],
   },
   metadiscourse_density: {
     title: 'Metadiscourse density',
@@ -466,20 +515,53 @@ const METRIC_INFO = {
       [80, 130, 'Dense — typical academic or argumentative writing'],
       [130, 1000, 'Very dense — heavily signposted argument'],
     ],
+    caveats: [
+      '9 of 10 categories use a curated reference subset of canonical Hyland 2005 markers, not his full Appendix A. Hedges are the only verbatim mirror. Coverage is enough for diagnostic ELT work but will under-report on long academic texts versus tools with the complete inventory.',
+      'Detection is literal-string matching with verb-inflection tolerance — context-blind. A booster like "clearly" used ironically still counts as a booster.',
+    ],
   },
 };
 
+// Each entry: { intro: html-string, caveat: optional plain-text limitation }
 const MODULE_INTROS = {
-  overview: '<b>Overview</b> — a quick read of the eight headline numbers. Click any chip above for what it means and how to read it. Browse the tabs for the full breakdown.',
-  readability: '<b>Readability</b> measures how hard or easy a text is to read using sentence length and word length. The eight scores agree most of the time but use different scales (US grade level, Flesch index, etc.). Treat them as triangulation, not gospel.',
-  diversity: '<b>Lexical diversity</b> tells you whether the writer is reaching for new words or repeating the same ones. <b>MTLD</b> and <b>HD-D</b> are the most reliable across different text lengths; <b>TTR</b> is simple but skewed against longer texts.',
-  tagger: '<b>POS tagging</b> labels each word with its part of speech. Penn Treebank tags are detailed (e.g. NNS = plural noun, VBZ = 3rd-person singular verb); Universal POS is the broader category (NOUN, VERB, ADJ). Useful for spotting style — heavy noun phrases, verb-light prose, etc.',
-  awl: '<b>Academic Word List</b> coverage. Coxhead\'s 570 head words appear across academic disciplines and are not in the most common 2,000 English words. Higher coverage signals an academic register. Sublists 1–10 go from most common to least.',
-  'bnc/coca': '<b>BNC/COCA frequency bands</b>. Each band is 1,000 head words, ordered by frequency in real-world English. The cumulative curve answers "what proportion of this text is within the first N thousand most common words?" — the standard ELT readout for vocabulary load.',
-  ngsl: '<b>NGSL + NAWL</b> coverage. The New General Service List covers ~92% of general English with 2,809 lemmas; the New Academic Word List adds 959 academic lemmas for use after NGSL. Off-list residual is everything else — proper nouns, low-frequency or technical terms.',
-  phrase: '<b>PHRASE list</b> detection (Martinez & Schmitt 2012). 506 multi-word expressions from "have to" and "of course" to "on the other hand", banded by frequency (K1 most common, K5 least). Strong indicator of natural phrasing in writing.',
-  cefr: '<b>CEFR vocabulary profile</b>. Each lemma is mapped to the lowest CEFR level at which it\'s listed (A1 to C2). Read the full distribution, not just the dominant level — function words inflate A1 in any text. The 95th-percentile heuristic gives the lowest level at which the text becomes mostly familiar.',
-  metadiscourse: '<b>Metadiscourse markers</b> (Hyland 2005). Words and phrases that organise the text (<i>interactive</i>: transitions, frame markers, evidentials…) or engage the reader (<i>interactional</i>: hedges, boosters, attitude markers…). Density per 1,000 tokens is the standard comparability metric.',
+  overview: {
+    intro: '<b>Overview</b> — a quick read of the eight headline numbers. Click any chip above for what it means and how to read it. Browse the tabs for the full breakdown.',
+  },
+  readability: {
+    intro: '<b>Readability</b> measures how hard or easy a text is to read using sentence length and word length. The eight scores agree most of the time but use different scales (US grade level, Flesch index, etc.). Treat them as triangulation, not gospel.',
+    caveat: 'All eight formulas use the same surface signals (sentence and word length). They can\'t see grammar, vocabulary level, or topic — a syntactically simple sentence on quantum mechanics still scores "easy" here.',
+  },
+  diversity: {
+    intro: '<b>Lexical diversity</b> tells you whether the writer is reaching for new words or repeating the same ones. <b>MTLD</b> and <b>HD-D</b> are the most reliable across different text lengths; <b>TTR</b> is simple but skewed against longer texts.',
+    caveat: 'Most diversity measures wobble on texts under ~50 tokens. lexinspect returns nothing for the affected scores rather than a misleading number — check the value before drawing conclusions.',
+  },
+  tagger: {
+    intro: '<b>POS tagging</b> labels each word with its part of speech. Penn Treebank tags are detailed (e.g. NNS = plural noun, VBZ = 3rd-person singular verb); Universal POS is the broader category (NOUN, VERB, ADJ). Useful for spotting style — heavy noun phrases, verb-light prose, etc.',
+    caveat: 'Uses the small spaCy English model for speed — about 2 percentage points less accurate than the large model on tag accuracy. Fine for ELT triage, swap to the large model if you start using these counts for serious syntactic analysis.',
+  },
+  awl: {
+    intro: '<b>Academic Word List</b> coverage. Coxhead\'s 570 head words appear across academic disciplines and are not in the most common 2,000 English words. Higher coverage signals an academic register. Sublists 1–10 go from most common to least.',
+    caveat: 'Coxhead 2000 is the canonical-but-dated list. Gardner & Davies\'s Academic Vocabulary List (AVL, 2014) was built from a larger academic corpus and is arguably stronger; lexinspect doesn\'t bundle it yet.',
+  },
+  'bnc/coca': {
+    intro: '<b>BNC/COCA frequency bands</b>. Each band is 1,000 head words, ordered by frequency in real-world English. The cumulative curve answers "what proportion of this text is within the first N thousand most common words?" — the standard ELT readout for vocabulary load.',
+    caveat: 'Bundled list is head words only (CC0-clean mirror) — derivationally related forms like "analytically" may not match the "analyse" head word. Surface + lemma fallback partially mitigates, but recall is lower than commercial tools that ship the full Nation family lists.',
+  },
+  ngsl: {
+    intro: '<b>NGSL + NAWL</b> coverage. The New General Service List covers ~92% of general English with 2,809 lemmas; the New Academic Word List adds 959 academic lemmas for use after NGSL. Off-list residual is everything else — proper nouns, low-frequency or technical terms.',
+  },
+  phrase: {
+    intro: '<b>PHRASE list</b> detection (Martinez & Schmitt 2012). 506 multi-word expressions from "have to" and "of course" to "on the other hand", banded by frequency (K1 most common, K5 least). Strong indicator of natural phrasing in writing.',
+    caveat: 'Verb-slot phrases are partially handled. Modal-slot expressions like "(may/might) have to" detect only the first variant. Detection is also literal-string matching, so creative or modified phrasings (e.g. "on the very other hand") are missed.',
+  },
+  cefr: {
+    intro: '<b>CEFR vocabulary profile</b>. Each lemma is mapped to the lowest CEFR level at which it\'s listed (A1 to C2). Read the full distribution, not just the dominant level — function words inflate A1 in any text. The 95th-percentile heuristic gives the lowest level at which the text becomes mostly familiar.',
+    caveat: 'Built from the CEFR-J wordlist (Tono, TUFS) plus Octanove C1/C2 — not the Cambridge English Vocabulary Profile (EVP). Different corpora and methodology mean numbers will diverge from EVP-based commercial tools.',
+  },
+  metadiscourse: {
+    intro: '<b>Metadiscourse markers</b> (Hyland 2005). Words and phrases that organise the text (<i>interactive</i>: transitions, frame markers, evidentials…) or engage the reader (<i>interactional</i>: hedges, boosters, attitude markers…). Density per 1,000 tokens is the standard comparability metric.',
+    caveat: '9 of 10 categories use a curated reference subset of canonical Hyland 2005 markers, not the full Appendix A. Hedges are the only verbatim mirror. Coverage is enough for diagnostic ELT work but under-reports on long academic texts versus tools with the complete inventory.',
+  },
 };
 
 function showExplainer(metricKey, value) {
@@ -504,6 +586,11 @@ function showExplainer(metricKey, value) {
   } else if (info.bands && info.isCategorical) {
     const band = info.bands.find(([key]) => key === value);
     if (band) html += `<div class="scale-band" style="margin-top:0">Reading: <b>${band[2]}</b></div>`;
+  }
+  if (info.caveats && info.caveats.length) {
+    html += `<div class="ex-caveats"><b>Worth knowing</b><ul>` +
+      info.caveats.map(c => `<li>${c}</li>`).join('') +
+      `</ul></div>`;
   }
   exContent.innerHTML = html;
   exBox.classList.add('visible');
@@ -635,10 +722,13 @@ function render(data) {
 
     const panel = document.createElement('div');
     panel.className = 'panel' + (idx === 0 ? ' active' : '');
-    if (MODULE_INTROS[name]) {
+    const moduleInfo = MODULE_INTROS[name];
+    if (moduleInfo) {
       const intro = document.createElement('div');
       intro.className = 'module-intro';
-      intro.innerHTML = MODULE_INTROS[name];
+      let introHtml = moduleInfo.intro;
+      if (moduleInfo.caveat) introHtml += `<span class="caveat-line">${moduleInfo.caveat}</span>`;
+      intro.innerHTML = introHtml;
       panel.appendChild(intro);
     }
     panel.appendChild(renderers[name]());
