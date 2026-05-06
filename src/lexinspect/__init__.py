@@ -6,6 +6,7 @@ from lexinspect import (
     awl,
     bnc_coca,
     cefr,
+    cefr_level,
     diversity,
     metadiscourse,
     ngsl,
@@ -24,5 +25,6 @@ __all__ = [
     "ngsl",
     "phrase",
     "cefr",
+    "cefr_level",
     "metadiscourse",
 ]

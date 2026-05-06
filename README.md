@@ -36,6 +36,9 @@ uv run lexinspect phrase passage.txt
 uv run lexinspect cefr passage.txt
 uv run lexinspect metadiscourse passage.txt
 
+# Optional: CEFR text-level classifier (requires --extra cefr-level)
+uv run lexinspect cefr-level passage.txt
+
 # Pipe from anywhere
 echo "The empirical analysis demonstrates significant variation." | uv run lexinspect analyze -
 ```
@@ -96,6 +99,20 @@ Martinez & Schmitt (2012) PHRASE list — 506 phrasal expressions across K1–K5
 
 CEFR vocabulary profile (A1–C2). Combines CEFR-J Vocabulary Profile 1.5 (Tono, TUFS — A1 to B2) with Octanove Vocabulary Profile C1/C2 1.0 (Octanove Labs, CC-BY-SA 4.0 — C1 and C2). 8,690 lemmas total. Reports per-level token and lemma counts, cumulative coverage, dominant level, and a 95th-percentile heuristic level. **Not Cambridge EVP** — the underlying corpora and methodology differ; cite CEFR-J + Octanove in any output.
 
+### cefr-level (optional extra)
+
+CEFR text-level classification (A1–C2) via UniversalCEFR `ModernBERT-base-cefr-all-classifier` (Imperial et al., EMNLP 2025; Apache 2.0). Returns a single CEFR band, a confidence value, the full per-level distribution, and the top-2 levels for borderline detection. Distinct from the `cefr` module: where `cefr` reports a vocabulary-coverage curve plus a 95th-percentile heuristic, `cefr-level` returns a *judgement* from a transformer fine-tuned on the 505k-text UniversalCEFR corpus.
+
+Heavy extra. Install with `uv sync --extra cefr-level` (adds `transformers` + `torch`). First call downloads ~400MB into the HuggingFace cache; subsequent calls reuse the in-memory pipeline. CPU inference is ~2–5s per text. Lazy-loaded — the rest of lexinspect works without the extra.
+
+Not bundled into `analyze` because of the cost; call it explicitly:
+
+```bash
+uv run lexinspect cefr-level passage.txt
+```
+
+Treat the output as an estimate. The same five caveats Text Inspector publishes for its Lexical Profile© apply to every CEFR classifier — see CAVEATS.md and the in-output `caveat` field.
+
 ### metadiscourse
 
 Hyland (2005) metadiscourse marker detection — 10 categories across two dimensions: *interactive* (transitions, frame markers, endophoric markers, evidentials, code glosses) and *interactional* (hedges, boosters, attitude markers, engagement markers, self-mentions). 490 markers total. Hedges are a verbatim Hyland 2005 Appendix A mirror (HLTCHKUST); the other nine categories are a curated reference subset from canonical reproductions in the L2 academic-writing literature. Reports density per 1,000 content tokens, per-category and per-dimension hits, and the full hit list with token positions.
@@ -121,6 +138,7 @@ POST /v1/bnc-coca
 POST /v1/ngsl
 POST /v1/phrase
 POST /v1/cefr
+POST /v1/cefr-level     (optional; requires the cefr-level extra; 503 if missing)
 POST /v1/metadiscourse
 POST /v1/analyze         all nine modules in one response
 GET  /v1/version

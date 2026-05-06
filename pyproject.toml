@@ -28,6 +28,11 @@ web = [
     "fastapi>=0.110",
     "uvicorn[standard]>=0.27",
 ]
+cefr-level = [
+    # ModernBERT support landed in transformers 4.48; pin floor accordingly.
+    "transformers>=4.48",
+    "torch>=2.0",
+]
 
 [build-system]
 requires = ["uv_build>=0.10.10,<0.11.0"]

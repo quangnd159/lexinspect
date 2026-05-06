@@ -64,6 +64,22 @@ What lexinspect doesn't do well today, and where to look first if you decide to 
 
 **Lowest-level-wins on multi-POS lemmas.** A word annotated as A2 noun and B1 verb is recorded as A2. The other reading was thrown away. Acceptable for level estimation; a cleaner approach would store per-POS levels and use spaCy's POS tag at lookup time.
 
+## cefr_level (optional, requires `cefr-level` extra)
+
+**Estimate, not a verdict.** This is the universal limit on every CEFR text classifier — free or commercial. Text Inspector's own published wording on the Lexical Profile© applies verbatim here: only an estimate, not for high-stakes decisions, vocabulary-and-metadiscourse-dominant signal, calibrated on writing/reading/listening (not speech), limited feature set. Inherited from the same construct, not from any flaw specific to lexinspect.
+
+**Adjacent-level confusion is irreducible.** Most misclassifications fall on the next band up or down. Even professional human raters disagree at this granularity (inter-rater Cohen's κ ≈ 0.5–0.7 on 6-class CEFR). The realistic target is within-one-level reliability, not exact match.
+
+**Vocabulary dominates the signal.** The model under-weights syntactic complexity, discourse organisation, and topic familiarity. Two passages with very similar vocabulary distributions but different rhetorical structure may receive the same classification when a human rater would split them.
+
+**Domain and genre drift the calibration.** UniversalCEFR's training corpus mixes reference texts and learner production across 13 languages. Domain-specific calibration (academic vs narrative vs business) is not modelled.
+
+**Single-classifier output is uninformative; convergence is diagnostic.** When the `cefr_level` call agrees with the simpler `cefr` 95th-percentile heuristic and the readability grade, the verdict is robust. When they disagree, the disagreement itself is the signal that the text sits between bands or that one feature family is being misled. Do not surface a single classifier number as ground truth.
+
+**~400MB model download on first call.** Cached in the standard HuggingFace location after that. The pipeline is loaded lazily and cached in-process; subsequent calls reuse it. CPU inference is ~2–5s per text. Not in `analyze` because it would slow the all-modules call from <2s to ~7s and force the heavy extras on every install.
+
+**Not in the web UI yet.** The web UI is hardcoded to the 9 always-available `analyze` modules; `cefr_level` is reachable only via CLI (`lexinspect cefr-level`) and HTTP (`POST /v1/cefr-level`). Adding a UI tab is a follow-up — different fetch, extras-installed check, separate render path.
+
 ## metadiscourse
 
 **9 of 10 categories are curated reference subsets, not the full Hyland 2005 Appendix A.** Hedges are the only verbatim mirror. The rest are 30–60 canonical items per category. Coverage is enough for IELTS/ELT diagnostic work but will under-report on a long academic text vs a complete-Appendix tool.

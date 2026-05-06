@@ -34,6 +34,7 @@ from lexinspect import (
     awl,
     bnc_coca,
     cefr,
+    cefr_level,
     diversity,
     metadiscourse,
     ngsl,
@@ -128,6 +129,12 @@ def schema() -> dict[str, Any]:
             "cefr",
             "metadiscourse",
         ],
+        # Optional modules require extras and are advertised separately so they
+        # don't change the always-available `modules` contract. Each entry maps
+        # to the pip extra that activates it.
+        "modules_optional": {
+            "cefr_level": "cefr-level",
+        },
     }
 
 
@@ -177,6 +184,21 @@ def post_phrase(body: TextIn) -> dict[str, Any]:
 def post_cefr(body: TextIn) -> dict[str, Any]:
     _check(body.text)
     return _wrap("cefr", body, cefr.analyze(body.text))
+
+
+@app.post("/v1/cefr-level")
+def post_cefr_level(body: TextIn) -> dict[str, Any]:
+    """Classify the text into a CEFR band (A1–C2) via UniversalCEFR ModernBERT.
+
+    Requires the `cefr-level` extra. Returns 503 with install hint if missing.
+    Heavier than the other endpoints: ~2–5s CPU inference per request.
+    """
+    _check(body.text)
+    try:
+        result = cefr_level.analyze(body.text)
+    except cefr_level.CEFRLevelExtraNotInstalled as e:
+        raise HTTPException(503, str(e)) from e
+    return _wrap("cefr_level", body, result)
 
 
 @app.post("/v1/metadiscourse")

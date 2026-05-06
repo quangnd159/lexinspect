@@ -19,6 +19,7 @@ from lexinspect import (
     awl,
     bnc_coca,
     cefr,
+    cefr_level,
     diversity,
     metadiscourse,
     ngsl,
@@ -150,6 +151,21 @@ def cefr_cmd(file: FileArg, format: FormatOpt = "json") -> None:
     text, src = read_text(file)
     result = cefr.analyze(text)
     _emit(envelope("cefr", src, len(text), result), format)
+
+
+@app.command(name="cefr-level")
+def cefr_level_cmd(file: FileArg, format: FormatOpt = "json") -> None:
+    """CEFR text-level classification (A1–C2) via UniversalCEFR ModernBERT.
+
+    Requires the `cefr-level` extra: uv sync --extra cefr-level
+    First run downloads ~400MB; subsequent runs reuse the cached model.
+    """
+    text, src = read_text(file)
+    try:
+        result = cefr_level.analyze(text)
+    except cefr_level.CEFRLevelExtraNotInstalled as e:
+        raise typer.Exit(str(e)) from e
+    _emit(envelope("cefr_level", src, len(text), result), format)
 
 
 @app.command(name="metadiscourse")
