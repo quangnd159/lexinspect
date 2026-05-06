@@ -126,12 +126,30 @@
     padding: 12px 14px;
     box-shadow: var(--shadow);
   }
-  .chip { position: relative; cursor: pointer; transition: border-color .15s ease, box-shadow .15s ease; }
-  .chip:hover { border-color: var(--bar-soft); box-shadow: 0 1px 2px rgba(0,0,0,.04), 0 6px 16px rgba(74,111,165,.12); }
+  .chip { position: relative; transition: border-color .15s ease; }
   .chip.active { border-color: var(--bar); box-shadow: 0 0 0 1px var(--bar) inset; }
   .chip .label { color: var(--muted); font-size: 11px; text-transform: uppercase; letter-spacing: 0.04em; font-family: var(--mono); display: flex; align-items: center; justify-content: space-between; gap: 6px; }
-  .chip .info-mark { color: var(--bar); font-size: 11px; opacity: .55; font-family: var(--serif); font-style: italic; line-height: 1; }
-  .chip:hover .info-mark, .chip.active .info-mark { opacity: 1; }
+  .chip .info-mark {
+    cursor: help;
+    color: var(--bar);
+    font-size: 11px;
+    opacity: .5;
+    font-family: var(--serif);
+    font-style: italic;
+    line-height: 1;
+    width: 16px;
+    height: 16px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: transparent;
+    border: 1px solid transparent;
+    transition: opacity .15s ease, background .15s ease, border-color .15s ease;
+    user-select: none;
+  }
+  .chip .info-mark:hover { opacity: 1; background: var(--accent-soft); border-color: var(--bar-soft); }
+  .chip.active .info-mark { opacity: 1; background: var(--accent-soft); border-color: var(--bar); }
   .chip .value { font-size: 22px; font-weight: 600; font-family: var(--serif); margin-top: 2px; }
   .chip .sublabel { font-size: 11px; color: var(--muted); }
 
@@ -687,10 +705,16 @@ function render(data) {
     const elx = document.createElement('div');
     elx.className = 'chip';
     elx.dataset.metricKey = c.metricKey;
-    elx.innerHTML = `<div class="label"><span>${c.label}</span><span class="info-mark" title="What does this mean?">i</span></div><div class="value">${c.value}</div><div class="sublabel">${c.sub}</div>`;
-    elx.addEventListener('click', () => {
+    elx.innerHTML = `<div class="label"><span>${c.label}</span><span class="info-mark" role="button" tabindex="0" aria-label="What does ${c.label} mean?" title="What does this mean?">i</span></div><div class="value">${c.value}</div><div class="sublabel">${c.sub}</div>`;
+    const mark = elx.querySelector('.info-mark');
+    const toggle = (e) => {
+      e.stopPropagation();
       if (elx.classList.contains('active')) hideExplainer();
       else showExplainer(c.metricKey, c.rawValue);
+    };
+    mark.addEventListener('click', toggle);
+    mark.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggle(e); }
     });
     summary.appendChild(elx);
   });
