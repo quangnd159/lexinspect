@@ -78,7 +78,7 @@ What lexinspect doesn't do well today, and where to look first if you decide to 
 
 **~400MB model download on first call.** Cached in the standard HuggingFace location after that. The pipeline is loaded lazily and cached in-process; subsequent calls reuse it. CPU inference is ~2–5s per text. Not in `analyze` because it would slow the all-modules call from <2s to ~7s and force the heavy extras on every install.
 
-**Not in the web UI yet.** The web UI is hardcoded to the 9 always-available `analyze` modules; `cefr_level` is reachable only via CLI (`lexinspect cefr-level`) and HTTP (`POST /v1/cefr-level`). Adding a UI tab is a follow-up — different fetch, extras-installed check, separate render path.
+**Web UI runs cefr-level on demand, not as part of Analyze.** The tab opens with a "Run CEFR classifier" button rather than pre-filling from `/v1/analyze`, because (a) the module is not in `/v1/analyze` and (b) the user should make an explicit choice before paying the ~3–5s inference cost. 503 responses (extra not installed) are surfaced as an inline install hint.
 
 **Stderr noise on first call.** transformers' internal info/warning logs are silenced via `transformers.logging.set_verbosity_error()` inside the module. Two lines still surface from sibling libraries: an "unauthenticated requests to the HF Hub" warning from `huggingface_hub`, and a weight-loading progress bar from `tqdm`. The JSON output to stdout is unaffected (agent consumption is clean). For full silence, set `HF_HUB_DISABLE_PROGRESS_BARS=1` and either `HF_TOKEN=<token>` or `HF_HUB_DISABLE_TELEMETRY=1` in the environment.
 
