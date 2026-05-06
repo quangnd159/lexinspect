@@ -19,6 +19,7 @@ runner = CliRunner()
     "subcommand,fixture,envelope_module",
     [
         ("readability", SIMPLE, "readability"),
+        ("statistics", SIMPLE, "statistics"),
         ("diversity", SIMPLE, "diversity"),
         ("tag", SIMPLE, "tagger"),
         ("awl", ACADEMIC, "awl"),
@@ -45,6 +46,7 @@ def test_analyze_combines_modules():
     assert payload["module"] == "analyze"
     assert set(payload["results"]) == {
         "readability",
+        "statistics",
         "diversity",
         "tagger",
         "awl",

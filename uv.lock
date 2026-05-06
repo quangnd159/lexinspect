@@ -832,6 +832,9 @@ dev = [
     { name = "pytest-cov" },
     { name = "ruff" },
 ]
+errors = [
+    { name = "spylls" },
+]
 web = [
     { name = "fastapi" },
     { name = "uvicorn", extra = ["standard"] },
@@ -847,13 +850,14 @@ requires-dist = [
     { name = "rich", specifier = ">=13.7" },
     { name = "ruff", marker = "extra == 'dev'", specifier = ">=0.5" },
     { name = "spacy", specifier = ">=3.7" },
+    { name = "spylls", marker = "extra == 'errors'", specifier = ">=0.1.7" },
     { name = "textstat", specifier = ">=0.7.4" },
     { name = "torch", marker = "extra == 'cefr-level'", specifier = ">=2.0" },
     { name = "transformers", marker = "extra == 'cefr-level'", specifier = ">=4.48" },
     { name = "typer", specifier = ">=0.12" },
     { name = "uvicorn", extras = ["standard"], marker = "extra == 'web'", specifier = ">=0.27" },
 ]
-provides-extras = ["dev", "web", "cefr-level"]
+provides-extras = ["dev", "web", "cefr-level", "errors"]
 
 [[package]]
 name = "markdown-it-py"
@@ -2003,6 +2007,15 @@ source = { registry = "https://pypi.org/simple" }
 sdist = { url = "https://files.pythonhosted.org/packages/67/3d/926db774c9c98acf66cb4ed7faf6c377746f3e00b84b700d0868b95d0712/spacy-loggers-1.0.5.tar.gz", hash = "sha256:d60b0bdbf915a60e516cc2e653baeff946f0cfc461b452d11a4d5458c6fe5f24", size = 20811, upload-time = "2023-09-11T12:26:52.323Z" }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/33/78/d1a1a026ef3af911159398c939b1509d5c36fe524c7b644f34a5146c4e16/spacy_loggers-1.0.5-py3-none-any.whl", hash = "sha256:196284c9c446cc0cdb944005384270d775fdeaf4f494d8e269466cfa497ef645", size = 22343, upload-time = "2023-09-11T12:26:50.586Z" },
+]
+
+[[package]]
+name = "spylls"
+version = "0.1.7"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/5c/c2/19f34deb2dc1475dfeadafbd5666246041ee7578bb933e82de794f0a9283/spylls-0.1.7.tar.gz", hash = "sha256:7045892dcbd324d3685f69c5a760063e78fb839913724ce18077cf0a0c93f220", size = 1499693, upload-time = "2022-01-23T13:26:54.032Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/cd/19/ce6fcb4b86e188983bcfc1f84e4ac6f3038ca8d68b6d70a678cdc566f66c/spylls-0.1.7-py2.py3-none-any.whl", hash = "sha256:0c7fa4b66615f390bd12fd37939b85934c012309fd3cce8584844c54270b7776", size = 1509482, upload-time = "2022-01-23T13:26:40.203Z" },
 ]
 
 [[package]]

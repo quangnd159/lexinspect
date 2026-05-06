@@ -8,16 +8,19 @@ from lexinspect import (
     cefr,
     cefr_level,
     diversity,
+    errors,
     metadiscourse,
     ngsl,
     phrase,
     readability,
+    statistics,
     tagger,
 )
 
 __all__ = [
     "__version__",
     "readability",
+    "statistics",
     "diversity",
     "tagger",
     "awl",
@@ -27,4 +30,5 @@ __all__ = [
     "cefr",
     "cefr_level",
     "metadiscourse",
+    "errors",
 ]

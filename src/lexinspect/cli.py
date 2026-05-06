@@ -21,10 +21,12 @@ from lexinspect import (
     cefr,
     cefr_level,
     diversity,
+    errors,
     metadiscourse,
     ngsl,
     phrase,
     readability,
+    statistics,
     tagger,
 )
 from lexinspect._io import read_text
@@ -86,6 +88,14 @@ def readability_(file: FileArg, format: FormatOpt = "json") -> None:
 
 # typer maps the function name; rename for the public command surface
 app.command(name="readability")(readability_)
+
+
+@app.command(name="statistics")
+def statistics_cmd(file: FileArg, format: FormatOpt = "json") -> None:
+    """Text statistics — counts and ratios (tokens, types, syllables, ...)."""
+    text, src = read_text(file)
+    result = statistics.analyze(text)
+    _emit(envelope("statistics", src, len(text), result), format)
 
 
 @app.command()
@@ -176,6 +186,30 @@ def metadiscourse_cmd(file: FileArg, format: FormatOpt = "json") -> None:
     _emit(envelope("metadiscourse", src, len(text), result), format)
 
 
+@app.command(name="errors")
+def errors_cmd(
+    file: FileArg,
+    format: FormatOpt = "json",
+    variant: Annotated[
+        str,
+        typer.Option("--variant", help="English variant: gb (British) | us (American)"),
+    ] = "gb",
+) -> None:
+    """Spelling-error detection (Hunspell). Requires the `errors` extra.
+
+    First run downloads the chosen English dictionary (~1.5 MB) into
+    ~/.cache/lexinspect/hunspell/. Subsequent runs reuse the cached files.
+    """
+    text, src = read_text(file)
+    try:
+        result = errors.analyze(text, variant=variant)
+    except errors.ErrorsExtraNotInstalled as e:
+        raise typer.Exit(str(e)) from e
+    except errors.DictionaryFetchError as e:
+        raise typer.Exit(str(e)) from e
+    _emit(envelope("errors", src, len(text), result), format)
+
+
 @app.command()
 def analyze(file: FileArg, format: FormatOpt = "json") -> None:
     """Run all modules and emit a combined report."""
@@ -186,6 +220,7 @@ def analyze(file: FileArg, format: FormatOpt = "json") -> None:
         "input": {"source": src, "char_count": len(text)},
         "results": {
             "readability": readability.analyze(text),
+            "statistics": statistics.analyze(text),
             "diversity": diversity.analyze(text),
             "tagger": tagger.analyze(text),
             "awl": awl.analyze(text),

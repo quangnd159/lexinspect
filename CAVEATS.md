@@ -16,7 +16,11 @@ What lexinspect doesn't do well today, and where to look first if you decide to 
 
 **MTLD threshold is fixed at 0.72 (the published default).** Some research uses 0.71 or 0.5 — if you're matching a specific paper, expose `threshold` as a parameter.
 
-**No comparability scale.** Raw MTLD numbers don't map to a level without reference data. Duran et al. 2004 gave A1–C2 reference bands for academic English; you could bundle those as a lookup table to convert MTLD into a CEFR-equivalent diversity grade.
+**lexinspect computes HD-D, not vocd-D.** The `references.vocd_d_bands` block bundles the two published vocd-D ranges from Durán, Malvern, Richards & Chipere 2004 (Adult L2/ESL D 40–70, Adult native academic D 80–105) for **awareness only**. The library we wrap (`lexicalrichness`) exposes HD-D — bounded 0–1, McCarthy & Jarvis 2007 — not vocd-D. The two are highly rank-correlated but on completely different numeric scales, so a direct numeric comparison would be wrong, and no auto-comparison is performed. To do a real vocd-D vs. reference comparison, implement vocd-D via the McKee/Malvern/Richards 2000 sub-sample TTR curve-fitting procedure — a Phase-7 follow-up worth about a day's work.
+
+**Per-age cohort bands aren't bundled.** Text Inspector's "Bristol Charts" show vocd-D bands for nine cohorts (18, 24, 30, 36, 42, 60 months + 6+ MFL French + Adult ESL + Academic). Only the Adult ESL and Academic bands are stated explicitly in the paper's freely-available abstract; the per-age figures sit in separate typeset images of Durán et al. 2004 that the public manuscript doesn't include. Until those numbers can be sourced cleanly, lexinspect bundles only the two ranges it can cite verbatim.
+
+**MTLD has no reference bands bundled.** McCarthy & Jarvis 2010 give genre-stratified ranges that could be added later.
 
 ## tagger
 
@@ -81,6 +85,18 @@ What lexinspect doesn't do well today, and where to look first if you decide to 
 **Web UI runs cefr-level on demand, not as part of Analyze.** The tab opens with a "Run CEFR classifier" button rather than pre-filling from `/v1/analyze`, because (a) the module is not in `/v1/analyze` and (b) the user should make an explicit choice before paying the ~3–5s inference cost. 503 responses (extra not installed) are surfaced as an inline install hint.
 
 **Stderr noise on first call.** transformers' internal info/warning logs are silenced via `transformers.logging.set_verbosity_error()` inside the module. Two lines still surface from sibling libraries: an "unauthenticated requests to the HF Hub" warning from `huggingface_hub`, and a weight-loading progress bar from `tqdm`. The JSON output to stdout is unaffected (agent consumption is clean). For full silence, set `HF_HUB_DISABLE_PROGRESS_BARS=1` and either `HF_TOKEN=<token>` or `HF_HUB_DISABLE_TELEMETRY=1` in the environment.
+
+## errors (optional, requires `errors` extra)
+
+**Hunspell only knows what's in its dictionary.** Proper nouns, brand names, recent neologisms, and rare technical vocabulary will routinely show up as false positives. The LibreOffice English dictionaries we ship with — Kevin Atkinson's wordlist (LGPL) plus Geoff Kuenning's affix file (BSD) — are well-maintained but not exhaustive. Treat the error list as a triage signal, not a verdict.
+
+**spaCy splits possessive `'s` from its host noun**, so possessive forms like `children's` are spell-checked as `children` plus `'s` (the latter skipped, never flagged). Hunspell's full possessive-handling affix rules are bypassed. If a single word with `'s` looks suspicious, check the bare lemma yourself.
+
+**No suggestions returned by default.** spylls' `dictionary.suggest()` is available but slow (often 100ms+ per word). Adding suggestions to the output would multiply request latency on long texts; if you need them, call `errors.suggest()` (not yet exposed) on individual surface forms.
+
+**Dictionary download is unauthenticated.** First call per variant fetches `https://raw.githubusercontent.com/LibreOffice/dictionaries/master/en/en_<variant>.{aff,dic}` over HTTPS, with no checksum check. GitHub's TLS is the only integrity guarantee. Pin to a specific commit hash if you need reproducibility for compliance reasons.
+
+**No grammar checking.** This module flags individual tokens against a dictionary; it does not parse syntax, agreement, or tense. Tools like LanguageTool do that and live in a different complexity class.
 
 ## metadiscourse
 

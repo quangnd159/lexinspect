@@ -22,11 +22,13 @@ from __future__ import annotations
 
 from contextlib import asynccontextmanager
 from importlib import resources
+from pathlib import Path
 from typing import Any
 
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import HTMLResponse
+from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel, Field
 
 from lexinspect import (
@@ -36,10 +38,12 @@ from lexinspect import (
     cefr,
     cefr_level,
     diversity,
+    errors,
     metadiscourse,
     ngsl,
     phrase,
     readability,
+    statistics,
     tagger,
 )
 from lexinspect._nlp import get_nlp
@@ -76,6 +80,12 @@ app.add_middleware(
     allow_methods=["GET", "POST"],
     allow_headers=["*"],
 )
+
+# Static assets (CSS + per-concern JS modules) live next to index.html in the
+# packaged `static/` directory. Mounted at /static so the HTML shell can load
+# them via `<link>` and `<script src=...>`.
+_STATIC_DIR = Path(__file__).parent / "static"
+app.mount("/static", StaticFiles(directory=str(_STATIC_DIR)), name="static")
 
 
 class TextIn(BaseModel):
@@ -120,6 +130,7 @@ def schema() -> dict[str, Any]:
         "schema_version": SCHEMA_VERSION,
         "modules": [
             "readability",
+            "statistics",
             "diversity",
             "tagger",
             "awl",
@@ -134,6 +145,7 @@ def schema() -> dict[str, Any]:
         # to the pip extra that activates it.
         "modules_optional": {
             "cefr_level": "cefr-level",
+            "errors": "errors",
         },
     }
 
@@ -142,6 +154,12 @@ def schema() -> dict[str, Any]:
 def post_readability(body: TextIn) -> dict[str, Any]:
     _check(body.text)
     return _wrap("readability", body, readability.analyze(body.text))
+
+
+@app.post("/v1/statistics")
+def post_statistics(body: TextIn) -> dict[str, Any]:
+    _check(body.text)
+    return _wrap("statistics", body, statistics.analyze(body.text))
 
 
 @app.post("/v1/diversity")
@@ -207,6 +225,35 @@ def post_metadiscourse(body: TextIn) -> dict[str, Any]:
     return _wrap("metadiscourse", body, metadiscourse.analyze(body.text))
 
 
+class ErrorsIn(TextIn):
+    variant: str = Field(
+        default="gb",
+        description='English variant: "gb" (British, default) or "us" (American).',
+    )
+
+
+@app.post("/v1/errors")
+def post_errors(body: ErrorsIn) -> dict[str, Any]:
+    """Hunspell-based spelling-error detection.
+
+    Requires the `errors` extra. Returns 503 with install hint if missing.
+    First call per variant downloads the dictionary (~1.5 MB) into the user
+    cache; subsequent calls reuse the in-memory dictionary.
+    """
+    _check(body.text)
+    if body.variant not in errors.VALID_VARIANTS:
+        raise HTTPException(
+            422, f"variant must be one of {errors.VALID_VARIANTS}, got {body.variant!r}"
+        )
+    try:
+        result = errors.analyze(body.text, variant=body.variant)
+    except errors.ErrorsExtraNotInstalled as e:
+        raise HTTPException(503, str(e)) from e
+    except errors.DictionaryFetchError as e:
+        raise HTTPException(502, str(e)) from e
+    return _wrap("errors", body, result)
+
+
 @app.post("/v1/analyze")
 def post_analyze(body: TextIn) -> dict[str, Any]:
     _check(body.text)
@@ -217,6 +264,7 @@ def post_analyze(body: TextIn) -> dict[str, Any]:
         "input": {"source": body.source, "char_count": len(text)},
         "results": {
             "readability": readability.analyze(text),
+            "statistics": statistics.analyze(text),
             "diversity": diversity.analyze(text),
             "tagger": tagger.analyze(text),
             "awl": awl.analyze(text),

@@ -22,11 +22,12 @@ Drop `--extra web` if you only need the CLI. Note that any future `uv sync` rebu
 Every command takes a file path or `-` for stdin and emits JSON by default. Pass `--format human` for a terminal-friendly view.
 
 ```bash
-# All seven modules at once
+# All ten modules at once
 uv run lexinspect analyze passage.txt
 
 # Individual modules
 uv run lexinspect readability passage.txt
+uv run lexinspect statistics passage.txt
 uv run lexinspect diversity passage.txt
 uv run lexinspect tag passage.txt
 uv run lexinspect awl passage.txt
@@ -38,6 +39,10 @@ uv run lexinspect metadiscourse passage.txt
 
 # Optional: CEFR text-level classifier (requires --extra cefr-level)
 uv run lexinspect cefr-level passage.txt
+
+# Optional: spelling errors (requires --extra errors)
+uv run lexinspect errors passage.txt --variant gb   # British (default)
+uv run lexinspect errors passage.txt --variant us   # American
 
 # Pipe from anywhere
 echo "The empirical analysis demonstrates significant variation." | uv run lexinspect analyze -
@@ -71,13 +76,19 @@ Every command emits the same envelope shape:
 
 Wraps [textstat](https://github.com/textstat/textstat). Returns counts (characters, words, syllables, sentences, mono/poly-syllable, long words, reading time), averages, and nine readability scores: Flesch Reading Ease, Flesch–Kincaid Grade, Gunning Fog, SMOG, ARI, Coleman-Liau, Dale-Chall, Linsear Write, and a consensus `text_standard`.
 
+### statistics
+
+Counts and ratios broken out as discrete fields: characters with/without spaces, sentence count, token count excluding pure-numeric tokens, unique types, syllable count, polysyllable-word count, plus the ratios Text Inspector surfaces on its Statistics tab — tokens per sentence, type/token ratio, syllables per word, syllables per sentence, syllables per 100 words, polysyllable percentage. Also reports the list of numeric tokens that were excluded (`excluded_digits`). Word numerals like `twenty` are kept as words; pure digit tokens like `2025` and `1.5` are excluded — matching Text Inspector's convention.
+
 ### diversity
 
 Wraps [lexicalrichness](https://github.com/LSYS/LexicalRichness). Returns TTR, RTTR, CTTR, MSTTR, MATTR, MTLD, HD-D, Herdan, Summer, and Maas. MTLD and HD-D are the most reliable cross-text-length measures.
 
+The `references` block surfaces the two published vocd-D reference ranges from Durán, Malvern, Richards & Chipere (2004) — Adult L2/ESL learner (D 40–70) and Adult native academic writing (D 80–105) — for awareness only. lexinspect (via lexicalrichness) computes **HD-D** (a hypergeometric probability bounded 0–1), not Durán's vocd-D (scale ~30–150). The two are rank-correlated but on different numeric scales, so direct comparison isn't valid; no auto-comparison is performed. Implementing vocd-D properly via the McKee/Malvern/Richards 2000 sub-sample procedure is a fair Phase-7 follow-up. Per-age longitudinal cohort bands shown on Text Inspector's "Bristol Charts" sit in separate typeset figures not in the manuscript text, so they aren't bundled either.
+
 ### tagger
 
-POS tagging via spaCy (`en_core_web_sm`). Emits Penn Treebank tag counts (`JJ`, `NN`, `VBZ` ...) and Universal POS counts (`NOUN`, `VERB`, `ADJ` ...). Add `--tokens` to include the per-token list.
+POS tagging via spaCy (`en_core_web_sm`). Emits Penn Treebank tag counts (`JJ`, `NN`, `VBZ` ...) and Universal POS counts (`NOUN`, `VERB`, `ADJ` ...). Add `--tokens` to include the per-token list. The `summary` block aggregates the same numbers Text Inspector shows on its Tagger Summary tab — content tokens (excluding punctuation, numerals, symbols), unique types, type/token ratio, tokens per type, plus per-sentence rates of verbal elements (PTB `VB*`) and nominal elements (PTB `NN*`).
 
 ### awl
 
@@ -113,13 +124,25 @@ uv run lexinspect cefr-level passage.txt
 
 Treat the output as an estimate. The same five caveats Text Inspector publishes for its Lexical Profile© apply to every CEFR classifier — see CAVEATS.md and the in-output `caveat` field.
 
+### errors (optional extra)
+
+Spelling-error detection via [spylls](https://github.com/zverok/spylls), a pure-Python port of Hunspell. Reports total errors, errors per sentence, errors per 100 words, and the deduplicated list of flagged tokens — the same shape Text Inspector's Errors tab produces. British (default) and American variants via `--variant gb|us`.
+
+Install with `uv sync --extra errors` (adds `spylls`). The first call per variant downloads the LibreOffice English Hunspell dictionary (~1.5 MB combined) into `~/.cache/lexinspect/hunspell/`; subsequent calls reuse the cached files. Dictionaries: Kevin Atkinson's LGPL wordlist + Geoff Kuenning's BSD affix file.
+
+Not bundled into `analyze` — like `cefr-level`, it requires opt-in installation. Call it explicitly:
+
+```bash
+uv run lexinspect errors passage.txt --variant gb
+```
+
 ### metadiscourse
 
 Hyland (2005) metadiscourse marker detection — 10 categories across two dimensions: *interactive* (transitions, frame markers, endophoric markers, evidentials, code glosses) and *interactional* (hedges, boosters, attitude markers, engagement markers, self-mentions). 490 markers total. Hedges are a verbatim Hyland 2005 Appendix A mirror (HLTCHKUST); the other nine categories are a curated reference subset from canonical reproductions in the L2 academic-writing literature. Reports density per 1,000 content tokens, per-category and per-dimension hits, and the full hit list with token positions.
 
 ## Serve as HTTP API + web UI
 
-Same JSON envelope, same nine modules, exposed over HTTP for browsers, agents, or future Skills that prefer a network call to a subprocess. The same server also ships a clean single-file web UI at `/` — paste text, hit Analyze, see all nine modules in tabbed views with bar charts, hit lists, and key-stat chips.
+Same JSON envelope, same ten modules, exposed over HTTP for browsers, agents, or future Skills that prefer a network call to a subprocess. The same server also ships a clean single-file web UI at `/` — paste text, hit Analyze, see all nine modules in tabbed views with bar charts, hit lists, and key-stat chips.
 
 ```bash
 uv run lexinspect serve                # 127.0.0.1:8000 — open / in a browser
@@ -129,9 +152,10 @@ uv run lexinspect serve --port 9000 --reload
 Endpoints:
 
 ```
-GET  /                   web UI (single-file HTML, no build step)
+GET  /                   web UI (HTML shell + /static/{styles.css, *.js})
 POST /v1/readability     {"text": "...", "source": "passage"}
-POST /v1/diversity       (same body shape on every endpoint)
+POST /v1/statistics      (same body shape on every endpoint)
+POST /v1/diversity
 POST /v1/tag             (+ "include_tokens": true to get per-token list)
 POST /v1/awl
 POST /v1/bnc-coca
@@ -139,8 +163,9 @@ POST /v1/ngsl
 POST /v1/phrase
 POST /v1/cefr
 POST /v1/cefr-level     (optional; requires the cefr-level extra; 503 if missing)
+POST /v1/errors         (optional; requires the errors extra; body: {text, variant?})
 POST /v1/metadiscourse
-POST /v1/analyze         all nine modules in one response
+POST /v1/analyze         all ten modules in one response
 GET  /v1/version
 GET  /v1/schema          schema_version + module catalog
 GET  /healthz
@@ -152,10 +177,12 @@ Interactive docs at `http://127.0.0.1:8000/docs` (FastAPI auto-generates Swagger
 ## Develop
 
 ```bash
-uv run pytest                 # 72 tests
+uv run pytest                 # ~90 tests
 uv run ruff check .
 uv run ruff format .
 ```
+
+The web UI is intentionally framework-free. `src/lexinspect/static/` ships the HTML shell, a stylesheet, and four JS files split by concern: `metric-info.js` (data: chip metadata, tab intros, fixtures), `ui-helpers.js` (DOM helpers — `el`, `kvTable`, `barChart`, `fmtNum`), `renderers.js` (one `render*` function per tab), and `app.js` (event wiring + the top-level orchestrator). FastAPI serves the directory at `/static/` via a standard mount; no build step.
 
 Data refresh: see `scripts/build_data/README.md`.
 

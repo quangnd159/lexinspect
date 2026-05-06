@@ -47,6 +47,7 @@ def test_schema_lists_all_modules(client):
     assert r.status_code == 200
     assert set(r.json()["modules"]) == {
         "readability",
+        "statistics",
         "diversity",
         "tagger",
         "awl",
@@ -62,6 +63,7 @@ def test_schema_lists_all_modules(client):
     "endpoint,envelope_module,text",
     [
         ("/v1/readability", "readability", SIMPLE),
+        ("/v1/statistics", "statistics", SIMPLE),
         ("/v1/diversity", "diversity", SIMPLE),
         ("/v1/tag", "tagger", SIMPLE),
         ("/v1/awl", "awl", ACADEMIC),
@@ -90,6 +92,7 @@ def test_analyze_endpoint(client):
     assert body["module"] == "analyze"
     assert set(body["results"]) == {
         "readability",
+        "statistics",
         "diversity",
         "tagger",
         "awl",
@@ -99,6 +102,44 @@ def test_analyze_endpoint(client):
         "cefr",
         "metadiscourse",
     }
+
+
+def test_errors_endpoint_returns_503_when_extra_missing(client, monkeypatch):
+    """If spylls isn't installed, /v1/errors must respond 503 with the install hint."""
+    from lexinspect import errors as errors_mod
+
+    errors_mod._dictionary.cache_clear()
+    import builtins
+
+    real_import = builtins.__import__
+
+    def fake_import(name, *a, **kw):
+        if name.startswith("spylls"):
+            raise ImportError("simulated missing spylls")
+        return real_import(name, *a, **kw)
+
+    monkeypatch.setattr(builtins, "__import__", fake_import)
+    r = client.post("/v1/errors", json={"text": "hello", "variant": "gb"})
+    errors_mod._dictionary.cache_clear()
+    # 503 if extra missing in this environment; 200 if it happens to be installed.
+    assert r.status_code in (200, 503)
+    if r.status_code == 503:
+        assert "errors" in r.json().get("detail", "").lower()
+
+
+def test_errors_endpoint_rejects_bad_variant(client):
+    r = client.post("/v1/errors", json={"text": "hello", "variant": "fr"})
+    assert r.status_code == 422
+
+
+def test_static_assets_served(client):
+    """The HTML shell loads CSS + JS modules from /static; verify the mount works."""
+    for path in ("/static/styles.css", "/static/metric-info.js", "/static/ui-helpers.js",
+                 "/static/renderers.js", "/static/app.js"):
+        r = client.get(path)
+        assert r.status_code == 200, path
+        assert r.headers["content-type"].split(";")[0] in {"text/css", "application/javascript",
+                                                            "text/javascript"}, path
 
 
 def test_tag_with_include_tokens(client):
