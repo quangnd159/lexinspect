@@ -129,7 +129,7 @@ const METRIC_INFO = {
 // Each entry: { intro: html-string, caveat: optional plain-text limitation }
 const MODULE_INTROS = {
   overview: {
-    intro: '<b>Overview</b> — a quick read of the eight headline numbers. Click any chip above for what it means and how to read it. Browse the tabs for the full breakdown.',
+    intro: '<b>Overview</b> — a quick read of the eight headline numbers. Click any chip above for what it means and how to read it. Pick a module from the left rail for the full breakdown.',
   },
   readability: {
     intro: '<b>Readability</b> measures how hard or easy a text is to read using sentence length and word length. The eight scores agree most of the time but use different scales (US grade level, Flesch index, etc.). Treat them as triangulation, not gospel.',

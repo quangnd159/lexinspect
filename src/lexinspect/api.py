@@ -30,6 +30,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import HTMLResponse
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel, Field
+from starlette.responses import FileResponse
 
 from lexinspect import (
     __version__,
@@ -83,9 +84,20 @@ app.add_middleware(
 
 # Static assets (CSS + per-concern JS modules) live next to index.html in the
 # packaged `static/` directory. Mounted at /static so the HTML shell can load
-# them via `<link>` and `<script src=...>`.
+# them via `<link>` and `<script src=...>`. Served with `Cache-Control:
+# no-cache` so UI iterations land immediately on a normal reload — this is a
+# self-hosted dev/teaching tool, not a high-traffic site, so the lost
+# caching is essentially free.
+class NoCacheStaticFiles(StaticFiles):
+    async def get_response(self, path, scope):
+        response = await super().get_response(path, scope)
+        if isinstance(response, FileResponse):
+            response.headers["Cache-Control"] = "no-cache, max-age=0, must-revalidate"
+        return response
+
+
 _STATIC_DIR = Path(__file__).parent / "static"
-app.mount("/static", StaticFiles(directory=str(_STATIC_DIR)), name="static")
+app.mount("/static", NoCacheStaticFiles(directory=str(_STATIC_DIR)), name="static")
 
 
 class TextIn(BaseModel):

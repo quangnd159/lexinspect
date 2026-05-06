@@ -22,7 +22,7 @@ function renderOverview(r) {
   );
   wrap.appendChild(
     el('p', {
-      html: `<small>Click any tab above for the full module output. The same JSON is at <code>POST /v1/analyze</code> for agents.</small>`,
+      html: `<small>Pick a module from the left rail for the full output. The same JSON is at <code>POST /v1/analyze</code> for agents.</small>`,
     })
   );
   return wrap;
