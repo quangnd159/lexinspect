@@ -175,8 +175,8 @@ const MODULE_INTROS = {
     caveat: 'Estimate, not a verdict. Adjacent-band confusion is irreducible (even human raters disagree at this granularity). Vocabulary features dominate the prediction; syntactic complexity and discourse organisation are under-weighted. Combine with the other tabs before reporting a level. Requires the optional <code>cefr-level</code> install extra; takes ~3–5s per call.',
   },
   errors: {
-    intro: "<b>Spelling errors</b> (Hunspell). Flags tokens that aren't in the chosen English dictionary. Toggle between British (default) and American variants. Optional module — click <i>Check spelling</i> to run.",
-    caveat: "Hunspell only knows what's in the dictionary — proper nouns, brand names, neologisms, and rare technical vocabulary will routinely show up as false positives. spaCy splits possessive 's from its host noun, so possessive forms aren't spell-checked as wholes. Requires the optional <code>errors</code> install extra; first call per variant downloads ~1.5 MB into the user cache.",
+    intro: "<b>Spelling errors</b> (Hunspell). Flags tokens that aren't in the chosen English dictionary. Toggle between British (default) and American variants. Runs on demand — click <i>Check spelling</i> to fire it.",
+    caveat: "Hunspell only knows what's in the dictionary — proper nouns, brand names, neologisms, and rare technical vocabulary will routinely show up as false positives. spaCy splits possessive 's from its host noun, so possessive forms aren't spell-checked as wholes. The first call per variant downloads a ~1.5 MB dictionary before it can answer.",
   },
 };
 
