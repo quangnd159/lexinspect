@@ -50,6 +50,13 @@ _REFERENCES_NOTE = (
 )
 
 
+# MTLD's published procedure needs enough tokens for at least one complete
+# factor; below the same ~50-token floor the other windowed measures use, its
+# fallback is not a measurement.
+MIN_TOKENS_MTLD = 50
+MIN_TOKENS_RELIABLE = 50
+
+
 def analyze(text: str) -> dict[str, Any]:
     lex = LexicalRichness(text)
     if lex.words == 0:
@@ -60,22 +67,39 @@ def analyze(text: str) -> dict[str, Any]:
             "note": "Empty or untokenizable text.",
         }
 
-    return {
+    out = {
         "counts": {"tokens": lex.words, "types": lex.terms},
         "scores": {
-            "ttr": _round(lex.ttr),
-            "rttr": _round(lex.rttr),
-            "cttr": _round(lex.cttr),
+            "ttr": _round(_safe_prop(lambda: lex.ttr)),
+            "rttr": _round(_safe_prop(lambda: lex.rttr)),
+            "cttr": _round(_safe_prop(lambda: lex.cttr)),
             "msttr": _round(_safe(lex.msttr, segment_window=50)),
             "mattr": _round(_safe(lex.mattr, window_size=50)),
-            "mtld": _round(_safe(lex.mtld, threshold=0.72)),
+            # msttr/mattr/hdd raise below their window or draw size, so `_safe`
+            # already suppresses them. MTLD never raises: its factor-count
+            # fallback always yields a number, and on short text that number is
+            # nonsense — twelve all-unique words score 12.0, which reads as
+            # maximally repetitive when it is maximally diverse. Suppress it
+            # explicitly so the module keeps the promise the other metrics keep.
+            "mtld": (
+                _round(_safe(lex.mtld, threshold=0.72))
+                if lex.words >= MIN_TOKENS_MTLD
+                else None
+            ),
             "hdd": _round(_safe(lex.hdd, draws=42)),
-            "herdan": _round(lex.Herdan),
-            "summer": _round(lex.Summer),
-            "maas": _round(lex.Maas),
+            "herdan": _round(_safe_prop(lambda: lex.Herdan)),
+            "summer": _round(_safe_prop(lambda: lex.Summer)),
+            "maas": _round(_safe_prop(lambda: lex.Maas)),
         },
         "references": _references_block(),
     }
+    if lex.words < MIN_TOKENS_RELIABLE:
+        out["note"] = (
+            f"Only {lex.words} tokens. Lexical-diversity measures are sample-size "
+            f"dependent; scores below ~{MIN_TOKENS_RELIABLE} tokens are unstable and "
+            f"the ones that cannot be computed at all are reported as null."
+        )
+    return out
 
 
 def _references_block() -> dict[str, Any]:
@@ -83,6 +107,20 @@ def _references_block() -> dict[str, Any]:
         "vocd_d_bands": [dict(b) for b in VOCD_D_REFERENCE_RANGES],
         "note": _REFERENCES_NOTE,
     }
+
+
+def _safe_prop(get):
+    """Guard the property-style metrics the same way `_safe` guards the callables.
+
+    Herdan/Summer/Maas are ratios of logs of the type and token counts. A text
+    with exactly one distinct type ("the the the") makes log(types) zero, so
+    Summer takes log(0) and Herdan/Maas divide by zero. Ungarded, that was a
+    500 on `/v1/diversity` and `/v1/analyze` for trivially reachable input.
+    """
+    try:
+        return get()
+    except (ValueError, ZeroDivisionError):
+        return None
 
 
 def _safe(fn, **kw):

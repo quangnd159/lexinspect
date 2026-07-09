@@ -92,20 +92,19 @@ const METRIC_INFO = {
       'The off-list residual lumps together proper nouns, technical terms, and rarer vocabulary above the first 10,000. A high off-list percentage isn\'t automatically "hard" — it might just be a name-heavy text.',
     ],
   },
-  cefr_dominant: {
-    title: 'CEFR vocabulary level',
-    desc: 'Based on the CEFR-J wordlist (A1–B2) and the Octanove C1/C2 list, the level where most of the text\'s recognisable vocabulary sits. Read alongside the per-level distribution in the CEFR tab — function words ("the", "of") almost always make A1 the dominant slot, so this number alone is not a placement.',
+  cefr_b2plus: {
+    title: 'CEFR B2+ vocabulary',
+    desc: 'The share of recognised content vocabulary sitting at B2, C1 or C2 on the CEFR-J wordlist plus the Octanove C1/C2 list. Higher means more of the text\'s vocabulary is upper-intermediate or advanced. This is a property of the words used — not a placement of the writer.',
+    scale: { min: 0, max: 60, leftLabel: 'All basic', rightLabel: 'Heavily advanced' },
     bands: [
-      ['A1', 'A1', 'Beginner — basic everyday phrases'],
-      ['A2', 'A2', 'Elementary — familiar everyday topics'],
-      ['B1', 'B1', 'Intermediate — most everyday situations'],
-      ['B2', 'B2', 'Upper-intermediate — abstract and concrete topics'],
-      ['C1', 'C1', 'Advanced — complex texts on most subjects'],
-      ['C2', 'C2', 'Proficient — nuanced and idiomatic use'],
+      [0, 5, 'Almost entirely A1–B1 vocabulary — everyday register'],
+      [5, 15, 'Mostly basic, some upper-intermediate vocabulary'],
+      [15, 30, 'Substantial B2+ vocabulary — academic or specialised register'],
+      [30, 61, 'Dense advanced vocabulary — heavily academic or technical'],
     ],
-    isCategorical: true,
     caveats: [
-      'Function words ("the", "of", "and") are A1, so they dominate the count in any text. If this says A1 on an academic passage, it is not telling you the text is A1-level — it\'s telling you the most frequent tokens are function words. Always read the full per-level distribution in the CEFR tab.',
+      'Only counts words the lists recognise. A text full of proper nouns or technical terms has a large off-list share, and those words are invisible here — check "on-list" coverage before reading this number.',
+      'Vocabulary is not proficiency. A learner can use advanced words badly, and a skilled writer can choose plain ones. Read this with the readability, diversity, and BNC/COCA tabs.',
       'Not Cambridge English Vocabulary Profile (EVP). The underlying CEFR-J + Octanove lists use different corpora and methodology, so numbers will diverge from EVP-based tools like Text Inspector\'s premium output.',
     ],
   },
@@ -141,7 +140,7 @@ const MODULE_INTROS = {
   },
   diversity: {
     intro: '<b>Lexical diversity</b> tells you whether the writer is reaching for new words or repeating the same ones. <b>MTLD</b> and <b>HD-D</b> are the most reliable across different text lengths; <b>TTR</b> is simple but skewed against longer texts.',
-    caveat: 'Most diversity measures wobble on texts under ~50 tokens. lexinspect returns nothing for the affected scores rather than a misleading number — check the value before drawing conclusions.',
+    caveat: 'Most diversity measures wobble on texts under ~50 tokens, and some cannot be computed at all below their window size. lexinspect reports those as <code>—</code> rather than inventing a number, and warns you when the text is short. Scores that <i>are</i> shown on a short text are still less stable than on a long one.',
   },
   tagger: {
     intro: '<b>POS tagging</b> labels each word with its part of speech. Penn Treebank tags are detailed (e.g. NNS = plural noun, VBZ = 3rd-person singular verb); Universal POS is the broader category (NOUN, VERB, ADJ). Useful for spotting style — heavy noun phrases, verb-light prose, etc.',

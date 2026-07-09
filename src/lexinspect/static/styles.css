@@ -211,6 +211,8 @@ button.secondary:hover { background: var(--surface); color: var(--ink); border-c
 .scale .scale-band { margin-top: 10px; font-size: 13px; color: var(--ink); }
 .scale .scale-band b { color: var(--ink); font-weight: 700; }
 .scale .scale-band::before { content: '> '; color: var(--muted); font-weight: 400; }
+.scale .scale-band-offscale { color: var(--muted); }
+.scale .scale-band-offscale::before { content: '[!] '; }
 
 .module-intro {
   background: var(--surface);
@@ -424,3 +426,25 @@ footer {
 footer a { color: var(--ink); text-decoration: none; }
 footer a:hover { text-decoration: underline; }
 footer a::before { content: '['; } footer a::after { content: ']'; }
+
+/* Short-text warning on the diversity tab: the scores above it are unstable. */
+.short-text-note {
+  margin: 12px 0;
+  padding: 10px 12px;
+  border-left: 3px solid var(--rule);
+  background: var(--soft);
+  font-size: 13px;
+  color: var(--muted);
+}
+
+/* vocd-D reference bands, collapsed. They are on a different scale from the
+   HD-D score above and must not be read against it. */
+details.refs { margin-top: 18px; }
+details.refs > summary {
+  cursor: pointer;
+  font-size: 13px;
+  color: var(--muted);
+  padding: 6px 0;
+}
+details.refs > summary:hover { color: var(--ink); }
+details.refs p { font-size: 13px; color: var(--muted); }

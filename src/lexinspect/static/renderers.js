@@ -16,7 +16,7 @@ function renderOverview(r) {
         `Reading ease ${r.readability.scores.flesch_reading_ease.toFixed(0)} (Flesch). ` +
         `MTLD ${r.diversity.scores.mtld != null ? r.diversity.scores.mtld.toFixed(0) : 'n/a'}. ` +
         `${r.awl.counts.awl_families} AWL families. ${r.bnc_coca.coverage_pct.toFixed(0)}% within BNC/COCA K1–K10. ` +
-        `Dominant CEFR level ${r.cefr.dominant_level || 'n/a'}. ` +
+        `${cefrB2Plus(r.cefr).toFixed(0)}% of recognised vocabulary at CEFR B2 or above. ` +
         `Metadiscourse density ${r.metadiscourse.density_per_1000.toFixed(0)} per 1k tokens.`,
     })
   );
@@ -51,10 +51,21 @@ function renderDiversity(d) {
   const wrap = el('div');
   wrap.appendChild(renderKV(d.scores, d.counts));
 
+  if (d.note) wrap.appendChild(el('p', { class: 'short-text-note' }, d.note));
+
   const refs = d.references;
   if (!refs || !refs.vocd_d_bands) return wrap;
 
-  wrap.appendChild(el('h3', {}, 'vocd-D reference ranges (Durán et al. 2004)'));
+  // These bands run 40–105 (vocd-D). The HD-D score printed just above runs
+  // 0–1. Rendered as a plain table directly beneath the scores, they invited
+  // exactly the comparison the note forbids — "HD-D 0.12 vs the 40–70 band" is
+  // meaningless, and alarming. Collapsed by default, and the warning is now the
+  // thing you see rather than small print underneath.
+  const details = el('details', { class: 'refs' });
+  details.appendChild(
+    el('summary', {}, 'vocd-D reference ranges (Durán et al. 2004) — a different scale, not comparable')
+  );
+  if (refs.note) details.appendChild(el('p', {}, refs.note));
   const table = el('table', { class: 'kv' });
   refs.vocd_d_bands.forEach((b) => {
     const row = el('tr');
@@ -62,8 +73,8 @@ function renderDiversity(d) {
     row.appendChild(el('td', {}, `D ${b.min}–${b.max}`));
     table.appendChild(row);
   });
-  wrap.appendChild(table);
-  if (refs.note) wrap.appendChild(el('p', { html: `<small>${refs.note}</small>` }));
+  details.appendChild(table);
+  wrap.appendChild(details);
   return wrap;
 }
 
@@ -85,11 +96,7 @@ function renderStatistics(s) {
 
   if (s.excluded_digits && s.excluded_digits.length) {
     wrap.appendChild(el('h3', {}, `Excluded digits (${s.excluded_digits.length})`));
-    wrap.appendChild(
-      el('div', {
-        html: s.excluded_digits.map((d) => `<span class="pill">${d}</span>`).join(''),
-      })
-    );
+    wrap.appendChild(el('div', {}, pills(s.excluded_digits)));
   }
   return wrap;
 }
@@ -143,11 +150,7 @@ function renderAwl(a) {
 
   if (a.families_found && a.families_found.length) {
     wrap.appendChild(el('h3', {}, `Families found (${a.families_found.length})`));
-    wrap.appendChild(
-      el('div', {
-        html: a.families_found.map((f) => `<span class="pill" style="margin:2px">${f}</span>`).join(''),
-      })
-    );
+    wrap.appendChild(el('div', {}, pills(a.families_found, 'margin:2px')));
   }
   return wrap;
 }
@@ -187,11 +190,7 @@ function renderBncCoca(b) {
 
   if (b.off_list_sample && b.off_list_sample.length) {
     wrap.appendChild(el('h3', {}, `Off-list sample (${b.off_list_sample.length})`));
-    wrap.appendChild(
-      el('div', {
-        html: b.off_list_sample.map((w) => `<span class="pill" style="margin:2px">${w}</span>`).join(''),
-      })
-    );
+    wrap.appendChild(el('div', {}, pills(b.off_list_sample, 'margin:2px')));
   }
   return wrap;
 }
@@ -283,13 +282,17 @@ function renderCefr(c) {
   const top = el('div', { class: 'grid-2' });
   const stats = el('div');
   stats.appendChild(el('h3', {}, 'CEFR summary'));
+  // `dominant level` is the argmax of per-level token counts, and function
+  // words make that A1 on virtually every text. It sat at the top of this table
+  // where it read as a verdict. Kept — it's a real number people may want — but
+  // moved last and labelled for what it is.
   stats.appendChild(
     kvTable({
       'on-list coverage': c.coverage_pct + '%',
       'on-list tokens': c.counts.on_list_tokens,
       'off-list tokens': c.counts.off_list_tokens,
-      'dominant level': c.dominant_level || '—',
       '95th-percentile level': c.estimated_level_95th || '—',
+      'most frequent band (usually A1 — function words)': c.dominant_level || '—',
     })
   );
   top.appendChild(stats);

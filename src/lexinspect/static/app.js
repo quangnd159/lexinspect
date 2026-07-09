@@ -21,10 +21,20 @@ function showExplainer(metricKey, value) {
       <div class="scale-bar"><div class="scale-marker" style="left:${pct}%"></div></div>
       <div class="scale-labels"><span>${info.scale.leftLabel} (${info.scale.min})</span><span>${info.scale.rightLabel} (${info.scale.max})</span></div>`;
     if (info.bands) {
-      const band =
-        info.bands.find(([lo, hi]) => value >= lo && value < hi) ||
-        info.bands[info.bands.length - 1];
-      if (band) html += `<div class="scale-band">Reading: <b>${band[2]}</b></div>`;
+      // No fallback band. A score outside every band means the formula has run
+      // off its validated range — which happens constantly on short input, where
+      // Flesch Reading Ease exceeds 100 and grade levels go negative. Falling
+      // back to the last band used to label a 5-word sentence (ease 117) as
+      // "Very difficult — postgraduate reader", the exact inverse of the truth.
+      const band = info.bands.find(([lo, hi]) => value >= lo && value < hi);
+      if (band) {
+        html += `<div class="scale-band">Reading: <b>${band[2]}</b></div>`;
+      } else {
+        html +=
+          `<div class="scale-band scale-band-offscale">Off scale — <b>${value}</b> falls outside ` +
+          `this formula's validated range (${info.scale.min}–${info.scale.max}), which usually ` +
+          `means the text is too short to score. Add more text.</div>`;
+      }
     }
     html += `</div>`;
   } else if (info.bands && info.isCategorical) {
@@ -139,6 +149,11 @@ $('analyzeBtn').addEventListener('click', async () => {
   }
 });
 
+/** Share of on-list content tokens whose CEFR-J level is B2 or above. */
+function cefrB2Plus(cefr) {
+  return ['B2', 'C1', 'C2'].reduce((sum, lvl) => sum + (cefr.per_level[lvl]?.coverage_pct || 0), 0);
+}
+
 // ---- Top-level render orchestrator ----
 
 function render(data) {
@@ -196,12 +211,16 @@ function render(data) {
       rawValue: r.bnc_coca.coverage_pct,
       sub: 'K1–K10',
     },
+    // Deliberately not `dominant_level`. That is the argmax of per-level token
+    // counts, and function words swamp it, so it reads "A1" on a C1 text — the
+    // module's own caveat says not to surface it alone. B2+ coverage separates
+    // registers the way a reader expects: 0% on simple prose, ~29% on academic.
     {
-      metricKey: 'cefr_dominant',
-      label: 'CEFR dominant',
-      value: r.cefr.dominant_level || '—',
-      rawValue: r.cefr.dominant_level,
-      sub: r.cefr.estimated_level_95th ? `95th: ${r.cefr.estimated_level_95th}` : '',
+      metricKey: 'cefr_b2plus',
+      label: 'CEFR B2+ vocab',
+      value: `${cefrB2Plus(r.cefr).toFixed(1)}%`,
+      rawValue: cefrB2Plus(r.cefr),
+      sub: `${r.cefr.coverage_pct.toFixed(0)}% on-list`,
     },
     {
       metricKey: 'metadiscourse_density',

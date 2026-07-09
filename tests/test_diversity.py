@@ -59,3 +59,31 @@ def test_references_present_on_empty_text():
 def test_handles_empty_string():
     out = diversity.analyze("")
     assert out["counts"]["tokens"] == 0
+
+
+def test_single_type_text_does_not_crash():
+    """`the the the` makes types == 1, so log(types) == 0.
+
+    Herdan/Summer/Maas divide by or take the log of that. Unguarded this was a
+    500 on /v1/diversity and /v1/analyze for input a curious user types in ten
+    seconds. The metrics should come back null, not raise.
+    """
+    for text in ("the the the the the", "hello hello", "aaa"):
+        scores = diversity.analyze(text)["scores"]
+        assert scores["summer"] is None
+        assert scores["herdan"] is None or isinstance(scores["herdan"], float)
+
+
+def test_mtld_suppressed_below_the_token_floor():
+    """MTLD never raises, so it silently returned nonsense on short text.
+
+    Twelve all-unique words scored 12.0, which reads as maximally repetitive
+    when it is maximally diverse. The tab promises these come back empty.
+    """
+    short = diversity.analyze("Alpha beta gamma delta epsilon zeta eta theta iota kappa")
+    assert short["scores"]["mtld"] is None
+    assert "note" in short
+
+    long_text = " ".join(f"word{i}" for i in range(60))
+    assert diversity.analyze(long_text)["scores"]["mtld"] is not None
+    assert "note" not in diversity.analyze(long_text)
