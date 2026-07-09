@@ -27,6 +27,12 @@ jobs:
     steps:
       - uses: actions/checkout@v5
 
+      # `vercel build` shells out to uv for the Python runtime and fails with
+      # "uv is required but was not found in PATH" without it.
+      - uses: astral-sh/setup-uv@v5
+        with:
+          enable-cache: true
+
       - name: Install Vercel CLI
         run: npm install -g vercel
 
