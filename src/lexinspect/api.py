@@ -64,6 +64,13 @@ MAX_TEXT_BYTES = int(os.environ.get("LEXINSPECT_MAX_TEXT_BYTES", 50_000))
 async def lifespan(app: FastAPI):
     # Warm spaCy + bundled data so the first real request is fast.
     get_nlp()
+    # Not just for speed: textstat asks nltk for the CMU dictionary on first use,
+    # and that lookup is not thread-safe. Serverless hosts run our sync handlers
+    # on a threadpool, so concurrent first requests raced, missed the bundled
+    # corpus, and fell through to `nltk.download()` — which on a read-only
+    # filesystem produced "[nltk_data] Extraction error" and a 500. Touching it
+    # once here, single-threaded, before any request arrives, closes that window.
+    readability.analyze("The quick brown fox jumps over the lazy dog.")
     bnc_coca._word_to_band()
     ngsl._ngsl()
     ngsl._nawl()

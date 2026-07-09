@@ -29,7 +29,6 @@ import urllib.error
 import urllib.request
 from collections import Counter
 from functools import lru_cache
-from importlib import resources
 from pathlib import Path
 from typing import Any
 
@@ -88,15 +87,9 @@ def _bundled_base(variant: str) -> Path | None:
     force-push to the tracked branch could have executed hostile affix rules
     here. Vendoring pins exactly what we run.
     """
-    try:
-        d = resources.files("lexinspect.data").joinpath("hunspell")
-        aff = d.joinpath(f"en_{variant.upper()}.aff")
-        dic = d.joinpath(f"en_{variant.upper()}.dic")
-        if aff.is_file() and dic.is_file():
-            with resources.as_file(d) as real_dir:
-                return real_dir / f"en_{variant.upper()}"
-    except (FileNotFoundError, ModuleNotFoundError):
-        pass
+    base = Path(__file__).parent / "data" / "hunspell" / f"en_{variant.upper()}"
+    if base.with_suffix(".aff").is_file() and base.with_suffix(".dic").is_file():
+        return base
     return None
 
 
