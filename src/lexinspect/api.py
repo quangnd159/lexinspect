@@ -22,6 +22,7 @@ from __future__ import annotations
 
 from contextlib import asynccontextmanager
 from importlib import resources
+from importlib.util import find_spec
 from pathlib import Path
 from typing import Any
 
@@ -136,6 +137,31 @@ def version() -> dict[str, str]:
     return {"version": __version__, "schema_version": SCHEMA_VERSION}
 
 
+# Which extra activates which optional module. Probed with `find_spec` rather
+# than a real import so `/v1/schema` stays cheap — importing torch to answer a
+# metadata request would cost seconds and hundreds of MB of RSS.
+_OPTIONAL_MODULES: dict[str, tuple[str, tuple[str, ...]]] = {
+    "cefr_level": ("cefr-level", ("transformers", "torch")),
+}
+
+
+def _installed(pkg: str) -> bool:
+    # find_spec raises rather than returning None for a package whose __spec__
+    # is missing or whose parent is absent; treat any failure as "not usable".
+    try:
+        return find_spec(pkg) is not None
+    except (ImportError, ValueError):
+        return False
+
+
+def _optional_available() -> dict[str, bool]:
+    """True when every import an optional module needs is present."""
+    return {
+        name: all(_installed(pkg) for pkg in pkgs)
+        for name, (_extra, pkgs) in _OPTIONAL_MODULES.items()
+    }
+
+
 @app.get("/v1/schema")
 def schema() -> dict[str, Any]:
     return {
@@ -156,9 +182,12 @@ def schema() -> dict[str, Any]:
         # don't change the always-available `modules` contract. Each entry maps
         # to the pip extra that activates it.
         "modules_optional": {
-            "cefr_level": "cefr-level",
-            "errors": "errors",
+            name: extra for name, (extra, _pkgs) in _OPTIONAL_MODULES.items()
         },
+        # Whether each optional module can actually run in *this* deployment.
+        # The hosted build ships without the heavy extras, so the web UI reads
+        # this to decide which tabs to render.
+        "optional_available": _optional_available(),
     }
 
 

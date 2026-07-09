@@ -6,12 +6,22 @@ readme = "README.md"
 authors = [{ name = "Quang Nguyen", email = "quangnd159@gmail.com" }]
 requires-python = ">=3.12"
 license = { text = "MIT" }
+# Vercel's Python builder runs a bare `uv sync --no-dev --frozen` and offers no
+# way to select extras (a custom installCommand works but disables its bundle
+# optimizer, which pushes the size ceiling from 500 MB down to 225 MB). So
+# anything the hosted web app needs has to sit in the base dependency set:
+# fastapi for the HTTP layer, spylls for the errors module, and the spaCy model
+# itself — which also fixes the long-standing wart that `en_core_web_sm` had to
+# be installed by hand after every fresh sync.
 dependencies = [
     "typer>=0.12",
     "textstat>=0.7.4",
     "lexicalrichness>=0.5",
     "spacy>=3.7",
     "rich>=13.7",
+    "fastapi>=0.110",
+    "spylls>=0.1.7",
+    "en-core-web-sm",
 ]
 
 [project.scripts]
@@ -24,32 +34,36 @@ dev = [
     "ruff>=0.5",
     "httpx>=0.27",
 ]
+# `serve` runs the local dev server. Vercel supplies its own ASGI host, so
+# uvicorn is not part of the base set.
 web = [
-    "fastapi>=0.110",
     "uvicorn[standard]>=0.27",
 ]
 cefr-level = [
     # ModernBERT support landed in transformers 4.48; pin floor accordingly.
+    # Stays optional: transformers + torch are ~440 MB of wheels and pull a
+    # 574 MB model at first call, which no serverless bundle limit tolerates.
+    # `/v1/schema` reports this module as unavailable when it isn't installed,
+    # and the web UI hides its tab. Local use: `uv sync --extra cefr-level`.
     "transformers>=4.48",
     "torch>=2.0",
 ]
-errors = [
-    # Pure-Python Hunspell port. Hunspell .aff/.dic files are downloaded into
-    # the user's cache on first call — see lexinspect.errors for details.
-    "spylls>=0.1.7",
-]
+
+# spaCy models aren't published to PyPI, so point uv at the release wheel.
+# Keep the version aligned with the `spacy` floor above.
+[tool.uv.sources]
+en-core-web-sm = { url = "https://github.com/explosion/spacy-models/releases/download/en_core_web_sm-3.8.0/en_core_web_sm-3.8.0-py3-none-any.whl" }
 
 [build-system]
 requires = ["uv_build>=0.10.10,<0.11.0"]
 build-backend = "uv_build"
 
-[tool.uv.build-backend]
-data = [
-    "src/lexinspect/data/*.json",
-    "src/lexinspect/static/*.html",
-    "src/lexinspect/static/*.css",
-    "src/lexinspect/static/*.js",
-]
+# uv_build ships every file inside the module root (src/lexinspect) in the
+# wheel, so the bundled JSON corpora and the static web UI need no extra config.
+# An earlier `[tool.uv.build-backend] data = [...glob...]` list was a misuse of
+# that key — it takes a table of data *directories*, and the globs made every
+# non-editable `uv build --wheel` fail. Editable installs skipped the code path,
+# which is why it went unnoticed until Vercel built the project for real.
 
 [tool.ruff]
 line-length = 100

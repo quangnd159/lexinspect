@@ -92,6 +92,20 @@ fetch('/v1/version')
     $('version-meta').textContent = 'offline';
   });
 
+// Optional modules need install extras the hosted build doesn't ship. Ask the
+// server which ones are live so we don't render a tab that can only 501. Start
+// optimistic: a self-hosted `uv sync --all-extras` has everything, and if the
+// probe fails we'd rather show a tab that errors than silently hide a feature.
+const OPTIONAL_TAB_MODULE = { 'cefr-level': 'cefr_level' };
+let OPTIONAL_AVAILABLE = { cefr_level: true };
+
+const capabilitiesReady = fetch('/v1/schema')
+  .then((r) => r.json())
+  .then((s) => {
+    if (s.optional_available) OPTIONAL_AVAILABLE = s.optional_available;
+  })
+  .catch(() => {});
+
 $('analyzeBtn').addEventListener('click', async () => {
   const body = text.value.trim();
   if (!body) {
@@ -112,6 +126,7 @@ $('analyzeBtn').addEventListener('click', async () => {
     });
     if (!r.ok) throw new Error(`${r.status} ${r.statusText} — ${await r.text()}`);
     const data = await r.json();
+    await capabilitiesReady;
     render(data);
     status.textContent = '';
     status.className = '';
@@ -249,7 +264,16 @@ function render(data) {
     { label: 'text', items: ['readability', 'statistics', 'diversity', 'tagger'] },
     { label: 'vocabulary', items: ['awl', 'bnc/coca', 'ngsl', 'phrase', 'cefr', 'cefr-level'] },
     { label: 'craft', items: ['metadiscourse', 'errors'] },
-  ];
+  ]
+    // Drop tabs whose module isn't installed here, then drop groups left empty.
+    .map((g) => ({
+      ...g,
+      items: g.items.filter((name) => {
+        const module = OPTIONAL_TAB_MODULE[name];
+        return !module || OPTIONAL_AVAILABLE[module];
+      }),
+    }))
+    .filter((g) => g.items.length > 0);
 
   const flatOrder = NAV_GROUPS.flatMap((g) => g.items);
 

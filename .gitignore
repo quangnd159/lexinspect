@@ -27,3 +27,6 @@ htmlcov/
 
 # Local data not safe to redistribute (KVL spreadsheets, etc.)
 private_data/
+
+# Vercel
+.vercel

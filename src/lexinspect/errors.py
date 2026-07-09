@@ -21,7 +21,9 @@ handling is bypassed.
 
 from __future__ import annotations
 
+import os
 import sys
+import tempfile
 import urllib.error
 import urllib.request
 from collections import Counter
@@ -70,10 +72,23 @@ class DictionaryFetchError(RuntimeError):
 
 
 def _cache_dir() -> Path:
-    """Per-user cache for downloaded Hunspell files. Created on demand."""
-    base = Path.home() / ".cache" / "lexinspect" / "hunspell"
-    base.mkdir(parents=True, exist_ok=True)
-    return base
+    """Per-user cache for downloaded Hunspell files. Created on demand.
+
+    Serverless hosts mount the deployment read-only and give you `/tmp` as the
+    only writable path, so `$LEXINSPECT_CACHE_DIR` overrides the home-directory
+    default. The cache survives for the life of a warm instance and re-downloads
+    on a cold one — ~1.5 MB, so that's an acceptable trade rather than a bug.
+    """
+    override = os.environ.get("LEXINSPECT_CACHE_DIR")
+    base = Path(override) if override else Path.home() / ".cache" / "lexinspect"
+    try:
+        hunspell = base / "hunspell"
+        hunspell.mkdir(parents=True, exist_ok=True)
+    except OSError:
+        # Read-only home (serverless). Fall back to the one writable path.
+        hunspell = Path(tempfile.gettempdir()) / "lexinspect" / "hunspell"
+        hunspell.mkdir(parents=True, exist_ok=True)
+    return hunspell
 
 
 def _ensure_dict_files(variant: str) -> Path:
@@ -124,11 +139,12 @@ def _dictionary(variant: str):
     try:
         from spylls.hunspell import Dictionary  # type: ignore
     except ImportError as e:
+        # spylls is a base dependency, so this should be unreachable in a sane
+        # install. Kept as a clear failure for partial/broken environments.
         raise ErrorsExtraNotInstalled(
-            "The `errors` extra is not installed. Run:\n"
-            "    uv sync --extra errors\n"
-            "or:\n"
-            "    pip install 'lexinspect[errors]'"
+            "spylls is missing, so the errors module cannot run.\n"
+            "Reinstall lexinspect's dependencies:\n"
+            "    uv sync"
         ) from e
 
     base = _ensure_dict_files(variant)

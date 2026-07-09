@@ -480,6 +480,14 @@ wheels = [
 ]
 
 [[package]]
+name = "en-core-web-sm"
+version = "3.8.0"
+source = { url = "https://github.com/explosion/spacy-models/releases/download/en_core_web_sm-3.8.0/en_core_web_sm-3.8.0-py3-none-any.whl" }
+wheels = [
+    { url = "https://github.com/explosion/spacy-models/releases/download/en_core_web_sm-3.8.0/en_core_web_sm-3.8.0-py3-none-any.whl", hash = "sha256:1932429db727d4bff3deed6b34cfc05df17794f4a52eeb26cf8928f7c1a0fb85" },
+]
+
+[[package]]
 name = "fastapi"
 version = "0.136.1"
 source = { registry = "https://pypi.org/simple" }
@@ -814,9 +822,12 @@ name = "lexinspect"
 version = "0.1.0"
 source = { editable = "." }
 dependencies = [
+    { name = "en-core-web-sm" },
+    { name = "fastapi" },
     { name = "lexicalrichness" },
     { name = "rich" },
     { name = "spacy" },
+    { name = "spylls" },
     { name = "textstat" },
     { name = "typer" },
 ]
@@ -832,17 +843,14 @@ dev = [
     { name = "pytest-cov" },
     { name = "ruff" },
 ]
-errors = [
-    { name = "spylls" },
-]
 web = [
-    { name = "fastapi" },
     { name = "uvicorn", extra = ["standard"] },
 ]
 
 [package.metadata]
 requires-dist = [
-    { name = "fastapi", marker = "extra == 'web'", specifier = ">=0.110" },
+    { name = "en-core-web-sm", url = "https://github.com/explosion/spacy-models/releases/download/en_core_web_sm-3.8.0/en_core_web_sm-3.8.0-py3-none-any.whl" },
+    { name = "fastapi", specifier = ">=0.110" },
     { name = "httpx", marker = "extra == 'dev'", specifier = ">=0.27" },
     { name = "lexicalrichness", specifier = ">=0.5" },
     { name = "pytest", marker = "extra == 'dev'", specifier = ">=8.0" },
@@ -850,14 +858,14 @@ requires-dist = [
     { name = "rich", specifier = ">=13.7" },
     { name = "ruff", marker = "extra == 'dev'", specifier = ">=0.5" },
     { name = "spacy", specifier = ">=3.7" },
-    { name = "spylls", marker = "extra == 'errors'", specifier = ">=0.1.7" },
+    { name = "spylls", specifier = ">=0.1.7" },
     { name = "textstat", specifier = ">=0.7.4" },
     { name = "torch", marker = "extra == 'cefr-level'", specifier = ">=2.0" },
     { name = "transformers", marker = "extra == 'cefr-level'", specifier = ">=4.48" },
     { name = "typer", specifier = ">=0.12" },
     { name = "uvicorn", extras = ["standard"], marker = "extra == 'web'", specifier = ">=0.27" },
 ]
-provides-extras = ["dev", "web", "cefr-level", "errors"]
+provides-extras = ["dev", "web", "cefr-level"]
 
 [[package]]
 name = "markdown-it-py"

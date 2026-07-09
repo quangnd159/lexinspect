@@ -40,7 +40,7 @@ uv run lexinspect metadiscourse passage.txt
 # Optional: CEFR text-level classifier (requires --extra cefr-level)
 uv run lexinspect cefr-level passage.txt
 
-# Optional: spelling errors (requires --extra errors)
+# Spelling errors
 uv run lexinspect errors passage.txt --variant gb   # British (default)
 uv run lexinspect errors passage.txt --variant us   # American
 
@@ -128,9 +128,9 @@ Treat the output as an estimate. The same five caveats Text Inspector publishes 
 
 Spelling-error detection via [spylls](https://github.com/zverok/spylls), a pure-Python port of Hunspell. Reports total errors, errors per sentence, errors per 100 words, and the deduplicated list of flagged tokens — the same shape Text Inspector's Errors tab produces. British (default) and American variants via `--variant gb|us`.
 
-Install with `uv sync --extra errors` (adds `spylls`). The first call per variant downloads the LibreOffice English Hunspell dictionary (~1.5 MB combined) into `~/.cache/lexinspect/hunspell/`; subsequent calls reuse the cached files. Dictionaries: Kevin Atkinson's LGPL wordlist + Geoff Kuenning's BSD affix file.
+`spylls` is a base dependency, so no extra install is needed. The first call per variant downloads the LibreOffice English Hunspell dictionary (~1.5 MB combined) into `~/.cache/lexinspect/hunspell/` — or into `$LEXINSPECT_CACHE_DIR`, falling back to the system temp dir when `$HOME` is read-only, as on serverless hosts. Subsequent calls reuse the cached files. Dictionaries: Kevin Atkinson's LGPL wordlist + Geoff Kuenning's BSD affix file.
 
-Not bundled into `analyze` — like `cefr-level`, it requires opt-in installation. Call it explicitly:
+Not bundled into `analyze` — it runs on demand. Call it explicitly:
 
 ```bash
 uv run lexinspect errors passage.txt --variant gb

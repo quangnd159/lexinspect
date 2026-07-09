@@ -1,0 +1,17 @@
+# Keep the deployment bundle small. Python has no tree-shaking on Vercel:
+# every file reachable at build time ships. The 500 MB uncompressed limit is
+# the ceiling, and spaCy + scipy + pandas already spend ~270 MB of it.
+.venv
+__pycache__
+**/__pycache__
+*.pyc
+
+# Dev-only surface — nothing here is imported at runtime.
+tests
+scripts
+.pytest_cache
+.ruff_cache
+
+# NB: README.md is NOT excluded — pyproject.toml declares `readme = "README.md"`,
+# so the wheel build needs it present.
+CAVEATS.md
