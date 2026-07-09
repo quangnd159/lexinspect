@@ -12,15 +12,14 @@ from __future__ import annotations
 from collections import Counter
 from typing import Any
 
-from lexinspect._nlp import get_nlp
+from lexinspect._nlp import get_doc
 
 # Universal POS tags that are not "content" for the type/token rollup.
 _NON_CONTENT_UPOS = frozenset({"PUNCT", "NUM", "SYM", "X"})
 
 
-def analyze(text: str, *, include_tokens: bool = False) -> dict[str, Any]:
-    nlp = get_nlp()
-    doc = nlp(text)
+def analyze(text: str, *, include_tokens: bool = False, doc=None) -> dict[str, Any]:
+    doc = get_doc(text, doc)
 
     ptb_counts: Counter[str] = Counter()
     upos_counts: Counter[str] = Counter()

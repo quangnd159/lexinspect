@@ -31,7 +31,7 @@ from functools import lru_cache
 from pathlib import Path
 from typing import Any
 
-from lexinspect._nlp import get_nlp
+from lexinspect._nlp import get_doc
 
 # Pinned to the LibreOffice dictionaries master branch. The English files have
 # been stable since 2018; if upstream ever moves, switch to a tagged commit.
@@ -158,7 +158,7 @@ def _dictionary(variant: str):
         ) from e
 
 
-def analyze(text: str, *, variant: str = "gb") -> dict[str, Any]:
+def analyze(text: str, *, variant: str = "gb", doc=None) -> dict[str, Any]:
     """Spell-check `text` against the chosen English variant.
 
     Args:
@@ -170,8 +170,7 @@ def analyze(text: str, *, variant: str = "gb") -> dict[str, Any]:
         raise ValueError(f"variant must be one of {VALID_VARIANTS}, got {variant!r}")
 
     dictionary = _dictionary(variant)
-    nlp = get_nlp()
-    doc = nlp(text)
+    doc = get_doc(text, doc)
 
     sentence_count = sum(1 for _ in doc.sents)
     tokens_checked = 0

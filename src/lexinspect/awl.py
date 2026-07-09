@@ -13,7 +13,7 @@ from functools import lru_cache
 from importlib import resources
 from typing import Any
 
-from lexinspect._nlp import get_nlp
+from lexinspect._nlp import get_doc
 
 
 @lru_cache(maxsize=1)
@@ -32,9 +32,8 @@ def _form_to_family() -> dict[str, dict[str, Any]]:
     return out
 
 
-def analyze(text: str) -> dict[str, Any]:
-    nlp = get_nlp()
-    doc = nlp(text)
+def analyze(text: str, *, doc=None) -> dict[str, Any]:
+    doc = get_doc(text, doc)
     forms = _form_to_family()
 
     content_tokens = 0

@@ -18,7 +18,7 @@ from functools import lru_cache
 from importlib import resources
 from typing import Any
 
-from lexinspect._nlp import get_nlp
+from lexinspect._nlp import get_doc
 
 
 @lru_cache(maxsize=1)
@@ -38,9 +38,8 @@ def _word_to_band() -> dict[str, int]:
     return out
 
 
-def analyze(text: str) -> dict[str, Any]:
-    nlp = get_nlp()
-    doc = nlp(text)
+def analyze(text: str, *, doc=None) -> dict[str, Any]:
+    doc = get_doc(text, doc)
     word_to_band = _word_to_band()
     max_band = max(int(k) for k in _load()["bands"])
 

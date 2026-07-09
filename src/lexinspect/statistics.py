@@ -24,12 +24,11 @@ from typing import Any
 
 import textstat
 
-from lexinspect._nlp import get_nlp
+from lexinspect._nlp import get_doc
 
 
-def analyze(text: str) -> dict[str, Any]:
-    nlp = get_nlp()
-    doc = nlp(text)
+def analyze(text: str, *, doc=None) -> dict[str, Any]:
+    doc = get_doc(text, doc)
 
     excluded_digits: list[str] = []
     word_token_count = 0

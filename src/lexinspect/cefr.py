@@ -26,7 +26,7 @@ from functools import lru_cache
 from importlib import resources
 from typing import Any
 
-from lexinspect._nlp import get_nlp
+from lexinspect._nlp import get_doc
 
 
 @lru_cache(maxsize=1)
@@ -40,9 +40,8 @@ def _lemma_to_level() -> dict[str, str]:
     return {item["lemma"]: item["level"] for item in _load()["lemmas"]}
 
 
-def analyze(text: str) -> dict[str, Any]:
-    nlp = get_nlp()
-    doc = nlp(text)
+def analyze(text: str, *, doc=None) -> dict[str, Any]:
+    doc = get_doc(text, doc)
     lookup = _lemma_to_level()
     levels = _load()["level_order"]
 

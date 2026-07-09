@@ -17,7 +17,7 @@ from functools import lru_cache
 from importlib import resources
 from typing import Any
 
-from lexinspect._nlp import get_nlp
+from lexinspect._nlp import get_doc
 
 
 @lru_cache(maxsize=1)
@@ -56,6 +56,35 @@ _HAVE_FORMS = {"have", "has", "had", "having"}
 _DO_FORMS = {"do", "does", "did", "doing", "done"}
 
 
+@lru_cache(maxsize=1)
+def _buckets() -> dict[tuple[int, str], list[tuple[int, tuple[str, ...], dict[str, Any]]]]:
+    """Group the phrase index by (span length, first target token).
+
+    Matching used to rescan all ~500 phrases for every token/span-length pair,
+    which is linear in the text but with a ~3000x constant — enough to turn a
+    large request into minutes of CPU. A window can only match a phrase whose
+    first target the window's first token satisfies, so bucketing on that pair
+    cuts the candidate set to a handful. The stored position preserves the old
+    insertion-order tie-break between equal-length phrases.
+    """
+    out: dict[tuple[int, str], list[tuple[int, tuple[str, ...], dict[str, Any]]]] = {}
+    for pos, (key, item) in enumerate(_index().items()):
+        out.setdefault((len(key), key[0]), []).append((pos, key, item))
+    return out
+
+
+def _candidate_targets(token_text: str, token_lemma: str) -> set[str]:
+    """Every phrase-initial target this token could satisfy under `_token_matches`."""
+    targets = {token_text, token_lemma}
+    if token_text in _BE_FORMS or token_lemma == "be":
+        targets.add("be")
+    if token_text in _HAVE_FORMS or token_lemma == "have":
+        targets.add("have")
+    if token_text in _DO_FORMS or token_lemma == "do":
+        targets.add("do")
+    return targets
+
+
 def _token_matches(token_lemma: str, token_text: str, target: str) -> bool:
     target = target.lower()
     if target == "be":
@@ -67,9 +96,8 @@ def _token_matches(token_lemma: str, token_text: str, target: str) -> bool:
     return token_text == target or token_lemma == target
 
 
-def analyze(text: str) -> dict[str, Any]:
-    nlp = get_nlp()
-    doc = nlp(text)
+def analyze(text: str, *, doc=None) -> dict[str, Any]:
+    doc = get_doc(text, doc)
     index = _index()
 
     content_tokens = [
@@ -82,14 +110,18 @@ def analyze(text: str) -> dict[str, Any]:
     hits: list[dict[str, Any]] = []
     matched_ranks: dict[int, int] = {}
 
+    buckets = _buckets()
     n = len(content_tokens)
     for i in range(n):
+        targets = _candidate_targets(content_tokens[i][0], content_tokens[i][1])
         for span_len in range(1, min(max_len, n - i) + 1):
+            candidates = [c for t in targets for c in buckets.get((span_len, t), ())]
+            if not candidates:
+                continue
+            candidates.sort(key=lambda c: c[0])
             window = content_tokens[i : i + span_len]
-            for key, item in index.items():
-                if len(key) != span_len:
-                    continue
-                if all(_token_matches(w[1], w[0], k) for w, k in zip(window, key)):
+            for _pos, key, item in candidates:
+                if all(_token_matches(w[1], w[0], k) for w, k in zip(window, key, strict=True)):
                     surface = " ".join(w[0] for w in window)
                     hits.append(
                         {

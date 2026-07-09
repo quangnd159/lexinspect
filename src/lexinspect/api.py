@@ -20,6 +20,7 @@ Endpoints:
 
 from __future__ import annotations
 
+import os
 from contextlib import asynccontextmanager
 from importlib import resources
 from importlib.util import find_spec
@@ -48,10 +49,15 @@ from lexinspect import (
     statistics,
     tagger,
 )
-from lexinspect._nlp import get_nlp
+from lexinspect._nlp import get_doc, get_nlp
 from lexinspect._schema import SCHEMA_VERSION, envelope
 
-MAX_TEXT_BYTES = 1_000_000  # 1 MB request cap; raise via env later if needed
+# Request cap. The public deployment is unauthenticated, and analysis cost is
+# linear in text length, so this is the main lever bounding what a single
+# request can cost. 50 KB is ~8,000 words — an IELTS Task 2 essay is under 3 KB,
+# so this leaves more than an order of magnitude of headroom for the texts the
+# tool exists to analyse. Self-hosters who want to profile a corpus can raise it.
+MAX_TEXT_BYTES = int(os.environ.get("LEXINSPECT_MAX_TEXT_BYTES", 50_000))
 
 
 @asynccontextmanager
@@ -299,20 +305,24 @@ def post_errors(body: ErrorsIn) -> dict[str, Any]:
 def post_analyze(body: TextIn) -> dict[str, Any]:
     _check(body.text)
     text = body.text
+    # Parse once, share the Doc. Eight of these modules need a spaCy parse and
+    # the parse dominates each one's cost, so letting them parse individually
+    # made this endpoint ~8x more expensive than the work it actually does.
+    doc = get_doc(text)
     return {
         "schema_version": SCHEMA_VERSION,
         "module": "analyze",
         "input": {"source": body.source, "char_count": len(text)},
         "results": {
             "readability": readability.analyze(text),
-            "statistics": statistics.analyze(text),
+            "statistics": statistics.analyze(text, doc=doc),
             "diversity": diversity.analyze(text),
-            "tagger": tagger.analyze(text),
-            "awl": awl.analyze(text),
-            "bnc_coca": bnc_coca.analyze(text),
-            "ngsl": ngsl.analyze(text),
-            "phrase": phrase.analyze(text),
-            "cefr": cefr.analyze(text),
-            "metadiscourse": metadiscourse.analyze(text),
+            "tagger": tagger.analyze(text, doc=doc),
+            "awl": awl.analyze(text, doc=doc),
+            "bnc_coca": bnc_coca.analyze(text, doc=doc),
+            "ngsl": ngsl.analyze(text, doc=doc),
+            "phrase": phrase.analyze(text, doc=doc),
+            "cefr": cefr.analyze(text, doc=doc),
+            "metadiscourse": metadiscourse.analyze(text, doc=doc),
         },
     }
