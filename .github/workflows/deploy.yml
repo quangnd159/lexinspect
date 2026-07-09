@@ -26,6 +26,11 @@ jobs:
       # Only VERCEL_TOKEN is a secret.
       VERCEL_ORG_ID: team_PG6AAoF8oxMLm4JeuUCiycRh
       VERCEL_PROJECT_ID: prj_aIZyHkugjTEwLTBpzI5PLbFvtjqZ
+      # The bundle is ~510 MB, over the 500 MB standard Python limit. Building
+      # off-platform means Vercel's project env vars aren't injected, so opt into
+      # the large-functions beta here too. Dropping lexicalrichness would take us
+      # back under the limit and let this go away.
+      VERCEL_SUPPORT_LARGE_FUNCTIONS: "1"
     steps:
       - uses: actions/checkout@v5
 
