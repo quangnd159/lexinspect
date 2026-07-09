@@ -1,0 +1,41 @@
+name: Deploy Preview
+
+on:
+  pull_request:
+    paths:
+      - "src/**"
+      - "main.py"
+      - "pyproject.toml"
+      - "uv.lock"
+      - "vercel.json"
+      - ".vercelignore"
+      - ".python-version"
+      - ".github/workflows/preview.yml"
+
+concurrency:
+  group: preview-${{ github.head_ref }}
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    env:
+      VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+      VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+    steps:
+      - uses: actions/checkout@v5
+
+      - name: Install Vercel CLI
+        run: npm install -g vercel
+
+      - name: Pull Vercel environment
+        run: vercel pull --yes --environment=preview --token=${{ secrets.VERCEL_TOKEN }}
+
+      # NOTE: the bundle exceeds the 500 MB standard Python limit, so preview
+      # builds need VERCEL_SUPPORT_LARGE_FUNCTIONS=1 set for the Preview
+      # environment in project settings. Production already has it.
+      - name: Build
+        run: vercel build --token=${{ secrets.VERCEL_TOKEN }}
+
+      - name: Deploy
+        run: vercel deploy --prebuilt --token=${{ secrets.VERCEL_TOKEN }}

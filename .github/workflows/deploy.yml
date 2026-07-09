@@ -1,0 +1,50 @@
+name: Deploy Production
+
+on:
+  workflow_dispatch: {}
+  push:
+    branches: [main]
+    paths:
+      - "src/**"
+      - "main.py"
+      - "pyproject.toml"
+      - "uv.lock"
+      - "vercel.json"
+      - ".vercelignore"
+      - ".python-version"
+      - ".github/workflows/deploy.yml"
+
+concurrency:
+  group: production-deploy
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    env:
+      VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+      VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+    steps:
+      - uses: actions/checkout@v5
+
+      - name: Install Vercel CLI
+        run: npm install -g vercel
+
+      # Build happens here in CI (not on Vercel) and deploys prebuilt — this
+      # keeps Vercel build-compute usage minimal.
+      - name: Pull Vercel environment
+        run: vercel pull --yes --environment=production --token=${{ secrets.VERCEL_TOKEN }}
+
+      - name: Build
+        run: vercel build --prod --token=${{ secrets.VERCEL_TOKEN }}
+
+      # The Python bundle is ~500 MB and sits just under the standard limit, so
+      # a dependency bump can silently push it over. Surface the number.
+      - name: Report bundle size
+        run: |
+          echo "### Vercel build output" >> "$GITHUB_STEP_SUMMARY"
+          du -sh .vercel/output 2>/dev/null | awk '{print "total: " $1}' >> "$GITHUB_STEP_SUMMARY"
+          du -sh .vercel/output/functions/* 2>/dev/null >> "$GITHUB_STEP_SUMMARY" || true
+
+      - name: Deploy
+        run: vercel deploy --prebuilt --prod --token=${{ secrets.VERCEL_TOKEN }}
