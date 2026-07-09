@@ -12,7 +12,9 @@ What lexinspect doesn't do well today, and where to look first if you decide to 
 
 ## diversity
 
-**vocd-D / HD-D are sample-size dependent.** Both fail or wobble on texts under ~50 tokens. The module returns `None` for failed metrics rather than a bad number, but downstream code should check.
+**vocd-D / HD-D are sample-size dependent.** Both fail or wobble on texts under ~50 tokens. The module returns `None` for failed metrics rather than a bad number, but downstream code should check. Exact floors: `hdd` needs 42 tokens (its `draws`), `mattr` 50 (its window), `msttr` 51.
+
+**MTLD used to be the exception, and it lied.** Unlike the others it never raises — its factor-count fallback always returns a number — so on short text it produced confident nonsense (twelve all-unique words scored 12.0, which reads as maximally repetitive when it is maximally diverse) while the UI promised the module returns nothing rather than a misleading value. It is now suppressed below `MIN_TOKENS_MTLD` (50), and short results carry a `note`. `Herdan`/`Summer`/`Maas` are likewise guarded: a text with one distinct type made `log(types)` zero and raised, which was a live HTTP 500.
 
 **MTLD threshold is fixed at 0.72 (the published default).** Some research uses 0.71 or 0.5 — if you're matching a specific paper, expose `threshold` as a parameter.
 
@@ -52,7 +54,7 @@ What lexinspect doesn't do well today, and where to look first if you decide to 
 
 ## phrase
 
-**Parsed count is 506 vs published 505.** One duplicate or boundary case from the `.doc` parse. Not material for analysis but worth tracing if you ever publish the data file. Run `python3 -c "import json; d=json.load(open('src/lexinspect/data/phrase.json'))['items']; from collections import Counter; print(Counter(it['phrase'] for it in d).most_common(3))"` to find the duplicate.
+**Parsed count is 506 vs published 505.** All 506 are distinct — there is **no duplicate**, contrary to what this file used to claim. Running the check (`Counter(it['phrase'] for it in items).most_common(3)`) returns nothing with a count above 1. The extra entry is a slot-variant boundary case from the `.doc` parse. Not material for analysis.
 
 **Slot phrases are partially handled.** `BE EXPECTED TO` matches all `be` inflections, but `(MAY/MIGHT) HAVE TO` and other modal-slot phrases are not explicitly handled — the parser just took the first variant before the slash. If you need full slot expansion, regenerate the JSON with all alternants.
 
@@ -86,7 +88,7 @@ What lexinspect doesn't do well today, and where to look first if you decide to 
 
 **Stderr noise on first call.** transformers' internal info/warning logs are silenced via `transformers.logging.set_verbosity_error()` inside the module. Two lines still surface from sibling libraries: an "unauthenticated requests to the HF Hub" warning from `huggingface_hub`, and a weight-loading progress bar from `tqdm`. The JSON output to stdout is unaffected (agent consumption is clean). For full silence, set `HF_HUB_DISABLE_PROGRESS_BARS=1` and either `HF_TOKEN=<token>` or `HF_HUB_DISABLE_TELEMETRY=1` in the environment.
 
-## errors (optional, requires `errors` extra)
+## errors
 
 **Hunspell only knows what's in its dictionary.** Proper nouns, brand names, recent neologisms, and rare technical vocabulary will routinely show up as false positives. The LibreOffice English dictionaries we ship with — Kevin Atkinson's wordlist (LGPL) plus Geoff Kuenning's affix file (BSD) — are well-maintained but not exhaustive. Treat the error list as a triage signal, not a verdict.
 
@@ -118,11 +120,11 @@ What lexinspect doesn't do well today, and where to look first if you decide to 
 
 ## API
 
-**CORS is open by default.** Fine for local dev; tighten for production via a proxy or a `LEXINSPECT_ALLOWED_ORIGINS` env var.
+**CORS is open.** `allow_origins=["*"]` with `allow_credentials=False`. Not a security boundary for an unauthenticated public API — a cross-origin caller gains nothing it couldn't get server-to-server, and there are no cookies or sessions to steal. Tighten via a `LEXINSPECT_ALLOWED_ORIGINS` env var if the API ever grows auth.
 
-**No authentication, no rate limiting.** If you expose the API publicly, put it behind a real reverse proxy (Caddy, nginx) or a managed gateway with API keys + quotas. The 1 MB request cap is the only built-in protection.
+**No authentication.** Deliberate: the hosted app is free and open. Abuse is bounded by three things instead — the 50 KB request cap (`MAX_TEXT_BYTES`, overridable via `$LEXINSPECT_MAX_TEXT_BYTES`), a Vercel WAF rate limit of 60 POSTs/min/IP on `/v1/` returning 429 (no persistent block, because schools share one NAT IP), and a 30s `maxDuration`. The durable protection is that a request is cheap: the worst legal request is ~0.9s of CPU. It was ~165s before the parse-once and `phrase` bucketing work.
 
-**No async / no streaming.** Each request is synchronous and CPU-bound (spaCy parse). Long requests block the worker. For high concurrency, run multiple uvicorn workers (`--workers N`) or reach for a job-queue pattern.
+**No async / no streaming.** Each request is synchronous and CPU-bound (spaCy parse). Long requests block the worker. For high concurrency, run multiple uvicorn workers (`--workers N`) or reach for a job-queue pattern. Note that serverless hosts pack concurrent requests into one process and run these sync handlers on a threadpool, which is why `_nlp.get_doc()` serialises parses behind a lock — spaCy mutates a shared `Vocab`/`StringStore` while tokenising.
 
 **No OpenTelemetry / structured logging.** uvicorn's default access log is the only observability. Add `structlog` + Prometheus metrics if you operate this beyond local use.
 
@@ -130,11 +132,24 @@ What lexinspect doesn't do well today, and where to look first if you decide to 
 
 ## Operations
 
-**spaCy model gets dropped on every `uv sync`.** uv rebuilds the venv from the lockfile, and the model is installed via wheel URL, not a tracked dependency. README documents the re-install line. A cleaner fix is a post-sync hook script or shipping the model in the lockfile via a `dependency-groups` block once uv supports it for non-PyPI wheels.
-
 **Data refresh is manual.** Build scripts in `scripts/build_data/` exist but are one-shot. A CI workflow that re-runs them on a schedule + opens a PR with diffs would catch upstream version bumps automatically. Low priority — these lists move slowly.
 
-**No Docker / no deploy recipe.** A 30-line Dockerfile (slim Python + uv + wheel-install spaCy) gets you a portable image. Add when there's a deploy target.
+**Deployed at `lexinspect.vercel.app`.** GitHub Actions runs `vercel build` and `vercel deploy --prebuilt`, so Vercel build compute stays near zero; Vercel's own git builds are off via `git.deploymentEnabled: false`. The hosted build omits the `cefr-level` extra — `/v1/schema` reports `optional_available`, and the web UI hides tabs whose module isn't installed.
+
+**The bundle is 509.67 MB against a 500 MB limit — the top thing to fix.** It only deploys because the large-functions beta is enabled (`VERCEL_SUPPORT_LARGE_FUNCTIONS=1`, set both as a project env var and inline in the workflows, because off-platform builds don't receive project env vars). Any dependency bump can push it over.
+
+The cure is to **drop `lexicalrichness` and vendor MTLD + HD-D**. It is the sole reason `scipy` (82 MB), `pandas` (48 MB), `matplotlib` (26 MB) and `textblob` are in the bundle — `diversity.py` is the only module that imports it, and it uses ten metrics, all of which are pure Python plus `math.comb` for HD-D's hypergeometric term. `textstat` needs only `pyphen` + `nltk`; nltk's scipy dependency is extras-only. Expected outcome:
+
+- ~350 MB bundle, comfortably under the standard limit; the beta opt-in and the CI env-var workaround both go away.
+- Cold start drops sharply. `lexicalrichness` costs ~1.7s to import, and `matplotlib` rebuilds its font cache on every new instance ("generated new fontManager") — most of the ~11s cold requests visible in the runtime logs. `_env.py` gives matplotlib a writable `MPLCONFIGDIR` so it pays that once per instance rather than failing, but the only real fix is not importing it.
+
+Do it carefully: these are numbers users read. Port the exact formulas and assert byte-identical output against the current `lexicalrichness` results across a randomised corpus before deleting the dependency — the same way the `phrase` index rewrite was verified across 33 fixtures.
+
+**Two runtime downloads were removed; don't reintroduce the pattern.** `spylls` ships no dictionary data and `textstat` asks `nltk` for the CMU dictionary. Both used to fetch at request time. On a read-only, ephemeral serverless filesystem that meant re-downloading on every cold start, HTTP 429s under bursts, a concurrency race that produced live HTTP 500s (`[nltk_data] Extraction error for cmudict/cmudict`), and — because spylls compiles the `.aff` file into regexes — a supply-chain hole where a force-push upstream became code we ran. Both are now vendored under `src/lexinspect/data/`, and `_env.py` points `$NLTK_DATA` at the bundled corpus before textstat imports. The FastAPI lifespan also touches `readability.analyze()` once, single-threaded, because `nltk.data.find()` is not thread-safe on first call.
+
+**Spend Management must not be armed with the pause action.** Its pause applies to *every project on the team*, with a several-minute detection delay and manual un-pausing. To fail-closed on this project alone, use the spend webhook to call `POST /v1/projects/{projectId}/pause`.
+
+**Serving the data publicly changed the licence position.** `/licences` (linked from the footer) carries the CC BY-SA 4.0 attribution for NGSL/NAWL/Octanove and the CEFR-J citation, because those terms run to whoever receives the work, not just whoever reads the repo. Two open questions worth resolving: the PHRASE list is "freely available for research and pedagogical purposes" and the note in `SOURCES.md` says to seek explicit permission if lexinspect is ever wrapped in a web product — arguably now true, even though it's free; and the Hyland 2005 hedges lexicon has **no stated licence** at all.
 
 **No telemetry on which modules are actually used.** When the CLI ships beyond personal use, it would be worth knowing whether `phrase` justifies its build complexity. A simple opt-in counts file would do.
 
