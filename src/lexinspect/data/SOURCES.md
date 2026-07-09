@@ -58,6 +58,16 @@ Combined: 8,690 lemmas. When a lemma is annotated at multiple levels (e.g. as bo
 
 **Martinez, R., & Schmitt, N. (2012).** A phrasal expressions list. *Applied Linguistics*, 33(3), 299–320.
 
-506 phrasal expressions across K1–K5 BNC frequency bands, with example sentences and genre frequency markers (spoken general / written general / written academic). Sourced from Norbert Schmitt's [resources page](https://www.norbertschmitt.co.uk/vocabulary-resources). The published total is 505; lexinspect parses 506 (one duplicate or boundary case in the source `.doc`; not material for analysis).
+506 phrasal expressions across K1–K5 BNC frequency bands, with example sentences and genre frequency markers (spoken general / written general / written academic). Sourced from Norbert Schmitt's [resources page](https://www.norbertschmitt.co.uk/vocabulary-resources). The published total is 505; lexinspect parses 506. All 506 are distinct — the extra entry is a slot-variant boundary case, **not** a duplicate. (An earlier note here claimed a duplicate; running the check finds none.)
 
 **Licence:** No SPDX-identifiable licence on the source page. The author's site states the materials are "freely available for research and pedagogical purposes." Treat as non-commercial educational use; cite Martinez & Schmitt (2012) in any publication. If lexinspect is later wrapped in a commercial web product, request explicit redistribution permission.
+
+## hunspell/ (en_GB, en_US)
+
+**LibreOffice English dictionaries** — `.aff` affix files and `.dic` wordlists for British and American English.
+
+Vendored from [LibreOffice/dictionaries](https://github.com/LibreOffice/dictionaries), pinned to commit `e7f163feb2beaf526135132d8716e68e19d2716e`. `spylls` implements the Hunspell algorithm but ships no dictionary data, so these files are required at runtime.
+
+**Licence:** wordlist by Kevin Atkinson — **LGPL**; affix file by Geoff Kuenning — **BSD**. Both permit redistribution with attribution and licence text; see `LICENSES/` in this directory.
+
+**Why vendored rather than downloaded:** they used to be fetched from GitHub on first use. On a serverless host the cache is ephemeral, so every cold start refetched ~1.5 MB — and a burst of cold starts gets HTTP 429. More seriously, `spylls` compiles the `.aff` file into Python regexes, so whatever that URL returned became code we executed. Pinning and vendoring makes the bytes we run auditable.

@@ -95,6 +95,44 @@ app.add_middleware(
 # no-cache` so UI iterations land immediately on a normal reload — this is a
 # self-hosted dev/teaching tool, not a high-traffic site, so the lost
 # caching is essentially free.
+# The app serves HTML and JS to the public, so give the browser the handful of
+# headers that cost nothing. `script-src 'self'` is the load-bearing one: it
+# neutralises the echoed-token rendering paths even if one ever regresses to
+# innerHTML. Style needs `unsafe-inline` because the renderers set style
+# attributes on chart bars; with scripts locked down that is not a real loss.
+_SECURITY_HEADERS = {
+    "Content-Security-Policy": (
+        "default-src 'self'; "
+        "script-src 'self'; "
+        "style-src 'self' 'unsafe-inline'; "
+        "img-src 'self' data:; "
+        "connect-src 'self'; "
+        "base-uri 'none'; "
+        "form-action 'none'; "
+        "frame-ancestors 'none'"
+    ),
+    "X-Content-Type-Options": "nosniff",
+    "Referrer-Policy": "no-referrer",
+    "X-Frame-Options": "DENY",
+}
+
+
+# FastAPI's interactive docs pull Swagger UI from a CDN, so the CSP above would
+# blank them out. They render no user input, so exempt just those paths rather
+# than loosening `script-src` for the pages that do.
+_CSP_EXEMPT_PATHS = frozenset({"/docs", "/redoc", "/docs/oauth2-redirect"})
+
+
+@app.middleware("http")
+async def security_headers(request, call_next):
+    response = await call_next(request)
+    for header, value in _SECURITY_HEADERS.items():
+        if header == "Content-Security-Policy" and request.url.path in _CSP_EXEMPT_PATHS:
+            continue
+        response.headers.setdefault(header, value)
+    return response
+
+
 class NoCacheStaticFiles(StaticFiles):
     async def get_response(self, path, scope):
         response = await super().get_response(path, scope)
@@ -130,6 +168,19 @@ def _wrap(module_name: str, body: TextIn, result: dict[str, Any]) -> dict[str, A
 @app.get("/", include_in_schema=False, response_class=HTMLResponse)
 def index() -> HTMLResponse:
     html = resources.files("lexinspect.static").joinpath("index.html").read_text(encoding="utf-8")
+    return HTMLResponse(content=html)
+
+
+@app.get("/licences", include_in_schema=False, response_class=HTMLResponse)
+def licences() -> HTMLResponse:
+    """Attribution for the bundled vocabulary lists.
+
+    NGSL, NAWL and the Octanove C1/C2 profile are CC BY-SA 4.0, and CEFR-J asks
+    to be cited. Those licences run to whoever receives the work — which, now
+    that this is a hosted service, means the person in the browser, not just
+    someone who happens to read SOURCES.md in the repo.
+    """
+    html = resources.files("lexinspect.static").joinpath("licences.html").read_text(encoding="utf-8")
     return HTMLResponse(content=html)
 
 

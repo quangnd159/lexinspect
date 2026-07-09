@@ -5,12 +5,12 @@ the chosen dictionary. Reports total errors, errors per sentence, errors per
 100 words, and the deduplicated error list — the same shape Text Inspector's
 Errors tab surfaces.
 
-The `errors` extra ships only the `spylls` runtime; the actual `.aff` / `.dic`
-files are downloaded on first use into the user's cache directory
-(``~/.cache/lexinspect/hunspell/``). Each variant downloads independently the
-first time it's requested. Source: LibreOffice's English dictionary mirror,
-covered by Kevin Atkinson's LGPL wordlist licence and Geoff Kuenning's BSD
-affix licence.
+`spylls` implements Hunspell's algorithm but ships no dictionary data, so the
+`.aff` / `.dic` pairs for en_GB and en_US are vendored into the package under
+``data/hunspell/`` and loaded straight from the wheel — no network at request
+time. Source: LibreOffice's English dictionaries, pinned to one commit, covered
+by Kevin Atkinson's LGPL wordlist licence and Geoff Kuenning's BSD affix licence.
+A download fallback remains for variants that aren't bundled.
 
 Tokenisation uses spaCy. Pure-numeric tokens, punctuation, URLs, and emails
 are skipped; everything else is looked up as-is. spaCy splits possessive
@@ -24,26 +24,25 @@ from __future__ import annotations
 import os
 import sys
 import tempfile
+import threading
 import urllib.error
 import urllib.request
 from collections import Counter
 from functools import lru_cache
+from importlib import resources
 from pathlib import Path
 from typing import Any
 
 from lexinspect._nlp import get_doc
 
-# Pinned to the LibreOffice dictionaries master branch. The English files have
-# been stable since 2018; if upstream ever moves, switch to a tagged commit.
+# Fallback source for variants that aren't vendored. Pinned to a commit, not to
+# `master`: spylls compiles the `.aff` file into regexes, so whatever this URL
+# returns becomes code we run. A moving branch made that a remote party's call.
+_DICT_COMMIT = "e7f163feb2beaf526135132d8716e68e19d2716e"
+_DICT_BASE_URL = f"https://raw.githubusercontent.com/LibreOffice/dictionaries/{_DICT_COMMIT}/en"
 _DICT_URLS: dict[str, dict[str, str]] = {
-    "gb": {
-        "aff": "https://raw.githubusercontent.com/LibreOffice/dictionaries/master/en/en_GB.aff",
-        "dic": "https://raw.githubusercontent.com/LibreOffice/dictionaries/master/en/en_GB.dic",
-    },
-    "us": {
-        "aff": "https://raw.githubusercontent.com/LibreOffice/dictionaries/master/en/en_US.aff",
-        "dic": "https://raw.githubusercontent.com/LibreOffice/dictionaries/master/en/en_US.dic",
-    },
+    variant: {ext: f"{_DICT_BASE_URL}/en_{variant.upper()}.{ext}" for ext in ("aff", "dic")}
+    for variant in ("gb", "us")
 }
 
 VALID_VARIANTS: tuple[str, ...] = ("gb", "us")
@@ -69,6 +68,36 @@ class ErrorsExtraNotInstalled(RuntimeError):
 
 class DictionaryFetchError(RuntimeError):
     """Raised when a Hunspell dictionary cannot be downloaded or loaded."""
+
+
+# Wall-clock ceiling for the fallback download. `urlretrieve`/`urlopen` default
+# to no timeout at all, so a stalled connection would hold a serverless request
+# open until the platform kills it — a free way to burn someone's compute.
+_DOWNLOAD_TIMEOUT_S = 10
+
+
+def _bundled_base(variant: str) -> Path | None:
+    """Path to the vendored dictionary pair, or None if it isn't packaged.
+
+    Dictionaries ship inside the wheel. spylls implements Hunspell but carries
+    no dictionary data, so these used to be fetched from GitHub on first use.
+    That was fine for a local CLI with a persistent `~/.cache`; on a serverless
+    host `/tmp` dies with the instance, so every cold start re-downloaded ~1.5 MB
+    (5.1s) and GitHub answers a burst of those with HTTP 429. Worse, spylls
+    compiles the `.aff` file into regexes, so an upstream compromise or a
+    force-push to the tracked branch could have executed hostile affix rules
+    here. Vendoring pins exactly what we run.
+    """
+    try:
+        d = resources.files("lexinspect.data").joinpath("hunspell")
+        aff = d.joinpath(f"en_{variant.upper()}.aff")
+        dic = d.joinpath(f"en_{variant.upper()}.dic")
+        if aff.is_file() and dic.is_file():
+            with resources.as_file(d) as real_dir:
+                return real_dir / f"en_{variant.upper()}"
+    except (FileNotFoundError, ModuleNotFoundError):
+        pass
+    return None
 
 
 def _cache_dir() -> Path:
@@ -101,6 +130,10 @@ def _ensure_dict_files(variant: str) -> Path:
     if variant not in _DICT_URLS:
         raise ValueError(f"Unknown variant '{variant}'. Choose from {VALID_VARIANTS}.")
 
+    bundled = _bundled_base(variant)
+    if bundled is not None:
+        return bundled
+
     cache = _cache_dir()
     base = cache / f"en_{variant.upper()}"
     aff_path = base.with_suffix(".aff")
@@ -118,15 +151,20 @@ def _ensure_dict_files(variant: str) -> Path:
         target = base.with_suffix(f".{ext}")
         if target.exists():
             continue
-        tmp = target.with_suffix(target.suffix + ".tmp")
+        # Download to a per-process temp name, not a fixed `.tmp` path. Two
+        # concurrent first-requests for the same variant both reach here (an
+        # lru_cache miss doesn't hold its lock across the call), and a shared
+        # tmp path let them interleave writes into one file before renaming it
+        # into place. `urlretrieve` also has no default timeout, so a stalled
+        # connection would hold the request until the platform's ceiling.
+        tmp = target.with_suffix(f"{target.suffix}.{os.getpid()}.{threading.get_ident()}.tmp")
         try:
-            urllib.request.urlretrieve(url, tmp)
-        except (urllib.error.URLError, OSError) as e:
+            with urllib.request.urlopen(url, timeout=_DOWNLOAD_TIMEOUT_S) as r:
+                tmp.write_bytes(r.read())
+        except (urllib.error.URLError, OSError, TimeoutError) as e:
             tmp.unlink(missing_ok=True)
             raise DictionaryFetchError(
-                f"Could not download {url} into {target}.\n"
-                f"Cause: {e}\n"
-                f"Workaround: download the file manually and place it at the path above."
+                f"Could not fetch the en_{variant.upper()} Hunspell dictionary."
             ) from e
         tmp.replace(target)
 
