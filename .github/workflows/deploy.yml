@@ -22,8 +22,10 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     env:
-      VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
-      VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+      # Identifiers, not credentials — they already live in .vercel/project.json.
+      # Only VERCEL_TOKEN is a secret.
+      VERCEL_ORG_ID: team_PG6AAoF8oxMLm4JeuUCiycRh
+      VERCEL_PROJECT_ID: prj_aIZyHkugjTEwLTBpzI5PLbFvtjqZ
     steps:
       - uses: actions/checkout@v5
 
