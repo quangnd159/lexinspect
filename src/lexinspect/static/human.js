@@ -56,7 +56,9 @@ const Human = (() => {
                 appearance: 'interaction-only',
                 execution: 'execute',
                 callback: (t) => settle('resolve', t),
-                'error-callback': () => {
+                'error-callback': (code) => {
+                  // Codes: developers.cloudflare.com/turnstile/troubleshooting/client-side-errors/
+                  console.warn(`Turnstile error ${code}`);
                   settle('reject', new Error('The human check failed. Reload the page and try again.'));
                   return true; // handled; don't let Turnstile throw
                 },
