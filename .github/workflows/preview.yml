@@ -24,6 +24,13 @@ jobs:
       # Only VERCEL_TOKEN is a secret.
       VERCEL_ORG_ID: team_PG6AAoF8oxMLm4JeuUCiycRh
       VERCEL_PROJECT_ID: prj_aIZyHkugjTEwLTBpzI5PLbFvtjqZ
+      # The Linux bundle is ~280 MB: spaCy, blis and numpy ship unstripped .so
+      # files (macOS wheels are far smaller, so a local build understates it).
+      # Over the standard limit the builder falls back to installing packages
+      # at cold start, which is broken (missing lexinspect or missing uv).
+      # Large functions keep everything vendored. Off-platform builds don't see
+      # the project's env vars, so set it here.
+      VERCEL_SUPPORT_LARGE_FUNCTIONS: "1"
     steps:
       - uses: actions/checkout@v5
 

@@ -1,6 +1,6 @@
 # Keep the deployment bundle small. Python has no tree-shaking on Vercel:
 # every file reachable at build time ships. The limit is 500 MB uncompressed;
-# the bundle is ~107 MB (spaCy, its small model, and the bundled data).
+# the Linux bundle is ~280 MB (spaCy, its small model, and the bundled data).
 .venv
 __pycache__
 **/__pycache__
