@@ -26,13 +26,6 @@ jobs:
       # Only VERCEL_TOKEN is a secret.
       VERCEL_ORG_ID: team_PG6AAoF8oxMLm4JeuUCiycRh
       VERCEL_PROJECT_ID: prj_aIZyHkugjTEwLTBpzI5PLbFvtjqZ
-      # The Linux bundle is ~280 MB: spaCy, blis and numpy ship unstripped .so
-      # files (macOS wheels are far smaller, so a local build understates it).
-      # Over the standard limit the builder falls back to installing packages
-      # at cold start, which is broken (missing lexinspect or missing uv).
-      # Large functions keep everything vendored. Off-platform builds don't see
-      # the project's env vars, so set it here.
-      VERCEL_SUPPORT_LARGE_FUNCTIONS: "1"
     steps:
       - uses: actions/checkout@v5
 
@@ -63,6 +56,19 @@ jobs:
           cp src/lexinspect/static/*.js src/lexinspect/static/*.css public/static/
           cp src/lexinspect/static/index.html public/index.html
           cp src/lexinspect/static/licences.html public/licences.html
+
+      # The Linux bundle is ~280 MB, over the builder's standard limit, because
+      # spaCy, blis and numpy ship .so files with debug symbols. Over the limit
+      # the builder ships no packages and installs them at cold start, which is
+      # broken (every request failed). So install the environment `vercel build`
+      # uses ourselves, strip debug info, and let the build reuse it: uv sees
+      # the packages already installed and the bundle maps files from here.
+      - name: Pre-install and strip the Python environment
+        run: |
+          UV_PROJECT_ENVIRONMENT=.vercel/python/.venv uv sync --frozen --no-dev --no-editable
+          du -sm .vercel/python/.venv | awk '{print "before strip: " $1 " MB"}'
+          find .vercel/python/.venv -name "*.so*" -type f -exec strip --strip-debug {} +
+          du -sm .vercel/python/.venv | awk '{print "after strip: " $1 " MB"}'
 
       - name: Build
         run: vercel build --prod --token=${{ secrets.VERCEL_TOKEN }}
