@@ -12,6 +12,6 @@ scripts
 .pytest_cache
 .ruff_cache
 
-# NB: README.md is NOT excluded — pyproject.toml declares `readme = "README.md"`,
-# so the wheel build needs it present.
-CAVEATS.md
+# NB: don't list top-level files here. README.md is needed by the wheel build
+# (`readme = "README.md"`), and `vercel deploy --prebuilt` fails with ENOENT on
+# any file the traced function references but this list keeps from uploading.
