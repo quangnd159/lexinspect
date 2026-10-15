@@ -1,63 +1,102 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>lexinspect</title>
+<meta name="description" content="Readability, vocabulary level, frequency profile, phrases, metadiscourse and spelling for any English text, highlighted in place.">
+<meta name="color-scheme" content="light dark">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400..650&family=Newsreader:ital,opsz,wght@0,6..72,400..600;1,6..72,400&display=swap">
 <link rel="stylesheet" href="/static/styles.css">
 </head>
 <body>
-<div class="container">
-  <header>
-    <h1>lexinspect</h1>
-    <span class="meta" id="version-meta">loading…</span>
-  </header>
+<header class="topbar">
+  <a class="wordmark" href="/" aria-label="lexinspect home">lex<span>inspect</span></a>
+  <nav class="toplinks" aria-label="Site">
+    <a href="/docs" target="_blank" rel="noopener">API</a>
+    <a href="/licences">Sources</a>
+    <a href="https://github.com/quangnd159/lexinspect" target="_blank" rel="noopener">GitHub</a>
+  </nav>
+</header>
 
-  <textarea id="text" placeholder="Paste English text here (essay, passage, exam item…) and hit Analyze."></textarea>
-
-  <div class="controls">
-    <div class="stat-row">
-      <span><b id="liveChars">0</b> chars</span>
-      <span><b id="liveWords">0</b> words</span>
+<main class="workspace" id="workspace" data-mode="edit">
+  <section class="pane pane-text" aria-label="Your text">
+    <div class="editor" id="editor">
+      <label class="sr-only" for="text">Text to analyse</label>
+      <textarea id="text" spellcheck="false" placeholder="Paste or write English text — an essay, a reading passage, an exam item, a draft — and press Analyse."></textarea>
+      <div class="editor-bar">
+        <div class="meter" id="meter" aria-live="polite">
+          <span id="liveWords">0</span> words
+          <span class="meter-sep">·</span>
+          <span id="liveSize">0 KB</span> of <span id="liveLimit">50 KB</span>
+        </div>
+        <div class="editor-actions">
+          <div class="samples" id="samples">
+            <button class="btn ghost" type="button" id="samplesBtn" aria-haspopup="menu" aria-expanded="false">Try a sample</button>
+            <div class="menu" id="samplesMenu" role="menu" hidden></div>
+          </div>
+          <div class="segmented" role="radiogroup" aria-label="Spelling variety" id="variant">
+            <button type="button" role="radio" data-variant="gb" aria-checked="true" title="British spelling">UK</button>
+            <button type="button" role="radio" data-variant="us" aria-checked="false" title="American spelling">US</button>
+          </div>
+          <button class="btn primary" type="button" id="analyseBtn">
+            <span class="btn-label">Analyse</span>
+            <kbd class="btn-kbd" id="analyseKbd">⌘↵</kbd>
+          </button>
+        </div>
+      </div>
+      <p class="editor-msg" id="editorMsg" role="status"></p>
     </div>
-    <div class="examples">
-      <button class="secondary" data-fixture="simple">simple</button>
-      <button class="secondary" data-fixture="academic">academic</button>
-      <button class="secondary" data-fixture="narrative">narrative</button>
-      <button class="secondary" id="clearBtn">clear</button>
-      <button id="analyzeBtn">Analyze</button>
-    </div>
-  </div>
 
-  <div id="status"></div>
-
-  <div class="results" id="results">
-    <div class="summary" id="summary"></div>
-    <div class="explainer" id="explainer">
-      <button class="ex-close" id="exClose" aria-label="Close">×</button>
-      <div id="exContent"></div>
+    <div class="reader" id="reader" hidden>
+      <div class="reader-bar">
+        <div class="lenses" role="tablist" aria-label="Highlight" id="lenses"></div>
+        <button class="btn ghost small" type="button" id="editBtn">Edit text</button>
+      </div>
+      <div class="legend" id="legend"></div>
+      <article class="doc" id="doc" data-lens="none" tabindex="-1"></article>
     </div>
-    <div class="results-body">
-      <nav class="sidebar-nav" id="tabs" aria-label="Module navigation"></nav>
-      <div class="panels-area" id="panels"></div>
-    </div>
-  </div>
+  </section>
 
-  <footer>
-    <a href="/docs" target="_blank">API docs</a> ·
-    <a href="/v1/schema" target="_blank">schema</a> ·
-    <a href="/licences">data sources &amp; licences</a> ·
-    <a href="https://github.com/quangnd159/lexinspect" target="_blank">repo</a>
-  </footer>
+  <section class="pane pane-results" id="results" aria-label="Analysis" hidden>
+    <nav class="tabs" role="tablist" aria-label="Analysis sections" id="tabs">
+      <span class="tab-indicator" id="tabIndicator" aria-hidden="true"></span>
+    </nav>
+    <div class="panels" id="panels"></div>
+    <footer class="results-foot">
+      <span id="versionMeta"></span>
+      <span class="foot-actions">
+        <button class="btn ghost small" type="button" id="copyJson">Copy JSON</button>
+        <button class="btn ghost small" type="button" id="downloadJson">Download JSON</button>
+      </span>
+    </footer>
+  </section>
+
+  <aside class="intro" id="intro" aria-label="About lexinspect">
+    <h1>See what makes a text hard, in the text itself.</h1>
+    <p>lexinspect profiles English writing the way applied linguists do: readability by eight published formulas, vocabulary against CEFR-J, Nation's BNC/COCA families, NGSL and the AWL, the 506 PHRASE-list expressions, Hyland's metadiscourse and a UK/US spell check. Every finding is highlighted where it occurs.</p>
+    <ul class="intro-points">
+      <li><b>Free and open.</b> No account, nothing stored. Your text is analysed and forgotten.</li>
+      <li><b>Cited, not guessed.</b> Every list and formula is the published one; sources and licences are on the <a href="/licences">Sources</a> page.</li>
+      <li><b>Open source.</b> Run the same analysis yourself with the <code>lexinspect</code> command-line tool or Python package.</li>
+    </ul>
+  </aside>
+</main>
+
+<div class="popover" id="popover" role="tooltip" hidden></div>
+<div class="challenge" id="challenge" aria-live="polite">
+  <p class="challenge-note">A quick check that you’re a person</p>
+  <div id="challengeWidget"></div>
 </div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
 
-<!--
-  Loaded in dependency order: pure data, then DOM helpers, then per-module
-  renderers, then the app entry point that wires them together.
--->
-<script src="/static/metric-info.js"></script>
-<script src="/static/ui-helpers.js"></script>
-<script src="/static/renderers.js"></script>
+<script src="/static/dom.js"></script>
+<script src="/static/human.js"></script>
+<script src="/static/copy.js"></script>
+<script src="/static/reader.js"></script>
+<script src="/static/panels.js"></script>
 <script src="/static/app.js"></script>
 </body>
 </html>

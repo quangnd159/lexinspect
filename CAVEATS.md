@@ -1,160 +1,180 @@
 # Caveats and improvement opportunities
 
-What lexinspect doesn't do well today, and where to look first if you decide to fix it. Organised per module, then transport, then ops. Honest framing: most caveats are conscious trade-offs (licence cleanliness, scope, time), not bugs. None are blockers for ELT or IELTS work — they're flags for when you push harder.
+What lexinspect doesn't do well today, and where to look first if you decide to fix it. Organised by shared tokenisation, then per module, then transport and operations. Most caveats are conscious trade-offs (licence cleanliness, scope, time), not bugs. None are blockers for ELT or IELTS work; they're flags for when you push harder.
+
+## Shared tokenisation
+
+**Everything rests on `en_core_web_sm`.** The small spaCy model is fast but roughly 2 percentage points less accurate on tags than `en_core_web_lg`. Tags decide more than the tagger tab: proper-noun status (NNP/NNPS) in every vocabulary profile, the part of speech that picks a CEFR level, whether an inflected verb is looked up by its lemma, the tag constraints in `phrase`, and every context rule in `metadiscourse`. A capitalised common word at the start of a sentence can be tagged as a proper noun and drop out of the off-list count; a mis-tagged `present` gets the wrong CEFR level. Swapping to `lg` means changing `DEFAULT_MODEL` in `_nlp.py` and the model dependency in `pyproject.toml`, and adds several hundred MB to the bundle.
+
+**Inflected verbs are looked up by lemma only.** That's what stops `found` being credited to *found* (a company) and `left` to *the left*. The cost is the reverse case: when spaCy tags a non-verb use as a verb, or lemmatises wrongly, the token goes to the lemma's entry. The surface form is used only when the lemma isn't an English word at all.
+
+**Hyphenated compounds are profiled by their parts** (`well-known` as *well* + *known*), the convention of Range and AntWordProfiler, unless the list carries the whole compound. Lists that rate a compound differently from its parts will disagree with lexinspect.
+
+**Spelling-variant lookup can over-match.** A form that misses a list is retried with its British/American respelling, from VarCon plus regular-pattern rules (`-our`/`-or`, `-ise`/`-ize`, `-re`/`-er`, doubled `l`). The rules only fire after the exact form has missed, but a rare word that happens to rewrite into a listed one is credited to it.
 
 ## readability
 
-**Syllable counter has known errors on rare words.** textstat falls back to Pyphen for syllabification, which is dictionary-based and will mis-count technical, medical, or low-frequency vocabulary. Affects FK Grade and Gunning Fog at the margins on jargon-dense texts. Upgrade path: Carnegie Mellon Pronouncing Dictionary (`cmudict` PyPI package) for the words it covers, fall back to Pyphen.
+**Formulas see only surface features.** All eight are functions of word length (syllables or letters), sentence length, and, for Dale–Chall, a familiar-word list. They cannot see vocabulary level beyond that, grammar, cohesion or topic. Read them alongside the vocabulary profiles.
 
-**`text_standard` is a consensus heuristic, not validated.** textstat picks the median grade from the seven scores and rounds — useful for quick triage, not for high-stakes placement.
+**`text_standard` is a heuristic.** It is the median of the eight grade equivalents, which is stable and easy to explain, but the median of eight formulas fitted on different populations is not itself a validated measure. Flesch Reading Ease and the Dale–Chall raw score are mapped to grades by band midpoints.
 
-**Reading-time formula is a single fixed ms-per-character constant.** Doesn't model genre, density, or reader proficiency. If you need a real reading-time estimate, use words-per-minute by reader level instead.
+**Syllables beyond CMUdict are estimated.** CMUdict (American pronunciations, first listed pronunciation) answers most words; a British/American respelling or a stem plus suffix answers more. The rule-based fallback for the rest is about 90% exact and over 99% within one syllable when measured against CMUdict itself. It handles rare, technical and invented words, which is exactly where errors concentrate.
+
+**Numerals are an approximation of speech.** Integers and four-digit years are spelled out as spoken; decimals are read digit by digit after "point"; `%` adds "per cent". Ordinals and decades are read as the cardinal number (`3rd` as *three*, `1990s` as *nineteen ninety*).
+
+**The Dale–Chall easy-word list is textstat's.** It has 2,940 entries, slightly fewer than the roughly 3,000 in Chall & Dale (1995). Familiarity accepts a listed word, its spaCy lemma, proper nouns, numerals, and hyphenated compounds whose parts are all familiar. Edge cases in the 1995 counting rules that need human judgement are not modelled.
+
+**Linsear Write reads only the first 100 words**, as the formula specifies. On a long text it describes the opening, not the whole.
+
+**Short texts are flagged, not blocked.** Every score is computed regardless of length; `reliability.reliable` is false under 100 words, and the SMOG note appears under 30 sentences, because SMOG is normalised to a 30-sentence sample and is extrapolated below it.
+
+**Reading time is a single rate.** 238 words per minute (Brysbaert 2019, silent reading of English non-fiction). It doesn't model genre, density or reader proficiency.
 
 ## diversity
 
-**vocd-D / HD-D are sample-size dependent.** Both fail or wobble on texts under ~50 tokens. The module returns `None` for failed metrics rather than a bad number, but downstream code should check. Exact floors: `hdd` needs 42 tokens (its `draws`), `mattr` 50 (its window), `msttr` 51.
+**Sample-size dependence.** Every measure moves with text length. Measures that can't be computed are returned as `null` rather than a bad number: HD-D needs 42 tokens, MSTTR and MATTR 50, MTLD is suppressed below 50, and vocd-D needs more than 50. Texts under 50 tokens carry a `note`.
 
-**MTLD used to be the exception, and it lied.** Unlike the others it never raises — its factor-count fallback always returns a number — so on short text it produced confident nonsense (twelve all-unique words scored 12.0, which reads as maximally repetitive when it is maximally diverse) while the UI promised the module returns nothing rather than a misleading value. It is now suppressed below `MIN_TOKENS_MTLD` (50), and short results carry a `note`. `Herdan`/`Summer`/`Maas` are likewise guarded: a text with one distinct type made `log(types)` zero and raised, which was a live HTTP 500.
+**Tokens differ from other tools.** Diversity counts lexinspect's words: contractions and hyphenated compounds whole, lowercased, numbers excluded. lexicalrichness split `don't` into `don` and `t`; CLAN works on CHAT transcripts with its own conventions. Scores will not match those tools exactly, even where the formulas do.
 
-**MTLD threshold is fixed at 0.72 (the published default).** Some research uses 0.71 or 0.5 — if you're matching a specific paper, expose `threshold` as a parameter.
+**vocd-D is stochastic, but seeded.** It averages random samples (100 per size from 35 to 50 tokens, three trials) and fits D to the curve. The fixed seed makes a given text always score the same, but any edit changes which samples are drawn, so small edits can move D by sampling noise alone. Treat differences of a few points as noise.
 
-**lexinspect computes HD-D, not vocd-D.** The `references.vocd_d_bands` block bundles the two published vocd-D ranges from Durán, Malvern, Richards & Chipere 2004 (Adult L2/ESL D 40–70, Adult native academic D 80–105) for **awareness only**. The library we wrap (`lexicalrichness`) exposes HD-D — bounded 0–1, McCarthy & Jarvis 2007 — not vocd-D. The two are highly rank-correlated but on completely different numeric scales, so a direct numeric comparison would be wrong, and no auto-comparison is performed. To do a real vocd-D vs. reference comparison, implement vocd-D via the McKee/Malvern/Richards 2000 sub-sample TTR curve-fitting procedure — a Phase-7 follow-up worth about a day's work.
+**Reference bands are approximate comparisons.** The Durán, Malvern, Richards & Chipere (2004) ranges (adult L2/ESL D 40–70, adult native academic D 80–105) were computed with CLAN on their corpora. lexinspect's vocd-D follows the same procedure but not the same tokenisation, so `position` (below/within/above) is a guide, not a classification. Technical prose with many unique terms can score well above both bands.
 
-**Per-age cohort bands aren't bundled.** Text Inspector's "Bristol Charts" show vocd-D bands for nine cohorts (18, 24, 30, 36, 42, 60 months + 6+ MFL French + Adult ESL + Academic). Only the Adult ESL and Academic bands are stated explicitly in the paper's freely-available abstract; the per-age figures sit in separate typeset images of Durán et al. 2004 that the public manuscript doesn't include. Until those numbers can be sourced cleanly, lexinspect bundles only the two ranges it can cite verbatim.
+**Per-age cohort bands aren't bundled.** Text Inspector's "Bristol Charts" show vocd-D bands for nine cohorts. Only the two adult ranges are stated in the paper's freely available abstract; the rest sit in typeset figures the public manuscript doesn't include.
 
-**MTLD has no reference bands bundled.** McCarthy & Jarvis 2010 give genre-stratified ranges that could be added later.
+**MTLD threshold is fixed at 0.72** (McCarthy & Jarvis 2010 default). Some research uses other values; expose `threshold` as a parameter if you're matching a specific paper. No MTLD reference bands are bundled.
 
 ## tagger
 
-**Uses `en_core_web_sm` for speed.** The small model is ~12MB and fast but ~2 percentage points less accurate than `en_core_web_lg` (~750MB) on tag accuracy. Acceptable for ELT work; swap to `lg` if you start using lexinspect for syntactic-complexity analysis where one mis-tagged token cascades.
+**Distributions and summary count different units.** PTB and UPOS distributions are over spaCy tokens (`don't` is `do` + `n't`); the `summary` block counts words from the shared analysis. Both are deliberate, but the totals differ.
 
-**No syntactic parsing exposed.** spaCy's dependency parser runs by default but the module only emits POS counts. Adding `spacy_parse` or surfacing dependency relations would unlock L2 Syntactic Complexity Analyzer (Lu)-style features (mean length of T-unit, clauses per sentence, etc.) — Phase 6 candidate.
+**No syntactic parsing exposed.** The dependency parse runs (sentence segmentation and the metadiscourse rules need it), but the module only emits POS counts. Surfacing dependency relations would allow L2 Syntactic Complexity Analyzer-style measures (mean length of T-unit, clauses per sentence).
 
 ## awl
 
-**Coxhead 2000 is the original AWL, not the AVL.** The 570 head words are still the standard for IELTS preparation, but Gardner & Davies (2014) Academic Vocabulary List (AVL) is methodologically stronger — built from a much larger corpus (Davies's 120M-word academic sub-corpus of COCA). AVL is `https://www.academicvocabulary.info/` and freely accessible. Adding an `--list avl` opt-in would let users compare. Gardner & Davies also published NAWL-style derivative lists.
+**Coxhead 2000 is the original AWL, not the AVL.** The 570 families are still the standard for IELTS preparation, but Gardner & Davies's (2014) Academic Vocabulary List is built from a much larger corpus. Adding it as an opt-in list would let users compare.
 
-**Family-level matching is correct but families are static.** Coxhead's families are based on Bauer & Nation 1993 Level 6, which excludes some derivational patterns. Tokens like *analytically* (adverbial form of *analyse*) match because they're in the inflected forms; obscure derivations might not.
+**Families are static.** Coxhead's families follow Bauer & Nation (1993) Level 6. Derivations outside the listed forms don't match.
 
 ## bnc_coca
 
-**Headwords only, 10 bands.** The bundled `lpmi-13` mirror is CC0-clean but lacks family-level data with all derivational members. Surface form + spaCy lemma fallback partially mitigates, but `analytical` won't match `analyse` because spaCy's lemmatizer only inflects, not derives.
+**Homographs take the most frequent band.** A form listed in more than one family keeps the lowest band, as Range does. A rare sense of a common spelling counts as common.
 
-**Upgrade path 1 — wen-zhi families CSV (1k–9k).** Adds inflected forms, better recall. Licence unstated. Ship as a `[bnc_coca_extended]` opt-in extra; users download separately if they accept the licence ambiguity.
+**Proper nouns depend on the tagger and on the lists.** A token no family claims is a proper noun if Nation's proper-names list has it or spaCy tags it NNP/NNPS. A name that is also a common word (`Bath`, `Brown`) is matched to its family first and counted in that band.
 
-**Upgrade path 2 — Nation's full 25-band families.** Bundled inside Laurence Anthony's WordFamilyFinder app, not a standalone download. Would require either repackaging (legally awkward) or a one-time scrape with explicit permission.
-
-**Off-list residual is just a sample of 50.** For corpus profiling you'd want the full off-list with frequencies. Easy to add a `--full-off-list` flag.
+**"Assumed known" is a convention.** `coverage_with_supplementary_pct` counts proper nouns and supplementary-list words as known, following Nation. Use `coverage_pct` if you want the strict figure.
 
 ## ngsl
 
-**NGSL is general English; NAWL is academic.** Combining them with a "NGSL+NAWL" coverage number is convenient but conflates two different reference points. The current output keeps them separate, which is correct.
+**NGSL is general English; NAWL is academic.** The combined `ngsl_plus_nawl` figure is convenient but mixes two reference points; the separate figures are the ones to report.
 
-**No NGSL Spoken or NGSL TOEIC variants.** Browne, Culligan, Phillips publish several specialised variants on the same site (NGSL-Spoken, TSL for TOEIC, BSL for business). Easy to add as `--variant` opt-ins later if useful.
+**No NGSL Spoken, TSL or BSL.** Browne, Culligan and Phillips publish specialised lists on the same site; they could be added as opt-ins.
 
 ## phrase
 
-**Parsed count is 506 vs published 505.** All 506 are distinct — there is **no duplicate**, contrary to what this file used to claim. Running the check (`Counter(it['phrase'] for it in items).most_common(3)`) returns nothing with a count above 1. The extra entry is a slot-variant boundary case from the `.doc` parse. Not material for analysis.
+**Parsed count is 506 vs published 505.** All 506 are distinct; the extra entry is a slot-variant boundary case from the `.doc` parse. Not material for analysis.
 
-**Slot phrases are partially handled.** `BE EXPECTED TO` matches all `be` inflections, but `(MAY/MIGHT) HAVE TO` and other modal-slot phrases are not explicitly handled — the parser just took the first variant before the slash. If you need full slot expansion, regenerate the JSON with all alternants.
+**Senses rest on one example each.** The tag constraints (`to` as TO or IN, `that` as IN or DT, particles as RP/RB or IN) are read from each entry's own example sentence at build time. An entry whose example doesn't contain the phrase gets no constraint; the build script lists those. A mis-tagged token in the user's text can also accept or reject a sense wrongly.
 
-**Licence is unstated.** Norbert Schmitt's site says "freely available for research and pedagogical purposes." Fine for personal/educational use; if lexinspect ever powers a commercial product, request explicit redistribution permission.
+**Longest match hides overlaps.** `as well as` is one hit, not also `as well`. When two senses of the same form both fit, the more frequent is chosen and the others are listed in `also_possible`; nothing decides between them semantically.
+
+**Licence is unstated.** Norbert Schmitt's site says the materials are "freely available for research and pedagogical purposes". See Operations below.
 
 ## cefr
 
-**Not Cambridge EVP.** Already noted in the module's `caveat` output field and in `SOURCES.md`. Numbers will diverge from EVP-based tools. The CEFR-J methodology is solid (Tono lab) but the underlying corpus is different.
+**Not Cambridge EVP.** Noted in the module's `caveat` field and in `SOURCES.md`. Numbers will diverge from EVP-based tools; CEFR-J and Octanove use different corpora and methods.
 
-**`dominant_level` is misleading on its own.** It's argmax of token counts, which means function words ("the", "of") usually dominate any text and the answer is almost always A1. Fine when reading the full distribution; do not surface this number alone in a UI.
+**`dominant_level` is misleading on its own.** It's the argmax of token counts, and function words make it A1 for almost any text. Read the distribution, `highest_level_present` and the upper-level word lists instead.
 
-**`estimated_level_95th` returns null when off-list residual is large.** Most academic texts have >5% off-list (proper nouns, technical terms), so the heuristic refuses to estimate. Honest behaviour, but a UI may want a fallback like "highest level reached" when the heuristic is null.
+**`estimated_level_95th` can be null.** Proper nouns are counted as known, but a text with more than 5% off-list words (technical terms, rare words) never reaches 95% and gets no estimate.
 
-**Lowest-level-wins on multi-POS lemmas.** A word annotated as A2 noun and B1 verb is recorded as A2. The other reading was thrown away. Acceptable for level estimation; a cleaner approach would store per-POS levels and use spaCy's POS tag at lookup time.
+**POS fallback.** When the source lists no level for the token's part of speech, the lowest listed level is used and counted in `pos_fallback_tokens`. A high count means the levels are less specific than they look.
 
 ## cefr_level (optional, requires `cefr-level` extra)
 
-**Estimate, not a verdict.** This is the universal limit on every CEFR text classifier — free or commercial. Text Inspector's own published wording on the Lexical Profile© applies verbatim here: only an estimate, not for high-stakes decisions, vocabulary-and-metadiscourse-dominant signal, calibrated on writing/reading/listening (not speech), limited feature set. Inherited from the same construct, not from any flaw specific to lexinspect.
+**Estimate, not a verdict.** This is the universal limit on every CEFR text classifier, free or commercial. Text Inspector's published wording for its Lexical Profile applies here too: only an estimate, not for high-stakes decisions, vocabulary-dominated signal, calibrated on writing/reading/listening rather than speech, limited feature set.
 
-**Adjacent-level confusion is irreducible.** Most misclassifications fall on the next band up or down. Even professional human raters disagree at this granularity (inter-rater Cohen's κ ≈ 0.5–0.7 on 6-class CEFR). The realistic target is within-one-level reliability, not exact match.
+**Adjacent-level confusion is irreducible.** Most misclassifications fall one band up or down. Human raters also disagree at this granularity; within-one-level reliability is the realistic target.
 
-**Vocabulary dominates the signal.** The model under-weights syntactic complexity, discourse organisation, and topic familiarity. Two passages with very similar vocabulary distributions but different rhetorical structure may receive the same classification when a human rater would split them.
+**Vocabulary dominates the signal.** The model under-weights syntactic complexity, discourse organisation and topic familiarity.
 
-**Domain and genre drift the calibration.** UniversalCEFR's training corpus mixes reference texts and learner production across 13 languages. Domain-specific calibration (academic vs narrative vs business) is not modelled.
+**Domain and genre drift the calibration.** UniversalCEFR's training corpus mixes reference texts and learner production across 13 languages. Domain-specific calibration is not modelled.
 
-**Single-classifier output is uninformative; convergence is diagnostic.** When the `cefr_level` call agrees with the simpler `cefr` 95th-percentile heuristic and the readability grade, the verdict is robust. When they disagree, the disagreement itself is the signal that the text sits between bands or that one feature family is being misled. Do not surface a single classifier number as ground truth.
+**Convergence is diagnostic.** When `cefr_level` agrees with the `cefr` 95th-percentile heuristic and the readability grade, the verdict is robust; when they disagree, the disagreement is the signal.
 
-**~400MB model download on first call.** Cached in the standard HuggingFace location after that. The pipeline is loaded lazily and cached in-process; subsequent calls reuse it. CPU inference is ~2–5s per text. Not in `analyze` because it would slow the all-modules call from <2s to ~7s and force the heavy extras on every install.
+**Heavy.** A large model download on first call, cached by Hugging Face afterwards; CPU inference takes seconds per text. Not in `analyze`, and not in the hosted build. The web UI offers it on demand when the extra is installed.
 
-**Web UI runs cefr-level on demand, not as part of Analyze.** The tab opens with a "Run CEFR classifier" button rather than pre-filling from `/v1/analyze`, because (a) the module is not in `/v1/analyze` and (b) the user should make an explicit choice before paying the ~3–5s inference cost. 503 responses (extra not installed) are surfaced as an inline install hint.
-
-**Stderr noise on first call.** transformers' internal info/warning logs are silenced via `transformers.logging.set_verbosity_error()` inside the module. Two lines still surface from sibling libraries: an "unauthenticated requests to the HF Hub" warning from `huggingface_hub`, and a weight-loading progress bar from `tqdm`. The JSON output to stdout is unaffected (agent consumption is clean). For full silence, set `HF_HUB_DISABLE_PROGRESS_BARS=1` and either `HF_TOKEN=<token>` or `HF_HUB_DISABLE_TELEMETRY=1` in the environment.
+**Stderr noise on first call.** transformers' own logs are silenced, but `huggingface_hub` may warn about unauthenticated requests and `tqdm` prints a progress bar. JSON on stdout is unaffected. Set `HF_HUB_DISABLE_PROGRESS_BARS=1` and either `HF_TOKEN` or `HF_HUB_DISABLE_TELEMETRY=1` for silence.
 
 ## errors
 
-**Hunspell only knows what's in its dictionary.** Proper nouns, brand names, recent neologisms, and rare technical vocabulary will routinely show up as false positives. The LibreOffice English dictionaries we ship with — Kevin Atkinson's wordlist (LGPL) plus Geoff Kuenning's affix file (BSD) — are well-maintained but not exhaustive. Treat the error list as a triage signal, not a verdict.
+**Hunspell can't catch real-word errors.** A real word used wrongly (*their*/*there*, *form*/*from*) passes. It also only knows what's in its dictionary: rare technical terms and neologisms show up as errors. Treat the list as a triage signal, not a verdict.
 
-**spaCy splits possessive `'s` from its host noun**, so possessive forms like `children's` are spell-checked as `children` plus `'s` (the latter skipped, never flagged). Hunspell's full possessive-handling affix rules are bypassed. If a single word with `'s` looks suspicious, check the bare lemma yourself.
+**Capitalised misspellings can still pass as names.** A capitalised word the dictionary rejects, anywhere but the start of a sentence, goes to `unknown_names`. The exception is a word one edit from a very common word (six letters or more) with no proper noun beside it, so *the Goverment said* is an error. *The Enviroment Agency* is still reported as a name, because its neighbour looks like part of a name. Words written in capitals are treated as acronyms.
 
-**No suggestions returned by default.** spylls' `dictionary.suggest()` is available but slow (often 100ms+ per word). Adding suggestions to the output would multiply request latency on long texts; if you need them, call `errors.suggest()` (not yet exposed) on individual surface forms.
+**Hyphenated compounds are accepted part by part.** If the whole compound isn't in the dictionary, it passes when every part is a word, so an invented compound of real words is never flagged.
 
-**Dictionary download is unauthenticated.** First call per variant fetches `https://raw.githubusercontent.com/LibreOffice/dictionaries/master/en/en_<variant>.{aff,dic}` over HTTPS, with no checksum check. GitHub's TLS is the only integrity guarantee. Pin to a specific commit hash if you need reproducibility for compliance reasons.
+**Suggestions are bounded.** The suggester looks for BNC/COCA and NGSL forms within one edit (two for words up to 12 letters, if one finds nothing), filtered to words valid in the chosen variety. Words outside those lists are never suggested, and only the 40 most frequent distinct errors per request get suggestions.
 
-**No grammar checking.** This module flags individual tokens against a dictionary; it does not parse syntax, agreement, or tense. Tools like LanguageTool do that and live in a different complexity class.
+**The rate counts checked words.** `errors_per_100_words` divides by `tokens_checked`, which excludes numbers, codes, URLs and abbreviations, so it can differ slightly from a rate over the full word count.
+
+**No grammar checking.** Tools like LanguageTool parse agreement and tense; that is a different class of problem.
 
 ## metadiscourse
 
-**9 of 10 categories are curated reference subsets, not the full Hyland 2005 Appendix A.** Hedges are the only verbatim mirror. The rest are 30–60 canonical items per category. Coverage is enough for IELTS/ELT diagnostic work but will under-report on a long academic text vs a complete-Appendix tool.
+**Automated, not hand-coded.** Hyland's categories are functional, and his counts were checked by hand. lexinspect approximates that with context rules on the parse (clause-linking `and`, `Table 2`, reporting verbs with a clausal complement, predicative `clear`, and so on). The rules remove most false positives from everyday words, but they inherit tagger and parser errors, and some judgements are out of reach: `or` as a code gloss and bare `as` as an evidential are never counted.
 
-**Not Bax/Nakatsuhara/Waller (2019) 13-category extension.** That's what Text Inspector uses, but the marker list isn't public. If you ever obtain it (paper authors, Cambridge English request), expanding to 13 categories is a drop-in replacement of the data file.
+**Marker lists are partial.** Hedges mirror Hyland 2005 Appendix A; the other nine categories are curated subsets of 23–60 markers each. Coverage is enough for ELT diagnostic work but will under-report against a full-appendix tool. Markers are literal strings: inflected forms count only when listed.
 
-**Greedy longest-match is correct for spans but loses overlap signal.** When `in fact` (booster + code gloss) matches, both categories get +1 hit. When two markers overlap (e.g. `as a result of the fact that`), only the longest match wins. Acceptable trade-off; flag if you start studying overlapping markers specifically.
+**One category per hit.** A marker listed in several categories is assigned by a fixed priority order and its context rules; the others are recorded in `also_listed_as`, not counted.
 
-**No regex-pattern markers.** Some categories (especially evidentials) benefit from patterns like `<author> argues that` rather than literal strings. fatihbozdag's `metadiscourse_analysis` repo is regex-first and worth borrowing patterns from.
+**Not Bax, Nakatsuhara & Waller (2019).** Text Inspector uses that 13-category extension, whose marker list isn't public. Numbers will not match Text Inspector's.
 
 ## CLI
 
-**`--format human` is basic.** Renders a single-level Rich table; nested fields print as a heading + recursive call. For a polished CLI experience you'd want module-specific formatters (e.g. CEFR distribution as a horizontal bar chart, BNC/COCA as a coverage curve).
+**`--format human` is basic.** A single-level Rich table with nested fields printed recursively. Module-specific formatters would read better.
 
-**No `--input-format` switch.** Reads UTF-8 plain text. PDF / DOCX / HTML support would help when you want to grade real-world documents — wrap with `marker-pdf` or `defuddle` upstream rather than baking it in.
+**Plain text only.** Reads UTF-8 text. For PDF, DOCX or HTML, convert upstream.
 
-**No batch mode.** `lexinspect analyze passage.txt` runs one text. For a corpus you'd run a shell loop. A `lexinspect batch dir/ --module cefr --output results.csv` command would be a clean Phase 6 addition.
+**No batch mode.** One text per call; use a shell loop for a corpus.
+
+**CLI and API envelopes differ slightly.** API single-module responses include `input.word_count`; CLI single-module output doesn't. `/v1/analyze` returns `input.normalised_text` when normalisation changed the text; the CLI's `analyze` doesn't, although its spans also index the normalised text.
 
 ## API
 
-**CORS is open.** `allow_origins=["*"]` with `allow_credentials=False`. Not a security boundary for an unauthenticated public API — a cross-origin caller gains nothing it couldn't get server-to-server, and there are no cookies or sessions to steal. Tighten via a `LEXINSPECT_ALLOWED_ORIGINS` env var if the API ever grows auth.
+**CORS is open by default.** `allow_origins=["*"]` with `allow_credentials=False`. Not a security boundary: the only cookie is the Turnstile pass, which is `SameSite=Strict` and never sent cross-origin. Set `LEXINSPECT_ALLOWED_ORIGINS` to restrict it.
 
-**No authentication.** Deliberate: the hosted app is free and open. Abuse is bounded by three things instead — the 50 KB request cap (`MAX_TEXT_BYTES`, overridable via `$LEXINSPECT_MAX_TEXT_BYTES`), a Vercel WAF rate limit of 60 POSTs/min/IP on `/v1/` returning 429 (no persistent block, because schools share one NAT IP), and a 30s `maxDuration`. The durable protection is that a request is cheap: the worst legal request is ~0.9s of CPU. It was ~165s before the parse-once and `phrase` bucketing work.
+**No accounts; a human check instead.** Deliberate: the hosted app is free and open, with nothing to sign in to. Abuse is bounded by the 50 KB request cap (`MAX_TEXT_BYTES`, overridable via `$LEXINSPECT_MAX_TEXT_BYTES`), a Vercel WAF rate limit of 60 POSTs/min/IP on `/v1/` returning 429 (no persistent block, because schools share one NAT IP), a 10 s `maxDuration`, and Cloudflare Turnstile on every analysis endpoint (`_human.py`). The durable protection is still that a request is cheap: the full pipeline takes about 0.09 s of CPU for 3 KB and about 0.8 s for a maximum-size 50 KB text.
 
-**No async / no streaming.** Each request is synchronous and CPU-bound (spaCy parse). Long requests block the worker. For high concurrency, run multiple uvicorn workers (`--workers N`) or reach for a job-queue pattern. Note that serverless hosts pack concurrent requests into one process and run these sync handlers on a threadpool, which is why `_nlp.get_doc()` serialises parses behind a lock — spaCy mutates a shared `Vocab`/`StringStore` while tokenising.
+**What Turnstile does and doesn't stop.** It stops scripts that can't run a browser challenge. A passed check earns a signed cookie valid for an hour, not bound to an IP or device, so someone who passes once by hand can reuse the cookie from a script for that hour, still under the per-IP rate limit. Tokens are single-use and verified server-side (`siteverify`); if Cloudflare can't be reached, analyses fail with 503 rather than run unchecked. People with Turnstile blocked by a content blocker, or with JavaScript off, can't use the hosted app. With the keys set, the hosted API no longer serves scripts or notebooks; they should run lexinspect locally. Rotating `TURNSTILE_SECRET_KEY` invalidates every cookie.
 
-**No OpenTelemetry / structured logging.** uvicorn's default access log is the only observability. Add `structlog` + Prometheus metrics if you operate this beyond local use.
+**No async, no streaming.** Each request is synchronous and CPU-bound. Serverless hosts pack concurrent requests into one process and run sync handlers on a threadpool, which is why `_nlp.parse()` serialises parses behind a lock: spaCy mutates a shared `Vocab`/`StringStore` while tokenising. Locally, use `--workers N` for parallelism.
 
-**No multipart file upload endpoint.** Body is JSON with the text inline. Add `POST /v1/upload` accepting `multipart/form-data` if you want browser drag-and-drop.
+**No structured logging or metrics.** The access log is the only observability.
+
+**No file upload endpoint.** The body is JSON with the text inline.
 
 ## Operations
 
-**Data refresh is manual.** Build scripts in `scripts/build_data/` exist but are one-shot. A CI workflow that re-runs them on a schedule + opens a PR with diffs would catch upstream version bumps automatically. Low priority — these lists move slowly.
+**Data refresh is manual.** The scripts in `scripts/build_data/` are one-shot and need the upstream files downloaded by hand. These lists move slowly.
 
-**Deployed at `lexinspect.vercel.app`.** GitHub Actions runs `vercel build` and `vercel deploy --prebuilt`, so Vercel build compute stays near zero; Vercel's own git builds are off via `git.deploymentEnabled: false`. The hosted build omits the `cefr-level` extra — `/v1/schema` reports `optional_available`, and the web UI hides tabs whose module isn't installed.
+**Deployed at `lexinspect.vercel.app`.** GitHub Actions runs `vercel build` and `vercel deploy --prebuilt`; Vercel's own git builds are off (`git.deploymentEnabled: false`). The function is `api/index.py` (`maxDuration` 10 s, 1024 MB); the web UI is copied to `public/` and served from the CDN. The hosted build omits the `cefr-level` extra. The function bundle is about 107 MB at the last measured build, well under the 500 MB limit; CI prints the size in the job summary so a dependency bump that inflates it is visible.
 
-**The bundle is 509.67 MB against a 500 MB limit — the top thing to fix.** It only deploys because the large-functions beta is enabled (`VERCEL_SUPPORT_LARGE_FUNCTIONS=1`, set both as a project env var and inline in the workflows, because off-platform builds don't receive project env vars). Any dependency bump can push it over.
+**Keep runtime downloads out.** Every dictionary and list is vendored under `src/lexinspect/data/`. Earlier versions fetched the Hunspell dictionaries and NLTK's CMUdict at request time; on an ephemeral serverless filesystem that meant re-downloading on cold starts, HTTP 429s under bursts, a concurrency race that produced live 500s, and, because spylls compiles `.aff` files into regexes, a supply-chain hole. The app also loads everything once at startup, single-threaded (`pipeline.warm()`, about a second), because lazy first-use loading under concurrency is how it used to race itself.
 
-The cure is to **drop `lexicalrichness` and vendor MTLD + HD-D**. It is the sole reason `scipy` (82 MB), `pandas` (48 MB), `matplotlib` (26 MB) and `textblob` are in the bundle — `diversity.py` is the only module that imports it, and it uses ten metrics, all of which are pure Python plus `math.comb` for HD-D's hypergeometric term. `textstat` needs only `pyphen` + `nltk`; nltk's scipy dependency is extras-only. Expected outcome:
+**Spend Management must not be armed with the pause action.** Its pause applies to every project on the team, with a several-minute detection delay and manual un-pausing. To fail closed on this project alone, use the spend webhook to call `POST /v1/projects/{projectId}/pause`.
 
-- ~350 MB bundle, comfortably under the standard limit; the beta opt-in and the CI env-var workaround both go away.
-- Cold start drops sharply. `lexicalrichness` costs ~1.7s to import, and `matplotlib` rebuilds its font cache on every new instance ("generated new fontManager") — most of the ~11s cold requests visible in the runtime logs. `_env.py` gives matplotlib a writable `MPLCONFIGDIR` so it pays that once per instance rather than failing, but the only real fix is not importing it.
+**Serving the data publicly changes the licence position.** `/licences` carries the attribution for every bundled dataset, because CC BY-SA terms run to whoever receives the work, not just whoever reads the repo. Points to keep in mind:
 
-Do it carefully: these are numbers users read. Port the exact formulas and assert byte-identical output against the current `lexicalrichness` results across a randomised corpus before deleting the dependency — the same way the `phrase` index rewrite was verified across 33 fixtures.
+- `bnc_coca.json`, `ngsl.json` and `nawl.json` are adaptations of CC BY-SA 4.0 lists and are therefore CC BY-SA 4.0 themselves. `cefr.json` merges CEFR-J (citation terms) with Octanove (CC BY-SA 4.0); share it under CC BY-SA with both credits.
+- The PHRASE list is "freely available for research and pedagogical purposes", and `SOURCES.md` has long said to seek explicit permission if lexinspect is wrapped in a web product. That is arguably now the case, even though the product is free.
+- The Hyland 2005 hedges lexicon mirror has no stated licence.
+- VarCon's and CMUdict's permissive notices require the copyright and permission text to accompany copies; `SOURCES.md` and `data/hunspell/LICENSES/` carry them.
 
-**Two runtime downloads were removed; don't reintroduce the pattern.** `spylls` ships no dictionary data and `textstat` asks `nltk` for the CMU dictionary. Both used to fetch at request time. On a read-only, ephemeral serverless filesystem that meant re-downloading on every cold start, HTTP 429s under bursts, a concurrency race that produced live HTTP 500s (`[nltk_data] Extraction error for cmudict/cmudict`), and — because spylls compiles the `.aff` file into regexes — a supply-chain hole where a force-push upstream became code we ran. Both are now vendored under `src/lexinspect/data/`, and `_env.py` points `$NLTK_DATA` at the bundled corpus before textstat imports. The FastAPI lifespan also touches `readability.analyze()` once, single-threaded, because `nltk.data.find()` is not thread-safe on first call.
-
-**Spend Management must not be armed with the pause action.** Its pause applies to *every project on the team*, with a several-minute detection delay and manual un-pausing. To fail-closed on this project alone, use the spend webhook to call `POST /v1/projects/{projectId}/pause`.
-
-**Serving the data publicly changed the licence position.** `/licences` (linked from the footer) carries the CC BY-SA 4.0 attribution for NGSL/NAWL/Octanove and the CEFR-J citation, because those terms run to whoever receives the work, not just whoever reads the repo. Two open questions worth resolving: the PHRASE list is "freely available for research and pedagogical purposes" and the note in `SOURCES.md` says to seek explicit permission if lexinspect is ever wrapped in a web product — arguably now true, even though it's free; and the Hyland 2005 hedges lexicon has **no stated licence** at all.
-
-**No telemetry on which modules are actually used.** When the CLI ships beyond personal use, it would be worth knowing whether `phrase` justifies its build complexity. A simple opt-in counts file would do.
+**No telemetry on which modules are used.** If the CLI ships beyond personal use, an opt-in counts file would show whether `phrase` justifies its build complexity.
 
 ## What's not in scope today
 
-- **Non-English text.** Every module assumes English. Many CEFR-J levels exist for German, French, etc. — adding them is a per-language data file, not a code change. CLI flags would need a `--lang` option.
-- **Speaking / listening assessment.** The toolkit analyses written text. Spoken-mode features (filled pauses, repair phenomena) need a different pipeline.
-- **Generation.** lexinspect describes texts; it doesn't write or simplify them. Pair with an LLM for the generative side.
+- **Non-English text.** Every module assumes English. CEFR-J-style profiles exist for other languages; adding them is a per-language data file plus a `--lang` option.
+- **Speaking and listening assessment.** The toolkit analyses written text. Spoken-mode features need a different pipeline.
+- **Generation.** lexinspect describes texts; it doesn't write or simplify them.

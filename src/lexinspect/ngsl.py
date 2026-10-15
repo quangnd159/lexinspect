@@ -1,92 +1,79 @@
-"""NGSL + NAWL coverage profiling.
+"""NGSL + NAWL coverage profiling (Browne, Culligan & Phillips).
 
-Browne, Culligan, Phillips:
-- New General Service List 1.2 — 2,809 lemmas, ~92% coverage of general English
-- New Academic Word List 1.2 — 959 academic lemmas to use after NGSL
+- New General Service List 1.2 — 2,809 lemmas, ~92% of general English.
+- New Academic Word List 1.2 — 959 academic lemmas, for use after NGSL.
 
-CC-BY-SA 4.0. Lookup tries surface form, then spaCy lemma, then NAWL
-inflected variants for words like 'analyses' that NGSL doesn't carry but
-NAWL does.
+CC BY-SA 4.0. A token is NGSL if any of its forms is an NGSL form (every
+inflection and UK/US spelling the official teaching list gives), else NAWL,
+else a proper noun (tagged NNP/NNPS and on neither list), else off-list. The
+two lists are reported separately as well as combined — they answer different
+questions (general vs academic vocabulary).
 """
 
 from __future__ import annotations
 
-import json
-from functools import lru_cache
-from importlib import resources
+from collections import Counter
 from typing import Any
 
-from lexinspect._nlp import get_doc
+from lexinspect import _lists
+from lexinspect._text import Analysis, ensure, lookup
+
+OFF_LIST_LIMIT = 200
 
 
-@lru_cache(maxsize=1)
-def _ngsl() -> dict[str, dict]:
-    raw = resources.files("lexinspect.data").joinpath("ngsl.json").read_text(encoding="utf-8")
-    data = json.loads(raw)
-    return {item["lemma"]: item for item in data["lemmas"]}
+def analyze(text: str, *, analysis: Analysis | None = None) -> dict[str, Any]:
+    a = ensure(text, analysis)
+    ngsl, nawl = _lists.ngsl_forms(), _lists.nawl_forms()
 
-
-@lru_cache(maxsize=1)
-def _nawl() -> dict[str, dict]:
-    raw = resources.files("lexinspect.data").joinpath("nawl.json").read_text(encoding="utf-8")
-    data = json.loads(raw)
-    out: dict[str, dict] = {}
-    for item in data["lemmas"]:
-        for form in item["forms"]:
-            out[form] = item
-    return out
-
-
-def analyze(text: str, *, doc=None) -> dict[str, Any]:
-    doc = get_doc(text, doc)
-    ngsl = _ngsl()
-    nawl = _nawl()
-
-    ngsl_tokens = 0
-    nawl_tokens = 0
-    off_tokens = 0
+    ngsl_tokens = nawl_tokens = 0
     ngsl_lemmas: set[str] = set()
     nawl_lemmas: set[str] = set()
-    off_sample: list[str] = []
-    content = 0
+    proper: Counter[str] = Counter()
+    off: Counter[str] = Counter()
+    nawl_words: Counter[str] = Counter()
 
-    for tok in doc:
-        if tok.is_space or tok.is_punct or tok.like_num:
-            continue
-        content += 1
-        surface = tok.text.lower()
-        lemma = tok.lemma_.lower()
-        if surface in ngsl or lemma in ngsl:
+    for lex in a.lexical:
+        _k, item = lookup(ngsl, lex.keys)
+        if item is not None:
             ngsl_tokens += 1
-            ngsl_lemmas.add(lemma if lemma in ngsl else surface)
+            ngsl_lemmas.add(item["lemma"])
             continue
-        if surface in nawl or lemma in nawl:
+        _k, item = lookup(nawl, lex.keys)
+        if item is not None:
             nawl_tokens += 1
-            entry = nawl.get(surface) or nawl.get(lemma)
-            nawl_lemmas.add(entry["lemma"] if entry else lemma)
+            nawl_lemmas.add(item["lemma"])
+            nawl_words[lex.surface] += 1
             continue
-        off_tokens += 1
-        if len(off_sample) < 50:
-            off_sample.append(surface)
+        if lex.is_proper:
+            proper[lex.surface] += 1
+        else:
+            off[lex.surface] += 1
 
+    n = len(a.lexical)
+    off_tokens = sum(off.values())
     return {
         "counts": {
-            "content_tokens": content,
+            "content_tokens": n,
             "ngsl_tokens": ngsl_tokens,
             "nawl_tokens": nawl_tokens,
+            "proper_noun_tokens": sum(proper.values()),
             "off_list_tokens": off_tokens,
             "ngsl_lemmas": len(ngsl_lemmas),
             "nawl_lemmas": len(nawl_lemmas),
         },
         "coverage_pct": {
-            "ngsl": _pct(ngsl_tokens, content),
-            "nawl": _pct(nawl_tokens, content),
-            "ngsl_plus_nawl": _pct(ngsl_tokens + nawl_tokens, content),
-            "off_list": _pct(off_tokens, content),
+            "ngsl": _pct(ngsl_tokens, n),
+            "nawl": _pct(nawl_tokens, n),
+            "ngsl_plus_nawl": _pct(ngsl_tokens + nawl_tokens, n),
+            "proper_nouns": _pct(sum(proper.values()), n),
+            "off_list": _pct(off_tokens, n),
         },
         "ngsl_lemmas_found": sorted(ngsl_lemmas),
         "nawl_lemmas_found": sorted(nawl_lemmas),
-        "off_list_sample": sorted(set(off_sample))[:50],
+        "nawl_words": [{"word": w, "count": c} for w, c in nawl_words.most_common()],
+        "proper_nouns": [{"word": w, "count": c} for w, c in proper.most_common(OFF_LIST_LIMIT)],
+        "off_list": [{"word": w, "count": c} for w, c in off.most_common(OFF_LIST_LIMIT)],
+        "off_list_sample": sorted(off)[:50],
     }
 
 

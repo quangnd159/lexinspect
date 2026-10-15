@@ -1,90 +1,96 @@
-"""BNC/COCA frequency-band profiling.
+"""BNC/COCA frequency-band profiling (Nation's 25,000 word families).
 
-Bundled headword list is the lpmi-13 CC0 mirror of Paul Nation's BNC/COCA bands
-1k–10k (9,998 head words across 10 bands of 1,000). Headwords only — derivational
-family members are not in the data. Lookup tries surface form first, falls back
-to spaCy lemma. Tokens that match no band are reported under `off_list`.
+Each lexical token is matched to its Bauer–Nation Level 6 word family, and the
+family's band (1k … 25k) is the token's band — so `clearly`, `unclear` and
+`clearance` all count toward `clear` in the 1k band, as in Range and
+AntWordProfiler. Lookup tries the token's own forms, then its lemma, then its
+British/American respelling.
 
-Output mirrors Text Inspector's "K-band coverage" view: per-band token counts
-plus the cumulative coverage curve (% of running tokens covered at and below
-each band), which is the standard ELT/IELTS readout.
+Tokens no family claims fall into Nation's supplementary lists — proper names,
+marginal words (`oh`, `hmm`), transparent compounds, acronyms — or, failing
+those, are proper nouns by tag, or off-list. Nation's convention, followed by
+the cumulative curve's `..._with_supplementary` field, is that supplementary
+and proper-noun tokens are assumed known: a reader doesn't need to have learnt
+`London` to follow a text about it.
 """
 
 from __future__ import annotations
 
-import json
-from collections import defaultdict
-from functools import lru_cache
-from importlib import resources
+from collections import Counter, defaultdict
 from typing import Any
 
-from lexinspect._nlp import get_doc
+from lexinspect import _lists
+from lexinspect._text import Analysis, ensure, lookup
+
+BANDS = 25
+OFF_LIST_LIMIT = 200
 
 
-@lru_cache(maxsize=1)
-def _load() -> dict[str, Any]:
-    raw = resources.files("lexinspect.data").joinpath("bnc_coca.json").read_text(encoding="utf-8")
-    return json.loads(raw)
+def classify(lex) -> tuple[str, Any]:
+    """('band', Family) | ('supplementary', list_name) | ('proper', None) | ('off', None)."""
+    _key, fam = lookup(_lists.bnc_forms(), lex.keys)
+    if fam is not None:
+        return "band", fam
+    _key, sup = lookup(_lists.bnc_supplementary(), lex.keys)
+    if sup == "proper_names" or (sup is None and lex.is_proper):
+        return "proper", None
+    if sup is not None:
+        return "supplementary", sup
+    return "off", None
 
 
-@lru_cache(maxsize=1)
-def _word_to_band() -> dict[str, int]:
-    data = _load()
-    out: dict[str, int] = {}
-    for band_str, words in data["bands"].items():
-        band = int(band_str)
-        for w in words:
-            out.setdefault(w, band)
-    return out
+def analyze(text: str, *, analysis: Analysis | None = None) -> dict[str, Any]:
+    a = ensure(text, analysis)
+    lexical = a.lexical
+    n = len(lexical)
 
+    band_tokens: Counter[int] = Counter()
+    band_families: dict[int, set[str]] = defaultdict(set)
+    supplementary: Counter[str] = Counter()
+    proper: Counter[str] = Counter()
+    off: Counter[str] = Counter()
 
-def analyze(text: str, *, doc=None) -> dict[str, Any]:
-    doc = get_doc(text, doc)
-    word_to_band = _word_to_band()
-    max_band = max(int(k) for k in _load()["bands"])
+    for lex in lexical:
+        kind, value = classify(lex)
+        if kind == "band":
+            band_tokens[value.band] += 1
+            band_families[value.band].add(value.headword)
+        elif kind == "supplementary":
+            supplementary[value] += 1
+        elif kind == "proper":
+            proper[lex.surface] += 1
+        else:
+            off[lex.surface] += 1
 
-    tokens_per_band: dict[int, int] = defaultdict(int)
-    families_per_band: dict[int, set[str]] = defaultdict(set)
-    off_list: list[str] = []
-    content_tokens = 0
-
-    for tok in doc:
-        if tok.is_space or tok.is_punct or tok.like_num:
-            continue
-        content_tokens += 1
-        surface = tok.text.lower()
-        lemma = tok.lemma_.lower()
-        band = word_to_band.get(surface) or word_to_band.get(lemma)
-        head = surface if surface in word_to_band else (lemma if lemma in word_to_band else None)
-        if band is None:
-            off_list.append(surface)
-            continue
-        tokens_per_band[band] += 1
-        families_per_band[band].add(head or surface)
-
-    on_list_tokens = sum(tokens_per_band.values())
-
+    on_list = sum(band_tokens.values())
+    assumed_known = sum(supplementary.values()) + sum(proper.values())
     per_band = {}
     cumulative = 0
-    for b in range(1, max_band + 1):
-        n = tokens_per_band.get(b, 0)
-        cumulative += n
+    for b in range(1, BANDS + 1):
+        cumulative += band_tokens[b]
         per_band[str(b)] = {
-            "tokens": n,
-            "headwords": len(families_per_band.get(b, set())),
-            "coverage_pct": _pct(n, content_tokens),
-            "cumulative_coverage_pct": _pct(cumulative, content_tokens),
+            "tokens": band_tokens[b],
+            "headwords": len(band_families[b]),
+            "coverage_pct": _pct(band_tokens[b], n),
+            "cumulative_coverage_pct": _pct(cumulative, n),
+            "cumulative_coverage_with_supplementary_pct": _pct(cumulative + assumed_known, n),
         }
 
     return {
         "counts": {
-            "content_tokens": content_tokens,
-            "on_list_tokens": on_list_tokens,
-            "off_list_tokens": len(off_list),
+            "content_tokens": n,
+            "on_list_tokens": on_list,
+            "proper_noun_tokens": sum(proper.values()),
+            "supplementary_tokens": sum(supplementary.values()),
+            "off_list_tokens": sum(off.values()),
         },
-        "coverage_pct": _pct(on_list_tokens, content_tokens),
+        "coverage_pct": _pct(on_list, n),
+        "coverage_with_supplementary_pct": _pct(on_list + assumed_known, n),
         "per_band": per_band,
-        "off_list_sample": sorted(set(off_list))[:50],
+        "supplementary": dict(supplementary),
+        "proper_nouns": [{"word": w, "count": c} for w, c in proper.most_common(OFF_LIST_LIMIT)],
+        "off_list": [{"word": w, "count": c} for w, c in off.most_common(OFF_LIST_LIMIT)],
+        "off_list_sample": sorted(off)[:50],
     }
 
 

@@ -4,6 +4,7 @@ Inputs (already in /tmp/lex3):
   - cefrj.csv      — CEFR-J Vocabulary Profile 1.5 (A1–B2)
   - octanove.csv   — Octanove Vocabulary Profile C1/C2 1.0
 """
+
 from __future__ import annotations
 
 import csv

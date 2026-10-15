@@ -1,10 +1,60 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
+  "framework": null,
+  "cleanUrls": true,
   "functions": {
-    "main.py": {
-      "maxDuration": 30
+    "api/index.py": {
+      "maxDuration": 10,
+      "memory": 1024,
+      "excludeFiles": "{src,tests,scripts,docs,public,.github,.claude,.pytest_cache,.ruff_cache}/**"
     }
   },
+  "rewrites": [
+    {
+      "source": "/v1/:path*",
+      "destination": "/api/index"
+    },
+    {
+      "source": "/(docs|redoc|openapi.json|healthz)",
+      "destination": "/api/index"
+    },
+    {
+      "source": "/docs/:path*",
+      "destination": "/api/index"
+    }
+  ],
+  "headers": [
+    {
+      "source": "/((?!docs|redoc).*)",
+      "headers": [
+        {
+          "key": "Content-Security-Policy",
+          "value": "default-src 'self'; script-src 'self' https://challenges.cloudflare.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self'; frame-src https://challenges.cloudflare.com; base-uri 'none'; form-action 'none'; frame-ancestors 'none'"
+        },
+        {
+          "key": "X-Content-Type-Options",
+          "value": "nosniff"
+        },
+        {
+          "key": "Referrer-Policy",
+          "value": "strict-origin-when-cross-origin"
+        },
+        {
+          "key": "X-Frame-Options",
+          "value": "DENY"
+        }
+      ]
+    },
+    {
+      "source": "/static/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=300, stale-while-revalidate=86400"
+        }
+      ]
+    }
+  ],
   "git": {
     "deploymentEnabled": false
   }

@@ -133,7 +133,7 @@ def awl_cmd(file: FileArg, format: FormatOpt = "json") -> None:
 
 @app.command(name="bnc-coca")
 def bnc_coca_cmd(file: FileArg, format: FormatOpt = "json") -> None:
-    """Nation BNC/COCA frequency-band profile (1k–10k headwords, CC0 mirror)."""
+    """Nation BNC/COCA frequency-band profile (25 × 1,000-family bands plus supplementary lists, CC BY-SA)."""
     text, src = read_text(file)
     result = bnc_coca.analyze(text)
     _emit(envelope("bnc_coca", src, len(text), result), format)
@@ -195,10 +195,9 @@ def errors_cmd(
         typer.Option("--variant", help="English variant: gb (British) | us (American)"),
     ] = "gb",
 ) -> None:
-    """Spelling-error detection (Hunspell). Requires the `errors` extra.
+    """Spelling-error detection (Hunspell, bundled UK and US dictionaries).
 
-    First run downloads the chosen English dictionary (~1.5 MB) into
-    ~/.cache/lexinspect/hunspell/. Subsequent runs reuse the cached files.
+    Dictionaries are bundled; nothing is downloaded.
     """
     text, src = read_text(file)
     try:
@@ -211,25 +210,27 @@ def errors_cmd(
 
 
 @app.command()
-def analyze(file: FileArg, format: FormatOpt = "json") -> None:
-    """Run all modules and emit a combined report."""
+def analyze(
+    file: FileArg,
+    format: FormatOpt = "json",
+    variant: Annotated[str, typer.Option(help="Spelling variety: gb or us.")] = "gb",
+) -> None:
+    """Run every module over one shared parse and emit a combined report."""
+    from lexinspect import pipeline
+    from lexinspect._schema import SCHEMA_VERSION
+
     text, src = read_text(file)
+    a, results = pipeline.run_all(text, variant=variant)
     payload = {
-        "schema_version": "1",
+        "schema_version": SCHEMA_VERSION,
         "module": "analyze",
-        "input": {"source": src, "char_count": len(text)},
-        "results": {
-            "readability": readability.analyze(text),
-            "statistics": statistics.analyze(text),
-            "diversity": diversity.analyze(text),
-            "tagger": tagger.analyze(text),
-            "awl": awl.analyze(text),
-            "bnc_coca": bnc_coca.analyze(text),
-            "ngsl": ngsl.analyze(text),
-            "phrase": phrase.analyze(text),
-            "cefr": cefr.analyze(text),
-            "metadiscourse": metadiscourse.analyze(text),
+        "input": {
+            "source": src,
+            "char_count": len(text),
+            "word_count": a.word_count,
+            "sentence_count": a.sentence_count,
         },
+        "results": results,
     }
     _emit(payload, format)
 
@@ -251,9 +252,7 @@ def serve(
     try:
         import uvicorn
     except ImportError as e:
-        raise typer.Exit(
-            "FastAPI/uvicorn not installed. Run: uv sync --extra web"
-        ) from e
+        raise typer.Exit("FastAPI/uvicorn not installed. Run: uv sync --extra web") from e
     uvicorn.run(
         "lexinspect.api:app",
         host=host,

@@ -1,41 +1,36 @@
 """FastAPI wrapper exposing every lexinspect module over HTTP.
 
-Same JSON envelope shape as the CLI, so a client (Skill, browser, agent)
-can call either transport identically. spaCy loads once at startup via the
-lifespan handler — keep this in mind when scaling: each worker holds the
-model in memory.
+Same JSON envelope as the CLI. Every request is normalised and parsed exactly
+once (`lexinspect._text.analyse`) and the modules read that shared analysis,
+so the numbers on one tab always agree with the numbers on the next.
 
-Run:
+Run locally:
     uv run lexinspect serve --port 8000
-    # or
-    uvicorn lexinspect.api:app --host 0.0.0.0 --port 8000
 
-Endpoints:
-    POST /v1/<module>      one per analytical module
-    POST /v1/analyze       run all 9 modules
-    GET  /v1/version       package version
-    GET  /v1/schema        schema version + module catalog
-    GET  /healthz          liveness probe
+On Vercel the web UI's static files are served from the CDN (`public/`, copied
+in CI from `src/lexinspect/static/`), so a page view costs no function time;
+this app only answers `/v1/*`. The static routes below remain for local use.
 """
 
 from __future__ import annotations
 
 import os
 from contextlib import asynccontextmanager
-from importlib import resources
 from importlib.util import find_spec
 from pathlib import Path
-from typing import Any
+from typing import Any, Literal
 
-from fastapi import FastAPI, HTTPException
+from fastapi import Depends, FastAPI, HTTPException, Request
+from fastapi.exceptions import RequestValidationError
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.responses import HTMLResponse
+from fastapi.middleware.gzip import GZipMiddleware
+from fastapi.responses import FileResponse, JSONResponse
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel, Field
-from starlette.responses import FileResponse
 
 from lexinspect import (
     __version__,
+    _human,
     awl,
     bnc_coca,
     cefr,
@@ -45,342 +40,313 @@ from lexinspect import (
     metadiscourse,
     ngsl,
     phrase,
+    pipeline,
     readability,
     statistics,
     tagger,
 )
-from lexinspect._nlp import get_doc, get_nlp
 from lexinspect._schema import SCHEMA_VERSION, envelope
+from lexinspect._text import analyse
 
-# Request cap. The public deployment is unauthenticated, and analysis cost is
-# linear in text length, so this is the main lever bounding what a single
-# request can cost. 50 KB is ~8,000 words — an IELTS Task 2 essay is under 3 KB,
-# so this leaves more than an order of magnitude of headroom for the texts the
-# tool exists to analyse. Self-hosters who want to profile a corpus can raise it.
+# Request cap. Analysis cost is linear in text length, so this bounds what one
+# request can cost. 50 KB is ~8,000 words — an IELTS Task 2 essay is under 3 KB.
 MAX_TEXT_BYTES = int(os.environ.get("LEXINSPECT_MAX_TEXT_BYTES", 50_000))
+
+# Comma-separated origins allowed to call the API from a browser. The hosted UI
+# is same-origin and needs nothing here; default "*" keeps the public API open
+# to scripts and notebooks, which is the point of having one.
+_ALLOWED_ORIGINS = [
+    o.strip() for o in os.environ.get("LEXINSPECT_ALLOWED_ORIGINS", "*").split(",") if o.strip()
+]
 
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    # Warm spaCy + bundled data so the first real request is fast.
-    get_nlp()
-    # Not just for speed: textstat asks nltk for the CMU dictionary on first use,
-    # and that lookup is not thread-safe. Serverless hosts run our sync handlers
-    # on a threadpool, so concurrent first requests raced, missed the bundled
-    # corpus, and fell through to `nltk.download()` — which on a read-only
-    # filesystem produced "[nltk_data] Extraction error" and a 500. Touching it
-    # once here, single-threaded, before any request arrives, closes that window.
-    readability.analyze("The quick brown fox jumps over the lazy dog.")
-    bnc_coca._word_to_band()
-    ngsl._ngsl()
-    ngsl._nawl()
-    awl._form_to_family()
-    cefr._lemma_to_level()
-    phrase._index()
-    metadiscourse._index()
+    # Load spaCy, CMUdict, every word list and both Hunspell dictionaries once,
+    # single-threaded, before the first request. Sync handlers run on a
+    # threadpool; lazy first-use loading under concurrency is how this app used
+    # to race itself into 500s.
+    pipeline.warm()
     yield
 
 
 app = FastAPI(
     title="lexinspect",
     version=__version__,
-    description="Local English text-analysis toolkit. Same JSON envelope as the CLI.",
+    description=(
+        "English text analysis: readability, lexical diversity, vocabulary profiles "
+        "(CEFR, BNC/COCA, NGSL/NAWL, AWL), phrasal expressions, metadiscourse and spelling. "
+        'Every endpoint takes `{"text": ...}` and returns the same envelope as the CLI.'
+    ),
     lifespan=lifespan,
 )
 
+# A full analysis of a long text is a few hundred KB of JSON (mostly the
+# per-word profile); it compresses ~10x.
+app.add_middleware(GZipMiddleware, minimum_size=2048)
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=_ALLOWED_ORIGINS,
     allow_credentials=False,
     allow_methods=["GET", "POST"],
-    allow_headers=["*"],
+    allow_headers=["Content-Type", _human.TOKEN_HEADER],
+    max_age=86400,
 )
 
-# Static assets (CSS + per-concern JS modules) live next to index.html in the
-# packaged `static/` directory. Mounted at /static so the HTML shell can load
-# them via `<link>` and `<script src=...>`. Served with `Cache-Control:
-# no-cache` so UI iterations land immediately on a normal reload — this is a
-# self-hosted dev/teaching tool, not a high-traffic site, so the lost
-# caching is essentially free.
-# The app serves HTML and JS to the public, so give the browser the handful of
-# headers that cost nothing. `script-src 'self'` is the load-bearing one: it
-# neutralises the echoed-token rendering paths even if one ever regresses to
-# innerHTML. Style needs `unsafe-inline` because the renderers set style
-# attributes on chart bars; with scripts locked down that is not a real loss.
+# The UI renders user text back into the page, so `script-src` is the
+# load-bearing header: it neutralises any rendering path that regresses to
+# innerHTML. Its one third-party origin is Cloudflare Turnstile (script plus
+# its challenge iframe). Mirrored in vercel.json for the CDN-served files.
 _SECURITY_HEADERS = {
     "Content-Security-Policy": (
-        "default-src 'self'; "
-        "script-src 'self'; "
-        "style-src 'self' 'unsafe-inline'; "
-        "img-src 'self' data:; "
-        "connect-src 'self'; "
-        "base-uri 'none'; "
-        "form-action 'none'; "
-        "frame-ancestors 'none'"
+        "default-src 'self'; script-src 'self' https://challenges.cloudflare.com; "
+        "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; "
+        "font-src 'self' https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self'; "
+        "frame-src https://challenges.cloudflare.com; "
+        "base-uri 'none'; form-action 'none'; frame-ancestors 'none'"
     ),
     "X-Content-Type-Options": "nosniff",
-    "Referrer-Policy": "no-referrer",
+    "Referrer-Policy": "strict-origin-when-cross-origin",
     "X-Frame-Options": "DENY",
 }
-
-
-# FastAPI's interactive docs pull Swagger UI from a CDN, so the CSP above would
-# blank them out. They render no user input, so exempt just those paths rather
-# than loosening `script-src` for the pages that do.
+# Swagger UI loads from a CDN; it renders no user input.
 _CSP_EXEMPT_PATHS = frozenset({"/docs", "/redoc", "/docs/oauth2-redirect"})
 
 
 @app.middleware("http")
-async def security_headers(request, call_next):
+async def security_headers(request: Request, call_next):
     response = await call_next(request)
     for header, value in _SECURITY_HEADERS.items():
         if header == "Content-Security-Policy" and request.url.path in _CSP_EXEMPT_PATHS:
             continue
         response.headers.setdefault(header, value)
+    if request.url.path.startswith("/v1/"):
+        # Analyses are a pure function of the body; nothing to cache on GET
+        # except the metadata endpoints, which set their own headers.
+        response.headers.setdefault("Cache-Control", "no-store")
     return response
 
 
-class NoCacheStaticFiles(StaticFiles):
-    async def get_response(self, path, scope):
-        response = await super().get_response(path, scope)
-        if isinstance(response, FileResponse):
-            response.headers["Cache-Control"] = "no-cache, max-age=0, must-revalidate"
-        return response
+@app.exception_handler(RequestValidationError)
+async def _validation_error(request: Request, exc: RequestValidationError):
+    first = exc.errors()[0] if exc.errors() else {}
+    where = ".".join(str(p) for p in first.get("loc", ()) if p != "body")
+    return JSONResponse(
+        status_code=422,
+        content={
+            "error": "invalid_request",
+            "detail": f"{where}: {first.get('msg', 'invalid')}".strip(": "),
+        },
+    )
 
+
+# --- static UI (local; the CDN serves these on Vercel) -------------------------
 
 _STATIC_DIR = Path(__file__).parent / "static"
-app.mount("/static", NoCacheStaticFiles(directory=str(_STATIC_DIR)), name="static")
+app.mount("/static", StaticFiles(directory=str(_STATIC_DIR)), name="static")
+
+
+@app.get("/", include_in_schema=False)
+def index() -> FileResponse:
+    return FileResponse(_STATIC_DIR / "index.html", headers={"Cache-Control": "no-cache"})
+
+
+@app.get("/licences", include_in_schema=False)
+def licences() -> FileResponse:
+    return FileResponse(_STATIC_DIR / "licences.html", headers={"Cache-Control": "no-cache"})
+
+
+# --- request models -------------------------------------------------------------
 
 
 class TextIn(BaseModel):
-    text: str = Field(..., description="The text to analyse.")
-    source: str = Field(default="<api>", description="Optional label for the input.")
+    text: str = Field(..., description="The text to analyse (UTF-8, up to the size cap).")
+    source: str = Field(default="<api>", max_length=200, description="Optional label echoed back.")
 
 
 class TagIn(TextIn):
-    include_tokens: bool = Field(default=False, description="Include per-token tag list.")
+    include_tokens: bool = Field(default=False, description="Include the per-token tag list.")
+
+
+class ErrorsIn(TextIn):
+    variant: Literal["gb", "us"] = Field(
+        default="gb", description="British (gb) or American (us) English."
+    )
+
+
+class AnalyzeIn(TextIn):
+    variant: Literal["gb", "us"] = Field(
+        default="gb", description="Spelling variety for the errors module."
+    )
+    modules: list[str] | None = Field(
+        default=None,
+        description=f"Subset of modules to run (default: all). One of {list(pipeline.MODULES)}.",
+    )
 
 
 def _check(text: str) -> None:
-    if not isinstance(text, str):
-        raise HTTPException(422, "text must be a string")
-    if len(text.encode("utf-8")) > MAX_TEXT_BYTES:
-        raise HTTPException(413, f"text exceeds {MAX_TEXT_BYTES} bytes")
+    size = len(text.encode("utf-8"))
+    if size > MAX_TEXT_BYTES:
+        raise HTTPException(
+            413,
+            {
+                "error": "text_too_large",
+                "detail": f"Text is {size:,} bytes; the limit is {MAX_TEXT_BYTES:,}.",
+                "limit_bytes": MAX_TEXT_BYTES,
+            },
+        )
 
 
-def _wrap(module_name: str, body: TextIn, result: dict[str, Any]) -> dict[str, Any]:
-    return envelope(module_name, body.source, len(body.text), result)
+def _run(module: str, body: TextIn, fn, **kw) -> dict[str, Any]:
+    _check(body.text)
+    a = analyse(body.text)
+    return envelope(
+        module, body.source, len(body.text), fn(a.text, analysis=a, **kw), words=a.word_count
+    )
 
 
-@app.get("/", include_in_schema=False, response_class=HTMLResponse)
-def index() -> HTMLResponse:
-    html = resources.files("lexinspect.static").joinpath("index.html").read_text(encoding="utf-8")
-    return HTMLResponse(content=html)
+# --- metadata -------------------------------------------------------------------
+
+_META_CACHE = {"Cache-Control": "public, max-age=300, s-maxage=3600, stale-while-revalidate=86400"}
 
 
-@app.get("/licences", include_in_schema=False, response_class=HTMLResponse)
-def licences() -> HTMLResponse:
-    """Attribution for the bundled vocabulary lists.
-
-    NGSL, NAWL and the Octanove C1/C2 profile are CC BY-SA 4.0, and CEFR-J asks
-    to be cited. Those licences run to whoever receives the work — which, now
-    that this is a hosted service, means the person in the browser, not just
-    someone who happens to read SOURCES.md in the repo.
-    """
-    html = resources.files("lexinspect.static").joinpath("licences.html").read_text(encoding="utf-8")
-    return HTMLResponse(content=html)
-
-
-@app.get("/healthz")
+@app.get("/healthz", include_in_schema=False)
 def healthz() -> dict[str, str]:
     return {"status": "ok"}
 
 
 @app.get("/v1/version")
-def version() -> dict[str, str]:
-    return {"version": __version__, "schema_version": SCHEMA_VERSION}
+def version() -> JSONResponse:
+    return JSONResponse(
+        {"version": __version__, "schema_version": SCHEMA_VERSION}, headers=_META_CACHE
+    )
 
 
-# Which extra activates which optional module. Probed with `find_spec` rather
-# than a real import so `/v1/schema` stays cheap — importing torch to answer a
-# metadata request would cost seconds and hundreds of MB of RSS.
 _OPTIONAL_MODULES: dict[str, tuple[str, tuple[str, ...]]] = {
     "cefr_level": ("cefr-level", ("transformers", "torch")),
 }
 
 
 def _installed(pkg: str) -> bool:
-    # find_spec raises rather than returning None for a package whose __spec__
-    # is missing or whose parent is absent; treat any failure as "not usable".
     try:
         return find_spec(pkg) is not None
     except (ImportError, ValueError):
         return False
 
 
-def _optional_available() -> dict[str, bool]:
-    """True when every import an optional module needs is present."""
-    return {
-        name: all(_installed(pkg) for pkg in pkgs)
-        for name, (_extra, pkgs) in _OPTIONAL_MODULES.items()
-    }
-
-
 @app.get("/v1/schema")
-def schema() -> dict[str, Any]:
-    return {
-        "schema_version": SCHEMA_VERSION,
-        "modules": [
-            "readability",
-            "statistics",
-            "diversity",
-            "tagger",
-            "awl",
-            "bnc_coca",
-            "ngsl",
-            "phrase",
-            "cefr",
-            "metadiscourse",
-        ],
-        # Optional modules require extras and are advertised separately so they
-        # don't change the always-available `modules` contract. Each entry maps
-        # to the pip extra that activates it.
-        "modules_optional": {
-            name: extra for name, (extra, _pkgs) in _OPTIONAL_MODULES.items()
+def schema() -> JSONResponse:
+    return JSONResponse(
+        {
+            "schema_version": SCHEMA_VERSION,
+            "version": __version__,
+            "modules": list(pipeline.MODULES),
+            "modules_optional": {name: extra for name, (extra, _p) in _OPTIONAL_MODULES.items()},
+            "optional_available": {
+                name: all(_installed(p) for p in pkgs)
+                for name, (_e, pkgs) in _OPTIONAL_MODULES.items()
+            },
+            "limits": {"max_text_bytes": MAX_TEXT_BYTES},
+            # Public Turnstile site key when the human check is on, else null.
+            "turnstile_site_key": _human.public_site_key(),
         },
-        # Whether each optional module can actually run in *this* deployment.
-        # The hosted build ships without the heavy extras, so the web UI reads
-        # this to decide which tabs to render.
-        "optional_available": _optional_available(),
-    }
+        headers=_META_CACHE,
+    )
 
 
-@app.post("/v1/readability")
+# --- modules --------------------------------------------------------------------
+
+# Every analysis parses the text, which is the cost worth protecting; see _human.
+_GATED = [Depends(_human.require)]
+
+
+@app.post("/v1/readability", dependencies=_GATED)
 def post_readability(body: TextIn) -> dict[str, Any]:
-    _check(body.text)
-    return _wrap("readability", body, readability.analyze(body.text))
+    return _run("readability", body, readability.analyze)
 
 
-@app.post("/v1/statistics")
+@app.post("/v1/statistics", dependencies=_GATED)
 def post_statistics(body: TextIn) -> dict[str, Any]:
-    _check(body.text)
-    return _wrap("statistics", body, statistics.analyze(body.text))
+    return _run("statistics", body, statistics.analyze)
 
 
-@app.post("/v1/diversity")
+@app.post("/v1/diversity", dependencies=_GATED)
 def post_diversity(body: TextIn) -> dict[str, Any]:
-    _check(body.text)
-    return _wrap("diversity", body, diversity.analyze(body.text))
+    return _run("diversity", body, diversity.analyze)
 
 
-@app.post("/v1/tag")
+@app.post("/v1/tag", dependencies=_GATED)
 def post_tag(body: TagIn) -> dict[str, Any]:
-    _check(body.text)
-    return _wrap("tagger", body, tagger.analyze(body.text, include_tokens=body.include_tokens))
+    return _run("tagger", body, tagger.analyze, include_tokens=body.include_tokens)
 
 
-@app.post("/v1/awl")
+@app.post("/v1/awl", dependencies=_GATED)
 def post_awl(body: TextIn) -> dict[str, Any]:
-    _check(body.text)
-    return _wrap("awl", body, awl.analyze(body.text))
+    return _run("awl", body, awl.analyze)
 
 
-@app.post("/v1/bnc-coca")
+@app.post("/v1/bnc-coca", dependencies=_GATED)
 def post_bnc_coca(body: TextIn) -> dict[str, Any]:
-    _check(body.text)
-    return _wrap("bnc_coca", body, bnc_coca.analyze(body.text))
+    return _run("bnc_coca", body, bnc_coca.analyze)
 
 
-@app.post("/v1/ngsl")
+@app.post("/v1/ngsl", dependencies=_GATED)
 def post_ngsl(body: TextIn) -> dict[str, Any]:
-    _check(body.text)
-    return _wrap("ngsl", body, ngsl.analyze(body.text))
+    return _run("ngsl", body, ngsl.analyze)
 
 
-@app.post("/v1/phrase")
+@app.post("/v1/phrase", dependencies=_GATED)
 def post_phrase(body: TextIn) -> dict[str, Any]:
-    _check(body.text)
-    return _wrap("phrase", body, phrase.analyze(body.text))
+    return _run("phrase", body, phrase.analyze)
 
 
-@app.post("/v1/cefr")
+@app.post("/v1/cefr", dependencies=_GATED)
 def post_cefr(body: TextIn) -> dict[str, Any]:
-    _check(body.text)
-    return _wrap("cefr", body, cefr.analyze(body.text))
+    return _run("cefr", body, cefr.analyze)
 
 
-@app.post("/v1/cefr-level")
+@app.post("/v1/metadiscourse", dependencies=_GATED)
+def post_metadiscourse(body: TextIn) -> dict[str, Any]:
+    return _run("metadiscourse", body, metadiscourse.analyze)
+
+
+@app.post("/v1/errors", dependencies=_GATED)
+def post_errors(body: ErrorsIn) -> dict[str, Any]:
+    try:
+        return _run("errors", body, errors.analyze, variant=body.variant)
+    except (errors.ErrorsExtraNotInstalled, errors.DictionaryFetchError) as e:
+        raise HTTPException(503, {"error": "unavailable", "detail": str(e)}) from e
+
+
+@app.post("/v1/cefr-level", dependencies=_GATED)
 def post_cefr_level(body: TextIn) -> dict[str, Any]:
-    """Classify the text into a CEFR band (A1–C2) via UniversalCEFR ModernBERT.
-
-    Requires the `cefr-level` extra. Returns 503 with install hint if missing.
-    Heavier than the other endpoints: ~2–5s CPU inference per request.
-    """
+    """CEFR band from the UniversalCEFR ModernBERT classifier (optional extra; 503 if absent)."""
     _check(body.text)
     try:
         result = cefr_level.analyze(body.text)
     except cefr_level.CEFRLevelExtraNotInstalled as e:
-        raise HTTPException(503, str(e)) from e
-    return _wrap("cefr_level", body, result)
+        raise HTTPException(503, {"error": "unavailable", "detail": str(e)}) from e
+    return envelope("cefr_level", body.source, len(body.text), result)
 
 
-@app.post("/v1/metadiscourse")
-def post_metadiscourse(body: TextIn) -> dict[str, Any]:
+@app.post("/v1/analyze", dependencies=_GATED)
+def post_analyze(body: AnalyzeIn) -> dict[str, Any]:
     _check(body.text)
-    return _wrap("metadiscourse", body, metadiscourse.analyze(body.text))
-
-
-class ErrorsIn(TextIn):
-    variant: str = Field(
-        default="gb",
-        description='English variant: "gb" (British, default) or "us" (American).',
-    )
-
-
-@app.post("/v1/errors")
-def post_errors(body: ErrorsIn) -> dict[str, Any]:
-    """Hunspell-based spelling-error detection.
-
-    Requires the `errors` extra. Returns 503 with install hint if missing.
-    First call per variant downloads the dictionary (~1.5 MB) into the user
-    cache; subsequent calls reuse the in-memory dictionary.
-    """
-    _check(body.text)
-    if body.variant not in errors.VALID_VARIANTS:
+    unknown = sorted(set(body.modules or ()) - set(pipeline.MODULES))
+    if unknown:
         raise HTTPException(
-            422, f"variant must be one of {errors.VALID_VARIANTS}, got {body.variant!r}"
+            422, {"error": "invalid_request", "detail": f"unknown modules: {unknown}"}
         )
-    try:
-        result = errors.analyze(body.text, variant=body.variant)
-    except errors.ErrorsExtraNotInstalled as e:
-        raise HTTPException(503, str(e)) from e
-    except errors.DictionaryFetchError as e:
-        raise HTTPException(502, str(e)) from e
-    return _wrap("errors", body, result)
-
-
-@app.post("/v1/analyze")
-def post_analyze(body: TextIn) -> dict[str, Any]:
-    _check(body.text)
-    text = body.text
-    # Parse once, share the Doc. Eight of these modules need a spaCy parse and
-    # the parse dominates each one's cost, so letting them parse individually
-    # made this endpoint ~8x more expensive than the work it actually does.
-    doc = get_doc(text)
-    return {
-        "schema_version": SCHEMA_VERSION,
-        "module": "analyze",
-        "input": {"source": body.source, "char_count": len(text)},
-        "results": {
-            "readability": readability.analyze(text),
-            "statistics": statistics.analyze(text, doc=doc),
-            "diversity": diversity.analyze(text),
-            "tagger": tagger.analyze(text, doc=doc),
-            "awl": awl.analyze(text, doc=doc),
-            "bnc_coca": bnc_coca.analyze(text, doc=doc),
-            "ngsl": ngsl.analyze(text, doc=doc),
-            "phrase": phrase.analyze(text, doc=doc),
-            "cefr": cefr.analyze(text, doc=doc),
-            "metadiscourse": metadiscourse.analyze(text, doc=doc),
-        },
+    a, results = pipeline.run_all(body.text, modules=body.modules, variant=body.variant)
+    inp: dict[str, Any] = {
+        "source": body.source,
+        "char_count": len(body.text),
+        "word_count": a.word_count,
+        "sentence_count": a.sentence_count,
     }
+    if a.text != body.text:
+        # Every `span` indexes the normalised text (NFC, soft hyphens and
+        # zero-width characters removed). Send it back when it differs so a
+        # client can highlight the right characters.
+        inp["normalised_text"] = a.text
+    return {"schema_version": SCHEMA_VERSION, "module": "analyze", "input": inp, "results": results}

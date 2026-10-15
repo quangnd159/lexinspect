@@ -1,101 +1,105 @@
 """CEFR vocabulary profiling (A1–C2).
 
 Combines CEFR-J Vocabulary Profile 1.5 (A1–B2; Tono, TUFS) with the Octanove
-Vocabulary Profile C1/C2 1.0 (Octanove Labs, CC-BY-SA 4.0). 8,690 lemmas total.
+Vocabulary Profile C1/C2 1.0 (Octanove Labs, CC BY-SA 4.0).
 
-Each token is mapped to the lowest CEFR level at which it's listed (a word that
-appears as both an A2 verb and a B1 noun is reported as A2). Lookup tries
-surface form first, then spaCy lemma. The off-list residual is named — these
-are typically proper nouns, very low-frequency items, or words above C2.
+Levels are per part of speech, as the sources list them: *present* is A1 as a
+noun and B2 as a verb, and the token's spaCy POS picks which applies. When the
+source lists no level for the token's POS, the word's lowest level is used and
+the token is counted in `pos_fallback_tokens`. (The previous build kept only
+the lowest level, so every "to present findings" scored A1.)
 
-The `dominant_level` field is the level with the most token hits; the
-`estimated_level_95th` field is the lowest level at which cumulative coverage
-crosses 95% — a heuristic, not a verdict. Text Inspector's proprietary
-Scorecard weighting is not reproduced here; agents combine these signals with
-readability and band coverage themselves.
+Proper nouns — tagged NNP/NNPS and not on the list — are counted separately
+rather than as off-list. They aren't vocabulary a learner is expected to know
+at a level, and lumping them in with genuinely rare words made the 95th
+percentile estimate refuse to answer on most academic texts.
 
-This is *not* the Cambridge English Vocabulary Profile. Different corpora,
-different methodology — numbers will diverge from EVP-based tools. Cite
-CEFR-J + Octanove in any output that uses these results.
+`estimated_level_95th` is the lowest level at which cumulative coverage,
+counting proper nouns as known, reaches 95% — a heuristic, not a verdict.
+`dominant_level` (argmax of token counts) is almost always A1 because of
+function words; read it alongside the distribution, never alone.
+
+This is *not* the Cambridge English Vocabulary Profile; cite CEFR-J and
+Octanove in any output that uses these results.
 """
 
 from __future__ import annotations
 
-import json
-from functools import lru_cache
-from importlib import resources
+from collections import Counter, defaultdict
 from typing import Any
 
-from lexinspect._nlp import get_doc
+from lexinspect import _lists
+from lexinspect._text import Analysis, ensure, lookup
+
+WORDS_PER_LEVEL_LIMIT = 100
+OFF_LIST_LIMIT = 200
 
 
-@lru_cache(maxsize=1)
-def _load() -> dict[str, Any]:
-    raw = resources.files("lexinspect.data").joinpath("cefr.json").read_text(encoding="utf-8")
-    return json.loads(raw)
+def analyze(text: str, *, analysis: Analysis | None = None) -> dict[str, Any]:
+    a = ensure(text, analysis)
+    entries = _lists.cefr_entries()
+    levels: list[str] = _lists.cefr_raw()["level_order"]
 
+    tokens: Counter[str] = Counter()
+    lemmas: dict[str, set[str]] = defaultdict(set)
+    words: dict[str, Counter[str]] = defaultdict(Counter)
+    proper: Counter[str] = Counter()
+    off: Counter[str] = Counter()
+    pos_fallback = 0
 
-@lru_cache(maxsize=1)
-def _lemma_to_level() -> dict[str, str]:
-    return {item["lemma"]: item["level"] for item in _load()["lemmas"]}
-
-
-def analyze(text: str, *, doc=None) -> dict[str, Any]:
-    doc = get_doc(text, doc)
-    lookup = _lemma_to_level()
-    levels = _load()["level_order"]
-
-    per_level_tokens: dict[str, int] = {lvl: 0 for lvl in levels}
-    per_level_lemmas: dict[str, set[str]] = {lvl: set() for lvl in levels}
-    off_list: list[str] = []
-    content = 0
-
-    for tok in doc:
-        if tok.is_space or tok.is_punct or tok.like_num:
+    for lex in a.lexical:
+        key, entry = lookup(entries, lex.keys)
+        if entry is None:
+            (proper if lex.is_proper else off)[lex.surface] += 1
             continue
-        content += 1
-        surface = tok.text.lower()
-        lemma = tok.lemma_.lower()
-        level = lookup.get(surface) or lookup.get(lemma)
-        if level is None:
-            off_list.append(surface)
-            continue
-        per_level_tokens[level] += 1
-        per_level_lemmas[level].add(lemma if lemma in lookup else surface)
+        level, matched = _lists.cefr_level(entry, lex.pos)
+        if not matched:
+            pos_fallback += 1
+        tokens[level] += 1
+        lemmas[level].add(key)
+        words[level][lex.surface] += 1
 
-    on_list = sum(per_level_tokens.values())
+    n = len(a.lexical)
+    n_proper = sum(proper.values())
+    on_list = sum(tokens.values())
+    per_level: dict[str, Any] = {}
     cumulative = 0
-    per_level_out = {}
     estimated = None
     for lvl in levels:
-        n = per_level_tokens[lvl]
-        cumulative += n
-        per_level_out[lvl] = {
-            "tokens": n,
-            "lemmas": len(per_level_lemmas[lvl]),
-            "coverage_pct": _pct(n, content),
-            "cumulative_coverage_pct": _pct(cumulative, content),
+        cumulative += tokens[lvl]
+        per_level[lvl] = {
+            "tokens": tokens[lvl],
+            "lemmas": len(lemmas[lvl]),
+            "coverage_pct": _pct(tokens[lvl], n),
+            "cumulative_coverage_pct": _pct(cumulative, n),
         }
-        if estimated is None and content and (cumulative / content) >= 0.95:
+        if estimated is None and n and (cumulative + n_proper) / n >= 0.95:
             estimated = lvl
-
-    dominant = max(levels, key=lambda lvl: per_level_tokens[lvl]) if on_list else None
 
     return {
         "counts": {
-            "content_tokens": content,
+            "content_tokens": n,
             "on_list_tokens": on_list,
-            "off_list_tokens": len(off_list),
+            "proper_noun_tokens": n_proper,
+            "off_list_tokens": sum(off.values()),
+            "pos_fallback_tokens": pos_fallback,
         },
-        "coverage_pct": _pct(on_list, content),
-        "per_level": per_level_out,
-        "dominant_level": dominant,
+        "coverage_pct": _pct(on_list, n),
+        "per_level": per_level,
+        "dominant_level": max(levels, key=lambda lv: tokens[lv]) if on_list else None,
         "estimated_level_95th": estimated,
-        "off_list_sample": sorted(set(off_list))[:50],
+        "highest_level_present": next((lv for lv in reversed(levels) if tokens[lv]), None),
+        "words_by_level": {
+            lvl: [{"word": w, "count": c} for w, c in words[lvl].most_common(WORDS_PER_LEVEL_LIMIT)]
+            for lvl in levels
+        },
+        "proper_nouns": [{"word": w, "count": c} for w, c in proper.most_common(OFF_LIST_LIMIT)],
+        "off_list": [{"word": w, "count": c} for w, c in off.most_common(OFF_LIST_LIMIT)],
+        "off_list_sample": sorted(off)[:50],
         "caveat": (
             "Heuristic only. Based on CEFR-J 1.5 + Octanove C1/C2 1.0; not Cambridge EVP. "
-            "Cite both sources. Agents should combine this with readability, BNC/COCA, and "
-            "diversity signals before reporting a level."
+            "Cite both sources. Combine this with readability, BNC/COCA and diversity "
+            "signals before reporting a level."
         ),
     }
 

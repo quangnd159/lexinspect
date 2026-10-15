@@ -1,241 +1,241 @@
 """Spelling-error detection (British or American English).
 
-Wraps `spylls`, a pure-Python port of Hunspell, to flag tokens that aren't in
-the chosen dictionary. Reports total errors, errors per sentence, errors per
-100 words, and the deduplicated error list — the same shape Text Inspector's
-Errors tab surfaces.
+Hunspell (via `spylls`, a pure-Python port) with LibreOffice's en_GB / en_US
+dictionaries, vendored under data/hunspell/. What's checked is lexinspect's
+*words*, not spaCy's fragments: the old module checked `children's` as
+`children` + `'s` and `don't` as `do` + `n't`, and reported `'s`, `n't` and
+`Dr.` as spelling errors in almost every text. Hunspell knows contractions,
+possessives and hyphenated compounds as wholes; when a whole compound isn't
+listed, it's accepted if each part is.
 
-`spylls` implements Hunspell's algorithm but ships no dictionary data, so the
-`.aff` / `.dic` pairs for en_GB and en_US are vendored into the package under
-``data/hunspell/`` and loaded straight from the wheel — no network at request
-time. Source: LibreOffice's English dictionaries, pinned to one commit, covered
-by Kevin Atkinson's LGPL wordlist licence and Geoff Kuenning's BSD affix licence.
-A download fallback remains for variants that aren't bundled.
+A word Hunspell rejects is sorted into one of three buckets — only the first
+counts toward the error rate:
 
-Tokenisation uses spaCy. Pure-numeric tokens, punctuation, URLs, and emails
-are skipped; everything else is looked up as-is. spaCy splits possessive
-``'s`` from its host noun, so a token like ``children's`` is checked as
-``children`` plus ``'s`` (the latter skipped) — Hunspell's full possessive
-handling is bypassed.
+- **errors** — not a word in either variant. Each comes with suggestions
+  (`_suggest`: edit-distance candidates from Nation's word families, valid in
+  the chosen variant, ranked by distance and frequency).
+- **variant_mismatches** — correct in the *other* variety (`color` in British
+  mode, `colour` in American). Mixing varieties is a common examiner comment,
+  so these are reported with the variant-appropriate spelling, not as errors.
+- **unknown_names** — capitalised words that aren't in the dictionary but are
+  used as names: tagged as proper nouns and not only seen at the start of a
+  sentence, or written in capitals (acronyms). Hunspell can't know every name,
+  and a misspelt word at the start of a sentence still counts as an error.
+
+Numerals, URLs, emails and abbreviations with internal full stops (`e.g.`,
+`U.S.`) are not checked.
 """
 
 from __future__ import annotations
 
-import os
+import re
 import sys
-import tempfile
-import threading
-import urllib.error
-import urllib.request
-from collections import Counter
+from collections import Counter, defaultdict
 from functools import lru_cache
 from pathlib import Path
 from typing import Any
 
-from lexinspect._nlp import get_doc
-
-# Fallback source for variants that aren't vendored. Pinned to a commit, not to
-# `master`: spylls compiles the `.aff` file into regexes, so whatever this URL
-# returns becomes code we run. A moving branch made that a remote party's call.
-_DICT_COMMIT = "e7f163feb2beaf526135132d8716e68e19d2716e"
-_DICT_BASE_URL = f"https://raw.githubusercontent.com/LibreOffice/dictionaries/{_DICT_COMMIT}/en"
-_DICT_URLS: dict[str, dict[str, str]] = {
-    variant: {ext: f"{_DICT_BASE_URL}/en_{variant.upper()}.{ext}" for ext in ("aff", "dic")}
-    for variant in ("gb", "us")
-}
+from lexinspect import _suggest
+from lexinspect._spelling import spelling_variants
+from lexinspect._text import Analysis, Word, ensure
 
 VALID_VARIANTS: tuple[str, ...] = ("gb", "us")
+SUGGEST_LIMIT = 40  # distinct errors that get suggestions per request
 
 CAVEAT = (
-    "Hunspell-based detection. False positives on proper nouns, brand names, "
-    "neologisms, and rare technical vocabulary are routine — Hunspell can only "
-    "flag tokens its dictionary doesn't recognise. spaCy splits possessive 's "
-    "from its host word, so possessive forms are not checked as wholes. "
-    "Switch variants with --variant gb|us. Dictionaries: LibreOffice English "
-    "(LGPL wordlist + BSD affix file)."
+    "Hunspell-based detection: it flags words its dictionary doesn't contain, so rare "
+    "technical terms and neologisms can appear as errors, and a real word used wrongly "
+    "(their/there) is not caught. Capitalised words used as names are listed separately, "
+    "not counted as errors. Dictionaries: LibreOffice English (en_GB: LGPL; en_US: SCOWL "
+    "wordlist, Ispell BSD affix file)."
 )
 
 DICTIONARY_LICENCE = (
-    "LibreOffice English (en_GB / en_US): wordlist by Kevin Atkinson (LGPL); "
-    "affix file by Geoff Kuenning (BSD). Mirror: github.com/LibreOffice/dictionaries."
+    "LibreOffice English. en_GB: wordlist and affix file (David Bartlett, Andrew Brown) "
+    "under the LGPL. en_US: wordlist from SCOWL by Kevin Atkinson (permissive SCOWL "
+    "licence); affix file from Geoff Kuenning's Ispell (BSD). "
+    "Mirror: github.com/LibreOffice/dictionaries."
 )
 
 
 class ErrorsExtraNotInstalled(RuntimeError):
-    """Raised when the optional `errors` extra (spylls) is not installed."""
+    """Raised when spylls is missing (it's a base dependency; this is a broken install)."""
 
 
 class DictionaryFetchError(RuntimeError):
-    """Raised when a Hunspell dictionary cannot be downloaded or loaded."""
+    """Raised when a bundled Hunspell dictionary can't be loaded."""
 
 
-# Wall-clock ceiling for the fallback download. `urlretrieve`/`urlopen` default
-# to no timeout at all, so a stalled connection would hold a serverless request
-# open until the platform kills it — a free way to burn someone's compute.
-_DOWNLOAD_TIMEOUT_S = 10
-
-
-def _bundled_base(variant: str) -> Path | None:
-    """Path to the vendored dictionary pair, or None if it isn't packaged.
-
-    Dictionaries ship inside the wheel. spylls implements Hunspell but carries
-    no dictionary data, so these used to be fetched from GitHub on first use.
-    That was fine for a local CLI with a persistent `~/.cache`; on a serverless
-    host `/tmp` dies with the instance, so every cold start re-downloaded ~1.5 MB
-    (5.1s) and GitHub answers a burst of those with HTTP 429. Worse, spylls
-    compiles the `.aff` file into regexes, so an upstream compromise or a
-    force-push to the tracked branch could have executed hostile affix rules
-    here. Vendoring pins exactly what we run.
-    """
-    base = Path(__file__).parent / "data" / "hunspell" / f"en_{variant.upper()}"
-    if base.with_suffix(".aff").is_file() and base.with_suffix(".dic").is_file():
-        return base
-    return None
-
-
-def _cache_dir() -> Path:
-    """Per-user cache for downloaded Hunspell files. Created on demand.
-
-    Serverless hosts mount the deployment read-only and give you `/tmp` as the
-    only writable path, so `$LEXINSPECT_CACHE_DIR` overrides the home-directory
-    default. The cache survives for the life of a warm instance and re-downloads
-    on a cold one — ~1.5 MB, so that's an acceptable trade rather than a bug.
-    """
-    override = os.environ.get("LEXINSPECT_CACHE_DIR")
-    base = Path(override) if override else Path.home() / ".cache" / "lexinspect"
-    try:
-        hunspell = base / "hunspell"
-        hunspell.mkdir(parents=True, exist_ok=True)
-    except OSError:
-        # Read-only home (serverless). Fall back to the one writable path.
-        hunspell = Path(tempfile.gettempdir()) / "lexinspect" / "hunspell"
-        hunspell.mkdir(parents=True, exist_ok=True)
-    return hunspell
-
-
-def _ensure_dict_files(variant: str) -> Path:
-    """Make sure both .aff and .dic exist on disk; download if missing.
-
-    Returns the base path (without extension) suitable for spylls' loader.
-    Atomic writes — partial downloads land in `.tmp` files that get renamed
-    on success, so a half-finished download never gets loaded by spylls.
-    """
-    if variant not in _DICT_URLS:
-        raise ValueError(f"Unknown variant '{variant}'. Choose from {VALID_VARIANTS}.")
-
-    bundled = _bundled_base(variant)
-    if bundled is not None:
-        return bundled
-
-    cache = _cache_dir()
-    base = cache / f"en_{variant.upper()}"
-    aff_path = base.with_suffix(".aff")
-    dic_path = base.with_suffix(".dic")
-
-    if aff_path.exists() and dic_path.exists():
-        return base
-
-    print(
-        f"[lexinspect] Downloading en_{variant.upper()} Hunspell dictionary "
-        f"(first run, ~1.5 MB)…",
-        file=sys.stderr,
-    )
-    for ext, url in _DICT_URLS[variant].items():
-        target = base.with_suffix(f".{ext}")
-        if target.exists():
-            continue
-        # Download to a per-process temp name, not a fixed `.tmp` path. Two
-        # concurrent first-requests for the same variant both reach here (an
-        # lru_cache miss doesn't hold its lock across the call), and a shared
-        # tmp path let them interleave writes into one file before renaming it
-        # into place. `urlretrieve` also has no default timeout, so a stalled
-        # connection would hold the request until the platform's ceiling.
-        tmp = target.with_suffix(f"{target.suffix}.{os.getpid()}.{threading.get_ident()}.tmp")
-        try:
-            with urllib.request.urlopen(url, timeout=_DOWNLOAD_TIMEOUT_S) as r:
-                tmp.write_bytes(r.read())
-        except (urllib.error.URLError, OSError, TimeoutError) as e:
-            tmp.unlink(missing_ok=True)
-            raise DictionaryFetchError(
-                f"Could not fetch the en_{variant.upper()} Hunspell dictionary."
-            ) from e
-        tmp.replace(target)
-
-    return base
+def _bundled_base(variant: str) -> Path:
+    return Path(__file__).parent / "data" / "hunspell" / f"en_{variant.upper()}"
 
 
 @lru_cache(maxsize=2)
 def _dictionary(variant: str):
-    """Load (and cache) the spylls Dictionary for the given variant."""
+    if variant not in VALID_VARIANTS:
+        raise ValueError(f"variant must be one of {VALID_VARIANTS}, got {variant!r}")
     try:
-        from spylls.hunspell import Dictionary  # type: ignore
+        from spylls.hunspell import Dictionary
     except ImportError as e:
-        # spylls is a base dependency, so this should be unreachable in a sane
-        # install. Kept as a clear failure for partial/broken environments.
         raise ErrorsExtraNotInstalled(
-            "spylls is missing, so the errors module cannot run.\n"
-            "Reinstall lexinspect's dependencies:\n"
-            "    uv sync"
+            "spylls is missing; reinstall dependencies with `uv sync`."
         ) from e
-
-    base = _ensure_dict_files(variant)
+    base = _bundled_base(variant)
     try:
         return Dictionary.from_files(str(base))
     except Exception as e:  # spylls raises a variety of internal errors
-        raise DictionaryFetchError(
-            f"Failed to load Hunspell dictionary at {base}.{{aff,dic}}.\n"
-            f"Cause: {e}\n"
-            f"Try removing the cache directory and re-running: rm -rf {_cache_dir()}"
-        ) from e
+        print(f"[lexinspect] failed to load {base}: {e}", file=sys.stderr)
+        raise DictionaryFetchError(f"Failed to load the en_{variant.upper()} dictionary.") from e
 
 
-def analyze(text: str, *, variant: str = "gb", doc=None) -> dict[str, Any]:
-    """Spell-check `text` against the chosen English variant.
+_ABBREVIATION = re.compile(r"^(?:[A-Za-z]\.){2,}$|^[A-Za-z]{1,4}\.$")
+_APOS = str.maketrans({"’": "'", "ʼ": "'"})
 
-    Args:
-        text: input text.
-        variant: ``"gb"`` (British, default — matches Text Inspector's default)
-            or ``"us"`` (American).
-    """
+
+def _candidates(word: Word) -> list[str]:
+    """Forms to try, most faithful first."""
+    text = word.text.translate(_APOS)
+    forms = [text]
+    if text.endswith("'"):
+        forms.append(text[:-1])  # James' -> James
+    return forms
+
+
+def _accepted(dic, word: Word) -> bool:
+    for form in _candidates(word):
+        if dic.lookup(form):
+            return True
+    parts = [t.text.translate(_APOS) for t in word.tokens if any(c.isalpha() for c in t.text)]
+    hosts = [p for p in parts if not p.startswith("'") and p.lower() != "n't"]
+    if len(parts) > 1 and hosts:
+        # Whole compound unknown: accept if every part is a word (`climate-related`).
+        return all(dic.lookup(p) for p in hosts)
+    return False
+
+
+def _common_word_typo(word: Word, dic) -> bool:
+    """`Goverment` mid-sentence: one edit from a very common word, and no proper
+    noun beside it. Real surnames that sit one letter from a common word
+    (`Browne`) almost always travel with a title or first name, which keeps
+    them in names."""
+    low = word.text.lower()
+    if len(low) < 6 or not low.isascii():
+        return False
+    first, last = word.tokens[0], word.tokens[-1]
+    for nb in (
+        first.nbor(-1) if first.i > 0 else None,
+        last.nbor(1) if last.i + 1 < len(last.doc) else None,
+    ):
+        if nb is not None and nb.text[:1].isupper() and nb.pos_ == "PROPN":
+            return False
+    vocab = _suggest._vocab()
+    return any(vocab.get(c, 99) <= 2 and dic.lookup(c) for c in _suggest._edits1(low) if c != low)
+
+
+def _skip(word: Word) -> bool:
+    text = word.text
+    # Words with digits in them (`mp3`, `CO2`, `R²`) are codes and symbols, skipped
+    # the way word processors skip them by default.
+    if word.is_numeric or not any(c.isalpha() for c in text) or any(c.isdigit() for c in text):
+        return True
+    t = word.tokens[0]
+    if t.like_url or t.like_email:
+        return True
+    return bool(_ABBREVIATION.match(text)) and len(word.tokens) == 1
+
+
+def analyze(text: str, *, variant: str = "gb", analysis: Analysis | None = None) -> dict[str, Any]:
     if variant not in VALID_VARIANTS:
         raise ValueError(f"variant must be one of {VALID_VARIANTS}, got {variant!r}")
+    dic = _dictionary(variant)
+    other = _dictionary("us" if variant == "gb" else "gb")
+    a = ensure(text, analysis)
 
-    dictionary = _dictionary(variant)
-    doc = get_doc(text, doc)
+    # Capitalised forms seen somewhere other than sentence-initial position.
+    # "Sentence-initial" is generous: spaCy's boundary, or anything right after
+    # `.`/`!`/`?` — a sentence after `U.S.` can be merged into the previous one,
+    # and its misspelt first word must not pass for a name.
+    sentence_starts = {s[0].start for s in a.sentences if s}
+    for w in a.words:
+        prev = w.tokens[0].nbor(-1) if w.start > 0 else None
+        while prev is not None and prev.is_space and prev.i > 0:
+            prev = prev.nbor(-1)
+        if prev is None or prev.text.endswith((".", "!", "?", ":", '"', "“", "”")):
+            sentence_starts.add(w.start)
+    capitalised_midsentence = {
+        w.text for w in a.words if w.text[:1].isupper() and w.start not in sentence_starts
+    }
 
-    sentence_count = sum(1 for _ in doc.sents)
-    tokens_checked = 0
-    error_counter: Counter[str] = Counter()
+    errors: Counter[str] = Counter()
+    mismatches: Counter[str] = Counter()
+    names: Counter[str] = Counter()
+    spans: dict[str, list[list[int]]] = defaultdict(list)
+    checked = 0
 
-    for tok in doc:
-        if not _is_checkable(tok):
+    for w in a.words:
+        if _skip(w):
             continue
-        tokens_checked += 1
-        word = tok.text
-        # Hunspell handles case sensitivity itself; pass the surface form
-        # exactly as spaCy tokenised it.
-        if not dictionary.lookup(word):
-            error_counter[word] += 1
+        checked += 1
+        if _accepted(dic, w):
+            continue
+        start = w.tokens[0].idx
+        span = [start, start + len(w.text)]
+        if _accepted(other, w):
+            mismatches[w.text] += 1
+        elif (w.text.isupper() and len(w.text) > 1) or (
+            w.text in capitalised_midsentence
+            and (w.is_proper or w.start not in sentence_starts)
+            and not _common_word_typo(w, dic)
+        ):
+            names[w.text] += 1
+        else:
+            errors[w.text] += 1
+        spans[w.text].append(span)
 
-    errors_total = sum(error_counter.values())
-    errors = [
-        {"surface": w, "count": n}
-        for w, n in sorted(error_counter.items(), key=lambda kv: (-kv[1], kv[0]))
-    ]
+    error_list = []
+    for i, (surface, count) in enumerate(sorted(errors.items(), key=lambda kv: (-kv[1], kv[0]))):
+        error_list.append(
+            {
+                "surface": surface,
+                "count": count,
+                "suggestions": _suggest.suggest(surface, dic) if i < SUGGEST_LIMIT else [],
+                "spans": spans[surface],
+            }
+        )
 
+    mismatch_list = []
+    for surface, count in sorted(mismatches.items(), key=lambda kv: (-kv[1], kv[0])):
+        fixes = [v for v in spelling_variants(surface.lower()) if dic.lookup(v)]
+        mismatch_list.append(
+            {
+                "surface": surface,
+                "count": count,
+                "suggestions": [_suggest._restore_case(surface, f) for f in fixes[:3]],
+                "spans": spans[surface],
+            }
+        )
+
+    total = sum(errors.values())
+    n_sent = a.sentence_count
     return {
         "variant": variant,
         "counts": {
-            "tokens_checked": tokens_checked,
-            "sentences": sentence_count,
-            "errors_total": errors_total,
-            "unique_errors": len(error_counter),
+            "tokens_checked": checked,
+            "sentences": n_sent,
+            "errors_total": total,
+            "unique_errors": len(errors),
+            "variant_mismatches": sum(mismatches.values()),
+            "unknown_names": sum(names.values()),
         },
         "rates": {
-            "errors_per_sentence": _ratio(errors_total, sentence_count),
-            "errors_per_100_words": _ratio(errors_total * 100, tokens_checked),
+            "errors_per_sentence": _ratio(total, n_sent),
+            "errors_per_100_words": _ratio(total * 100, checked),
         },
-        "errors": errors,
+        "errors": error_list,
+        "variant_mismatches": mismatch_list,
+        "unknown_names": [
+            {"surface": s, "count": c, "spans": spans[s]} for s, c in names.most_common()
+        ],
         "dictionary": {
             "variant": variant,
             "source": f"LibreOffice en_{variant.upper()}.aff/.dic",
@@ -245,17 +245,11 @@ def analyze(text: str, *, variant: str = "gb", doc=None) -> dict[str, Any]:
     }
 
 
-def _is_checkable(tok) -> bool:
-    """A token is spell-checked iff it has alphabetic characters and is not a
-    URL, email, or pure-numeric token."""
-    if tok.is_space or tok.is_punct:
-        return False
-    if tok.like_url or tok.like_email:
-        return False
-    return any(c.isalpha() for c in tok.text)
-
-
 def _ratio(numerator: float, denominator: float) -> float:
-    if not denominator:
-        return 0.0
-    return round(numerator / denominator, 3)
+    return round(numerator / denominator, 3) if denominator else 0.0
+
+
+def warm() -> None:
+    _dictionary("gb")
+    _dictionary("us")
+    _suggest._vocab()

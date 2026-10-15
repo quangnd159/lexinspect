@@ -7,47 +7,52 @@
   <link rel="stylesheet" href="/static/styles.css" />
 </head>
 <body>
-<div class="container">
-  <header>
-    <h1><a href="/" style="color:inherit;text-decoration:none">lexinspect</a></h1>
-    <div class="meta">data sources</div>
-  </header>
+<header class="topbar">
+  <a class="wordmark" href="/" aria-label="lexinspect home">lex<span>inspect</span></a>
+  <nav class="toplinks" aria-label="Site">
+    <a href="/">Analyser</a>
+    <a href="/docs" target="_blank" rel="noopener">API</a>
+    <a href="https://github.com/quangnd159/lexinspect" target="_blank" rel="noopener">GitHub</a>
+  </nav>
+</header>
 
-  <div class="section">
-    <p class="module-intro">
-      lexinspect analyses text against published vocabulary lists compiled by other
-      researchers. Those lists are their work, not ours. Several are shared under licences
-      that require attribution to <b>you</b>, the person receiving the analysis — not
+<main class="intro" style="max-width: 760px; margin: 0 auto; padding: 24px 16px 48px;">
+    <h1>Data sources and licences</h1>
+    <p>
+      lexinspect analyses text against published word lists, dictionaries and formulas compiled by other
+      researchers. Those resources are their work, not ours. Several are shared under licences
+      that require attribution to <b>you</b>, the person receiving the analysis, not
       merely to whoever reads the source code. This page is that attribution.
-      <span class="caveat-line">If you publish anything derived from lexinspect output,
-      cite the original authors below, not lexinspect.</span>
+      If you publish anything derived from lexinspect output,
+      cite the original authors below, not lexinspect.
     </p>
 
     <h3>Academic Word List — <code>awl</code></h3>
     <p>Coxhead, A. (2000). <i>A new academic word list.</i> TESOL Quarterly, 34(2), 213–238.<br />
-    570 head words across 10 sublists. Freely usable for educational and research purposes.</p>
+    570 word families across 10 sublists. Freely usable for educational and research purposes.</p>
 
     <h3>BNC/COCA word-family lists — <code>bnc/coca</code></h3>
-    <p>Nation, P. BNC/COCA word-family lists (1k–10k head words).<br />
-    Via the <a href="https://github.com/lpmi-13/machine_readable_wordlists" target="_blank" rel="noopener">lpmi-13/machine_readable_wordlists</a> mirror.
-    Licence: <a href="https://creativecommons.org/publicdomain/zero/1.0/" target="_blank" rel="noopener">CC0 1.0 Universal</a>.</p>
+    <p>Nation, I. S. P. (2017). <i>The BNC/COCA Level 6 word family lists</i> (Version 1.0.0). Victoria University of Wellington.<br />
+    25 bands of 1,000 word families with all their members, plus the supplementary lists of proper names, marginal words, transparent compounds and acronyms.
+    Source: <a href="https://www.wgtn.ac.nz/lals/resources/paul-nations-resources/vocabulary-lists" target="_blank" rel="noopener">Paul Nation's vocabulary lists</a>.
+    Licence: <a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noopener">CC BY-SA 4.0</a> — attribution and share-alike required.
+    lexinspect's reformatted copy (<code>bnc_coca.json</code>) is shared under the same licence.</p>
 
     <h3>New General Service List and New Academic Word List — <code>ngsl</code></h3>
     <p>Browne, C., Culligan, B., &amp; Phillips, J. (2013). The New General Service List 1.2 and The New Academic Word List 1.2.<br />
+    NGSL in its “lemmatized for teaching” version, with inflected and UK/US forms.
     Source: <a href="https://www.newgeneralservicelist.com/" target="_blank" rel="noopener">newgeneralservicelist.com</a>.
-    Licence: <a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noopener">CC BY-SA 4.0</a> — attribution and share-alike required.</p>
+    Licence: <a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noopener">CC BY-SA 4.0</a> — attribution and share-alike required.
+    lexinspect's reformatted copies are shared under the same licence.</p>
 
     <h3>CEFR vocabulary profiles — <code>cefr</code></h3>
     <p><b>CEFR-J Vocabulary Profile 1.5 (A1–B2).</b> Compiled by Yukio Tono, Tokyo University of Foreign Studies.
     Copyright Tono Laboratory, TUFS. Free for research and commercial use <b>with citation</b>; this page is that citation.<br />
     <b>Octanove Vocabulary Profile C1/C2 1.0.</b> Octanove Labs.
     Licence: <a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noopener">CC BY-SA 4.0</a>.<br />
-    Both via <a href="https://github.com/openlanguageprofiles/olp-en-cefrj" target="_blank" rel="noopener">openlanguageprofiles/olp-en-cefrj</a>.</p>
-    <p><small>Not the Cambridge English Vocabulary Profile. Different corpora and methodology; results will diverge from EVP-based tools.</small></p>
-
-    <h3>Metadiscourse markers — <code>metadiscourse</code></h3>
-    <p>Hyland, K. (2005). <i>Metadiscourse: Exploring Interaction in Writing.</i> Continuum, London and New York.<br />
-    The ten-category taxonomy is Hyland's intellectual contribution. Cite Hyland (2005) in any output.</p>
+    Both via <a href="https://github.com/openlanguageprofiles/olp-en-cefrj" target="_blank" rel="noopener">openlanguageprofiles/olp-en-cefrj</a>.
+    lexinspect's merged file is shared under CC BY-SA 4.0 with both credits.</p>
+    <p class="fine">Not the Cambridge English Vocabulary Profile. Different corpora and methodology; results will diverge from EVP-based tools.</p>
 
     <h3>Phrasal Expressions List — <code>phrase</code></h3>
     <p>Martinez, R., &amp; Schmitt, N. (2012). A phrasal expressions list. <i>Applied Linguistics</i>, 33(3), 299–320.<br />
@@ -55,30 +60,44 @@
     which states the materials are freely available for research and pedagogical purposes.
     lexinspect is offered free of charge for exactly those purposes.</p>
 
+    <h3>Metadiscourse markers — <code>metadiscourse</code></h3>
+    <p>Hyland, K. (2005). <i>Metadiscourse: Exploring Interaction in Writing.</i> Continuum, London and New York.<br />
+    The ten-category taxonomy is Hyland's intellectual contribution. Cite Hyland (2005) in any output.
+    The hedges list mirrors Hyland's Appendix A via
+    <a href="https://github.com/HLTCHKUST/framing-bias-metric" target="_blank" rel="noopener">HLTCHKUST/framing-bias-metric</a>.</p>
+
+    <h3>British and American spelling variants — lookups</h3>
+    <p>VarCon (Variant Conversion Info), part of SCOWL. Copyright 2000–2016 Kevin Atkinson; copyright 2016 Benjamin Titze.<br />
+    Permission to use, copy, modify, distribute and sell this array, the associated software, and its documentation for any
+    purpose is granted without fee, provided that the copyright notice appears in all copies and that both it and this permission notice appear in supporting documentation.
+    Provided “as is” without express or implied warranty.
+    Via <a href="http://wordlist.aspell.net/varcon-readme/" target="_blank" rel="noopener">wordlist.aspell.net</a>.</p>
+
+    <h3>Pronouncing dictionary — <code>readability</code></h3>
+    <p>The Carnegie Mellon Pronouncing Dictionary, version 0.7a. Copyright (C) 1993–2008 Carnegie Mellon University.
+    BSD-style licence; redistributed with its copyright notice and conditions.</p>
+
+    <h3>Dale–Chall familiar words — <code>readability</code></h3>
+    <p>The Dale–Chall easy-word list (Chall, J. S., &amp; Dale, E. (1995). <i>Readability Revisited: The New Dale–Chall Readability Formula.</i> Brookline Books),
+    as distributed with <a href="https://github.com/textstat/textstat" target="_blank" rel="noopener">textstat</a>.
+    textstat: MIT licence, Copyright (c) 2016 Shivam Bansal.</p>
+
     <h3>Hunspell dictionaries — <code>errors</code></h3>
-    <p>LibreOffice English dictionaries (en_GB, en_US). Wordlist by Kevin Atkinson (LGPL);
-    affix file by Geoff Kuenning (BSD). Via
-    <a href="https://github.com/LibreOffice/dictionaries" target="_blank" rel="noopener">LibreOffice/dictionaries</a>,
-    pinned to a fixed commit.</p>
+    <p>LibreOffice English dictionaries, via
+    <a href="https://github.com/LibreOffice/dictionaries" target="_blank" rel="noopener">LibreOffice/dictionaries</a>, pinned to a fixed commit.<br />
+    <b>en_GB:</b> wordlist based on Kevin Atkinson's English wordlist, updated by David Bartlett, Brian Kelk, Andrew Brown and Marco A. G. Pinto;
+    affix file by David Bartlett and Andrew Brown. Both LGPL.<br />
+    <b>en_US:</b> wordlist from SCOWL by Kevin Atkinson and others (permissive SCOWL copyright);
+    affix file derived from Geoff Kuenning's Ispell (BSD).</p>
 
     <h3>Software</h3>
     <p>lexinspect itself is MIT licensed. It stands on
-    <a href="https://spacy.io/" target="_blank" rel="noopener">spaCy</a>,
-    <a href="https://github.com/textstat/textstat" target="_blank" rel="noopener">textstat</a>,
-    <a href="https://github.com/LSYS/LexicalRichness" target="_blank" rel="noopener">lexicalrichness</a>,
+    <a href="https://spacy.io/" target="_blank" rel="noopener">spaCy</a> and its <code>en_core_web_sm</code> model,
     <a href="https://github.com/zverok/spylls" target="_blank" rel="noopener">spylls</a>, and
     <a href="https://fastapi.tiangolo.com/" target="_blank" rel="noopener">FastAPI</a>.</p>
 
-    <p><small>The authoritative, versioned copy of this list — including provenance notes and
-    known trade-offs for each dataset — lives in
-    <a href="https://github.com/quangnd159/lexinspect/blob/main/src/lexinspect/data/SOURCES.md" target="_blank" rel="noopener"><code>data/SOURCES.md</code></a>.</small></p>
-  </div>
-
-  <footer>
-    <a href="/">analyser</a> ·
-    <a href="/docs" target="_blank">API docs</a> ·
-    <a href="https://github.com/quangnd159/lexinspect" target="_blank">repo</a>
-  </footer>
-</div>
+    <p class="fine">The authoritative, versioned copy of this list, with provenance notes for each dataset, is
+    <a href="https://github.com/quangnd159/lexinspect/blob/main/src/lexinspect/data/SOURCES.md" target="_blank" rel="noopener"><code>data/SOURCES.md</code></a>.</p>
+</main>
 </body>
 </html>

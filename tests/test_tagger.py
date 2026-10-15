@@ -46,3 +46,26 @@ def test_include_tokens_flag():
     assert "tokens" in out
     assert len(out["tokens"]) == 3
     assert out["tokens"][0]["text"] == "Cats"
+
+
+def test_modals_are_verbal_elements():
+    out = tagger.analyze("You must go.")
+    # must (MD) + go (VB)
+    assert out["summary"]["total_verbal_elements"] == 2
+
+
+def test_summary_counts_words_not_spacy_tokens():
+    out = tagger.analyze("I don't own 3 well-known books.")
+    s = out["summary"]
+    # I, don't, own, well-known, books — the numeral is not a content word
+    assert s["content_tokens"] == 5
+    assert out["counts"]["sentences"] == 1
+    # The distributions are over spaCy tokens: I do n't own 3 well - known books .
+    assert out["counts"]["total_tokens"] == 10
+
+
+def test_accepts_shared_analysis():
+    from lexinspect._text import analyse
+
+    text = "The quick brown fox jumps over the lazy dog."
+    assert tagger.analyze(text, analysis=analyse(text)) == tagger.analyze(text)
