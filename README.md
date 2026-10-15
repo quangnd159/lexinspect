@@ -185,7 +185,7 @@ The web UI shows the analysed text with findings highlighted in place, one lens 
 
 ## Deployment
 
-Hosted at `lexinspect.vercel.app`. GitHub Actions builds with `vercel build` and deploys with `vercel deploy --prebuilt`. The Python function is `api/index.py`; `vercel.json` rewrites `/v1/*`, `/docs`, `/openapi.json` and `/healthz` to it. CI copies `src/lexinspect/static/` into `public/`, so the web UI is served from the CDN without invoking the function. The hosted build omits the `cefr-level` extra; `/v1/schema` reports that, and the UI hides the classifier.
+Hosted at `lexinspect.dqnotes.com` (also `lexinspect.vercel.app`). GitHub Actions builds with `vercel build` and deploys with `vercel deploy --prebuilt`. The Python function is `api/index.py`; `vercel.json` rewrites `/v1/*`, `/docs`, `/openapi.json` and `/healthz` to it. CI copies `src/lexinspect/static/` into `public/`, so the web UI is served from the CDN without invoking the function. The hosted build omits the `cefr-level` extra; `/v1/schema` reports that, and the UI hides the classifier.
 
 The hosted API is for the web UI. Every POST under `/v1/` passes a Cloudflare Turnstile check: the page runs an invisible challenge (a click only when Cloudflare is unsure), sends the token in the `CF-Turnstile-Response` header, and gets an hour-long signed `lexinspect_pass` cookie so later analyses skip it. Set `TURNSTILE_SITE_KEY` and `TURNSTILE_SECRET_KEY` in the Vercel project (Production and Preview) to turn it on; with neither set, as in local runs, tests and self-hosted copies, the API is open. Scripts and notebooks should run lexinspect themselves: the package, the CLI or `lexinspect serve`. The WAF rate limit (60 POSTs/min/IP on `/v1/`) stays in front of everything.
 
