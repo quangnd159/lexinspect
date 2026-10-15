@@ -1,19 +1,46 @@
-"""Lazy spaCy pipeline loader. The model loads once per process."""
+"""spaCy pipeline: loaded once per process, parsing serialised.
+
+Use `lexinspect._text.analyse()` rather than calling `parse()` directly — it
+normalises the input and builds the shared word/sentence view every module
+reads from.
+"""
 
 from __future__ import annotations
 
 import threading
 from functools import lru_cache
 
+from spacy.language import Language
+
 DEFAULT_MODEL = "en_core_web_sm"
 
+# Named-entity recognition is ~40% of parse time and nothing reads it: proper
+# nouns come from the tagger's NNP/NNPS. Excluded at load, not just disabled,
+# so its weights never occupy memory.
+_EXCLUDE = ("ner",)
+
 # One `nlp` object is shared by every request in the process. Serverless hosts
-# that pack concurrent requests into one instance run our sync handlers on
-# separate threads, and spaCy mutates a shared `Vocab`/`StringStore` while
-# tokenising, so two threads parsing at once can race. Serialising parses costs
-# us nothing real: the box has a single vCPU, so the work was never going to
-# overlap anyway.
+# that pack concurrent requests into one instance run sync handlers on separate
+# threads, and spaCy mutates a shared `Vocab`/`StringStore` while tokenising, so
+# two threads parsing at once can race. Serialising costs nothing real: the
+# instance has one vCPU, so the work was never going to overlap anyway.
 _PARSE_LOCK = threading.Lock()
+
+
+@Language.component("lexinspect_paragraph_breaks")
+def _paragraph_breaks(doc):
+    """Force a sentence boundary after every blank line.
+
+    A heading, a bullet, or a list item without a full stop otherwise merges
+    with the following sentence — a title line followed by a 20-word sentence
+    became one 24-word "sentence", which skews every per-sentence average and
+    every readability formula built on them. A single newline is *not* a
+    boundary: text pasted from PDFs wraps mid-sentence.
+    """
+    for tok in doc[:-1]:
+        if tok.is_space and tok.text.count("\n") >= 2:
+            doc[tok.i + 1].is_sent_start = True
+    return doc
 
 
 @lru_cache(maxsize=2)
@@ -21,23 +48,15 @@ def get_nlp(model: str = DEFAULT_MODEL):
     import spacy
 
     try:
-        return spacy.load(model)
+        nlp = spacy.load(model, exclude=list(_EXCLUDE))
     except OSError as e:
         raise RuntimeError(
-            f"spaCy model '{model}' is not installed. Run:\n"
-            f"  uv run python -m spacy download {model}"
+            f"spaCy model '{model}' is not installed. Reinstall dependencies: uv sync"
         ) from e
+    nlp.add_pipe("lexinspect_paragraph_breaks", before="parser")
+    return nlp
 
 
-def get_doc(text: str, doc=None):
-    """Return `doc` if the caller already parsed `text`, else parse it.
-
-    Every module used to parse independently, so `/v1/analyze` ran the whole
-    pipeline once per module — nine times over identical input, and the parse
-    dominates each module's cost. Callers that need several modules parse once
-    and thread the `Doc` through.
-    """
-    if doc is not None:
-        return doc
+def parse(text: str):
     with _PARSE_LOCK:
         return get_nlp()(text)

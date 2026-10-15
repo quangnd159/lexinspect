@@ -8,6 +8,7 @@ Inputs (already downloaded to /tmp/lex2):
 
 Outputs into /Users/quangnguyendang/webapps/lexinspect/src/lexinspect/data/.
 """
+
 from __future__ import annotations
 
 import csv
@@ -167,6 +168,7 @@ def build_phrase() -> None:
     print(f"PHRASE: {len(items)} items")
     if items:
         from collections import Counter
+
         bands = Counter(it["k_band"] for it in items)
         print(f"  per K-band: {dict(sorted(bands.items()))}")
 

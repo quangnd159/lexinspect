@@ -1,10 +1,12 @@
-"""POS tagging via spaCy. Emits Penn Treebank tags + universal POS counts.
+"""POS tagging via spaCy: Penn Treebank and Universal POS distributions.
 
-The `summary` block surfaces aggregate views Text Inspector shows on its
-Tagger Summary tab — content tokens (excluding punctuation, numerals, and
-symbols), unique types, type/token ratio, plus per-sentence rates of verbal
-elements (PTB ``VB*``) and nominal elements (PTB ``NN*``). Useful for spotting
-verb-light or noun-heavy prose at a glance.
+Tag distributions are over spaCy tokens (that is what a tagger tags: `don't`
+is `do`/VBP + `n't`/RB). The `summary` block — Text Inspector's Tagger Summary
+— counts *words* from the shared `Analysis`, so its content-word and sentence
+counts agree with every other tab: content words exclude punctuation, numerals
+and symbols; verbal elements are PTB `VB*` and `MD` (modals are verbs on
+every grammar's account; the old count left `can`/`will`/`must` out), nominal
+elements are PTB `NN*`.
 """
 
 from __future__ import annotations
@@ -12,62 +14,57 @@ from __future__ import annotations
 from collections import Counter
 from typing import Any
 
-from lexinspect._nlp import get_doc
+from lexinspect._text import Analysis, ensure
 
-# Universal POS tags that are not "content" for the type/token rollup.
-_NON_CONTENT_UPOS = frozenset({"PUNCT", "NUM", "SYM", "X"})
+_NON_CONTENT_UPOS = frozenset({"PUNCT", "NUM", "SYM", "X", "SPACE"})
 
 
-def analyze(text: str, *, include_tokens: bool = False, doc=None) -> dict[str, Any]:
-    doc = get_doc(text, doc)
+def analyze(
+    text: str, *, include_tokens: bool = False, analysis: Analysis | None = None
+) -> dict[str, Any]:
+    a = ensure(text, analysis)
 
-    ptb_counts: Counter[str] = Counter()
-    upos_counts: Counter[str] = Counter()
-    types: set[str] = set()
+    ptb: Counter[str] = Counter()
+    upos: Counter[str] = Counter()
     tokens: list[dict[str, Any]] = []
-
     total = 0
-    for tok in doc:
+    verbal = nominal = 0
+    for tok in a.doc:
         if tok.is_space:
             continue
         total += 1
-        if tok.is_punct:
-            ptb_counts[tok.tag_ or "PUNCT"] += 1
-            upos_counts["PUNCT"] += 1
-        else:
-            ptb_counts[tok.tag_] += 1
-            upos_counts[tok.pos_] += 1
-            if tok.pos_ not in _NON_CONTENT_UPOS:
-                types.add(tok.text.lower())
+        tag = tok.tag_ or ("PUNCT" if tok.is_punct else "X")
+        pos = "PUNCT" if tok.is_punct else tok.pos_
+        ptb[tag] += 1
+        upos[pos] += 1
+        if tag.startswith("VB") or tag == "MD":
+            verbal += 1
+        elif tag.startswith("NN"):
+            nominal += 1
         if include_tokens:
-            tokens.append(
-                {
-                    "text": tok.text,
-                    "lemma": tok.lemma_,
-                    "pos": tok.pos_,
-                    "tag": tok.tag_,
-                }
-            )
+            tokens.append({"text": tok.text, "lemma": tok.lemma_, "pos": pos, "tag": tag})
 
-    sentence_count = sum(1 for _ in doc.sents)
-    content_tokens = total - sum(upos_counts.get(p, 0) for p in _NON_CONTENT_UPOS)
-    verbal = sum(c for tag, c in ptb_counts.items() if tag.startswith("VB"))
-    nominal = sum(c for tag, c in ptb_counts.items() if tag.startswith("NN"))
+    content_words = [
+        w for w in a.non_numeric_words if any(t.pos_ not in _NON_CONTENT_UPOS for t in w.tokens)
+    ]
+    n_content = len(content_words)
+    n_types = len({w.lower for w in content_words})
+    n_sent = a.sentence_count
 
     out: dict[str, Any] = {
-        "counts": {"total_tokens": total, "sentences": sentence_count},
+        "counts": {"total_tokens": total, "sentences": n_sent},
         "summary": {
-            "content_tokens": content_tokens,
-            "types": len(types),
-            "type_token_ratio": _ratio(len(types), content_tokens),
-            "tokens_per_type": _ratio(content_tokens, len(types)),
+            "content_tokens": n_content,
+            "types": n_types,
+            "type_token_ratio": _ratio(n_types, n_content),
+            "tokens_per_type": _ratio(n_content, n_types),
             "total_verbal_elements": verbal,
-            "verbal_elements_per_sentence": _ratio(verbal, sentence_count),
+            "verbal_elements_per_sentence": _ratio(verbal, n_sent),
             "total_noun_elements": nominal,
-            "noun_elements_per_sentence": _ratio(nominal, sentence_count),
+            "noun_elements_per_sentence": _ratio(nominal, n_sent),
         },
-        "ptb_distribution": dict(ptb_counts.most_common()),
-        "upos_distribution": dict(upos_counts.most_common()),
+        "ptb_distribution": dict(ptb.most_common()),
+        "upos_distribution": dict(upos.most_common()),
     }
     if include_tokens:
         out["tokens"] = tokens
@@ -75,6 +72,4 @@ def analyze(text: str, *, include_tokens: bool = False, doc=None) -> dict[str, A
 
 
 def _ratio(numerator: float, denominator: float) -> float:
-    if not denominator:
-        return 0.0
-    return round(numerator / denominator, 3)
+    return round(numerator / denominator, 3) if denominator else 0.0

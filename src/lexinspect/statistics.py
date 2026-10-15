@@ -1,88 +1,57 @@
 """Text statistics — counts and ratios that aren't readability scores.
 
-Surfaces the breakouts Text Inspector shows under "Statistics": sentence
-count, token count excluding numeric tokens, unique types, syllable count,
-count and percentage of polysyllabic words (>2 syllables), average syllables
-per sentence, syllables per 100 words, type/token ratio, plus the list of
-numeric tokens that were excluded.
+Surfaces the breakouts Text Inspector shows under "Statistics": sentence count,
+token count excluding numbers, unique types, syllables, polysyllabic words,
+and the ratios built from them, plus the list of numeric tokens excluded.
 
-`readability` reports a similar `counts` block, but mixed with formula scores.
-This module exposes the same fields as discrete top-level ratios so an agent
-can read them directly. Tokenization uses spaCy (so `excluded_digits` reflects
-real numeric tokens), syllable counts come from textstat for parity with the
-readability module.
-
-Numeric tokens are detected strictly: a token is numeric only if it consists
-of digits with optional decimal points or commas (e.g. ``2025``, ``1.5``,
-``1,000``). Word numerals (``one``, ``twenty-fifth``) are kept as words —
-matching Text Inspector's "Excluded Digits" list, which contains only digits.
+Every count comes from the shared `Analysis`, so `sentences` and `syllables`
+here are the same numbers the readability tab reports. Numeric tokens are
+detected strictly — digits with optional `.`/`,`, a currency sign or `%`, an
+ordinal or decade suffix (`2025`, `1.5`, `1,000`, `3rd`, `1990s`). Word
+numerals (`twenty`) are words, matching Text Inspector's "Excluded Digits".
 """
 
 from __future__ import annotations
 
 from typing import Any
 
-import textstat
+from lexinspect._text import Analysis, ensure
+from lexinspect.readability import word_syllables
 
-from lexinspect._nlp import get_doc
 
-
-def analyze(text: str, *, doc=None) -> dict[str, Any]:
-    doc = get_doc(text, doc)
-
-    excluded_digits: list[str] = []
-    word_token_count = 0
-    types: set[str] = set()
-
-    for tok in doc:
-        if tok.is_space or tok.is_punct:
-            continue
-        if _is_numeric_token(tok.text):
-            excluded_digits.append(tok.text)
-            continue
-        word_token_count += 1
-        types.add(tok.text.lower())
-
-    type_count = len(types)
-    sentence_count = sum(1 for _ in doc.sents)
-
-    ts = textstat.textstat
-    ts.set_lang("en_US")
-    syllable_count = ts.syllable_count(text)
-    polysyllable_count = ts.polysyllabcount(text)
+def analyze(text: str, *, analysis: Analysis | None = None) -> dict[str, Any]:
+    a = ensure(text, analysis)
+    excluded = [w.text for w in a.words if w.is_numeric]
+    words = a.non_numeric_words
+    n_words = len(words)
+    n_types = len({w.lower for w in words})
+    n_sent = a.sentence_count
+    syll = [word_syllables(w) for w in words]
+    n_syll = sum(syll)
+    poly = sum(1 for s in syll if s >= 3)
 
     return {
         "counts": {
-            "characters_with_spaces": len(text),
-            "characters_without_spaces": ts.char_count(text, ignore_spaces=True),
-            "tokens_excluding_numbers": word_token_count,
-            "unique_types_excluding_numbers": type_count,
-            "sentences": sentence_count,
-            "syllables": syllable_count,
-            "polysyllable_words": polysyllable_count,
-            "excluded_numeric_tokens": len(excluded_digits),
+            "characters_with_spaces": len(a.text),
+            "characters_without_spaces": len("".join(a.text.split())),
+            "tokens_excluding_numbers": n_words,
+            "unique_types_excluding_numbers": n_types,
+            "sentences": n_sent,
+            "syllables": n_syll,
+            "polysyllable_words": poly,
+            "excluded_numeric_tokens": len(excluded),
         },
         "averages": {
-            "tokens_per_sentence": _ratio(word_token_count, sentence_count),
-            "type_token_ratio": _ratio(type_count, word_token_count),
-            "syllables_per_word": _ratio(syllable_count, word_token_count),
-            "syllables_per_sentence": _ratio(syllable_count, sentence_count),
-            "syllables_per_100_words": _ratio(syllable_count * 100, word_token_count),
-            "polysyllable_pct": _ratio(polysyllable_count * 100, word_token_count),
+            "tokens_per_sentence": _ratio(n_words, n_sent),
+            "type_token_ratio": _ratio(n_types, n_words),
+            "syllables_per_word": _ratio(n_syll, n_words),
+            "syllables_per_sentence": _ratio(n_syll, n_sent),
+            "syllables_per_100_words": _ratio(n_syll * 100, n_words),
+            "polysyllable_pct": _ratio(poly * 100, n_words),
         },
-        "excluded_digits": excluded_digits,
+        "excluded_digits": excluded,
     }
 
 
-def _is_numeric_token(text: str) -> bool:
-    """True iff `text` is a purely numeric token (digits, optional , and .)."""
-    if not text:
-        return False
-    cleaned = text.replace(",", "").replace(".", "")
-    return cleaned.isdigit()
-
-
 def _ratio(numerator: float, denominator: float) -> float:
-    if not denominator:
-        return 0.0
-    return round(numerator / denominator, 3)
+    return round(numerator / denominator, 3) if denominator else 0.0

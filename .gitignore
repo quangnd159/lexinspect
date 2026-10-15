@@ -30,3 +30,5 @@ private_data/
 
 # Vercel
 .vercel
+# Copied from src/lexinspect/static/ in CI for the CDN.
+public/

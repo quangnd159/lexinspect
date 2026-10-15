@@ -1,22 +1,6 @@
 """Smoke tests for statistics module."""
 
-from pathlib import Path
-
-import pytest
-
 from lexinspect import statistics
-
-FIXTURES = Path(__file__).parent / "fixtures"
-
-
-@pytest.fixture(scope="module")
-def simple() -> str:
-    return (FIXTURES / "sample_simple.txt").read_text()
-
-
-@pytest.fixture(scope="module")
-def academic() -> str:
-    return (FIXTURES / "sample_academic.txt").read_text()
 
 
 def test_returns_expected_keys(simple):
@@ -66,9 +50,22 @@ def test_excludes_numeric_tokens():
     out = statistics.analyze(text)
     assert out["excluded_digits"] == ["2015", "2018"]
     assert out["counts"]["excluded_numeric_tokens"] == 2
-    # 'one' and word numerals should NOT be excluded; this text has none.
-    # Token count excludes 2015 and 2018 only.
-    assert "2015" not in (t for t in out["excluded_digits"] if t != "2015") or True
+    # The show debuted in but was cancelled in
+    assert out["counts"]["tokens_excluding_numbers"] == 8
+
+
+def test_numeric_forms_excluded():
+    out = statistics.analyze("It rose 3.5% to 1,500 in the 1990s, the 3rd rise.")
+    assert out["excluded_digits"] == ["3.5", "1,500", "1990s", "3rd"]
+    # It rose to in the the rise
+    assert out["counts"]["tokens_excluding_numbers"] == 7
+
+
+def test_contractions_and_compounds_count_once():
+    out = statistics.analyze("I don't think the well-known author's book can't sell.")
+    # I don't think the well-known author's book can't sell
+    assert out["counts"]["tokens_excluding_numbers"] == 9
+    assert out["counts"]["sentences"] == 1
 
 
 def test_keeps_word_numerals():

@@ -1,28 +1,15 @@
 """Smoke tests for CEFR vocabulary profiling."""
 
-from pathlib import Path
+from lexinspect import _lists, cefr
 
-import pytest
-
-from lexinspect import cefr
-
-FIXTURES = Path(__file__).parent / "fixtures"
 LEVELS = ["A1", "A2", "B1", "B2", "C1", "C2"]
 
 
-@pytest.fixture
-def simple() -> str:
-    return (FIXTURES / "sample_simple.txt").read_text()
-
-
-@pytest.fixture
-def academic() -> str:
-    return (FIXTURES / "sample_academic.txt").read_text()
-
-
 def test_data_loads():
-    data = cefr._load()
+    data = _lists.cefr_raw()
+    assert data["level_order"] == LEVELS
     assert data["lemma_count"] >= 8000
+    assert len(_lists.cefr_entries()) == data["lemma_count"]
     assert set(data["per_level_count"]) == set(LEVELS)
     assert all(data["per_level_count"][lvl] > 0 for lvl in LEVELS)
 
@@ -35,6 +22,10 @@ def test_returns_expected_keys(simple):
         "per_level",
         "dominant_level",
         "estimated_level_95th",
+        "highest_level_present",
+        "words_by_level",
+        "proper_nouns",
+        "off_list",
         "caveat",
     } <= set(out)
     assert set(out["per_level"]) == set(LEVELS)
@@ -47,7 +38,11 @@ def test_simple_text_dominant_is_low_level(simple):
 
 def test_academic_text_reaches_higher_levels(academic):
     out = cefr.analyze(academic)
-    high = out["per_level"]["B2"]["tokens"] + out["per_level"]["C1"]["tokens"] + out["per_level"]["C2"]["tokens"]
+    high = (
+        out["per_level"]["B2"]["tokens"]
+        + out["per_level"]["C1"]["tokens"]
+        + out["per_level"]["C2"]["tokens"]
+    )
     assert high >= 2
 
 

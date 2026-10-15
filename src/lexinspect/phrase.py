@@ -1,23 +1,63 @@
 """PHRASE list detection (Martinez & Schmitt 2012).
 
-506 phrasal expressions across K1–K5 frequency bands. Each item is a base form
-(`HAVE TO`, `IN SPITE OF`, `ON THE OTHER HAND`). Detection scans token spans
-of length 1–6 against the lemmatized phrase index, allowing common verb
-inflections via spaCy lemmas. Slot phrases like `BE EXPECTED TO` accept any
-'be' inflection in the matching slot.
+506 phrasal expressions across K1–K5 frequency bands. Each entry's printed base
+form is compiled at build time (scripts/build_data/build_phrase_index.py) into
+its real variants — `THERE IS/ARE` into `there is` and `there are`,
+`A BIT (OF)` into `a bit of` and `a bit` — with sense glosses set aside and
+`ONE'S`/`ONESELF` as possessive/reflexive slots.
 
-Output: ranked hit list with band, frequency, and the surface span found.
+Matching, per sentence, never across punctuation:
+
+- **Inflection.** A word in the phrase matches its own form or any form with
+  the same lemma, so DEAL WITH matches `dealt with` and HAVE TO matches `had to`.
+  Contractions read as their full forms (`there's` = `there is`).
+- **Senses.** Where an entry's example sentence shows its `to` as infinitival
+  (TO) or prepositional (IN), or its `that` as complementiser or determiner,
+  the text must agree. That's what keeps "going to the park" from counting as
+  GOING TO (FUTURE), and picks USED TO (PAST) for "used to snow" but USED TO
+  (ACCUSTOMED) for "used to the noise".
+- **Overlap.** Longest match wins and consumes its tokens: `as well as` is one
+  hit, not also `as well`. (The old matcher counted both.)
+
+When two senses of one form both fit (`out of`: 'IN/FROM', 'USING', 'DUE TO'),
+the hit takes the more frequent sense and lists the others in `also_possible`.
 """
 
 from __future__ import annotations
 
 import json
-import re
+from collections import Counter
 from functools import lru_cache
 from importlib import resources
 from typing import Any
 
-from lexinspect._nlp import get_doc
+from lexinspect._text import Analysis, ensure
+
+POSS, REFL = "<poss>", "<refl>"
+_POSSESSIVES = frozenset({"my", "your", "his", "her", "its", "our", "their", "one's"})
+_REFLEXIVES = frozenset(
+    {
+        "myself",
+        "yourself",
+        "himself",
+        "herself",
+        "itself",
+        "ourselves",
+        "yourselves",
+        "themselves",
+        "oneself",
+    }
+)
+_CLITIC_FULL = {
+    "n't": "not",
+    "'re": "are",
+    "'m": "am",
+    "'ve": "have",
+    "'ll": "will",
+    "ca": "can",
+    "wo": "will",
+    "sha": "shall",
+}
 
 
 @lru_cache(maxsize=1)
@@ -27,123 +67,152 @@ def _load() -> dict[str, Any]:
 
 
 @lru_cache(maxsize=1)
-def _index() -> dict[tuple[str, ...], dict[str, Any]]:
-    """Map lemmatized phrase tuple -> phrase entry."""
-    out: dict[tuple[str, ...], dict[str, Any]] = {}
+def _index() -> dict[str, list[tuple[tuple[str, ...], dict[str, Any]]]]:
+    """First phrase word -> [(variant, item)], longest variants first, then by rank."""
+    out: dict[str, list[tuple[tuple[str, ...], dict[str, Any]]]] = {}
     for item in _load()["items"]:
-        key = _phrase_key(item["phrase"])
-        if key:
-            out[key] = item
+        for var in item["variants"]:
+            out.setdefault(var[0], []).append((tuple(var), item))
+    for cands in out.values():
+        cands.sort(key=lambda c: (-len(c[0]), c[1]["rank"]))
     return out
 
 
-_NOTE_RE = re.compile(r"\([^)]*\)")
-_SPACE_RE = re.compile(r"\s+")
+def _norm(tok) -> str:
+    text = tok.lower_.replace("’", "'")
+    if text == "'s":
+        lemma = tok.lemma_.lower()
+        if lemma in ("be", "have"):
+            return "is" if lemma == "be" else "has"
+        # spaCy lemmatises a curly `’s` to `’`, so fall back on the tag: a verb
+        # `'s` before a past participle is `has` (`it's been`), otherwise `is`.
+        if tok.tag_ == "VBZ":
+            nxt = tok.nbor(1) if tok.i + 1 < len(tok.doc) else None
+            return "has" if nxt is not None and nxt.tag_ == "VBN" else "is"
+        return "'s"
+    if text == "'d":
+        return "would" if tok.tag_ == "MD" else "had"
+    return _CLITIC_FULL.get(text, text)
 
 
-def _phrase_key(phrase: str) -> tuple[str, ...]:
-    """Normalize a base phrase into a tuple of lemma-form tokens.
-    `HAVE TO` -> ('have', 'to'); `BE EXPECTED TO` -> ('be', 'expected', 'to').
-    Drops parenthetical glosses and slash alternants (keeps the first variant)."""
-    p = _NOTE_RE.sub(" ", phrase).lower()
-    p = p.replace("/", " ")
-    p = _SPACE_RE.sub(" ", p).strip()
-    return tuple(p.split())
+def _first_keys(norm: str, lemma: str) -> tuple[str, ...]:
+    keys = [norm, lemma]
+    if norm in _POSSESSIVES:
+        keys.append(POSS)
+    if norm in _REFLEXIVES:
+        keys.append(REFL)
+    return tuple(dict.fromkeys(keys))
 
 
-_BE_FORMS = {"be", "is", "am", "are", "was", "were", "been", "being"}
-_HAVE_FORMS = {"have", "has", "had", "having"}
-_DO_FORMS = {"do", "does", "did", "doing", "done"}
+def _matches(tok, norm: str, target: str) -> bool:
+    if target == POSS:
+        return norm in _POSSESSIVES
+    if target == REFL:
+        return norm in _REFLEXIVES
+    return norm == target or tok.lemma_.lower() == target
 
 
-@lru_cache(maxsize=1)
-def _buckets() -> dict[tuple[int, str], list[tuple[int, tuple[str, ...], dict[str, Any]]]]:
-    """Group the phrase index by (span length, first target token).
-
-    Matching used to rescan all ~500 phrases for every token/span-length pair,
-    which is linear in the text but with a ~3000x constant — enough to turn a
-    large request into minutes of CPU. A window can only match a phrase whose
-    first target the window's first token satisfies, so bucketing on that pair
-    cuts the candidate set to a handful. The stored position preserves the old
-    insertion-order tie-break between equal-length phrases.
-    """
-    out: dict[tuple[int, str], list[tuple[int, tuple[str, ...], dict[str, Any]]]] = {}
-    for pos, (key, item) in enumerate(_index().items()):
-        out.setdefault((len(key), key[0]), []).append((pos, key, item))
-    return out
+# Tags that play the same role for sense purposes: an adverbial particle is
+# tagged RP or RB depending on the parse, and both mean "not a preposition".
+_TAG_CLASS = {"RP": "particle", "RB": "particle", "RBR": "particle", "WDT": "DT"}
 
 
-def _candidate_targets(token_text: str, token_lemma: str) -> set[str]:
-    """Every phrase-initial target this token could satisfy under `_token_matches`."""
-    targets = {token_text, token_lemma}
-    if token_text in _BE_FORMS or token_lemma == "be":
-        targets.add("be")
-    if token_text in _HAVE_FORMS or token_lemma == "have":
-        targets.add("have")
-    if token_text in _DO_FORMS or token_lemma == "do":
-        targets.add("do")
-    return targets
+def _tag_class(tag: str) -> str:
+    return _TAG_CLASS.get(tag, tag)
 
 
-def _token_matches(token_lemma: str, token_text: str, target: str) -> bool:
-    target = target.lower()
-    if target == "be":
-        return token_text in _BE_FORMS or token_lemma == "be"
-    if target == "have":
-        return token_text in _HAVE_FORMS or token_lemma == "have"
-    if target == "do":
-        return token_text in _DO_FORMS or token_lemma == "do"
-    return token_text == target or token_lemma == target
+def _clause_final(tok) -> bool:
+    """Nothing but punctuation (or the end of the text) follows `tok`."""
+    nxt = tok.nbor(1) if tok.i + 1 < len(tok.doc) else None
+    return nxt is None or nxt.is_punct or nxt.is_space
 
 
-def analyze(text: str, *, doc=None) -> dict[str, Any]:
-    doc = get_doc(text, doc)
+# Senses the tagger can't separate. TO GO ('REMAINING') — "two more to go" —
+# is tagged exactly like the infinitive in "trains to go to work"; the
+# remaining sense ends its clause.
+_CONTEXT = {5463: lambda span: _clause_final(span[-1])}
+
+
+def _segments(doc):
+    """Runs of word tokens within a sentence, broken at punctuation."""
+    for sent in doc.sents:
+        run = []
+        for tok in sent:
+            if tok.is_space:
+                continue
+            if tok.is_punct and tok.text not in ("'", "’"):
+                if run:
+                    yield run
+                run = []
+                continue
+            run.append(tok)
+        if run:
+            yield run
+
+
+def analyze(text: str, *, analysis: Analysis | None = None) -> dict[str, Any]:
+    a = ensure(text, analysis)
     index = _index()
 
-    content_tokens = [
-        (t.text.lower(), t.lemma_.lower(), t.i)
-        for t in doc
-        if not (t.is_space or t.is_punct)
-    ]
-
-    max_len = max((len(k) for k in index), default=0)
     hits: list[dict[str, Any]] = []
-    matched_ranks: dict[int, int] = {}
-
-    buckets = _buckets()
-    n = len(content_tokens)
-    for i in range(n):
-        targets = _candidate_targets(content_tokens[i][0], content_tokens[i][1])
-        for span_len in range(1, min(max_len, n - i) + 1):
-            candidates = [c for t in targets for c in buckets.get((span_len, t), ())]
-            if not candidates:
+    for run in _segments(a.doc):
+        norms = [_norm(t) for t in run]
+        i, n = 0, len(run)
+        while i < n:
+            found: list[tuple[tuple[str, ...], dict[str, Any]]] = []
+            for key in _first_keys(norms[i], run[i].lemma_.lower()):
+                for var, item in index.get(key, ()):
+                    if i + len(var) > n or (found and len(var) < len(found[0][0])):
+                        continue
+                    if not all(_matches(run[i + k], norms[i + k], w) for k, w in enumerate(var)):
+                        continue
+                    tags = item.get("tags") or {}
+                    if any(
+                        _tag_class(run[i + k].tag_) != _tag_class(tags[w])
+                        for k, w in enumerate(var)
+                        if w in tags
+                    ):
+                        continue
+                    check = _CONTEXT.get(item["rank"])
+                    if check is not None and not check(run[i : i + len(var)]):
+                        continue
+                    if found and len(var) > len(found[0][0]):
+                        found = []
+                    found.append((var, item))
+            if not found:
+                i += 1
                 continue
-            candidates.sort(key=lambda c: c[0])
-            window = content_tokens[i : i + span_len]
-            for _pos, key, item in candidates:
-                if all(_token_matches(w[1], w[0], k) for w, k in zip(window, key, strict=True)):
-                    surface = " ".join(w[0] for w in window)
-                    hits.append(
-                        {
-                            "rank": item["rank"],
-                            "phrase": item["phrase"],
-                            "k_band": item["k_band"],
-                            "surface": surface,
-                        }
-                    )
-                    matched_ranks[item["rank"]] = matched_ranks.get(item["rank"], 0) + 1
-                    break
+            found.sort(key=lambda f: f[1]["rank"])
+            var, item = found[0]
+            span = run[i : i + len(var)]
+            hit = {
+                "rank": item["rank"],
+                "phrase": item["phrase"],
+                "k_band": item["k_band"],
+                "surface": a.text[span[0].idx : span[-1].idx + len(span[-1].text)],
+                "sense": item.get("sense"),
+                "token_index": span[0].i,
+                "span": [span[0].idx, span[-1].idx + len(span[-1].text)],
+            }
+            others = [f[1]["phrase"] for f in found[1:] if f[1]["rank"] != item["rank"]]
+            if others:
+                hit["also_possible"] = others
+            hits.append(hit)
+            i += len(var)
 
-    per_band: dict[str, int] = {str(k): 0 for k in range(1, 6)}
+    per_band = {str(k): 0 for k in range(1, 6)}
     for h in hits:
         per_band[str(h["k_band"])] += 1
-
     return {
         "counts": {
             "total_hits": len(hits),
-            "unique_phrases": len(matched_ranks),
-            "content_tokens": len(content_tokens),
+            "unique_phrases": len({h["rank"] for h in hits}),
+            "content_tokens": len(a.lexical),
+            "hits_per_1000_words": round(len(hits) / a.word_count * 1000, 2)
+            if a.word_count
+            else 0.0,
         },
         "hits_per_k_band": per_band,
-        "hits": sorted(hits, key=lambda h: h["rank"]),
+        "hits": sorted(hits, key=lambda h: (h["rank"], h["token_index"])),
+        "phrase_frequency": dict(Counter(h["phrase"] for h in hits).most_common()),
     }

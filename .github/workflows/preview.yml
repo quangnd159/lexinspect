@@ -4,7 +4,7 @@ on:
   pull_request:
     paths:
       - "src/**"
-      - "main.py"
+      - "api/**"
       - "pyproject.toml"
       - "uv.lock"
       - "vercel.json"
@@ -24,11 +24,6 @@ jobs:
       # Only VERCEL_TOKEN is a secret.
       VERCEL_ORG_ID: team_PG6AAoF8oxMLm4JeuUCiycRh
       VERCEL_PROJECT_ID: prj_aIZyHkugjTEwLTBpzI5PLbFvtjqZ
-      # The bundle is ~510 MB, over the 500 MB standard Python limit. Building
-      # off-platform means Vercel's project env vars aren't injected, so opt into
-      # the large-functions beta here too. Dropping lexicalrichness would take us
-      # back under the limit and let this go away.
-      VERCEL_SUPPORT_LARGE_FUNCTIONS: "1"
     steps:
       - uses: actions/checkout@v5
 
@@ -44,9 +39,15 @@ jobs:
       - name: Pull Vercel environment
         run: vercel pull --yes --environment=preview --token=${{ secrets.VERCEL_TOKEN }}
 
-      # NOTE: the bundle exceeds the 500 MB standard Python limit, so preview
-      # builds need VERCEL_SUPPORT_LARGE_FUNCTIONS=1 set for the Preview
-      # environment in project settings. Production already has it.
+      # The web UI is static: serve it from Vercel's CDN (public/) so a page
+      # view never invokes the Python function. The function answers /v1/* only.
+      - name: Publish static UI to the CDN
+        run: |
+          mkdir -p public/static
+          cp src/lexinspect/static/*.js src/lexinspect/static/*.css public/static/
+          cp src/lexinspect/static/index.html public/index.html
+          cp src/lexinspect/static/licences.html public/licences.html
+
       - name: Build
         run: vercel build --token=${{ secrets.VERCEL_TOKEN }}
 

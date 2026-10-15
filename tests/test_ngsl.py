@@ -1,29 +1,13 @@
 """Smoke tests for NGSL/NAWL coverage."""
 
-from pathlib import Path
-
-import pytest
-
-from lexinspect import ngsl
-
-FIXTURES = Path(__file__).parent / "fixtures"
-
-
-@pytest.fixture
-def simple() -> str:
-    return (FIXTURES / "sample_simple.txt").read_text()
-
-
-@pytest.fixture
-def academic() -> str:
-    return (FIXTURES / "sample_academic.txt").read_text()
+from lexinspect import _lists, ngsl
 
 
 def test_data_loads():
-    n = ngsl._ngsl()
-    a = ngsl._nawl()
-    assert len(n) >= 2500
-    assert len(a) >= 900
+    ngsl_lemmas = {item["lemma"] for item in _lists.ngsl_forms().values()}
+    nawl_lemmas = {item["lemma"] for item in _lists.nawl_forms().values()}
+    assert len(ngsl_lemmas) == 2809
+    assert len(nawl_lemmas) == 959
 
 
 def test_returns_expected_keys(simple):

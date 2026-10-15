@@ -6,6 +6,7 @@ from pathlib import Path
 import pytest
 from typer.testing import CliRunner
 
+from lexinspect import pipeline
 from lexinspect.cli import app
 
 FIXTURES = Path(__file__).parent / "fixtures"
@@ -28,13 +29,14 @@ runner = CliRunner()
         ("phrase", SIMPLE, "phrase"),
         ("cefr", ACADEMIC, "cefr"),
         ("metadiscourse", ACADEMIC, "metadiscourse"),
+        ("errors", SIMPLE, "errors"),
     ],
 )
 def test_subcommand_emits_valid_json(subcommand, fixture, envelope_module):
     result = runner.invoke(app, [subcommand, fixture])
     assert result.exit_code == 0, result.stdout
     payload = json.loads(result.stdout)
-    assert payload["schema_version"] == "1"
+    assert payload["schema_version"] == "2"
     assert payload["module"] == envelope_module
     assert "result" in payload
 
@@ -44,18 +46,30 @@ def test_analyze_combines_modules():
     assert result.exit_code == 0, result.stdout
     payload = json.loads(result.stdout)
     assert payload["module"] == "analyze"
-    assert set(payload["results"]) == {
-        "readability",
-        "statistics",
-        "diversity",
-        "tagger",
-        "awl",
-        "bnc_coca",
-        "ngsl",
-        "phrase",
-        "cefr",
-        "metadiscourse",
-    }
+    assert payload["schema_version"] == "2"
+    assert list(payload["results"]) == list(pipeline.MODULES)
+    assert "errors" in payload["results"]
+    inp = payload["input"]
+    assert inp["word_count"] == payload["results"]["readability"]["counts"]["words"]
+    assert inp["sentence_count"] == payload["results"]["readability"]["counts"]["sentences"]
+
+
+def test_analyze_variant(tmp_path):
+    f = tmp_path / "t.txt"
+    f.write_text("The color of the center.")
+    gb = json.loads(runner.invoke(app, ["analyze", str(f), "--variant", "gb"]).stdout)
+    us = json.loads(runner.invoke(app, ["analyze", str(f), "--variant", "us"]).stdout)
+    assert gb["results"]["errors"]["counts"]["variant_mismatches"] == 2
+    assert us["results"]["errors"]["counts"]["variant_mismatches"] == 0
+
+
+def test_cli_and_api_agree():
+    from lexinspect.api import AnalyzeIn, post_analyze
+
+    text = Path(ACADEMIC).read_text()
+    cli = json.loads(runner.invoke(app, ["analyze", ACADEMIC]).stdout)
+    api = post_analyze(AnalyzeIn(text=text))
+    assert cli["results"] == json.loads(json.dumps(api["results"]))
 
 
 def test_human_format_runs():
