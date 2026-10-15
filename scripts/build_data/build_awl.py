@@ -3,6 +3,7 @@
 import json
 import re
 import xml.etree.ElementTree as ET
+from pathlib import Path
 
 tree = ET.parse("/tmp/awl.xml")
 root = tree.getroot()
@@ -39,7 +40,8 @@ out = {
     "families": families,
 }
 
-with open("/Users/quangnguyendang/webapps/lexinspect/src/lexinspect/data/awl.json", "w") as f:
+OUT = Path(__file__).resolve().parents[2] / "src" / "lexinspect" / "data" / "awl.json"
+with open(OUT, "w") as f:
     json.dump(out, f, indent=2, ensure_ascii=False)
 
 print(f"Wrote {len(families)} families across 10 sublists")

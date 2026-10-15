@@ -94,7 +94,7 @@ Read directly from the zip by `_syllables.py` (no NLTK); syllables are the stres
 
 The Dale–Chall familiar-word list as distributed with [textstat](https://github.com/textstat/textstat) (`textstat/resources/en/easy_words.txt`, 2,940 words, unchanged). The list itself is from Dale & Chall; see Chall, J. S., & Dale, E. (1995). *Readability Revisited: The New Dale–Chall Readability Formula.* Brookline Books.
 
-**Licence:** textstat is MIT, Copyright (c) 2016 Shivam Bansal.
+**Licence:** textstat is MIT, Copyright (c) 2016 Shivam Bansal. The notice ships alongside the list in `LICENSES/textstat-MIT.txt`.
 
 ## hunspell/ (en_GB, en_US)
 

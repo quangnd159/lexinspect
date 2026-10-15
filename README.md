@@ -207,4 +207,4 @@ Data refresh: see `scripts/build_data/README.md`.
 
 ## Licence
 
-Code: MIT. Bundled data files have their own provenance and licences, several of them CC BY-SA 4.0. See [src/lexinspect/data/SOURCES.md](src/lexinspect/data/SOURCES.md). Cite the original creators in any publication.
+Code: MIT ([LICENSE](LICENSE)). The MIT licence does not cover the bundled data files: each keeps its creators' terms, several are CC BY-SA 4.0, and the AWL, PHRASE and metadiscourse lists are for educational and research use only. See [src/lexinspect/data/LICENSE.md](src/lexinspect/data/LICENSE.md) for a per-file summary and [SOURCES.md](src/lexinspect/data/SOURCES.md) for full provenance. Cite the original creators in any publication.

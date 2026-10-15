@@ -14,7 +14,7 @@ import json
 import re
 from pathlib import Path
 
-DATA_OUT = Path("/Users/quangnguyendang/webapps/lexinspect/src/lexinspect/data")
+DATA_OUT = Path(__file__).resolve().parents[2] / "src" / "lexinspect" / "data"
 TMP = Path("/tmp/lex4")
 
 

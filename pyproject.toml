@@ -5,7 +5,8 @@ description = "English text analysis — readability, lexical diversity, CEFR / 
 readme = "README.md"
 authors = [{ name = "Quang Nguyen", email = "quangnd159@gmail.com" }]
 requires-python = ">=3.12"
-license = { text = "MIT" }
+license = "MIT"
+license-files = ["LICENSE"]
 # Vercel's Python builder runs a bare `uv sync --no-dev --frozen` and offers no
 # way to select extras (a custom installCommand works but disables its bundle
 # optimizer, which pushes the size ceiling from 500 MB down to 225 MB). So

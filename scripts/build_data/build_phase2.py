@@ -6,7 +6,7 @@ Inputs (already downloaded to /tmp/lex2):
   - nawl.csv       — NAWL 1.2 lemmatized (lemma + inflected forms)
   - phrase.txt     — Martinez & Schmitt PHRASE list (textutil-converted)
 
-Outputs into /Users/quangnguyendang/webapps/lexinspect/src/lexinspect/data/.
+Outputs into src/lexinspect/data/.
 """
 
 from __future__ import annotations
@@ -16,7 +16,7 @@ import json
 import re
 from pathlib import Path
 
-DATA_OUT = Path("/Users/quangnguyendang/webapps/lexinspect/src/lexinspect/data")
+DATA_OUT = Path(__file__).resolve().parents[2] / "src" / "lexinspect" / "data"
 TMP = Path("/tmp/lex2")
 
 

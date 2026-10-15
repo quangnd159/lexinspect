@@ -13,7 +13,7 @@ import re
 from collections import Counter
 from pathlib import Path
 
-DATA_OUT = Path("/Users/quangnguyendang/webapps/lexinspect/src/lexinspect/data")
+DATA_OUT = Path(__file__).resolve().parents[2] / "src" / "lexinspect" / "data"
 TMP = Path("/tmp/lex3")
 LEVEL_ORDER = ["A1", "A2", "B1", "B2", "C1", "C2"]
 LEVEL_RANK = {lvl: i for i, lvl in enumerate(LEVEL_ORDER)}
