@@ -33,8 +33,13 @@ jobs:
         with:
           enable-cache: true
 
+      # Pinned. From CLI 64 the Python builder, seeing a bundle over its
+      # "standard size", ships no packages and installs dependencies at cold
+      # start from PyPI, which leaves out lexinspect itself (a local package):
+      # every request failed with ModuleNotFoundError. CLI 53 vendors the full
+      # environment. Re-test `vercel build` before raising this.
       - name: Install Vercel CLI
-        run: npm install -g vercel
+        run: npm install -g vercel@53.0.1
 
       - name: Pull Vercel environment
         run: vercel pull --yes --environment=preview --token=${{ secrets.VERCEL_TOKEN }}
