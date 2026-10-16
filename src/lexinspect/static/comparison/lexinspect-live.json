@@ -1,0 +1,3530 @@
+{
+  "schema_version": "2",
+  "module": "analyze",
+  "input": {
+    "source": "web",
+    "char_count": 1438,
+    "word_count": 194,
+    "sentence_count": 14
+  },
+  "results": {
+    "readability": {
+      "counts": {
+        "characters": 1243,
+        "characters_with_spaces": 1438,
+        "words": 194,
+        "syllables": 395,
+        "sentences": 14,
+        "polysyllable_words": 53,
+        "monosyllable_words": 79,
+        "long_words": 91,
+        "difficult_words": 79,
+        "reading_time_seconds": 48.9
+      },
+      "averages": {
+        "words_per_sentence": 13.857,
+        "syllables_per_word": 2.036,
+        "characters_per_word": 6.284
+      },
+      "scores": {
+        "flesch_reading_ease": 20.52,
+        "flesch_kincaid_grade": 13.84,
+        "gunning_fog": 16.26,
+        "smog_index": 14.24,
+        "automated_readability_index": 15.09,
+        "coleman_liau_index": 19.01,
+        "dale_chall_readability_score": 10.75,
+        "linsear_write_formula": 10.31,
+        "text_standard": 15.55
+      },
+      "reliability": {
+        "reliable": true,
+        "notes": [
+          "SMOG was normed on 30-sentence samples; this text has 14, so the SMOG score is extrapolated."
+        ]
+      }
+    },
+    "statistics": {
+      "counts": {
+        "characters_with_spaces": 1438,
+        "characters_without_spaces": 1243,
+        "tokens_excluding_numbers": 194,
+        "unique_types_excluding_numbers": 153,
+        "sentences": 14,
+        "syllables": 395,
+        "polysyllable_words": 53,
+        "excluded_numeric_tokens": 0
+      },
+      "averages": {
+        "tokens_per_sentence": 13.857,
+        "type_token_ratio": 0.789,
+        "syllables_per_word": 2.036,
+        "syllables_per_sentence": 28.214,
+        "syllables_per_100_words": 203.608,
+        "polysyllable_pct": 27.32
+      },
+      "excluded_digits": []
+    },
+    "diversity": {
+      "counts": {
+        "tokens": 194,
+        "types": 153
+      },
+      "scores": {
+        "ttr": 0.7887,
+        "rttr": 10.9848,
+        "cttr": 7.7674,
+        "msttr": 0.92,
+        "mattr": 0.9183,
+        "mtld": 257.0263,
+        "hdd": 0.9266,
+        "vocd_d": 245.48,
+        "herdan": 0.9549,
+        "summer": 0.9722,
+        "maas": 0.0086
+      },
+      "references": {
+        "vocd_d_bands": [
+          {
+            "name": "Adult L2 / ESL learner",
+            "min": 40,
+            "max": 70,
+            "source": "Durán, Malvern, Richards & Chipere 2004 (Applied Linguistics 25/2)",
+            "position": "above"
+          },
+          {
+            "name": "Adult native speaker, academic writing",
+            "min": 80,
+            "max": 105,
+            "source": "Durán, Malvern, Richards & Chipere 2004 (Applied Linguistics 25/2)",
+            "position": "above"
+          }
+        ],
+        "note": "Reference ranges are for vocd-D (Durán et al. 2004), which lexinspect computes as `vocd_d` following McKee, Malvern & Richards (2000). Compare them with vocd-D only — HD-D (0–1) and MTLD are on different scales."
+      }
+    },
+    "tagger": {
+      "counts": {
+        "total_tokens": 218,
+        "sentences": 14
+      },
+      "summary": {
+        "content_tokens": 194,
+        "types": 153,
+        "type_token_ratio": 0.789,
+        "tokens_per_type": 1.268,
+        "total_verbal_elements": 48,
+        "verbal_elements_per_sentence": 3.429,
+        "total_noun_elements": 63,
+        "noun_elements_per_sentence": 4.5
+      },
+      "ptb_distribution": {
+        "NN": 32,
+        "NNS": 31,
+        "IN": 20,
+        "JJ": 20,
+        "VB": 16,
+        "DT": 16,
+        ".": 14,
+        "VBP": 13,
+        ",": 10,
+        "RB": 9,
+        "MD": 8,
+        "CC": 7,
+        "VBZ": 5,
+        "WRB": 4,
+        "VBG": 4,
+        "TO": 3,
+        "VBN": 2,
+        "PRP": 1,
+        "PRP$": 1,
+        "RBR": 1,
+        "JJR": 1
+      },
+      "upos_distribution": {
+        "NOUN": 63,
+        "VERB": 38,
+        "PUNCT": 24,
+        "ADJ": 21,
+        "ADP": 16,
+        "DET": 16,
+        "ADV": 10,
+        "AUX": 10,
+        "SCONJ": 8,
+        "CCONJ": 7,
+        "PART": 3,
+        "PRON": 2
+      }
+    },
+    "awl": {
+      "counts": {
+        "content_tokens": 194,
+        "awl_tokens": 26,
+        "awl_families": 26
+      },
+      "coverage_pct": 13.402,
+      "per_sublist": {
+        "1": {
+          "tokens": 7,
+          "families": 7,
+          "coverage_pct": 3.608
+        },
+        "2": {
+          "tokens": 9,
+          "families": 9,
+          "coverage_pct": 4.639
+        },
+        "3": {
+          "tokens": 3,
+          "families": 3,
+          "coverage_pct": 1.546
+        },
+        "4": {
+          "tokens": 1,
+          "families": 1,
+          "coverage_pct": 0.515
+        },
+        "5": {
+          "tokens": 2,
+          "families": 2,
+          "coverage_pct": 1.031
+        },
+        "6": {
+          "tokens": 3,
+          "families": 3,
+          "coverage_pct": 1.546
+        },
+        "7": {
+          "tokens": 1,
+          "families": 1,
+          "coverage_pct": 0.515
+        },
+        "8": {
+          "tokens": 0,
+          "families": 0,
+          "coverage_pct": 0
+        },
+        "9": {
+          "tokens": 0,
+          "families": 0,
+          "coverage_pct": 0
+        },
+        "10": {
+          "tokens": 0,
+          "families": 0,
+          "coverage_pct": 0
+        }
+      },
+      "families_found": [
+        "affect",
+        "allocate",
+        "area",
+        "benefit",
+        "communicate",
+        "community",
+        "cooperate",
+        "ensure",
+        "equip",
+        "establish",
+        "evaluate",
+        "evident",
+        "expert",
+        "fund",
+        "maintain",
+        "objective",
+        "obtain",
+        "outcome",
+        "participate",
+        "process",
+        "range",
+        "require",
+        "reside",
+        "resource",
+        "respond",
+        "sustain"
+      ],
+      "families_detail": [
+        {
+          "headword": "area",
+          "sublist": 1,
+          "tokens": 1,
+          "spans": [
+            [
+              872,
+              877
+            ]
+          ]
+        },
+        {
+          "headword": "benefit",
+          "sublist": 1,
+          "tokens": 1,
+          "spans": [
+            [
+              817,
+              825
+            ]
+          ]
+        },
+        {
+          "headword": "establish",
+          "sublist": 1,
+          "tokens": 1,
+          "spans": [
+            [
+              418,
+              430
+            ]
+          ]
+        },
+        {
+          "headword": "evident",
+          "sublist": 1,
+          "tokens": 1,
+          "spans": [
+            [
+              980,
+              988
+            ]
+          ]
+        },
+        {
+          "headword": "process",
+          "sublist": 1,
+          "tokens": 1,
+          "spans": [
+            [
+              314,
+              321
+            ]
+          ]
+        },
+        {
+          "headword": "require",
+          "sublist": 1,
+          "tokens": 1,
+          "spans": [
+            [
+              440,
+              448
+            ]
+          ]
+        },
+        {
+          "headword": "respond",
+          "sublist": 1,
+          "tokens": 1,
+          "spans": [
+            [
+              143,
+              150
+            ]
+          ]
+        },
+        {
+          "headword": "affect",
+          "sublist": 2,
+          "tokens": 1,
+          "spans": [
+            [
+              598,
+              604
+            ]
+          ]
+        },
+        {
+          "headword": "community",
+          "sublist": 2,
+          "tokens": 1,
+          "spans": [
+            [
+              25,
+              34
+            ]
+          ]
+        },
+        {
+          "headword": "evaluate",
+          "sublist": 2,
+          "tokens": 1,
+          "spans": [
+            [
+              1187,
+              1197
+            ]
+          ]
+        },
+        {
+          "headword": "maintain",
+          "sublist": 2,
+          "tokens": 1,
+          "spans": [
+            [
+              763,
+              771
+            ]
+          ]
+        },
+        {
+          "headword": "obtain",
+          "sublist": 2,
+          "tokens": 1,
+          "spans": [
+            [
+              500,
+              506
+            ]
+          ]
+        },
+        {
+          "headword": "participate",
+          "sublist": 2,
+          "tokens": 1,
+          "spans": [
+            [
+              558,
+              569
+            ]
+          ]
+        },
+        {
+          "headword": "range",
+          "sublist": 2,
+          "tokens": 1,
+          "spans": [
+            [
+              609,
+              614
+            ]
+          ]
+        },
+        {
+          "headword": "reside",
+          "sublist": 2,
+          "tokens": 1,
+          "spans": [
+            [
+              703,
+              712
+            ]
+          ]
+        },
+        {
+          "headword": "resource",
+          "sublist": 2,
+          "tokens": 1,
+          "spans": [
+            [
+              1406,
+              1414
+            ]
+          ]
+        },
+        {
+          "headword": "ensure",
+          "sublist": 3,
+          "tokens": 1,
+          "spans": [
+            [
+              530,
+              536
+            ]
+          ]
+        },
+        {
+          "headword": "fund",
+          "sublist": 3,
+          "tokens": 1,
+          "spans": [
+            [
+              586,
+              593
+            ]
+          ]
+        },
+        {
+          "headword": "outcome",
+          "sublist": 3,
+          "tokens": 1,
+          "spans": [
+            [
+              1067,
+              1075
+            ]
+          ]
+        },
+        {
+          "headword": "communicate",
+          "sublist": 4,
+          "tokens": 1,
+          "spans": [
+            [
+              968,
+              979
+            ]
+          ]
+        },
+        {
+          "headword": "objective",
+          "sublist": 5,
+          "tokens": 1,
+          "spans": [
+            [
+              1164,
+              1174
+            ]
+          ]
+        },
+        {
+          "headword": "sustain",
+          "sublist": 5,
+          "tokens": 1,
+          "spans": [
+            [
+              1419,
+              1428
+            ]
+          ]
+        },
+        {
+          "headword": "allocate",
+          "sublist": 6,
+          "tokens": 1,
+          "spans": [
+            [
+              485,
+              493
+            ]
+          ]
+        },
+        {
+          "headword": "cooperate",
+          "sublist": 6,
+          "tokens": 1,
+          "spans": [
+            [
+              680,
+              691
+            ]
+          ]
+        },
+        {
+          "headword": "expert",
+          "sublist": 6,
+          "tokens": 1,
+          "spans": [
+            [
+              736,
+              745
+            ]
+          ]
+        },
+        {
+          "headword": "equip",
+          "sublist": 7,
+          "tokens": 1,
+          "spans": [
+            [
+              516,
+              525
+            ]
+          ]
+        }
+      ]
+    },
+    "bnc_coca": {
+      "counts": {
+        "content_tokens": 194,
+        "on_list_tokens": 193,
+        "proper_noun_tokens": 0,
+        "supplementary_tokens": 1,
+        "off_list_tokens": 0
+      },
+      "coverage_pct": 99.485,
+      "coverage_with_supplementary_pct": 100,
+      "per_band": {
+        "1": {
+          "tokens": 127,
+          "headwords": 83,
+          "coverage_pct": 65.464,
+          "cumulative_coverage_pct": 65.464,
+          "cumulative_coverage_with_supplementary_pct": 65.979
+        },
+        "2": {
+          "tokens": 46,
+          "headwords": 42,
+          "coverage_pct": 23.711,
+          "cumulative_coverage_pct": 89.175,
+          "cumulative_coverage_with_supplementary_pct": 89.691
+        },
+        "3": {
+          "tokens": 19,
+          "headwords": 18,
+          "coverage_pct": 9.794,
+          "cumulative_coverage_pct": 98.969,
+          "cumulative_coverage_with_supplementary_pct": 99.485
+        },
+        "4": {
+          "tokens": 1,
+          "headwords": 1,
+          "coverage_pct": 0.515,
+          "cumulative_coverage_pct": 99.485,
+          "cumulative_coverage_with_supplementary_pct": 100
+        },
+        "5": {
+          "tokens": 0,
+          "headwords": 0,
+          "coverage_pct": 0,
+          "cumulative_coverage_pct": 99.485,
+          "cumulative_coverage_with_supplementary_pct": 100
+        },
+        "6": {
+          "tokens": 0,
+          "headwords": 0,
+          "coverage_pct": 0,
+          "cumulative_coverage_pct": 99.485,
+          "cumulative_coverage_with_supplementary_pct": 100
+        },
+        "7": {
+          "tokens": 0,
+          "headwords": 0,
+          "coverage_pct": 0,
+          "cumulative_coverage_pct": 99.485,
+          "cumulative_coverage_with_supplementary_pct": 100
+        },
+        "8": {
+          "tokens": 0,
+          "headwords": 0,
+          "coverage_pct": 0,
+          "cumulative_coverage_pct": 99.485,
+          "cumulative_coverage_with_supplementary_pct": 100
+        },
+        "9": {
+          "tokens": 0,
+          "headwords": 0,
+          "coverage_pct": 0,
+          "cumulative_coverage_pct": 99.485,
+          "cumulative_coverage_with_supplementary_pct": 100
+        },
+        "10": {
+          "tokens": 0,
+          "headwords": 0,
+          "coverage_pct": 0,
+          "cumulative_coverage_pct": 99.485,
+          "cumulative_coverage_with_supplementary_pct": 100
+        },
+        "11": {
+          "tokens": 0,
+          "headwords": 0,
+          "coverage_pct": 0,
+          "cumulative_coverage_pct": 99.485,
+          "cumulative_coverage_with_supplementary_pct": 100
+        },
+        "12": {
+          "tokens": 0,
+          "headwords": 0,
+          "coverage_pct": 0,
+          "cumulative_coverage_pct": 99.485,
+          "cumulative_coverage_with_supplementary_pct": 100
+        },
+        "13": {
+          "tokens": 0,
+          "headwords": 0,
+          "coverage_pct": 0,
+          "cumulative_coverage_pct": 99.485,
+          "cumulative_coverage_with_supplementary_pct": 100
+        },
+        "14": {
+          "tokens": 0,
+          "headwords": 0,
+          "coverage_pct": 0,
+          "cumulative_coverage_pct": 99.485,
+          "cumulative_coverage_with_supplementary_pct": 100
+        },
+        "15": {
+          "tokens": 0,
+          "headwords": 0,
+          "coverage_pct": 0,
+          "cumulative_coverage_pct": 99.485,
+          "cumulative_coverage_with_supplementary_pct": 100
+        },
+        "16": {
+          "tokens": 0,
+          "headwords": 0,
+          "coverage_pct": 0,
+          "cumulative_coverage_pct": 99.485,
+          "cumulative_coverage_with_supplementary_pct": 100
+        },
+        "17": {
+          "tokens": 0,
+          "headwords": 0,
+          "coverage_pct": 0,
+          "cumulative_coverage_pct": 99.485,
+          "cumulative_coverage_with_supplementary_pct": 100
+        },
+        "18": {
+          "tokens": 0,
+          "headwords": 0,
+          "coverage_pct": 0,
+          "cumulative_coverage_pct": 99.485,
+          "cumulative_coverage_with_supplementary_pct": 100
+        },
+        "19": {
+          "tokens": 0,
+          "headwords": 0,
+          "coverage_pct": 0,
+          "cumulative_coverage_pct": 99.485,
+          "cumulative_coverage_with_supplementary_pct": 100
+        },
+        "20": {
+          "tokens": 0,
+          "headwords": 0,
+          "coverage_pct": 0,
+          "cumulative_coverage_pct": 99.485,
+          "cumulative_coverage_with_supplementary_pct": 100
+        },
+        "21": {
+          "tokens": 0,
+          "headwords": 0,
+          "coverage_pct": 0,
+          "cumulative_coverage_pct": 99.485,
+          "cumulative_coverage_with_supplementary_pct": 100
+        },
+        "22": {
+          "tokens": 0,
+          "headwords": 0,
+          "coverage_pct": 0,
+          "cumulative_coverage_pct": 99.485,
+          "cumulative_coverage_with_supplementary_pct": 100
+        },
+        "23": {
+          "tokens": 0,
+          "headwords": 0,
+          "coverage_pct": 0,
+          "cumulative_coverage_pct": 99.485,
+          "cumulative_coverage_with_supplementary_pct": 100
+        },
+        "24": {
+          "tokens": 0,
+          "headwords": 0,
+          "coverage_pct": 0,
+          "cumulative_coverage_pct": 99.485,
+          "cumulative_coverage_with_supplementary_pct": 100
+        },
+        "25": {
+          "tokens": 0,
+          "headwords": 0,
+          "coverage_pct": 0,
+          "cumulative_coverage_pct": 99.485,
+          "cumulative_coverage_with_supplementary_pct": 100
+        }
+      },
+      "supplementary": {
+        "transparent_compounds": 1
+      },
+      "proper_nouns": [],
+      "off_list": [],
+      "off_list_sample": []
+    },
+    "ngsl": {
+      "counts": {
+        "content_tokens": 194,
+        "ngsl_tokens": 184,
+        "nawl_tokens": 5,
+        "proper_noun_tokens": 0,
+        "off_list_tokens": 5,
+        "ngsl_lemmas": 139,
+        "nawl_lemmas": 5
+      },
+      "coverage_pct": {
+        "ngsl": 94.845,
+        "nawl": 2.577,
+        "ngsl_plus_nawl": 97.423,
+        "proper_nouns": 0,
+        "off_list": 2.577
+      },
+      "ngsl_lemmas_found": [
+        "a",
+        "ability",
+        "activity",
+        "additional",
+        "affect",
+        "also",
+        "although",
+        "and",
+        "area",
+        "be",
+        "become",
+        "benefit",
+        "beyond",
+        "can",
+        "careful",
+        "change",
+        "child",
+        "clear",
+        "clearly",
+        "communicate",
+        "community",
+        "compare",
+        "condition",
+        "connect",
+        "cooperation",
+        "crop",
+        "depend",
+        "develop",
+        "different",
+        "during",
+        "educational",
+        "encourage",
+        "ensure",
+        "equipment",
+        "establish",
+        "evaluation",
+        "every",
+        "evidence",
+        "examine",
+        "experience",
+        "explain",
+        "extend",
+        "fact",
+        "for",
+        "fund",
+        "garden",
+        "grow",
+        "help",
+        "holiday",
+        "how",
+        "however",
+        "improve",
+        "in",
+        "include",
+        "increasingly",
+        "learn",
+        "lesson",
+        "light",
+        "limit",
+        "local",
+        "maintain",
+        "mathematics",
+        "may",
+        "measure",
+        "meet",
+        "more",
+        "must",
+        "need",
+        "objective",
+        "observation",
+        "observe",
+        "of",
+        "offer",
+        "on",
+        "opportunity",
+        "other",
+        "outcome",
+        "participate",
+        "plan",
+        "plant",
+        "poor",
+        "practical",
+        "practice",
+        "process",
+        "program",
+        "provide",
+        "pupil",
+        "range",
+        "rather",
+        "reason",
+        "record",
+        "regular",
+        "relationship",
+        "remain",
+        "report",
+        "require",
+        "resident",
+        "resource",
+        "respond",
+        "responsibility",
+        "result",
+        "school",
+        "science",
+        "scientific",
+        "share",
+        "should",
+        "simple",
+        "social",
+        "some",
+        "space",
+        "staff",
+        "strengthen",
+        "successful",
+        "successfully",
+        "suitable",
+        "sustain",
+        "teacher",
+        "temperature",
+        "than",
+        "that",
+        "the",
+        "therefore",
+        "they",
+        "this",
+        "time",
+        "to",
+        "together",
+        "understand",
+        "use",
+        "valuable",
+        "water",
+        "weather",
+        "when",
+        "whether",
+        "while",
+        "why",
+        "with",
+        "work",
+        "write"
+      ],
+      "nawl_lemmas_found": [
+        "allocate",
+        "classroom",
+        "expertise",
+        "interrupt",
+        "obtain"
+      ],
+      "nawl_words": [
+        {
+          "word": "classroom",
+          "count": 1
+        },
+        {
+          "word": "allocate",
+          "count": 1
+        },
+        {
+          "word": "obtain",
+          "count": 1
+        },
+        {
+          "word": "interrupt",
+          "count": 1
+        },
+        {
+          "word": "expertise",
+          "count": 1
+        }
+      ],
+      "proper_nouns": [],
+      "off_list": [
+        {
+          "word": "memorisation",
+          "count": 1
+        },
+        {
+          "word": "enthusiasm",
+          "count": 1
+        },
+        {
+          "word": "safely",
+          "count": 1
+        },
+        {
+          "word": "manageable",
+          "count": 1
+        },
+        {
+          "word": "modest",
+          "count": 1
+        }
+      ],
+      "off_list_sample": [
+        "enthusiasm",
+        "manageable",
+        "memorisation",
+        "modest",
+        "safely"
+      ]
+    },
+    "phrase": {
+      "counts": {
+        "total_hits": 1,
+        "unique_phrases": 1,
+        "content_tokens": 194,
+        "hits_per_1000_words": 5.15
+      },
+      "hits_per_k_band": {
+        "1": 1,
+        "2": 0,
+        "3": 0,
+        "4": 0,
+        "5": 0
+      },
+      "hits": [
+        {
+          "rank": 631,
+          "phrase": "RATHER THAN",
+          "k_band": 1,
+          "surface": "rather than",
+          "sense": null,
+          "token_index": 54,
+          "span": [
+            351,
+            362
+          ]
+        }
+      ],
+      "phrase_frequency": {
+        "RATHER THAN": 1
+      }
+    },
+    "cefr": {
+      "counts": {
+        "content_tokens": 194,
+        "on_list_tokens": 186,
+        "proper_noun_tokens": 0,
+        "off_list_tokens": 8,
+        "pos_fallback_tokens": 6
+      },
+      "coverage_pct": 95.876,
+      "per_level": {
+        "A1": {
+          "tokens": 96,
+          "lemmas": 58,
+          "coverage_pct": 49.485,
+          "cumulative_coverage_pct": 49.485
+        },
+        "A2": {
+          "tokens": 46,
+          "lemmas": 45,
+          "coverage_pct": 23.711,
+          "cumulative_coverage_pct": 73.196
+        },
+        "B1": {
+          "tokens": 34,
+          "lemmas": 33,
+          "coverage_pct": 17.526,
+          "cumulative_coverage_pct": 90.722
+        },
+        "B2": {
+          "tokens": 10,
+          "lemmas": 9,
+          "coverage_pct": 5.155,
+          "cumulative_coverage_pct": 95.876
+        },
+        "C1": {
+          "tokens": 0,
+          "lemmas": 0,
+          "coverage_pct": 0,
+          "cumulative_coverage_pct": 95.876
+        },
+        "C2": {
+          "tokens": 0,
+          "lemmas": 0,
+          "coverage_pct": 0,
+          "cumulative_coverage_pct": 95.876
+        }
+      },
+      "dominant_level": "A1",
+      "estimated_level_95th": "B2",
+      "highest_level_present": "B2",
+      "words_by_level": {
+        "A1": [
+          {
+            "word": "and",
+            "count": 7
+          },
+          {
+            "word": "the",
+            "count": 6
+          },
+          {
+            "word": "to",
+            "count": 4
+          },
+          {
+            "word": "a",
+            "count": 4
+          },
+          {
+            "word": "can",
+            "count": 4
+          },
+          {
+            "word": "schools",
+            "count": 3
+          },
+          {
+            "word": "with",
+            "count": 3
+          },
+          {
+            "word": "these",
+            "count": 3
+          },
+          {
+            "word": "than",
+            "count": 3
+          },
+          {
+            "word": "garden",
+            "count": 3
+          },
+          {
+            "word": "in",
+            "count": 2
+          },
+          {
+            "word": "how",
+            "count": 2
+          },
+          {
+            "word": "of",
+            "count": 2
+          },
+          {
+            "word": "may",
+            "count": 2
+          },
+          {
+            "word": "activities",
+            "count": 2
+          },
+          {
+            "word": "are",
+            "count": 2
+          },
+          {
+            "word": "for",
+            "count": 2
+          },
+          {
+            "word": "use",
+            "count": 1
+          },
+          {
+            "word": "gardens",
+            "count": 1
+          },
+          {
+            "word": "classroom",
+            "count": 1
+          },
+          {
+            "word": "changes",
+            "count": 1
+          },
+          {
+            "word": "light",
+            "count": 1
+          },
+          {
+            "word": "water",
+            "count": 1
+          },
+          {
+            "word": "they",
+            "count": 1
+          },
+          {
+            "word": "their",
+            "count": 1
+          },
+          {
+            "word": "results",
+            "count": 1
+          },
+          {
+            "word": "why",
+            "count": 1
+          },
+          {
+            "word": "some",
+            "count": 1
+          },
+          {
+            "word": "others",
+            "count": 1
+          },
+          {
+            "word": "this",
+            "count": 1
+          },
+          {
+            "word": "careful",
+            "count": 1
+          },
+          {
+            "word": "more",
+            "count": 1
+          },
+          {
+            "word": "teachers",
+            "count": 1
+          },
+          {
+            "word": "must",
+            "count": 1
+          },
+          {
+            "word": "time",
+            "count": 1
+          },
+          {
+            "word": "that",
+            "count": 1
+          },
+          {
+            "word": "every",
+            "count": 1
+          },
+          {
+            "word": "child",
+            "count": 1
+          },
+          {
+            "word": "poor",
+            "count": 1
+          },
+          {
+            "word": "weather",
+            "count": 1
+          },
+          {
+            "word": "lessons",
+            "count": 1
+          },
+          {
+            "word": "help",
+            "count": 1
+          },
+          {
+            "word": "holidays",
+            "count": 1
+          },
+          {
+            "word": "also",
+            "count": 1
+          },
+          {
+            "word": "science",
+            "count": 1
+          },
+          {
+            "word": "growing",
+            "count": 1
+          },
+          {
+            "word": "practise",
+            "count": 1
+          },
+          {
+            "word": "working",
+            "count": 1
+          },
+          {
+            "word": "together",
+            "count": 1
+          },
+          {
+            "word": "social",
+            "count": 1
+          },
+          {
+            "word": "on",
+            "count": 1
+          },
+          {
+            "word": "shared",
+            "count": 1
+          },
+          {
+            "word": "successful",
+            "count": 1
+          },
+          {
+            "word": "programme",
+            "count": 1
+          },
+          {
+            "word": "should",
+            "count": 1
+          },
+          {
+            "word": "different",
+            "count": 1
+          },
+          {
+            "word": "when",
+            "count": 1
+          },
+          {
+            "word": "met",
+            "count": 1
+          },
+          {
+            "word": "become",
+            "count": 1
+          }
+        ],
+        "A2": [
+          {
+            "word": "experience",
+            "count": 1
+          },
+          {
+            "word": "spaces",
+            "count": 1
+          },
+          {
+            "word": "plants",
+            "count": 1
+          },
+          {
+            "word": "temperature",
+            "count": 1
+          },
+          {
+            "word": "record",
+            "count": 1
+          },
+          {
+            "word": "compare",
+            "count": 1
+          },
+          {
+            "word": "explain",
+            "count": 1
+          },
+          {
+            "word": "develop",
+            "count": 1
+          },
+          {
+            "word": "successfully",
+            "count": 1
+          },
+          {
+            "word": "encourages",
+            "count": 1
+          },
+          {
+            "word": "rather",
+            "count": 1
+          },
+          {
+            "word": "simple",
+            "count": 1
+          },
+          {
+            "word": "scientific",
+            "count": 1
+          },
+          {
+            "word": "facts",
+            "count": 1
+          },
+          {
+            "word": "however",
+            "count": 1
+          },
+          {
+            "word": "establishing",
+            "count": 1
+          },
+          {
+            "word": "suitable",
+            "count": 1
+          },
+          {
+            "word": "range",
+            "count": 1
+          },
+          {
+            "word": "while",
+            "count": 1
+          },
+          {
+            "word": "local",
+            "count": 1
+          },
+          {
+            "word": "provide",
+            "count": 1
+          },
+          {
+            "word": "additional",
+            "count": 1
+          },
+          {
+            "word": "during",
+            "count": 1
+          },
+          {
+            "word": "educational",
+            "count": 1
+          },
+          {
+            "word": "beyond",
+            "count": 1
+          },
+          {
+            "word": "areas",
+            "count": 1
+          },
+          {
+            "word": "offers",
+            "count": 1
+          },
+          {
+            "word": "opportunities",
+            "count": 1
+          },
+          {
+            "word": "writing",
+            "count": 1
+          },
+          {
+            "word": "reports",
+            "count": 1
+          },
+          {
+            "word": "develops",
+            "count": 1
+          },
+          {
+            "word": "ability",
+            "count": 1
+          },
+          {
+            "word": "communicate",
+            "count": 1
+          },
+          {
+            "word": "evidence",
+            "count": 1
+          },
+          {
+            "word": "clearly",
+            "count": 1
+          },
+          {
+            "word": "although",
+            "count": 1
+          },
+          {
+            "word": "depend",
+            "count": 1
+          },
+          {
+            "word": "therefore",
+            "count": 1
+          },
+          {
+            "word": "needs",
+            "count": 1
+          },
+          {
+            "word": "clear",
+            "count": 1
+          },
+          {
+            "word": "regular",
+            "count": 1
+          },
+          {
+            "word": "improve",
+            "count": 1
+          },
+          {
+            "word": "include",
+            "count": 1
+          },
+          {
+            "word": "remain",
+            "count": 1
+          },
+          {
+            "word": "staff",
+            "count": 1
+          },
+          {
+            "word": "conditions",
+            "count": 1
+          }
+        ],
+        "B1": [
+          {
+            "word": "pupils",
+            "count": 2
+          },
+          {
+            "word": "increasingly",
+            "count": 1
+          },
+          {
+            "word": "connect",
+            "count": 1
+          },
+          {
+            "word": "practical",
+            "count": 1
+          },
+          {
+            "word": "observe",
+            "count": 1
+          },
+          {
+            "word": "respond",
+            "count": 1
+          },
+          {
+            "word": "observations",
+            "count": 1
+          },
+          {
+            "word": "crops",
+            "count": 1
+          },
+          {
+            "word": "more",
+            "count": 1
+          },
+          {
+            "word": "process",
+            "count": 1
+          },
+          {
+            "word": "requires",
+            "count": 1
+          },
+          {
+            "word": "enthusiasm",
+            "count": 1
+          },
+          {
+            "word": "obtain",
+            "count": 1
+          },
+          {
+            "word": "equipment",
+            "count": 1
+          },
+          {
+            "word": "ensure",
+            "count": 1
+          },
+          {
+            "word": "participate",
+            "count": 1
+          },
+          {
+            "word": "safely",
+            "count": 1
+          },
+          {
+            "word": "limited",
+            "count": 1
+          },
+          {
+            "word": "affect",
+            "count": 1
+          },
+          {
+            "word": "interrupt",
+            "count": 1
+          },
+          {
+            "word": "maintain",
+            "count": 1
+          },
+          {
+            "word": "benefits",
+            "count": 1
+          },
+          {
+            "word": "extend",
+            "count": 1
+          },
+          {
+            "word": "measuring",
+            "count": 1
+          },
+          {
+            "word": "mathematics",
+            "count": 1
+          },
+          {
+            "word": "strengthen",
+            "count": 1
+          },
+          {
+            "word": "relationships",
+            "count": 1
+          },
+          {
+            "word": "responsibilities",
+            "count": 1
+          },
+          {
+            "word": "objectives",
+            "count": 1
+          },
+          {
+            "word": "examine",
+            "count": 1
+          },
+          {
+            "word": "whether",
+            "count": 1
+          },
+          {
+            "word": "valuable",
+            "count": 1
+          },
+          {
+            "word": "resource",
+            "count": 1
+          }
+        ],
+        "B2": [
+          {
+            "word": "learning",
+            "count": 2
+          },
+          {
+            "word": "community",
+            "count": 1
+          },
+          {
+            "word": "cooperation",
+            "count": 1
+          },
+          {
+            "word": "residents",
+            "count": 1
+          },
+          {
+            "word": "outcomes",
+            "count": 1
+          },
+          {
+            "word": "evaluation",
+            "count": 1
+          },
+          {
+            "word": "understanding",
+            "count": 1
+          },
+          {
+            "word": "needs",
+            "count": 1
+          },
+          {
+            "word": "modest",
+            "count": 1
+          }
+        ],
+        "C1": [],
+        "C2": []
+      },
+      "proper_nouns": [],
+      "off_list": [
+        {
+          "word": "reasoning",
+          "count": 1
+        },
+        {
+          "word": "memorisation",
+          "count": 1
+        },
+        {
+          "word": "allocate",
+          "count": 1
+        },
+        {
+          "word": "funding",
+          "count": 1
+        },
+        {
+          "word": "planned",
+          "count": 1
+        },
+        {
+          "word": "expertise",
+          "count": 1
+        },
+        {
+          "word": "manageable",
+          "count": 1
+        },
+        {
+          "word": "sustained",
+          "count": 1
+        }
+      ],
+      "off_list_sample": [
+        "allocate",
+        "expertise",
+        "funding",
+        "manageable",
+        "memorisation",
+        "planned",
+        "reasoning",
+        "sustained"
+      ],
+      "caveat": "Heuristic only. Based on CEFR-J 1.5 + Octanove C1/C2 1.0; not Cambridge EVP. Cite both sources. Combine this with readability, BNC/COCA and diversity signals before reporting a level."
+    },
+    "metadiscourse": {
+      "counts": {
+        "content_tokens": 194,
+        "total_hits": 16,
+        "interactive_hits": 10,
+        "interactional_hits": 6
+      },
+      "density_per_1000": 82.474,
+      "per_dimension": {
+        "interactive": {
+          "hits": 10,
+          "density_per_1000": 51.546
+        },
+        "interactional": {
+          "hits": 6,
+          "density_per_1000": 30.928
+        }
+      },
+      "per_category": {
+        "transitions": {
+          "dimension": "interactive",
+          "hits": 10,
+          "unique_markers": 6,
+          "density_per_1000": 51.546
+        },
+        "frame_markers": {
+          "dimension": "interactive",
+          "hits": 0,
+          "unique_markers": 0,
+          "density_per_1000": 0
+        },
+        "endophoric_markers": {
+          "dimension": "interactive",
+          "hits": 0,
+          "unique_markers": 0,
+          "density_per_1000": 0
+        },
+        "evidentials": {
+          "dimension": "interactive",
+          "hits": 0,
+          "unique_markers": 0,
+          "density_per_1000": 0
+        },
+        "code_glosses": {
+          "dimension": "interactive",
+          "hits": 0,
+          "unique_markers": 0,
+          "density_per_1000": 0
+        },
+        "hedges": {
+          "dimension": "interactional",
+          "hits": 4,
+          "unique_markers": 3,
+          "density_per_1000": 20.619
+        },
+        "boosters": {
+          "dimension": "interactional",
+          "hits": 1,
+          "unique_markers": 1,
+          "density_per_1000": 5.155
+        },
+        "attitude_markers": {
+          "dimension": "interactional",
+          "hits": 1,
+          "unique_markers": 1,
+          "density_per_1000": 5.155
+        },
+        "engagement_markers": {
+          "dimension": "interactional",
+          "hits": 0,
+          "unique_markers": 0,
+          "density_per_1000": 0
+        },
+        "self_mentions": {
+          "dimension": "interactional",
+          "hits": 0,
+          "unique_markers": 0,
+          "density_per_1000": 0
+        }
+      },
+      "hits": [
+        {
+          "dimension": "interactive",
+          "category": "transitions",
+          "marker": "and",
+          "surface": "and",
+          "token_index": 38,
+          "span": [
+            243,
+            246
+          ]
+        },
+        {
+          "dimension": "interactional",
+          "category": "hedges",
+          "marker": "rather",
+          "surface": "rather",
+          "token_index": 54,
+          "span": [
+            351,
+            357
+          ],
+          "also_listed_as": [
+            "transitions"
+          ]
+        },
+        {
+          "dimension": "interactive",
+          "category": "transitions",
+          "marker": "however",
+          "surface": "However",
+          "token_index": 64,
+          "span": [
+            409,
+            416
+          ]
+        },
+        {
+          "dimension": "interactional",
+          "category": "attitude_markers",
+          "marker": "must",
+          "surface": "must",
+          "token_index": 75,
+          "span": [
+            480,
+            484
+          ],
+          "also_listed_as": [
+            "boosters"
+          ]
+        },
+        {
+          "dimension": "interactive",
+          "category": "transitions",
+          "marker": "and",
+          "surface": "and",
+          "token_index": 82,
+          "span": [
+            526,
+            529
+          ]
+        },
+        {
+          "dimension": "interactional",
+          "category": "hedges",
+          "marker": "may",
+          "surface": "may",
+          "token_index": 93,
+          "span": [
+            594,
+            597
+          ]
+        },
+        {
+          "dimension": "interactive",
+          "category": "transitions",
+          "marker": "while",
+          "surface": "while",
+          "token_index": 100,
+          "span": [
+            630,
+            635
+          ]
+        },
+        {
+          "dimension": "interactive",
+          "category": "transitions",
+          "marker": "and",
+          "surface": "and",
+          "token_index": 116,
+          "span": [
+            746,
+            749
+          ]
+        },
+        {
+          "dimension": "interactive",
+          "category": "transitions",
+          "marker": "also",
+          "surface": "also",
+          "token_index": 129,
+          "span": [
+            826,
+            830
+          ]
+        },
+        {
+          "dimension": "interactive",
+          "category": "transitions",
+          "marker": "and",
+          "surface": "and",
+          "token_index": 143,
+          "span": [
+            924,
+            927
+          ]
+        },
+        {
+          "dimension": "interactional",
+          "category": "boosters",
+          "marker": "clearly",
+          "surface": "clearly",
+          "token_index": 152,
+          "span": [
+            989,
+            996
+          ]
+        },
+        {
+          "dimension": "interactional",
+          "category": "hedges",
+          "marker": "may",
+          "surface": "may",
+          "token_index": 156,
+          "span": [
+            1015,
+            1018
+          ]
+        },
+        {
+          "dimension": "interactive",
+          "category": "transitions",
+          "marker": "although",
+          "surface": "although",
+          "token_index": 161,
+          "span": [
+            1052,
+            1060
+          ]
+        },
+        {
+          "dimension": "interactive",
+          "category": "transitions",
+          "marker": "therefore",
+          "surface": "therefore",
+          "token_index": 174,
+          "span": [
+            1142,
+            1151
+          ]
+        },
+        {
+          "dimension": "interactional",
+          "category": "hedges",
+          "marker": "should",
+          "surface": "should",
+          "token_index": 183,
+          "span": [
+            1207,
+            1213
+          ]
+        },
+        {
+          "dimension": "interactive",
+          "category": "transitions",
+          "marker": "and",
+          "surface": "and",
+          "token_index": 196,
+          "span": [
+            1304,
+            1307
+          ]
+        }
+      ]
+    },
+    "errors": {
+      "variant": "gb",
+      "counts": {
+        "tokens_checked": 194,
+        "sentences": 14,
+        "errors_total": 0,
+        "unique_errors": 0,
+        "variant_mismatches": 0,
+        "unknown_names": 0
+      },
+      "rates": {
+        "errors_per_sentence": 0,
+        "errors_per_100_words": 0
+      },
+      "errors": [],
+      "variant_mismatches": [],
+      "unknown_names": [],
+      "dictionary": {
+        "variant": "gb",
+        "source": "LibreOffice en_GB.aff/.dic",
+        "licence": "LibreOffice English. en_GB: wordlist and affix file (David Bartlett, Andrew Brown) under the LGPL. en_US: wordlist from SCOWL by Kevin Atkinson (permissive SCOWL licence); affix file from Geoff Kuenning's Ispell (BSD). Mirror: github.com/LibreOffice/dictionaries."
+      },
+      "caveat": "Hunspell-based detection: it flags words its dictionary doesn't contain, so rare technical terms and neologisms can appear as errors, and a real word used wrongly (their/there) is not caught. Capitalised words used as names are listed separately, not counted as errors. Dictionaries: LibreOffice English (en_GB: LGPL; en_US: SCOWL wordlist, Ispell BSD affix file)."
+    },
+    "profile": {
+      "columns": [
+        "start",
+        "end",
+        "cefr",
+        "bnc",
+        "awl",
+        "ngsl"
+      ],
+      "rows": [
+        [
+          0,
+          7,
+          "A1",
+          1,
+          null,
+          "ngsl"
+        ],
+        [
+          8,
+          20,
+          "B1",
+          2,
+          null,
+          "ngsl"
+        ],
+        [
+          21,
+          24,
+          "A1",
+          1,
+          null,
+          "ngsl"
+        ],
+        [
+          25,
+          34,
+          "B2",
+          2,
+          2,
+          "ngsl"
+        ],
+        [
+          35,
+          42,
+          "A1",
+          1,
+          null,
+          "ngsl"
+        ],
+        [
+          43,
+          45,
+          "A1",
+          1,
+          null,
+          "ngsl"
+        ],
+        [
+          46,
+          53,
+          "B1",
+          2,
+          null,
+          "ngsl"
+        ],
+        [
+          54,
+          63,
+          "A1",
+          "supplementary",
+          null,
+          "nawl"
+        ],
+        [
+          64,
+          72,
+          "B2",
+          1,
+          null,
+          "ngsl"
+        ],
+        [
+          73,
+          77,
+          "A1",
+          1,
+          null,
+          "ngsl"
+        ],
+        [
+          78,
+          87,
+          "B1",
+          2,
+          null,
+          "ngsl"
+        ],
+        [
+          88,
+          98,
+          "A2",
+          1,
+          null,
+          "ngsl"
+        ],
+        [
+          100,
+          102,
+          "A1",
+          1,
+          null,
+          "ngsl"
+        ],
+        [
+          103,
+          108,
+          "A1",
+          1,
+          null,
+          "ngsl"
+        ],
+        [
+          109,
+          115,
+          "A2",
+          1,
+          null,
+          "ngsl"
+        ],
+        [
+          117,
+          123,
+          "B1",
+          3,
+          null,
+          "ngsl"
+        ],
+        [
+          124,
+          131,
+          "B1",
+          2,
+          null,
+          "ngsl"
+        ],
+        [
+          132,
+          135,
+          "A1",
+          1,
+          null,
+          "ngsl"
+        ],
+        [
+          136,
+          142,
+          "A2",
+          1,
+          null,
+          "ngsl"
+        ],
+        [
+          143,
+          150,
+          "B1",
+          3,
+          1,
+          "ngsl"
+        ],
+        [
+          151,
+          153,
+          "A1",
+          1,
+          null,
+          "ngsl"
+        ],
+        [
+          154,
+          161,
+          "A1",
+          1,
+          null,
+          "ngsl"
+        ],
+        [
+          162,
+          164,
+          "A1",
+          1,
+          null,
+          "ngsl"
+        ],
+        [
+          165,
+          170,
+          "A1",
+          1,
+          null,
+          "ngsl"
+        ],
+        [
+          172,
+          183,
+          "A2",
+          3,
+          null,
+          "ngsl"
+        ],
+        [
+          184,
+          187,
+          "A1",
+          1,
+          null,
+          "ngsl"
+        ],
+        [
+          188,
+          193,
+          "A1",
+          1,
+          null,
+          "ngsl"
+        ],
+        [
+          195,
+          199,
+          "A1",
+          1,
+          null,
+          "ngsl"
+        ],
+        [
+          200,
+          206,
+          "A2",
+          1,
+          null,
+          "ngsl"
+        ],
+        [
+          207,
+          212,
+          "A1",
+          1,
+          null,
+          "ngsl"
+        ],
+        [
+          213,
+          225,
+          "B1",
+          2,
+          null,
+          "ngsl"
+        ],
+        [
+          227,
+          234,
+          "A2",
+          2,
+          null,
+          "ngsl"
+        ],
+        [
+          235,
+          242,
+          "A1",
+          2,
+          null,
+          "ngsl"
+        ],
+        [
+          243,
+          246,
+          "A1",
+          1,
+          null,
+          "ngsl"
+        ],
+        [
+          247,
+          254,
+          "A2",
+          1,
+          null,
+          "ngsl"
+        ],
+        [
+          255,
+          258,
+          "A1",
+          1,
+          null,
+          "ngsl"
+        ],
+        [
+          259,
+          263,
+          "A1",
+          1,
+          null,
+          "ngsl"
+        ],
+        [
+          264,
+          269,
+          "B1",
+          3,
+          null,
+          "ngsl"
+        ],
+        [
+          270,
+          277,
+          "A2",
+          2,
+          null,
+          "ngsl"
+        ],
+        [
+          278,
+          282,
+          "B1",
+          1,
+          null,
+          "ngsl"
+        ],
+        [
+          283,
+          295,
+          "A2",
+          2,
+          null,
+          "ngsl"
+        ],
+        [
+          296,
+          300,
+          "A1",
+          1,
+          null,
+          "ngsl"
+        ],
+        [
+          301,
+          307,
+          "A1",
+          1,
+          null,
+          "ngsl"
+        ],
+        [
+          309,
+          313,
+          "A1",
+          1,
+          null,
+          "ngsl"
+        ],
+        [
+          314,
+          321,
+          "B1",
+          2,
+          1,
+          "ngsl"
+        ],
+        [
+          322,
+          332,
+          "A2",
+          2,
+          null,
+          "ngsl"
+        ],
+        [
+          333,
+          340,
+          "A1",
+          1,
+          null,
+          "ngsl"
+        ],
+        [
+          341,
+          350,
+          null,
+          1,
+          null,
+          "ngsl"
+        ],
+        [
+          351,
+          357,
+          "A2",
+          1,
+          null,
+          "ngsl"
+        ],
+        [
+          358,
+          362,
+          "A1",
+          1,
+          null,
+          "ngsl"
+        ],
+        [
+          363,
+          366,
+          "A1",
+          1,
+          null,
+          "ngsl"
+        ],
+        [
+          367,
+          373,
+          "A2",
+          1,
+          null,
+          "ngsl"
+        ],
+        [
+          374,
+          386,
+          null,
+          2,
+          null,
+          null
+        ],
+        [
+          387,
+          389,
+          "A1",
+          1,
+          null,
+          "ngsl"
+        ],
+        [
+          390,
+          400,
+          "A2",
+          1,
+          null,
+          "ngsl"
+        ],
+        [
+          401,
+          406,
+          "A2",
+          1,
+          null,
+          "ngsl"
+        ],
+        [
+          409,
+          416,
+          "A2",
+          1,
+          null,
+          "ngsl"
+        ],
+        [
+          418,
+          430,
+          "A2",
+          2,
+          1,
+          "ngsl"
+        ],
+        [
+          431,
+          432,
+          "A1",
+          1,
+          null,
+          "ngsl"
+        ],
+        [
+          433,
+          439,
+          "A1",
+          1,
+          null,
+          "ngsl"
+        ],
+        [
+          440,
+          448,
+          "B1",
+          2,
+          1,
+          "ngsl"
+        ],
+        [
+          449,
+          453,
+          "A1",
+          1,
+          null,
+          "ngsl"
+        ],
+        [
+          454,
+          458,
+          "A1",
+          1,
+          null,
+          "ngsl"
+        ],
+        [
+          459,
+          469,
+          "B1",
+          3,
+          null,
+          null
+        ],
+        [
+          471,
+          479,
+          "A1",
+          1,
+          null,
+          "ngsl"
+        ],
+        [
+          480,
+          484,
+          "A1",
+          1,
+          null,
+          "ngsl"
+        ],
+        [
+          485,
+          493,
+          null,
+          3,
+          6,
+          "nawl"
+        ],
+        [
+          494,
+          498,
+          "A1",
+          1,
+          null,
+          "ngsl"
+        ],
+        [
+          500,
+          506,
+          "B1",
+          3,
+          2,
+          "nawl"
+        ],
+        [
+          507,
+          515,
+          "A2",
+          1,
+          null,
+          "ngsl"
+        ],
+        [
+          516,
+          525,
+          "B1",
+          2,
+          7,
+          "ngsl"
+        ],
+        [
+          526,
+          529,
+          "A1",
+          1,
+          null,
+          "ngsl"
+        ],
+        [
+          530,
+          536,
+          "B1",
+          3,
+          3,
+          "ngsl"
+        ],
+        [
+          537,
+          541,
+          "A1",
+          1,
+          null,
+          "ngsl"
+        ],
+        [
+          542,
+          547,
+          "A1",
+          1,
+          null,
+          "ngsl"
+        ],
+        [
+          548,
+          553,
+          "A1",
+          1,
+          null,
+          "ngsl"
+        ],
+        [
+          554,
+          557,
+          "A1",
+          1,
+          null,
+          "ngsl"
+        ],
+        [
+          558,
+          569,
+          "B1",
+          3,
+          2,
+          "ngsl"
+        ],
+        [
+          570,
+          576,
+          "B1",
+          1,
+          null,
+          null
+        ],
+        [
+          578,
+          585,
+          "B1",
+          2,
+          null,
+          "ngsl"
+        ],
+        [
+          586,
+          593,
+          null,
+          2,
+          3,
+          "ngsl"
+        ],
+        [
+          594,
+          597,
+          "A1",
+          1,
+          null,
+          "ngsl"
+        ],
+        [
+          598,
+          604,
+          "B1",
+          2,
+          2,
+          "ngsl"
+        ],
+        [
+          605,
+          608,
+          "A1",
+          1,
+          null,
+          "ngsl"
+        ],
+        [
+          609,
+          614,
+          "A2",
+          2,
+          2,
+          "ngsl"
+        ],
+        [
+          615,
+          617,
+          "A1",
+          1,
+          null,
+          "ngsl"
+        ],
+        [
+          618,
+          628,
+          "A1",
+          2,
+          null,
+          "ngsl"
+        ],
+        [
+          630,
+          635,
+          "A2",
+          1,
+          null,
+          "ngsl"
+        ],
+        [
+          636,
+          640,
+          "A1",
+          1,
+          null,
+          "ngsl"
+        ],
+        [
+          641,
+          648,
+          "A1",
+          1,
+          null,
+          "ngsl"
+        ],
+        [
+          649,
+          652,
+          "A1",
+          1,
+          null,
+          "ngsl"
+        ],
+        [
+          653,
+          662,
+          "B1",
+          2,
+          null,
+          "nawl"
+        ],
+        [
+          663,
+          670,
+          null,
+          1,
+          null,
+          "ngsl"
+        ],
+        [
+          671,
+          678,
+          "A1",
+          2,
+          null,
+          "ngsl"
+        ],
+        [
+          680,
+          691,
+          "B2",
+          3,
+          6,
+          "ngsl"
+        ],
+        [
+          692,
+          696,
+          "A1",
+          1,
+          null,
+          "ngsl"
+        ],
+        [
+          697,
+          702,
+          "A2",
+          1,
+          null,
+          "ngsl"
+        ],
+        [
+          703,
+          712,
+          "B2",
+          3,
+          2,
+          "ngsl"
+        ],
+        [
+          713,
+          716,
+          "A1",
+          1,
+          null,
+          "ngsl"
+        ],
+        [
+          717,
+          724,
+          "A2",
+          2,
+          null,
+          "ngsl"
+        ],
+        [
+          725,
+          735,
+          "A2",
+          1,
+          null,
+          "ngsl"
+        ],
+        [
+          736,
+          745,
+          null,
+          4,
+          6,
+          "nawl"
+        ],
+        [
+          746,
+          749,
+          "A1",
+          1,
+          null,
+          "ngsl"
+        ],
+        [
+          750,
+          754,
+          "A1",
+          1,
+          null,
+          "ngsl"
+        ],
+        [
+          755,
+          762,
+          "A1",
+          1,
+          null,
+          "ngsl"
+        ],
+        [
+          763,
+          771,
+          "B1",
+          2,
+          2,
+          "ngsl"
+        ],
+        [
+          772,
+          775,
+          "A1",
+          1,
+          null,
+          "ngsl"
+        ],
+        [
+          776,
+          782,
+          "A1",
+          1,
+          null,
+          "ngsl"
+        ],
+        [
+          783,
+          789,
+          "A2",
+          1,
+          null,
+          "ngsl"
+        ],
+        [
+          790,
+          798,
+          "A1",
+          1,
+          null,
+          "ngsl"
+        ],
+        [
+          801,
+          804,
+          "A1",
+          1,
+          null,
+          "ngsl"
+        ],
+        [
+          805,
+          816,
+          "A2",
+          1,
+          null,
+          "ngsl"
+        ],
+        [
+          817,
+          825,
+          "B1",
+          2,
+          1,
+          "ngsl"
+        ],
+        [
+          826,
+          830,
+          "A1",
+          1,
+          null,
+          "ngsl"
+        ],
+        [
+          831,
+          837,
+          "B1",
+          2,
+          null,
+          "ngsl"
+        ],
+        [
+          838,
+          844,
+          "A2",
+          1,
+          null,
+          "ngsl"
+        ],
+        [
+          845,
+          852,
+          "A1",
+          1,
+          null,
+          "ngsl"
+        ],
+        [
+          854,
+          863,
+          "B1",
+          2,
+          null,
+          "ngsl"
+        ],
+        [
+          864,
+          871,
+          "A1",
+          1,
+          null,
+          "ngsl"
+        ],
+        [
+          872,
+          877,
+          "A2",
+          1,
+          1,
+          "ngsl"
+        ],
+        [
+          878,
+          884,
+          "A2",
+          1,
+          null,
+          "ngsl"
+        ],
+        [
+          885,
+          898,
+          "A2",
+          2,
+          null,
+          "ngsl"
+        ],
+        [
+          899,
+          901,
+          "A1",
+          1,
+          null,
+          "ngsl"
+        ],
+        [
+          902,
+          910,
+          "A1",
+          2,
+          null,
+          "ngsl"
+        ],
+        [
+          911,
+          922,
+          "B1",
+          2,
+          null,
+          "ngsl"
+        ],
+        [
+          924,
+          927,
+          "A1",
+          1,
+          null,
+          "ngsl"
+        ],
+        [
+          928,
+          935,
+          "A2",
+          1,
+          null,
+          "ngsl"
+        ],
+        [
+          936,
+          943,
+          "A2",
+          1,
+          null,
+          "ngsl"
+        ],
+        [
+          944,
+          952,
+          "A2",
+          2,
+          null,
+          "ngsl"
+        ],
+        [
+          953,
+          956,
+          "A1",
+          1,
+          null,
+          "ngsl"
+        ],
+        [
+          957,
+          964,
+          "A2",
+          1,
+          null,
+          "ngsl"
+        ],
+        [
+          965,
+          967,
+          "A1",
+          1,
+          null,
+          "ngsl"
+        ],
+        [
+          968,
+          979,
+          "A2",
+          3,
+          4,
+          "ngsl"
+        ],
+        [
+          980,
+          988,
+          "A2",
+          2,
+          1,
+          "ngsl"
+        ],
+        [
+          989,
+          996,
+          "A2",
+          1,
+          null,
+          "ngsl"
+        ],
+        [
+          998,
+          1005,
+          "A1",
+          1,
+          null,
+          "ngsl"
+        ],
+        [
+          1006,
+          1014,
+          "A1",
+          1,
+          null,
+          "ngsl"
+        ],
+        [
+          1015,
+          1018,
+          "A1",
+          1,
+          null,
+          "ngsl"
+        ],
+        [
+          1019,
+          1029,
+          "B1",
+          2,
+          null,
+          "ngsl"
+        ],
+        [
+          1030,
+          1036,
+          "A1",
+          2,
+          null,
+          "ngsl"
+        ],
+        [
+          1037,
+          1050,
+          "B1",
+          1,
+          null,
+          "ngsl"
+        ],
+        [
+          1052,
+          1060,
+          "A2",
+          1,
+          null,
+          "ngsl"
+        ],
+        [
+          1061,
+          1066,
+          "A1",
+          1,
+          null,
+          "ngsl"
+        ],
+        [
+          1067,
+          1075,
+          "B2",
+          3,
+          3,
+          "ngsl"
+        ],
+        [
+          1076,
+          1082,
+          "A2",
+          1,
+          null,
+          "ngsl"
+        ],
+        [
+          1083,
+          1085,
+          "A1",
+          1,
+          null,
+          "ngsl"
+        ],
+        [
+          1086,
+          1089,
+          "A1",
+          1,
+          null,
+          "ngsl"
+        ],
+        [
+          1090,
+          1106,
+          "B1",
+          1,
+          null,
+          "ngsl"
+        ],
+        [
+          1107,
+          1110,
+          "A1",
+          1,
+          null,
+          "ngsl"
+        ],
+        [
+          1111,
+          1117,
+          "A1",
+          1,
+          null,
+          "ngsl"
+        ],
+        [
+          1119,
+          1120,
+          "A1",
+          1,
+          null,
+          "ngsl"
+        ],
+        [
+          1121,
+          1131,
+          "A1",
+          2,
+          null,
+          "ngsl"
+        ],
+        [
+          1132,
+          1141,
+          "A1",
+          1,
+          null,
+          "ngsl"
+        ],
+        [
+          1142,
+          1151,
+          "A2",
+          2,
+          null,
+          "ngsl"
+        ],
+        [
+          1152,
+          1157,
+          "A2",
+          1,
+          null,
+          "ngsl"
+        ],
+        [
+          1158,
+          1163,
+          "A2",
+          1,
+          null,
+          "ngsl"
+        ],
+        [
+          1164,
+          1174,
+          "B1",
+          3,
+          5,
+          "ngsl"
+        ],
+        [
+          1175,
+          1178,
+          "A1",
+          1,
+          null,
+          "ngsl"
+        ],
+        [
+          1179,
+          1186,
+          "A2",
+          2,
+          null,
+          "ngsl"
+        ],
+        [
+          1187,
+          1197,
+          "B2",
+          3,
+          2,
+          "ngsl"
+        ],
+        [
+          1199,
+          1206,
+          "A1",
+          1,
+          null,
+          "ngsl"
+        ],
+        [
+          1207,
+          1213,
+          "A1",
+          1,
+          null,
+          "ngsl"
+        ],
+        [
+          1214,
+          1221,
+          "B1",
+          2,
+          null,
+          "ngsl"
+        ],
+        [
+          1222,
+          1229,
+          "B1",
+          1,
+          null,
+          "ngsl"
+        ],
+        [
+          1230,
+          1233,
+          "A1",
+          1,
+          null,
+          "ngsl"
+        ],
+        [
+          1234,
+          1244,
+          "A1",
+          2,
+          null,
+          "ngsl"
+        ],
+        [
+          1245,
+          1252,
+          "A2",
+          2,
+          null,
+          "ngsl"
+        ],
+        [
+          1253,
+          1266,
+          "B2",
+          1,
+          null,
+          "ngsl"
+        ],
+        [
+          1268,
+          1275,
+          "A2",
+          2,
+          null,
+          "ngsl"
+        ],
+        [
+          1276,
+          1282,
+          "B1",
+          3,
+          null,
+          "ngsl"
+        ],
+        [
+          1283,
+          1287,
+          "A1",
+          1,
+          null,
+          "ngsl"
+        ],
+        [
+          1288,
+          1297,
+          "A1",
+          1,
+          null,
+          "ngsl"
+        ],
+        [
+          1298,
+          1303,
+          "B2",
+          1,
+          null,
+          "ngsl"
+        ],
+        [
+          1304,
+          1307,
+          "A1",
+          1,
+          null,
+          "ngsl"
+        ],
+        [
+          1308,
+          1314,
+          "A2",
+          2,
+          null,
+          "ngsl"
+        ],
+        [
+          1315,
+          1325,
+          null,
+          1,
+          null,
+          null
+        ],
+        [
+          1326,
+          1329,
+          "A1",
+          1,
+          null,
+          "ngsl"
+        ],
+        [
+          1330,
+          1335,
+          "A2",
+          2,
+          null,
+          "ngsl"
+        ],
+        [
+          1337,
+          1341,
+          "A1",
+          1,
+          null,
+          "ngsl"
+        ],
+        [
+          1342,
+          1347,
+          "A1",
+          1,
+          null,
+          "ngsl"
+        ],
+        [
+          1348,
+          1358,
+          "A2",
+          2,
+          null,
+          "ngsl"
+        ],
+        [
+          1359,
+          1362,
+          "A1",
+          1,
+          null,
+          "ngsl"
+        ],
+        [
+          1363,
+          1366,
+          "A1",
+          1,
+          null,
+          "ngsl"
+        ],
+        [
+          1368,
+          1369,
+          "A1",
+          1,
+          null,
+          "ngsl"
+        ],
+        [
+          1370,
+          1376,
+          "B2",
+          3,
+          null,
+          null
+        ],
+        [
+          1377,
+          1383,
+          "A1",
+          1,
+          null,
+          "ngsl"
+        ],
+        [
+          1384,
+          1387,
+          "A1",
+          1,
+          null,
+          "ngsl"
+        ],
+        [
+          1388,
+          1394,
+          "A1",
+          1,
+          null,
+          "ngsl"
+        ],
+        [
+          1395,
+          1396,
+          "A1",
+          1,
+          null,
+          "ngsl"
+        ],
+        [
+          1397,
+          1405,
+          "B1",
+          2,
+          null,
+          "ngsl"
+        ],
+        [
+          1406,
+          1414,
+          "B1",
+          3,
+          2,
+          "ngsl"
+        ],
+        [
+          1415,
+          1418,
+          "A1",
+          1,
+          null,
+          "ngsl"
+        ],
+        [
+          1419,
+          1428,
+          null,
+          3,
+          5,
+          "ngsl"
+        ],
+        [
+          1429,
+          1437,
+          "B2",
+          1,
+          null,
+          "ngsl"
+        ]
+      ]
+    }
+  }
+}
