@@ -1,0 +1,407 @@
+{
+ "seed": 20261016,
+ "pool": "Simple English Wikipedia: Category:Very good articles + Category:Good articles",
+ "pool_size": 140,
+ "topics": [
+  {
+   "simple_title": "Bird",
+   "simple_revid": 11013199,
+   "simple_timestamp": "2026-09-29T22:33:53Z",
+   "en_title": "Bird",
+   "en_revid": 1379688797,
+   "en_timestamp": "2026-10-11T10:01:00Z"
+  },
+  {
+   "simple_title": "Alexandria Ocasio-Cortez",
+   "simple_revid": 10982559,
+   "simple_timestamp": "2026-09-02T17:55:46Z",
+   "en_title": "Alexandria Ocasio-Cortez",
+   "en_revid": 1380478548,
+   "en_timestamp": "2026-10-15T23:32:40Z"
+  },
+  {
+   "simple_title": "Victoria line",
+   "simple_revid": 11024460,
+   "simple_timestamp": "2026-10-09T06:38:20Z",
+   "en_title": "Victoria line",
+   "en_revid": 1365789337,
+   "en_timestamp": "2026-07-24T12:10:30Z"
+  },
+  {
+   "simple_title": "Komodo dragon",
+   "simple_revid": 11020907,
+   "simple_timestamp": "2026-10-06T00:32:05Z",
+   "en_title": "Komodo dragon",
+   "en_revid": 1376697946,
+   "en_timestamp": "2026-09-25T18:50:42Z"
+  },
+  {
+   "simple_title": "Chess",
+   "simple_revid": 11028874,
+   "simple_timestamp": "2026-10-13T15:11:36Z",
+   "en_title": "Chess",
+   "en_revid": 1380500760,
+   "en_timestamp": "2026-10-16T03:00:14Z"
+  },
+  {
+   "simple_title": "Baseball uniform",
+   "simple_revid": 10998269,
+   "simple_timestamp": "2026-09-17T03:57:10Z",
+   "en_title": "Baseball uniform",
+   "en_revid": 1377746525,
+   "en_timestamp": "2026-09-30T23:27:05Z"
+  },
+  {
+   "simple_title": "Christopher Plummer",
+   "simple_revid": 11026583,
+   "simple_timestamp": "2026-10-11T20:18:17Z",
+   "en_title": "Christopher Plummer",
+   "en_revid": 1376813975,
+   "en_timestamp": "2026-09-26T10:47:16Z"
+  },
+  {
+   "simple_title": "Crater Lake",
+   "simple_revid": 11014341,
+   "simple_timestamp": "2026-09-30T20:18:50Z",
+   "en_title": "Crater Lake",
+   "en_revid": 1375231535,
+   "en_timestamp": "2026-09-16T15:47:35Z"
+  },
+  {
+   "simple_title": "Tear down this wall!",
+   "simple_revid": 10872444,
+   "simple_timestamp": "2026-05-28T09:58:18Z",
+   "en_title": "Tear down this wall!",
+   "en_revid": 1371126738,
+   "en_timestamp": "2026-08-24T19:12:48Z"
+  },
+  {
+   "simple_title": "Made You Look",
+   "simple_revid": 10368491,
+   "simple_timestamp": "2025-07-02T23:38:36Z",
+   "en_title": "Made You Look (Meghan Trainor song)",
+   "en_revid": 1379245115,
+   "en_timestamp": "2026-10-08T20:44:02Z"
+  },
+  {
+   "simple_title": "The Lightning Thief",
+   "simple_revid": 10996713,
+   "simple_timestamp": "2026-09-15T18:41:06Z",
+   "en_title": "The Lightning Thief",
+   "en_revid": 1379732742,
+   "en_timestamp": "2026-10-11T16:54:16Z"
+  },
+  {
+   "simple_title": "The Nutcracker",
+   "simple_revid": 11013144,
+   "simple_timestamp": "2026-09-29T21:51:40Z",
+   "en_title": "The Nutcracker",
+   "en_revid": 1379321151,
+   "en_timestamp": "2026-10-09T06:13:30Z"
+  },
+  {
+   "simple_title": "Tropical Storm Barry (2007)",
+   "simple_revid": 11000697,
+   "simple_timestamp": "2026-09-20T05:25:44Z",
+   "en_title": "Tropical Storm Barry (2007)",
+   "en_revid": 1375469763,
+   "en_timestamp": "2026-09-17T23:56:41Z"
+  },
+  {
+   "simple_title": "Mia Love",
+   "simple_revid": 10710245,
+   "simple_timestamp": "2026-01-12T10:23:12Z",
+   "en_title": "Mia Love",
+   "en_revid": 1377098527,
+   "en_timestamp": "2026-09-27T21:55:11Z"
+  },
+  {
+   "simple_title": "History of Kansas",
+   "simple_revid": 11030350,
+   "simple_timestamp": "2026-10-15T04:39:23Z",
+   "en_title": "History of Kansas",
+   "en_revid": 1379374221,
+   "en_timestamp": "2026-10-09T16:08:22Z"
+  },
+  {
+   "simple_title": "Hebrew calendar",
+   "simple_revid": 10724807,
+   "simple_timestamp": "2026-01-23T02:22:07Z",
+   "en_title": "Hebrew calendar",
+   "en_revid": 1380350298,
+   "en_timestamp": "2026-10-15T05:04:27Z"
+  },
+  {
+   "simple_title": "Ned Kelly",
+   "simple_revid": 11005575,
+   "simple_timestamp": "2026-09-24T12:25:05Z",
+   "en_title": "Ned Kelly",
+   "en_revid": 1378689032,
+   "en_timestamp": "2026-10-05T18:10:15Z"
+  },
+  {
+   "simple_title": "Selena (album)",
+   "simple_revid": 9676496,
+   "simple_timestamp": "2024-07-31T11:18:31Z",
+   "en_title": "Selena (album)",
+   "en_revid": 1360926829,
+   "en_timestamp": "2026-06-24T14:34:08Z"
+  },
+  {
+   "simple_title": "Bloc Party",
+   "simple_revid": 11026024,
+   "simple_timestamp": "2026-10-11T05:47:57Z",
+   "en_title": "Bloc Party",
+   "en_revid": 1379753419,
+   "en_timestamp": "2026-10-11T19:23:54Z"
+  },
+  {
+   "simple_title": "Flag of Italy",
+   "simple_revid": 10970690,
+   "simple_timestamp": "2026-08-22T22:23:50Z",
+   "en_title": "Flag of Italy",
+   "en_revid": 1374221809,
+   "en_timestamp": "2026-09-10T16:39:44Z"
+  },
+  {
+   "simple_title": "Valkyrae",
+   "simple_revid": 10962712,
+   "simple_timestamp": "2026-08-14T18:22:58Z",
+   "en_title": "Valkyrae",
+   "en_revid": 1380369990,
+   "en_timestamp": "2026-10-15T09:33:44Z"
+  },
+  {
+   "simple_title": "Jeremy Corbyn",
+   "simple_revid": 10991939,
+   "simple_timestamp": "2026-09-10T19:50:32Z",
+   "en_title": "Jeremy Corbyn",
+   "en_revid": 1379441565,
+   "en_timestamp": "2026-10-10T00:56:05Z"
+  },
+  {
+   "simple_title": "London Underground 1967 Stock",
+   "simple_revid": 10527445,
+   "simple_timestamp": "2025-09-21T16:20:29Z",
+   "en_title": "London Underground 1967 Stock",
+   "en_revid": 1367464505,
+   "en_timestamp": "2026-08-03T06:44:43Z"
+  },
+  {
+   "simple_title": "Monarch butterfly",
+   "simple_revid": 11031013,
+   "simple_timestamp": "2026-10-15T20:12:18Z",
+   "en_title": "Monarch butterfly",
+   "en_revid": 1380059724,
+   "en_timestamp": "2026-10-13T14:52:25Z"
+  },
+  {
+   "simple_title": "Le Spectre de la rose",
+   "simple_revid": 10829159,
+   "simple_timestamp": "2026-04-22T17:19:05Z",
+   "en_title": "Le Spectre de la rose",
+   "en_revid": 1271642362,
+   "en_timestamp": "2025-01-25T00:42:22Z"
+  },
+  {
+   "simple_title": "India",
+   "simple_revid": 11030518,
+   "simple_timestamp": "2026-10-15T11:07:14Z",
+   "en_title": "India",
+   "en_revid": 1380463053,
+   "en_timestamp": "2026-10-15T21:15:17Z"
+  },
+  {
+   "simple_title": "Color blindness",
+   "simple_revid": 10922291,
+   "simple_timestamp": "2026-07-15T20:33:44Z",
+   "en_title": "Color blindness",
+   "en_revid": 1379640039,
+   "en_timestamp": "2026-10-11T02:49:12Z"
+  },
+  {
+   "simple_title": "Fred Rogers",
+   "simple_revid": 11016182,
+   "simple_timestamp": "2026-10-02T01:23:38Z",
+   "en_title": "Fred Rogers",
+   "en_revid": 1377744639,
+   "en_timestamp": "2026-09-30T23:14:40Z"
+  },
+  {
+   "simple_title": "Crich Tramway Village",
+   "simple_revid": 10748263,
+   "simple_timestamp": "2026-02-12T16:52:41Z",
+   "en_title": "National Tramway Museum",
+   "en_revid": 1374764951,
+   "en_timestamp": "2026-09-14T00:20:01Z"
+  },
+  {
+   "simple_title": "Gettysburg Address",
+   "simple_revid": 10896384,
+   "simple_timestamp": "2026-06-22T16:07:07Z",
+   "en_title": "Gettysburg Address",
+   "en_revid": 1378305111,
+   "en_timestamp": "2026-10-03T22:24:05Z"
+  },
+  {
+   "simple_title": "Japanese American internment",
+   "simple_revid": 10870000,
+   "simple_timestamp": "2026-05-26T01:11:04Z",
+   "en_title": "Internment of Japanese Americans",
+   "en_revid": 1378975026,
+   "en_timestamp": "2026-10-07T04:27:40Z"
+  },
+  {
+   "simple_title": "Bald eagle",
+   "simple_revid": 11012740,
+   "simple_timestamp": "2026-09-29T16:41:43Z",
+   "en_title": "Bald eagle",
+   "en_revid": 1379351987,
+   "en_timestamp": "2026-10-09T12:38:33Z"
+  },
+  {
+   "simple_title": "John McDouall Stuart",
+   "simple_revid": 10494963,
+   "simple_timestamp": "2025-09-04T13:44:05Z",
+   "en_title": "John McDouall Stuart",
+   "en_revid": 1379349156,
+   "en_timestamp": "2026-10-09T12:05:58Z"
+  },
+  {
+   "simple_title": "Sentō",
+   "simple_revid": 10998265,
+   "simple_timestamp": "2026-09-17T03:45:22Z",
+   "en_title": "Sentō",
+   "en_revid": 1356051977,
+   "en_timestamp": "2026-05-25T13:12:57Z"
+  },
+  {
+   "simple_title": "Gothic cathedrals",
+   "simple_revid": 10938090,
+   "simple_timestamp": "2026-07-26T11:56:27Z",
+   "en_title": "Gothic cathedrals and churches",
+   "en_revid": 1380160309,
+   "en_timestamp": "2026-10-14T03:42:15Z"
+  },
+  {
+   "simple_title": "Bobby Dodd",
+   "simple_revid": 10467520,
+   "simple_timestamp": "2025-08-19T19:47:16Z",
+   "en_title": "Bobby Dodd",
+   "en_revid": 1376226142,
+   "en_timestamp": "2026-09-22T21:55:44Z"
+  },
+  {
+   "simple_title": "Black hole",
+   "simple_revid": 11019676,
+   "simple_timestamp": "2026-10-04T20:30:27Z",
+   "en_title": "Black hole",
+   "en_revid": 1379111441,
+   "en_timestamp": "2026-10-08T01:34:37Z"
+  },
+  {
+   "simple_title": "Hurricane Grace (1991)",
+   "simple_revid": 10967151,
+   "simple_timestamp": "2026-08-19T02:51:58Z",
+   "en_title": "1991 Atlantic hurricane season",
+   "en_revid": 1378444751,
+   "en_timestamp": "2026-10-04T14:43:41Z"
+  },
+  {
+   "simple_title": "Shabbat",
+   "simple_revid": 10510000,
+   "simple_timestamp": "2025-09-12T14:30:39Z",
+   "en_title": "Shabbat",
+   "en_revid": 1379976963,
+   "en_timestamp": "2026-10-13T01:24:07Z"
+  },
+  {
+   "simple_title": "The Uplift Mofo Party Plan",
+   "simple_revid": 11022385,
+   "simple_timestamp": "2026-10-07T05:23:08Z",
+   "en_title": "The Uplift Mofo Party Plan",
+   "en_revid": 1377545198,
+   "en_timestamp": "2026-09-29T23:30:35Z"
+  },
+  {
+   "simple_title": "Cassowary",
+   "simple_revid": 10996049,
+   "simple_timestamp": "2026-09-14T23:41:54Z",
+   "en_title": "Cassowary",
+   "en_revid": 1379732876,
+   "en_timestamp": "2026-10-11T16:55:19Z"
+  },
+  {
+   "simple_title": "City of Manchester Stadium",
+   "simple_revid": 10997504,
+   "simple_timestamp": "2026-09-16T12:24:53Z",
+   "en_title": "Etihad Stadium",
+   "en_revid": 1378004165,
+   "en_timestamp": "2026-10-02T11:18:01Z"
+  },
+  {
+   "simple_title": "Megadeth",
+   "simple_revid": 10991183,
+   "simple_timestamp": "2026-09-10T01:24:42Z",
+   "en_title": "Megadeth",
+   "en_revid": 1379255915,
+   "en_timestamp": "2026-10-08T22:16:59Z"
+  },
+  {
+   "simple_title": "Presidents' Trophy",
+   "simple_revid": 11006630,
+   "simple_timestamp": "2026-09-25T08:04:44Z",
+   "en_title": "Presidents' Trophy",
+   "en_revid": 1377316497,
+   "en_timestamp": "2026-09-28T21:43:54Z"
+  },
+  {
+   "simple_title": "Dan Kelly",
+   "simple_revid": 11000287,
+   "simple_timestamp": "2026-09-19T15:38:27Z",
+   "en_title": "Dan Kelly (bushranger)",
+   "en_revid": 1380191355,
+   "en_timestamp": "2026-10-14T09:03:02Z"
+  },
+  {
+   "simple_title": "Least weasel",
+   "simple_revid": 10647860,
+   "simple_timestamp": "2025-11-25T17:28:46Z",
+   "en_title": "Least weasel",
+   "en_revid": 1377724379,
+   "en_timestamp": "2026-09-30T20:16:43Z"
+  },
+  {
+   "simple_title": "Hurricane Floyd (1987)",
+   "simple_revid": 10851827,
+   "simple_timestamp": "2026-05-11T00:57:03Z",
+   "en_title": "Hurricane Floyd (1987)",
+   "en_revid": 1319458196,
+   "en_timestamp": "2025-10-29T23:28:35Z"
+  },
+  {
+   "simple_title": "Grand Duchess Anastasia Nikolaevna of Russia",
+   "simple_revid": 10940070,
+   "simple_timestamp": "2026-07-26T15:44:33Z",
+   "en_title": "Grand Duchess Anastasia Nikolaevna of Russia",
+   "en_revid": 1378855912,
+   "en_timestamp": "2026-10-06T14:50:51Z"
+  },
+  {
+   "simple_title": "Jupiter",
+   "simple_revid": 11011873,
+   "simple_timestamp": "2026-09-29T02:38:14Z",
+   "en_title": "Jupiter",
+   "en_revid": 1380352046,
+   "en_timestamp": "2026-10-15T05:29:02Z"
+  },
+  {
+   "simple_title": "Hannah Spencer",
+   "simple_revid": 10991944,
+   "simple_timestamp": "2026-09-10T19:53:20Z",
+   "en_title": "Hannah Spencer",
+   "en_revid": 1375672571,
+   "en_timestamp": "2026-09-19T07:23:28Z"
+  }
+ ]
+}

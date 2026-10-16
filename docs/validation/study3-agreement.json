@@ -1,0 +1,3861 @@
+{
+ "study": "Study 3: computational agreement with reference tools",
+ "provenance": {
+  "lexinspect": "0.3.0",
+  "spacy_model": "en_core_web_sm-3.8.0"
+ },
+ "environment": {
+  "python": "3.12.5",
+  "textstat": "0.7.13",
+  "taaled": "0.32",
+  "pylats": "0.64",
+  "lexical-diversity": "0.1.1",
+  "lexicalrichness": "0.5.1",
+  "spacy": "3.8.14",
+  "en_core_web_sm": "3.8.0",
+  "pandas": "3.0.6",
+  "scipy": "1.18.1",
+  "nltk": "3.10.3",
+  "pyphen": "0.18.1"
+ },
+ "texts": {
+  "n": 300,
+  "by_source": {
+   "Project Gutenberg": 100,
+   "Simple English Wikipedia": 50,
+   "English Wikipedia": 50,
+   "ELLIPSE corpus (train split)": 100
+  },
+  "lexinspect_words": {
+   "count": 300.0,
+   "mean": 650.7,
+   "std": 268.4,
+   "min": 129.0,
+   "25%": 424.8,
+   "50%": 634.5,
+   "75%": 930.8,
+   "max": 1004.0
+  },
+  "manifest_sha256": {
+   "pg36-p00596": "64fb78e86d2b907fb8af01f9db53bb3a946e4f53166c09f2a91e1cbc10d2be0a",
+   "pg2701-p01047": "e28a1c363aecb9355373832f30f978bfda0aea8108e34338004134df70b12530",
+   "pg98-p01114": "fe03132ea59260df7019c66ad06805d7e6d7e7fe9e994cbbad3cb25803545ab4",
+   "pg35-p00207": "aba43751be0aa887f1f190b1b29e7b7c4a270300b2c6e1ab90c6f021e264d5df",
+   "pg25344-p00300": "2a69dc287c5c737fe27cbd734a7131e900c2c7dc2b8f7ebf64f1f56f7a55ad55",
+   "pg84-p00122": "bafa855630e7eea37fe95f179059f5efff334c078dadd83d5d381363eca13765",
+   "pg5827-p00221": "d572d4e4131bc591c460b524b715477d2b61c0c1f76bdbe91106543336c354fd",
+   "pg2680-p00435": "b2cf9c479c40573857368eade6a3a1852edbd5937d855e155287ae5167ff50f3",
+   "pg2680-p00383": "522fc9657f9cc2249f7f5046a5692abaa88a7bfbc70ccf7cc601f520b1522f22",
+   "pg16-p00089": "ec439544cf85340ba55f74e793fdff1472d14e62ee6b542c87c8706a82a2d2e4",
+   "pg30155-p00178": "76b78017d0a76760a50ef47557207868dc5d7c033d1ff89233858d5546c2b8e2",
+   "pg205-p00336": "df3290ec4beceb00eba773114864603878559adaf19c664e5fd5dc8c6d4a0734",
+   "pg2701-p01520": "546bc8cb79073a5e24db107015dff93e5fcaf1cffd9d4fe78f32cd872dc0ac28",
+   "pg205-p00351": "8f8670945144524912611d686ed32e373ad448e053965ab993f724ce79d944ef",
+   "pg1342-p00403": "dc56f9a418cee220efe26165196890f608243211b0b0a21fc73989564c911120",
+   "pg2680-p00269": "66b1136c09f51f4b240581f8e6b31bf37fc5947fbb3551cd6dcc9c36b245695f",
+   "pg16-p00598": "ef84771ef662bf0a768a655c3c21a60212d99876c2e0c5231179eb624ede5022",
+   "pg74-p00108": "6d853e8c5ad1b5dc7282fb551a0392fc735402f21747faf1859d5a6d564fd37e",
+   "pg74-p00649": "562875412213c0b3b896e72b460935e85d128c625a7bb9844e02897b66c8b442",
+   "pg147-p00055": "33da1009b7f1cc8b9a1083c9e7378562732ec15e629f692cc1fbd04361358bf3",
+   "pg36-p00327": "953425ce897e37ce3521aa34c717d85e6cd62ecaf517e296a13d044d288a43fa",
+   "pg25344-p00216": "523fa28d0b0724ead677d4171becebd18d06c0fdd2dca8cc1a95ab87f1baf1f9",
+   "pg23-p00121": "173439315d95fbbc9590fbe06bbfce7e7e35ce488eb1086d638229fe5a29b481",
+   "pg1400-p00575": "4b0211640fb8e7c601a7e1d09eff15c54075fdbe51e59234ce488a77dc59915e",
+   "pg36-p00193": "0d357aa6a0f3c0ca340b17fb2d4ce8314fd58b1d3b32d216ea39dbfdfea860f2",
+   "pg10136-p01755": "8d4122c464464fb3b0cd552328cfaa17da7984749bf5c763afdd3f3d9f102547",
+   "pg2680-p00081": "0ef38d220a168d98e310b22aa8d99dd89c023a00b290ba240a3a2bae87ba699c",
+   "pg23-p00158": "3b66a66aa1922aec5f6ba3e21d9772ef124928a1ce60694ad4e59c1d117f4c8d",
+   "pg2701-p01624": "84aca9ba1da24ad17c4b45808d0aa01e79e1fdbb1bbdcb04bc9d35f09f04b550",
+   "pg14474-p00135": "fa335a84b16656c977b14992de537a65a67bb5d14f21ed1a2dc1dd29200d7aff",
+   "pg408-p00298": "df36d8748f0d1b3d9250455827e19f19d2a1d0169f8a7eac9db10b5b7bc70e8b",
+   "pg3300-p00582": "995dc286a459fcbd04b2515a0890b5456ff27c4a51b478f8269e45fa4cfd9fb0",
+   "pg2009-p00366": "e0e0bb73977cb4c0ccdb8400742506310e17702d262c122d5345ba6b644dd8d0",
+   "pg147-p00130": "b41c7861ee7098228e0a5657fa1c2d13cc418c974a3c05f0aae6ba1d1c22680c",
+   "pg20203-p00359": "ccbe999b942c58fefa6ec2f35683ac845ff1f957e549c8f4bced72ce4cd4b203",
+   "pg2009-p00448": "0283d1ce37aae54fbd8fcd734183723f97a07b92e2c69f1cb600d6356862581e",
+   "pg20203-p00296": "c08c8d9c4594e0d56c025a9dd52a2b2cda7b808a1d51934181e1357ab8c02dd2",
+   "pg30155-p00030": "9939990759cab9f2ea6eace66412b4c553eb2646fa17133803a3db428e28a531",
+   "pg1400-p00518": "0410fc796cf6702e46a9c42d632de6e7807998ec6d321e63c6db45afe56cf693",
+   "pg14474-p00070": "51d2aff0459c9ef81f276e6cc32ddb0337ca7e7f2746af908f5b24a322914a33",
+   "pg2701-p01600": "6cf0d3928329e6a59e223daecb503463de5e4ab46efd9e22a5960c6018a43eb6",
+   "pg3300-p01547": "669f46c0f8474fc9417b7c976f2c52bf8869fbc2a9c33b667450b1765778f59e",
+   "pg37134-p00046": "a9186f41ead8da527d3ff80a75a18d4ca94d7f055646dbeb92ba9b9168356b45",
+   "pg5827-p00129": "4ff3e434f86166a0a06f156634f6038e408b08e0b3a1f4c8998daf87a5fa63a7",
+   "pg1497-p01560": "7588bc43d356649fb87ff702d7ccb2fe04794fda58248975aad9d91186f7384a",
+   "pg11-p00173": "5fa5465a9f6ad4e6db6c5607283ce9542a8d3a2cf671cdcd58fa260f8f17535d",
+   "pg20203-p00243": "6d7debb75b26daf1f39ca924c8ba19c6c5a2b0a39680eeb6e301c9663be3875e",
+   "pg205-p00048": "a7e532112e74fabefee7b05927c8e996a79aca303bc1df6259c4a71c490cbae2",
+   "pg408-p00070": "53cda434f2b0a4563e4adf7c82fd2c77982ebf1a00938832e619d3c625207e78",
+   "pg55-p00615": "3f6878d689dee98af28dc2157b6fa7a2cd1cd6161246f5c31173c61de7f9ff47",
+   "pg74-p00676": "e34a0295e64862202c7a952eb5a2c7556f0e4be96b3d88cc0baad64159119032",
+   "pg2009-p00700": "d1d439f640dbf8e3b24e3fd601310176e80943ddcc5a75eb0edb0a5653b56d4e",
+   "pg408-p00193": "5001212ce0aa2faa20ec01e09308240c64bad87bb492686f13b89ce25ed188f7",
+   "pg1400-p00592": "e7a24b9aef5c59d2df26cd6f3d18affd5c2f003d68a48cef42bef2df5504b82a",
+   "pg3300-p00604": "52a7a1cfb0bfbc06142da54e949bdc544f166a0829c541a141ab3b8b69765c15",
+   "pg11-p00414": "13c4ae86210ea11edd24c5c51f9981af5782139b0fb600edb9ab5418a5f950d0",
+   "pg3300-p01526": "8f19b658bf4f94f4f5005806b12ce2af6b1d7a6fa6afa07b61a96097433aff9a",
+   "pg1404-p01066": "e2b58982fd86666769acfa9efc7758ffe8f4e3a6144abc5d506076c61b3f07ab",
+   "pg2009-p00137": "51c0551d44349db087ea6caa38771b1a40af425888649fd6296d7200f1f53929",
+   "pg5827-p00237": "5b8302d6a707746b049aa262232a415b0790f55a74ffffde3f84d19665490546",
+   "pg3300-p00967": "37b15a4c38013b06b95d250694ca399ab35d6faf95973dc8cff14efb78db994c",
+   "pg1497-p00449": "f358034c067ce5ba8dec5d3d3072dd571e50def030fc423d077b28d145b4fab3",
+   "pg1497-p00634": "7a2774553f6236431578c968b9a3486dc547e9929ca98d8c43ecfda8b6a63347",
+   "pg345-p00216": "11db11a471b40f2489be037a6c0548fcba43f69be115f794094462742f94c9d4",
+   "pg2701-p00307": "9711bc1b677ad17a293b5e08772abe1780507fdf1e87c792d16f8a8e8648a0f3",
+   "pg37134-p00025": "cb71520e549d799d555037a44da1c5be417cb06019e68e27e5f4048d7a792bf7",
+   "pg36-p00249": "0aa209355bbaeaddd94d380628ac5aea704c3bd348f8fe06ab392742c084f4f1",
+   "pg45-p00678": "28f40eb380763c7d418d9415db3645c78a89e514deeea7dac76682338029b425",
+   "pg205-p00274": "5170c74ffcda7435db5f836d7ee355590e71bb4f73973837bf6759a057e33fec",
+   "pg1497-p00741": "a1ce9ddb6b8f624eb4b87cac25820703933a93959473b2515b611888a42a3673",
+   "pg2009-p00652": "7a256323dfaa9cde227f020a682951b6250cb471c6e5c072069498f024b7c84d",
+   "pg345-p00758": "728e7b71b28f94826cbb7e54cf2266cd5744208c5f5481cacf6a38f3eb108ec1",
+   "pg5827-p00063": "e081b62d5187e53eb920b21a4a3df4fc35c1458e963188f4282e98114a1c8af5",
+   "pg11-p00247": "7e4184aab915d931b5a508ebd6561bcfdc10aee03318348014e57b661d4a0df4",
+   "pg2009-p00466": "0ddca41e4292efcfeff913b92ecf38330f0f75c5fb45c28801137c53d81e7540",
+   "pg84-p00538": "0294616b9e4d233cecaa5477efd8a6b495bbcc21a729638ab4dd9f7df0cc444c",
+   "pg35-p00119": "7c3882a7e586ab27772c571e47ddf2a39bd37c26a039f91286bd4b63aaf609d9",
+   "pg1400-p02000": "dce43d8b0593cab081bad50603b926dacde21a818db0e9bc31de9baf92ded2e1",
+   "pg1661-p00758": "19c5c30c5cd0ea1ad007d0a96adc238d9fa13e77b7331367057746645487dd55",
+   "pg30155-p00048": "b42ffd9832cff73bcd69acb3ae5412505cf7ba8f893973f7d9f5bc372bd44d9e",
+   "pg20203-p00136": "e65e896ff3dfb66a959232b048867eca242bd0bffa3ac8d5b81cd4fd8cdea330",
+   "pg35-p00026": "6c66d530c7c724d101927b0f9cf99e9b71d2b7c7983d231a7503edd917d3fb55",
+   "pg16-p00161": "24e71793916cca73bcd4b493181c8f795acf5b09040b9aa6b956e777429fb31a",
+   "pg2680-p00414": "9f4f2228b42757d064e5dce308e8172d24b7458d2bdffc691848a18c393283de",
+   "pg10136-p01679": "befff8bc5cddabceb15522d4e6f5f5127e544edb48f2f573e071a3544fbb4a71",
+   "pg30155-p00201": "ea2865efd6b174fe236c739c86acdbf9db8f132177efba365a700b46fdf0a61f",
+   "pg1404-p00939": "34c36f59ee78a58da698e6a099594df6027495f7135c31b7068b2a6f058cb806",
+   "pg35-p00085": "12bb53a59af670b1dddaf614b8d44b3ef99d637771638f66776cb5e150d9c83b",
+   "pg84-p00260": "3c6cb4e4d83f29e6f7bf5ac400b445458219817373dc96397af4962460a734f8",
+   "pg147-p00109": "69a580bcef7a2e1a7d81b34131c6169655490ad5c82dc60780f8b41de1b2fc00",
+   "pg345-p00112": "667330bc40335e3eeb2ac186bedd415db7017631009166d8804060c220d2af91",
+   "pg205-p00095": "d443c29c15087500e110033a061c99c1a17998df902b5bcf562772812a4900e7",
+   "pg1661-p00972": "0bc624dae407c0efee81e0a90932d22857eac476ff6f2e57271cffe7619f4bcb",
+   "pg345-p00146": "ada75618da3b602e64a38d63417610330ebdb99adbb9a0333ddeac6a0df05d37",
+   "pg25344-p00566": "04fd92e369911d538f159e3f0b5bf511c3e58d7c71e5c2163ed9f7f84c7e359f",
+   "pg1661-p00251": "c3f027f1123aec5b097f362d77fe9c1a8d87e7dc92e938ac78ecf1fb01af2d38",
+   "pg11-p00269": "31dc5000bd98a707b59d1d1144d001da96cf8e6b0a11597b4805d2e905458add",
+   "pg25344-p00492": "821ba9792dfecc9955f661b03709612a4b4c3fe883ad47e492989e08626b453e",
+   "pg84-p00558": "8990529a3a8a0e4e8de578b8517f20732defbba77d9a2d932a521b3c4ccd702d",
+   "pg10136-p01777": "be7a03645783576ebb7eea2bb5f207a5cff5e22a8b3c63b03a294c7c07942c12",
+   "wiki-simple-000": "ed36435d75dc1ab9b7f41da7c4920beb970032bdb71dde06cbb168fbcf302fa5",
+   "wiki-en-000": "d93b42056e6615b8faa56cb0b4aa15606794e3e4430b3c0b72a5b482fb2a6741",
+   "wiki-simple-001": "a7c8d9920ceaaede4768e672296fd64c5d0759fdffd70350b19103e82ad088d3",
+   "wiki-en-001": "077752b0fbd292737ff8eb9aa498da006dae22fcb9c9188d6617de260f566383",
+   "wiki-simple-002": "324ee69c511c4fbee479a0ea150c22d65dcbcda699b6a40efeb25bdba1cba1cc",
+   "wiki-en-002": "fa93fc438e27a91d97bd38cf7fb120429a2b76ae57ef8dc93ebdbe93236f7c88",
+   "wiki-simple-003": "64c01ba54b1d6dbf7195e1ad212c01055722d7ad333c53fc8f8c443ee4abb67f",
+   "wiki-en-003": "7cfbce6d3743f5c34f149939f6aaa8034ce5d9ce8a26efbdcd300751d2206898",
+   "wiki-simple-004": "1820e5e880c0503fc835f98ff2daa0d1d3a2c7f0a61af6dfb227845bcac203d8",
+   "wiki-en-004": "d2300be846a120ea32064d2440edd0589247f65b8c9f4b341c101f64a9024788",
+   "wiki-simple-005": "ef96cfd8f3d9ea5bc5485304bbefae1927e48d95deb4cef6c6ce6a062bc7bb26",
+   "wiki-en-005": "92ca88109dd3926ed509ee854851e3c57e9a683a674de864d217782d014c8f9b",
+   "wiki-simple-006": "2581ec34b5f97c1aa551d7ae3e1f8463ccde8af4dae6a70572120e8290c24661",
+   "wiki-en-006": "761b04fb9637268412cf9cb95394e108ac35a37949ffc73f9f68c907fa05c136",
+   "wiki-simple-007": "ab6d795d705e83d5c8e47c0c3e8a513dec2cdff8e90ada7794967da70c0b2e38",
+   "wiki-en-007": "a48dc37d161f86ad694acd81729bbfd5f694b867fa82a02265b304a3ea86ec20",
+   "wiki-simple-008": "2312219c872727052e392868c961e99392ce8aaad708400fef9cb72f4ae81ba2",
+   "wiki-en-008": "f129b3143dc24cdc0dea65d0afe142dc09fda3264194b601b760fd4d813747c9",
+   "wiki-simple-009": "1290d258f7d825b2d816f20f953170bbbd6872f60fcaffecb316e9fe7f67587a",
+   "wiki-en-009": "9564f5ede5b28be8bedc5befcca5d0377a04ea5b69b37e42e91b27cd04e7d6d3",
+   "wiki-simple-010": "8a1a3c86a56e78307857bd863c8110b5d6b72cf99f9e91b5325574df0fe4cac1",
+   "wiki-en-010": "c28b01502254ccffc1adc5a981c3186826149713bed1e1aa72200eea438c39a4",
+   "wiki-simple-011": "c5c1910afeeb365474c09a2c762fcb5b6f508c007acd7d2dea8a6a3762c46801",
+   "wiki-en-011": "e9c8baf68e0928e02788566dc2c0e6c05e47370d906d99b5175bd5a5fa5f13c7",
+   "wiki-simple-012": "b348c22f051a58b1f57c5ebf954663013568669d6fe5230d2edadd29d6a31fe7",
+   "wiki-en-012": "4bf934e21613157770101dc5f3f1422117f0d5d1c7e9da94c1a0732f4cb5a92c",
+   "wiki-simple-013": "ae90682f8d4bba48bd6fae0dadba82b3b69687f12b7d1208e0ff709da8f2273b",
+   "wiki-en-013": "a8c9c8e461c06b46d6438c81ca4bad1eef18495b891f68c4de1705f26be79085",
+   "wiki-simple-014": "6f16f86ceb31ddf20dd152aae2009625da16bc59bec1fa96a32dc32a4772c999",
+   "wiki-en-014": "9c30251555097b8b6b6fa53ce34c0b1f49b6dd3aa3a7eda0df7aaa723b317ae7",
+   "wiki-simple-015": "2c36c52182542c2b57c14526f7ade7475c7954174552aa3d3d87ebb3c4264e45",
+   "wiki-en-015": "938e84d6b6fe3830d4f6aeff0d6dfbb0cc63b5619e656ef998c27767b2978ed9",
+   "wiki-simple-016": "0154c5549d2553b4b6cede2b2829aa1325bf6cf43a23959a2c8744d38626a3b3",
+   "wiki-en-016": "74b9645adf2a7e41f15a96943eda620ca48e7a243a8c68029f3f119c546958a1",
+   "wiki-simple-017": "ce4d0942346943605cb55bd24f5c31543f807e47510c7e6170c910919a7a28c0",
+   "wiki-en-017": "d1ec15ec90e237ceeb2dfd13b32ff368ac3758adbddd57eacf7670e79a2a2334",
+   "wiki-simple-018": "1daed510e8525034e7a07fb26f907cbb1231434640daa1d9ee9066c3f0bcecf9",
+   "wiki-en-018": "cbd1cd01f8dcbe33700a4b041e89812933cbd2b58c31cbfb30f451721bdcd93c",
+   "wiki-simple-019": "c7c5a68dbf9343bba329d2f1780152271aa0bbf25f6279f1b79df7121005ba66",
+   "wiki-en-019": "c67401cd2f22797039048bae2097f7c412e894723de3189c95b0c9ab478d81aa",
+   "wiki-simple-020": "92f49d92ef550678bb60f2518ae3cc95fe7f3223e87acce8e6f637e0ac60fafb",
+   "wiki-en-020": "906b6686c7b46607e266915e273f50bfd01897b886368d99d46908a84563111e",
+   "wiki-simple-021": "02f4220d91e3ee6ef5d3b37f9820866a18bcd61edcd7a41bfbf3aebde75c9007",
+   "wiki-en-021": "dea673e7175148ee3c9d6008a7f7b9f1e49153022743378cfb2266ba36260b76",
+   "wiki-simple-022": "a4303d4a1f0764b1797c9f1c09d8189330d8509b233d8e8c96d9806110556cf9",
+   "wiki-en-022": "79cc44530720eca0b9d88d69c5e677d1820b38fb9498fee5abfb7f4d7fa0fdbf",
+   "wiki-simple-023": "9c7938add5e639d04dc80fff876184bf561d01613a303f8d7c40076f238c30ed",
+   "wiki-en-023": "fd25697dd21c8f0c9136ae8ddb0cb5899ca06bbc0671c5d09326540d64b0764e",
+   "wiki-simple-024": "86f61d578255433ddb174717bfc91f019214e0eca040a5deeffb8f5ce8a125b8",
+   "wiki-en-024": "64222584691ef58e5947fa570e4fcbc9398fc38b9554ca31b2eaeaf24aa74d23",
+   "wiki-simple-025": "e139db67f98fe6402d33ce67c8a233f63053ff0ffe436850c007003d33ec6c4f",
+   "wiki-en-025": "df7e14260423833e0cb5cb5dff445d17bcc1835409a5cfc61cf568df09d9fe9b",
+   "wiki-simple-026": "93793bde86e1f8f4d2f4b965de2158c9b37c10631db1f3feb413a62134fb139b",
+   "wiki-en-026": "52093c722ce6fd3145b63e24ed386a7da938b506c5da144f05f66ca6c500c5bc",
+   "wiki-simple-027": "c3007ad02eeea5e8f67eced914a8b78eea8f1d146eeec96446f350256affaa41",
+   "wiki-en-027": "c54a96b82bf158d87d0a8075d7d1aba63b3b8c4b44ad2db1f4d962a71dda265d",
+   "wiki-simple-028": "4c6882fc39a4b0703a0fda344b20abcefa58e55bca30b977dc520616cc449d55",
+   "wiki-en-028": "ffa610b35394431f77065a30c4bbdb071e95206593c76ac85d7e8c888ab09dfd",
+   "wiki-simple-029": "3e5d3481910a1d72402d834acfe82d1e15c6d47421cd7b8a4f43d2c0ca116408",
+   "wiki-en-029": "b661852f309de951474eb2071856dd3ac89e52a1cf8362de04e51d7f40094ecf",
+   "wiki-simple-030": "5dc6afbc4fe8878c3d2fe8295807301ccadd03e17cb5d67d84f841b491f39987",
+   "wiki-en-030": "1a78c477e263254a1cb68e161ac9d79a060760ff91a8946f1c3a4fe3767f51b8",
+   "wiki-simple-031": "24246419ae7e82a27080954e4c09d5f490acf834a456be7813fba4d9e28d2129",
+   "wiki-en-031": "22fa4891c7f9c0a3c241bae84daf7f7de4afa95ec88fe499d63627baf7ccb2e8",
+   "wiki-simple-032": "fbcbfc41f8cee7e7e57b403b04421de3da3159d64afd7d4cd9d081db18b97917",
+   "wiki-en-032": "3d915895dfb1c3368c6c53f499d1372c5a7ae9821a645813733ed645f1fe9291",
+   "wiki-simple-033": "18b7e351579b39510828a4226fdfb2bc84de0e8854456e43bd0441c3ab85a7af",
+   "wiki-en-033": "5f6a2041333bbfe1f883ba19dda7950e398312c64e41410970cf7aa579dcf475",
+   "wiki-simple-034": "ad393d30697977355c54e7f16daf2377bb1e2725acbff9183394a22dcab9e2b6",
+   "wiki-en-034": "ffb343d720f3856efb4da9dddce22494577411c5a4d39140d836f2f219fbc23a",
+   "wiki-simple-035": "7a6999005fef99e3fd6515199e97122d745a595280349cd0a7fc4f28a95cc19a",
+   "wiki-en-035": "2d759a772f84ebe78eab608062bafc31a50a9402e52513092f49c7cf051580cb",
+   "wiki-simple-036": "5715d55bccdfca658205057bd702f5e2bd26641567b275aac295641550ffaee3",
+   "wiki-en-036": "8f1b87c72f10783ebfe6f3dece7daac99499a0b59d4989d11ea88c9de60110ba",
+   "wiki-simple-037": "83d9a0ff15bc0eb8b7cad16dc557b7d77a7c0e7278a755a39a931971b8ff0c65",
+   "wiki-en-037": "f665813143debfcfc7c17780560d4d1c73589f8c62661d448241ae60a480d012",
+   "wiki-simple-038": "f48329e259154ec062075f5c32f6cdbd5992ff164018c86014945f2d4a02ce80",
+   "wiki-en-038": "f79e7e821720509ba0ea69b55bd75a35f6ab66d0cb223fd4aeae2f5012ac748a",
+   "wiki-simple-039": "7bb646f7d1521b427f93f6f215c32573ee92446b64fd414dcd5fe466a672d310",
+   "wiki-en-039": "6d611515f6735ee362c3663d0b75eadb521fff0c936200dbcc0623342145af87",
+   "wiki-simple-040": "cd63614a238eef7bd91c6310d4df7323bd22c1edc6700a727613b03e45a11c1b",
+   "wiki-en-040": "909030417b81c5bd5c4729d0b603f1bd779722723ac562a78d220966b68cdaa4",
+   "wiki-simple-041": "d6b772ad78b5f6b92dabbed63bbb3fe9b0511d5f6d7aa762203d4067e602856a",
+   "wiki-en-041": "6bb9e8996ce2b5d7ba3d5516297a85acdc957f0ec4a893b52fb48279ab308250",
+   "wiki-simple-042": "e54a6aec54ca040325269a06f5c940fdcb117adbf0618d594ab18c3e6421d4a9",
+   "wiki-en-042": "821cfd566d333dc803decf81310a03f7a16fbc4be72be81a39c3c99f7871e0b3",
+   "wiki-simple-043": "5280c0c56c7771206fb74bb3b0244d8124303aad45b6fe77fc64d5c277ff13ba",
+   "wiki-en-043": "c5cec2636f222b2ff5103dfe558485c1c98aff6dc8440717d3ccc9a8aafd1948",
+   "wiki-simple-044": "96d7c9b701bdc027179e33866e840831de4e12cb597200d4de75eb9058e7ae11",
+   "wiki-en-044": "8445036f720027aceda9e3f1f761aa247fb3a1c5492602f7003de618e68c924e",
+   "wiki-simple-045": "a144789e0e8fa150248c60c05a2f6f1635baa007ca163106dea6b1735c7efde6",
+   "wiki-en-045": "54b1c64551ab704678327ac4508e40d6423e07883f19f254a84cc0d7b1750c62",
+   "wiki-simple-046": "9a4475cdd3919ba785b4e4789af54e58d00fdde60b8e67a9ab5af8cf8f4a903b",
+   "wiki-en-046": "74eaffd778ace3e1966d8119505199bd064ced90a736cd5c49512fe7f753720e",
+   "wiki-simple-047": "7308253a3f7a40cfc416742f377d569ea22cb3328ff84f4381796ba116601189",
+   "wiki-en-047": "6b504a608dbcefec36374977ea9d94ca485762683c8f1b2b2296f0b85992b9b3",
+   "wiki-simple-048": "3331b5ebf774e8a95e7c1096695af8d3faf78e16b15ea7b353a787f45a248df0",
+   "wiki-en-048": "fa7b5bfd54f6667f47235b0c449154ec62a4659317e911b3f8743bdd972867b8",
+   "wiki-simple-049": "99a6621fb75a995f2c7b04ee31bb4fd0ef3af2bef596b0ef8c5de63b78326b87",
+   "wiki-en-049": "d08711faa6bcf855e02ed360e5667c32b71cd41135419f4533bad21c1879882a",
+   "ellipse-F2BAC6095D8A": "7682afdbd2aa719a7d533de880767c1d4777e178b8e9e1c944967fbe274f9160",
+   "ellipse-E433745B3F87": "fada2bfc6dd6cbafc88baf2a3710916e5f648954c5898dc94e1036e31be2ab37",
+   "ellipse-40DB9B4FC90A": "e4c6cdf343bc431b47a56d4297148441339ec6fbc468c47412b41318a7de4723",
+   "ellipse-6A7F75AD2ADE": "ddf8a93f8dc91ba58a700fbcf4dfd6129aa226544922d384ee35c9d573724fd3",
+   "ellipse-E382BBC2D88E": "d51208be3505480c56b995d378884349f76316b5e6b31ea612d103928d057fd3",
+   "ellipse-13D960FD28CD": "1ec34de34e74765fcd4b2b49f23ae6e169875417c14d51b3ea2de95370f65f82",
+   "ellipse-F49521C3494B": "e03a82473c1015d204c44e3ec879ed9127f79e051b76c00b66d9ee50ec4c2e6d",
+   "ellipse-90978A2F8599": "030458d0d736b1f497f03f6242f5ef86feb794cae432307421665fe9a72d2b04",
+   "ellipse-9E2645222231": "dc974db447f979cbba43a315f8d1200374d201259fd0ee95b13b4dddf5ea5d18",
+   "ellipse-AAD6A5CBDDB9": "aed44aef622fd1ddb096ac5c20b8d6b408477b081c77ba609c3283be51f108f7",
+   "ellipse-E5C9AD14EB2D": "469846a13baff9728d906bb9bb1db329613bad238204f1332995b0a44b7e63d6",
+   "ellipse-253108CDC69F": "a794c95db257d04d68f68f260f0a48dbdd5541d7ace784cabda0ecb2e1f7f063",
+   "ellipse-EEE7731E8A57": "27ef03dd21e5b719e2f82d2361612ed7a147e6ac1f9b267e3ba99d59f21204f0",
+   "ellipse-47261D6E0F08": "74b878b94dcdf853192e77c3cf0bab65c69c18f8660f3b65df91bb2552ddeb3b",
+   "ellipse-F6AEEC01F174": "07253bfc5c5c844547744534b62930761e19c7a37146e6bc37487dd20cbce4b8",
+   "ellipse-11DD0B26B584": "51fc4db474eb09aadf065a1ddb54497c744e6e4ca32bea7647cdfeffb934f834",
+   "ellipse-C01AC1CDDD65": "ae88849e08c7b060df8c145d4828c8278aae304447beff1843f044382333f23e",
+   "ellipse-589CEB00ED37": "4148477c3ce73356c0fd30691f26bea0b20ec0d5de02c065cbba54c419f07c2a",
+   "ellipse-526E417A97BD": "86d482184a768378f68327184eeace5c7c3310081364edb2a47ed8bdeae4c649",
+   "ellipse-B385E5EE33B9": "accddfc146936c9742d19f9910f072a50b71238646d4b58cb6643e2e7e307561",
+   "ellipse-F1A4167422E2": "1fd10f8259596100ef83b91d6a345560c5ad8e62a95c9c1501335e10df0f1b20",
+   "ellipse-FED42BB10805": "bd0d4c726ef4970fd9fac7f060a8009d2e25344f920be3066a2233ac1ba14aef",
+   "ellipse-3CACE02FBD5C": "be115d0612e603b0e8d3caea9a9499541eddf5e0ce16b00bf92942110ceb70c0",
+   "ellipse-DA674E9EB26C": "c00bca5c0fef5778c4982abf4a42a96d1e73612e91c744b8232917a2a13202c7",
+   "ellipse-A9544F0E8868": "798898eaab9d5b48299d0b86506d2b4f2426aa1db286b3d8cd923ce30b9f59b5",
+   "ellipse-9F7610DBE2DC": "8ba608ed55d190b6eefddd4e0b4aa59e12eb1203eb396cf83747c9c2ca3bf549",
+   "ellipse-FE8A54A36006": "c963b9cbe47495d4205bc6dda553f214f72fdf1b2888ad6435c1544295435931",
+   "ellipse-0FF307182628": "15bec3067e61d39d2ecd7af9dd94770581a83d2708330693a0e0179d27f288c2",
+   "ellipse-4D3CF318797A": "4e08503d38ff1717878a2a0baa5c5a13af598859ca725bd126112d206addc67b",
+   "ellipse-F4CFA4007C99": "72fda1231be0e8d982b951bc3e0ec438820847649deacb2114534315090746af",
+   "ellipse-E7A76C48340D": "db052bdb1f4dc7a605a70caba83045d66d354a6b4d8b9f73813b24c6f61d3770",
+   "ellipse-28C8F048A469": "08061ec59b9d606ffd99617332fd83f0c4c24e608ede24e1c650ab7651ce7a53",
+   "ellipse-FA145FA7B678": "3ceefe57186e57e3b8c50bfbe03c3f14aeafe94f9270441c439af87423511cdf",
+   "ellipse-C649BC3F0C2D": "ea59601e4053aaf5094d259be5c0bb919f0f6e9bdb067c13e3adb28b143c14d2",
+   "ellipse-2358C2CE9966": "98caffd6565f2c0be386d05da6592e7dfd148e522c4b7c803342b0d5b3c13721",
+   "ellipse-17D51D57629D": "2303e1ad056c7b389533493b73b0d5093a47c28300c4b25795a216b2eefd370a",
+   "ellipse-B7A0347C68C3": "2e32cdd04c80171d40191703efe57d31ad27ac9c7ebe8ca704406dff5360cce1",
+   "ellipse-E55289EA6492": "26285b5641bd0b80afc5480d13c703c445188fdc0d7258e3fffed5ae9781ecac",
+   "ellipse-FF7FE6BD8509": "af3ff85e756169311867a55c3bc0c467facf42c1803bd3b65b8416c76d8ba261",
+   "ellipse-4758405809B3": "7aeaf0a47050b28a8af9c73682bf992c44ea95d17ddf54de404a7aae5e940ccc",
+   "ellipse-BD67708C0609": "02c9c15490bf0bf6614a20d993fcef1a3a67220da60b14c684843260b61b44eb",
+   "ellipse-DE841BF24A2F": "fb1c523e4770db95443206516b3da87199ed229cc59ea380f96fd38b5bb88d8a",
+   "ellipse-EBE0730AFF0E": "cae580ce1e60d215ce416ef0265a2b9bf0721bd7a3a16a334084d89dcfa80d33",
+   "ellipse-44C1594D0950": "fdd2f52ff32715a0a932e8fd3b3fd50a7c51090052b4313411a3c854e8bd3322",
+   "ellipse-F6886170FAA3": "3b1d96e54d86373ae60e58c0d4acc4620c35b8b06f28ffa336c00fb17207f32c",
+   "ellipse-AB75D2DC92B7": "0d3a2e53f386e9f305690841a4bc316549d9bda7a508f859331644d2947b568d",
+   "ellipse-9DE684107A66": "0bbe14a53ec63ead9461917307a7dad5ccf250ea6434fdd8fb765d6cc842976b",
+   "ellipse-136F4548CFD0": "03fce5418d5bd675a8dbcfa9336fb0df245f9b506c2d0194906c974b794eaaf3",
+   "ellipse-F772343CC7A7": "2620a981d4e39613b6dc3464874efc99195cc46cbbf8394742b6991d705fa988",
+   "ellipse-DAF9AC30424E": "ca0d85fa433b8684ec76b255af03d2b50303c5fdeab2d74912ba2ea0eb0b42df",
+   "ellipse-1F28812EE23D": "80110a8ee0613dca8d94500ad819b29b5b91ef39f393145cd77b734efc65d17e",
+   "ellipse-CFA55621F274": "8d25a08ab590b47d79d008f8c35338f2559b08c00dbe313d34c31b45646b8676",
+   "ellipse-FB68439D9CBA": "c99c3c92aa29f136987dd3cce20f90b853a8b3b68b8ea6080cfff46f142974ac",
+   "ellipse-D0CC47FFC293": "4de6d1031609b901e5d9374106f4301899f0896f97bffb32d9b7eb1637ffda96",
+   "ellipse-998DA357F910": "bdc7ffb1232c4ed5013c20ac37d4838bba15055e07f49fcce44db28afccfc93f",
+   "ellipse-0022683E9EA5": "057f4c1ee80fbd6b759ac6096bd5f985e5ffc17eb8bbe34bce03d9d8e9be9517",
+   "ellipse-EC3F3F26E635": "bf685ebeaf2405a91cf56d892f7e75513128c0076f4cddebea166afe0beea5a4",
+   "ellipse-1849B89A02D6": "93d6744bb30ea82e2392e1842523e0bdcbf1b99b1d82edd2a883f01f124a9565",
+   "ellipse-AD5621D2A958": "8f135f9559f3b6ba6183fa52acd38e5965b83d61334d8af4b37d33b7ecedbb4f",
+   "ellipse-20CF9410DC4A": "8975b1d2b4d033c6966e03cbda8dd2ea3672f830befe79cb7beb72d9c3a78cd4",
+   "ellipse-D15E85D292CE": "04c513c0e4d082a1910a9d59ab3ca2ab1e1eb02d50c770a5959c5baa86b56170",
+   "ellipse-375ABFC3D6F5": "697a042ab462a6b0c5bf210256f0f33f07eb349ae815a0a68889b849f0dc5b37",
+   "ellipse-E4C49D70C330": "ed21d978293ddd934306daf4203f8e25fed70659d416a3b02db9c3d70bc32b34",
+   "ellipse-1D47271C213D": "66cbf066743d874bdcc6cec4d6f5ef1854efbadcde6cb994a56def73e2118e9e",
+   "ellipse-C265A20FB301": "4cd6746ed3fcf819e5f6c27cc8f36100f579d7074c6515644087e41e8083303c",
+   "ellipse-B59B6731525B": "1d1e163a835c4e5ae649602a768b20e1314a07d3d478733744534d535908c27c",
+   "ellipse-0E14B9D24898": "ae1b406af92dd49e6d4fe21e55b41c24dd60683a48b81afc0a0e0dffb6062576",
+   "ellipse-B106E3896C56": "a6f79f75886fe2da622856d08fb7d520cfc318b9b760bba719c407880292fc37",
+   "ellipse-EC8590A774E6": "4d17554e253242bfca347827f4f81ff2595e9ea537c4ec9e25706681dc0403ca",
+   "ellipse-0AD69388300B": "42410854b06e179620e7d1ffd65d6be19623ace41483bc1d33a30c09664a0cf1",
+   "ellipse-6C9BFD05D35D": "4c39635fa962d277a4454b06a71ac2657965b3771e858445468eaebe1410ab4b",
+   "ellipse-AB7823891008": "5e8c665079e2802baad7d3ba90fd779d47724a0c1f118851ed347b918368fcb9",
+   "ellipse-D679B3291B9C": "235ec42b92497f10b5890c1aeb49311b68742c1874759870fa4472ced43ce535",
+   "ellipse-25130AAA9552": "15eacc4e16ee4c217da5b02670867180a947e1094cdf993e622ee2becc8c23b1",
+   "ellipse-FAAFFC983E47": "dc22443a3aef768cd2270a5511b1b72015591b4d24c66b77e327e3071061ecfe",
+   "ellipse-5F67A5D3DBB0": "2798e0a9104c9659320cab14ed298ba345f83f60e07d0632635869257d68d248",
+   "ellipse-1F7FD80F4396": "55ec1c1041ae9fa54cf7b75955d86fbf25c47674c1832266d6ab7aa82361e93f",
+   "ellipse-AFD325C9347D": "83fa58685b19b490024466d2ef730c8a7cd85db5aca3650d2bbae17440ba213a",
+   "ellipse-125C1167A84A": "0f525cfff250a84724062e50bebff61aa294b7a3aa61147c5251fe6e5de765f7",
+   "ellipse-194E86ED4117": "98c591eb026f2cd22f07199f4b0048665847961f35653c726b6ac1a2c088dcf1",
+   "ellipse-D581D89A822A": "1c3bd961fb9c5760a45ac4ca3a1c5488e5cc61677f3685563e1d4e054a1e9e7e",
+   "ellipse-E2456BDC6648": "fb9aba7049a18b13c50fe81483ff41d94bff9cb4133f993759081de943794842",
+   "ellipse-9145AB74E1DA": "de9e280e8e3ebc07f1f38e88d8d55b90349ca2a63d84551f76aa8ca43f157cad",
+   "ellipse-A22BC15DDB95": "4cd3ac925e70066d3e080bbf3f2f97b083e5aa11d9be77d004a509727336dcd3",
+   "ellipse-4967076F4E7F": "dd11097bc4399ad4bbd188d604005c49af99a39159323a0591648deb17db0c0b",
+   "ellipse-FB1A86FB4BFC": "00d57b0c43a83097e0362bdecede3eca7bbefb7ce4757db6e9e4dbf4ed5659ac",
+   "ellipse-DDB673D3627D": "0bbfa55cd84c2e4a54a66961e5b4d22fe9e307382fd996c76dcfdd461053a7b0",
+   "ellipse-9653A4188D80": "6b0d5c7f57f5de52d46709f9e562a8b96daf6b0f383c2dbc6a480f61d806486d",
+   "ellipse-9B42B1750AD8": "c76daf0be0db7ee2728504bdd98aad432f1bb62c67e9bf896487a0e246097a83",
+   "ellipse-A0B2BF94231C": "e82139985d560a962952467d473b4386828af2340e09f3b2c66a4e87052353a5",
+   "ellipse-F093FCEEC17E": "84b97a1497c6dc927e9efe2a37db52e8cd41baa8b9fed25a106f184dbceb54fb",
+   "ellipse-F57B95D17755": "4795db7efe4c64d9c731c0147b8f482227e215e9a1c21d00e6d231b55fd312c4",
+   "ellipse-88816FFD8A5C": "8e48d2d57029862f80211b2d1c6e35fecca17d42ca2949f109ab7cbf89852413",
+   "ellipse-A28E9B475935": "db4a16c67408eb702c1324b5c465826426ee88f836c98c3947a77b5498ede5ec",
+   "ellipse-400E5AA27067": "19424ff3f6bf73bc39a3237bee2d1e02aed16b65a6163c9abaaf96522b9e270a",
+   "ellipse-0A324290AFE7": "be2900fe18546b39fc8a9b2d4e748fd60a46e8bad55e1b03fb042e7a5b55d1b4",
+   "ellipse-D77A3352CB34": "38b540f6cad7b0c23485968635348c921e99209df277cea01d56e8f8da20e205",
+   "ellipse-9C7B4130AA3E": "2977cccb3098917ece39869dcc40f6128178bba118362f3b2f5599b6f1f84253",
+   "ellipse-B2919590BDB0": "a7a7daddc25f91a65ce3220465247e5ae9a5d5506ac630f273bb6812f98edf9a",
+   "ellipse-CEC1115B69DB": "1d2fc99ea56931f7fe1e9bf34969e732536ef909b43ecdb5cbb078aa62d5b9d1"
+  }
+ },
+ "conventions": {
+  "difference": "lexinspect minus reference",
+  "compatible": "Pearson r > 0.95 (a working convention for this study, not a published standard)"
+ },
+ "readability_own_counts": {
+  "Words": {
+   "n": 300,
+   "pearson_r": 1.0,
+   "spearman_rho": 0.9999,
+   "mean_lexinspect": 650.6933,
+   "mean_reference": 649.62,
+   "bias": 1.0733,
+   "mean_abs_diff": 1.0733,
+   "max_abs_diff": 14.0,
+   "tolerance": "±0.02 (relative)",
+   "pct_within_tolerance": 99.0,
+   "pct_identical": 62.7,
+   "compatible_r_gt_0_95": true,
+   "lexinspect_column": "li_words",
+   "reference_column": "ts_words",
+   "top5": [
+    {
+     "id": "wiki-en-026",
+     "source": "English Wikipedia",
+     "lexinspect": 1004.0,
+     "reference": 990.0,
+     "diff": 14.0
+    },
+    {
+     "id": "ellipse-F1A4167422E2",
+     "source": "ELLIPSE corpus (train split)",
+     "lexinspect": 447.0,
+     "reference": 434.0,
+     "diff": 13.0
+    },
+    {
+     "id": "pg36-p00596",
+     "source": "Project Gutenberg",
+     "lexinspect": 946.0,
+     "reference": 934.0,
+     "diff": 12.0
+    },
+    {
+     "id": "pg74-p00649",
+     "source": "Project Gutenberg",
+     "lexinspect": 675.0,
+     "reference": 664.0,
+     "diff": 11.0
+    },
+    {
+     "id": "pg2701-p01520",
+     "source": "Project Gutenberg",
+     "lexinspect": 840.0,
+     "reference": 830.0,
+     "diff": 10.0
+    }
+   ]
+  },
+  "Sentences": {
+   "n": 300,
+   "pearson_r": 0.9913,
+   "spearman_rho": 0.9915,
+   "mean_lexinspect": 33.4233,
+   "mean_reference": 33.6833,
+   "bias": -0.26,
+   "mean_abs_diff": 1.76,
+   "max_abs_diff": 15.0,
+   "tolerance": "±0.1 (relative)",
+   "pct_within_tolerance": 81.7,
+   "pct_identical": 34.3,
+   "compatible_r_gt_0_95": true,
+   "lexinspect_column": "li_sentences",
+   "reference_column": "ts_sentences",
+   "top5": [
+    {
+     "id": "wiki-en-030",
+     "source": "English Wikipedia",
+     "lexinspect": 36.0,
+     "reference": 51.0,
+     "diff": -15.0
+    },
+    {
+     "id": "pg36-p00596",
+     "source": "Project Gutenberg",
+     "lexinspect": 100.0,
+     "reference": 87.0,
+     "diff": 13.0
+    },
+    {
+     "id": "ellipse-0022683E9EA5",
+     "source": "ELLIPSE corpus (train split)",
+     "lexinspect": 25.0,
+     "reference": 14.0,
+     "diff": 11.0
+    },
+    {
+     "id": "wiki-simple-013",
+     "source": "Simple English Wikipedia",
+     "lexinspect": 57.0,
+     "reference": 68.0,
+     "diff": -11.0
+    },
+    {
+     "id": "pg37134-p00046",
+     "source": "Project Gutenberg",
+     "lexinspect": 48.0,
+     "reference": 38.0,
+     "diff": 10.0
+    }
+   ]
+  },
+  "Syllables": {
+   "n": 300,
+   "pearson_r": 0.9971,
+   "spearman_rho": 0.9975,
+   "mean_lexinspect": 996.22,
+   "mean_reference": 959.2633,
+   "bias": 36.9567,
+   "mean_abs_diff": 37.0167,
+   "max_abs_diff": 231.0,
+   "tolerance": "±0.02 (relative)",
+   "pct_within_tolerance": 62.7,
+   "pct_identical": 10.3,
+   "compatible_r_gt_0_95": true,
+   "lexinspect_column": "li_syllables",
+   "reference_column": "ts_syllables",
+   "top5": [
+    {
+     "id": "wiki-en-020",
+     "source": "English Wikipedia",
+     "lexinspect": 1776.0,
+     "reference": 1545.0,
+     "diff": 231.0
+    },
+    {
+     "id": "wiki-simple-020",
+     "source": "Simple English Wikipedia",
+     "lexinspect": 1639.0,
+     "reference": 1419.0,
+     "diff": 220.0
+    },
+    {
+     "id": "wiki-simple-021",
+     "source": "Simple English Wikipedia",
+     "lexinspect": 1794.0,
+     "reference": 1584.0,
+     "diff": 210.0
+    },
+    {
+     "id": "wiki-simple-006",
+     "source": "Simple English Wikipedia",
+     "lexinspect": 1717.0,
+     "reference": 1518.0,
+     "diff": 199.0
+    },
+    {
+     "id": "wiki-en-006",
+     "source": "English Wikipedia",
+     "lexinspect": 1815.0,
+     "reference": 1623.0,
+     "diff": 192.0
+    }
+   ]
+  },
+  "Syllables in words without digits": {
+   "n": 300,
+   "pearson_r": 0.9996,
+   "spearman_rho": 0.9993,
+   "mean_lexinspect": 959.8433,
+   "mean_reference": 948.7867,
+   "bias": 11.0567,
+   "mean_abs_diff": 11.1167,
+   "max_abs_diff": 111.0,
+   "tolerance": "±0.02 (relative)",
+   "pct_within_tolerance": 87.0,
+   "pct_identical": 12.3,
+   "compatible_r_gt_0_95": true,
+   "lexinspect_column": "li_syllables_no_digits",
+   "reference_column": "ts_syllables_no_digits",
+   "top5": [
+    {
+     "id": "wiki-en-026",
+     "source": "English Wikipedia",
+     "lexinspect": 1857.0,
+     "reference": 1746.0,
+     "diff": 111.0
+    },
+    {
+     "id": "wiki-en-040",
+     "source": "English Wikipedia",
+     "lexinspect": 1511.0,
+     "reference": 1409.0,
+     "diff": 102.0
+    },
+    {
+     "id": "wiki-en-000",
+     "source": "English Wikipedia",
+     "lexinspect": 1710.0,
+     "reference": 1615.0,
+     "diff": 95.0
+    },
+    {
+     "id": "wiki-en-023",
+     "source": "English Wikipedia",
+     "lexinspect": 1652.0,
+     "reference": 1580.0,
+     "diff": 72.0
+    },
+    {
+     "id": "wiki-en-001",
+     "source": "English Wikipedia",
+     "lexinspect": 1659.0,
+     "reference": 1588.0,
+     "diff": 71.0
+    }
+   ]
+  },
+  "Polysyllabic words (3+)": {
+   "n": 300,
+   "pearson_r": 0.986,
+   "spearman_rho": 0.992,
+   "mean_lexinspect": 84.8233,
+   "mean_reference": 74.4,
+   "bias": 10.4233,
+   "mean_abs_diff": 10.5833,
+   "max_abs_diff": 70.0,
+   "tolerance": "±0.05 (relative)",
+   "pct_within_tolerance": 48.0,
+   "pct_identical": 26.0,
+   "compatible_r_gt_0_95": true,
+   "lexinspect_column": "li_polysyllables",
+   "reference_column": "ts_polysyllables",
+   "top5": [
+    {
+     "id": "wiki-en-020",
+     "source": "English Wikipedia",
+     "lexinspect": 226.0,
+     "reference": 156.0,
+     "diff": 70.0
+    },
+    {
+     "id": "wiki-simple-020",
+     "source": "Simple English Wikipedia",
+     "lexinspect": 179.0,
+     "reference": 113.0,
+     "diff": 66.0
+    },
+    {
+     "id": "wiki-simple-021",
+     "source": "Simple English Wikipedia",
+     "lexinspect": 197.0,
+     "reference": 143.0,
+     "diff": 54.0
+    },
+    {
+     "id": "wiki-en-000",
+     "source": "English Wikipedia",
+     "lexinspect": 228.0,
+     "reference": 174.0,
+     "diff": 54.0
+    },
+    {
+     "id": "wiki-simple-042",
+     "source": "Simple English Wikipedia",
+     "lexinspect": 112.0,
+     "reference": 60.0,
+     "diff": 52.0
+    }
+   ]
+  },
+  "Dale–Chall difficult words": {
+   "n": 300,
+   "pearson_r": 0.8482,
+   "spearman_rho": 0.9011,
+   "mean_lexinspect": 98.6567,
+   "mean_reference": 188.86,
+   "bias": -90.2033,
+   "mean_abs_diff": 90.2033,
+   "max_abs_diff": 381.0,
+   "tolerance": "±0.05 (relative)",
+   "pct_within_tolerance": 0.0,
+   "pct_identical": 0.0,
+   "compatible_r_gt_0_95": false,
+   "lexinspect_column": "li_difficult_words",
+   "reference_column": "ts_difficult_words",
+   "top5": [
+    {
+     "id": "wiki-simple-006",
+     "source": "Simple English Wikipedia",
+     "lexinspect": 65.0,
+     "reference": 446.0,
+     "diff": -381.0
+    },
+    {
+     "id": "wiki-en-006",
+     "source": "English Wikipedia",
+     "lexinspect": 121.0,
+     "reference": 445.0,
+     "diff": -324.0
+    },
+    {
+     "id": "wiki-simple-020",
+     "source": "Simple English Wikipedia",
+     "lexinspect": 113.0,
+     "reference": 396.0,
+     "diff": -283.0
+    },
+    {
+     "id": "wiki-en-020",
+     "source": "English Wikipedia",
+     "lexinspect": 184.0,
+     "reference": 467.0,
+     "diff": -283.0
+    },
+    {
+     "id": "wiki-simple-035",
+     "source": "Simple English Wikipedia",
+     "lexinspect": 110.0,
+     "reference": 385.0,
+     "diff": -275.0
+    }
+   ]
+  },
+  "Flesch Reading Ease": {
+   "n": 300,
+   "pearson_r": 0.8996,
+   "spearman_rho": 0.931,
+   "mean_lexinspect": 57.1416,
+   "mean_reference": 59.9449,
+   "bias": -2.8033,
+   "mean_abs_diff": 5.0361,
+   "max_abs_diff": 61.5634,
+   "tolerance": "±5",
+   "pct_within_tolerance": 63.7,
+   "pct_identical": 0.0,
+   "compatible_r_gt_0_95": false,
+   "lexinspect_column": "li_flesch_reading_ease",
+   "reference_column": "ts_flesch_reading_ease",
+   "top5": [
+    {
+     "id": "ellipse-5F67A5D3DBB0",
+     "source": "ELLIPSE corpus (train split)",
+     "lexinspect": 34.68,
+     "reference": -26.8834,
+     "diff": 61.5634
+    },
+    {
+     "id": "ellipse-C265A20FB301",
+     "source": "ELLIPSE corpus (train split)",
+     "lexinspect": 13.48,
+     "reference": -28.1741,
+     "diff": 41.6541
+    },
+    {
+     "id": "wiki-en-030",
+     "source": "English Wikipedia",
+     "lexinspect": 5.18,
+     "reference": 29.0422,
+     "diff": -23.8622
+    },
+    {
+     "id": "wiki-simple-020",
+     "source": "Simple English Wikipedia",
+     "lexinspect": 41.72,
+     "reference": 62.2813,
+     "diff": -20.5613
+    },
+    {
+     "id": "wiki-en-020",
+     "source": "English Wikipedia",
+     "lexinspect": 30.35,
+     "reference": 50.8391,
+     "diff": -20.4891
+    }
+   ]
+  },
+  "Flesch–Kincaid grade": {
+   "n": 300,
+   "pearson_r": 0.9026,
+   "spearman_rho": 0.9295,
+   "mean_lexinspect": 11.094,
+   "mean_reference": 10.8627,
+   "bias": 0.2313,
+   "mean_abs_diff": 1.1484,
+   "max_abs_diff": 23.7866,
+   "tolerance": "±0.5",
+   "pct_within_tolerance": 42.3,
+   "pct_identical": 0.0,
+   "compatible_r_gt_0_95": false,
+   "lexinspect_column": "li_flesch_kincaid_grade",
+   "reference_column": "ts_flesch_kincaid_grade",
+   "top5": [
+    {
+     "id": "ellipse-5F67A5D3DBB0",
+     "source": "ELLIPSE corpus (train split)",
+     "lexinspect": 23.63,
+     "reference": 47.4166,
+     "diff": -23.7866
+    },
+    {
+     "id": "ellipse-C265A20FB301",
+     "source": "ELLIPSE corpus (train split)",
+     "lexinspect": 32.58,
+     "reference": 48.9878,
+     "diff": -16.4078
+    },
+    {
+     "id": "ellipse-0022683E9EA5",
+     "source": "ELLIPSE corpus (train split)",
+     "lexinspect": 7.73,
+     "reference": 14.2458,
+     "diff": -6.5158
+    },
+    {
+     "id": "ellipse-B106E3896C56",
+     "source": "ELLIPSE corpus (train split)",
+     "lexinspect": 17.24,
+     "reference": 23.1756,
+     "diff": -5.9356
+    },
+    {
+     "id": "ellipse-4758405809B3",
+     "source": "ELLIPSE corpus (train split)",
+     "lexinspect": 19.15,
+     "reference": 13.7067,
+     "diff": 5.4433
+    }
+   ]
+  },
+  "Gunning Fog": {
+   "n": 300,
+   "pearson_r": 0.923,
+   "spearman_rho": 0.9455,
+   "mean_lexinspect": 12.5124,
+   "mean_reference": 13.2058,
+   "bias": -0.6934,
+   "mean_abs_diff": 1.1646,
+   "max_abs_diff": 24.2804,
+   "tolerance": "±0.5",
+   "pct_within_tolerance": 33.7,
+   "pct_identical": 0.0,
+   "compatible_r_gt_0_95": false,
+   "lexinspect_column": "li_gunning_fog",
+   "reference_column": "ts_gunning_fog",
+   "top5": [
+    {
+     "id": "ellipse-5F67A5D3DBB0",
+     "source": "ELLIPSE corpus (train split)",
+     "lexinspect": 25.66,
+     "reference": 49.9404,
+     "diff": -24.2804
+    },
+    {
+     "id": "ellipse-C265A20FB301",
+     "source": "ELLIPSE corpus (train split)",
+     "lexinspect": 35.7,
+     "reference": 52.1375,
+     "diff": -16.4375
+    },
+    {
+     "id": "ellipse-B106E3896C56",
+     "source": "ELLIPSE corpus (train split)",
+     "lexinspect": 19.62,
+     "reference": 25.6173,
+     "diff": -5.9973
+    },
+    {
+     "id": "ellipse-4758405809B3",
+     "source": "ELLIPSE corpus (train split)",
+     "lexinspect": 22.14,
+     "reference": 16.2667,
+     "diff": 5.8733
+    },
+    {
+     "id": "ellipse-D77A3352CB34",
+     "source": "ELLIPSE corpus (train split)",
+     "lexinspect": 19.79,
+     "reference": 25.0391,
+     "diff": -5.2491
+    }
+   ]
+  },
+  "SMOG": {
+   "n": 300,
+   "pearson_r": 0.9628,
+   "spearman_rho": 0.9542,
+   "mean_lexinspect": 12.0565,
+   "mean_reference": 11.6763,
+   "bias": 0.3803,
+   "mean_abs_diff": 0.6332,
+   "max_abs_diff": 3.6968,
+   "tolerance": "±0.5",
+   "pct_within_tolerance": 54.3,
+   "pct_identical": 0.0,
+   "compatible_r_gt_0_95": true,
+   "lexinspect_column": "li_smog_index",
+   "reference_column": "ts_smog_index",
+   "top5": [
+    {
+     "id": "wiki-en-030",
+     "source": "English Wikipedia",
+     "lexinspect": 19.65,
+     "reference": 15.9532,
+     "diff": 3.6968
+    },
+    {
+     "id": "ellipse-5F67A5D3DBB0",
+     "source": "ELLIPSE corpus (train split)",
+     "lexinspect": 11.21,
+     "reference": 14.5546,
+     "diff": -3.3446
+    },
+    {
+     "id": "wiki-en-045",
+     "source": "English Wikipedia",
+     "lexinspect": 13.98,
+     "reference": 11.4968,
+     "diff": 2.4832
+    },
+    {
+     "id": "ellipse-0022683E9EA5",
+     "source": "ELLIPSE corpus (train split)",
+     "lexinspect": 10.08,
+     "reference": 12.4162,
+     "diff": -2.3362
+    },
+    {
+     "id": "wiki-en-041",
+     "source": "English Wikipedia",
+     "lexinspect": 20.09,
+     "reference": 17.7901,
+     "diff": 2.2999
+    }
+   ]
+  },
+  "ARI": {
+   "n": 300,
+   "pearson_r": 0.9213,
+   "spearman_rho": 0.9609,
+   "mean_lexinspect": 11.2902,
+   "mean_reference": 12.3222,
+   "bias": -1.032,
+   "mean_abs_diff": 1.2646,
+   "max_abs_diff": 30.8769,
+   "tolerance": "±0.5",
+   "pct_within_tolerance": 28.3,
+   "pct_identical": 0.0,
+   "compatible_r_gt_0_95": false,
+   "lexinspect_column": "li_automated_readability_index",
+   "reference_column": "ts_automated_readability_index",
+   "top5": [
+    {
+     "id": "ellipse-5F67A5D3DBB0",
+     "source": "ELLIPSE corpus (train split)",
+     "lexinspect": 28.44,
+     "reference": 59.3169,
+     "diff": -30.8769
+    },
+    {
+     "id": "ellipse-C265A20FB301",
+     "source": "ELLIPSE corpus (train split)",
+     "lexinspect": 39.18,
+     "reference": 60.7845,
+     "diff": -21.6045
+    },
+    {
+     "id": "ellipse-0022683E9EA5",
+     "source": "ELLIPSE corpus (train split)",
+     "lexinspect": 7.58,
+     "reference": 16.1453,
+     "diff": -8.5653
+    },
+    {
+     "id": "ellipse-B106E3896C56",
+     "source": "ELLIPSE corpus (train split)",
+     "lexinspect": 19.75,
+     "reference": 27.6726,
+     "diff": -7.9226
+    },
+    {
+     "id": "ellipse-D77A3352CB34",
+     "source": "ELLIPSE corpus (train split)",
+     "lexinspect": 20.74,
+     "reference": 28.3048,
+     "diff": -7.5648
+    }
+   ]
+  },
+  "Coleman–Liau": {
+   "n": 300,
+   "pearson_r": 0.9972,
+   "spearman_rho": 0.9971,
+   "mean_lexinspect": 8.992,
+   "mean_reference": 8.6926,
+   "bias": 0.2993,
+   "mean_abs_diff": 0.3204,
+   "max_abs_diff": 0.8926,
+   "tolerance": "±0.5",
+   "pct_within_tolerance": 93.3,
+   "pct_identical": 0.0,
+   "compatible_r_gt_0_95": true,
+   "lexinspect_column": "li_coleman_liau_index",
+   "reference_column": "ts_coleman_liau_index",
+   "top5": [
+    {
+     "id": "wiki-en-030",
+     "source": "English Wikipedia",
+     "lexinspect": 15.58,
+     "reference": 14.6874,
+     "diff": 0.8926
+    },
+    {
+     "id": "wiki-simple-013",
+     "source": "Simple English Wikipedia",
+     "lexinspect": 11.12,
+     "reference": 10.3834,
+     "diff": 0.7366
+    },
+    {
+     "id": "wiki-en-045",
+     "source": "English Wikipedia",
+     "lexinspect": 11.41,
+     "reference": 10.7126,
+     "diff": 0.6974
+    },
+    {
+     "id": "wiki-simple-029",
+     "source": "Simple English Wikipedia",
+     "lexinspect": 10.48,
+     "reference": 9.8164,
+     "diff": 0.6636
+    },
+    {
+     "id": "wiki-simple-017",
+     "source": "Simple English Wikipedia",
+     "lexinspect": 7.78,
+     "reference": 7.1408,
+     "diff": 0.6392
+    }
+   ]
+  },
+  "Dale–Chall raw score": {
+   "n": 300,
+   "pearson_r": 0.6322,
+   "spearman_rho": 0.653,
+   "mean_lexinspect": 7.0126,
+   "mean_reference": 9.0053,
+   "bias": -1.9927,
+   "mean_abs_diff": 1.9927,
+   "max_abs_diff": 6.6991,
+   "tolerance": "±0.5",
+   "pct_within_tolerance": 3.0,
+   "pct_identical": 0.0,
+   "compatible_r_gt_0_95": false,
+   "lexinspect_column": "li_dale_chall_readability_score",
+   "reference_column": "ts_dale_chall_readability_score",
+   "top5": [
+    {
+     "id": "ellipse-F57B95D17755",
+     "source": "ELLIPSE corpus (train split)",
+     "lexinspect": 1.71,
+     "reference": 8.4091,
+     "diff": -6.6991
+    },
+    {
+     "id": "wiki-simple-006",
+     "source": "Simple English Wikipedia",
+     "lexinspect": 5.41,
+     "reference": 11.5176,
+     "diff": -6.1076
+    },
+    {
+     "id": "pg16-p00161",
+     "source": "Project Gutenberg",
+     "lexinspect": 1.27,
+     "reference": 7.0334,
+     "diff": -5.7634
+    },
+    {
+     "id": "ellipse-EC3F3F26E635",
+     "source": "ELLIPSE corpus (train split)",
+     "lexinspect": 2.12,
+     "reference": 7.4963,
+     "diff": -5.3763
+    },
+    {
+     "id": "pg55-p00615",
+     "source": "Project Gutenberg",
+     "lexinspect": 1.27,
+     "reference": 6.538,
+     "diff": -5.268
+    }
+   ]
+  },
+  "Linsear Write": {
+   "n": 300,
+   "pearson_r": 0.9009,
+   "spearman_rho": 0.9283,
+   "mean_lexinspect": 14.6637,
+   "mean_reference": 12.8897,
+   "bias": 1.774,
+   "mean_abs_diff": 2.4853,
+   "max_abs_diff": 29.06,
+   "tolerance": "±0.5",
+   "pct_within_tolerance": 23.7,
+   "pct_identical": 0.3,
+   "compatible_r_gt_0_95": false,
+   "lexinspect_column": "li_linsear_write_formula",
+   "reference_column": "ts_linsear_write_formula",
+   "top5": [
+    {
+     "id": "pg2009-p00448",
+     "source": "Project Gutenberg",
+     "lexinspect": 52.06,
+     "reference": 23.0,
+     "diff": 29.06
+    },
+    {
+     "id": "ellipse-C265A20FB301",
+     "source": "ELLIPSE corpus (train split)",
+     "lexinspect": 35.13,
+     "reference": 54.0,
+     "diff": -18.87
+    },
+    {
+     "id": "pg205-p00351",
+     "source": "Project Gutenberg",
+     "lexinspect": 44.4,
+     "reference": 26.0,
+     "diff": 18.4
+    },
+    {
+     "id": "pg2009-p00366",
+     "source": "Project Gutenberg",
+     "lexinspect": 42.24,
+     "reference": 25.0,
+     "diff": 17.24
+    },
+    {
+     "id": "wiki-en-041",
+     "source": "English Wikipedia",
+     "lexinspect": 35.94,
+     "reference": 22.3333,
+     "diff": 13.6067
+    }
+   ]
+  },
+  "text_standard (different definitions)": {
+   "n": 300,
+   "pearson_r": 0.7654,
+   "spearman_rho": 0.8125,
+   "mean_lexinspect": 10.9642,
+   "mean_reference": 10.36,
+   "bias": 0.6042,
+   "mean_abs_diff": 1.5652,
+   "max_abs_diff": 15.32,
+   "tolerance": "±1",
+   "pct_within_tolerance": 54.3,
+   "pct_identical": 1.0,
+   "compatible_r_gt_0_95": false,
+   "lexinspect_column": "li_text_standard",
+   "reference_column": "ts_text_standard",
+   "top5": [
+    {
+     "id": "pg2009-p00366",
+     "source": "Project Gutenberg",
+     "lexinspect": 26.32,
+     "reference": 11.0,
+     "diff": 15.32
+    },
+    {
+     "id": "pg20203-p00243",
+     "source": "Project Gutenberg",
+     "lexinspect": 21.52,
+     "reference": 10.0,
+     "diff": 11.52
+    },
+    {
+     "id": "ellipse-C265A20FB301",
+     "source": "ELLIPSE corpus (train split)",
+     "lexinspect": 24.29,
+     "reference": 13.0,
+     "diff": 11.29
+    },
+    {
+     "id": "ellipse-F2BAC6095D8A",
+     "source": "ELLIPSE corpus (train split)",
+     "lexinspect": 20.43,
+     "reference": 10.0,
+     "diff": 10.43
+    },
+    {
+     "id": "ellipse-C649BC3F0C2D",
+     "source": "ELLIPSE corpus (train split)",
+     "lexinspect": 18.96,
+     "reference": 9.0,
+     "diff": 9.96
+    }
+   ]
+  }
+ },
+ "readability_formula_only": {
+  "Flesch Reading Ease": {
+   "n": 300,
+   "pearson_r": 1.0,
+   "spearman_rho": 1.0,
+   "mean_lexinspect": 57.1416,
+   "mean_reference": 57.1415,
+   "bias": 0.0001,
+   "mean_abs_diff": 0.0025,
+   "max_abs_diff": 0.005,
+   "tolerance": "±0.01",
+   "pct_within_tolerance": 100.0,
+   "pct_identical": 0.0,
+   "compatible_r_gt_0_95": true,
+   "lexinspect_column": "li_flesch_reading_ease",
+   "reference_column": "x_flesch_reading_ease",
+   "top5": [
+    {
+     "id": "wiki-en-004",
+     "source": "English Wikipedia",
+     "lexinspect": 56.5,
+     "reference": 56.505,
+     "diff": -0.005
+    },
+    {
+     "id": "pg37134-p00046",
+     "source": "Project Gutenberg",
+     "lexinspect": 63.49,
+     "reference": 63.495,
+     "diff": -0.005
+    },
+    {
+     "id": "ellipse-A22BC15DDB95",
+     "source": "ELLIPSE corpus (train split)",
+     "lexinspect": 62.73,
+     "reference": 62.7349,
+     "diff": -0.0049
+    },
+    {
+     "id": "wiki-en-045",
+     "source": "English Wikipedia",
+     "lexinspect": 44.59,
+     "reference": 44.5949,
+     "diff": -0.0049
+    },
+    {
+     "id": "wiki-simple-027",
+     "source": "Simple English Wikipedia",
+     "lexinspect": 46.65,
+     "reference": 46.6451,
+     "diff": 0.0049
+    }
+   ]
+  },
+  "Flesch–Kincaid grade": {
+   "n": 300,
+   "pearson_r": 1.0,
+   "spearman_rho": 1.0,
+   "mean_lexinspect": 11.094,
+   "mean_reference": 11.0937,
+   "bias": 0.0002,
+   "mean_abs_diff": 0.0025,
+   "max_abs_diff": 0.005,
+   "tolerance": "±0.01",
+   "pct_within_tolerance": 100.0,
+   "pct_identical": 1.0,
+   "compatible_r_gt_0_95": true,
+   "lexinspect_column": "li_flesch_kincaid_grade",
+   "reference_column": "x_flesch_kincaid_grade",
+   "top5": [
+    {
+     "id": "ellipse-AFD325C9347D",
+     "source": "ELLIPSE corpus (train split)",
+     "lexinspect": 11.62,
+     "reference": 11.615,
+     "diff": 0.005
+    },
+    {
+     "id": "wiki-en-022",
+     "source": "English Wikipedia",
+     "lexinspect": 13.91,
+     "reference": 13.905,
+     "diff": 0.005
+    },
+    {
+     "id": "pg2009-p00448",
+     "source": "Project Gutenberg",
+     "lexinspect": 24.35,
+     "reference": 24.345,
+     "diff": 0.005
+    },
+    {
+     "id": "pg10136-p01755",
+     "source": "Project Gutenberg",
+     "lexinspect": 10.99,
+     "reference": 10.995,
+     "diff": -0.005
+    },
+    {
+     "id": "wiki-simple-036",
+     "source": "Simple English Wikipedia",
+     "lexinspect": 8.15,
+     "reference": 8.145,
+     "diff": 0.005
+    }
+   ]
+  },
+  "Gunning Fog": {
+   "n": 300,
+   "pearson_r": 0.9466,
+   "spearman_rho": 0.9054,
+   "mean_lexinspect": 12.5124,
+   "mean_reference": 13.4264,
+   "bias": -0.9141,
+   "mean_abs_diff": 1.2252,
+   "max_abs_diff": 5.368,
+   "tolerance": "±0.01",
+   "pct_within_tolerance": 4.0,
+   "pct_identical": 0.3,
+   "compatible_r_gt_0_95": false,
+   "lexinspect_column": "li_gunning_fog",
+   "reference_column": "x_gunning_fog",
+   "top5": [
+    {
+     "id": "wiki-simple-006",
+     "source": "Simple English Wikipedia",
+     "lexinspect": 6.93,
+     "reference": 12.298,
+     "diff": -5.368
+    },
+    {
+     "id": "wiki-simple-017",
+     "source": "Simple English Wikipedia",
+     "lexinspect": 6.11,
+     "reference": 11.3737,
+     "diff": -5.2637
+    },
+    {
+     "id": "wiki-en-006",
+     "source": "English Wikipedia",
+     "lexinspect": 12.43,
+     "reference": 17.5725,
+     "diff": -5.1425
+    },
+    {
+     "id": "wiki-en-025",
+     "source": "English Wikipedia",
+     "lexinspect": 14.13,
+     "reference": 19.2368,
+     "diff": -5.1068
+    },
+    {
+     "id": "wiki-en-020",
+     "source": "English Wikipedia",
+     "lexinspect": 11.05,
+     "reference": 16.1197,
+     "diff": -5.0697
+    }
+   ]
+  },
+  "SMOG": {
+   "n": 300,
+   "pearson_r": 1.0,
+   "spearman_rho": 1.0,
+   "mean_lexinspect": 12.0565,
+   "mean_reference": 12.0564,
+   "bias": 0.0001,
+   "mean_abs_diff": 0.0025,
+   "max_abs_diff": 0.005,
+   "tolerance": "±0.01",
+   "pct_within_tolerance": 100.0,
+   "pct_identical": 0.0,
+   "compatible_r_gt_0_95": true,
+   "lexinspect_column": "li_smog_index",
+   "reference_column": "x_smog_index",
+   "top5": [
+    {
+     "id": "ellipse-0AD69388300B",
+     "source": "ELLIPSE corpus (train split)",
+     "lexinspect": 9.13,
+     "reference": 9.135,
+     "diff": -0.005
+    },
+    {
+     "id": "ellipse-F49521C3494B",
+     "source": "ELLIPSE corpus (train split)",
+     "lexinspect": 13.3,
+     "reference": 13.295,
+     "diff": 0.005
+    },
+    {
+     "id": "pg35-p00026",
+     "source": "Project Gutenberg",
+     "lexinspect": 10.44,
+     "reference": 10.445,
+     "diff": -0.005
+    },
+    {
+     "id": "wiki-en-032",
+     "source": "English Wikipedia",
+     "lexinspect": 14.84,
+     "reference": 14.8449,
+     "diff": -0.0049
+    },
+    {
+     "id": "ellipse-A0B2BF94231C",
+     "source": "ELLIPSE corpus (train split)",
+     "lexinspect": 9.94,
+     "reference": 9.9351,
+     "diff": 0.0049
+    }
+   ]
+  },
+  "ARI": {
+   "n": 300,
+   "pearson_r": 1.0,
+   "spearman_rho": 1.0,
+   "mean_lexinspect": 11.2902,
+   "mean_reference": 11.2904,
+   "bias": -0.0002,
+   "mean_abs_diff": 0.0024,
+   "max_abs_diff": 0.005,
+   "tolerance": "±0.01",
+   "pct_within_tolerance": 100.0,
+   "pct_identical": 0.0,
+   "compatible_r_gt_0_95": true,
+   "lexinspect_column": "li_automated_readability_index",
+   "reference_column": "x_automated_readability_index",
+   "top5": [
+    {
+     "id": "wiki-simple-048",
+     "source": "Simple English Wikipedia",
+     "lexinspect": 6.01,
+     "reference": 6.015,
+     "diff": -0.005
+    },
+    {
+     "id": "ellipse-D0CC47FFC293",
+     "source": "ELLIPSE corpus (train split)",
+     "lexinspect": 12.08,
+     "reference": 12.075,
+     "diff": 0.005
+    },
+    {
+     "id": "wiki-en-019",
+     "source": "English Wikipedia",
+     "lexinspect": 18.6,
+     "reference": 18.605,
+     "diff": -0.005
+    },
+    {
+     "id": "ellipse-44C1594D0950",
+     "source": "ELLIPSE corpus (train split)",
+     "lexinspect": 14.59,
+     "reference": 14.595,
+     "diff": -0.005
+    },
+    {
+     "id": "pg1404-p00939",
+     "source": "Project Gutenberg",
+     "lexinspect": 21.68,
+     "reference": 21.685,
+     "diff": -0.005
+    }
+   ]
+  },
+  "Coleman–Liau": {
+   "n": 300,
+   "pearson_r": 1.0,
+   "spearman_rho": 1.0,
+   "mean_lexinspect": 8.992,
+   "mean_reference": 8.6347,
+   "bias": 0.3573,
+   "mean_abs_diff": 0.3573,
+   "max_abs_diff": 0.4489,
+   "tolerance": "±0.01",
+   "pct_within_tolerance": 0.0,
+   "pct_identical": 0.0,
+   "compatible_r_gt_0_95": true,
+   "lexinspect_column": "li_coleman_liau_index",
+   "reference_column": "x_coleman_liau_index",
+   "top5": [
+    {
+     "id": "wiki-en-025",
+     "source": "English Wikipedia",
+     "lexinspect": 15.41,
+     "reference": 14.9611,
+     "diff": 0.4489
+    },
+    {
+     "id": "wiki-en-030",
+     "source": "English Wikipedia",
+     "lexinspect": 15.58,
+     "reference": 15.133,
+     "diff": 0.447
+    },
+    {
+     "id": "wiki-en-000",
+     "source": "English Wikipedia",
+     "lexinspect": 14.3,
+     "reference": 13.866,
+     "diff": 0.434
+    },
+    {
+     "id": "wiki-en-026",
+     "source": "English Wikipedia",
+     "lexinspect": 14.22,
+     "reference": 13.7922,
+     "diff": 0.4278
+    },
+    {
+     "id": "wiki-en-023",
+     "source": "English Wikipedia",
+     "lexinspect": 13.95,
+     "reference": 13.5239,
+     "diff": 0.4261
+    }
+   ]
+  },
+  "Dale–Chall raw score": {
+   "n": 300,
+   "pearson_r": 0.6409,
+   "spearman_rho": 0.6571,
+   "mean_lexinspect": 7.0126,
+   "mean_reference": 8.9468,
+   "bias": -1.9341,
+   "mean_abs_diff": 1.9341,
+   "max_abs_diff": 6.6991,
+   "tolerance": "±0.01",
+   "pct_within_tolerance": 0.0,
+   "pct_identical": 0.0,
+   "compatible_r_gt_0_95": false,
+   "lexinspect_column": "li_dale_chall_readability_score",
+   "reference_column": "x_dale_chall_readability_score",
+   "top5": [
+    {
+     "id": "ellipse-F57B95D17755",
+     "source": "ELLIPSE corpus (train split)",
+     "lexinspect": 1.71,
+     "reference": 8.4091,
+     "diff": -6.6991
+    },
+    {
+     "id": "wiki-simple-006",
+     "source": "Simple English Wikipedia",
+     "lexinspect": 5.41,
+     "reference": 11.5283,
+     "diff": -6.1183
+    },
+    {
+     "id": "pg16-p00161",
+     "source": "Project Gutenberg",
+     "lexinspect": 1.27,
+     "reference": 6.985,
+     "diff": -5.715
+    },
+    {
+     "id": "pg55-p00615",
+     "source": "Project Gutenberg",
+     "lexinspect": 1.27,
+     "reference": 6.4661,
+     "diff": -5.1961
+    },
+    {
+     "id": "wiki-en-006",
+     "source": "English Wikipedia",
+     "lexinspect": 6.77,
+     "reference": 11.9496,
+     "diff": -5.1796
+    }
+   ]
+  }
+ },
+ "syllables_same_words": {
+  "all": {
+   "types": 14887,
+   "tokens": 188918,
+   "pct_types_exact": 93.38,
+   "pct_tokens_exact": 98.98,
+   "pct_types_within_1": 98.23,
+   "mean_diff_types": 0.0772
+  },
+  "in_cmudict": {
+   "types": 12770,
+   "tokens": 184678,
+   "pct_types_exact": 100.0,
+   "pct_tokens_exact": 100.0,
+   "pct_types_within_1": 100.0,
+   "mean_diff_types": 0.0
+  },
+  "not_in_cmudict": {
+   "types": 2117,
+   "tokens": 4240,
+   "pct_types_exact": 53.42,
+   "pct_tokens_exact": 54.34,
+   "pct_types_within_1": 87.58,
+   "mean_diff_types": 0.5427
+  },
+  "by_lexinspect_source": {
+   "cmudict": {
+    "types": 12803,
+    "tokens": 184750,
+    "pct_types_exact": 99.83,
+    "pct_tokens_exact": 99.97,
+    "pct_types_within_1": 99.98,
+    "mean_diff_types": 0.002
+   },
+   "heuristic": {
+    "types": 1685,
+    "tokens": 3487,
+    "pct_types_exact": 50.21,
+    "pct_tokens_exact": 53.74,
+    "pct_types_within_1": 85.58,
+    "mean_diff_types": 0.5929
+   },
+   "stem": {
+    "types": 305,
+    "tokens": 448,
+    "pct_types_exact": 73.11,
+    "pct_tokens_exact": 67.19,
+    "pct_types_within_1": 97.05,
+    "mean_diff_types": 0.2459
+   },
+   "variant": {
+    "types": 94,
+    "tokens": 233,
+    "pct_types_exact": 54.26,
+    "pct_tokens_exact": 45.49,
+    "pct_types_within_1": 91.49,
+    "mean_diff_types": 0.5319
+   }
+  },
+  "most_frequent_mismatches": [
+   {
+    "word": "megadeth",
+    "freq": 40,
+    "lexinspect": 3,
+    "textstat": 1,
+    "lexinspect_source": "heuristic"
+   },
+   {
+    "word": "cassowaries",
+    "freq": 27,
+    "lexinspect": 4,
+    "textstat": 2,
+    "lexinspect_source": "stem"
+   },
+   {
+    "word": "tramway",
+    "freq": 25,
+    "lexinspect": 2,
+    "textstat": 1,
+    "lexinspect_source": "heuristic"
+   },
+   {
+    "word": "kiedis",
+    "freq": 25,
+    "lexinspect": 2,
+    "textstat": 1,
+    "lexinspect_source": "heuristic"
+   },
+   {
+    "word": "walthamstow",
+    "freq": 24,
+    "lexinspect": 3,
+    "textstat": 2,
+    "lexinspect_source": "heuristic"
+   },
+   {
+    "word": "emi",
+    "freq": 22,
+    "lexinspect": 2,
+    "textstat": 1,
+    "lexinspect_source": "heuristic"
+   },
+   {
+    "word": "colour",
+    "freq": 21,
+    "lexinspect": 2,
+    "textstat": 1,
+    "lexinspect_source": "variant"
+   },
+   {
+    "word": "extratropical",
+    "freq": 21,
+    "lexinspect": 5,
+    "textstat": 6,
+    "lexinspect_source": "heuristic"
+   },
+   {
+    "word": "colours",
+    "freq": 20,
+    "lexinspect": 2,
+    "textstat": 1,
+    "lexinspect_source": "variant"
+   },
+   {
+    "word": "tricolour",
+    "freq": 20,
+    "lexinspect": 3,
+    "textstat": 2,
+    "lexinspect_source": "heuristic"
+   },
+   {
+    "word": "youtube",
+    "freq": 13,
+    "lexinspect": 2,
+    "textstat": 1,
+    "lexinspect_source": "heuristic"
+   },
+   {
+    "word": "mazama",
+    "freq": 12,
+    "lexinspect": 3,
+    "textstat": 2,
+    "lexinspect_source": "heuristic"
+   },
+   {
+    "word": "becuase",
+    "freq": 11,
+    "lexinspect": 3,
+    "textstat": 2,
+    "lexinspect_source": "heuristic"
+   },
+   {
+    "word": "havisham",
+    "freq": 11,
+    "lexinspect": 3,
+    "textstat": 2,
+    "lexinspect_source": "heuristic"
+   },
+   {
+    "word": "aves",
+    "freq": 10,
+    "lexinspect": 3,
+    "textstat": 1,
+    "lexinspect_source": "stem"
+   },
+   {
+    "word": "aufforderung",
+    "freq": 10,
+    "lexinspect": 4,
+    "textstat": 2,
+    "lexinspect_source": "heuristic"
+   },
+   {
+    "word": "subspecies",
+    "freq": 10,
+    "lexinspect": 3,
+    "textstat": 2,
+    "lexinspect_source": "heuristic"
+   },
+   {
+    "word": "mustela",
+    "freq": 9,
+    "lexinspect": 3,
+    "textstat": 1,
+    "lexinspect_source": "heuristic"
+   },
+   {
+    "word": "danaus",
+    "freq": 9,
+    "lexinspect": 2,
+    "textstat": 1,
+    "lexinspect_source": "heuristic"
+   },
+   {
+    "word": "okereke",
+    "freq": 9,
+    "lexinspect": 3,
+    "textstat": 2,
+    "lexinspect_source": "heuristic"
+   },
+   {
+    "word": "vindver",
+    "freq": 8,
+    "lexinspect": 2,
+    "textstat": 3,
+    "lexinspect_source": "heuristic"
+   },
+   {
+    "word": "streamy",
+    "freq": 8,
+    "lexinspect": 2,
+    "textstat": 1,
+    "lexinspect_source": "heuristic"
+   },
+   {
+    "word": "kilometres",
+    "freq": 8,
+    "lexinspect": 4,
+    "textstat": 3,
+    "lexinspect_source": "variant"
+   },
+   {
+    "word": "tramways",
+    "freq": 8,
+    "lexinspect": 2,
+    "textstat": 1,
+    "lexinspect_source": "heuristic"
+   },
+   {
+    "word": "kansa",
+    "freq": 8,
+    "lexinspect": 2,
+    "textstat": 1,
+    "lexinspect_source": "heuristic"
+   }
+  ]
+ },
+ "diversity_same_tokens": {
+  "MATTR (50) vs TAALED": {
+   "n": 300,
+   "pearson_r": 1.0,
+   "spearman_rho": 1.0,
+   "mean_lexinspect": 0.7682,
+   "mean_reference": 0.7682,
+   "bias": 0.0,
+   "mean_abs_diff": 0.0,
+   "max_abs_diff": 0.0,
+   "tolerance": "±0.01",
+   "pct_within_tolerance": 100.0,
+   "pct_identical": 100.0,
+   "compatible_r_gt_0_95": true,
+   "lexinspect_column": "li_mattr",
+   "reference_column": "taaled_same_mattr",
+   "top5": [
+    {
+     "id": "wiki-en-008",
+     "source": "English Wikipedia",
+     "lexinspect": 0.8165,
+     "reference": 0.8165,
+     "diff": 0.0
+    },
+    {
+     "id": "pg147-p00109",
+     "source": "Project Gutenberg",
+     "lexinspect": 0.7803,
+     "reference": 0.7803,
+     "diff": -0.0
+    },
+    {
+     "id": "pg84-p00122",
+     "source": "Project Gutenberg",
+     "lexinspect": 0.8031,
+     "reference": 0.8031,
+     "diff": -0.0
+    },
+    {
+     "id": "ellipse-E7A76C48340D",
+     "source": "ELLIPSE corpus (train split)",
+     "lexinspect": 0.7138,
+     "reference": 0.7138,
+     "diff": -0.0
+    },
+    {
+     "id": "wiki-simple-010",
+     "source": "Simple English Wikipedia",
+     "lexinspect": 0.7513,
+     "reference": 0.7513,
+     "diff": -0.0
+    }
+   ]
+  },
+  "MATTR (50) vs lexical-diversity": {
+   "n": 300,
+   "pearson_r": 1.0,
+   "spearman_rho": 1.0,
+   "mean_lexinspect": 0.7682,
+   "mean_reference": 0.7682,
+   "bias": 0.0,
+   "mean_abs_diff": 0.0,
+   "max_abs_diff": 0.0,
+   "tolerance": "±0.01",
+   "pct_within_tolerance": 100.0,
+   "pct_identical": 100.0,
+   "compatible_r_gt_0_95": true,
+   "lexinspect_column": "li_mattr",
+   "reference_column": "lexdiv_same_mattr",
+   "top5": [
+    {
+     "id": "wiki-simple-029",
+     "source": "Simple English Wikipedia",
+     "lexinspect": 0.7882,
+     "reference": 0.7882,
+     "diff": 0.0
+    },
+    {
+     "id": "pg1497-p00634",
+     "source": "Project Gutenberg",
+     "lexinspect": 0.7965,
+     "reference": 0.7965,
+     "diff": 0.0
+    },
+    {
+     "id": "pg2701-p00307",
+     "source": "Project Gutenberg",
+     "lexinspect": 0.8267,
+     "reference": 0.8267,
+     "diff": 0.0
+    },
+    {
+     "id": "pg55-p00615",
+     "source": "Project Gutenberg",
+     "lexinspect": 0.7891,
+     "reference": 0.7891,
+     "diff": 0.0
+    },
+    {
+     "id": "pg2701-p01520",
+     "source": "Project Gutenberg",
+     "lexinspect": 0.801,
+     "reference": 0.801,
+     "diff": 0.0
+    }
+   ]
+  },
+  "MATTR (50) vs lexicalrichness": {
+   "n": 300,
+   "pearson_r": 1.0,
+   "spearman_rho": 1.0,
+   "mean_lexinspect": 0.7682,
+   "mean_reference": 0.7682,
+   "bias": 0.0,
+   "mean_abs_diff": 0.0,
+   "max_abs_diff": 0.0,
+   "tolerance": "±0.01",
+   "pct_within_tolerance": 100.0,
+   "pct_identical": 100.0,
+   "compatible_r_gt_0_95": true,
+   "lexinspect_column": "li_mattr",
+   "reference_column": "lexrich_same_mattr",
+   "top5": [
+    {
+     "id": "pg84-p00260",
+     "source": "Project Gutenberg",
+     "lexinspect": 0.8019,
+     "reference": 0.8019,
+     "diff": -0.0
+    },
+    {
+     "id": "ellipse-FF7FE6BD8509",
+     "source": "ELLIPSE corpus (train split)",
+     "lexinspect": 0.7462,
+     "reference": 0.7462,
+     "diff": -0.0
+    },
+    {
+     "id": "wiki-simple-006",
+     "source": "Simple English Wikipedia",
+     "lexinspect": 0.7508,
+     "reference": 0.7508,
+     "diff": 0.0
+    },
+    {
+     "id": "ellipse-A9544F0E8868",
+     "source": "ELLIPSE corpus (train split)",
+     "lexinspect": 0.7686,
+     "reference": 0.7686,
+     "diff": -0.0
+    },
+    {
+     "id": "ellipse-FE8A54A36006",
+     "source": "ELLIPSE corpus (train split)",
+     "lexinspect": 0.7342,
+     "reference": 0.7342,
+     "diff": -0.0
+    }
+   ]
+  },
+  "MTLD vs TAALED (original, mtldo)": {
+   "n": 300,
+   "pearson_r": 0.9949,
+   "spearman_rho": 0.9936,
+   "mean_lexinspect": 69.3467,
+   "mean_reference": 70.3821,
+   "bias": -1.0355,
+   "mean_abs_diff": 1.3217,
+   "max_abs_diff": 11.4599,
+   "tolerance": "±0.05 (relative)",
+   "pct_within_tolerance": 84.0,
+   "pct_identical": 32.7,
+   "compatible_r_gt_0_95": true,
+   "lexinspect_column": "li_mtld",
+   "reference_column": "taaled_same_mtld_original",
+   "top5": [
+    {
+     "id": "pg2701-p01047",
+     "source": "Project Gutenberg",
+     "lexinspect": 126.3221,
+     "reference": 137.7821,
+     "diff": -11.4599
+    },
+    {
+     "id": "ellipse-AAD6A5CBDDB9",
+     "source": "ELLIPSE corpus (train split)",
+     "lexinspect": 51.5005,
+     "reference": 61.0186,
+     "diff": -9.5181
+    },
+    {
+     "id": "wiki-en-009",
+     "source": "English Wikipedia",
+     "lexinspect": 130.1176,
+     "reference": 139.1656,
+     "diff": -9.048
+    },
+    {
+     "id": "pg25344-p00300",
+     "source": "Project Gutenberg",
+     "lexinspect": 109.7768,
+     "reference": 118.1552,
+     "diff": -8.3784
+    },
+    {
+     "id": "ellipse-1D47271C213D",
+     "source": "ELLIPSE corpus (train split)",
+     "lexinspect": 84.8768,
+     "reference": 92.9434,
+     "diff": -8.0667
+    }
+   ]
+  },
+  "MTLD vs TAALED (default, mean factor length)": {
+   "n": 300,
+   "pearson_r": 0.9904,
+   "spearman_rho": 0.9901,
+   "mean_lexinspect": 69.3467,
+   "mean_reference": 70.4203,
+   "bias": -1.0736,
+   "mean_abs_diff": 2.0338,
+   "max_abs_diff": 17.9558,
+   "tolerance": "±0.05 (relative)",
+   "pct_within_tolerance": 76.7,
+   "pct_identical": 0.0,
+   "compatible_r_gt_0_95": true,
+   "lexinspect_column": "li_mtld",
+   "reference_column": "taaled_same_mtld_mfl",
+   "top5": [
+    {
+     "id": "ellipse-B2919590BDB0",
+     "source": "ELLIPSE corpus (train split)",
+     "lexinspect": 93.187,
+     "reference": 111.1429,
+     "diff": -17.9558
+    },
+    {
+     "id": "pg2701-p01047",
+     "source": "Project Gutenberg",
+     "lexinspect": 126.3221,
+     "reference": 137.6262,
+     "diff": -11.3041
+    },
+    {
+     "id": "pg345-p00758",
+     "source": "Project Gutenberg",
+     "lexinspect": 101.6426,
+     "reference": 112.3244,
+     "diff": -10.6818
+    },
+    {
+     "id": "pg205-p00336",
+     "source": "Project Gutenberg",
+     "lexinspect": 159.7801,
+     "reference": 150.188,
+     "diff": 9.5921
+    },
+    {
+     "id": "ellipse-AAD6A5CBDDB9",
+     "source": "ELLIPSE corpus (train split)",
+     "lexinspect": 51.5005,
+     "reference": 60.5493,
+     "diff": -9.0488
+    }
+   ]
+  },
+  "MTLD vs lexical-diversity": {
+   "n": 300,
+   "pearson_r": 0.9949,
+   "spearman_rho": 0.9936,
+   "mean_lexinspect": 69.3467,
+   "mean_reference": 70.3821,
+   "bias": -1.0355,
+   "mean_abs_diff": 1.3217,
+   "max_abs_diff": 11.4599,
+   "tolerance": "±0.05 (relative)",
+   "pct_within_tolerance": 84.0,
+   "pct_identical": 32.7,
+   "compatible_r_gt_0_95": true,
+   "lexinspect_column": "li_mtld",
+   "reference_column": "lexdiv_same_mtld",
+   "top5": [
+    {
+     "id": "pg2701-p01047",
+     "source": "Project Gutenberg",
+     "lexinspect": 126.3221,
+     "reference": 137.7821,
+     "diff": -11.4599
+    },
+    {
+     "id": "ellipse-AAD6A5CBDDB9",
+     "source": "ELLIPSE corpus (train split)",
+     "lexinspect": 51.5005,
+     "reference": 61.0186,
+     "diff": -9.5181
+    },
+    {
+     "id": "wiki-en-009",
+     "source": "English Wikipedia",
+     "lexinspect": 130.1176,
+     "reference": 139.1656,
+     "diff": -9.048
+    },
+    {
+     "id": "pg25344-p00300",
+     "source": "Project Gutenberg",
+     "lexinspect": 109.7768,
+     "reference": 118.1552,
+     "diff": -8.3784
+    },
+    {
+     "id": "ellipse-1D47271C213D",
+     "source": "ELLIPSE corpus (train split)",
+     "lexinspect": 84.8768,
+     "reference": 92.9434,
+     "diff": -8.0667
+    }
+   ]
+  },
+  "MTLD vs lexicalrichness": {
+   "n": 300,
+   "pearson_r": 1.0,
+   "spearman_rho": 1.0,
+   "mean_lexinspect": 69.3467,
+   "mean_reference": 69.3467,
+   "bias": 0.0,
+   "mean_abs_diff": 0.0,
+   "max_abs_diff": 0.0,
+   "tolerance": "±0.05 (relative)",
+   "pct_within_tolerance": 100.0,
+   "pct_identical": 100.0,
+   "compatible_r_gt_0_95": true,
+   "lexinspect_column": "li_mtld",
+   "reference_column": "lexrich_same_mtld",
+   "top5": [
+    {
+     "id": "pg36-p00596",
+     "source": "Project Gutenberg",
+     "lexinspect": 106.6676,
+     "reference": 106.6676,
+     "diff": 0.0
+    },
+    {
+     "id": "ellipse-F49521C3494B",
+     "source": "ELLIPSE corpus (train split)",
+     "lexinspect": 46.3847,
+     "reference": 46.3847,
+     "diff": 0.0
+    },
+    {
+     "id": "ellipse-E382BBC2D88E",
+     "source": "ELLIPSE corpus (train split)",
+     "lexinspect": 42.0443,
+     "reference": 42.0443,
+     "diff": 0.0
+    },
+    {
+     "id": "ellipse-6A7F75AD2ADE",
+     "source": "ELLIPSE corpus (train split)",
+     "lexinspect": 45.5219,
+     "reference": 45.5219,
+     "diff": 0.0
+    },
+    {
+     "id": "ellipse-40DB9B4FC90A",
+     "source": "ELLIPSE corpus (train split)",
+     "lexinspect": 54.5534,
+     "reference": 54.5534,
+     "diff": 0.0
+    }
+   ]
+  },
+  "HD-D vs TAALED": {
+   "n": 300,
+   "pearson_r": 1.0,
+   "spearman_rho": 1.0,
+   "mean_lexinspect": 0.8121,
+   "mean_reference": 0.8121,
+   "bias": 0.0,
+   "mean_abs_diff": 0.0,
+   "max_abs_diff": 0.0,
+   "tolerance": "±0.01",
+   "pct_within_tolerance": 100.0,
+   "pct_identical": 100.0,
+   "compatible_r_gt_0_95": true,
+   "lexinspect_column": "li_hdd",
+   "reference_column": "taaled_same_hdd",
+   "top5": [
+    {
+     "id": "wiki-en-016",
+     "source": "English Wikipedia",
+     "lexinspect": 0.8445,
+     "reference": 0.8445,
+     "diff": -0.0
+    },
+    {
+     "id": "wiki-en-035",
+     "source": "English Wikipedia",
+     "lexinspect": 0.8333,
+     "reference": 0.8333,
+     "diff": -0.0
+    },
+    {
+     "id": "wiki-en-007",
+     "source": "English Wikipedia",
+     "lexinspect": 0.8129,
+     "reference": 0.8129,
+     "diff": 0.0
+    },
+    {
+     "id": "pg35-p00207",
+     "source": "Project Gutenberg",
+     "lexinspect": 0.8195,
+     "reference": 0.8195,
+     "diff": -0.0
+    },
+    {
+     "id": "wiki-en-030",
+     "source": "English Wikipedia",
+     "lexinspect": 0.8369,
+     "reference": 0.8369,
+     "diff": -0.0
+    }
+   ]
+  },
+  "HD-D vs lexical-diversity": {
+   "n": 300,
+   "pearson_r": 1.0,
+   "spearman_rho": 1.0,
+   "mean_lexinspect": 0.8121,
+   "mean_reference": 0.8121,
+   "bias": 0.0,
+   "mean_abs_diff": 0.0,
+   "max_abs_diff": 0.0,
+   "tolerance": "±0.01",
+   "pct_within_tolerance": 100.0,
+   "pct_identical": 100.0,
+   "compatible_r_gt_0_95": true,
+   "lexinspect_column": "li_hdd",
+   "reference_column": "lexdiv_same_hdd",
+   "top5": [
+    {
+     "id": "wiki-en-016",
+     "source": "English Wikipedia",
+     "lexinspect": 0.8445,
+     "reference": 0.8445,
+     "diff": -0.0
+    },
+    {
+     "id": "wiki-en-035",
+     "source": "English Wikipedia",
+     "lexinspect": 0.8333,
+     "reference": 0.8333,
+     "diff": -0.0
+    },
+    {
+     "id": "wiki-en-007",
+     "source": "English Wikipedia",
+     "lexinspect": 0.8129,
+     "reference": 0.8129,
+     "diff": 0.0
+    },
+    {
+     "id": "pg35-p00207",
+     "source": "Project Gutenberg",
+     "lexinspect": 0.8195,
+     "reference": 0.8195,
+     "diff": -0.0
+    },
+    {
+     "id": "wiki-en-030",
+     "source": "English Wikipedia",
+     "lexinspect": 0.8369,
+     "reference": 0.8369,
+     "diff": -0.0
+    }
+   ]
+  },
+  "HD-D vs lexicalrichness": {
+   "n": 300,
+   "pearson_r": 1.0,
+   "spearman_rho": 1.0,
+   "mean_lexinspect": 0.8121,
+   "mean_reference": 0.8121,
+   "bias": 0.0,
+   "mean_abs_diff": 0.0,
+   "max_abs_diff": 0.0,
+   "tolerance": "±0.01",
+   "pct_within_tolerance": 100.0,
+   "pct_identical": 100.0,
+   "compatible_r_gt_0_95": true,
+   "lexinspect_column": "li_hdd",
+   "reference_column": "lexrich_same_hdd",
+   "top5": [
+    {
+     "id": "wiki-en-035",
+     "source": "English Wikipedia",
+     "lexinspect": 0.8333,
+     "reference": 0.8333,
+     "diff": -0.0
+    },
+    {
+     "id": "wiki-en-007",
+     "source": "English Wikipedia",
+     "lexinspect": 0.8129,
+     "reference": 0.8129,
+     "diff": 0.0
+    },
+    {
+     "id": "pg16-p00089",
+     "source": "Project Gutenberg",
+     "lexinspect": 0.8392,
+     "reference": 0.8392,
+     "diff": 0.0
+    },
+    {
+     "id": "wiki-simple-045",
+     "source": "Simple English Wikipedia",
+     "lexinspect": 0.827,
+     "reference": 0.827,
+     "diff": 0.0
+    },
+    {
+     "id": "wiki-simple-040",
+     "source": "Simple English Wikipedia",
+     "lexinspect": 0.8516,
+     "reference": 0.8516,
+     "diff": 0.0
+    }
+   ]
+  },
+  "vocd-D vs lexicalrichness": {
+   "n": 300,
+   "pearson_r": 1.0,
+   "spearman_rho": 1.0,
+   "mean_lexinspect": 78.1054,
+   "mean_reference": 78.1054,
+   "bias": 0.0,
+   "mean_abs_diff": 0.0,
+   "max_abs_diff": 0.0,
+   "tolerance": "±0.05 (relative)",
+   "pct_within_tolerance": 100.0,
+   "pct_identical": 0.3,
+   "compatible_r_gt_0_95": true,
+   "lexinspect_column": "li_vocd_d",
+   "reference_column": "lexrich_same_vocd_d",
+   "top5": [
+    {
+     "id": "pg36-p00596",
+     "source": "Project Gutenberg",
+     "lexinspect": 132.4762,
+     "reference": 132.4762,
+     "diff": 0.0
+    },
+    {
+     "id": "wiki-en-009",
+     "source": "English Wikipedia",
+     "lexinspect": 117.4405,
+     "reference": 117.4405,
+     "diff": 0.0
+    },
+    {
+     "id": "wiki-en-011",
+     "source": "English Wikipedia",
+     "lexinspect": 84.7233,
+     "reference": 84.7233,
+     "diff": 0.0
+    },
+    {
+     "id": "pg25344-p00300",
+     "source": "Project Gutenberg",
+     "lexinspect": 107.9326,
+     "reference": 107.9326,
+     "diff": -0.0
+    },
+    {
+     "id": "pg345-p00216",
+     "source": "Project Gutenberg",
+     "lexinspect": 94.7547,
+     "reference": 94.7547,
+     "diff": 0.0
+    }
+   ]
+  },
+  "MSTTR (50) vs TAALED": {
+   "n": 300,
+   "pearson_r": 1.0,
+   "spearman_rho": 1.0,
+   "mean_lexinspect": 0.7677,
+   "mean_reference": 0.7677,
+   "bias": -0.0,
+   "mean_abs_diff": 0.0,
+   "max_abs_diff": 0.0,
+   "tolerance": "±0.01",
+   "pct_within_tolerance": 100.0,
+   "pct_identical": 100.0,
+   "compatible_r_gt_0_95": true,
+   "lexinspect_column": "li_msttr",
+   "reference_column": "taaled_same_msttr",
+   "top5": [
+    {
+     "id": "pg45-p00678",
+     "source": "Project Gutenberg",
+     "lexinspect": 0.8567,
+     "reference": 0.8567,
+     "diff": -0.0
+    },
+    {
+     "id": "pg2009-p00700",
+     "source": "Project Gutenberg",
+     "lexinspect": 0.7987,
+     "reference": 0.7988,
+     "diff": -0.0
+    },
+    {
+     "id": "pg84-p00260",
+     "source": "Project Gutenberg",
+     "lexinspect": 0.8073,
+     "reference": 0.8073,
+     "diff": -0.0
+    },
+    {
+     "id": "pg30155-p00030",
+     "source": "Project Gutenberg",
+     "lexinspect": 0.76,
+     "reference": 0.76,
+     "diff": 0.0
+    },
+    {
+     "id": "pg3300-p01547",
+     "source": "Project Gutenberg",
+     "lexinspect": 0.748,
+     "reference": 0.748,
+     "diff": 0.0
+    }
+   ]
+  },
+  "TTR vs TAALED": {
+   "n": 300,
+   "pearson_r": 1.0,
+   "spearman_rho": 1.0,
+   "mean_lexinspect": 0.4172,
+   "mean_reference": 0.4172,
+   "bias": 0.0,
+   "mean_abs_diff": 0.0,
+   "max_abs_diff": 0.0,
+   "tolerance": "±0.01",
+   "pct_within_tolerance": 100.0,
+   "pct_identical": 100.0,
+   "compatible_r_gt_0_95": true,
+   "lexinspect_column": "li_ttr",
+   "reference_column": "taaled_same_ttr",
+   "top5": [
+    {
+     "id": "pg36-p00596",
+     "source": "Project Gutenberg",
+     "lexinspect": 0.4302,
+     "reference": 0.4302,
+     "diff": 0.0
+    },
+    {
+     "id": "ellipse-F49521C3494B",
+     "source": "ELLIPSE corpus (train split)",
+     "lexinspect": 0.3705,
+     "reference": 0.3705,
+     "diff": 0.0
+    },
+    {
+     "id": "ellipse-E382BBC2D88E",
+     "source": "ELLIPSE corpus (train split)",
+     "lexinspect": 0.2744,
+     "reference": 0.2744,
+     "diff": 0.0
+    },
+    {
+     "id": "ellipse-6A7F75AD2ADE",
+     "source": "ELLIPSE corpus (train split)",
+     "lexinspect": 0.2731,
+     "reference": 0.2731,
+     "diff": 0.0
+    },
+    {
+     "id": "ellipse-40DB9B4FC90A",
+     "source": "ELLIPSE corpus (train split)",
+     "lexinspect": 0.3594,
+     "reference": 0.3594,
+     "diff": 0.0
+    }
+   ]
+  },
+  "Maas a² vs TAALED (log10)": {
+   "n": 300,
+   "pearson_r": 1.0,
+   "spearman_rho": 1.0,
+   "mean_lexinspect": 0.0223,
+   "mean_reference": 0.0513,
+   "bias": -0.029,
+   "mean_abs_diff": 0.029,
+   "max_abs_diff": 0.0517,
+   "tolerance": "±0.01",
+   "pct_within_tolerance": 0.0,
+   "pct_identical": 0.0,
+   "compatible_r_gt_0_95": true,
+   "lexinspect_column": "li_maas",
+   "reference_column": "taaled_same_maas",
+   "top5": [
+    {
+     "id": "ellipse-136F4548CFD0",
+     "source": "ELLIPSE corpus (train split)",
+     "lexinspect": 0.0397,
+     "reference": 0.0914,
+     "diff": -0.0517
+    },
+    {
+     "id": "ellipse-25130AAA9552",
+     "source": "ELLIPSE corpus (train split)",
+     "lexinspect": 0.0369,
+     "reference": 0.085,
+     "diff": -0.0481
+    },
+    {
+     "id": "ellipse-A28E9B475935",
+     "source": "ELLIPSE corpus (train split)",
+     "lexinspect": 0.0363,
+     "reference": 0.0835,
+     "diff": -0.0473
+    },
+    {
+     "id": "ellipse-EEE7731E8A57",
+     "source": "ELLIPSE corpus (train split)",
+     "lexinspect": 0.0361,
+     "reference": 0.0832,
+     "diff": -0.047
+    },
+    {
+     "id": "ellipse-F6AEEC01F174",
+     "source": "ELLIPSE corpus (train split)",
+     "lexinspect": 0.0359,
+     "reference": 0.0826,
+     "diff": -0.0467
+    }
+   ]
+  }
+ },
+ "diversity_own_tokens": {
+  "Tokens vs TAALED/pylats": {
+   "n": 300,
+   "pearson_r": 0.9749,
+   "spearman_rho": 0.9639,
+   "mean_lexinspect": 641.4867,
+   "mean_reference": 592.6533,
+   "bias": 48.8333,
+   "mean_abs_diff": 51.78,
+   "max_abs_diff": 328.0,
+   "tolerance": "±0.05 (relative)",
+   "pct_within_tolerance": 59.7,
+   "pct_identical": 4.0,
+   "compatible_r_gt_0_95": true,
+   "lexinspect_column": "li_div_tokens",
+   "reference_column": "taaled_own_tokens",
+   "top5": [
+    {
+     "id": "wiki-simple-006",
+     "source": "Simple English Wikipedia",
+     "lexinspect": 932.0,
+     "reference": 604.0,
+     "diff": 328.0
+    },
+    {
+     "id": "wiki-en-006",
+     "source": "English Wikipedia",
+     "lexinspect": 937.0,
+     "reference": 655.0,
+     "diff": 282.0
+    },
+    {
+     "id": "wiki-en-018",
+     "source": "English Wikipedia",
+     "lexinspect": 905.0,
+     "reference": 695.0,
+     "diff": 210.0
+    },
+    {
+     "id": "wiki-simple-021",
+     "source": "Simple English Wikipedia",
+     "lexinspect": 937.0,
+     "reference": 739.0,
+     "diff": 198.0
+    },
+    {
+     "id": "wiki-simple-013",
+     "source": "Simple English Wikipedia",
+     "lexinspect": 884.0,
+     "reference": 687.0,
+     "diff": 197.0
+    }
+   ]
+  },
+  "Tokens vs lexical-diversity": {
+   "n": 300,
+   "pearson_r": 0.9989,
+   "spearman_rho": 0.9953,
+   "mean_lexinspect": 641.4867,
+   "mean_reference": 649.9333,
+   "bias": -8.4467,
+   "mean_abs_diff": 9.8933,
+   "max_abs_diff": 68.0,
+   "tolerance": "±0.05 (relative)",
+   "pct_within_tolerance": 97.0,
+   "pct_identical": 31.7,
+   "compatible_r_gt_0_95": true,
+   "lexinspect_column": "li_div_tokens",
+   "reference_column": "lexdiv_own_tokens",
+   "top5": [
+    {
+     "id": "wiki-en-020",
+     "source": "English Wikipedia",
+     "lexinspect": 886.0,
+     "reference": 954.0,
+     "diff": -68.0
+    },
+    {
+     "id": "wiki-simple-020",
+     "source": "Simple English Wikipedia",
+     "lexinspect": 863.0,
+     "reference": 928.0,
+     "diff": -65.0
+    },
+    {
+     "id": "wiki-en-013",
+     "source": "English Wikipedia",
+     "lexinspect": 922.0,
+     "reference": 978.0,
+     "diff": -56.0
+    },
+    {
+     "id": "wiki-simple-013",
+     "source": "Simple English Wikipedia",
+     "lexinspect": 884.0,
+     "reference": 938.0,
+     "diff": -54.0
+    },
+    {
+     "id": "wiki-simple-021",
+     "source": "Simple English Wikipedia",
+     "lexinspect": 937.0,
+     "reference": 991.0,
+     "diff": -54.0
+    }
+   ]
+  },
+  "Tokens vs lexicalrichness": {
+   "n": 300,
+   "pearson_r": 0.9997,
+   "spearman_rho": 0.9988,
+   "mean_lexinspect": 641.4867,
+   "mean_reference": 647.3733,
+   "bias": -5.8867,
+   "mean_abs_diff": 6.4333,
+   "max_abs_diff": 39.0,
+   "tolerance": "±0.05 (relative)",
+   "pct_within_tolerance": 99.3,
+   "pct_identical": 14.7,
+   "compatible_r_gt_0_95": true,
+   "lexinspect_column": "li_div_tokens",
+   "reference_column": "lexrich_own_tokens",
+   "top5": [
+    {
+     "id": "pg55-p00615",
+     "source": "Project Gutenberg",
+     "lexinspect": 822.0,
+     "reference": 861.0,
+     "diff": -39.0
+    },
+    {
+     "id": "pg25344-p00216",
+     "source": "Project Gutenberg",
+     "lexinspect": 976.0,
+     "reference": 1014.0,
+     "diff": -38.0
+    },
+    {
+     "id": "wiki-simple-006",
+     "source": "Simple English Wikipedia",
+     "lexinspect": 932.0,
+     "reference": 959.0,
+     "diff": -27.0
+    },
+    {
+     "id": "wiki-simple-013",
+     "source": "Simple English Wikipedia",
+     "lexinspect": 884.0,
+     "reference": 909.0,
+     "diff": -25.0
+    },
+    {
+     "id": "pg11-p00247",
+     "source": "Project Gutenberg",
+     "lexinspect": 698.0,
+     "reference": 722.0,
+     "diff": -24.0
+    }
+   ]
+  },
+  "MATTR (50) vs TAALED/pylats": {
+   "n": 300,
+   "pearson_r": 0.8592,
+   "spearman_rho": 0.8513,
+   "mean_lexinspect": 0.7682,
+   "mean_reference": 0.7359,
+   "bias": 0.0323,
+   "mean_abs_diff": 0.0328,
+   "max_abs_diff": 0.1724,
+   "tolerance": "±0.01",
+   "pct_within_tolerance": 13.3,
+   "pct_identical": 0.0,
+   "compatible_r_gt_0_95": false,
+   "lexinspect_column": "li_mattr",
+   "reference_column": "taaled_own_mattr",
+   "top5": [
+    {
+     "id": "wiki-simple-006",
+     "source": "Simple English Wikipedia",
+     "lexinspect": 0.7508,
+     "reference": 0.5784,
+     "diff": 0.1724
+    },
+    {
+     "id": "wiki-en-006",
+     "source": "English Wikipedia",
+     "lexinspect": 0.8016,
+     "reference": 0.6891,
+     "diff": 0.1125
+    },
+    {
+     "id": "wiki-simple-017",
+     "source": "Simple English Wikipedia",
+     "lexinspect": 0.7715,
+     "reference": 0.6721,
+     "diff": 0.0995
+    },
+    {
+     "id": "ellipse-998DA357F910",
+     "source": "ELLIPSE corpus (train split)",
+     "lexinspect": 0.7741,
+     "reference": 0.6848,
+     "diff": 0.0893
+    },
+    {
+     "id": "wiki-simple-018",
+     "source": "Simple English Wikipedia",
+     "lexinspect": 0.7757,
+     "reference": 0.6964,
+     "diff": 0.0793
+    }
+   ]
+  },
+  "MATTR (50) vs lexical-diversity": {
+   "n": 300,
+   "pearson_r": 0.9684,
+   "spearman_rho": 0.9585,
+   "mean_lexinspect": 0.7682,
+   "mean_reference": 0.7512,
+   "bias": 0.017,
+   "mean_abs_diff": 0.0178,
+   "max_abs_diff": 0.0488,
+   "tolerance": "±0.01",
+   "pct_within_tolerance": 25.7,
+   "pct_identical": 0.3,
+   "compatible_r_gt_0_95": true,
+   "lexinspect_column": "li_mattr",
+   "reference_column": "lexdiv_own_mattr",
+   "top5": [
+    {
+     "id": "pg2680-p00414",
+     "source": "Project Gutenberg",
+     "lexinspect": 0.7878,
+     "reference": 0.7391,
+     "diff": 0.0488
+    },
+    {
+     "id": "ellipse-D15E85D292CE",
+     "source": "ELLIPSE corpus (train split)",
+     "lexinspect": 0.7927,
+     "reference": 0.7457,
+     "diff": 0.0471
+    },
+    {
+     "id": "ellipse-3CACE02FBD5C",
+     "source": "ELLIPSE corpus (train split)",
+     "lexinspect": 0.7264,
+     "reference": 0.6798,
+     "diff": 0.0466
+    },
+    {
+     "id": "ellipse-F49521C3494B",
+     "source": "ELLIPSE corpus (train split)",
+     "lexinspect": 0.7337,
+     "reference": 0.6871,
+     "diff": 0.0466
+    },
+    {
+     "id": "ellipse-40DB9B4FC90A",
+     "source": "ELLIPSE corpus (train split)",
+     "lexinspect": 0.7394,
+     "reference": 0.6957,
+     "diff": 0.0437
+    }
+   ]
+  },
+  "MATTR (50) vs lexicalrichness": {
+   "n": 300,
+   "pearson_r": 0.9952,
+   "spearman_rho": 0.9946,
+   "mean_lexinspect": 0.7682,
+   "mean_reference": 0.7681,
+   "bias": 0.0002,
+   "mean_abs_diff": 0.0027,
+   "max_abs_diff": 0.0231,
+   "tolerance": "±0.01",
+   "pct_within_tolerance": 97.0,
+   "pct_identical": 10.7,
+   "compatible_r_gt_0_95": true,
+   "lexinspect_column": "li_mattr",
+   "reference_column": "lexrich_own_mattr",
+   "top5": [
+    {
+     "id": "pg30155-p00201",
+     "source": "Project Gutenberg",
+     "lexinspect": 0.7483,
+     "reference": 0.7251,
+     "diff": 0.0231
+    },
+    {
+     "id": "ellipse-FB1A86FB4BFC",
+     "source": "ELLIPSE corpus (train split)",
+     "lexinspect": 0.6805,
+     "reference": 0.6632,
+     "diff": 0.0174
+    },
+    {
+     "id": "pg1400-p00518",
+     "source": "Project Gutenberg",
+     "lexinspect": 0.805,
+     "reference": 0.8197,
+     "diff": -0.0147
+    },
+    {
+     "id": "pg36-p00596",
+     "source": "Project Gutenberg",
+     "lexinspect": 0.8283,
+     "reference": 0.8423,
+     "diff": -0.014
+    },
+    {
+     "id": "pg98-p01114",
+     "source": "Project Gutenberg",
+     "lexinspect": 0.7885,
+     "reference": 0.8018,
+     "diff": -0.0132
+    }
+   ]
+  },
+  "MTLD vs TAALED/pylats (original, mtldo)": {
+   "n": 300,
+   "pearson_r": 0.8355,
+   "spearman_rho": 0.8266,
+   "mean_lexinspect": 69.3467,
+   "mean_reference": 55.2923,
+   "bias": 14.0544,
+   "mean_abs_diff": 14.3921,
+   "max_abs_diff": 58.7513,
+   "tolerance": "±0.05 (relative)",
+   "pct_within_tolerance": 11.7,
+   "pct_identical": 0.0,
+   "compatible_r_gt_0_95": false,
+   "lexinspect_column": "li_mtld",
+   "reference_column": "taaled_own_mtld_original",
+   "top5": [
+    {
+     "id": "pg45-p00678",
+     "source": "Project Gutenberg",
+     "lexinspect": 131.9903,
+     "reference": 73.239,
+     "diff": 58.7513
+    },
+    {
+     "id": "wiki-en-009",
+     "source": "English Wikipedia",
+     "lexinspect": 130.1176,
+     "reference": 73.8767,
+     "diff": 56.2408
+    },
+    {
+     "id": "pg205-p00336",
+     "source": "Project Gutenberg",
+     "lexinspect": 159.7801,
+     "reference": 105.927,
+     "diff": 53.8531
+    },
+    {
+     "id": "wiki-en-042",
+     "source": "English Wikipedia",
+     "lexinspect": 127.8106,
+     "reference": 80.3779,
+     "diff": 47.4327
+    },
+    {
+     "id": "pg36-p00596",
+     "source": "Project Gutenberg",
+     "lexinspect": 106.6676,
+     "reference": 59.592,
+     "diff": 47.0756
+    }
+   ]
+  },
+  "MTLD vs TAALED/pylats (default)": {
+   "n": 300,
+   "pearson_r": 0.8305,
+   "spearman_rho": 0.8203,
+   "mean_lexinspect": 69.3467,
+   "mean_reference": 55.2978,
+   "bias": 14.0488,
+   "mean_abs_diff": 14.4727,
+   "max_abs_diff": 58.7746,
+   "tolerance": "±0.05 (relative)",
+   "pct_within_tolerance": 10.7,
+   "pct_identical": 0.0,
+   "compatible_r_gt_0_95": false,
+   "lexinspect_column": "li_mtld",
+   "reference_column": "taaled_own_mtld_mfl",
+   "top5": [
+    {
+     "id": "pg205-p00336",
+     "source": "Project Gutenberg",
+     "lexinspect": 159.7801,
+     "reference": 101.0055,
+     "diff": 58.7746
+    },
+    {
+     "id": "pg45-p00678",
+     "source": "Project Gutenberg",
+     "lexinspect": 131.9903,
+     "reference": 73.6659,
+     "diff": 58.3244
+    },
+    {
+     "id": "wiki-en-009",
+     "source": "English Wikipedia",
+     "lexinspect": 130.1176,
+     "reference": 73.84,
+     "diff": 56.2776
+    },
+    {
+     "id": "wiki-en-042",
+     "source": "English Wikipedia",
+     "lexinspect": 127.8106,
+     "reference": 80.6294,
+     "diff": 47.1812
+    },
+    {
+     "id": "pg36-p00596",
+     "source": "Project Gutenberg",
+     "lexinspect": 106.6676,
+     "reference": 62.4582,
+     "diff": 44.2094
+    }
+   ]
+  },
+  "MTLD vs lexical-diversity": {
+   "n": 300,
+   "pearson_r": 0.9426,
+   "spearman_rho": 0.9475,
+   "mean_lexinspect": 69.3467,
+   "mean_reference": 62.703,
+   "bias": 6.6436,
+   "mean_abs_diff": 7.4453,
+   "max_abs_diff": 45.2748,
+   "tolerance": "±0.05 (relative)",
+   "pct_within_tolerance": 25.3,
+   "pct_identical": 0.0,
+   "compatible_r_gt_0_95": false,
+   "lexinspect_column": "li_mtld",
+   "reference_column": "lexdiv_own_mtld",
+   "top5": [
+    {
+     "id": "pg205-p00336",
+     "source": "Project Gutenberg",
+     "lexinspect": 159.7801,
+     "reference": 114.5052,
+     "diff": 45.2748
+    },
+    {
+     "id": "pg2680-p00081",
+     "source": "Project Gutenberg",
+     "lexinspect": 120.2862,
+     "reference": 81.3391,
+     "diff": 38.9471
+    },
+    {
+     "id": "pg25344-p00566",
+     "source": "Project Gutenberg",
+     "lexinspect": 137.5828,
+     "reference": 107.7958,
+     "diff": 29.787
+    },
+    {
+     "id": "pg30155-p00048",
+     "source": "Project Gutenberg",
+     "lexinspect": 86.9867,
+     "reference": 61.2867,
+     "diff": 25.7
+    },
+    {
+     "id": "pg2701-p01624",
+     "source": "Project Gutenberg",
+     "lexinspect": 89.9274,
+     "reference": 64.6266,
+     "diff": 25.3008
+    }
+   ]
+  },
+  "MTLD vs lexicalrichness": {
+   "n": 300,
+   "pearson_r": 0.978,
+   "spearman_rho": 0.9811,
+   "mean_lexinspect": 69.3467,
+   "mean_reference": 68.903,
+   "bias": 0.4436,
+   "mean_abs_diff": 2.7083,
+   "max_abs_diff": 25.0352,
+   "tolerance": "±0.05 (relative)",
+   "pct_within_tolerance": 72.7,
+   "pct_identical": 11.3,
+   "compatible_r_gt_0_95": true,
+   "lexinspect_column": "li_mtld",
+   "reference_column": "lexrich_own_mtld",
+   "top5": [
+    {
+     "id": "pg205-p00336",
+     "source": "Project Gutenberg",
+     "lexinspect": 159.7801,
+     "reference": 134.7449,
+     "diff": 25.0352
+    },
+    {
+     "id": "wiki-en-042",
+     "source": "English Wikipedia",
+     "lexinspect": 127.8106,
+     "reference": 110.8708,
+     "diff": 16.9399
+    },
+    {
+     "id": "ellipse-194E86ED4117",
+     "source": "ELLIPSE corpus (train split)",
+     "lexinspect": 97.1171,
+     "reference": 80.8638,
+     "diff": 16.2533
+    },
+    {
+     "id": "pg98-p01114",
+     "source": "Project Gutenberg",
+     "lexinspect": 66.5405,
+     "reference": 81.8266,
+     "diff": -15.286
+    },
+    {
+     "id": "pg36-p00327",
+     "source": "Project Gutenberg",
+     "lexinspect": 79.7812,
+     "reference": 95.035,
+     "diff": -15.2538
+    }
+   ]
+  },
+  "HD-D vs TAALED/pylats": {
+   "n": 300,
+   "pearson_r": 0.8571,
+   "spearman_rho": 0.8427,
+   "mean_lexinspect": 0.8121,
+   "mean_reference": 0.7809,
+   "bias": 0.0312,
+   "mean_abs_diff": 0.0314,
+   "max_abs_diff": 0.176,
+   "tolerance": "±0.01",
+   "pct_within_tolerance": 12.7,
+   "pct_identical": 0.0,
+   "compatible_r_gt_0_95": false,
+   "lexinspect_column": "li_hdd",
+   "reference_column": "taaled_own_hdd",
+   "top5": [
+    {
+     "id": "wiki-simple-006",
+     "source": "Simple English Wikipedia",
+     "lexinspect": 0.811,
+     "reference": 0.635,
+     "diff": 0.176
+    },
+    {
+     "id": "wiki-en-006",
+     "source": "English Wikipedia",
+     "lexinspect": 0.8391,
+     "reference": 0.7239,
+     "diff": 0.1152
+    },
+    {
+     "id": "wiki-simple-017",
+     "source": "Simple English Wikipedia",
+     "lexinspect": 0.8225,
+     "reference": 0.7314,
+     "diff": 0.0911
+    },
+    {
+     "id": "pg16-p00161",
+     "source": "Project Gutenberg",
+     "lexinspect": 0.8197,
+     "reference": 0.7292,
+     "diff": 0.0904
+    },
+    {
+     "id": "pg55-p00615",
+     "source": "Project Gutenberg",
+     "lexinspect": 0.8213,
+     "reference": 0.743,
+     "diff": 0.0783
+    }
+   ]
+  },
+  "HD-D vs lexical-diversity": {
+   "n": 300,
+   "pearson_r": 0.9718,
+   "spearman_rho": 0.9501,
+   "mean_lexinspect": 0.8121,
+   "mean_reference": 0.7957,
+   "bias": 0.0165,
+   "mean_abs_diff": 0.0169,
+   "max_abs_diff": 0.0451,
+   "tolerance": "±0.01",
+   "pct_within_tolerance": 27.0,
+   "pct_identical": 0.0,
+   "compatible_r_gt_0_95": true,
+   "lexinspect_column": "li_hdd",
+   "reference_column": "lexdiv_own_hdd",
+   "top5": [
+    {
+     "id": "ellipse-3CACE02FBD5C",
+     "source": "ELLIPSE corpus (train split)",
+     "lexinspect": 0.7805,
+     "reference": 0.7354,
+     "diff": 0.0451
+    },
+    {
+     "id": "ellipse-FB1A86FB4BFC",
+     "source": "ELLIPSE corpus (train split)",
+     "lexinspect": 0.7275,
+     "reference": 0.6843,
+     "diff": 0.0432
+    },
+    {
+     "id": "pg2680-p00414",
+     "source": "Project Gutenberg",
+     "lexinspect": 0.8394,
+     "reference": 0.798,
+     "diff": 0.0414
+    },
+    {
+     "id": "pg5827-p00063",
+     "source": "Project Gutenberg",
+     "lexinspect": 0.8118,
+     "reference": 0.7718,
+     "diff": 0.04
+    },
+    {
+     "id": "ellipse-F49521C3494B",
+     "source": "ELLIPSE corpus (train split)",
+     "lexinspect": 0.7441,
+     "reference": 0.7043,
+     "diff": 0.0397
+    }
+   ]
+  },
+  "HD-D vs lexicalrichness": {
+   "n": 300,
+   "pearson_r": 0.9972,
+   "spearman_rho": 0.9952,
+   "mean_lexinspect": 0.8121,
+   "mean_reference": 0.8122,
+   "bias": -0.0,
+   "mean_abs_diff": 0.0019,
+   "max_abs_diff": 0.0169,
+   "tolerance": "±0.01",
+   "pct_within_tolerance": 98.7,
+   "pct_identical": 10.0,
+   "compatible_r_gt_0_95": true,
+   "lexinspect_column": "li_hdd",
+   "reference_column": "lexrich_own_hdd",
+   "top5": [
+    {
+     "id": "pg30155-p00201",
+     "source": "Project Gutenberg",
+     "lexinspect": 0.8047,
+     "reference": 0.7878,
+     "diff": 0.0169
+    },
+    {
+     "id": "pg74-p00649",
+     "source": "Project Gutenberg",
+     "lexinspect": 0.848,
+     "reference": 0.8589,
+     "diff": -0.0108
+    },
+    {
+     "id": "ellipse-FB1A86FB4BFC",
+     "source": "ELLIPSE corpus (train split)",
+     "lexinspect": 0.7275,
+     "reference": 0.7166,
+     "diff": 0.0108
+    },
+    {
+     "id": "pg84-p00122",
+     "source": "Project Gutenberg",
+     "lexinspect": 0.8411,
+     "reference": 0.8512,
+     "diff": -0.0101
+    },
+    {
+     "id": "wiki-simple-043",
+     "source": "Simple English Wikipedia",
+     "lexinspect": 0.7358,
+     "reference": 0.7265,
+     "diff": 0.0093
+    }
+   ]
+  },
+  "vocd-D vs lexicalrichness": {
+   "n": 300,
+   "pearson_r": 0.9943,
+   "spearman_rho": 0.9945,
+   "mean_lexinspect": 78.1054,
+   "mean_reference": 78.1939,
+   "bias": -0.0884,
+   "mean_abs_diff": 1.4301,
+   "max_abs_diff": 12.5044,
+   "tolerance": "±0.05 (relative)",
+   "pct_within_tolerance": 93.7,
+   "pct_identical": 0.0,
+   "compatible_r_gt_0_95": true,
+   "lexinspect_column": "li_vocd_d",
+   "reference_column": "lexrich_own_vocd_d",
+   "top5": [
+    {
+     "id": "pg36-p00596",
+     "source": "Project Gutenberg",
+     "lexinspect": 132.4762,
+     "reference": 144.9806,
+     "diff": -12.5044
+    },
+    {
+     "id": "pg74-p00649",
+     "source": "Project Gutenberg",
+     "lexinspect": 98.7144,
+     "reference": 109.5977,
+     "diff": -10.8834
+    },
+    {
+     "id": "pg2701-p00307",
+     "source": "Project Gutenberg",
+     "lexinspect": 119.704,
+     "reference": 128.9449,
+     "diff": -9.2409
+    },
+    {
+     "id": "pg84-p00122",
+     "source": "Project Gutenberg",
+     "lexinspect": 94.247,
+     "reference": 102.9966,
+     "diff": -8.7496
+    },
+    {
+     "id": "pg1342-p00403",
+     "source": "Project Gutenberg",
+     "lexinspect": 98.7166,
+     "reference": 107.1168,
+     "diff": -8.4002
+    }
+   ]
+  }
+ },
+ "by_source": {
+  "ELLIPSE corpus (train split)": {
+   "Words": {
+    "n": 100,
+    "pearson_r": 0.9999,
+    "bias": 0.74,
+    "mean_abs_diff": 0.74,
+    "pct_within_tolerance": 98.0
+   },
+   "Sentences": {
+    "n": 100,
+    "pearson_r": 0.9804,
+    "bias": 0.99,
+    "mean_abs_diff": 1.19,
+    "pct_within_tolerance": 71.0
+   },
+   "Syllables": {
+    "n": 100,
+    "pearson_r": 0.9998,
+    "bias": 3.76,
+    "mean_abs_diff": 3.88,
+    "pct_within_tolerance": 93.0
+   },
+   "Syllables in words without digits": {
+    "n": 100,
+    "pearson_r": 0.9998,
+    "bias": 3.26,
+    "mean_abs_diff": 3.28,
+    "pct_within_tolerance": 94.0
+   },
+   "Polysyllabic words (3+)": {
+    "n": 100,
+    "pearson_r": 0.9951,
+    "bias": 0.68,
+    "mean_abs_diff": 0.9,
+    "pct_within_tolerance": 73.0
+   },
+   "Dale–Chall difficult words": {
+    "n": 100,
+    "pearson_r": 0.8982,
+    "bias": -27.29,
+    "mean_abs_diff": 27.29,
+    "pct_within_tolerance": 0.0
+   },
+   "Flesch Reading Ease": {
+    "n": 100,
+    "pearson_r": 0.8982,
+    "bias": 2.0925,
+    "mean_abs_diff": 3.3541,
+    "pct_within_tolerance": 84.0
+   },
+   "Flesch–Kincaid grade": {
+    "n": 100,
+    "pearson_r": 0.9049,
+    "bias": -0.9441,
+    "mean_abs_diff": 1.2554,
+    "pct_within_tolerance": 61.0
+   },
+   "Gunning Fog": {
+    "n": 100,
+    "pearson_r": 0.9047,
+    "bias": -0.6964,
+    "mean_abs_diff": 1.4576,
+    "pct_within_tolerance": 37.0
+   },
+   "SMOG": {
+    "n": 100,
+    "pearson_r": 0.9507,
+    "bias": -0.1553,
+    "mean_abs_diff": 0.3847,
+    "pct_within_tolerance": 76.0
+   },
+   "MATTR (50) vs TAALED": {
+    "n": 100,
+    "pearson_r": 1.0,
+    "bias": 0.0,
+    "mean_abs_diff": 0.0,
+    "pct_within_tolerance": 100.0
+   },
+   "MTLD vs TAALED (original, mtldo)": {
+    "n": 100,
+    "pearson_r": 0.9917,
+    "bias": -1.0817,
+    "mean_abs_diff": 1.1789,
+    "pct_within_tolerance": 82.0
+   },
+   "HD-D vs TAALED": {
+    "n": 100,
+    "pearson_r": 1.0,
+    "bias": -0.0,
+    "mean_abs_diff": 0.0,
+    "pct_within_tolerance": 100.0
+   },
+   "MATTR (50) vs TAALED/pylats": {
+    "n": 100,
+    "pearson_r": 0.9269,
+    "bias": 0.0218,
+    "mean_abs_diff": 0.0228,
+    "pct_within_tolerance": 24.0
+   },
+   "MTLD vs TAALED/pylats (original, mtldo)": {
+    "n": 100,
+    "pearson_r": 0.9088,
+    "bias": 6.1626,
+    "mean_abs_diff": 6.8895,
+    "pct_within_tolerance": 21.0
+   }
+  },
+  "English Wikipedia": {
+   "Words": {
+    "n": 50,
+    "pearson_r": 0.9987,
+    "bias": 1.4,
+    "mean_abs_diff": 1.4,
+    "pct_within_tolerance": 100.0
+   },
+   "Sentences": {
+    "n": 50,
+    "pearson_r": 0.9163,
+    "bias": -2.24,
+    "mean_abs_diff": 2.52,
+    "pct_within_tolerance": 86.0
+   },
+   "Syllables": {
+    "n": 50,
+    "pearson_r": 0.9447,
+    "bias": 106.96,
+    "mean_abs_diff": 106.96,
+    "pct_within_tolerance": 2.0
+   },
+   "Syllables in words without digits": {
+    "n": 50,
+    "pearson_r": 0.9822,
+    "bias": 29.02,
+    "mean_abs_diff": 29.06,
+    "pct_within_tolerance": 68.0
+   },
+   "Polysyllabic words (3+)": {
+    "n": 50,
+    "pearson_r": 0.9445,
+    "bias": 31.08,
+    "mean_abs_diff": 31.08,
+    "pct_within_tolerance": 0.0
+   },
+   "Dale–Chall difficult words": {
+    "n": 50,
+    "pearson_r": 0.5847,
+    "bias": -189.68,
+    "mean_abs_diff": 189.68,
+    "pct_within_tolerance": 0.0
+   },
+   "Flesch Reading Ease": {
+    "n": 50,
+    "pearson_r": 0.9192,
+    "bias": -10.5289,
+    "mean_abs_diff": 10.5289,
+    "pct_within_tolerance": 6.0
+   },
+   "Flesch–Kincaid grade": {
+    "n": 50,
+    "pearson_r": 0.9175,
+    "bias": 1.7343,
+    "mean_abs_diff": 1.7343,
+    "pct_within_tolerance": 2.0
+   },
+   "Gunning Fog": {
+    "n": 50,
+    "pearson_r": 0.8875,
+    "bias": -1.2344,
+    "mean_abs_diff": 1.3635,
+    "pct_within_tolerance": 16.0
+   },
+   "SMOG": {
+    "n": 50,
+    "pearson_r": 0.9363,
+    "bias": 1.3131,
+    "mean_abs_diff": 1.3131,
+    "pct_within_tolerance": 4.0
+   },
+   "MATTR (50) vs TAALED": {
+    "n": 50,
+    "pearson_r": 1.0,
+    "bias": 0.0,
+    "mean_abs_diff": 0.0,
+    "pct_within_tolerance": 100.0
+   },
+   "MTLD vs TAALED (original, mtldo)": {
+    "n": 50,
+    "pearson_r": 0.9914,
+    "bias": -0.9561,
+    "mean_abs_diff": 1.5419,
+    "pct_within_tolerance": 86.0
+   },
+   "HD-D vs TAALED": {
+    "n": 50,
+    "pearson_r": 1.0,
+    "bias": -0.0,
+    "mean_abs_diff": 0.0,
+    "pct_within_tolerance": 100.0
+   },
+   "MATTR (50) vs TAALED/pylats": {
+    "n": 50,
+    "pearson_r": 0.8161,
+    "bias": 0.0469,
+    "mean_abs_diff": 0.0469,
+    "pct_within_tolerance": 0.0
+   },
+   "MTLD vs TAALED/pylats (original, mtldo)": {
+    "n": 50,
+    "pearson_r": 0.7918,
+    "bias": 24.4212,
+    "mean_abs_diff": 24.4212,
+    "pct_within_tolerance": 0.0
+   }
+  },
+  "Project Gutenberg": {
+   "Words": {
+    "n": 100,
+    "pearson_r": 0.9999,
+    "bias": 1.54,
+    "mean_abs_diff": 1.54,
+    "pct_within_tolerance": 99.0
+   },
+   "Sentences": {
+    "n": 100,
+    "pearson_r": 0.9835,
+    "bias": 0.38,
+    "mean_abs_diff": 1.62,
+    "pct_within_tolerance": 84.0
+   },
+   "Syllables": {
+    "n": 100,
+    "pearson_r": 0.9998,
+    "bias": 7.45,
+    "mean_abs_diff": 7.51,
+    "pct_within_tolerance": 93.0
+   },
+   "Syllables in words without digits": {
+    "n": 100,
+    "pearson_r": 0.9999,
+    "bias": 6.3,
+    "mean_abs_diff": 6.4,
+    "pct_within_tolerance": 94.0
+   },
+   "Polysyllabic words (3+)": {
+    "n": 100,
+    "pearson_r": 0.9976,
+    "bias": 2.12,
+    "mean_abs_diff": 2.38,
+    "pct_within_tolerance": 71.0
+   },
+   "Dale–Chall difficult words": {
+    "n": 100,
+    "pearson_r": 0.8992,
+    "bias": -52.65,
+    "mean_abs_diff": 52.65,
+    "pct_within_tolerance": 0.0
+   },
+   "Flesch Reading Ease": {
+    "n": 100,
+    "pearson_r": 0.9894,
+    "bias": -0.6315,
+    "mean_abs_diff": 1.8832,
+    "pct_within_tolerance": 93.0
+   },
+   "Flesch–Kincaid grade": {
+    "n": 100,
+    "pearson_r": 0.9822,
+    "bias": 0.069,
+    "mean_abs_diff": 0.6207,
+    "pct_within_tolerance": 61.0
+   },
+   "Gunning Fog": {
+    "n": 100,
+    "pearson_r": 0.9818,
+    "bias": -0.1925,
+    "mean_abs_diff": 0.7424,
+    "pct_within_tolerance": 46.0
+   },
+   "SMOG": {
+    "n": 100,
+    "pearson_r": 0.9903,
+    "bias": 0.134,
+    "mean_abs_diff": 0.3527,
+    "pct_within_tolerance": 76.0
+   },
+   "MATTR (50) vs TAALED": {
+    "n": 100,
+    "pearson_r": 1.0,
+    "bias": 0.0,
+    "mean_abs_diff": 0.0,
+    "pct_within_tolerance": 100.0
+   },
+   "MTLD vs TAALED (original, mtldo)": {
+    "n": 100,
+    "pearson_r": 0.9935,
+    "bias": -1.2636,
+    "mean_abs_diff": 1.5394,
+    "pct_within_tolerance": 81.0
+   },
+   "HD-D vs TAALED": {
+    "n": 100,
+    "pearson_r": 1.0,
+    "bias": -0.0,
+    "mean_abs_diff": 0.0,
+    "pct_within_tolerance": 100.0
+   },
+   "MATTR (50) vs TAALED/pylats": {
+    "n": 100,
+    "pearson_r": 0.8111,
+    "bias": 0.0262,
+    "mean_abs_diff": 0.0266,
+    "pct_within_tolerance": 14.0
+   },
+   "MTLD vs TAALED/pylats (original, mtldo)": {
+    "n": 100,
+    "pearson_r": 0.8246,
+    "bias": 14.4586,
+    "mean_abs_diff": 14.7034,
+    "pct_within_tolerance": 13.0
+   }
+  },
+  "Simple English Wikipedia": {
+   "Words": {
+    "n": 50,
+    "pearson_r": 1.0,
+    "bias": 0.48,
+    "mean_abs_diff": 0.48,
+    "pct_within_tolerance": 100.0
+   },
+   "Sentences": {
+    "n": 50,
+    "pearson_r": 0.982,
+    "bias": -2.06,
+    "mean_abs_diff": 2.42,
+    "pct_within_tolerance": 94.0
+   },
+   "Syllables": {
+    "n": 50,
+    "pearson_r": 0.9817,
+    "bias": 92.36,
+    "mean_abs_diff": 92.36,
+    "pct_within_tolerance": 2.0
+   },
+   "Syllables in words without digits": {
+    "n": 50,
+    "pearson_r": 0.9978,
+    "bias": 18.2,
+    "mean_abs_diff": 18.28,
+    "pct_within_tolerance": 78.0
+   },
+   "Polysyllabic words (3+)": {
+    "n": 50,
+    "pearson_r": 0.9471,
+    "bias": 25.86,
+    "mean_abs_diff": 25.86,
+    "pct_within_tolerance": 0.0
+   },
+   "Dale–Chall difficult words": {
+    "n": 50,
+    "pearson_r": 0.3651,
+    "bias": -191.66,
+    "mean_abs_diff": 191.66,
+    "pct_within_tolerance": 0.0
+   },
+   "Flesch Reading Ease": {
+    "n": 50,
+    "pearson_r": 0.9259,
+    "bias": -9.2131,
+    "mean_abs_diff": 9.2131,
+    "pct_within_tolerance": 22.0
+   },
+   "Flesch–Kincaid grade": {
+    "n": 50,
+    "pearson_r": 0.9568,
+    "bias": 1.4038,
+    "mean_abs_diff": 1.4038,
+    "pct_within_tolerance": 8.0
+   },
+   "Gunning Fog": {
+    "n": 50,
+    "pearson_r": 0.916,
+    "bias": -1.1482,
+    "mean_abs_diff": 1.2245,
+    "pct_within_tolerance": 20.0
+   },
+   "SMOG": {
+    "n": 50,
+    "pearson_r": 0.9694,
+    "bias": 1.0113,
+    "mean_abs_diff": 1.0113,
+    "pct_within_tolerance": 18.0
+   },
+   "MATTR (50) vs TAALED": {
+    "n": 50,
+    "pearson_r": 1.0,
+    "bias": 0.0,
+    "mean_abs_diff": 0.0,
+    "pct_within_tolerance": 100.0
+   },
+   "MTLD vs TAALED (original, mtldo)": {
+    "n": 50,
+    "pearson_r": 0.9927,
+    "bias": -0.5661,
+    "mean_abs_diff": 0.9517,
+    "pct_within_tolerance": 92.0
+   },
+   "HD-D vs TAALED": {
+    "n": 50,
+    "pearson_r": 1.0,
+    "bias": 0.0,
+    "mean_abs_diff": 0.0,
+    "pct_within_tolerance": 100.0
+   },
+   "MATTR (50) vs TAALED/pylats": {
+    "n": 50,
+    "pearson_r": 0.682,
+    "bias": 0.0511,
+    "mean_abs_diff": 0.0511,
+    "pct_within_tolerance": 4.0
+   },
+   "MTLD vs TAALED/pylats (original, mtldo)": {
+    "n": 50,
+    "pearson_r": 0.745,
+    "bias": 18.6625,
+    "mean_abs_diff": 18.7456,
+    "pct_within_tolerance": 2.0
+   }
+  }
+ },
+ "vocd_text_inspector_passage": {
+  "passage": "reports/text-inspector-comparison/passage.txt",
+  "tokens": 194,
+  "types": 153,
+  "lexinspect_vocd_d": 245.48,
+  "lexicalrichness_vocd_d_same_tokens": 245.48,
+  "text_inspector_reported": 200.0,
+  "trial1_fitted_d": 243.37,
+  "trial1_sse_at_fit": 0.00010162317623736517,
+  "trial1_sse_at_200": 0.003047147287243416,
+  "trial1_sse_ratio_200_vs_fit": 29.98,
+  "lexinspect_vocd_d_seeds_1_20": {
+   "min": 241.98,
+   "max": 249.5,
+   "mean": 246.0
+  }
+ },
+ "suspected_bugs": {
+  "minimal_reproductions": {
+   "glued_words": {
+    "input": "It was—“impressively”—big, he said “at last”—then left.",
+    "words": [
+     "It",
+     "was—“impressively”—big",
+     "he",
+     "said",
+     "at",
+     "last”—then",
+     "left"
+    ],
+    "word_count": 7,
+    "expected_word_count": 10,
+    "diversity_tokens": [
+     "it",
+     "was—“impressively”—big",
+     "he",
+     "said",
+     "at",
+     "last”—then",
+     "left"
+    ]
+   },
+   "digit_strings": {
+    "input": "The war lasted from 1914–1918 and the meeting began at 11:00 in 1914.",
+    "words_syllables_numeric": [
+     [
+      "The",
+      1,
+      false
+     ],
+     [
+      "war",
+      1,
+      false
+     ],
+     [
+      "lasted",
+      2,
+      false
+     ],
+     [
+      "from",
+      1,
+      false
+     ],
+     [
+      "1914–1918",
+      0,
+      false
+     ],
+     [
+      "and",
+      1,
+      false
+     ],
+     [
+      "the",
+      1,
+      false
+     ],
+     [
+      "meeting",
+      2,
+      false
+     ],
+     [
+      "began",
+      2,
+      false
+     ],
+     [
+      "at",
+      1,
+      false
+     ],
+     [
+      "11:00",
+      0,
+      false
+     ],
+     [
+      "in",
+      1,
+      false
+     ],
+     [
+      "1914",
+      4,
+      true
+     ]
+    ],
+    "diversity_tokens": [
+     "the",
+     "war",
+     "lasted",
+     "from",
+     "1914–1918",
+     "and",
+     "the",
+     "meeting",
+     "began",
+     "at",
+     "11:00",
+     "in"
+    ]
+   }
+  },
+  "glued_words": {
+   "texts_affected": 53,
+   "texts_affected_by_source": {
+    "Project Gutenberg": 41,
+    "English Wikipedia": 5,
+    "Simple English Wikipedia": 5,
+    "ELLIPSE corpus (train split)": 2
+   },
+   "glued_words_total": 146,
+   "examples": [
+    "last”—he",
+    "impressively—“it",
+    "was!—the",
+    "fast,—not",
+    "great,[2",
+    "deep,—not",
+    "day,—with",
+    "alive:—Aries",
+    "him,—for",
+    "girl,—wasting"
+   ],
+   "effect_if_split_on_affected_texts": {
+    "word_count_change_pct": {
+     "median": 0.163,
+     "max_abs": 1.639
+    },
+    "mtld_change_pct_lexinspect_vs_split": {
+     "median": 0.168,
+     "max_abs": 22.368
+    },
+    "mattr_change_abs_lexinspect_vs_split": {
+     "median": 0.0,
+     "max_abs": 0.007
+    }
+   }
+  },
+  "digit_strings_zero_syllables": {
+   "texts_affected": 51,
+   "words_total": 155,
+   "examples": [
+    "\"(2",
+    "00:00",
+    "1-1",
+    "1-1/2",
+    "1-24-2011",
+    "1/2",
+    "1/4",
+    "1081–1151",
+    "1135–40",
+    "1147–49",
+    "11:15",
+    "120–130",
+    "120–160",
+    "1241–1248",
+    "12:00",
+    "12–0",
+    "12–9",
+    "13–0",
+    "13–13",
+    "13–14"
+   ]
+  }
+ }
+}

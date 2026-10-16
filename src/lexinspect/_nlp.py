@@ -53,8 +53,28 @@ def get_nlp(model: str = DEFAULT_MODEL):
         raise RuntimeError(
             f"spaCy model '{model}' is not installed. Reinstall dependencies: uv sync"
         ) from e
+    _split_dashes(nlp)
     nlp.add_pipe("lexinspect_paragraph_breaks", before="parser")
     return nlp
+
+
+# spaCy splits `word—word` but not `was—“impressively”—big` or `last”—then`:
+# a quote beside the dash defeats its infix rules, and the whole run became one
+# "word" (Study 3 found it in 53 of 300 texts, moving MTLD by up to 22%).
+# Em and en dashes always separate words; so does a quote mark touching one.
+# Apostrophes inside words (`don't`, `o'clock`) are untouched.
+_DASH_INFIXES = (
+    r"[—–]",
+    r"(?<=[—–])[\"“”‘’]",
+    r"[\"“”‘’](?=[—–])",
+)
+
+
+def _split_dashes(nlp) -> None:
+    from spacy.util import compile_infix_regex
+
+    infixes = list(nlp.Defaults.infixes) + list(_DASH_INFIXES)
+    nlp.tokenizer.infix_finditer = compile_infix_regex(infixes).finditer
 
 
 def parse(text: str):

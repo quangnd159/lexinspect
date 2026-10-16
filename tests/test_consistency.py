@@ -231,3 +231,31 @@ def _assert_no_overlap(spans):
     spans = sorted(spans)
     for (_s1, e1), (s2, _e2) in zip(spans, spans[1:], strict=False):
         assert e1 <= s2, spans
+
+
+def test_dashes_and_quotes_separate_words():
+    # spaCy kept `was—“impressively”—big` as one token, so it counted as one word
+    # and one diversity type (Study 3). Contractions must still stay whole.
+    a = analysed("It was—“impressively”—big, he said “at last”—then left. I don’t know.")
+    words = [w.text for w in a.words]
+    assert words[:10] == [
+        "It",
+        "was",
+        "impressively",
+        "big",
+        "he",
+        "said",
+        "at",
+        "last",
+        "then",
+        "left",
+    ]
+    assert "don’t" in words
+
+
+def test_times_fractions_and_ranges_are_numbers():
+    # They used to count as words with no syllables, and as diversity types.
+    a = analysed("The meeting began at 11:00. Mix 1/4 cup; serves 3-4. It ran 1914–1918.")
+    numerals = [w.text for w in a.words if any(c.isdigit() for c in w.text)]
+    assert numerals == ["11:00", "1/4", "3-4", "1914", "1918"]
+    assert all(w.is_numeric for w in a.words if w.text in numerals)

@@ -2,6 +2,19 @@
 
 Every change to lexinspect's output is listed here, by version. Output is deterministic within a version (see [VALIDITY.md](VALIDITY.md#reproducibility)), so cite the version you ran. The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and versions follow [Semantic Versioning](https://semver.org/): until 1.0, a minor version may change output values.
 
+## [0.3.2] - 2026-10-16
+
+Fixes two tokenisation bugs found by validation Study 3. Output changes for texts that contain them. `schema_version` stays `2`.
+
+### Fixed
+
+- Words joined by an em or en dash next to a quote mark (`was—“impressively”—big`, `last”—then`) counted as one word and one diversity type. Dashes, and quote marks touching them, now always separate words. Study 3 found this in 53 of 300 texts; it moved MTLD by up to 22%.
+- Times, fractions and hyphenated number ranges (`11:00`, `1/4`, `3-4`) counted as words with no syllables and as diversity types. They're now numerals, read part by part ("three to four"). En-dash ranges (`1914–1918`) split into two numerals.
+
+### Added
+
+- Study 3 results (agreement with textstat, TAALED, lexicalrichness and lexical-diversity) in `docs/validation/`.
+
 ## [0.3.1] - 2026-10-16
 
 Acts on validation Studies 2 and 5. `schema_version` stays `2`.
@@ -63,6 +76,7 @@ First public release: CLI, HTTP API and the hosted web app at lexinspect.dqnotes
 
 Initial development; not tagged.
 
+[0.3.2]: https://github.com/quangnd159/lexinspect/compare/v0.3.1...v0.3.2
 [0.3.1]: https://github.com/quangnd159/lexinspect/compare/v0.3.0...v0.3.1
 [0.3.0]: https://github.com/quangnd159/lexinspect/compare/v0.2.0...v0.3.0
 [0.2.0]: https://github.com/quangnd159/lexinspect/releases/tag/v0.2.0

@@ -70,7 +70,10 @@ _CLITICS = frozenset({"n't", "'s", "'re", "'ve", "'ll", "'d", "'m", "'", "s'"})
 _HOST_SURFACE_FIX = {"ca": "can", "wo": "will", "sha": "shall", "ai": "ai"}
 _HYPHENS = frozenset({"-", "‐", "‑"})
 _NUMERIC = re.compile(
-    r"^(?:[+\-−±]?[$£€¥]?(?:\d[\d.,]*|\.\d+)%?|\d+(?:st|nd|rd|th|s|'s)|'\d\ds)$", re.IGNORECASE
+    # Also times, fractions and hyphenated ranges (`11:00`, `1/4`, `3-4`): Study 3
+    # found them treated as words, with no syllables, in 51 of 300 texts.
+    r"^(?:[+\-−±]?[$£€¥]?(?:\d[\d.,]*(?:[:/\-]\d[\d.,]*)*|\.\d+)%?|\d+(?:st|nd|rd|th|s|'s)|'\d\ds)$",
+    re.IGNORECASE,
 )
 # Bound prefixes that, hyphenated, aren't words of their own: `e-mail`,
 # `co-operate`, `re-enter`, `non-native`. Profiled with their host.

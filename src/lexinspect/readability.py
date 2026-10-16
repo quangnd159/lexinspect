@@ -25,6 +25,7 @@ leaned on.
 from __future__ import annotations
 
 import math
+import re
 from functools import lru_cache
 from importlib import resources
 from typing import Any
@@ -110,6 +111,10 @@ def _numeral_syllables(text: str) -> int:
     out; anything else (decimals, ordinals, percentages) is approximated by
     reading each digit group, which is how it would be spoken digit by digit.
     """
+    # `11:00`, `1/4`, `3-4`: each part is read on its own ("three to four").
+    parts = [p for p in re.split(r"[:/\-–]", text) if any(c.isdigit() for c in p)]
+    if len(parts) > 1:
+        return sum(_numeral_syllables(p) for p in parts) + len(parts) - 1
     digits = "".join(c for c in text if c.isdigit() or c == ".")
     if not digits:
         return 1

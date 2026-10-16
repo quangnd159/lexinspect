@@ -24,7 +24,7 @@ What lexinspect doesn't do well today, and where to look first if you decide to 
 
 **The Dale–Chall easy-word list is textstat's.** It has 2,940 entries, slightly fewer than the roughly 3,000 in Chall & Dale (1995). Familiarity accepts a listed word, its spaCy lemma, proper nouns, numerals, and hyphenated compounds whose parts are all familiar. Edge cases in the 1995 counting rules that need human judgement are not modelled.
 
-**Linsear Write reads only the first 100 words**, as the formula specifies. On a long text it describes the opening, not the whole.
+**Linsear Write reads only the first 100 words**, as the formula specifies. On a long text it describes the opening, not the whole. A sentence cut off at word 100 counts as the fraction of it that falls inside the sample, where textstat counts it as a whole sentence, so texts with very long sentences score much higher here (Study 3 found up to 52 against textstat's 23).
 
 **Short texts are flagged, not blocked.** Every score is computed regardless of length; `reliability.reliable` is false under 100 words, and the SMOG note appears under 30 sentences, because SMOG is normalised to a 30-sentence sample and is extrapolated below it.
 
