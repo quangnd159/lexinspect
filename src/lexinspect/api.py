@@ -100,8 +100,8 @@ app.add_middleware(
 _SECURITY_HEADERS = {
     "Content-Security-Policy": (
         "default-src 'self'; script-src 'self' https://challenges.cloudflare.com; "
-        "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; "
-        "font-src 'self' https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self'; "
+        "style-src 'self' 'unsafe-inline'; "
+        "font-src 'self'; img-src 'self' data:; connect-src 'self'; "
         "frame-src https://challenges.cloudflare.com; "
         "base-uri 'none'; form-action 'none'; frame-ancestors 'none'"
     ),
