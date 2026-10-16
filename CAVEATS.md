@@ -78,7 +78,7 @@ What lexinspect doesn't do well today, and where to look first if you decide to 
 
 **Longest match hides overlaps.** `as well as` is one hit, not also `as well`. When two senses of the same form both fit, the more frequent is chosen and the others are listed in `also_possible`; nothing decides between them semantically.
 
-**Licence is unstated.** Norbert Schmitt's site says the materials are "freely available for research and pedagogical purposes". See Operations below.
+**Licence is unstated.** Norbert Schmitt's resources page publishes the list with no terms of use. See Operations below.
 
 ## cefr
 
@@ -169,7 +169,7 @@ What lexinspect doesn't do well today, and where to look first if you decide to 
 **Serving the data publicly changes the licence position.** `/licences` carries the attribution for every bundled dataset, because CC BY-SA terms run to whoever receives the work, not just whoever reads the repo. Points to keep in mind:
 
 - `bnc_coca.json`, `ngsl.json` and `nawl.json` are adaptations of CC BY-SA 4.0 lists and are therefore CC BY-SA 4.0 themselves. `cefr.json` merges CEFR-J (citation terms) with Octanove (CC BY-SA 4.0); share it under CC BY-SA with both credits.
-- The PHRASE list is "freely available for research and pedagogical purposes", and `SOURCES.md` has long said to seek explicit permission if lexinspect is wrapped in a web product. That is arguably now the case, even though the product is free.
+- The PHRASE list has no stated terms of use. (The "freely available for research and pedagogical purposes" line on Schmitt's page belongs to the Vocabulary Levels Tests; earlier versions of these docs misattributed it.) The hosted app and the public repository both redistribute it, so ask the authors for explicit permission.
 - The Hyland 2005 hedges lexicon mirror has no stated licence.
 - VarCon's and CMUdict's permissive notices require the copyright and permission text to accompany copies; `SOURCES.md` and `data/hunspell/LICENSES/` carry them.
 

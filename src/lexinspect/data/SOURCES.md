@@ -64,7 +64,7 @@ The context rules that decide when a listed marker counts live in `metadiscourse
 
 `build_phrase_index.py` adds three fields to each entry: `variants` (the token sequences the printed form stands for, with `X/Y` alternatives and optional words expanded and `ONE'S`/`ONESELF` as slots), `sense` (the parenthetical gloss, if any) and `tags` (the Penn tag of each `to`, `that` or particle in the entry's own example sentence, which the matcher requires the text to share).
 
-**Licence:** No SPDX-identifiable licence on the source page. The author's site states the materials are "freely available for research and pedagogical purposes." Treat as non-commercial educational use and cite Martinez & Schmitt (2012). If lexinspect is wrapped in a commercial web product, request explicit redistribution permission.
+**Licence:** No SPDX-identifiable licence on the source page. Schmitt's resources page publishes the list without terms of use; the "freely available for research and pedagogical purposes" line on that page belongs to the Vocabulary Levels Tests, not the PHRASE List. Treat as non-commercial educational use and cite Martinez & Schmitt (2012). If lexinspect is wrapped in a commercial web product, request explicit redistribution permission.
 
 ## spelling.json
 
