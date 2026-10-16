@@ -10,7 +10,7 @@ One-shot extractors that turn upstream sources into the data files in `src/lexin
 | `build_lists.py SRC_DIR` | `bnc_coca.json`, `ngsl.json`, `cefr.json`, `spelling.json` | files in `SRC_DIR` |
 | `build_phrase_index.py` | adds `variants`, `sense` and `tags` to `phrase.json` in place | `phrase.json`, spaCy `en_core_web_sm` |
 
-`build_phase3.py` (the old `cefr.json` builder) is superseded by `build_lists.py`. The phase scripts have absolute paths to this checkout hard-coded in `DATA_OUT`; edit them if the repo lives elsewhere.
+`build_phase3.py` (the old `cefr.json` builder) is superseded by `build_lists.py`. The scripts write into `src/lexinspect/data/` relative to the checkout.
 
 `cmudict.zip`, `dale_chall_easy_words.txt` and `hunspell/` are vendored as downloaded, with no build step.
 

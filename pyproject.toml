@@ -6,7 +6,26 @@ readme = "README.md"
 authors = [{ name = "Quang Nguyen", email = "quangnd159@gmail.com" }]
 requires-python = ">=3.12"
 license = "MIT"
-license-files = ["LICENSE"]
+# The code is MIT; the bundled data keeps its creators' terms (data/LICENSE.md),
+# so those notices travel with the wheel too.
+license-files = [
+    "LICENSE",
+    "src/lexinspect/data/LICENSE.md",
+    "src/lexinspect/data/LICENSES/*",
+    "src/lexinspect/data/hunspell/LICENSES/*",
+]
+keywords = ["readability", "cefr", "vocabulary-profile", "lexical-diversity", "academic-word-list", "corpus-linguistics", "elt", "nlp", "spacy"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Education",
+    "Intended Audience :: Science/Research",
+    "Natural Language :: English",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Education",
+    "Topic :: Text Processing :: Linguistic",
+]
 # Vercel's Python builder runs a bare `uv sync --no-dev --frozen` and offers no
 # way to select extras (a custom installCommand works but disables its bundle
 # optimizer, which pushes the size ceiling from 500 MB down to 225 MB). So
@@ -22,6 +41,12 @@ dependencies = [
     "spylls>=0.1.7",
     "en-core-web-sm",
 ]
+
+[project.urls]
+Homepage = "https://lexinspect.dqnotes.com"
+Source = "https://github.com/quangnd159/lexinspect"
+Issues = "https://github.com/quangnd159/lexinspect/issues"
+Caveats = "https://github.com/quangnd159/lexinspect/blob/main/CAVEATS.md"
 
 [project.scripts]
 lexinspect = "lexinspect.cli:app"

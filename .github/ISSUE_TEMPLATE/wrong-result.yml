@@ -1,0 +1,32 @@
+name: Wrong or surprising result
+description: A word, score or level that lexinspect gets wrong
+labels: [accuracy]
+body:
+  - type: textarea
+    id: text
+    attributes:
+      label: Text
+      description: The shortest text that shows the problem.
+    validations:
+      required: true
+  - type: textarea
+    id: got
+    attributes:
+      label: What lexinspect reported
+      description: Module and value, or paste the relevant JSON.
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: What you expected, and why
+      description: A source helps, e.g. the word list entry or another tool's output.
+    validations:
+      required: true
+  - type: dropdown
+    id: where
+    attributes:
+      label: Where
+      options: [Web app, CLI, HTTP API, Python package]
+    validations:
+      required: true

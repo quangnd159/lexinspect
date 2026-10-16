@@ -1,4 +1,13 @@
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="src/lexinspect/static/logo-dark.png">
+  <img src="src/lexinspect/static/logo.png" alt="lexinspect logo: a magnifying glass over a page of text" width="96" height="96">
+</picture>
+
 # lexinspect
+
+[![Quality](https://github.com/quangnd159/lexinspect/actions/workflows/quality.yml/badge.svg)](https://github.com/quangnd159/lexinspect/actions/workflows/quality.yml) [![Licence: MIT (code)](https://img.shields.io/badge/licence-MIT%20(code)-blue)](#licence) ![Python 3.12+](https://img.shields.io/badge/python-3.12%2B-blue)
+
+**Try it: [lexinspect.dqnotes.com](https://lexinspect.dqnotes.com)**. Free, nothing to sign in to.
 
 English text-analysis toolkit. CLI-first, JSON-out, with an HTTP API and a web app on top of the same code. Designed to be driven by AI agents (Claude Code, Claude Skills) as well as by people.
 
@@ -9,7 +18,7 @@ A free, self-hosted complement to commercial tools like Text Inspector. It repor
 Requires Python 3.12+ and [uv](https://docs.astral.sh/uv/).
 
 ```bash
-git clone git@github.com:quangnd159/lexinspect.git
+git clone https://github.com/quangnd159/lexinspect.git
 cd lexinspect
 uv sync --extra dev --extra web
 ```
@@ -160,6 +169,7 @@ Endpoints:
 ```
 GET  /                   web UI (HTML shell + /static/*)
 GET  /licences           data sources and licences
+GET  /comparison         side-by-side comparison with Text Inspector
 POST /v1/readability     {"text": "...", "source": "passage"}
 POST /v1/statistics      (same body shape on every endpoint)
 POST /v1/diversity
@@ -187,7 +197,7 @@ The web UI shows the analysed text with findings highlighted in place, one lens 
 
 Hosted at `lexinspect.dqnotes.com` (also `lexinspect.vercel.app`). GitHub Actions builds with `vercel build` and deploys with `vercel deploy --prebuilt`. The Python function is `api/index.py`; `vercel.json` rewrites `/v1/*`, `/docs`, `/openapi.json` and `/healthz` to it. CI copies `src/lexinspect/static/` into `public/`, so the web UI is served from the CDN without invoking the function. The hosted build omits the `cefr-level` extra; `/v1/schema` reports that, and the UI hides the classifier.
 
-The hosted API is for the web UI. Every POST under `/v1/` passes a Cloudflare Turnstile check: the page runs an invisible challenge (a click only when Cloudflare is unsure), sends the token in the `CF-Turnstile-Response` header, and gets an hour-long signed `lexinspect_pass` cookie so later analyses skip it. Set `TURNSTILE_SITE_KEY` and `TURNSTILE_SECRET_KEY` in the Vercel project (Production and Preview) to turn it on; with neither set, as in local runs, tests and self-hosted copies, the API is open. Scripts and notebooks should run lexinspect themselves: the package, the CLI or `lexinspect serve`. The WAF rate limit (60 POSTs/min/IP on `/v1/`) stays in front of everything.
+The hosted API is for the web UI. Every POST under `/v1/` passes a Cloudflare Turnstile check: the page runs an invisible challenge (a click only when Cloudflare is unsure), sends the token in the `CF-Turnstile-Response` header, and gets an hour-long signed `lexinspect_pass` cookie so later analyses skip it. Set `TURNSTILE_SITE_KEY` and `TURNSTILE_SECRET_KEY` in the Vercel project's Production environment to turn it on (preview deployments sit behind Vercel's login instead, and their hostnames aren't on the Turnstile widget); with neither set, as in local runs, tests and self-hosted copies, the API is open. Scripts and notebooks should run lexinspect themselves: the package, the CLI or `lexinspect serve`. The WAF rate limit (60 POSTs/min/IP on `/v1/`) stays in front of everything.
 
 ## Develop
 
@@ -197,7 +207,9 @@ uv run ruff check .
 uv run ruff format .
 ```
 
-The web UI is framework-free with no build step. `src/lexinspect/static/` holds `index.html`, `licences.html`, `styles.css` and six scripts: `dom.js` (DOM and formatting helpers), `human.js` (the Turnstile check, loaded only when the server has a site key), `copy.js` (explanatory text and samples), `reader.js` (the highlighted text and lenses), `panels.js` (one renderer per tab) and `app.js` (editor, requests, wiring). Locally, FastAPI serves the directory at `/static/`.
+See [CONTRIBUTING.md](CONTRIBUTING.md) for how to propose changes and [SECURITY.md](SECURITY.md) for reporting vulnerabilities.
+
+The web UI is framework-free with no build step. `src/lexinspect/static/` holds `index.html`, `licences.html`, `styles.css` and six scripts for the app: `dom.js` (DOM and formatting helpers), `human.js` (the Turnstile check, loaded only when the server has a site key), `copy.js` (explanatory text and samples), `reader.js` (the highlighted text and lenses), `panels.js` (one renderer per tab) and `app.js` (editor, requests, wiring). The comparison page has its own `comparison.html`, `comparison.css` and `comparison.js`, with its evidence files under `comparison/`. Locally, FastAPI serves the directory at `/static/`.
 
 Data refresh: see `scripts/build_data/README.md`.
 

@@ -18,8 +18,13 @@ concurrency:
   group: production-deploy
   cancel-in-progress: true
 
+permissions:
+  contents: read
+
 jobs:
   deploy:
+    # Forks have no VERCEL_TOKEN; deploy from the upstream repository only.
+    if: github.repository == 'quangnd159/lexinspect'
     runs-on: ubuntu-latest
     env:
       # Identifiers, not credentials — they already live in .vercel/project.json.

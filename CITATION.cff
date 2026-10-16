@@ -1,0 +1,23 @@
+cff-version: 1.2.0
+message: >-
+  If you use lexinspect in research, please cite it as below, and also cite the
+  word lists and formulas you report on (see src/lexinspect/data/SOURCES.md).
+title: lexinspect
+abstract: >-
+  English text analysis: readability, lexical diversity, CEFR, BNC/COCA, NGSL
+  and AWL vocabulary profiles, phrasal expressions, metadiscourse and spelling.
+  CLI, HTTP API and web app.
+type: software
+authors:
+  - given-names: Quang
+    family-names: Nguyen
+version: 0.2.0
+license: MIT
+repository-code: https://github.com/quangnd159/lexinspect
+url: https://lexinspect.dqnotes.com
+keywords:
+  - readability
+  - CEFR
+  - vocabulary profile
+  - lexical diversity
+  - corpus linguistics

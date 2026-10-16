@@ -16,8 +16,14 @@ concurrency:
   group: preview-${{ github.head_ref }}
   cancel-in-progress: true
 
+permissions:
+  contents: read
+
 jobs:
   deploy:
+    # Pull requests from forks and Dependabot get no VERCEL_TOKEN, so a preview
+    # would only fail. The Quality workflow still checks them.
+    if: github.event.pull_request.head.repo.full_name == github.repository && github.actor != 'dependabot[bot]'
     runs-on: ubuntu-latest
     env:
       # Identifiers, not credentials — they already live in .vercel/project.json.

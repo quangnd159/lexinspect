@@ -1,0 +1,8 @@
+blank_issues_enabled: true
+contact_links:
+  - name: Known limitations
+    url: https://github.com/quangnd159/lexinspect/blob/main/CAVEATS.md
+    about: Check whether the behaviour is a documented trade-off before reporting it.
+  - name: Security vulnerability
+    url: https://github.com/quangnd159/lexinspect/security/advisories/new
+    about: Report vulnerabilities privately, not as a public issue.

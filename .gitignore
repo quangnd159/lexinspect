@@ -32,3 +32,12 @@ private_data/
 .vercel
 # Copied from src/lexinspect/static/ in CI for the CDN.
 public/
+
+# Local working files: agent settings, generated reports, scratch output and
+# superseded brand studies. Not part of the project.
+.claude/
+output/
+reports/
+tmp/
+design/brand/lexical-lens/
+design/brand/lexinspect-glass/

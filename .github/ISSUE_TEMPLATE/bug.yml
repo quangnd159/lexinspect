@@ -1,0 +1,23 @@
+name: Bug
+description: Something broke or doesn't work as documented
+labels: [bug]
+body:
+  - type: textarea
+    id: what
+    attributes:
+      label: What happened
+      description: Steps to reproduce, and any error message.
+    validations:
+      required: true
+  - type: dropdown
+    id: where
+    attributes:
+      label: Where
+      options: [Web app, CLI, HTTP API, Python package]
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: Version and environment
+      description: "The version under the web app's results (e.g. lexinspect 0.2.0) or `uv run lexinspect version`; browser or OS if relevant."
