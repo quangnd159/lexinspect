@@ -183,17 +183,17 @@ g1["layers"] = g1["layers"][1:]
 g1["name"] = "03 · Clear optical lens"
 source["groups"] = [g0, ink, g1, g3]
 for g in source["groups"]:
-    for l in g["layers"]:
-        if l["name"] == "Continuous graphite contour":
-            l["fill-specializations"] = [
-                f for f in l["fill-specializations"] if f.get("appearance") == "tinted"
+    for icon_layer in g["layers"]:
+        if icon_layer["name"] == "Continuous graphite contour":
+            icon_layer["fill-specializations"] = [
+                f for f in icon_layer["fill-specializations"] if f.get("appearance") == "tinted"
             ]
-        if l["name"] == "Frosted sheet":
-            for f in l["fill-specializations"]:
+        if icon_layer["name"] == "Frosted sheet":
+            for f in icon_layer["fill-specializations"]:
                 if f.get("appearance") != "tinted":
                     f["value"] = grad("#DDEFF8", "#BBDCEB")
 # Remove superseded generated artboards after a design revision.
-referenced = {l["image-name"] for g in source["groups"] for l in g["layers"]}
+referenced = {icon_layer["image-name"] for g in source["groups"] for icon_layer in g["layers"]}
 for asset in ASSETS.glob("*.svg"):
     if asset.name not in referenced:
         asset.unlink()
