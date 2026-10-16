@@ -4,11 +4,25 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>lexinspect — data sources and licences</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400..650&family=Newsreader:ital,opsz,wght@0,6..72,400..600;1,6..72,400&display=swap">
   <link rel="stylesheet" href="/static/styles.css" />
+<link rel="icon" type="image/png" sizes="64x64" href="/static/favicon.png">
+<link rel="icon" type="image/png" sizes="64x64" href="/static/favicon-dark.png" media="(prefers-color-scheme: dark)">
+<link rel="apple-touch-icon" sizes="180x180" href="/static/apple-touch-icon.png">
+<meta name="theme-color" content="#fbfaf7" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#131312" media="(prefers-color-scheme: dark)">
 </head>
 <body>
 <header class="topbar">
-  <a class="wordmark" href="/" aria-label="lexinspect home">lex<span>inspect</span></a>
+  <a class="wordmark" href="/" aria-label="lexinspect home">
+    <picture class="brand-icon">
+      <source srcset="/static/logo-dark.png" media="(prefers-color-scheme: dark)">
+      <img src="/static/logo.png" width="36" height="36" alt="" decoding="async">
+    </picture>
+    <span class="wordmark-label">lex<span>inspect</span></span>
+  </a>
   <nav class="toplinks" aria-label="Site">
     <a href="/">Analyser</a>
     <a href="/docs" target="_blank" rel="noopener">API</a>
@@ -16,7 +30,7 @@
   </nav>
 </header>
 
-<main class="intro" style="max-width: 760px; margin: 0 auto; padding: 24px 16px 48px;">
+<main class="intro licences-content">
     <h1>Data sources and licences</h1>
     <p>
       lexinspect analyses text against published word lists, dictionaries and formulas compiled by other
@@ -99,5 +113,9 @@
     <p class="fine">The authoritative, versioned copy of this list, with provenance notes for each dataset, is
     <a href="https://github.com/quangnd159/lexinspect/blob/main/src/lexinspect/data/SOURCES.md" target="_blank" rel="noopener"><code>data/SOURCES.md</code></a>.</p>
 </main>
+
+<footer class="site-footer">
+  <p>Built by Quang at <a href="https://dqnotes.com" target="_blank" rel="noopener">dqnotes.com</a></p>
+</footer>
 </body>
 </html>

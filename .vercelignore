@@ -6,6 +6,9 @@ __pycache__
 **/__pycache__
 *.pyc
 
+# Brand masters and design studies stay out of the runtime bundle.
+design
+
 # Dev-only surface — nothing here is imported at runtime.
 tests
 scripts

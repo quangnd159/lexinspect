@@ -53,7 +53,7 @@ jobs:
       - name: Publish static UI to the CDN
         run: |
           mkdir -p public/static
-          cp src/lexinspect/static/*.js src/lexinspect/static/*.css public/static/
+          cp src/lexinspect/static/*.js src/lexinspect/static/*.css src/lexinspect/static/*.png public/static/
           cp src/lexinspect/static/index.html public/index.html
           cp src/lexinspect/static/licences.html public/licences.html
 

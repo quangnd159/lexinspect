@@ -1,0 +1,213 @@
+{
+  "features" : [
+    "refractivity"
+  ],
+  "fill-specializations" : [
+    {
+      "value" : {
+        "linear-gradient" : [
+          "srgb:0.98823,0.99216,0.99608,1.00000",
+          "srgb:0.92941,0.94118,0.95686,1.00000"
+        ]
+      }
+    },
+    {
+      "appearance" : "dark",
+      "value" : {
+        "linear-gradient" : [
+          "srgb:0.17255,0.20000,0.23922,1.00000",
+          "srgb:0.06667,0.09804,0.13725,1.00000"
+        ]
+      }
+    },
+    {
+      "appearance" : "tinted",
+      "value" : "automatic"
+    }
+  ],
+  "groups" : [
+    {
+      "blur-material" : null,
+      "layers" : [
+        {
+          "fill-specializations" : [
+            {
+              "appearance" : "tinted",
+              "value" : {
+                "solid" : "srgb:0.27059,0.28628,0.30588,1.00000"
+              }
+            }
+          ],
+          "glass" : true,
+          "image-name" : "frame.svg",
+          "name" : "Continuous graphite contour"
+        }
+      ],
+      "lighting" : "individual",
+      "name" : "01 · Sculpted graphite frame",
+      "refractivity" : {
+        "depth" : 0.1,
+        "enabled" : false,
+        "strength" : 0.3
+      },
+      "shadow" : {
+        "kind" : "neutral",
+        "opacity" : 0.24
+      },
+      "specular" : true,
+      "translucency" : {
+        "enabled" : false,
+        "value" : 0.02
+      }
+    },
+    {
+      "blur-material" : 0,
+      "layers" : [
+        {
+          "fill-specializations" : [
+            {
+              "value" : {
+                "solid" : "srgb:0.09020,0.23529,0.31372,1.00000"
+              }
+            },
+            {
+              "appearance" : "dark",
+              "value" : {
+                "solid" : "srgb:0.09020,0.23529,0.31372,1.00000"
+              }
+            },
+            {
+              "appearance" : "tinted",
+              "value" : {
+                "solid" : "srgb:0.19608,0.21569,0.23922,1.00000"
+              }
+            }
+          ],
+          "glass" : false,
+          "image-name" : "letter.svg",
+          "name" : "Outlined script l"
+        }
+      ],
+      "lighting" : "individual",
+      "name" : "02 · Calligraphic ink",
+      "shadow" : {
+        "kind" : "neutral",
+        "opacity" : 0
+      },
+      "specular" : false,
+      "translucency" : {
+        "enabled" : false,
+        "value" : 0
+      }
+    },
+    {
+      "blur-material" : 0,
+      "layers" : [
+        {
+          "fill-specializations" : [
+            {
+              "value" : {
+                "solid" : "srgb:0.85098,0.93333,0.93725,1.00000"
+              }
+            },
+            {
+              "appearance" : "dark",
+              "value" : {
+                "solid" : "srgb:0.85098,0.93333,0.93725,1.00000"
+              }
+            },
+            {
+              "appearance" : "tinted",
+              "value" : {
+                "solid" : "srgb:0.94118,0.94118,0.94118,1.00000"
+              }
+            }
+          ],
+          "glass" : true,
+          "image-name" : "lens.svg",
+          "name" : "Clear lens"
+        }
+      ],
+      "lighting" : "individual",
+      "name" : "03 · Clear optical lens",
+      "refractivity" : {
+        "depth" : 0.1,
+        "enabled" : true,
+        "strength" : 0.3
+      },
+      "shadow" : {
+        "kind" : "neutral",
+        "opacity" : 0.04
+      },
+      "specular" : true,
+      "translucency" : {
+        "enabled" : true,
+        "value" : 0.66
+      }
+    },
+    {
+      "blur-material" : 0,
+      "layers" : [
+        {
+          "glass" : false,
+          "image-name" : "focus.svg",
+          "name" : "Selected word"
+        },
+        {
+          "glass" : false,
+          "image-name" : "text.svg",
+          "name" : "Text"
+        },
+        {
+          "fill-specializations" : [
+            {
+              "value" : {
+                "linear-gradient" : [
+                  "srgb:0.86667,0.93725,0.97255,1.00000",
+                  "srgb:0.73333,0.86274,0.92157,1.00000"
+                ]
+              }
+            },
+            {
+              "appearance" : "dark",
+              "value" : {
+                "linear-gradient" : [
+                  "srgb:0.86667,0.93725,0.97255,1.00000",
+                  "srgb:0.73333,0.86274,0.92157,1.00000"
+                ]
+              }
+            },
+            {
+              "appearance" : "tinted",
+              "value" : {
+                "solid" : "srgb:0.89020,0.89804,0.90980,1.00000"
+              }
+            }
+          ],
+          "glass" : true,
+          "image-name" : "paper.svg",
+          "name" : "Frosted sheet"
+        }
+      ],
+      "lighting" : "individual",
+      "name" : "04 · Frosted reading sheet",
+      "refractivity" : {
+        "depth" : 0.07,
+        "enabled" : true,
+        "strength" : 0.3
+      },
+      "shadow" : {
+        "kind" : "neutral",
+        "opacity" : 0.12
+      },
+      "specular" : true,
+      "translucency" : {
+        "enabled" : true,
+        "value" : 0.08
+      }
+    }
+  ],
+  "supported-platforms" : {
+    "squares" : "shared"
+  }
+}
