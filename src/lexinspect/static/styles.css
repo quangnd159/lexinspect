@@ -1153,5 +1153,6 @@ kbd { font: 500 11px/1 var(--font-ui); }
   .btn:active, .card:active, .chip:active, .sug:active, .lens:active, .key:active { transform: none; }
 }
 
-/* The comparison is supplementary reading, kept clear of the analysis tools. */
-.site-footer .footer-comparison { margin: 0 0 4px; font-weight: 400; }
+/* Supplementary reading belongs with the introduction. */
+.intro .intro-comparison { margin-top: 20px; font-size: 13px; }
+.intro-comparison a { display: inline-flex; align-items: center; min-height: 44px; touch-action: manipulation; }
