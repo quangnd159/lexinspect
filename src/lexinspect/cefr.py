@@ -98,6 +98,8 @@ def analyze(text: str, *, analysis: Analysis | None = None) -> dict[str, Any]:
         "off_list_sample": sorted(off)[:50],
         "caveat": (
             "Heuristic only. Based on CEFR-J 1.5 + Octanove C1/C2 1.0; not Cambridge EVP. "
+            "estimated_level_95th is the lowest level whose cumulative coverage reaches "
+            "95%; no published study validates it as a text's CEFR level. "
             "Cite both sources. Combine this with readability, BNC/COCA and diversity "
             "signals before reporting a level."
         ),

@@ -168,7 +168,7 @@ def cefr_level_cmd(file: FileArg, format: FormatOpt = "json") -> None:
     """CEFR text-level classification (A1–C2) via UniversalCEFR ModernBERT.
 
     Requires the `cefr-level` extra: uv sync --extra cefr-level
-    First run downloads ~400MB; subsequent runs reuse the cached model.
+    First run downloads ~575MB; subsequent runs reuse the cached model.
     """
     text, src = read_text(file)
     try:
@@ -217,12 +217,13 @@ def analyze(
 ) -> None:
     """Run every module over one shared parse and emit a combined report."""
     from lexinspect import pipeline
-    from lexinspect._schema import SCHEMA_VERSION
+    from lexinspect._schema import SCHEMA_VERSION, provenance
 
     text, src = read_text(file)
     a, results = pipeline.run_all(text, variant=variant)
     payload = {
         "schema_version": SCHEMA_VERSION,
+        "provenance": provenance(),
         "module": "analyze",
         "input": {
             "source": src,

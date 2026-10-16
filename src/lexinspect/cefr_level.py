@@ -8,7 +8,7 @@ distribution from a transformer fine-tuned on the UniversalCEFR corpus
 largest slice).
 
 Model: `UniversalCEFR/ModernBERT-base-cefr-all-classifier` (Apache 2.0,
-~100M parameters, max 8192 tokens). Six output classes A1–C2.
+~150M parameters, max 8192 tokens). Six output classes A1–C2.
 
 Heavy ML dependency. Install via:
     uv sync --extra cefr-level
@@ -18,9 +18,8 @@ but calling `analyze()` will raise a clear error.
 
 Caveats: every published CEFR text classifier is an estimate. Vocabulary
 features dominate the prediction signal; syntactic complexity and discourse
-organisation are under-weighted. Calibrated on writing/reading/listening,
-not speech. See CAVEATS.md and the Atlas note `CEFR Text-Level Classification`
-for the universal limits.
+organisation are under-weighted. Trained on reading and writing texts, not
+speech. The paper reports 75.8 weighted F1 on English; see CAVEATS.md.
 """
 
 from __future__ import annotations
@@ -32,10 +31,10 @@ MODEL_ID = "UniversalCEFR/ModernBERT-base-cefr-all-classifier"
 LEVELS = ("A1", "A2", "B1", "B2", "C1", "C2")
 
 CAVEAT = (
-    "Estimate only; not for high-stakes decisions. Trained on the UniversalCEFR "
-    "corpus (Imperial et al., EMNLP 2025; Apache 2.0). Vocabulary features dominate "
+    "Estimate only; not for high-stakes decisions. Fine-tuned on the UniversalCEFR "
+    "corpus (Imperial et al., EMNLP 2025), 75.8 weighted F1 on English. Vocabulary features dominate "
     "the prediction; syntactic complexity, discourse organisation, and topic "
-    "familiarity are under-weighted. Calibrated on writing/reading/listening, not "
+    "familiarity are under-weighted. Trained on reading and writing texts, not "
     "speech. Adjacent-band confusion is irreducible — within-one-level reliability "
     "is the realistic target. Combine with readability, BNC/COCA, diversity, and "
     "metadiscourse signals before reporting a level."
@@ -76,7 +75,7 @@ def _pipeline():
 def analyze(text: str) -> dict[str, Any]:
     """Classify `text` into a CEFR level (A1–C2) with a confidence distribution.
 
-    First call downloads the model (~400MB) into the HuggingFace cache.
+    First call downloads the model (~575MB) into the HuggingFace cache.
     Subsequent calls reuse the in-memory pipeline. CPU inference takes ~2–5s
     per text on a typical laptop.
     """

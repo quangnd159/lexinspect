@@ -45,7 +45,7 @@ from lexinspect import (
     statistics,
     tagger,
 )
-from lexinspect._schema import SCHEMA_VERSION, envelope
+from lexinspect._schema import SCHEMA_VERSION, envelope, provenance
 from lexinspect._text import analyse
 
 # Request cap. Analysis cost is linear in text length, so this bounds what one
@@ -354,4 +354,10 @@ def post_analyze(body: AnalyzeIn) -> dict[str, Any]:
         # zero-width characters removed). Send it back when it differs so a
         # client can highlight the right characters.
         inp["normalised_text"] = a.text
-    return {"schema_version": SCHEMA_VERSION, "module": "analyze", "input": inp, "results": results}
+    return {
+        "schema_version": SCHEMA_VERSION,
+        "provenance": provenance(),
+        "module": "analyze",
+        "input": inp,
+        "results": results,
+    }

@@ -258,6 +258,21 @@ def _references_block(vocd: float | None) -> dict[str, Any]:
     return {"vocd_d_bands": bands, "note": _REFERENCES_NOTE}
 
 
+# Which indices to trust, after Zenker & Kyle (2021, Assessing Writing 47) and
+# McCarthy & Jarvis (2010, Behavior Research Methods 42), as tiered by TAALED.
+TIERS: dict[str, Any] = {
+    "recommended": ["mtld", "mattr"],
+    "caution": ["hdd", "vocd_d", "maas"],
+    "legacy": ["ttr", "rttr", "cttr", "msttr", "herdan", "summer"],
+    "note": (
+        "MTLD and MATTR stay most stable across text lengths from about 50 tokens "
+        "(Zenker & Kyle 2021, 4,542 EFL essays). HD-D, vocd-D and Maas are usable with "
+        "care. TTR and its transforms, and MSTTR, change with text length; compare them "
+        "only between texts of the same length."
+    ),
+}
+
+
 def analyze(text: str, *, analysis: Analysis | None = None) -> dict[str, Any]:
     toks = tokens(ensure(text, analysis))
     n = len(toks)
@@ -266,6 +281,7 @@ def analyze(text: str, *, analysis: Analysis | None = None) -> dict[str, Any]:
             "counts": {"tokens": 0, "types": 0},
             "scores": {},
             "references": _references_block(None),
+            "tiers": TIERS,
             "note": "Empty or untokenizable text.",
         }
 
@@ -289,6 +305,7 @@ def analyze(text: str, *, analysis: Analysis | None = None) -> dict[str, Any]:
             "maas": _safe(maas, toks),
         },
         "references": _references_block(vocd),
+        "tiers": TIERS,
     }
     if n < MIN_TOKENS_RELIABLE:
         out["note"] = (

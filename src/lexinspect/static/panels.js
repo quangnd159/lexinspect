@@ -180,6 +180,10 @@ function renderReadability(r) {
     h('div', { class: 'hero-text' }, h('b', {}, `Grade ${s.text_standard == null ? '–' : num(s.text_standard, 1)} · ${gradeLabel(s.text_standard)}`),
       h('span', {}, 'Median of the eight formulas below. Roughly the reader age minus five.'))));
   if (!rd.reliability.reliable) out.appendChild(callout('warn', 'Read these scores with care', rd.reliability.notes));
+  out.appendChild(callout('info', 'A rough guide, not a measurement', [
+    'These formulas use surface features such as word and sentence length. Against teachers’ rankings of 4,724 school texts, they explain about a quarter to a third of the differences in difficulty (Crossley et al. 2023).',
+    'They were normed on US native-speaker readers; evidence for language learners is thinner. For learners, the Vocabulary tab says more.',
+  ]));
 
   out.appendChild(h('div', { class: 'sub-h' }, 'Each formula’s grade, on one scale: longer bars mean harder text'));
   const list = h('div', { class: 'rows' });
@@ -235,7 +239,7 @@ function renderCefr(r, ctx) {
   out.appendChild(h('div', { class: 'stats-grid' },
     stat('Highest level', c.highest_level_present ?? '–'),
     stat('B2 and above', pct(b2plus(c))),
-    stat('Level for 95% coverage', c.estimated_level_95th ?? 'beyond C2', 'names counted as known'),
+    stat('Level for 95% coverage', c.estimated_level_95th ?? 'beyond C2', 'rule of thumb; names count as known'),
     stat('On the lists', pct(c.coverage_pct), `${num(c.counts.on_list_tokens)} of ${num(n)} words`)));
 
   for (const l of [...LEVELS].reverse()) {
@@ -550,14 +554,22 @@ function renderDiversity(r) {
       h('div', { class: 'fine' }, 'Ranges from Durán, Malvern, Richards & Chipere (2004), Applied Linguistics 25/2.')));
   }
 
-  const rows = h('div', { class: 'rows' });
-  for (const m of DIVERSITY) {
+  const row = (m) => {
     const v = s[m.key];
-    rows.appendChild(h('div', { class: 'row' },
+    return h('div', { class: 'row' },
       h('div', { class: 'row-main' }, h('span', { class: 'row-name' }, m.name, m.ref ? h('span', { class: 'ref-cite' }, ` ${m.ref}`) : null), h('span', { class: 'row-note' }, m.note)),
-      h('div', { class: 'row-val' }, h('b', {}, v == null ? '–' : num(v, m.d)), v == null ? h('span', {}, 'text too short') : null)));
+      h('div', { class: 'row-val' }, h('b', {}, v == null ? '–' : num(v, m.d)), v == null ? h('span', {}, 'text too short') : null));
+  };
+  // Grouped by how far the research supports each index (diversity.TIERS).
+  const tiers = d.tiers;
+  const groups = tiers
+    ? [['Most reliable across text lengths', tiers.recommended], ['Use with care', tiers.caution], ['Depend on text length: compare only same-length texts', tiers.legacy]]
+    : [[null, DIVERSITY.map((m) => m.key)]];
+  for (const [title, keys] of groups) {
+    if (title) out.appendChild(h('div', { class: 'sub-h' }, title));
+    out.appendChild(h('div', { class: 'rows' }, DIVERSITY.filter((m) => keys.includes(m.key)).map(row)));
   }
-  out.appendChild(rows);
+  if (tiers) out.appendChild(h('div', { class: 'fine' }, 'Tiers follow Zenker & Kyle (2021) and McCarthy & Jarvis (2010).'));
   out.appendChild(about('diversity'));
   return out;
 }

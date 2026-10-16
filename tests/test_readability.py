@@ -18,7 +18,8 @@ SCORES = {
 
 def test_returns_expected_keys(simple):
     out = readability.analyze(simple)
-    assert set(out) == {"counts", "averages", "scores", "reliability"}
+    assert set(out) == {"counts", "averages", "scores", "reliability", "validity"}
+    assert out["validity"]["status"] == "legacy"
     assert set(out["scores"]) == SCORES
     assert set(out["reliability"]) == {"reliable", "notes"}
     assert "difficult_words" in out["counts"]

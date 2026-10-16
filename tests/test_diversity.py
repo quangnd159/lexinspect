@@ -250,3 +250,11 @@ def test_references_block(narrative):
         "Adult L2 / ESL learner",
         "Adult native speaker, academic writing",
     }
+
+
+def test_tiers_cover_every_score_once():
+    out = diversity.analyze("The quick brown fox jumps over the lazy dog again and again. " * 10)
+    tiers = out["tiers"]
+    tiered = tiers["recommended"] + tiers["caution"] + tiers["legacy"]
+    assert len(tiered) == len(set(tiered))
+    assert set(tiered) == set(out["scores"])

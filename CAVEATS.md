@@ -4,7 +4,7 @@ What lexinspect doesn't do well today, and where to look first if you decide to 
 
 ## Shared tokenisation
 
-**Everything rests on `en_core_web_sm`.** The small spaCy model is fast but roughly 2 percentage points less accurate on tags than `en_core_web_lg`. Tags decide more than the tagger tab: proper-noun status (NNP/NNPS) in every vocabulary profile, the part of speech that picks a CEFR level, whether an inflected verb is looked up by its lemma, the tag constraints in `phrase`, and every context rule in `metadiscourse`. A capitalised common word at the start of a sentence can be tagged as a proper noun and drop out of the off-list count; a mis-tagged `present` gets the wrong CEFR level. Swapping to `lg` means changing `DEFAULT_MODEL` in `_nlp.py` and the model dependency in `pyproject.toml`, and adds several hundred MB to the bundle.
+**Everything rests on `en_core_web_sm`.** On spaCy's own 3.8 benchmarks the small model tags as well as `en_core_web_lg` (97.29% against 97.38%); only the transformer model `en_core_web_trf` is clearly better (98.12% tags, 93.84 against 89.92 labelled attachment), and it is too slow and heavy for the hosted function. All of these figures are on edited English: on learner writing, taggers trained on standard English make roughly two to three times as many errors (Berzak et al. 2016). Tags decide more than the tagger tab: proper-noun status (NNP/NNPS) in every vocabulary profile, the part of speech that picks a CEFR level, whether an inflected verb is looked up by its lemma, the tag constraints in `phrase`, and every context rule in `metadiscourse`. A capitalised common word at the start of a sentence can be tagged as a proper noun and drop out of the off-list count; a mis-tagged `present` gets the wrong CEFR level. Swapping to `lg` means changing `DEFAULT_MODEL` in `_nlp.py` and the model dependency in `pyproject.toml`, and adds several hundred MB to the bundle.
 
 **Inflected verbs are looked up by lemma only.** That's what stops `found` being credited to *found* (a company) and `left` to *the left*. The cost is the reverse case: when spaCy tags a non-verb use as a verb, or lemmatises wrongly, the token goes to the lemma's entry. The surface form is used only when the lemma isn't an English word at all.
 
@@ -92,7 +92,9 @@ What lexinspect doesn't do well today, and where to look first if you decide to 
 
 ## cefr_level (optional, requires `cefr-level` extra)
 
-**Estimate, not a verdict.** This is the universal limit on every CEFR text classifier, free or commercial. Text Inspector's published wording for its Lexical Profile applies here too: only an estimate, not for high-stakes decisions, vocabulary-dominated signal, calibrated on writing/reading/listening rather than speech, limited feature set.
+**Estimate, not a verdict.** This is the universal limit on every CEFR text classifier, free or commercial. Text Inspector's published wording for its Lexical Profile applies here too: only an estimate, not for high-stakes decisions, vocabulary-dominated signal, trained on reading and writing texts rather than speech, limited feature set.
+
+**Published accuracy is modest.** The UniversalCEFR paper (Imperial et al. 2025, Table 4) reports 75.8 weighted F1 for this ModernBERT on English, against 63.4 for a feature-based random forest. It reports no within-one-level accuracy, and whole documents are harder than sentences (57.6 against 68.3 for XLM-R). The model card's 0.95 F1 comes from an unspecified validation split and shouldn't be quoted. English training data is 96% EFCAMDAT learner writing and skewed towards A1–A2; C2 is 0.19% of it, so C1–C2 predictions are the least supported.
 
 **Adjacent-level confusion is irreducible.** Most misclassifications fall one band up or down. Human raters also disagree at this granularity; within-one-level reliability is the realistic target.
 

@@ -270,6 +270,28 @@ def _consensus(scores: dict[str, float]) -> float:
     return (grades[mid - 1] + grades[mid]) / 2
 
 
+# What the published evidence supports, shipped with every result so a reader
+# of the JSON sees it as well as a reader of the UI.
+VALIDITY: dict[str, Any] = {
+    "status": "legacy",
+    "evidence": (
+        "On the CLEAR corpus (4,724 school reading excerpts ranked by teachers), Flesch, "
+        "Flesch-Kincaid, ARI, SMOG and New Dale-Chall correlate r = .48-.56 with the "
+        "teachers' ease scores, about a quarter to a third of the variance (Crossley et "
+        "al. 2023, Behavior Research Methods, doi:10.3758/s13428-022-01802-x). Coleman-Liau "
+        "and Linsear Write weren't tested. The formulas largely duplicate each other."
+    ),
+    "text_standard": (
+        "The median of the eight grades: a convenience summary with no validation of "
+        "its own."
+    ),
+    "population": (
+        "Normed on 20th-century US native-speaker readers; evidence for second-language "
+        "readers is thinner."
+    ),
+}
+
+
 def analyze(text: str, *, analysis: Analysis | None = None) -> dict[str, Any]:
     a = ensure(text, analysis)
     words = a.words
@@ -320,6 +342,7 @@ def analyze(text: str, *, analysis: Analysis | None = None) -> dict[str, Any]:
             },
             "scores": zeros,
             "reliability": {"reliable": False, "notes": ["No words to measure."]},
+            "validity": VALIDITY,
         }
 
     asl = n_words / n_sent  # average sentence length
@@ -383,4 +406,5 @@ def analyze(text: str, *, analysis: Analysis | None = None) -> dict[str, Any]:
         # Only text length makes the whole set unreliable; the SMOG note is
         # about SMOG alone, and would otherwise flag every text under 30 sentences.
         "reliability": {"reliable": n_words >= MIN_WORDS_RELIABLE, "notes": notes},
+        "validity": VALIDITY,
     }
