@@ -1,0 +1,1011 @@
+{
+ "awl": {
+  "counts": {
+   "awl_families": 0,
+   "awl_tokens": 0,
+   "content_tokens": 30
+  },
+  "coverage_pct": 0.0,
+  "families_detail": [],
+  "families_found": [],
+  "per_sublist": {
+   "1": {
+    "coverage_pct": 0.0,
+    "families": 0,
+    "tokens": 0
+   },
+   "10": {
+    "coverage_pct": 0.0,
+    "families": 0,
+    "tokens": 0
+   },
+   "2": {
+    "coverage_pct": 0.0,
+    "families": 0,
+    "tokens": 0
+   },
+   "3": {
+    "coverage_pct": 0.0,
+    "families": 0,
+    "tokens": 0
+   },
+   "4": {
+    "coverage_pct": 0.0,
+    "families": 0,
+    "tokens": 0
+   },
+   "5": {
+    "coverage_pct": 0.0,
+    "families": 0,
+    "tokens": 0
+   },
+   "6": {
+    "coverage_pct": 0.0,
+    "families": 0,
+    "tokens": 0
+   },
+   "7": {
+    "coverage_pct": 0.0,
+    "families": 0,
+    "tokens": 0
+   },
+   "8": {
+    "coverage_pct": 0.0,
+    "families": 0,
+    "tokens": 0
+   },
+   "9": {
+    "coverage_pct": 0.0,
+    "families": 0,
+    "tokens": 0
+   }
+  }
+ },
+ "bnc_coca": {
+  "counts": {
+   "content_tokens": 30,
+   "off_list_tokens": 0,
+   "on_list_tokens": 30,
+   "proper_noun_tokens": 0,
+   "supplementary_tokens": 0
+  },
+  "coverage_pct": 100.0,
+  "coverage_with_supplementary_pct": 100.0,
+  "off_list": [],
+  "off_list_sample": [],
+  "per_band": {
+   "1": {
+    "coverage_pct": 93.333,
+    "cumulative_coverage_pct": 93.333,
+    "cumulative_coverage_with_supplementary_pct": 93.333,
+    "headwords": 22,
+    "tokens": 28
+   },
+   "10": {
+    "coverage_pct": 0.0,
+    "cumulative_coverage_pct": 100.0,
+    "cumulative_coverage_with_supplementary_pct": 100.0,
+    "headwords": 0,
+    "tokens": 0
+   },
+   "11": {
+    "coverage_pct": 0.0,
+    "cumulative_coverage_pct": 100.0,
+    "cumulative_coverage_with_supplementary_pct": 100.0,
+    "headwords": 0,
+    "tokens": 0
+   },
+   "12": {
+    "coverage_pct": 0.0,
+    "cumulative_coverage_pct": 100.0,
+    "cumulative_coverage_with_supplementary_pct": 100.0,
+    "headwords": 0,
+    "tokens": 0
+   },
+   "13": {
+    "coverage_pct": 0.0,
+    "cumulative_coverage_pct": 100.0,
+    "cumulative_coverage_with_supplementary_pct": 100.0,
+    "headwords": 0,
+    "tokens": 0
+   },
+   "14": {
+    "coverage_pct": 0.0,
+    "cumulative_coverage_pct": 100.0,
+    "cumulative_coverage_with_supplementary_pct": 100.0,
+    "headwords": 0,
+    "tokens": 0
+   },
+   "15": {
+    "coverage_pct": 0.0,
+    "cumulative_coverage_pct": 100.0,
+    "cumulative_coverage_with_supplementary_pct": 100.0,
+    "headwords": 0,
+    "tokens": 0
+   },
+   "16": {
+    "coverage_pct": 0.0,
+    "cumulative_coverage_pct": 100.0,
+    "cumulative_coverage_with_supplementary_pct": 100.0,
+    "headwords": 0,
+    "tokens": 0
+   },
+   "17": {
+    "coverage_pct": 0.0,
+    "cumulative_coverage_pct": 100.0,
+    "cumulative_coverage_with_supplementary_pct": 100.0,
+    "headwords": 0,
+    "tokens": 0
+   },
+   "18": {
+    "coverage_pct": 0.0,
+    "cumulative_coverage_pct": 100.0,
+    "cumulative_coverage_with_supplementary_pct": 100.0,
+    "headwords": 0,
+    "tokens": 0
+   },
+   "19": {
+    "coverage_pct": 0.0,
+    "cumulative_coverage_pct": 100.0,
+    "cumulative_coverage_with_supplementary_pct": 100.0,
+    "headwords": 0,
+    "tokens": 0
+   },
+   "2": {
+    "coverage_pct": 3.333,
+    "cumulative_coverage_pct": 96.667,
+    "cumulative_coverage_with_supplementary_pct": 96.667,
+    "headwords": 1,
+    "tokens": 1
+   },
+   "20": {
+    "coverage_pct": 0.0,
+    "cumulative_coverage_pct": 100.0,
+    "cumulative_coverage_with_supplementary_pct": 100.0,
+    "headwords": 0,
+    "tokens": 0
+   },
+   "21": {
+    "coverage_pct": 0.0,
+    "cumulative_coverage_pct": 100.0,
+    "cumulative_coverage_with_supplementary_pct": 100.0,
+    "headwords": 0,
+    "tokens": 0
+   },
+   "22": {
+    "coverage_pct": 0.0,
+    "cumulative_coverage_pct": 100.0,
+    "cumulative_coverage_with_supplementary_pct": 100.0,
+    "headwords": 0,
+    "tokens": 0
+   },
+   "23": {
+    "coverage_pct": 0.0,
+    "cumulative_coverage_pct": 100.0,
+    "cumulative_coverage_with_supplementary_pct": 100.0,
+    "headwords": 0,
+    "tokens": 0
+   },
+   "24": {
+    "coverage_pct": 0.0,
+    "cumulative_coverage_pct": 100.0,
+    "cumulative_coverage_with_supplementary_pct": 100.0,
+    "headwords": 0,
+    "tokens": 0
+   },
+   "25": {
+    "coverage_pct": 0.0,
+    "cumulative_coverage_pct": 100.0,
+    "cumulative_coverage_with_supplementary_pct": 100.0,
+    "headwords": 0,
+    "tokens": 0
+   },
+   "3": {
+    "coverage_pct": 0.0,
+    "cumulative_coverage_pct": 96.667,
+    "cumulative_coverage_with_supplementary_pct": 96.667,
+    "headwords": 0,
+    "tokens": 0
+   },
+   "4": {
+    "coverage_pct": 3.333,
+    "cumulative_coverage_pct": 100.0,
+    "cumulative_coverage_with_supplementary_pct": 100.0,
+    "headwords": 1,
+    "tokens": 1
+   },
+   "5": {
+    "coverage_pct": 0.0,
+    "cumulative_coverage_pct": 100.0,
+    "cumulative_coverage_with_supplementary_pct": 100.0,
+    "headwords": 0,
+    "tokens": 0
+   },
+   "6": {
+    "coverage_pct": 0.0,
+    "cumulative_coverage_pct": 100.0,
+    "cumulative_coverage_with_supplementary_pct": 100.0,
+    "headwords": 0,
+    "tokens": 0
+   },
+   "7": {
+    "coverage_pct": 0.0,
+    "cumulative_coverage_pct": 100.0,
+    "cumulative_coverage_with_supplementary_pct": 100.0,
+    "headwords": 0,
+    "tokens": 0
+   },
+   "8": {
+    "coverage_pct": 0.0,
+    "cumulative_coverage_pct": 100.0,
+    "cumulative_coverage_with_supplementary_pct": 100.0,
+    "headwords": 0,
+    "tokens": 0
+   },
+   "9": {
+    "coverage_pct": 0.0,
+    "cumulative_coverage_pct": 100.0,
+    "cumulative_coverage_with_supplementary_pct": 100.0,
+    "headwords": 0,
+    "tokens": 0
+   }
+  },
+  "proper_nouns": [],
+  "supplementary": {}
+ },
+ "cefr": {
+  "caveat": "Heuristic only. Based on CEFR-J 1.5 + Octanove C1/C2 1.0; not Cambridge EVP. estimated_level_95th is the lowest level whose cumulative coverage reaches 95%; no published study validates it as a text's CEFR level. Cite both sources. Combine this with readability, BNC/COCA and diversity signals before reporting a level.",
+  "counts": {
+   "content_tokens": 30,
+   "off_list_tokens": 1,
+   "on_list_tokens": 29,
+   "pos_fallback_tokens": 0,
+   "proper_noun_tokens": 0
+  },
+  "coverage_pct": 96.667,
+  "dominant_level": "A1",
+  "estimated_level_95th": "A2",
+  "highest_level_present": "A2",
+  "off_list": [
+   {
+    "count": 1,
+    "word": "mat"
+   }
+  ],
+  "off_list_sample": [
+   "mat"
+  ],
+  "per_level": {
+   "A1": {
+    "coverage_pct": 93.333,
+    "cumulative_coverage_pct": 93.333,
+    "lemmas": 22,
+    "tokens": 28
+   },
+   "A2": {
+    "coverage_pct": 3.333,
+    "cumulative_coverage_pct": 96.667,
+    "lemmas": 1,
+    "tokens": 1
+   },
+   "B1": {
+    "coverage_pct": 0.0,
+    "cumulative_coverage_pct": 96.667,
+    "lemmas": 0,
+    "tokens": 0
+   },
+   "B2": {
+    "coverage_pct": 0.0,
+    "cumulative_coverage_pct": 96.667,
+    "lemmas": 0,
+    "tokens": 0
+   },
+   "C1": {
+    "coverage_pct": 0.0,
+    "cumulative_coverage_pct": 96.667,
+    "lemmas": 0,
+    "tokens": 0
+   },
+   "C2": {
+    "coverage_pct": 0.0,
+    "cumulative_coverage_pct": 96.667,
+    "lemmas": 0,
+    "tokens": 0
+   }
+  },
+  "proper_nouns": [],
+  "words_by_level": {
+   "A1": [
+    {
+     "count": 6,
+     "word": "the"
+    },
+    {
+     "count": 2,
+     "word": "in"
+    },
+    {
+     "count": 1,
+     "word": "cat"
+    },
+    {
+     "count": 1,
+     "word": "sat"
+    },
+    {
+     "count": 1,
+     "word": "on"
+    },
+    {
+     "count": 1,
+     "word": "dog"
+    },
+    {
+     "count": 1,
+     "word": "ran"
+    },
+    {
+     "count": 1,
+     "word": "park"
+    },
+    {
+     "count": 1,
+     "word": "birds"
+    },
+    {
+     "count": 1,
+     "word": "fly"
+    },
+    {
+     "count": 1,
+     "word": "sky"
+    },
+    {
+     "count": 1,
+     "word": "children"
+    },
+    {
+     "count": 1,
+     "word": "play"
+    },
+    {
+     "count": 1,
+     "word": "with"
+    },
+    {
+     "count": 1,
+     "word": "toys"
+    },
+    {
+     "count": 1,
+     "word": "every"
+    },
+    {
+     "count": 1,
+     "word": "day"
+    },
+    {
+     "count": 1,
+     "word": "sun"
+    },
+    {
+     "count": 1,
+     "word": "is"
+    },
+    {
+     "count": 1,
+     "word": "bright"
+    },
+    {
+     "count": 1,
+     "word": "and"
+    },
+    {
+     "count": 1,
+     "word": "warm"
+    }
+   ],
+   "A2": [
+    {
+     "count": 1,
+     "word": "high"
+    }
+   ],
+   "B1": [],
+   "B2": [],
+   "C1": [],
+   "C2": []
+  }
+ },
+ "diversity": {
+  "counts": {
+   "tokens": 30,
+   "types": 24
+  },
+  "note": "Only 30 tokens. Lexical-diversity measures are sample-size dependent; scores below ~50 tokens are unstable and the ones that cannot be computed at all are reported as null.",
+  "references": {
+   "note": "Reference ranges are for vocd-D (Durán et al. 2004), which lexinspect computes as `vocd_d` following McKee, Malvern & Richards (2000). Compare them with vocd-D only — HD-D (0–1) and MTLD are on different scales.",
+   "vocd_d_bands": [
+    {
+     "max": 70.0,
+     "min": 40.0,
+     "name": "Adult L2 / ESL learner",
+     "source": "Durán, Malvern, Richards & Chipere 2004 (Applied Linguistics 25/2)"
+    },
+    {
+     "max": 105.0,
+     "min": 80.0,
+     "name": "Adult native speaker, academic writing",
+     "source": "Durán, Malvern, Richards & Chipere 2004 (Applied Linguistics 25/2)"
+    }
+   ]
+  },
+  "scores": {
+   "cttr": 3.0984,
+   "hdd": null,
+   "herdan": 0.9344,
+   "maas": 0.0193,
+   "mattr": null,
+   "msttr": null,
+   "mtld": null,
+   "rttr": 4.3818,
+   "summer": 0.9446,
+   "ttr": 0.8,
+   "vocd_d": null
+  },
+  "tiers": {
+   "caution": [
+    "hdd",
+    "vocd_d",
+    "maas"
+   ],
+   "legacy": [
+    "ttr",
+    "rttr",
+    "cttr",
+    "msttr",
+    "herdan",
+    "summer"
+   ],
+   "note": "MTLD and MATTR stay most stable across text lengths from about 50 tokens (Zenker & Kyle 2021, 4,542 EFL essays). HD-D, vocd-D and Maas are usable with care. TTR and its transforms, and MSTTR, change with text length; compare them only between texts of the same length.",
+   "recommended": [
+    "mtld",
+    "mattr"
+   ]
+  }
+ },
+ "errors": {
+  "caveat": "Hunspell-based detection: it flags words its dictionary doesn't contain, so rare technical terms and neologisms can appear as errors, and a real word used wrongly (their/there) is not caught. Capitalised words used as names are listed separately, not counted as errors. Dictionaries: LibreOffice English (en_GB: LGPL; en_US: SCOWL wordlist, Ispell BSD affix file).",
+  "counts": {
+   "errors_total": 0,
+   "sentences": 5,
+   "tokens_checked": 30,
+   "unique_errors": 0,
+   "unknown_names": 0,
+   "variant_mismatches": 0
+  },
+  "dictionary": {
+   "licence": "LibreOffice English. en_GB: wordlist and affix file (David Bartlett, Andrew Brown) under the LGPL. en_US: wordlist from SCOWL by Kevin Atkinson (permissive SCOWL licence); affix file from Geoff Kuenning's Ispell (BSD). Mirror: github.com/LibreOffice/dictionaries.",
+   "source": "LibreOffice en_GB.aff/.dic",
+   "variant": "gb"
+  },
+  "errors": [],
+  "rates": {
+   "errors_per_100_words": 0.0,
+   "errors_per_sentence": 0.0
+  },
+  "unknown_names": [],
+  "variant": "gb",
+  "variant_mismatches": []
+ },
+ "metadiscourse": {
+  "counts": {
+   "content_tokens": 30,
+   "interactional_hits": 0,
+   "interactive_hits": 0,
+   "total_hits": 0
+  },
+  "density_per_1000": 0.0,
+  "hits": [],
+  "per_category": {
+   "attitude_markers": {
+    "density_per_1000": 0.0,
+    "dimension": "interactional",
+    "hits": 0,
+    "unique_markers": 0
+   },
+   "boosters": {
+    "density_per_1000": 0.0,
+    "dimension": "interactional",
+    "hits": 0,
+    "unique_markers": 0
+   },
+   "code_glosses": {
+    "density_per_1000": 0.0,
+    "dimension": "interactive",
+    "hits": 0,
+    "unique_markers": 0
+   },
+   "endophoric_markers": {
+    "density_per_1000": 0.0,
+    "dimension": "interactive",
+    "hits": 0,
+    "unique_markers": 0
+   },
+   "engagement_markers": {
+    "density_per_1000": 0.0,
+    "dimension": "interactional",
+    "hits": 0,
+    "unique_markers": 0
+   },
+   "evidentials": {
+    "density_per_1000": 0.0,
+    "dimension": "interactive",
+    "hits": 0,
+    "unique_markers": 0
+   },
+   "frame_markers": {
+    "density_per_1000": 0.0,
+    "dimension": "interactive",
+    "hits": 0,
+    "unique_markers": 0
+   },
+   "hedges": {
+    "density_per_1000": 0.0,
+    "dimension": "interactional",
+    "hits": 0,
+    "unique_markers": 0
+   },
+   "self_mentions": {
+    "density_per_1000": 0.0,
+    "dimension": "interactional",
+    "hits": 0,
+    "unique_markers": 0
+   },
+   "transitions": {
+    "density_per_1000": 0.0,
+    "dimension": "interactive",
+    "hits": 0,
+    "unique_markers": 0
+   }
+  },
+  "per_dimension": {
+   "interactional": {
+    "density_per_1000": 0.0,
+    "hits": 0
+   },
+   "interactive": {
+    "density_per_1000": 0.0,
+    "hits": 0
+   }
+  }
+ },
+ "ngsl": {
+  "counts": {
+   "content_tokens": 30,
+   "nawl_lemmas": 0,
+   "nawl_tokens": 0,
+   "ngsl_lemmas": 23,
+   "ngsl_tokens": 29,
+   "off_list_tokens": 1,
+   "proper_noun_tokens": 0
+  },
+  "coverage_pct": {
+   "nawl": 0.0,
+   "ngsl": 96.667,
+   "ngsl_plus_nawl": 96.667,
+   "off_list": 3.333,
+   "proper_nouns": 0.0
+  },
+  "nawl_lemmas_found": [],
+  "nawl_words": [],
+  "ngsl_lemmas_found": [
+   "and",
+   "be",
+   "bird",
+   "bright",
+   "cat",
+   "child",
+   "day",
+   "dog",
+   "every",
+   "fly",
+   "high",
+   "in",
+   "on",
+   "park",
+   "play",
+   "run",
+   "sit",
+   "sky",
+   "sun",
+   "the",
+   "toy",
+   "warm",
+   "with"
+  ],
+  "off_list": [
+   {
+    "count": 1,
+    "word": "mat"
+   }
+  ],
+  "off_list_sample": [
+   "mat"
+  ],
+  "proper_nouns": []
+ },
+ "phrase": {
+  "counts": {
+   "content_tokens": 30,
+   "hits_per_1000_words": 0.0,
+   "total_hits": 0,
+   "unique_phrases": 0
+  },
+  "hits": [],
+  "hits_per_k_band": {
+   "1": 0,
+   "2": 0,
+   "3": 0,
+   "4": 0,
+   "5": 0
+  },
+  "phrase_frequency": {}
+ },
+ "profile": {
+  "columns": [
+   "start",
+   "end",
+   "cefr",
+   "bnc",
+   "awl",
+   "ngsl"
+  ],
+  "rows": [
+   [
+    0,
+    3,
+    "A1",
+    1,
+    null,
+    "ngsl"
+   ],
+   [
+    4,
+    7,
+    "A1",
+    1,
+    null,
+    "ngsl"
+   ],
+   [
+    8,
+    11,
+    "A1",
+    1,
+    null,
+    "ngsl"
+   ],
+   [
+    12,
+    14,
+    "A1",
+    1,
+    null,
+    "ngsl"
+   ],
+   [
+    15,
+    18,
+    "A1",
+    1,
+    null,
+    "ngsl"
+   ],
+   [
+    19,
+    22,
+    null,
+    4,
+    null,
+    null
+   ],
+   [
+    24,
+    27,
+    "A1",
+    1,
+    null,
+    "ngsl"
+   ],
+   [
+    28,
+    31,
+    "A1",
+    1,
+    null,
+    "ngsl"
+   ],
+   [
+    32,
+    35,
+    "A1",
+    1,
+    null,
+    "ngsl"
+   ],
+   [
+    36,
+    38,
+    "A1",
+    1,
+    null,
+    "ngsl"
+   ],
+   [
+    39,
+    42,
+    "A1",
+    1,
+    null,
+    "ngsl"
+   ],
+   [
+    43,
+    47,
+    "A1",
+    1,
+    null,
+    "ngsl"
+   ],
+   [
+    49,
+    54,
+    "A1",
+    1,
+    null,
+    "ngsl"
+   ],
+   [
+    55,
+    58,
+    "A1",
+    1,
+    null,
+    "ngsl"
+   ],
+   [
+    59,
+    63,
+    "A2",
+    1,
+    null,
+    "ngsl"
+   ],
+   [
+    64,
+    66,
+    "A1",
+    1,
+    null,
+    "ngsl"
+   ],
+   [
+    67,
+    70,
+    "A1",
+    1,
+    null,
+    "ngsl"
+   ],
+   [
+    71,
+    74,
+    "A1",
+    1,
+    null,
+    "ngsl"
+   ],
+   [
+    76,
+    84,
+    "A1",
+    1,
+    null,
+    "ngsl"
+   ],
+   [
+    85,
+    89,
+    "A1",
+    1,
+    null,
+    "ngsl"
+   ],
+   [
+    90,
+    94,
+    "A1",
+    1,
+    null,
+    "ngsl"
+   ],
+   [
+    95,
+    99,
+    "A1",
+    2,
+    null,
+    "ngsl"
+   ],
+   [
+    100,
+    105,
+    "A1",
+    1,
+    null,
+    "ngsl"
+   ],
+   [
+    106,
+    109,
+    "A1",
+    1,
+    null,
+    "ngsl"
+   ],
+   [
+    111,
+    114,
+    "A1",
+    1,
+    null,
+    "ngsl"
+   ],
+   [
+    115,
+    118,
+    "A1",
+    1,
+    null,
+    "ngsl"
+   ],
+   [
+    119,
+    121,
+    "A1",
+    1,
+    null,
+    "ngsl"
+   ],
+   [
+    122,
+    128,
+    "A1",
+    1,
+    null,
+    "ngsl"
+   ],
+   [
+    129,
+    132,
+    "A1",
+    1,
+    null,
+    "ngsl"
+   ],
+   [
+    133,
+    137,
+    "A1",
+    1,
+    null,
+    "ngsl"
+   ]
+  ]
+ },
+ "readability": {
+  "averages": {
+   "characters_per_word": 3.467,
+   "syllables_per_word": 1.1,
+   "words_per_sentence": 6.0
+  },
+  "counts": {
+   "characters": 109,
+   "characters_with_spaces": 139,
+   "difficult_words": 0,
+   "long_words": 1,
+   "monosyllable_words": 28,
+   "polysyllable_words": 1,
+   "reading_time_seconds": 7.6,
+   "sentences": 5,
+   "syllables": 33,
+   "words": 30
+  },
+  "reliability": {
+   "notes": [
+    "Only 30 words. Readability formulas were fitted on passages of 100+ words; on shorter texts one long word or sentence swings every score.",
+    "SMOG was normed on 30-sentence samples; this text has 5, so the SMOG score is extrapolated."
+   ],
+   "reliable": false
+  },
+  "scores": {
+   "automated_readability_index": -2.1,
+   "coleman_liau_index": -0.35,
+   "dale_chall_readability_score": 0.3,
+   "flesch_kincaid_grade": -0.27,
+   "flesch_reading_ease": 107.69,
+   "gunning_fog": 3.73,
+   "linsear_write_formula": 2.2,
+   "smog_index": 5.68,
+   "text_standard": 2.97
+  },
+  "validity": {
+   "evidence": "On the CLEAR corpus (4,724 school reading excerpts ranked by teachers), Flesch, Flesch-Kincaid, ARI, SMOG and New Dale-Chall correlate r = .48-.56 with the teachers' ease scores, about a quarter to a third of the variance (Crossley et al. 2023, Behavior Research Methods, doi:10.3758/s13428-022-01802-x). Coleman-Liau and Linsear Write weren't tested. The formulas largely duplicate each other.",
+   "population": "Normed on 20th-century US native-speaker readers; evidence for second-language readers is thinner.",
+   "status": "legacy",
+   "text_standard": "The median of the eight grades: a convenience summary with no validation of its own."
+  }
+ },
+ "statistics": {
+  "averages": {
+   "polysyllable_pct": 3.333,
+   "syllables_per_100_words": 110.0,
+   "syllables_per_sentence": 6.6,
+   "syllables_per_word": 1.1,
+   "tokens_per_sentence": 6.0,
+   "type_token_ratio": 0.8
+  },
+  "counts": {
+   "characters_with_spaces": 139,
+   "characters_without_spaces": 109,
+   "excluded_numeric_tokens": 0,
+   "polysyllable_words": 1,
+   "sentences": 5,
+   "syllables": 33,
+   "tokens_excluding_numbers": 30,
+   "unique_types_excluding_numbers": 24
+  },
+  "excluded_digits": []
+ },
+ "tagger": {
+  "counts": {
+   "sentences": 5,
+   "total_tokens": 35
+  },
+  "ptb_distribution": {
+   ".": 5,
+   "CC": 1,
+   "DT": 7,
+   "IN": 4,
+   "JJ": 2,
+   "NN": 7,
+   "NNS": 3,
+   "RB": 1,
+   "VBD": 2,
+   "VBP": 2,
+   "VBZ": 1
+  },
+  "summary": {
+   "content_tokens": 30,
+   "noun_elements_per_sentence": 2.0,
+   "tokens_per_type": 1.25,
+   "total_noun_elements": 10,
+   "total_verbal_elements": 5,
+   "type_token_ratio": 0.8,
+   "types": 24,
+   "verbal_elements_per_sentence": 1.0
+  },
+  "upos_distribution": {
+   "ADJ": 2,
+   "ADP": 4,
+   "ADV": 1,
+   "AUX": 1,
+   "CCONJ": 1,
+   "DET": 7,
+   "NOUN": 10,
+   "PUNCT": 5,
+   "VERB": 4
+  }
+ }
+}

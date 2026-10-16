@@ -1,0 +1,2185 @@
+{
+ "awl": {
+  "counts": {
+   "awl_families": 38,
+   "awl_tokens": 39,
+   "content_tokens": 75
+  },
+  "coverage_pct": 52.0,
+  "families_detail": [
+   {
+    "headword": "research",
+    "spans": [
+     [
+      272,
+      280
+     ],
+     [
+      537,
+      548
+     ]
+    ],
+    "sublist": 1,
+    "tokens": 2
+   },
+   {
+    "headword": "analyze",
+    "spans": [
+     [
+      14,
+      22
+     ]
+    ],
+    "sublist": 1,
+    "tokens": 1
+   },
+   {
+    "headword": "approach",
+    "spans": [
+     [
+      437,
+      445
+     ]
+    ],
+    "sublist": 1,
+    "tokens": 1
+   },
+   {
+    "headword": "consist",
+    "spans": [
+     [
+      304,
+      314
+     ]
+    ],
+    "sublist": 1,
+    "tokens": 1
+   },
+   {
+    "headword": "context",
+    "spans": [
+     [
+      138,
+      146
+     ]
+    ],
+    "sublist": 1,
+    "tokens": 1
+   },
+   {
+    "headword": "derive",
+    "spans": [
+     [
+      446,
+      453
+     ]
+    ],
+    "sublist": 1,
+    "tokens": 1
+   },
+   {
+    "headword": "environment",
+    "spans": [
+     [
+      366,
+      379
+     ]
+    ],
+    "sublist": 1,
+    "tokens": 1
+   },
+   {
+    "headword": "establish",
+    "spans": [
+     [
+      459,
+      470
+     ]
+    ],
+    "sublist": 1,
+    "tokens": 1
+   },
+   {
+    "headword": "method",
+    "spans": [
+     [
+      67,
+      78
+     ]
+    ],
+    "sublist": 1,
+    "tokens": 1
+   },
+   {
+    "headword": "policy",
+    "spans": [
+     [
+      685,
+      691
+     ]
+    ],
+    "sublist": 1,
+    "tokens": 1
+   },
+   {
+    "headword": "principle",
+    "spans": [
+     [
+      471,
+      481
+     ]
+    ],
+    "sublist": 1,
+    "tokens": 1
+   },
+   {
+    "headword": "significant",
+    "spans": [
+     [
+      41,
+      52
+     ]
+    ],
+    "sublist": 1,
+    "tokens": 1
+   },
+   {
+    "headword": "theory",
+    "spans": [
+     [
+      399,
+      410
+     ]
+    ],
+    "sublist": 1,
+    "tokens": 1
+   },
+   {
+    "headword": "vary",
+    "spans": [
+     [
+      53,
+      63
+     ]
+    ],
+    "sublist": 1,
+    "tokens": 1
+   },
+   {
+    "headword": "consequent",
+    "spans": [
+     [
+      549,
+      561
+     ]
+    ],
+    "sublist": 2,
+    "tokens": 1
+   },
+   {
+    "headword": "evaluate",
+    "spans": [
+     [
+      234,
+      244
+     ]
+    ],
+    "sublist": 2,
+    "tokens": 1
+   },
+   {
+    "headword": "participate",
+    "spans": [
+     [
+      281,
+      293
+     ]
+    ],
+    "sublist": 2,
+    "tokens": 1
+   },
+   {
+    "headword": "potential",
+    "spans": [
+     [
+      646,
+      655
+     ]
+    ],
+    "sublist": 2,
+    "tokens": 1
+   },
+   {
+    "headword": "demonstrate",
+    "spans": [
+     [
+      23,
+      35
+     ]
+    ],
+    "sublist": 3,
+    "tokens": 1
+   },
+   {
+    "headword": "framework",
+    "spans": [
+     [
+      411,
+      420
+     ]
+    ],
+    "sublist": 3,
+    "tokens": 1
+   },
+   {
+    "headword": "outcome",
+    "spans": [
+     [
+      111,
+      119
+     ]
+    ],
+    "sublist": 3,
+    "tokens": 1
+   },
+   {
+    "headword": "valid",
+    "spans": [
+     [
+      604,
+      612
+     ]
+    ],
+    "sublist": 3,
+    "tokens": 1
+   },
+   {
+    "headword": "hypothesis",
+    "spans": [
+     [
+      194,
+      204
+     ]
+    ],
+    "sublist": 4,
+    "tokens": 1
+   },
+   {
+    "headword": "implicate",
+    "spans": [
+     [
+      656,
+      668
+     ]
+    ],
+    "sublist": 4,
+    "tokens": 1
+   },
+   {
+    "headword": "investigate",
+    "spans": [
+     [
+      159,
+      173
+     ]
+    ],
+    "sublist": 4,
+    "tokens": 1
+   },
+   {
+    "headword": "statistic",
+    "spans": [
+     [
+      222,
+      233
+     ]
+    ],
+    "sublist": 4,
+    "tokens": 1
+   },
+   {
+    "headword": "subsequent",
+    "spans": [
+     [
+      148,
+      158
+     ]
+    ],
+    "sublist": 4,
+    "tokens": 1
+   },
+   {
+    "headword": "expose",
+    "spans": [
+     [
+      355,
+      362
+     ]
+    ],
+    "sublist": 5,
+    "tokens": 1
+   },
+   {
+    "headword": "modify",
+    "spans": [
+     [
+      380,
+      393
+     ]
+    ],
+    "sublist": 5,
+    "tokens": 1
+   },
+   {
+    "headword": "psychology",
+    "spans": [
+     [
+      495,
+      505
+     ]
+    ],
+    "sublist": 5,
+    "tokens": 1
+   },
+   {
+    "headword": "underlie",
+    "spans": [
+     [
+      421,
+      431
+     ]
+    ],
+    "sublist": 6,
+    "tokens": 1
+   },
+   {
+    "headword": "adapt",
+    "spans": [
+     [
+      339,
+      349
+     ]
+    ],
+    "sublist": 7,
+    "tokens": 1
+   },
+   {
+    "headword": "comprehensive",
+    "spans": [
+     [
+      248,
+      261
+     ]
+    ],
+    "sublist": 7,
+    "tokens": 1
+   },
+   {
+    "headword": "confirm",
+    "spans": [
+     [
+      179,
+      188
+     ]
+    ],
+    "sublist": 7,
+    "tokens": 1
+   },
+   {
+    "headword": "empirical",
+    "spans": [
+     [
+      4,
+      13
+     ]
+    ],
+    "sublist": 7,
+    "tokens": 1
+   },
+   {
+    "headword": "contemporary",
+    "spans": [
+     [
+      510,
+      522
+     ]
+    ],
+    "sublist": 8,
+    "tokens": 1
+   },
+   {
+    "headword": "exhibit",
+    "spans": [
+     [
+      294,
+      303
+     ]
+    ],
+    "sublist": 8,
+    "tokens": 1
+   },
+   {
+    "headword": "preliminary",
+    "spans": [
+     [
+      613,
+      624
+     ]
+    ],
+    "sublist": 9,
+    "tokens": 1
+   }
+  ],
+  "families_found": [
+   "adapt",
+   "analyze",
+   "approach",
+   "comprehensive",
+   "confirm",
+   "consequent",
+   "consist",
+   "contemporary",
+   "context",
+   "demonstrate",
+   "derive",
+   "empirical",
+   "environment",
+   "establish",
+   "evaluate",
+   "exhibit",
+   "expose",
+   "framework",
+   "hypothesis",
+   "implicate",
+   "investigate",
+   "method",
+   "modify",
+   "outcome",
+   "participate",
+   "policy",
+   "potential",
+   "preliminary",
+   "principle",
+   "psychology",
+   "research",
+   "significant",
+   "statistic",
+   "subsequent",
+   "theory",
+   "underlie",
+   "valid",
+   "vary"
+  ],
+  "per_sublist": {
+   "1": {
+    "coverage_pct": 20.0,
+    "families": 14,
+    "tokens": 15
+   },
+   "10": {
+    "coverage_pct": 0.0,
+    "families": 0,
+    "tokens": 0
+   },
+   "2": {
+    "coverage_pct": 5.333,
+    "families": 4,
+    "tokens": 4
+   },
+   "3": {
+    "coverage_pct": 5.333,
+    "families": 4,
+    "tokens": 4
+   },
+   "4": {
+    "coverage_pct": 6.667,
+    "families": 5,
+    "tokens": 5
+   },
+   "5": {
+    "coverage_pct": 4.0,
+    "families": 3,
+    "tokens": 3
+   },
+   "6": {
+    "coverage_pct": 1.333,
+    "families": 1,
+    "tokens": 1
+   },
+   "7": {
+    "coverage_pct": 5.333,
+    "families": 4,
+    "tokens": 4
+   },
+   "8": {
+    "coverage_pct": 2.667,
+    "families": 2,
+    "tokens": 2
+   },
+   "9": {
+    "coverage_pct": 1.333,
+    "families": 1,
+    "tokens": 1
+   }
+  }
+ },
+ "bnc_coca": {
+  "counts": {
+   "content_tokens": 75,
+   "off_list_tokens": 0,
+   "on_list_tokens": 74,
+   "proper_noun_tokens": 0,
+   "supplementary_tokens": 1
+  },
+  "coverage_pct": 98.667,
+  "coverage_with_supplementary_pct": 100.0,
+  "off_list": [],
+  "off_list_sample": [],
+  "per_band": {
+   "1": {
+    "coverage_pct": 32.0,
+    "cumulative_coverage_pct": 32.0,
+    "cumulative_coverage_with_supplementary_pct": 33.333,
+    "headwords": 18,
+    "tokens": 24
+   },
+   "10": {
+    "coverage_pct": 0.0,
+    "cumulative_coverage_pct": 97.333,
+    "cumulative_coverage_with_supplementary_pct": 98.667,
+    "headwords": 0,
+    "tokens": 0
+   },
+   "11": {
+    "coverage_pct": 0.0,
+    "cumulative_coverage_pct": 97.333,
+    "cumulative_coverage_with_supplementary_pct": 98.667,
+    "headwords": 0,
+    "tokens": 0
+   },
+   "12": {
+    "coverage_pct": 0.0,
+    "cumulative_coverage_pct": 97.333,
+    "cumulative_coverage_with_supplementary_pct": 98.667,
+    "headwords": 0,
+    "tokens": 0
+   },
+   "13": {
+    "coverage_pct": 1.333,
+    "cumulative_coverage_pct": 98.667,
+    "cumulative_coverage_with_supplementary_pct": 100.0,
+    "headwords": 1,
+    "tokens": 1
+   },
+   "14": {
+    "coverage_pct": 0.0,
+    "cumulative_coverage_pct": 98.667,
+    "cumulative_coverage_with_supplementary_pct": 100.0,
+    "headwords": 0,
+    "tokens": 0
+   },
+   "15": {
+    "coverage_pct": 0.0,
+    "cumulative_coverage_pct": 98.667,
+    "cumulative_coverage_with_supplementary_pct": 100.0,
+    "headwords": 0,
+    "tokens": 0
+   },
+   "16": {
+    "coverage_pct": 0.0,
+    "cumulative_coverage_pct": 98.667,
+    "cumulative_coverage_with_supplementary_pct": 100.0,
+    "headwords": 0,
+    "tokens": 0
+   },
+   "17": {
+    "coverage_pct": 0.0,
+    "cumulative_coverage_pct": 98.667,
+    "cumulative_coverage_with_supplementary_pct": 100.0,
+    "headwords": 0,
+    "tokens": 0
+   },
+   "18": {
+    "coverage_pct": 0.0,
+    "cumulative_coverage_pct": 98.667,
+    "cumulative_coverage_with_supplementary_pct": 100.0,
+    "headwords": 0,
+    "tokens": 0
+   },
+   "19": {
+    "coverage_pct": 0.0,
+    "cumulative_coverage_pct": 98.667,
+    "cumulative_coverage_with_supplementary_pct": 100.0,
+    "headwords": 0,
+    "tokens": 0
+   },
+   "2": {
+    "coverage_pct": 18.667,
+    "cumulative_coverage_pct": 50.667,
+    "cumulative_coverage_with_supplementary_pct": 52.0,
+    "headwords": 13,
+    "tokens": 14
+   },
+   "20": {
+    "coverage_pct": 0.0,
+    "cumulative_coverage_pct": 98.667,
+    "cumulative_coverage_with_supplementary_pct": 100.0,
+    "headwords": 0,
+    "tokens": 0
+   },
+   "21": {
+    "coverage_pct": 0.0,
+    "cumulative_coverage_pct": 98.667,
+    "cumulative_coverage_with_supplementary_pct": 100.0,
+    "headwords": 0,
+    "tokens": 0
+   },
+   "22": {
+    "coverage_pct": 0.0,
+    "cumulative_coverage_pct": 98.667,
+    "cumulative_coverage_with_supplementary_pct": 100.0,
+    "headwords": 0,
+    "tokens": 0
+   },
+   "23": {
+    "coverage_pct": 0.0,
+    "cumulative_coverage_pct": 98.667,
+    "cumulative_coverage_with_supplementary_pct": 100.0,
+    "headwords": 0,
+    "tokens": 0
+   },
+   "24": {
+    "coverage_pct": 0.0,
+    "cumulative_coverage_pct": 98.667,
+    "cumulative_coverage_with_supplementary_pct": 100.0,
+    "headwords": 0,
+    "tokens": 0
+   },
+   "25": {
+    "coverage_pct": 0.0,
+    "cumulative_coverage_pct": 98.667,
+    "cumulative_coverage_with_supplementary_pct": 100.0,
+    "headwords": 0,
+    "tokens": 0
+   },
+   "3": {
+    "coverage_pct": 38.667,
+    "cumulative_coverage_pct": 89.333,
+    "cumulative_coverage_with_supplementary_pct": 90.667,
+    "headwords": 29,
+    "tokens": 29
+   },
+   "4": {
+    "coverage_pct": 6.667,
+    "cumulative_coverage_pct": 96.0,
+    "cumulative_coverage_with_supplementary_pct": 97.333,
+    "headwords": 5,
+    "tokens": 5
+   },
+   "5": {
+    "coverage_pct": 0.0,
+    "cumulative_coverage_pct": 96.0,
+    "cumulative_coverage_with_supplementary_pct": 97.333,
+    "headwords": 0,
+    "tokens": 0
+   },
+   "6": {
+    "coverage_pct": 0.0,
+    "cumulative_coverage_pct": 96.0,
+    "cumulative_coverage_with_supplementary_pct": 97.333,
+    "headwords": 0,
+    "tokens": 0
+   },
+   "7": {
+    "coverage_pct": 1.333,
+    "cumulative_coverage_pct": 97.333,
+    "cumulative_coverage_with_supplementary_pct": 98.667,
+    "headwords": 1,
+    "tokens": 1
+   },
+   "8": {
+    "coverage_pct": 0.0,
+    "cumulative_coverage_pct": 97.333,
+    "cumulative_coverage_with_supplementary_pct": 98.667,
+    "headwords": 0,
+    "tokens": 0
+   },
+   "9": {
+    "coverage_pct": 0.0,
+    "cumulative_coverage_pct": 97.333,
+    "cumulative_coverage_with_supplementary_pct": 98.667,
+    "headwords": 0,
+    "tokens": 0
+   }
+  },
+  "proper_nouns": [],
+  "supplementary": {
+   "transparent_compounds": 1
+  }
+ },
+ "cefr": {
+  "caveat": "Heuristic only. Based on CEFR-J 1.5 + Octanove C1/C2 1.0; not Cambridge EVP. estimated_level_95th is the lowest level whose cumulative coverage reaches 95%; no published study validates it as a text's CEFR level. Cite both sources. Combine this with readability, BNC/COCA and diversity signals before reporting a level.",
+  "counts": {
+   "content_tokens": 75,
+   "off_list_tokens": 15,
+   "on_list_tokens": 59,
+   "pos_fallback_tokens": 0,
+   "proper_noun_tokens": 1
+  },
+  "coverage_pct": 78.667,
+  "dominant_level": "A1",
+  "estimated_level_95th": null,
+  "highest_level_present": "C2",
+  "off_list": [
+   {
+    "count": 1,
+    "word": "empirical"
+   },
+   {
+    "count": 1,
+    "word": "comparable"
+   },
+   {
+    "count": 1,
+    "word": "subsequent"
+   },
+   {
+    "count": 1,
+    "word": "rigorous"
+   },
+   {
+    "count": 1,
+    "word": "statistical"
+   },
+   {
+    "count": 1,
+    "word": "datasets"
+   },
+   {
+    "count": 1,
+    "word": "behavioural"
+   },
+   {
+    "count": 1,
+    "word": "adaptation"
+   },
+   {
+    "count": 1,
+    "word": "theoretical"
+   },
+   {
+    "count": 1,
+    "word": "framework"
+   },
+   {
+    "count": 1,
+    "word": "underlying"
+   },
+   {
+    "count": 1,
+    "word": "established"
+   },
+   {
+    "count": 1,
+    "word": "neuroscience"
+   },
+   {
+    "count": 1,
+    "word": "longitudinal"
+   },
+   {
+    "count": 1,
+    "word": "validate"
+   }
+  ],
+  "off_list_sample": [
+   "adaptation",
+   "behavioural",
+   "comparable",
+   "datasets",
+   "empirical",
+   "established",
+   "framework",
+   "longitudinal",
+   "neuroscience",
+   "rigorous",
+   "statistical",
+   "subsequent",
+   "theoretical",
+   "underlying",
+   "validate"
+  ],
+  "per_level": {
+   "A1": {
+    "coverage_pct": 25.333,
+    "cumulative_coverage_pct": 25.333,
+    "lemmas": 13,
+    "tokens": 19
+   },
+   "A2": {
+    "coverage_pct": 10.667,
+    "cumulative_coverage_pct": 36.0,
+    "lemmas": 8,
+    "tokens": 8
+   },
+   "B1": {
+    "coverage_pct": 21.333,
+    "cumulative_coverage_pct": 57.333,
+    "lemmas": 16,
+    "tokens": 16
+   },
+   "B2": {
+    "coverage_pct": 16.0,
+    "cumulative_coverage_pct": 73.333,
+    "lemmas": 12,
+    "tokens": 12
+   },
+   "C1": {
+    "coverage_pct": 1.333,
+    "cumulative_coverage_pct": 74.667,
+    "lemmas": 1,
+    "tokens": 1
+   },
+   "C2": {
+    "coverage_pct": 4.0,
+    "cumulative_coverage_pct": 78.667,
+    "lemmas": 3,
+    "tokens": 3
+   }
+  },
+  "proper_nouns": [
+   {
+    "count": 1,
+    "word": "contexts"
+   }
+  ],
+  "words_by_level": {
+   "A1": [
+    {
+     "count": 3,
+     "word": "of"
+    },
+    {
+     "count": 2,
+     "word": "the"
+    },
+    {
+     "count": 2,
+     "word": "this"
+    },
+    {
+     "count": 2,
+     "word": "to"
+    },
+    {
+     "count": 2,
+     "word": "and"
+    },
+    {
+     "count": 1,
+     "word": "that"
+    },
+    {
+     "count": 1,
+     "word": "in"
+    },
+    {
+     "count": 1,
+     "word": "different"
+    },
+    {
+     "count": 1,
+     "word": "have"
+    },
+    {
+     "count": 1,
+     "word": "through"
+    },
+    {
+     "count": 1,
+     "word": "when"
+    },
+    {
+     "count": 1,
+     "word": "from"
+    },
+    {
+     "count": 1,
+     "word": "for"
+    }
+   ],
+   "A2": [
+    {
+     "count": 1,
+     "word": "significant"
+    },
+    {
+     "count": 1,
+     "word": "produce"
+    },
+    {
+     "count": 1,
+     "word": "across"
+    },
+    {
+     "count": 1,
+     "word": "research"
+    },
+    {
+     "count": 1,
+     "word": "further"
+    },
+    {
+     "count": 1,
+     "word": "studies"
+    },
+    {
+     "count": 1,
+     "word": "explore"
+    },
+    {
+     "count": 1,
+     "word": "educational"
+    }
+   ],
+   "B1": [
+    {
+     "count": 1,
+     "word": "analysis"
+    },
+    {
+     "count": 1,
+     "word": "demonstrates"
+    },
+    {
+     "count": 1,
+     "word": "investigations"
+    },
+    {
+     "count": 1,
+     "word": "confirmed"
+    },
+    {
+     "count": 1,
+     "word": "participants"
+    },
+    {
+     "count": 1,
+     "word": "patterns"
+    },
+    {
+     "count": 1,
+     "word": "exposed"
+    },
+    {
+     "count": 1,
+     "word": "environmental"
+    },
+    {
+     "count": 1,
+     "word": "approach"
+    },
+    {
+     "count": 1,
+     "word": "derives"
+    },
+    {
+     "count": 1,
+     "word": "principles"
+    },
+    {
+     "count": 1,
+     "word": "researchers"
+    },
+    {
+     "count": 1,
+     "word": "consequently"
+    },
+    {
+     "count": 1,
+     "word": "recommend"
+    },
+    {
+     "count": 1,
+     "word": "findings"
+    },
+    {
+     "count": 1,
+     "word": "policy"
+    }
+   ],
+   "B2": [
+    {
+     "count": 1,
+     "word": "variations"
+    },
+    {
+     "count": 1,
+     "word": "outcomes"
+    },
+    {
+     "count": 1,
+     "word": "evaluation"
+    },
+    {
+     "count": 1,
+     "word": "comprehensive"
+    },
+    {
+     "count": 1,
+     "word": "exhibited"
+    },
+    {
+     "count": 1,
+     "word": "consistent"
+    },
+    {
+     "count": 1,
+     "word": "modifications"
+    },
+    {
+     "count": 1,
+     "word": "psychology"
+    },
+    {
+     "count": 1,
+     "word": "contemporary"
+    },
+    {
+     "count": 1,
+     "word": "preliminary"
+    },
+    {
+     "count": 1,
+     "word": "potential"
+    },
+    {
+     "count": 1,
+     "word": "implications"
+    }
+   ],
+   "C1": [
+    {
+     "count": 1,
+     "word": "substantially"
+    }
+   ],
+   "C2": [
+    {
+     "count": 1,
+     "word": "methodology"
+    },
+    {
+     "count": 1,
+     "word": "hypothesis"
+    },
+    {
+     "count": 1,
+     "word": "cognitive"
+    }
+   ]
+  }
+ },
+ "diversity": {
+  "counts": {
+   "tokens": 75,
+   "types": 69
+  },
+  "references": {
+   "note": "Reference ranges are for vocd-D (Durán et al. 2004), which lexinspect computes as `vocd_d` following McKee, Malvern & Richards (2000). Compare them with vocd-D only — HD-D (0–1) and MTLD are on different scales.",
+   "vocd_d_bands": [
+    {
+     "max": 70.0,
+     "min": 40.0,
+     "name": "Adult L2 / ESL learner",
+     "position": "above",
+     "source": "Durán, Malvern, Richards & Chipere 2004 (Applied Linguistics 25/2)"
+    },
+    {
+     "max": 105.0,
+     "min": 80.0,
+     "name": "Adult native speaker, academic writing",
+     "position": "above",
+     "source": "Durán, Malvern, Richards & Chipere 2004 (Applied Linguistics 25/2)"
+    }
+   ]
+  },
+  "scores": {
+   "cttr": 5.6338,
+   "hdd": 0.9523,
+   "herdan": 0.9807,
+   "maas": 0.0045,
+   "mattr": 0.9315,
+   "msttr": 0.94,
+   "mtld": 262.5,
+   "rttr": 7.9674,
+   "summer": 0.9867,
+   "ttr": 0.92,
+   "vocd_d": 401.22
+  },
+  "tiers": {
+   "caution": [
+    "hdd",
+    "vocd_d",
+    "maas"
+   ],
+   "legacy": [
+    "ttr",
+    "rttr",
+    "cttr",
+    "msttr",
+    "herdan",
+    "summer"
+   ],
+   "note": "MTLD and MATTR stay most stable across text lengths from about 50 tokens (Zenker & Kyle 2021, 4,542 EFL essays). HD-D, vocd-D and Maas are usable with care. TTR and its transforms, and MSTTR, change with text length; compare them only between texts of the same length.",
+   "recommended": [
+    "mtld",
+    "mattr"
+   ]
+  }
+ },
+ "errors": {
+  "caveat": "Hunspell-based detection: it flags words its dictionary doesn't contain, so rare technical terms and neologisms can appear as errors, and a real word used wrongly (their/there) is not caught. Capitalised words used as names are listed separately, not counted as errors. Dictionaries: LibreOffice English (en_GB: LGPL; en_US: SCOWL wordlist, Ispell BSD affix file).",
+  "counts": {
+   "errors_total": 0,
+   "sentences": 5,
+   "tokens_checked": 75,
+   "unique_errors": 0,
+   "unknown_names": 0,
+   "variant_mismatches": 0
+  },
+  "dictionary": {
+   "licence": "LibreOffice English. en_GB: wordlist and affix file (David Bartlett, Andrew Brown) under the LGPL. en_US: wordlist from SCOWL by Kevin Atkinson (permissive SCOWL licence); affix file from Geoff Kuenning's Ispell (BSD). Mirror: github.com/LibreOffice/dictionaries.",
+   "source": "LibreOffice en_GB.aff/.dic",
+   "variant": "gb"
+  },
+  "errors": [],
+  "rates": {
+   "errors_per_100_words": 0.0,
+   "errors_per_sentence": 0.0
+  },
+  "unknown_names": [],
+  "variant": "gb",
+  "variant_mismatches": []
+ },
+ "metadiscourse": {
+  "counts": {
+   "content_tokens": 75,
+   "interactional_hits": 0,
+   "interactive_hits": 3,
+   "total_hits": 3
+  },
+  "density_per_1000": 40.0,
+  "hits": [
+   {
+    "category": "evidentials",
+    "dimension": "interactive",
+    "marker": "demonstrates that",
+    "span": [
+     23,
+     40
+    ],
+    "surface": "demonstrates that",
+    "token_index": 3
+   },
+   {
+    "category": "transitions",
+    "dimension": "interactive",
+    "marker": "consequently",
+    "span": [
+     549,
+     561
+    ],
+    "surface": "consequently",
+    "token_index": 63
+   },
+   {
+    "category": "transitions",
+    "dimension": "interactive",
+    "marker": "and",
+    "span": [
+     634,
+     637
+    ],
+    "surface": "and",
+    "token_index": 72
+   }
+  ],
+  "per_category": {
+   "attitude_markers": {
+    "density_per_1000": 0.0,
+    "dimension": "interactional",
+    "hits": 0,
+    "unique_markers": 0
+   },
+   "boosters": {
+    "density_per_1000": 0.0,
+    "dimension": "interactional",
+    "hits": 0,
+    "unique_markers": 0
+   },
+   "code_glosses": {
+    "density_per_1000": 0.0,
+    "dimension": "interactive",
+    "hits": 0,
+    "unique_markers": 0
+   },
+   "endophoric_markers": {
+    "density_per_1000": 0.0,
+    "dimension": "interactive",
+    "hits": 0,
+    "unique_markers": 0
+   },
+   "engagement_markers": {
+    "density_per_1000": 0.0,
+    "dimension": "interactional",
+    "hits": 0,
+    "unique_markers": 0
+   },
+   "evidentials": {
+    "density_per_1000": 13.333,
+    "dimension": "interactive",
+    "hits": 1,
+    "unique_markers": 1
+   },
+   "frame_markers": {
+    "density_per_1000": 0.0,
+    "dimension": "interactive",
+    "hits": 0,
+    "unique_markers": 0
+   },
+   "hedges": {
+    "density_per_1000": 0.0,
+    "dimension": "interactional",
+    "hits": 0,
+    "unique_markers": 0
+   },
+   "self_mentions": {
+    "density_per_1000": 0.0,
+    "dimension": "interactional",
+    "hits": 0,
+    "unique_markers": 0
+   },
+   "transitions": {
+    "density_per_1000": 26.667,
+    "dimension": "interactive",
+    "hits": 2,
+    "unique_markers": 2
+   }
+  },
+  "per_dimension": {
+   "interactional": {
+    "density_per_1000": 0.0,
+    "hits": 0
+   },
+   "interactive": {
+    "density_per_1000": 40.0,
+    "hits": 3
+   }
+  }
+ },
+ "ngsl": {
+  "counts": {
+   "content_tokens": 75,
+   "nawl_lemmas": 11,
+   "nawl_tokens": 11,
+   "ngsl_lemmas": 53,
+   "ngsl_tokens": 59,
+   "off_list_tokens": 5,
+   "proper_noun_tokens": 0
+  },
+  "coverage_pct": {
+   "nawl": 14.667,
+   "ngsl": 78.667,
+   "ngsl_plus_nawl": 93.333,
+   "off_list": 6.667,
+   "proper_nouns": 0.0
+  },
+  "nawl_lemmas_found": [
+   "adaptation",
+   "behavioral",
+   "cognitive",
+   "comparable",
+   "empirical",
+   "longitudinal",
+   "methodology",
+   "modification",
+   "preliminary",
+   "psychology",
+   "statistical"
+  ],
+  "nawl_words": [
+   {
+    "count": 1,
+    "word": "empirical"
+   },
+   {
+    "count": 1,
+    "word": "methodology"
+   },
+   {
+    "count": 1,
+    "word": "comparable"
+   },
+   {
+    "count": 1,
+    "word": "statistical"
+   },
+   {
+    "count": 1,
+    "word": "behavioural"
+   },
+   {
+    "count": 1,
+    "word": "adaptation"
+   },
+   {
+    "count": 1,
+    "word": "modifications"
+   },
+   {
+    "count": 1,
+    "word": "cognitive"
+   },
+   {
+    "count": 1,
+    "word": "psychology"
+   },
+   {
+    "count": 1,
+    "word": "longitudinal"
+   },
+   {
+    "count": 1,
+    "word": "preliminary"
+   }
+  ],
+  "ngsl_lemmas_found": [
+   "across",
+   "analysis",
+   "and",
+   "approach",
+   "comprehensive",
+   "confirm",
+   "consequently",
+   "consistent",
+   "contemporary",
+   "context",
+   "demonstrate",
+   "derive",
+   "different",
+   "educational",
+   "environmental",
+   "establish",
+   "evaluation",
+   "exhibit",
+   "explore",
+   "expose",
+   "find",
+   "for",
+   "framework",
+   "from",
+   "further",
+   "have",
+   "hypothesis",
+   "implication",
+   "in",
+   "investigation",
+   "of",
+   "outcome",
+   "participant",
+   "pattern",
+   "policy",
+   "potential",
+   "principle",
+   "produce",
+   "recommend",
+   "research",
+   "researcher",
+   "significant",
+   "study",
+   "subsequent",
+   "that",
+   "the",
+   "theoretical",
+   "this",
+   "through",
+   "to",
+   "underlie",
+   "variation",
+   "when"
+  ],
+  "off_list": [
+   {
+    "count": 1,
+    "word": "substantially"
+   },
+   {
+    "count": 1,
+    "word": "rigorous"
+   },
+   {
+    "count": 1,
+    "word": "datasets"
+   },
+   {
+    "count": 1,
+    "word": "neuroscience"
+   },
+   {
+    "count": 1,
+    "word": "validate"
+   }
+  ],
+  "off_list_sample": [
+   "datasets",
+   "neuroscience",
+   "rigorous",
+   "substantially",
+   "validate"
+  ],
+  "proper_nouns": []
+ },
+ "phrase": {
+  "counts": {
+   "content_tokens": 75,
+   "hits_per_1000_words": 0.0,
+   "total_hits": 0,
+   "unique_phrases": 0
+  },
+  "hits": [],
+  "hits_per_k_band": {
+   "1": 0,
+   "2": 0,
+   "3": 0,
+   "4": 0,
+   "5": 0
+  },
+  "phrase_frequency": {}
+ },
+ "profile": {
+  "columns": [
+   "start",
+   "end",
+   "cefr",
+   "bnc",
+   "awl",
+   "ngsl"
+  ],
+  "rows": [
+   [
+    0,
+    3,
+    "A1",
+    1,
+    null,
+    "ngsl"
+   ],
+   [
+    4,
+    13,
+    null,
+    4,
+    7,
+    "nawl"
+   ],
+   [
+    14,
+    22,
+    "B1",
+    3,
+    1,
+    "ngsl"
+   ],
+   [
+    23,
+    35,
+    "B1",
+    3,
+    3,
+    "ngsl"
+   ],
+   [
+    36,
+    40,
+    "A1",
+    1,
+    null,
+    "ngsl"
+   ],
+   [
+    41,
+    52,
+    "A2",
+    3,
+    1,
+    "ngsl"
+   ],
+   [
+    53,
+    63,
+    "B2",
+    2,
+    1,
+    "ngsl"
+   ],
+   [
+    64,
+    66,
+    "A1",
+    1,
+    null,
+    "ngsl"
+   ],
+   [
+    67,
+    78,
+    "C2",
+    3,
+    1,
+    "nawl"
+   ],
+   [
+    79,
+    86,
+    "A2",
+    2,
+    null,
+    "ngsl"
+   ],
+   [
+    87,
+    100,
+    "C1",
+    3,
+    null,
+    null
+   ],
+   [
+    101,
+    110,
+    "A1",
+    1,
+    null,
+    "ngsl"
+   ],
+   [
+    111,
+    119,
+    "B2",
+    3,
+    3,
+    "ngsl"
+   ],
+   [
+    120,
+    126,
+    "A2",
+    1,
+    null,
+    "ngsl"
+   ],
+   [
+    127,
+    137,
+    null,
+    2,
+    null,
+    "nawl"
+   ],
+   [
+    138,
+    146,
+    "proper",
+    3,
+    1,
+    "ngsl"
+   ],
+   [
+    148,
+    158,
+    null,
+    3,
+    4,
+    "ngsl"
+   ],
+   [
+    159,
+    173,
+    "B1",
+    2,
+    4,
+    "ngsl"
+   ],
+   [
+    174,
+    178,
+    "A1",
+    1,
+    null,
+    "ngsl"
+   ],
+   [
+    179,
+    188,
+    "B1",
+    3,
+    7,
+    "ngsl"
+   ],
+   [
+    189,
+    193,
+    "A1",
+    1,
+    null,
+    "ngsl"
+   ],
+   [
+    194,
+    204,
+    "C2",
+    3,
+    4,
+    "ngsl"
+   ],
+   [
+    205,
+    212,
+    "A1",
+    1,
+    null,
+    "ngsl"
+   ],
+   [
+    213,
+    221,
+    null,
+    4,
+    null,
+    null
+   ],
+   [
+    222,
+    233,
+    null,
+    3,
+    4,
+    "nawl"
+   ],
+   [
+    234,
+    244,
+    "B2",
+    3,
+    2,
+    "ngsl"
+   ],
+   [
+    245,
+    247,
+    "A1",
+    1,
+    null,
+    "ngsl"
+   ],
+   [
+    248,
+    261,
+    "B2",
+    3,
+    7,
+    "ngsl"
+   ],
+   [
+    262,
+    270,
+    null,
+    "supplementary",
+    null,
+    null
+   ],
+   [
+    272,
+    280,
+    "A2",
+    2,
+    1,
+    "ngsl"
+   ],
+   [
+    281,
+    293,
+    "B1",
+    3,
+    2,
+    "ngsl"
+   ],
+   [
+    294,
+    303,
+    "B2",
+    3,
+    8,
+    "ngsl"
+   ],
+   [
+    304,
+    314,
+    "B2",
+    3,
+    1,
+    "ngsl"
+   ],
+   [
+    315,
+    323,
+    "B1",
+    2,
+    null,
+    "ngsl"
+   ],
+   [
+    324,
+    326,
+    "A1",
+    1,
+    null,
+    "ngsl"
+   ],
+   [
+    327,
+    338,
+    null,
+    3,
+    null,
+    "nawl"
+   ],
+   [
+    339,
+    349,
+    null,
+    2,
+    7,
+    "nawl"
+   ],
+   [
+    350,
+    354,
+    "A1",
+    1,
+    null,
+    "ngsl"
+   ],
+   [
+    355,
+    362,
+    "B1",
+    2,
+    5,
+    "ngsl"
+   ],
+   [
+    363,
+    365,
+    "A1",
+    1,
+    null,
+    "ngsl"
+   ],
+   [
+    366,
+    379,
+    "B1",
+    2,
+    1,
+    "ngsl"
+   ],
+   [
+    380,
+    393,
+    "B2",
+    3,
+    5,
+    "nawl"
+   ],
+   [
+    395,
+    398,
+    "A1",
+    1,
+    null,
+    "ngsl"
+   ],
+   [
+    399,
+    410,
+    null,
+    3,
+    1,
+    "ngsl"
+   ],
+   [
+    411,
+    420,
+    null,
+    3,
+    3,
+    "ngsl"
+   ],
+   [
+    421,
+    431,
+    null,
+    3,
+    6,
+    "ngsl"
+   ],
+   [
+    432,
+    436,
+    "A1",
+    1,
+    null,
+    "ngsl"
+   ],
+   [
+    437,
+    445,
+    "B1",
+    2,
+    1,
+    "ngsl"
+   ],
+   [
+    446,
+    453,
+    "B1",
+    3,
+    1,
+    "ngsl"
+   ],
+   [
+    454,
+    458,
+    "A1",
+    1,
+    null,
+    "ngsl"
+   ],
+   [
+    459,
+    470,
+    null,
+    2,
+    1,
+    "ngsl"
+   ],
+   [
+    471,
+    481,
+    "B1",
+    3,
+    1,
+    "ngsl"
+   ],
+   [
+    482,
+    484,
+    "A1",
+    1,
+    null,
+    "ngsl"
+   ],
+   [
+    485,
+    494,
+    "C2",
+    4,
+    null,
+    "nawl"
+   ],
+   [
+    495,
+    505,
+    "B2",
+    3,
+    5,
+    "nawl"
+   ],
+   [
+    506,
+    509,
+    "A1",
+    1,
+    null,
+    "ngsl"
+   ],
+   [
+    510,
+    522,
+    "B2",
+    3,
+    8,
+    "ngsl"
+   ],
+   [
+    523,
+    535,
+    null,
+    13,
+    null,
+    null
+   ],
+   [
+    537,
+    548,
+    "B1",
+    2,
+    1,
+    "ngsl"
+   ],
+   [
+    549,
+    561,
+    "B1",
+    3,
+    2,
+    "ngsl"
+   ],
+   [
+    562,
+    571,
+    "B1",
+    2,
+    null,
+    "ngsl"
+   ],
+   [
+    572,
+    579,
+    "A2",
+    1,
+    null,
+    "ngsl"
+   ],
+   [
+    580,
+    592,
+    null,
+    7,
+    null,
+    "nawl"
+   ],
+   [
+    593,
+    600,
+    "A2",
+    1,
+    null,
+    "ngsl"
+   ],
+   [
+    601,
+    603,
+    "A1",
+    1,
+    null,
+    "ngsl"
+   ],
+   [
+    604,
+    612,
+    null,
+    4,
+    3,
+    null
+   ],
+   [
+    613,
+    624,
+    "B2",
+    4,
+    9,
+    "nawl"
+   ],
+   [
+    625,
+    633,
+    "B1",
+    1,
+    null,
+    "ngsl"
+   ],
+   [
+    634,
+    637,
+    "A1",
+    1,
+    null,
+    "ngsl"
+   ],
+   [
+    638,
+    645,
+    "A2",
+    3,
+    null,
+    "ngsl"
+   ],
+   [
+    646,
+    655,
+    "B2",
+    3,
+    2,
+    "ngsl"
+   ],
+   [
+    656,
+    668,
+    "B2",
+    3,
+    4,
+    "ngsl"
+   ],
+   [
+    669,
+    672,
+    "A1",
+    1,
+    null,
+    "ngsl"
+   ],
+   [
+    673,
+    684,
+    "A2",
+    1,
+    null,
+    "ngsl"
+   ],
+   [
+    685,
+    691,
+    "B1",
+    2,
+    1,
+    "ngsl"
+   ]
+  ]
+ },
+ "readability": {
+  "averages": {
+   "characters_per_word": 8.173,
+   "syllables_per_word": 2.827,
+   "words_per_sentence": 15.0
+  },
+  "counts": {
+   "characters": 618,
+   "characters_with_spaces": 693,
+   "difficult_words": 52,
+   "long_words": 56,
+   "monosyllable_words": 18,
+   "polysyllable_words": 42,
+   "reading_time_seconds": 18.9,
+   "sentences": 5,
+   "syllables": 212,
+   "words": 75
+  },
+  "reliability": {
+   "notes": [
+    "Only 75 words. Readability formulas were fitted on passages of 100+ words; on shorter texts one long word or sentence swings every score.",
+    "SMOG was normed on 30-sentence samples; this text has 5, so the SMOG score is extrapolated."
+   ],
+   "reliable": false
+  },
+  "scores": {
+   "automated_readability_index": 24.57,
+   "coleman_liau_index": 30.29,
+   "dale_chall_readability_score": 15.33,
+   "flesch_kincaid_grade": 23.61,
+   "flesch_reading_ease": -47.53,
+   "gunning_fog": 28.4,
+   "linsear_write_formula": 15.9,
+   "smog_index": 19.69,
+   "text_standard": 21.65
+  },
+  "validity": {
+   "evidence": "On the CLEAR corpus (4,724 school reading excerpts ranked by teachers), Flesch, Flesch-Kincaid, ARI, SMOG and New Dale-Chall correlate r = .48-.56 with the teachers' ease scores, about a quarter to a third of the variance (Crossley et al. 2023, Behavior Research Methods, doi:10.3758/s13428-022-01802-x). Coleman-Liau and Linsear Write weren't tested. The formulas largely duplicate each other.",
+   "population": "Normed on 20th-century US native-speaker readers; evidence for second-language readers is thinner.",
+   "status": "legacy",
+   "text_standard": "The median of the eight grades: a convenience summary with no validation of its own."
+  }
+ },
+ "statistics": {
+  "averages": {
+   "polysyllable_pct": 56.0,
+   "syllables_per_100_words": 282.667,
+   "syllables_per_sentence": 42.4,
+   "syllables_per_word": 2.827,
+   "tokens_per_sentence": 15.0,
+   "type_token_ratio": 0.92
+  },
+  "counts": {
+   "characters_with_spaces": 693,
+   "characters_without_spaces": 618,
+   "excluded_numeric_tokens": 0,
+   "polysyllable_words": 42,
+   "sentences": 5,
+   "syllables": 212,
+   "tokens_excluding_numbers": 75,
+   "unique_types_excluding_numbers": 69
+  },
+  "excluded_digits": []
+ },
+ "tagger": {
+  "counts": {
+   "sentences": 5,
+   "total_tokens": 80
+  },
+  "ptb_distribution": {
+   ".": 5,
+   "CC": 2,
+   "DT": 4,
+   "IN": 10,
+   "JJ": 20,
+   "NN": 11,
+   "NNP": 1,
+   "NNS": 12,
+   "RB": 2,
+   "TO": 1,
+   "VB": 2,
+   "VBD": 1,
+   "VBG": 1,
+   "VBN": 2,
+   "VBP": 3,
+   "VBZ": 2,
+   "WRB": 1
+  },
+  "summary": {
+   "content_tokens": 75,
+   "noun_elements_per_sentence": 4.8,
+   "tokens_per_type": 1.087,
+   "total_noun_elements": 24,
+   "total_verbal_elements": 11,
+   "type_token_ratio": 0.92,
+   "types": 69,
+   "verbal_elements_per_sentence": 2.2
+  },
+  "upos_distribution": {
+   "ADJ": 20,
+   "ADP": 9,
+   "ADV": 2,
+   "AUX": 1,
+   "CCONJ": 2,
+   "DET": 4,
+   "NOUN": 23,
+   "PART": 1,
+   "PROPN": 1,
+   "PUNCT": 5,
+   "SCONJ": 2,
+   "VERB": 10
+  }
+ }
+}

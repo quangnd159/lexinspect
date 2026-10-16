@@ -213,9 +213,11 @@ The web UI is framework-free with no build step. `src/lexinspect/static/` holds 
 
 Data refresh: see `scripts/build_data/README.md`.
 
-## Caveats
+## Validity and caveats
 
-`CAVEATS.md` catalogues the known limitations and conscious trade-offs, per module, transport and operations. Read it before basing high-stakes decisions on lexinspect output.
+[VALIDITY.md](VALIDITY.md) says what each number is for and not for, and what evidence stands behind it: the research on each measure, and lexinspect's own validation studies. lexinspect is for teaching, materials work, research description and diagnosis, not for high-stakes decisions about people.
+
+[CAVEATS.md](CAVEATS.md) catalogues the known limitations and conscious trade-offs, per module, transport and operations.
 
 ## Licence
 

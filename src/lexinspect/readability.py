@@ -282,8 +282,7 @@ VALIDITY: dict[str, Any] = {
         "and Linsear Write weren't tested. The formulas largely duplicate each other."
     ),
     "text_standard": (
-        "The median of the eight grades: a convenience summary with no validation of "
-        "its own."
+        "The median of the eight grades: a convenience summary with no validation of its own."
     ),
     "population": (
         "Normed on 20th-century US native-speaker readers; evidence for second-language "

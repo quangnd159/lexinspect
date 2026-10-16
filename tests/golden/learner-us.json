@@ -1,0 +1,2435 @@
+{
+ "awl": {
+  "counts": {
+   "awl_families": 4,
+   "awl_tokens": 4,
+   "content_tokens": 114
+  },
+  "coverage_pct": 3.509,
+  "families_detail": [
+   {
+    "headword": "technology",
+    "spans": [
+     [
+      14,
+      24
+     ]
+    ],
+    "sublist": 3,
+    "tokens": 1
+   },
+   {
+    "headword": "flexible",
+    "spans": [
+     [
+      238,
+      246
+     ]
+    ],
+    "sublist": 6,
+    "tokens": 1
+   },
+   {
+    "headword": "furthermore",
+    "spans": [
+     [
+      455,
+      466
+     ]
+    ],
+    "sublist": 6,
+    "tokens": 1
+   },
+   {
+    "headword": "motive",
+    "spans": [
+     [
+      428,
+      438
+     ]
+    ],
+    "sublist": 6,
+    "tokens": 1
+   }
+  ],
+  "families_found": [
+   "flexible",
+   "furthermore",
+   "motive",
+   "technology"
+  ],
+  "per_sublist": {
+   "1": {
+    "coverage_pct": 0.0,
+    "families": 0,
+    "tokens": 0
+   },
+   "10": {
+    "coverage_pct": 0.0,
+    "families": 0,
+    "tokens": 0
+   },
+   "2": {
+    "coverage_pct": 0.0,
+    "families": 0,
+    "tokens": 0
+   },
+   "3": {
+    "coverage_pct": 0.877,
+    "families": 1,
+    "tokens": 1
+   },
+   "4": {
+    "coverage_pct": 0.0,
+    "families": 0,
+    "tokens": 0
+   },
+   "5": {
+    "coverage_pct": 0.0,
+    "families": 0,
+    "tokens": 0
+   },
+   "6": {
+    "coverage_pct": 2.632,
+    "families": 3,
+    "tokens": 3
+   },
+   "7": {
+    "coverage_pct": 0.0,
+    "families": 0,
+    "tokens": 0
+   },
+   "8": {
+    "coverage_pct": 0.0,
+    "families": 0,
+    "tokens": 0
+   },
+   "9": {
+    "coverage_pct": 0.0,
+    "families": 0,
+    "tokens": 0
+   }
+  }
+ },
+ "bnc_coca": {
+  "counts": {
+   "content_tokens": 114,
+   "off_list_tokens": 0,
+   "on_list_tokens": 111,
+   "proper_noun_tokens": 1,
+   "supplementary_tokens": 2
+  },
+  "coverage_pct": 97.368,
+  "coverage_with_supplementary_pct": 100.0,
+  "off_list": [],
+  "off_list_sample": [],
+  "per_band": {
+   "1": {
+    "coverage_pct": 82.456,
+    "cumulative_coverage_pct": 82.456,
+    "cumulative_coverage_with_supplementary_pct": 85.088,
+    "headwords": 60,
+    "tokens": 94
+   },
+   "10": {
+    "coverage_pct": 0.0,
+    "cumulative_coverage_pct": 97.368,
+    "cumulative_coverage_with_supplementary_pct": 100.0,
+    "headwords": 0,
+    "tokens": 0
+   },
+   "11": {
+    "coverage_pct": 0.0,
+    "cumulative_coverage_pct": 97.368,
+    "cumulative_coverage_with_supplementary_pct": 100.0,
+    "headwords": 0,
+    "tokens": 0
+   },
+   "12": {
+    "coverage_pct": 0.0,
+    "cumulative_coverage_pct": 97.368,
+    "cumulative_coverage_with_supplementary_pct": 100.0,
+    "headwords": 0,
+    "tokens": 0
+   },
+   "13": {
+    "coverage_pct": 0.0,
+    "cumulative_coverage_pct": 97.368,
+    "cumulative_coverage_with_supplementary_pct": 100.0,
+    "headwords": 0,
+    "tokens": 0
+   },
+   "14": {
+    "coverage_pct": 0.0,
+    "cumulative_coverage_pct": 97.368,
+    "cumulative_coverage_with_supplementary_pct": 100.0,
+    "headwords": 0,
+    "tokens": 0
+   },
+   "15": {
+    "coverage_pct": 0.0,
+    "cumulative_coverage_pct": 97.368,
+    "cumulative_coverage_with_supplementary_pct": 100.0,
+    "headwords": 0,
+    "tokens": 0
+   },
+   "16": {
+    "coverage_pct": 0.0,
+    "cumulative_coverage_pct": 97.368,
+    "cumulative_coverage_with_supplementary_pct": 100.0,
+    "headwords": 0,
+    "tokens": 0
+   },
+   "17": {
+    "coverage_pct": 0.0,
+    "cumulative_coverage_pct": 97.368,
+    "cumulative_coverage_with_supplementary_pct": 100.0,
+    "headwords": 0,
+    "tokens": 0
+   },
+   "18": {
+    "coverage_pct": 0.0,
+    "cumulative_coverage_pct": 97.368,
+    "cumulative_coverage_with_supplementary_pct": 100.0,
+    "headwords": 0,
+    "tokens": 0
+   },
+   "19": {
+    "coverage_pct": 0.0,
+    "cumulative_coverage_pct": 97.368,
+    "cumulative_coverage_with_supplementary_pct": 100.0,
+    "headwords": 0,
+    "tokens": 0
+   },
+   "2": {
+    "coverage_pct": 8.772,
+    "cumulative_coverage_pct": 91.228,
+    "cumulative_coverage_with_supplementary_pct": 93.86,
+    "headwords": 9,
+    "tokens": 10
+   },
+   "20": {
+    "coverage_pct": 0.0,
+    "cumulative_coverage_pct": 97.368,
+    "cumulative_coverage_with_supplementary_pct": 100.0,
+    "headwords": 0,
+    "tokens": 0
+   },
+   "21": {
+    "coverage_pct": 0.0,
+    "cumulative_coverage_pct": 97.368,
+    "cumulative_coverage_with_supplementary_pct": 100.0,
+    "headwords": 0,
+    "tokens": 0
+   },
+   "22": {
+    "coverage_pct": 0.0,
+    "cumulative_coverage_pct": 97.368,
+    "cumulative_coverage_with_supplementary_pct": 100.0,
+    "headwords": 0,
+    "tokens": 0
+   },
+   "23": {
+    "coverage_pct": 0.0,
+    "cumulative_coverage_pct": 97.368,
+    "cumulative_coverage_with_supplementary_pct": 100.0,
+    "headwords": 0,
+    "tokens": 0
+   },
+   "24": {
+    "coverage_pct": 0.0,
+    "cumulative_coverage_pct": 97.368,
+    "cumulative_coverage_with_supplementary_pct": 100.0,
+    "headwords": 0,
+    "tokens": 0
+   },
+   "25": {
+    "coverage_pct": 0.0,
+    "cumulative_coverage_pct": 97.368,
+    "cumulative_coverage_with_supplementary_pct": 100.0,
+    "headwords": 0,
+    "tokens": 0
+   },
+   "3": {
+    "coverage_pct": 3.509,
+    "cumulative_coverage_pct": 94.737,
+    "cumulative_coverage_with_supplementary_pct": 97.368,
+    "headwords": 4,
+    "tokens": 4
+   },
+   "4": {
+    "coverage_pct": 1.754,
+    "cumulative_coverage_pct": 96.491,
+    "cumulative_coverage_with_supplementary_pct": 99.123,
+    "headwords": 1,
+    "tokens": 2
+   },
+   "5": {
+    "coverage_pct": 0.0,
+    "cumulative_coverage_pct": 96.491,
+    "cumulative_coverage_with_supplementary_pct": 99.123,
+    "headwords": 0,
+    "tokens": 0
+   },
+   "6": {
+    "coverage_pct": 0.877,
+    "cumulative_coverage_pct": 97.368,
+    "cumulative_coverage_with_supplementary_pct": 100.0,
+    "headwords": 1,
+    "tokens": 1
+   },
+   "7": {
+    "coverage_pct": 0.0,
+    "cumulative_coverage_pct": 97.368,
+    "cumulative_coverage_with_supplementary_pct": 100.0,
+    "headwords": 0,
+    "tokens": 0
+   },
+   "8": {
+    "coverage_pct": 0.0,
+    "cumulative_coverage_pct": 97.368,
+    "cumulative_coverage_with_supplementary_pct": 100.0,
+    "headwords": 0,
+    "tokens": 0
+   },
+   "9": {
+    "coverage_pct": 0.0,
+    "cumulative_coverage_pct": 97.368,
+    "cumulative_coverage_with_supplementary_pct": 100.0,
+    "headwords": 0,
+    "tokens": 0
+   }
+  },
+  "proper_nouns": [
+   {
+    "count": 1,
+    "word": "english"
+   }
+  ],
+  "supplementary": {
+   "transparent_compounds": 2
+  }
+ },
+ "cefr": {
+  "caveat": "Heuristic only. Based on CEFR-J 1.5 + Octanove C1/C2 1.0; not Cambridge EVP. estimated_level_95th is the lowest level whose cumulative coverage reaches 95%; no published study validates it as a text's CEFR level. Cite both sources. Combine this with readability, BNC/COCA and diversity signals before reporting a level.",
+  "counts": {
+   "content_tokens": 114,
+   "off_list_tokens": 1,
+   "on_list_tokens": 112,
+   "pos_fallback_tokens": 11,
+   "proper_noun_tokens": 1
+  },
+  "coverage_pct": 98.246,
+  "dominant_level": "A1",
+  "estimated_level_95th": "B1",
+  "highest_level_present": "B2",
+  "off_list": [
+   {
+    "count": 1,
+    "word": "apps"
+   }
+  ],
+  "off_list_sample": [
+   "apps"
+  ],
+  "per_level": {
+   "A1": {
+    "coverage_pct": 80.702,
+    "cumulative_coverage_pct": 80.702,
+    "lemmas": 63,
+    "tokens": 92
+   },
+   "A2": {
+    "coverage_pct": 12.281,
+    "cumulative_coverage_pct": 92.982,
+    "lemmas": 12,
+    "tokens": 14
+   },
+   "B1": {
+    "coverage_pct": 3.509,
+    "cumulative_coverage_pct": 96.491,
+    "lemmas": 4,
+    "tokens": 4
+   },
+   "B2": {
+    "coverage_pct": 1.754,
+    "cumulative_coverage_pct": 98.246,
+    "lemmas": 2,
+    "tokens": 2
+   },
+   "C1": {
+    "coverage_pct": 0.0,
+    "cumulative_coverage_pct": 98.246,
+    "lemmas": 0,
+    "tokens": 0
+   },
+   "C2": {
+    "coverage_pct": 0.0,
+    "cumulative_coverage_pct": 98.246,
+    "lemmas": 0,
+    "tokens": 0
+   }
+  },
+  "proper_nouns": [
+   {
+    "count": 1,
+    "word": "english"
+   }
+  ],
+  "words_by_level": {
+   "A1": [
+    {
+     "count": 6,
+     "word": "the"
+    },
+    {
+     "count": 5,
+     "word": "and"
+    },
+    {
+     "count": 3,
+     "word": "can"
+    },
+    {
+     "count": 3,
+     "word": "it"
+    },
+    {
+     "count": 3,
+     "word": "is"
+    },
+    {
+     "count": 3,
+     "word": "you"
+    },
+    {
+     "count": 2,
+     "word": "have"
+    },
+    {
+     "count": 2,
+     "word": "we"
+    },
+    {
+     "count": 2,
+     "word": "i"
+    },
+    {
+     "count": 2,
+     "word": "students"
+    },
+    {
+     "count": 2,
+     "word": "of"
+    },
+    {
+     "count": 2,
+     "word": "study"
+    },
+    {
+     "count": 2,
+     "word": "people"
+    },
+    {
+     "count": 2,
+     "word": "other"
+    },
+    {
+     "count": 2,
+     "word": "for"
+    },
+    {
+     "count": 1,
+     "word": "in"
+    },
+    {
+     "count": 1,
+     "word": "my"
+    },
+    {
+     "count": 1,
+     "word": "technology"
+    },
+    {
+     "count": 1,
+     "word": "change"
+    },
+    {
+     "count": 1,
+     "word": "way"
+    },
+    {
+     "count": 1,
+     "word": "learn"
+    },
+    {
+     "count": 1,
+     "word": "when"
+    },
+    {
+     "count": 1,
+     "word": "was"
+    },
+    {
+     "count": 1,
+     "word": "child"
+    },
+    {
+     "count": 1,
+     "word": "only"
+    },
+    {
+     "count": 1,
+     "word": "had"
+    },
+    {
+     "count": 1,
+     "word": "teacher"
+    },
+    {
+     "count": 1,
+     "word": "but"
+    },
+    {
+     "count": 1,
+     "word": "now"
+    },
+    {
+     "count": 1,
+     "word": "watching"
+    },
+    {
+     "count": 1,
+     "word": "videos"
+    },
+    {
+     "count": 1,
+     "word": "use"
+    },
+    {
+     "count": 1,
+     "word": "everyday"
+    },
+    {
+     "count": 1,
+     "word": "there"
+    },
+    {
+     "count": 1,
+     "word": "are"
+    },
+    {
+     "count": 1,
+     "word": "three"
+    },
+    {
+     "count": 1,
+     "word": "at"
+    },
+    {
+     "count": 1,
+     "word": "own"
+    },
+    {
+     "count": 1,
+     "word": "practise"
+    },
+    {
+     "count": 1,
+     "word": "with"
+    },
+    {
+     "count": 1,
+     "word": "from"
+    },
+    {
+     "count": 1,
+     "word": "also"
+    },
+    {
+     "count": 1,
+     "word": "some"
+    },
+    {
+     "count": 1,
+     "word": "example"
+    },
+    {
+     "count": 1,
+     "word": "many"
+    },
+    {
+     "count": 1,
+     "word": "student"
+    },
+    {
+     "count": 1,
+     "word": "feel"
+    },
+    {
+     "count": 1,
+     "word": "lonely"
+    },
+    {
+     "count": 1,
+     "word": "they"
+    },
+    {
+     "count": 1,
+     "word": "do"
+    },
+    {
+     "count": 1,
+     "word": "nt"
+    },
+    {
+     "count": 1,
+     "word": "to"
+    },
+    {
+     "count": 1,
+     "word": "alone"
+    },
+    {
+     "count": 1,
+     "word": "colour"
+    },
+    {
+     "count": 1,
+     "word": "bad"
+    },
+    {
+     "count": 1,
+     "word": "eyes"
+    },
+    {
+     "count": 1,
+     "word": "make"
+    },
+    {
+     "count": 1,
+     "word": "tired"
+    },
+    {
+     "count": 1,
+     "word": "on"
+    },
+    {
+     "count": 1,
+     "word": "hand"
+    },
+    {
+     "count": 1,
+     "word": "think"
+    },
+    {
+     "count": 1,
+     "word": "that"
+    },
+    {
+     "count": 1,
+     "word": "as"
+    },
+    {
+     "count": 1,
+     "word": "their"
+    },
+    {
+     "count": 1,
+     "word": "time"
+    },
+    {
+     "count": 1,
+     "word": "carefully"
+    }
+   ],
+   "A2": [
+    {
+     "count": 1,
+     "word": "opinion"
+    },
+    {
+     "count": 1,
+     "word": "textbook"
+    },
+    {
+     "count": 1,
+     "word": "advantage"
+    },
+    {
+     "count": 1,
+     "word": "online"
+    },
+    {
+     "count": 1,
+     "word": "cheap"
+    },
+    {
+     "count": 1,
+     "word": "countrys"
+    },
+    {
+     "count": 1,
+     "word": "however"
+    },
+    {
+     "count": 1,
+     "word": "disadvantage"
+    },
+    {
+     "count": 1,
+     "word": "screen"
+    },
+    {
+     "count": 1,
+     "word": "advantages"
+    },
+    {
+     "count": 1,
+     "word": "disadvantages"
+    },
+    {
+     "count": 1,
+     "word": "long"
+    },
+    {
+     "count": 1,
+     "word": "as"
+    },
+    {
+     "count": 1,
+     "word": "organise"
+    }
+   ],
+   "B1": [
+    {
+     "count": 1,
+     "word": "pace"
+    },
+    {
+     "count": 1,
+     "word": "motivation"
+    },
+    {
+     "count": 1,
+     "word": "furthermore"
+    },
+    {
+     "count": 1,
+     "word": "outweigh"
+    }
+   ],
+   "B2": [
+    {
+     "count": 1,
+     "word": "learning"
+    },
+    {
+     "count": 1,
+     "word": "flexible"
+    }
+   ],
+   "C1": [],
+   "C2": []
+  }
+ },
+ "diversity": {
+  "counts": {
+   "tokens": 113,
+   "types": 87
+  },
+  "references": {
+   "note": "Reference ranges are for vocd-D (Durán et al. 2004), which lexinspect computes as `vocd_d` following McKee, Malvern & Richards (2000). Compare them with vocd-D only — HD-D (0–1) and MTLD are on different scales.",
+   "vocd_d_bands": [
+    {
+     "max": 70.0,
+     "min": 40.0,
+     "name": "Adult L2 / ESL learner",
+     "position": "above",
+     "source": "Durán, Malvern, Richards & Chipere 2004 (Applied Linguistics 25/2)"
+    },
+    {
+     "max": 105.0,
+     "min": 80.0,
+     "name": "Adult native speaker, academic writing",
+     "position": "above",
+     "source": "Durán, Malvern, Richards & Chipere 2004 (Applied Linguistics 25/2)"
+    }
+   ]
+  },
+  "scores": {
+   "cttr": 5.7872,
+   "hdd": 0.8854,
+   "herdan": 0.9447,
+   "maas": 0.0117,
+   "mattr": 0.8528,
+   "msttr": 0.88,
+   "mtld": 137.5123,
+   "rttr": 8.1843,
+   "summer": 0.9634,
+   "ttr": 0.7699,
+   "vocd_d": 143.25
+  },
+  "tiers": {
+   "caution": [
+    "hdd",
+    "vocd_d",
+    "maas"
+   ],
+   "legacy": [
+    "ttr",
+    "rttr",
+    "cttr",
+    "msttr",
+    "herdan",
+    "summer"
+   ],
+   "note": "MTLD and MATTR stay most stable across text lengths from about 50 tokens (Zenker & Kyle 2021, 4,542 EFL essays). HD-D, vocd-D and Maas are usable with care. TTR and its transforms, and MSTTR, change with text length; compare them only between texts of the same length.",
+   "recommended": [
+    "mtld",
+    "mattr"
+   ]
+  }
+ },
+ "errors": {
+  "caveat": "Hunspell-based detection: it flags words its dictionary doesn't contain, so rare technical terms and neologisms can appear as errors, and a real word used wrongly (their/there) is not caught. Capitalised words used as names are listed separately, not counted as errors. Dictionaries: LibreOffice English (en_GB: LGPL; en_US: SCOWL wordlist, Ispell BSD affix file).",
+  "counts": {
+   "errors_total": 3,
+   "sentences": 7,
+   "tokens_checked": 113,
+   "unique_errors": 3,
+   "unknown_names": 0,
+   "variant_mismatches": 3
+  },
+  "dictionary": {
+   "licence": "LibreOffice English. en_GB: wordlist and affix file (David Bartlett, Andrew Brown) under the LGPL. en_US: wordlist from SCOWL by Kevin Atkinson (permissive SCOWL licence); affix file from Geoff Kuenning's Ispell (BSD). Mirror: github.com/LibreOffice/dictionaries.",
+   "source": "LibreOffice en_US.aff/.dic",
+   "variant": "us"
+  },
+  "errors": [
+   {
+    "count": 1,
+    "spans": [
+     [
+      324,
+      332
+     ]
+    ],
+    "suggestions": [
+     "country s",
+     "country"
+    ],
+    "surface": "countrys"
+   },
+   {
+    "count": 1,
+    "spans": [
+     [
+      418,
+      422
+     ]
+    ],
+    "suggestions": [
+     "don t",
+     "don",
+     "done",
+     "dot",
+     "dent"
+    ],
+    "surface": "dont"
+   },
+   {
+    "count": 1,
+    "spans": [
+     [
+      54,
+      61
+     ]
+    ],
+    "suggestions": [
+     "enlist",
+     "anguish"
+    ],
+    "surface": "english"
+   }
+  ],
+  "rates": {
+   "errors_per_100_words": 2.655,
+   "errors_per_sentence": 0.429
+  },
+  "unknown_names": [],
+  "variant": "us",
+  "variant_mismatches": [
+   {
+    "count": 1,
+    "spans": [
+     [
+      472,
+      478
+     ]
+    ],
+    "suggestions": [
+     "color"
+    ],
+    "surface": "colour"
+   },
+   {
+    "count": 1,
+    "spans": [
+     [
+      631,
+      639
+     ]
+    ],
+    "suggestions": [
+     "organize"
+    ],
+    "surface": "organise"
+   },
+   {
+    "count": 1,
+    "spans": [
+     [
+      292,
+      300
+     ]
+    ],
+    "suggestions": [
+     "practice"
+    ],
+    "surface": "practise"
+   }
+  ]
+ },
+ "metadiscourse": {
+  "counts": {
+   "content_tokens": 113,
+   "interactional_hits": 9,
+   "interactive_hits": 9,
+   "total_hits": 18
+  },
+  "density_per_1000": 159.292,
+  "hits": [
+   {
+    "category": "hedges",
+    "dimension": "interactional",
+    "marker": "in my opinion",
+    "span": [
+     0,
+     13
+    ],
+    "surface": "In my opinion",
+    "token_index": 0
+   },
+   {
+    "also_listed_as": [
+     "self_mentions"
+    ],
+    "category": "engagement_markers",
+    "dimension": "interactional",
+    "marker": "we",
+    "span": [
+     45,
+     47
+    ],
+    "surface": "we",
+    "token_index": 8
+   },
+   {
+    "category": "self_mentions",
+    "dimension": "interactional",
+    "marker": "i",
+    "span": [
+     68,
+     69
+    ],
+    "surface": "I",
+    "token_index": 13
+   },
+   {
+    "also_listed_as": [
+     "self_mentions"
+    ],
+    "category": "engagement_markers",
+    "dimension": "interactional",
+    "marker": "we",
+    "span": [
+     81,
+     83
+    ],
+    "surface": "we",
+    "token_index": 17
+   },
+   {
+    "category": "transitions",
+    "dimension": "interactive",
+    "marker": "but",
+    "span": [
+     114,
+     117
+    ],
+    "surface": "but",
+    "token_index": 23
+   },
+   {
+    "category": "transitions",
+    "dimension": "interactive",
+    "marker": "and",
+    "span": [
+     151,
+     154
+    ],
+    "surface": "and",
+    "token_index": 29
+   },
+   {
+    "category": "engagement_markers",
+    "dimension": "interactional",
+    "marker": "you",
+    "span": [
+     249,
+     252
+    ],
+    "surface": "you",
+    "token_index": 51
+   },
+   {
+    "category": "engagement_markers",
+    "dimension": "interactional",
+    "marker": "you",
+    "span": [
+     266,
+     269
+    ],
+    "surface": "you",
+    "token_index": 55
+   },
+   {
+    "category": "engagement_markers",
+    "dimension": "interactional",
+    "marker": "you",
+    "span": [
+     284,
+     287
+    ],
+    "surface": "you",
+    "token_index": 61
+   },
+   {
+    "category": "transitions",
+    "dimension": "interactive",
+    "marker": "however",
+    "span": [
+     334,
+     341
+    ],
+    "surface": "However",
+    "token_index": 70
+   },
+   {
+    "category": "transitions",
+    "dimension": "interactive",
+    "marker": "also",
+    "span": [
+     348,
+     352
+    ],
+    "surface": "also",
+    "token_index": 73
+   },
+   {
+    "also_listed_as": [
+     "transitions"
+    ],
+    "category": "code_glosses",
+    "dimension": "interactive",
+    "marker": "for example",
+    "span": [
+     372,
+     383
+    ],
+    "surface": "For example",
+    "token_index": 77
+   },
+   {
+    "category": "transitions",
+    "dimension": "interactive",
+    "marker": "and",
+    "span": [
+     409,
+     412
+    ],
+    "surface": "and",
+    "token_index": 83
+   },
+   {
+    "category": "transitions",
+    "dimension": "interactive",
+    "marker": "furthermore",
+    "span": [
+     455,
+     466
+    ],
+    "surface": "Furthermore",
+    "token_index": 93
+   },
+   {
+    "category": "transitions",
+    "dimension": "interactive",
+    "marker": "and",
+    "span": [
+     510,
+     513
+    ],
+    "surface": "and",
+    "token_index": 105
+   },
+   {
+    "category": "transitions",
+    "dimension": "interactive",
+    "marker": "on the other hand",
+    "span": [
+     536,
+     553
+    ],
+    "surface": "On the other hand",
+    "token_index": 111
+   },
+   {
+    "category": "self_mentions",
+    "dimension": "interactional",
+    "marker": "i",
+    "span": [
+     555,
+     556
+    ],
+    "surface": "I",
+    "token_index": 116
+   },
+   {
+    "category": "boosters",
+    "dimension": "interactional",
+    "marker": "think",
+    "span": [
+     557,
+     562
+    ],
+    "surface": "think",
+    "token_index": 117
+   }
+  ],
+  "per_category": {
+   "attitude_markers": {
+    "density_per_1000": 0.0,
+    "dimension": "interactional",
+    "hits": 0,
+    "unique_markers": 0
+   },
+   "boosters": {
+    "density_per_1000": 8.85,
+    "dimension": "interactional",
+    "hits": 1,
+    "unique_markers": 1
+   },
+   "code_glosses": {
+    "density_per_1000": 8.85,
+    "dimension": "interactive",
+    "hits": 1,
+    "unique_markers": 1
+   },
+   "endophoric_markers": {
+    "density_per_1000": 0.0,
+    "dimension": "interactive",
+    "hits": 0,
+    "unique_markers": 0
+   },
+   "engagement_markers": {
+    "density_per_1000": 44.248,
+    "dimension": "interactional",
+    "hits": 5,
+    "unique_markers": 2
+   },
+   "evidentials": {
+    "density_per_1000": 0.0,
+    "dimension": "interactive",
+    "hits": 0,
+    "unique_markers": 0
+   },
+   "frame_markers": {
+    "density_per_1000": 0.0,
+    "dimension": "interactive",
+    "hits": 0,
+    "unique_markers": 0
+   },
+   "hedges": {
+    "density_per_1000": 8.85,
+    "dimension": "interactional",
+    "hits": 1,
+    "unique_markers": 1
+   },
+   "self_mentions": {
+    "density_per_1000": 17.699,
+    "dimension": "interactional",
+    "hits": 2,
+    "unique_markers": 1
+   },
+   "transitions": {
+    "density_per_1000": 70.796,
+    "dimension": "interactive",
+    "hits": 8,
+    "unique_markers": 6
+   }
+  },
+  "per_dimension": {
+   "interactional": {
+    "density_per_1000": 79.646,
+    "hits": 9
+   },
+   "interactive": {
+    "density_per_1000": 79.646,
+    "hits": 9
+   }
+  }
+ },
+ "ngsl": {
+  "counts": {
+   "content_tokens": 114,
+   "nawl_lemmas": 2,
+   "nawl_tokens": 3,
+   "ngsl_lemmas": 71,
+   "ngsl_tokens": 106,
+   "off_list_tokens": 4,
+   "proper_noun_tokens": 1
+  },
+  "coverage_pct": {
+   "nawl": 2.632,
+   "ngsl": 92.982,
+   "ngsl_plus_nawl": 95.614,
+   "off_list": 3.509,
+   "proper_nouns": 0.877
+  },
+  "nawl_lemmas_found": [
+   "disadvantage",
+   "textbook"
+  ],
+  "nawl_words": [
+   {
+    "count": 1,
+    "word": "textbook"
+   },
+   {
+    "count": 1,
+    "word": "disadvantage"
+   },
+   {
+    "count": 1,
+    "word": "disadvantages"
+   }
+  ],
+  "ngsl_lemmas_found": [
+   "advantage",
+   "alone",
+   "also",
+   "and",
+   "as",
+   "at",
+   "bad",
+   "be",
+   "but",
+   "can",
+   "carefully",
+   "change",
+   "cheap",
+   "child",
+   "color",
+   "country",
+   "do",
+   "everyday",
+   "example",
+   "eye",
+   "feel",
+   "flexible",
+   "for",
+   "from",
+   "furthermore",
+   "hand",
+   "have",
+   "however",
+   "i",
+   "in",
+   "it",
+   "learn",
+   "long",
+   "make",
+   "many",
+   "motivation",
+   "not",
+   "now",
+   "of",
+   "on",
+   "online",
+   "only",
+   "opinion",
+   "organize",
+   "other",
+   "own",
+   "pace",
+   "people",
+   "practice",
+   "screen",
+   "some",
+   "student",
+   "study",
+   "teacher",
+   "technology",
+   "that",
+   "the",
+   "there",
+   "they",
+   "think",
+   "time",
+   "tire",
+   "to",
+   "use",
+   "video",
+   "watch",
+   "way",
+   "we",
+   "when",
+   "with",
+   "you"
+  ],
+  "off_list": [
+   {
+    "count": 1,
+    "word": "apps"
+   },
+   {
+    "count": 1,
+    "word": "three"
+   },
+   {
+    "count": 1,
+    "word": "lonely"
+   },
+   {
+    "count": 1,
+    "word": "outweigh"
+   }
+  ],
+  "off_list_sample": [
+   "apps",
+   "lonely",
+   "outweigh",
+   "three"
+  ],
+  "proper_nouns": [
+   {
+    "count": 1,
+    "word": "english"
+   }
+  ]
+ },
+ "phrase": {
+  "counts": {
+   "content_tokens": 114,
+   "hits_per_1000_words": 26.55,
+   "total_hits": 3,
+   "unique_phrases": 3
+  },
+  "hits": [
+   {
+    "k_band": 1,
+    "phrase": "THERE IS/ARE",
+    "rank": 165,
+    "sense": null,
+    "span": [
+     174,
+     183
+    ],
+    "surface": "There are",
+    "token_index": 34
+   },
+   {
+    "k_band": 2,
+    "phrase": "ON THE OTHER HAND",
+    "rank": 1877,
+    "sense": null,
+    "span": [
+     536,
+     553
+    ],
+    "surface": "On the other hand",
+    "token_index": 111
+   },
+   {
+    "k_band": 2,
+    "phrase": "AS LONG AS",
+    "rank": 1931,
+    "sense": null,
+    "span": [
+     611,
+     621
+    ],
+    "surface": "as long as",
+    "token_index": 125
+   }
+  ],
+  "hits_per_k_band": {
+   "1": 1,
+   "2": 2,
+   "3": 0,
+   "4": 0,
+   "5": 0
+  },
+  "phrase_frequency": {
+   "AS LONG AS": 1,
+   "ON THE OTHER HAND": 1,
+   "THERE IS/ARE": 1
+  }
+ },
+ "profile": {
+  "columns": [
+   "start",
+   "end",
+   "cefr",
+   "bnc",
+   "awl",
+   "ngsl"
+  ],
+  "rows": [
+   [
+    0,
+    2,
+    "A1",
+    1,
+    null,
+    "ngsl"
+   ],
+   [
+    3,
+    5,
+    "A1",
+    1,
+    null,
+    "ngsl"
+   ],
+   [
+    6,
+    13,
+    "A2",
+    2,
+    null,
+    "ngsl"
+   ],
+   [
+    14,
+    24,
+    "A1",
+    2,
+    3,
+    "ngsl"
+   ],
+   [
+    25,
+    29,
+    "A1",
+    1,
+    null,
+    "ngsl"
+   ],
+   [
+    30,
+    36,
+    "A1",
+    1,
+    null,
+    "ngsl"
+   ],
+   [
+    37,
+    40,
+    "A1",
+    1,
+    null,
+    "ngsl"
+   ],
+   [
+    41,
+    44,
+    "A1",
+    1,
+    null,
+    "ngsl"
+   ],
+   [
+    45,
+    47,
+    "A1",
+    1,
+    null,
+    "ngsl"
+   ],
+   [
+    48,
+    53,
+    "A1",
+    1,
+    null,
+    "ngsl"
+   ],
+   [
+    54,
+    61,
+    "proper",
+    "proper",
+    null,
+    "proper"
+   ],
+   [
+    63,
+    67,
+    "A1",
+    1,
+    null,
+    "ngsl"
+   ],
+   [
+    68,
+    69,
+    "A1",
+    1,
+    null,
+    "ngsl"
+   ],
+   [
+    70,
+    73,
+    "A1",
+    1,
+    null,
+    "ngsl"
+   ],
+   [
+    74,
+    79,
+    "A1",
+    1,
+    null,
+    "ngsl"
+   ],
+   [
+    81,
+    83,
+    "A1",
+    1,
+    null,
+    "ngsl"
+   ],
+   [
+    84,
+    88,
+    "A1",
+    1,
+    null,
+    "ngsl"
+   ],
+   [
+    89,
+    92,
+    "A1",
+    1,
+    null,
+    "ngsl"
+   ],
+   [
+    93,
+    101,
+    "A2",
+    "supplementary",
+    null,
+    "nawl"
+   ],
+   [
+    102,
+    105,
+    "A1",
+    1,
+    null,
+    "ngsl"
+   ],
+   [
+    106,
+    113,
+    "A1",
+    1,
+    null,
+    "ngsl"
+   ],
+   [
+    114,
+    117,
+    "A1",
+    1,
+    null,
+    "ngsl"
+   ],
+   [
+    118,
+    121,
+    "A1",
+    1,
+    null,
+    "ngsl"
+   ],
+   [
+    122,
+    130,
+    "A1",
+    1,
+    null,
+    "ngsl"
+   ],
+   [
+    131,
+    134,
+    "A1",
+    1,
+    null,
+    "ngsl"
+   ],
+   [
+    135,
+    143,
+    "A1",
+    1,
+    null,
+    "ngsl"
+   ],
+   [
+    144,
+    150,
+    "A1",
+    1,
+    null,
+    "ngsl"
+   ],
+   [
+    151,
+    154,
+    "A1",
+    1,
+    null,
+    "ngsl"
+   ],
+   [
+    155,
+    158,
+    "A1",
+    1,
+    null,
+    "ngsl"
+   ],
+   [
+    159,
+    163,
+    null,
+    2,
+    null,
+    null
+   ],
+   [
+    164,
+    172,
+    "A1",
+    1,
+    null,
+    "ngsl"
+   ],
+   [
+    174,
+    179,
+    "A1",
+    1,
+    null,
+    "ngsl"
+   ],
+   [
+    180,
+    183,
+    "A1",
+    1,
+    null,
+    "ngsl"
+   ],
+   [
+    184,
+    189,
+    "A1",
+    1,
+    null,
+    null
+   ],
+   [
+    190,
+    199,
+    "A2",
+    2,
+    null,
+    "ngsl"
+   ],
+   [
+    200,
+    202,
+    "A1",
+    1,
+    null,
+    "ngsl"
+   ],
+   [
+    203,
+    209,
+    "A2",
+    "supplementary",
+    null,
+    "ngsl"
+   ],
+   [
+    210,
+    218,
+    "B2",
+    1,
+    null,
+    "ngsl"
+   ],
+   [
+    222,
+    224,
+    "A1",
+    1,
+    null,
+    "ngsl"
+   ],
+   [
+    225,
+    227,
+    "A1",
+    1,
+    null,
+    "ngsl"
+   ],
+   [
+    228,
+    233,
+    "A2",
+    1,
+    null,
+    "ngsl"
+   ],
+   [
+    234,
+    237,
+    "A1",
+    1,
+    null,
+    "ngsl"
+   ],
+   [
+    238,
+    246,
+    "B2",
+    3,
+    6,
+    "ngsl"
+   ],
+   [
+    249,
+    252,
+    "A1",
+    1,
+    null,
+    "ngsl"
+   ],
+   [
+    253,
+    256,
+    "A1",
+    1,
+    null,
+    "ngsl"
+   ],
+   [
+    257,
+    262,
+    "A1",
+    1,
+    null,
+    "ngsl"
+   ],
+   [
+    263,
+    265,
+    "A1",
+    1,
+    null,
+    "ngsl"
+   ],
+   [
+    266,
+    269,
+    "A1",
+    1,
+    null,
+    "ngsl"
+   ],
+   [
+    273,
+    276,
+    "A1",
+    1,
+    null,
+    "ngsl"
+   ],
+   [
+    277,
+    281,
+    "B1",
+    3,
+    null,
+    "ngsl"
+   ],
+   [
+    284,
+    287,
+    "A1",
+    1,
+    null,
+    "ngsl"
+   ],
+   [
+    288,
+    291,
+    "A1",
+    1,
+    null,
+    "ngsl"
+   ],
+   [
+    292,
+    300,
+    "A1",
+    2,
+    null,
+    "ngsl"
+   ],
+   [
+    301,
+    305,
+    "A1",
+    1,
+    null,
+    "ngsl"
+   ],
+   [
+    306,
+    312,
+    "A1",
+    1,
+    null,
+    "ngsl"
+   ],
+   [
+    313,
+    317,
+    "A1",
+    1,
+    null,
+    "ngsl"
+   ],
+   [
+    318,
+    323,
+    "A1",
+    1,
+    null,
+    "ngsl"
+   ],
+   [
+    324,
+    332,
+    "A2",
+    1,
+    null,
+    "ngsl"
+   ],
+   [
+    334,
+    341,
+    "A2",
+    1,
+    null,
+    "ngsl"
+   ],
+   [
+    342,
+    344,
+    "A1",
+    1,
+    null,
+    "ngsl"
+   ],
+   [
+    345,
+    347,
+    "A1",
+    1,
+    null,
+    "ngsl"
+   ],
+   [
+    348,
+    352,
+    "A1",
+    1,
+    null,
+    "ngsl"
+   ],
+   [
+    353,
+    357,
+    "A1",
+    1,
+    null,
+    "ngsl"
+   ],
+   [
+    358,
+    370,
+    "A2",
+    4,
+    null,
+    "nawl"
+   ],
+   [
+    372,
+    375,
+    "A1",
+    1,
+    null,
+    "ngsl"
+   ],
+   [
+    376,
+    383,
+    "A1",
+    2,
+    null,
+    "ngsl"
+   ],
+   [
+    384,
+    388,
+    "A1",
+    1,
+    null,
+    "ngsl"
+   ],
+   [
+    389,
+    396,
+    "A1",
+    1,
+    null,
+    "ngsl"
+   ],
+   [
+    397,
+    401,
+    "A1",
+    1,
+    null,
+    "ngsl"
+   ],
+   [
+    402,
+    408,
+    "A1",
+    2,
+    null,
+    null
+   ],
+   [
+    409,
+    412,
+    "A1",
+    1,
+    null,
+    "ngsl"
+   ],
+   [
+    413,
+    417,
+    "A1",
+    1,
+    null,
+    "ngsl"
+   ],
+   [
+    418,
+    420,
+    "A1",
+    1,
+    null,
+    "ngsl"
+   ],
+   [
+    420,
+    422,
+    "A1",
+    1,
+    null,
+    "ngsl"
+   ],
+   [
+    423,
+    427,
+    "A1",
+    1,
+    null,
+    "ngsl"
+   ],
+   [
+    428,
+    438,
+    "B1",
+    3,
+    6,
+    "ngsl"
+   ],
+   [
+    439,
+    441,
+    "A1",
+    1,
+    null,
+    "ngsl"
+   ],
+   [
+    442,
+    447,
+    "A1",
+    1,
+    null,
+    "ngsl"
+   ],
+   [
+    448,
+    453,
+    "A1",
+    1,
+    null,
+    "ngsl"
+   ],
+   [
+    455,
+    466,
+    "B1",
+    3,
+    6,
+    "ngsl"
+   ],
+   [
+    468,
+    471,
+    "A1",
+    1,
+    null,
+    "ngsl"
+   ],
+   [
+    472,
+    478,
+    "A1",
+    1,
+    null,
+    "ngsl"
+   ],
+   [
+    479,
+    481,
+    "A1",
+    1,
+    null,
+    "ngsl"
+   ],
+   [
+    482,
+    485,
+    "A1",
+    1,
+    null,
+    "ngsl"
+   ],
+   [
+    486,
+    492,
+    "A2",
+    2,
+    null,
+    "ngsl"
+   ],
+   [
+    493,
+    495,
+    "A1",
+    1,
+    null,
+    "ngsl"
+   ],
+   [
+    496,
+    499,
+    "A1",
+    1,
+    null,
+    "ngsl"
+   ],
+   [
+    500,
+    503,
+    "A1",
+    1,
+    null,
+    "ngsl"
+   ],
+   [
+    504,
+    508,
+    "A1",
+    1,
+    null,
+    "ngsl"
+   ],
+   [
+    510,
+    513,
+    "A1",
+    1,
+    null,
+    "ngsl"
+   ],
+   [
+    514,
+    516,
+    "A1",
+    1,
+    null,
+    "ngsl"
+   ],
+   [
+    517,
+    521,
+    "A1",
+    1,
+    null,
+    "ngsl"
+   ],
+   [
+    522,
+    528,
+    "A1",
+    1,
+    null,
+    "ngsl"
+   ],
+   [
+    529,
+    534,
+    "A1",
+    1,
+    null,
+    "ngsl"
+   ],
+   [
+    536,
+    538,
+    "A1",
+    1,
+    null,
+    "ngsl"
+   ],
+   [
+    539,
+    542,
+    "A1",
+    1,
+    null,
+    "ngsl"
+   ],
+   [
+    543,
+    548,
+    "A1",
+    1,
+    null,
+    "ngsl"
+   ],
+   [
+    549,
+    553,
+    "A1",
+    1,
+    null,
+    "ngsl"
+   ],
+   [
+    555,
+    556,
+    "A1",
+    1,
+    null,
+    "ngsl"
+   ],
+   [
+    557,
+    562,
+    "A1",
+    1,
+    null,
+    "ngsl"
+   ],
+   [
+    563,
+    567,
+    "A1",
+    1,
+    null,
+    "ngsl"
+   ],
+   [
+    568,
+    571,
+    "A1",
+    1,
+    null,
+    "ngsl"
+   ],
+   [
+    572,
+    582,
+    "A2",
+    2,
+    null,
+    "ngsl"
+   ],
+   [
+    583,
+    591,
+    "B1",
+    6,
+    null,
+    null
+   ],
+   [
+    592,
+    595,
+    "A1",
+    1,
+    null,
+    "ngsl"
+   ],
+   [
+    596,
+    609,
+    "A2",
+    4,
+    null,
+    "nawl"
+   ],
+   [
+    611,
+    613,
+    "A1",
+    1,
+    null,
+    "ngsl"
+   ],
+   [
+    614,
+    618,
+    "A2",
+    1,
+    null,
+    "ngsl"
+   ],
+   [
+    619,
+    621,
+    "A2",
+    1,
+    null,
+    "ngsl"
+   ],
+   [
+    622,
+    630,
+    "A1",
+    1,
+    null,
+    "ngsl"
+   ],
+   [
+    631,
+    639,
+    "A2",
+    2,
+    null,
+    "ngsl"
+   ],
+   [
+    640,
+    645,
+    "A1",
+    1,
+    null,
+    "ngsl"
+   ],
+   [
+    646,
+    650,
+    "A1",
+    1,
+    null,
+    "ngsl"
+   ],
+   [
+    651,
+    660,
+    "A1",
+    1,
+    null,
+    "ngsl"
+   ]
+  ]
+ },
+ "readability": {
+  "averages": {
+   "characters_per_word": 4.681,
+   "syllables_per_word": 1.549,
+   "words_per_sentence": 16.143
+  },
+  "counts": {
+   "characters": 544,
+   "characters_with_spaces": 662,
+   "difficult_words": 23,
+   "long_words": 25,
+   "monosyllable_words": 72,
+   "polysyllable_words": 15,
+   "reading_time_seconds": 28.5,
+   "sentences": 7,
+   "syllables": 175,
+   "words": 113
+  },
+  "reliability": {
+   "notes": [
+    "SMOG was normed on 30-sentence samples; this text has 7, so the SMOG score is extrapolated."
+   ],
+   "reliable": true
+  },
+  "scores": {
+   "automated_readability_index": 8.69,
+   "coleman_liau_index": 9.89,
+   "dale_chall_readability_score": 7.65,
+   "flesch_kincaid_grade": 8.98,
+   "flesch_reading_ease": 59.43,
+   "gunning_fog": 11.77,
+   "linsear_write_formula": 8.61,
+   "smog_index": 11.49,
+   "text_standard": 9.7
+  },
+  "validity": {
+   "evidence": "On the CLEAR corpus (4,724 school reading excerpts ranked by teachers), Flesch, Flesch-Kincaid, ARI, SMOG and New Dale-Chall correlate r = .48-.56 with the teachers' ease scores, about a quarter to a third of the variance (Crossley et al. 2023, Behavior Research Methods, doi:10.3758/s13428-022-01802-x). Coleman-Liau and Linsear Write weren't tested. The formulas largely duplicate each other.",
+   "population": "Normed on 20th-century US native-speaker readers; evidence for second-language readers is thinner.",
+   "status": "legacy",
+   "text_standard": "The median of the eight grades: a convenience summary with no validation of its own."
+  }
+ },
+ "statistics": {
+  "averages": {
+   "polysyllable_pct": 13.274,
+   "syllables_per_100_words": 154.867,
+   "syllables_per_sentence": 25.0,
+   "syllables_per_word": 1.549,
+   "tokens_per_sentence": 16.143,
+   "type_token_ratio": 0.77
+  },
+  "counts": {
+   "characters_with_spaces": 662,
+   "characters_without_spaces": 544,
+   "excluded_numeric_tokens": 0,
+   "polysyllable_words": 15,
+   "sentences": 7,
+   "syllables": 175,
+   "tokens_excluding_numbers": 113,
+   "unique_types_excluding_numbers": 87
+  },
+  "excluded_digits": []
+ },
+ "tagger": {
+  "counts": {
+   "sentences": 7,
+   "total_tokens": 129
+  },
+  "ptb_distribution": {
+   ",": 5,
+   ".": 5,
+   ":": 4,
+   "CC": 6,
+   "CD": 1,
+   "DT": 7,
+   "EX": 1,
+   "IN": 11,
+   "JJ": 10,
+   "MD": 3,
+   "NN": 17,
+   "NNP": 1,
+   "NNS": 10,
+   "PRP": 11,
+   "PRP$": 2,
+   "RB": 11,
+   "TO": 1,
+   "VB": 6,
+   "VBD": 2,
+   "VBG": 1,
+   "VBP": 10,
+   "VBZ": 3,
+   "WRB": 1
+  },
+  "summary": {
+   "content_tokens": 112,
+   "noun_elements_per_sentence": 4.0,
+   "tokens_per_type": 1.302,
+   "total_noun_elements": 28,
+   "total_verbal_elements": 25,
+   "type_token_ratio": 0.768,
+   "types": 86,
+   "verbal_elements_per_sentence": 3.571
+  },
+  "upos_distribution": {
+   "ADJ": 10,
+   "ADP": 9,
+   "ADV": 10,
+   "AUX": 10,
+   "CCONJ": 6,
+   "DET": 7,
+   "NOUN": 27,
+   "NUM": 1,
+   "PART": 2,
+   "PRON": 14,
+   "PROPN": 1,
+   "PUNCT": 14,
+   "SCONJ": 3,
+   "VERB": 15
+  }
+ }
+}

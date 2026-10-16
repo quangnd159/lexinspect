@@ -1,0 +1,1905 @@
+{
+ "awl": {
+  "counts": {
+   "awl_families": 0,
+   "awl_tokens": 0,
+   "content_tokens": 94
+  },
+  "coverage_pct": 0.0,
+  "families_detail": [],
+  "families_found": [],
+  "per_sublist": {
+   "1": {
+    "coverage_pct": 0.0,
+    "families": 0,
+    "tokens": 0
+   },
+   "10": {
+    "coverage_pct": 0.0,
+    "families": 0,
+    "tokens": 0
+   },
+   "2": {
+    "coverage_pct": 0.0,
+    "families": 0,
+    "tokens": 0
+   },
+   "3": {
+    "coverage_pct": 0.0,
+    "families": 0,
+    "tokens": 0
+   },
+   "4": {
+    "coverage_pct": 0.0,
+    "families": 0,
+    "tokens": 0
+   },
+   "5": {
+    "coverage_pct": 0.0,
+    "families": 0,
+    "tokens": 0
+   },
+   "6": {
+    "coverage_pct": 0.0,
+    "families": 0,
+    "tokens": 0
+   },
+   "7": {
+    "coverage_pct": 0.0,
+    "families": 0,
+    "tokens": 0
+   },
+   "8": {
+    "coverage_pct": 0.0,
+    "families": 0,
+    "tokens": 0
+   },
+   "9": {
+    "coverage_pct": 0.0,
+    "families": 0,
+    "tokens": 0
+   }
+  }
+ },
+ "bnc_coca": {
+  "counts": {
+   "content_tokens": 94,
+   "off_list_tokens": 0,
+   "on_list_tokens": 91,
+   "proper_noun_tokens": 1,
+   "supplementary_tokens": 2
+  },
+  "coverage_pct": 96.809,
+  "coverage_with_supplementary_pct": 100.0,
+  "off_list": [],
+  "off_list_sample": [],
+  "per_band": {
+   "1": {
+    "coverage_pct": 82.979,
+    "cumulative_coverage_pct": 82.979,
+    "cumulative_coverage_with_supplementary_pct": 86.17,
+    "headwords": 54,
+    "tokens": 78
+   },
+   "10": {
+    "coverage_pct": 0.0,
+    "cumulative_coverage_pct": 96.809,
+    "cumulative_coverage_with_supplementary_pct": 100.0,
+    "headwords": 0,
+    "tokens": 0
+   },
+   "11": {
+    "coverage_pct": 0.0,
+    "cumulative_coverage_pct": 96.809,
+    "cumulative_coverage_with_supplementary_pct": 100.0,
+    "headwords": 0,
+    "tokens": 0
+   },
+   "12": {
+    "coverage_pct": 0.0,
+    "cumulative_coverage_pct": 96.809,
+    "cumulative_coverage_with_supplementary_pct": 100.0,
+    "headwords": 0,
+    "tokens": 0
+   },
+   "13": {
+    "coverage_pct": 0.0,
+    "cumulative_coverage_pct": 96.809,
+    "cumulative_coverage_with_supplementary_pct": 100.0,
+    "headwords": 0,
+    "tokens": 0
+   },
+   "14": {
+    "coverage_pct": 0.0,
+    "cumulative_coverage_pct": 96.809,
+    "cumulative_coverage_with_supplementary_pct": 100.0,
+    "headwords": 0,
+    "tokens": 0
+   },
+   "15": {
+    "coverage_pct": 0.0,
+    "cumulative_coverage_pct": 96.809,
+    "cumulative_coverage_with_supplementary_pct": 100.0,
+    "headwords": 0,
+    "tokens": 0
+   },
+   "16": {
+    "coverage_pct": 0.0,
+    "cumulative_coverage_pct": 96.809,
+    "cumulative_coverage_with_supplementary_pct": 100.0,
+    "headwords": 0,
+    "tokens": 0
+   },
+   "17": {
+    "coverage_pct": 0.0,
+    "cumulative_coverage_pct": 96.809,
+    "cumulative_coverage_with_supplementary_pct": 100.0,
+    "headwords": 0,
+    "tokens": 0
+   },
+   "18": {
+    "coverage_pct": 0.0,
+    "cumulative_coverage_pct": 96.809,
+    "cumulative_coverage_with_supplementary_pct": 100.0,
+    "headwords": 0,
+    "tokens": 0
+   },
+   "19": {
+    "coverage_pct": 0.0,
+    "cumulative_coverage_pct": 96.809,
+    "cumulative_coverage_with_supplementary_pct": 100.0,
+    "headwords": 0,
+    "tokens": 0
+   },
+   "2": {
+    "coverage_pct": 6.383,
+    "cumulative_coverage_pct": 89.362,
+    "cumulative_coverage_with_supplementary_pct": 92.553,
+    "headwords": 6,
+    "tokens": 6
+   },
+   "20": {
+    "coverage_pct": 0.0,
+    "cumulative_coverage_pct": 96.809,
+    "cumulative_coverage_with_supplementary_pct": 100.0,
+    "headwords": 0,
+    "tokens": 0
+   },
+   "21": {
+    "coverage_pct": 0.0,
+    "cumulative_coverage_pct": 96.809,
+    "cumulative_coverage_with_supplementary_pct": 100.0,
+    "headwords": 0,
+    "tokens": 0
+   },
+   "22": {
+    "coverage_pct": 0.0,
+    "cumulative_coverage_pct": 96.809,
+    "cumulative_coverage_with_supplementary_pct": 100.0,
+    "headwords": 0,
+    "tokens": 0
+   },
+   "23": {
+    "coverage_pct": 0.0,
+    "cumulative_coverage_pct": 96.809,
+    "cumulative_coverage_with_supplementary_pct": 100.0,
+    "headwords": 0,
+    "tokens": 0
+   },
+   "24": {
+    "coverage_pct": 0.0,
+    "cumulative_coverage_pct": 96.809,
+    "cumulative_coverage_with_supplementary_pct": 100.0,
+    "headwords": 0,
+    "tokens": 0
+   },
+   "25": {
+    "coverage_pct": 0.0,
+    "cumulative_coverage_pct": 96.809,
+    "cumulative_coverage_with_supplementary_pct": 100.0,
+    "headwords": 0,
+    "tokens": 0
+   },
+   "3": {
+    "coverage_pct": 0.0,
+    "cumulative_coverage_pct": 89.362,
+    "cumulative_coverage_with_supplementary_pct": 92.553,
+    "headwords": 0,
+    "tokens": 0
+   },
+   "4": {
+    "coverage_pct": 3.191,
+    "cumulative_coverage_pct": 92.553,
+    "cumulative_coverage_with_supplementary_pct": 95.745,
+    "headwords": 3,
+    "tokens": 3
+   },
+   "5": {
+    "coverage_pct": 1.064,
+    "cumulative_coverage_pct": 93.617,
+    "cumulative_coverage_with_supplementary_pct": 96.809,
+    "headwords": 1,
+    "tokens": 1
+   },
+   "6": {
+    "coverage_pct": 1.064,
+    "cumulative_coverage_pct": 94.681,
+    "cumulative_coverage_with_supplementary_pct": 97.872,
+    "headwords": 1,
+    "tokens": 1
+   },
+   "7": {
+    "coverage_pct": 2.128,
+    "cumulative_coverage_pct": 96.809,
+    "cumulative_coverage_with_supplementary_pct": 100.0,
+    "headwords": 2,
+    "tokens": 2
+   },
+   "8": {
+    "coverage_pct": 0.0,
+    "cumulative_coverage_pct": 96.809,
+    "cumulative_coverage_with_supplementary_pct": 100.0,
+    "headwords": 0,
+    "tokens": 0
+   },
+   "9": {
+    "coverage_pct": 0.0,
+    "cumulative_coverage_pct": 96.809,
+    "cumulative_coverage_with_supplementary_pct": 100.0,
+    "headwords": 0,
+    "tokens": 0
+   }
+  },
+  "proper_nouns": [
+   {
+    "count": 1,
+    "word": "maria"
+   }
+  ],
+  "supplementary": {
+   "transparent_compounds": 2
+  }
+ },
+ "cefr": {
+  "caveat": "Heuristic only. Based on CEFR-J 1.5 + Octanove C1/C2 1.0; not Cambridge EVP. estimated_level_95th is the lowest level whose cumulative coverage reaches 95%; no published study validates it as a text's CEFR level. Cite both sources. Combine this with readability, BNC/COCA and diversity signals before reporting a level.",
+  "counts": {
+   "content_tokens": 94,
+   "off_list_tokens": 5,
+   "on_list_tokens": 88,
+   "pos_fallback_tokens": 1,
+   "proper_noun_tokens": 1
+  },
+  "coverage_pct": 93.617,
+  "dominant_level": "A1",
+  "estimated_level_95th": null,
+  "highest_level_present": "B2",
+  "off_list": [
+   {
+    "count": 1,
+    "word": "barefoot"
+   },
+   {
+    "count": 1,
+    "word": "puddles"
+   },
+   {
+    "count": 1,
+    "word": "gravel"
+   },
+   {
+    "count": 1,
+    "word": "steaming"
+   },
+   {
+    "count": 1,
+    "word": "downpour"
+   }
+  ],
+  "off_list_sample": [
+   "barefoot",
+   "downpour",
+   "gravel",
+   "puddles",
+   "steaming"
+  ],
+  "per_level": {
+   "A1": {
+    "coverage_pct": 65.957,
+    "cumulative_coverage_pct": 65.957,
+    "lemmas": 41,
+    "tokens": 62
+   },
+   "A2": {
+    "coverage_pct": 15.957,
+    "cumulative_coverage_pct": 81.915,
+    "lemmas": 15,
+    "tokens": 15
+   },
+   "B1": {
+    "coverage_pct": 8.511,
+    "cumulative_coverage_pct": 90.426,
+    "lemmas": 8,
+    "tokens": 8
+   },
+   "B2": {
+    "coverage_pct": 3.191,
+    "cumulative_coverage_pct": 93.617,
+    "lemmas": 3,
+    "tokens": 3
+   },
+   "C1": {
+    "coverage_pct": 0.0,
+    "cumulative_coverage_pct": 93.617,
+    "lemmas": 0,
+    "tokens": 0
+   },
+   "C2": {
+    "coverage_pct": 0.0,
+    "cumulative_coverage_pct": 93.617,
+    "lemmas": 0,
+    "tokens": 0
+   }
+  },
+  "proper_nouns": [
+   {
+    "count": 1,
+    "word": "maria"
+   }
+  ],
+  "words_by_level": {
+   "A1": [
+    {
+     "count": 6,
+     "word": "the"
+    },
+    {
+     "count": 5,
+     "word": "a"
+    },
+    {
+     "count": 5,
+     "word": "her"
+    },
+    {
+     "count": 3,
+     "word": "she"
+    },
+    {
+     "count": 2,
+     "word": "of"
+    },
+    {
+     "count": 2,
+     "word": "would"
+    },
+    {
+     "count": 2,
+     "word": "through"
+    },
+    {
+     "count": 2,
+     "word": "and"
+    },
+    {
+     "count": 2,
+     "word": "in"
+    },
+    {
+     "count": 2,
+     "word": "at"
+    },
+    {
+     "count": 1,
+     "word": "had"
+    },
+    {
+     "count": 1,
+     "word": "always"
+    },
+    {
+     "count": 1,
+     "word": "loved"
+    },
+    {
+     "count": 1,
+     "word": "smell"
+    },
+    {
+     "count": 1,
+     "word": "rain"
+    },
+    {
+     "count": 1,
+     "word": "on"
+    },
+    {
+     "count": 1,
+     "word": "dry"
+    },
+    {
+     "count": 1,
+     "word": "as"
+    },
+    {
+     "count": 1,
+     "word": "child"
+    },
+    {
+     "count": 1,
+     "word": "moment"
+    },
+    {
+     "count": 1,
+     "word": "that"
+    },
+    {
+     "count": 1,
+     "word": "grandmother"
+    },
+    {
+     "count": 1,
+     "word": "thick"
+    },
+    {
+     "count": 1,
+     "word": "towel"
+    },
+    {
+     "count": 1,
+     "word": "around"
+    },
+    {
+     "count": 1,
+     "word": "shoulders"
+    },
+    {
+     "count": 1,
+     "word": "into"
+    },
+    {
+     "count": 1,
+     "word": "cold"
+    },
+    {
+     "count": 1,
+     "word": "hands"
+    },
+    {
+     "count": 1,
+     "word": "years"
+    },
+    {
+     "count": 1,
+     "word": "later"
+    },
+    {
+     "count": 1,
+     "word": "walking"
+    },
+    {
+     "count": 1,
+     "word": "city"
+    },
+    {
+     "count": 1,
+     "word": "from"
+    },
+    {
+     "count": 1,
+     "word": "those"
+    },
+    {
+     "count": 1,
+     "word": "hills"
+    },
+    {
+     "count": 1,
+     "word": "felt"
+    },
+    {
+     "count": 1,
+     "word": "same"
+    },
+    {
+     "count": 1,
+     "word": "laughed"
+    },
+    {
+     "count": 1,
+     "word": "out"
+    },
+    {
+     "count": 1,
+     "word": "nothing"
+    }
+   ],
+   "A2": [
+    {
+     "count": 1,
+     "word": "earth"
+    },
+    {
+     "count": 1,
+     "word": "outside"
+    },
+    {
+     "count": 1,
+     "word": "across"
+    },
+    {
+     "count": 1,
+     "word": "valley"
+    },
+    {
+     "count": 1,
+     "word": "splashing"
+    },
+    {
+     "count": 1,
+     "word": "along"
+    },
+    {
+     "count": 1,
+     "word": "road"
+    },
+    {
+     "count": 1,
+     "word": "mug"
+    },
+    {
+     "count": 1,
+     "word": "home"
+    },
+    {
+     "count": 1,
+     "word": "sudden"
+    },
+    {
+     "count": 1,
+     "word": "far"
+    },
+    {
+     "count": 1,
+     "word": "wild"
+    },
+    {
+     "count": 1,
+     "word": "joy"
+    },
+    {
+     "count": 1,
+     "word": "chest"
+    },
+    {
+     "count": 1,
+     "word": "all"
+    }
+   ],
+   "B1": [
+    {
+     "count": 1,
+     "word": "race"
+    },
+    {
+     "count": 1,
+     "word": "thunder"
+    },
+    {
+     "count": 1,
+     "word": "formed"
+    },
+    {
+     "count": 1,
+     "word": "scold"
+    },
+    {
+     "count": 1,
+     "word": "wrapping"
+    },
+    {
+     "count": 1,
+     "word": "pressing"
+    },
+    {
+     "count": 1,
+     "word": "rising"
+    },
+    {
+     "count": 1,
+     "word": "loud"
+    }
+   ],
+   "B2": [
+    {
+     "count": 1,
+     "word": "rolled"
+    },
+    {
+     "count": 1,
+     "word": "gently"
+    },
+    {
+     "count": 1,
+     "word": "cocoa"
+    }
+   ],
+   "C1": [],
+   "C2": []
+  }
+ },
+ "diversity": {
+  "counts": {
+   "tokens": 94,
+   "types": 73
+  },
+  "references": {
+   "note": "Reference ranges are for vocd-D (Durán et al. 2004), which lexinspect computes as `vocd_d` following McKee, Malvern & Richards (2000). Compare them with vocd-D only — HD-D (0–1) and MTLD are on different scales.",
+   "vocd_d_bands": [
+    {
+     "max": 70.0,
+     "min": 40.0,
+     "name": "Adult L2 / ESL learner",
+     "position": "above",
+     "source": "Durán, Malvern, Richards & Chipere 2004 (Applied Linguistics 25/2)"
+    },
+    {
+     "max": 105.0,
+     "min": 80.0,
+     "name": "Adult native speaker, academic writing",
+     "position": "above",
+     "source": "Durán, Malvern, Richards & Chipere 2004 (Applied Linguistics 25/2)"
+    }
+   ]
+  },
+  "scores": {
+   "cttr": 5.3241,
+   "hdd": 0.8582,
+   "herdan": 0.9443,
+   "maas": 0.0122,
+   "mattr": 0.8311,
+   "msttr": 0.84,
+   "mtld": 117.8133,
+   "rttr": 7.5294,
+   "summer": 0.9622,
+   "ttr": 0.7766,
+   "vocd_d": 109.96
+  },
+  "tiers": {
+   "caution": [
+    "hdd",
+    "vocd_d",
+    "maas"
+   ],
+   "legacy": [
+    "ttr",
+    "rttr",
+    "cttr",
+    "msttr",
+    "herdan",
+    "summer"
+   ],
+   "note": "MTLD and MATTR stay most stable across text lengths from about 50 tokens (Zenker & Kyle 2021, 4,542 EFL essays). HD-D, vocd-D and Maas are usable with care. TTR and its transforms, and MSTTR, change with text length; compare them only between texts of the same length.",
+   "recommended": [
+    "mtld",
+    "mattr"
+   ]
+  }
+ },
+ "errors": {
+  "caveat": "Hunspell-based detection: it flags words its dictionary doesn't contain, so rare technical terms and neologisms can appear as errors, and a real word used wrongly (their/there) is not caught. Capitalised words used as names are listed separately, not counted as errors. Dictionaries: LibreOffice English (en_GB: LGPL; en_US: SCOWL wordlist, Ispell BSD affix file).",
+  "counts": {
+   "errors_total": 0,
+   "sentences": 4,
+   "tokens_checked": 94,
+   "unique_errors": 0,
+   "unknown_names": 0,
+   "variant_mismatches": 0
+  },
+  "dictionary": {
+   "licence": "LibreOffice English. en_GB: wordlist and affix file (David Bartlett, Andrew Brown) under the LGPL. en_US: wordlist from SCOWL by Kevin Atkinson (permissive SCOWL licence); affix file from Geoff Kuenning's Ispell (BSD). Mirror: github.com/LibreOffice/dictionaries.",
+   "source": "LibreOffice en_GB.aff/.dic",
+   "variant": "gb"
+  },
+  "errors": [],
+  "rates": {
+   "errors_per_100_words": 0.0,
+   "errors_per_sentence": 0.0
+  },
+  "unknown_names": [],
+  "variant": "gb",
+  "variant_mismatches": []
+ },
+ "metadiscourse": {
+  "counts": {
+   "content_tokens": 94,
+   "interactional_hits": 3,
+   "interactive_hits": 2,
+   "total_hits": 5
+  },
+  "density_per_1000": 53.191,
+  "hits": [
+   {
+    "category": "boosters",
+    "dimension": "interactional",
+    "marker": "always",
+    "span": [
+     10,
+     16
+    ],
+    "surface": "always",
+    "token_index": 2
+   },
+   {
+    "category": "hedges",
+    "dimension": "interactional",
+    "marker": "would",
+    "span": [
+     70,
+     75
+    ],
+    "surface": "would",
+    "token_index": 16
+   },
+   {
+    "category": "hedges",
+    "dimension": "interactional",
+    "marker": "would",
+    "span": [
+     224,
+     229
+    ],
+    "surface": "would",
+    "token_index": 41
+   },
+   {
+    "category": "transitions",
+    "dimension": "interactive",
+    "marker": "and",
+    "span": [
+     292,
+     295
+    ],
+    "surface": "and",
+    "token_index": 53
+   },
+   {
+    "category": "transitions",
+    "dimension": "interactive",
+    "marker": "and",
+    "span": [
+     482,
+     485
+    ],
+    "surface": "and",
+    "token_index": 93
+   }
+  ],
+  "per_category": {
+   "attitude_markers": {
+    "density_per_1000": 0.0,
+    "dimension": "interactional",
+    "hits": 0,
+    "unique_markers": 0
+   },
+   "boosters": {
+    "density_per_1000": 10.638,
+    "dimension": "interactional",
+    "hits": 1,
+    "unique_markers": 1
+   },
+   "code_glosses": {
+    "density_per_1000": 0.0,
+    "dimension": "interactive",
+    "hits": 0,
+    "unique_markers": 0
+   },
+   "endophoric_markers": {
+    "density_per_1000": 0.0,
+    "dimension": "interactive",
+    "hits": 0,
+    "unique_markers": 0
+   },
+   "engagement_markers": {
+    "density_per_1000": 0.0,
+    "dimension": "interactional",
+    "hits": 0,
+    "unique_markers": 0
+   },
+   "evidentials": {
+    "density_per_1000": 0.0,
+    "dimension": "interactive",
+    "hits": 0,
+    "unique_markers": 0
+   },
+   "frame_markers": {
+    "density_per_1000": 0.0,
+    "dimension": "interactive",
+    "hits": 0,
+    "unique_markers": 0
+   },
+   "hedges": {
+    "density_per_1000": 21.277,
+    "dimension": "interactional",
+    "hits": 2,
+    "unique_markers": 1
+   },
+   "self_mentions": {
+    "density_per_1000": 0.0,
+    "dimension": "interactional",
+    "hits": 0,
+    "unique_markers": 0
+   },
+   "transitions": {
+    "density_per_1000": 21.277,
+    "dimension": "interactive",
+    "hits": 2,
+    "unique_markers": 1
+   }
+  },
+  "per_dimension": {
+   "interactional": {
+    "density_per_1000": 31.915,
+    "hits": 3
+   },
+   "interactive": {
+    "density_per_1000": 21.277,
+    "hits": 2
+   }
+  }
+ },
+ "ngsl": {
+  "counts": {
+   "content_tokens": 94,
+   "nawl_lemmas": 0,
+   "nawl_tokens": 0,
+   "ngsl_lemmas": 59,
+   "ngsl_tokens": 82,
+   "off_list_tokens": 11,
+   "proper_noun_tokens": 1
+  },
+  "coverage_pct": {
+   "nawl": 0.0,
+   "ngsl": 87.234,
+   "ngsl_plus_nawl": 87.234,
+   "off_list": 11.702,
+   "proper_nouns": 1.064
+  },
+  "nawl_lemmas_found": [],
+  "nawl_words": [],
+  "ngsl_lemmas_found": [
+   "a",
+   "across",
+   "all",
+   "along",
+   "always",
+   "and",
+   "around",
+   "as",
+   "at",
+   "chest",
+   "child",
+   "city",
+   "cold",
+   "dry",
+   "earth",
+   "far",
+   "feel",
+   "form",
+   "from",
+   "gently",
+   "grandmother",
+   "hand",
+   "have",
+   "hill",
+   "home",
+   "in",
+   "into",
+   "joy",
+   "late",
+   "laugh",
+   "loud",
+   "love",
+   "moment",
+   "nothing",
+   "of",
+   "on",
+   "out",
+   "outside",
+   "press",
+   "race",
+   "rain",
+   "rise",
+   "road",
+   "roll",
+   "same",
+   "she",
+   "shoulder",
+   "smell",
+   "sudden",
+   "that",
+   "the",
+   "thick",
+   "through",
+   "valley",
+   "walk",
+   "wild",
+   "would",
+   "wrap",
+   "year"
+  ],
+  "off_list": [
+   {
+    "count": 1,
+    "word": "thunder"
+   },
+   {
+    "count": 1,
+    "word": "splashing"
+   },
+   {
+    "count": 1,
+    "word": "barefoot"
+   },
+   {
+    "count": 1,
+    "word": "puddles"
+   },
+   {
+    "count": 1,
+    "word": "gravel"
+   },
+   {
+    "count": 1,
+    "word": "scold"
+   },
+   {
+    "count": 1,
+    "word": "towel"
+   },
+   {
+    "count": 1,
+    "word": "steaming"
+   },
+   {
+    "count": 1,
+    "word": "mug"
+   },
+   {
+    "count": 1,
+    "word": "cocoa"
+   },
+   {
+    "count": 1,
+    "word": "downpour"
+   }
+  ],
+  "off_list_sample": [
+   "barefoot",
+   "cocoa",
+   "downpour",
+   "gravel",
+   "mug",
+   "puddles",
+   "scold",
+   "splashing",
+   "steaming",
+   "thunder",
+   "towel"
+  ],
+  "proper_nouns": [
+   {
+    "count": 1,
+    "word": "maria"
+   }
+  ]
+ },
+ "phrase": {
+  "counts": {
+   "content_tokens": 94,
+   "hits_per_1000_words": 10.64,
+   "total_hits": 1,
+   "unique_phrases": 1
+  },
+  "hits": [
+   {
+    "k_band": 1,
+    "phrase": "AT ALL",
+    "rank": 879,
+    "sense": null,
+    "span": [
+     518,
+     524
+    ],
+    "surface": "at all",
+    "token_index": 100
+   }
+  ],
+  "hits_per_k_band": {
+   "1": 1,
+   "2": 0,
+   "3": 0,
+   "4": 0,
+   "5": 0
+  },
+  "phrase_frequency": {
+   "AT ALL": 1
+  }
+ },
+ "profile": {
+  "columns": [
+   "start",
+   "end",
+   "cefr",
+   "bnc",
+   "awl",
+   "ngsl"
+  ],
+  "rows": [
+   [
+    0,
+    5,
+    "proper",
+    "proper",
+    null,
+    "proper"
+   ],
+   [
+    6,
+    9,
+    "A1",
+    1,
+    null,
+    "ngsl"
+   ],
+   [
+    10,
+    16,
+    "A1",
+    1,
+    null,
+    "ngsl"
+   ],
+   [
+    17,
+    22,
+    "A1",
+    1,
+    null,
+    "ngsl"
+   ],
+   [
+    23,
+    26,
+    "A1",
+    1,
+    null,
+    "ngsl"
+   ],
+   [
+    27,
+    32,
+    "A1",
+    1,
+    null,
+    "ngsl"
+   ],
+   [
+    33,
+    35,
+    "A1",
+    1,
+    null,
+    "ngsl"
+   ],
+   [
+    36,
+    40,
+    "A1",
+    1,
+    null,
+    "ngsl"
+   ],
+   [
+    41,
+    43,
+    "A1",
+    1,
+    null,
+    "ngsl"
+   ],
+   [
+    44,
+    47,
+    "A1",
+    1,
+    null,
+    "ngsl"
+   ],
+   [
+    48,
+    53,
+    "A2",
+    1,
+    null,
+    "ngsl"
+   ],
+   [
+    55,
+    57,
+    "A1",
+    1,
+    null,
+    "ngsl"
+   ],
+   [
+    58,
+    59,
+    "A1",
+    1,
+    null,
+    "ngsl"
+   ],
+   [
+    60,
+    65,
+    "A1",
+    1,
+    null,
+    "ngsl"
+   ],
+   [
+    66,
+    69,
+    "A1",
+    1,
+    null,
+    "ngsl"
+   ],
+   [
+    70,
+    75,
+    "A1",
+    1,
+    null,
+    "ngsl"
+   ],
+   [
+    76,
+    80,
+    "B1",
+    1,
+    null,
+    "ngsl"
+   ],
+   [
+    81,
+    88,
+    "A2",
+    1,
+    null,
+    "ngsl"
+   ],
+   [
+    89,
+    92,
+    "A1",
+    1,
+    null,
+    "ngsl"
+   ],
+   [
+    93,
+    99,
+    "A1",
+    1,
+    null,
+    "ngsl"
+   ],
+   [
+    100,
+    107,
+    "B1",
+    4,
+    null,
+    null
+   ],
+   [
+    108,
+    114,
+    "B2",
+    1,
+    null,
+    "ngsl"
+   ],
+   [
+    115,
+    121,
+    "A2",
+    1,
+    null,
+    "ngsl"
+   ],
+   [
+    122,
+    125,
+    "A1",
+    1,
+    null,
+    "ngsl"
+   ],
+   [
+    126,
+    132,
+    "A2",
+    2,
+    null,
+    "ngsl"
+   ],
+   [
+    134,
+    143,
+    "A2",
+    4,
+    null,
+    null
+   ],
+   [
+    144,
+    152,
+    null,
+    "supplementary",
+    null,
+    null
+   ],
+   [
+    153,
+    160,
+    "A1",
+    1,
+    null,
+    "ngsl"
+   ],
+   [
+    161,
+    164,
+    "A1",
+    1,
+    null,
+    "ngsl"
+   ],
+   [
+    165,
+    172,
+    null,
+    7,
+    null,
+    null
+   ],
+   [
+    173,
+    177,
+    "A1",
+    1,
+    null,
+    "ngsl"
+   ],
+   [
+    178,
+    184,
+    "B1",
+    1,
+    null,
+    "ngsl"
+   ],
+   [
+    185,
+    190,
+    "A2",
+    1,
+    null,
+    "ngsl"
+   ],
+   [
+    191,
+    194,
+    "A1",
+    1,
+    null,
+    "ngsl"
+   ],
+   [
+    195,
+    201,
+    null,
+    4,
+    null,
+    null
+   ],
+   [
+    202,
+    206,
+    "A2",
+    1,
+    null,
+    "ngsl"
+   ],
+   [
+    208,
+    211,
+    "A1",
+    1,
+    null,
+    "ngsl"
+   ],
+   [
+    212,
+    223,
+    "A1",
+    1,
+    null,
+    "ngsl"
+   ],
+   [
+    224,
+    229,
+    "A1",
+    1,
+    null,
+    "ngsl"
+   ],
+   [
+    230,
+    235,
+    "B1",
+    7,
+    null,
+    null
+   ],
+   [
+    236,
+    239,
+    "A1",
+    1,
+    null,
+    "ngsl"
+   ],
+   [
+    240,
+    246,
+    "B2",
+    1,
+    null,
+    "ngsl"
+   ],
+   [
+    248,
+    256,
+    "B1",
+    2,
+    null,
+    "ngsl"
+   ],
+   [
+    257,
+    258,
+    "A1",
+    1,
+    null,
+    "ngsl"
+   ],
+   [
+    259,
+    264,
+    "A1",
+    1,
+    null,
+    "ngsl"
+   ],
+   [
+    265,
+    270,
+    "A1",
+    2,
+    null,
+    null
+   ],
+   [
+    271,
+    277,
+    "A1",
+    1,
+    null,
+    "ngsl"
+   ],
+   [
+    278,
+    281,
+    "A1",
+    1,
+    null,
+    "ngsl"
+   ],
+   [
+    282,
+    291,
+    "A1",
+    1,
+    null,
+    "ngsl"
+   ],
+   [
+    292,
+    295,
+    "A1",
+    1,
+    null,
+    "ngsl"
+   ],
+   [
+    296,
+    304,
+    "B1",
+    1,
+    null,
+    "ngsl"
+   ],
+   [
+    305,
+    306,
+    "A1",
+    1,
+    null,
+    "ngsl"
+   ],
+   [
+    307,
+    315,
+    null,
+    2,
+    null,
+    null
+   ],
+   [
+    316,
+    319,
+    "A2",
+    5,
+    null,
+    null
+   ],
+   [
+    320,
+    322,
+    "A1",
+    1,
+    null,
+    "ngsl"
+   ],
+   [
+    323,
+    328,
+    "B2",
+    6,
+    null,
+    null
+   ],
+   [
+    329,
+    333,
+    "A1",
+    1,
+    null,
+    "ngsl"
+   ],
+   [
+    334,
+    337,
+    "A1",
+    1,
+    null,
+    "ngsl"
+   ],
+   [
+    338,
+    342,
+    "A1",
+    1,
+    null,
+    "ngsl"
+   ],
+   [
+    343,
+    348,
+    "A1",
+    1,
+    null,
+    "ngsl"
+   ],
+   [
+    350,
+    355,
+    "A1",
+    1,
+    null,
+    "ngsl"
+   ],
+   [
+    356,
+    361,
+    "A1",
+    1,
+    null,
+    "ngsl"
+   ],
+   [
+    363,
+    370,
+    "A1",
+    1,
+    null,
+    "ngsl"
+   ],
+   [
+    371,
+    375,
+    "A2",
+    1,
+    null,
+    "ngsl"
+   ],
+   [
+    376,
+    383,
+    "A1",
+    1,
+    null,
+    "ngsl"
+   ],
+   [
+    384,
+    385,
+    "A1",
+    1,
+    null,
+    "ngsl"
+   ],
+   [
+    386,
+    392,
+    "A2",
+    1,
+    null,
+    "ngsl"
+   ],
+   [
+    393,
+    401,
+    null,
+    "supplementary",
+    null,
+    null
+   ],
+   [
+    402,
+    404,
+    "A1",
+    1,
+    null,
+    "ngsl"
+   ],
+   [
+    405,
+    406,
+    "A1",
+    1,
+    null,
+    "ngsl"
+   ],
+   [
+    407,
+    411,
+    "A1",
+    1,
+    null,
+    "ngsl"
+   ],
+   [
+    412,
+    415,
+    "A2",
+    1,
+    null,
+    "ngsl"
+   ],
+   [
+    416,
+    420,
+    "A1",
+    1,
+    null,
+    "ngsl"
+   ],
+   [
+    421,
+    426,
+    "A1",
+    1,
+    null,
+    "ngsl"
+   ],
+   [
+    427,
+    432,
+    "A1",
+    1,
+    null,
+    "ngsl"
+   ],
+   [
+    434,
+    437,
+    "A1",
+    1,
+    null,
+    "ngsl"
+   ],
+   [
+    438,
+    442,
+    "A1",
+    1,
+    null,
+    "ngsl"
+   ],
+   [
+    443,
+    446,
+    "A1",
+    1,
+    null,
+    "ngsl"
+   ],
+   [
+    447,
+    451,
+    "A1",
+    1,
+    null,
+    "ngsl"
+   ],
+   [
+    452,
+    456,
+    "A2",
+    1,
+    null,
+    "ngsl"
+   ],
+   [
+    457,
+    460,
+    "A2",
+    2,
+    null,
+    "ngsl"
+   ],
+   [
+    461,
+    467,
+    "B1",
+    1,
+    null,
+    "ngsl"
+   ],
+   [
+    468,
+    470,
+    "A1",
+    1,
+    null,
+    "ngsl"
+   ],
+   [
+    471,
+    474,
+    "A1",
+    1,
+    null,
+    "ngsl"
+   ],
+   [
+    475,
+    480,
+    "A2",
+    2,
+    null,
+    "ngsl"
+   ],
+   [
+    482,
+    485,
+    "A1",
+    1,
+    null,
+    "ngsl"
+   ],
+   [
+    486,
+    489,
+    "A1",
+    1,
+    null,
+    "ngsl"
+   ],
+   [
+    490,
+    497,
+    "A1",
+    1,
+    null,
+    "ngsl"
+   ],
+   [
+    498,
+    501,
+    "A1",
+    1,
+    null,
+    "ngsl"
+   ],
+   [
+    502,
+    506,
+    "B1",
+    1,
+    null,
+    "ngsl"
+   ],
+   [
+    507,
+    509,
+    "A1",
+    1,
+    null,
+    "ngsl"
+   ],
+   [
+    510,
+    517,
+    "A1",
+    1,
+    null,
+    "ngsl"
+   ],
+   [
+    518,
+    520,
+    "A1",
+    1,
+    null,
+    "ngsl"
+   ],
+   [
+    521,
+    524,
+    "A2",
+    1,
+    null,
+    "ngsl"
+   ]
+  ]
+ },
+ "readability": {
+  "averages": {
+   "characters_per_word": 4.5,
+   "syllables_per_word": 1.33,
+   "words_per_sentence": 23.5
+  },
+  "counts": {
+   "characters": 432,
+   "characters_with_spaces": 526,
+   "difficult_words": 6,
+   "long_words": 16,
+   "monosyllable_words": 65,
+   "polysyllable_words": 2,
+   "reading_time_seconds": 23.7,
+   "sentences": 4,
+   "syllables": 125,
+   "words": 94
+  },
+  "reliability": {
+   "notes": [
+    "Only 94 words. Readability formulas were fitted on passages of 100+ words; on shorter texts one long word or sentence swings every score.",
+    "SMOG was normed on 30-sentence samples; this text has 4, so the SMOG score is extrapolated."
+   ],
+   "reliable": false
+  },
+  "scores": {
+   "automated_readability_index": 11.52,
+   "coleman_liau_index": 9.4,
+   "dale_chall_readability_score": 5.81,
+   "flesch_kincaid_grade": 9.27,
+   "flesch_reading_ease": 70.48,
+   "gunning_fog": 9.83,
+   "linsear_write_formula": 12.25,
+   "smog_index": 7.17,
+   "text_standard": 9.33
+  },
+  "validity": {
+   "evidence": "On the CLEAR corpus (4,724 school reading excerpts ranked by teachers), Flesch, Flesch-Kincaid, ARI, SMOG and New Dale-Chall correlate r = .48-.56 with the teachers' ease scores, about a quarter to a third of the variance (Crossley et al. 2023, Behavior Research Methods, doi:10.3758/s13428-022-01802-x). Coleman-Liau and Linsear Write weren't tested. The formulas largely duplicate each other.",
+   "population": "Normed on 20th-century US native-speaker readers; evidence for second-language readers is thinner.",
+   "status": "legacy",
+   "text_standard": "The median of the eight grades: a convenience summary with no validation of its own."
+  }
+ },
+ "statistics": {
+  "averages": {
+   "polysyllable_pct": 2.128,
+   "syllables_per_100_words": 132.979,
+   "syllables_per_sentence": 31.25,
+   "syllables_per_word": 1.33,
+   "tokens_per_sentence": 23.5,
+   "type_token_ratio": 0.777
+  },
+  "counts": {
+   "characters_with_spaces": 526,
+   "characters_without_spaces": 432,
+   "excluded_numeric_tokens": 0,
+   "polysyllable_words": 2,
+   "sentences": 4,
+   "syllables": 125,
+   "tokens_excluding_numbers": 94,
+   "unique_types_excluding_numbers": 73
+  },
+  "excluded_digits": []
+ },
+ "tagger": {
+  "counts": {
+   "sentences": 4,
+   "total_tokens": 103
+  },
+  "ptb_distribution": {
+   ",": 5,
+   ".": 4,
+   "CC": 2,
+   "DT": 12,
+   "IN": 15,
+   "JJ": 7,
+   "MD": 2,
+   "NN": 18,
+   "NNP": 1,
+   "NNS": 5,
+   "PRP": 4,
+   "PRP$": 4,
+   "RB": 10,
+   "VB": 2,
+   "VBD": 5,
+   "VBG": 5,
+   "VBN": 1,
+   "WDT": 1
+  },
+  "summary": {
+   "content_tokens": 94,
+   "noun_elements_per_sentence": 6.0,
+   "tokens_per_type": 1.288,
+   "total_noun_elements": 24,
+   "total_verbal_elements": 15,
+   "type_token_ratio": 0.777,
+   "types": 73,
+   "verbal_elements_per_sentence": 3.75
+  },
+  "upos_distribution": {
+   "ADJ": 7,
+   "ADP": 15,
+   "ADV": 10,
+   "AUX": 3,
+   "CCONJ": 2,
+   "DET": 12,
+   "NOUN": 22,
+   "PRON": 10,
+   "PROPN": 1,
+   "PUNCT": 9,
+   "VERB": 12
+  }
+ }
+}
