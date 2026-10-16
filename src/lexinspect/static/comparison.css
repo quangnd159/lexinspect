@@ -58,14 +58,17 @@
 .comparison-method dt { color: var(--ink-2); }
 .comparison-method dd { margin: 0; }
 .comparison-passage { border: 1px solid var(--line-2); border-radius: 12px; background: var(--surface); margin: 28px 0; }
-.comparison-passage summary { cursor: pointer; padding: 20px; font-size: 14px; font-weight: 550; }
-.comparison-passage summary span { float: right; color: var(--ink-2); font-size: 12px; font-weight: 400; }
+.comparison-passage summary { display: flex; align-items: center; gap: 12px; cursor: pointer; padding: 20px; font-size: 14px; font-weight: 550; list-style: none; }
+.comparison-passage summary::-webkit-details-marker { display: none; }
+.comparison-passage summary::before { content: ''; flex: 0 0 6px; width: 6px; height: 6px; border-right: 1.5px solid currentColor; border-bottom: 1.5px solid currentColor; transform: rotate(-45deg); }
+.comparison-passage[open] summary::before { transform: rotate(45deg); }
+.comparison-passage summary span { margin-left: auto; color: var(--ink-2); font-size: 12px; font-weight: 400; }
 .passage-body { padding: 8px 24px 0; font: 400 19px/1.65 var(--font-text); }
 .comparison-section .passage-body p { line-height: 1.65; margin-bottom: 22px; }
 .passage-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 20px; padding: 0 24px 16px; font-size: 12px; }
 .passage-actions button { padding: 0; color: var(--accent); border: 0; background: none; cursor: pointer; text-decoration: underline; text-underline-offset: 3px; }
 .passage-actions button, .passage-actions a { display: inline-flex; align-items: center; min-height: 44px; }
-#copy-status { color: var(--ink-2); }
+#copy-status { flex-basis: 100%; min-height: 1.5em; line-height: 1.5; color: var(--ink-2); }
 .comparison-limit { padding-left: 20px; border-left: 2px solid var(--line-2); margin-top: 32px; }
 .comparison-limit h3 { margin: 0 0 10px; font-size: 14px; font-weight: 550; }
 .comparison-limit p { font-size: 13px; color: var(--ink-2); }
@@ -79,7 +82,20 @@
 .comparison-end { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px 24px; }
 .comparison-end p { font: 450 28px/1.2 var(--font-text); margin: 0; }
 .comparison-page .site-footer { padding-bottom: max(16px, env(safe-area-inset-bottom)); }
-.comparison-button:active, .comparison-downloads a:active { opacity: .75; }
+.comparison-button, .passage-actions button { -webkit-user-select: none; user-select: none; }
+.comparison-page[data-input='pointer'] .comparison-button,
+.comparison-page[data-input='pointer'] .passage-actions button { transition: transform 160ms var(--ease-out), opacity 160ms var(--ease-out); }
+.comparison-page[data-input='pointer'] .comparison-button:active,
+.comparison-page[data-input='pointer'] .passage-actions button:active { transform: scale(.97); opacity: .8; }
+.comparison-page[data-input='pointer'] .comparison-passage summary::before { transition: transform 200ms var(--ease-out); }
+.comparison-downloads a:active { opacity: .75; }
+@media (prefers-reduced-motion: reduce) {
+  .comparison-page[data-input='pointer'] .comparison-button,
+  .comparison-page[data-input='pointer'] .passage-actions button { transition: opacity 160ms var(--ease-out); }
+  .comparison-page[data-input='pointer'] .comparison-button:active,
+  .comparison-page[data-input='pointer'] .passage-actions button:active { transform: none; }
+  .comparison-page[data-input='pointer'] .comparison-passage summary::before { transition: none; }
+}
 @media (hover: hover) and (pointer: fine) {
   .comparison-contents a:hover, .comparison-downloads a:hover strong { color: var(--accent); }
   .comparison-button:hover { background: var(--ink-2); }
