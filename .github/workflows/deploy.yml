@@ -32,11 +32,11 @@ jobs:
       VERCEL_ORG_ID: team_PG6AAoF8oxMLm4JeuUCiycRh
       VERCEL_PROJECT_ID: prj_aIZyHkugjTEwLTBpzI5PLbFvtjqZ
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v7
 
       # `vercel build` shells out to uv for the Python runtime and fails with
       # "uv is required but was not found in PATH" without it.
-      - uses: astral-sh/setup-uv@v5
+      - uses: astral-sh/setup-uv@v7
         with:
           enable-cache: true
 
