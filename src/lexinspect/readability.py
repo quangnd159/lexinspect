@@ -113,7 +113,9 @@ def _numeral_syllables(text: str) -> int:
     digits = "".join(c for c in text if c.isdigit() or c == ".")
     if not digits:
         return 1
-    whole, _, frac = digits.partition(".")
+    # `3.1.2` (a section number, a version, an IP address) is read
+    # "three point one point two": every group after a dot is a fraction.
+    whole, *fracs = digits.split(".")
     total = 0
     if whole:
         n = int(whole)
@@ -123,8 +125,9 @@ def _numeral_syllables(text: str) -> int:
         else:
             words = _say_int(n) if n < 10**12 else ["number"] * len(whole)
         total += sum(_syllables.count(w) for w in words)
-    if frac:
-        total += 1 + sum(_syllables.count(_ONES[int(d)] or "zero") for d in frac)  # "point ..."
+    for frac in fracs:
+        if frac:
+            total += 1 + sum(_syllables.count(_ONES[int(d)] or "zero") for d in frac)  # "point ..."
     return max(1, total)
 
 

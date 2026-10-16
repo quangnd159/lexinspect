@@ -32,6 +32,8 @@ from lexinspect import _lists
 from lexinspect._text import Analysis, ensure, lookup
 
 WORDS_PER_LEVEL_LIMIT = 100
+# Below this the 95% estimate rests on too few words to mean anything (Study 5).
+MIN_WORDS_ESTIMATE = 50
 OFF_LIST_LIMIT = 200
 
 
@@ -88,6 +90,7 @@ def analyze(text: str, *, analysis: Analysis | None = None) -> dict[str, Any]:
         "per_level": per_level,
         "dominant_level": max(levels, key=lambda lv: tokens[lv]) if on_list else None,
         "estimated_level_95th": estimated,
+        "estimate_reliability": _estimate_reliability(a.word_count, estimated),
         "highest_level_present": next((lv for lv in reversed(levels) if tokens[lv]), None),
         "words_by_level": {
             lvl: [{"word": w, "count": c} for w, c in words[lvl].most_common(WORDS_PER_LEVEL_LIMIT)]
@@ -99,11 +102,27 @@ def analyze(text: str, *, analysis: Analysis | None = None) -> dict[str, Any]:
         "caveat": (
             "Heuristic only. Based on CEFR-J 1.5 + Octanove C1/C2 1.0; not Cambridge EVP. "
             "estimated_level_95th is the lowest level whose cumulative coverage reaches "
-            "95%; no published study validates it as a text's CEFR level. "
+            "95%. It describes the vocabulary used, not the writer's proficiency. In "
+            "lexinspect's Study 5 it was within one level of graded reading texts' level "
+            "84-89% of the time but exact only 42-54%, rated C1-C2 texts low, and carried "
+            "almost no information on learner writing. "
             "Cite both sources. Combine this with readability, BNC/COCA and diversity "
             "signals before reporting a level."
         ),
     }
+
+
+def _estimate_reliability(words: int, estimated: str | None) -> dict[str, Any]:
+    notes = []
+    if words < MIN_WORDS_ESTIMATE:
+        notes.append(f"Only {words} words; the estimate needs {MIN_WORDS_ESTIMATE} or more.")
+    if estimated is None and words:
+        notes.append("More than 5% of words are beyond the C2 lists; this isn't a C2 rating.")
+    notes.append(
+        "A rough guide: usually within one level of a reading text's graded level, "
+        "and not a measure of a learner's proficiency."
+    )
+    return {"reliable": words >= MIN_WORDS_ESTIMATE, "notes": notes}
 
 
 def _pct(n: int, total: int) -> float:

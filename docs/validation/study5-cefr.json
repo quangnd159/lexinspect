@@ -1,0 +1,4214 @@
+{
+  "datasets": {
+    "ace_cefr": {
+      "source": "Kogan et al. 2025, Ace-CEFR, arXiv:2506.14046 (ancillary file ace_cefr_labeled.csv, v1)",
+      "licence": "CC0 1.0 (arXiv licence for 2506.14046 and its ancillary file)",
+      "text_type": "conversational passages (mixed sources: written for the task, LLM-generated, learner chats, web)",
+      "construct": "conversational",
+      "in_universalcefr_so_overlaps_classifier_training": false,
+      "n": 890,
+      "n_per_level": {
+        "A1": 127,
+        "A2": 143,
+        "B1": 164,
+        "B2": 188,
+        "C1": 145,
+        "C2": 123
+      },
+      "words_median": 10,
+      "words_range": [
+        1,
+        114
+      ],
+      "readability_crashes": 0
+    },
+    "cambridge_exams": {
+      "source": "Xia, Kochmar & Briscoe 2016 (Cambridge English exam reading passages), via UniversalCEFR",
+      "licence": "CC BY-NC-SA 4.0",
+      "text_type": "reading texts written for a level (Cambridge exam passages, KET-CPE)",
+      "construct": "reading",
+      "in_universalcefr_so_overlaps_classifier_training": true,
+      "n": 331,
+      "n_per_level": {
+        "A1": 0,
+        "A2": 64,
+        "B1": 60,
+        "B2": 71,
+        "C1": 67,
+        "C2": 69
+      },
+      "words_median": 561,
+      "words_range": [
+        76,
+        1316
+      ],
+      "readability_crashes": 1
+    },
+    "elg_cefr_en": {
+      "source": "Breuker 2023, ELG CEFR Labelling (EDIA), via UniversalCEFR",
+      "licence": "CC BY-NC 4.0 (dataset card; records say CC BY-NC-SA 4.0)",
+      "text_type": "reading texts written or graded for a level",
+      "construct": "reading",
+      "in_universalcefr_so_overlaps_classifier_training": true,
+      "n": 388,
+      "n_per_level": {
+        "A1": 25,
+        "A2": 78,
+        "B1": 151,
+        "B2": 104,
+        "C1": 30,
+        "C2": 0
+      },
+      "words_median": 268,
+      "words_range": [
+        140,
+        576
+      ],
+      "readability_crashes": 0,
+      "note": "324 ELG texts are Cambridge exam passages (matched on the first 200 normalised characters; 324 carry the same level) and are excluded here; n counts only the remaining ELG texts."
+    },
+    "icle500": {
+      "source": "ICLE v3 essays rated by Thwaites, Vandeweerd & Paquot 2024, via UniversalCEFR",
+      "licence": "CC BY-NC 4.0 (dataset card; records say CC0 1.0)",
+      "text_type": "learner writing graded at a level (argumentative essays by university EFL learners)",
+      "construct": "learner",
+      "in_universalcefr_so_overlaps_classifier_training": true,
+      "n": 488,
+      "n_per_level": {
+        "A1": 0,
+        "A2": 1,
+        "B1": 114,
+        "B2": 218,
+        "C1": 91,
+        "C2": 64
+      },
+      "words_median": 580,
+      "words_range": [
+        402,
+        834
+      ],
+      "readability_crashes": 0
+    },
+    "cefr_asag": {
+      "source": "Tack et al. 2017, CEFR-ASAG short answers, via UniversalCEFR",
+      "licence": "CC BY-NC-SA 4.0",
+      "text_type": "learner writing graded at a level (short answers by EFL learners)",
+      "construct": "learner",
+      "in_universalcefr_so_overlaps_classifier_training": true,
+      "n": 299,
+      "n_per_level": {
+        "A1": 18,
+        "A2": 59,
+        "B1": 113,
+        "B2": 74,
+        "C1": 30,
+        "C2": 5
+      },
+      "words_median": 58,
+      "words_range": [
+        2,
+        295
+      ],
+      "readability_crashes": 0
+    },
+    "cefr_sp": {
+      "source": "Arase, Uchida & Kajiwara 2022, CEFR-SP, via UniversalCEFR",
+      "licence": "CC BY-NC-SA 4.0",
+      "text_type": "single sentences (from simplification corpora) rated by English teachers",
+      "construct": "sentence",
+      "in_universalcefr_so_overlaps_classifier_training": true,
+      "n": 10004,
+      "n_per_level": {
+        "A1": 124,
+        "A2": 1271,
+        "B1": 3305,
+        "B2": 3330,
+        "C1": 1744,
+        "C2": 230
+      },
+      "words_median": 13,
+      "words_range": [
+        4,
+        31
+      ],
+      "readability_crashes": 3
+    },
+    "readme_en": {
+      "source": "Naous et al. 2024, ReadMe++ (English), via UniversalCEFR",
+      "licence": "CC BY-NC-SA 4.0",
+      "text_type": "single sentences from 112 domains rated for readability on the CEFR scale",
+      "construct": "sentence",
+      "in_universalcefr_so_overlaps_classifier_training": true,
+      "n": 2822,
+      "n_per_level": {
+        "A1": 182,
+        "A2": 673,
+        "B1": 623,
+        "B2": 896,
+        "C1": 377,
+        "C2": 71
+      },
+      "words_median": 17,
+      "words_range": [
+        0,
+        136
+      ],
+      "readability_crashes": 2
+    }
+  },
+  "estimators": {
+    "baseline_modal_level": {
+      "ace_cefr": {
+        "n": 890,
+        "exact": 0.2112,
+        "within_one": 0.5584,
+        "off_by_two_or_more": 0.4416,
+        "macro_f1": 0.0581,
+        "weighted_f1": 0.0737,
+        "qwk": 0.0,
+        "mean_signed_error": 0.494,
+        "mean_abs_error": 1.373,
+        "pred_distribution": {
+          "A1": 0,
+          "A2": 0,
+          "B1": 0,
+          "B2": 890,
+          "C1": 0,
+          "C2": 0
+        },
+        "confusion_matrix": {
+          "rows_gold_cols_pred": [
+            "A1",
+            "A2",
+            "B1",
+            "B2",
+            "C1",
+            "C2"
+          ],
+          "matrix": [
+            [
+              0,
+              0,
+              0,
+              127,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0,
+              143,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0,
+              164,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0,
+              188,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0,
+              145,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0,
+              123,
+              0,
+              0
+            ]
+          ]
+        },
+        "by_length": {
+          "<20": {
+            "n": 723,
+            "exact": 0.2158,
+            "within_one": 0.5436,
+            "qwk": 0.0,
+            "mean_signed_error": 0.833
+          },
+          "20-49": {
+            "n": 161,
+            "exact": 0.1988,
+            "within_one": 0.6335,
+            "qwk": 0.0,
+            "mean_signed_error": -0.944
+          },
+          "50-149": {
+            "n": 6,
+            "exact": 0.0,
+            "within_one": 0.3333,
+            "qwk": null,
+            "mean_signed_error": -1.667
+          }
+        },
+        "predicts": "B2"
+      },
+      "cambridge_exams": {
+        "n": 331,
+        "exact": 0.2145,
+        "within_one": 0.5982,
+        "off_by_two_or_more": 0.4018,
+        "macro_f1": 0.0706,
+        "weighted_f1": 0.0758,
+        "qwk": 0.0,
+        "mean_signed_error": -0.051,
+        "mean_abs_error": 1.187,
+        "pred_distribution": {
+          "A1": 0,
+          "A2": 0,
+          "B1": 0,
+          "B2": 331,
+          "C1": 0,
+          "C2": 0
+        },
+        "confusion_matrix": {
+          "rows_gold_cols_pred": [
+            "A1",
+            "A2",
+            "B1",
+            "B2",
+            "C1",
+            "C2"
+          ],
+          "matrix": [
+            [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0,
+              64,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0,
+              60,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0,
+              71,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0,
+              67,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0,
+              69,
+              0,
+              0
+            ]
+          ]
+        },
+        "by_length": {
+          "50-149": {
+            "n": 57,
+            "exact": 0.0,
+            "within_one": 0.2632,
+            "qwk": 0.0,
+            "mean_signed_error": 1.737
+          },
+          "150-399": {
+            "n": 59,
+            "exact": 0.0,
+            "within_one": 0.5763,
+            "qwk": 0.0,
+            "mean_signed_error": 1.085
+          },
+          "400+": {
+            "n": 215,
+            "exact": 0.3302,
+            "within_one": 0.693,
+            "qwk": 0.0,
+            "mean_signed_error": -0.837
+          }
+        },
+        "predicts": "B2"
+      },
+      "elg_cefr_en": {
+        "n": 388,
+        "exact": 0.3892,
+        "within_one": 0.8582,
+        "off_by_two_or_more": 0.1418,
+        "macro_f1": 0.1121,
+        "weighted_f1": 0.2181,
+        "qwk": 0.0,
+        "mean_signed_error": -0.093,
+        "mean_abs_error": 0.753,
+        "pred_distribution": {
+          "A1": 0,
+          "A2": 0,
+          "B1": 388,
+          "B2": 0,
+          "C1": 0,
+          "C2": 0
+        },
+        "confusion_matrix": {
+          "rows_gold_cols_pred": [
+            "A1",
+            "A2",
+            "B1",
+            "B2",
+            "C1",
+            "C2"
+          ],
+          "matrix": [
+            [
+              0,
+              0,
+              25,
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              78,
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              151,
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              104,
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              30,
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          ]
+        },
+        "by_length": {
+          "50-149": {
+            "n": 1,
+            "exact": 1.0,
+            "within_one": 1.0,
+            "qwk": null,
+            "mean_signed_error": 0.0
+          },
+          "150-399": {
+            "n": 385,
+            "exact": 0.387,
+            "within_one": 0.8571,
+            "qwk": 0.0,
+            "mean_signed_error": -0.091
+          },
+          "400+": {
+            "n": 2,
+            "exact": 0.5,
+            "within_one": 1.0,
+            "qwk": null,
+            "mean_signed_error": -0.5
+          }
+        },
+        "predicts": "B1"
+      },
+      "icle500": {
+        "n": 488,
+        "exact": 0.4467,
+        "within_one": 0.8668,
+        "off_by_two_or_more": 0.1332,
+        "macro_f1": 0.1235,
+        "weighted_f1": 0.2759,
+        "qwk": 0.0,
+        "mean_signed_error": -0.211,
+        "mean_abs_error": 0.686,
+        "pred_distribution": {
+          "A1": 0,
+          "A2": 0,
+          "B1": 0,
+          "B2": 488,
+          "C1": 0,
+          "C2": 0
+        },
+        "confusion_matrix": {
+          "rows_gold_cols_pred": [
+            "A1",
+            "A2",
+            "B1",
+            "B2",
+            "C1",
+            "C2"
+          ],
+          "matrix": [
+            [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0,
+              1,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0,
+              114,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0,
+              218,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0,
+              91,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0,
+              64,
+              0,
+              0
+            ]
+          ]
+        },
+        "by_length": {
+          "400+": {
+            "n": 488,
+            "exact": 0.4467,
+            "within_one": 0.8668,
+            "qwk": 0.0,
+            "mean_signed_error": -0.211
+          }
+        },
+        "predicts": "B2"
+      },
+      "cefr_asag": {
+        "n": 299,
+        "exact": 0.3779,
+        "within_one": 0.8227,
+        "off_by_two_or_more": 0.1773,
+        "macro_f1": 0.0914,
+        "weighted_f1": 0.2073,
+        "qwk": 0.0,
+        "mean_signed_error": -0.181,
+        "mean_abs_error": 0.816,
+        "pred_distribution": {
+          "A1": 0,
+          "A2": 0,
+          "B1": 299,
+          "B2": 0,
+          "C1": 0,
+          "C2": 0
+        },
+        "confusion_matrix": {
+          "rows_gold_cols_pred": [
+            "A1",
+            "A2",
+            "B1",
+            "B2",
+            "C1",
+            "C2"
+          ],
+          "matrix": [
+            [
+              0,
+              0,
+              18,
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              59,
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              113,
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              74,
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              30,
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              5,
+              0,
+              0,
+              0
+            ]
+          ]
+        },
+        "by_length": {
+          "<20": {
+            "n": 55,
+            "exact": 0.4909,
+            "within_one": 0.8909,
+            "qwk": 0.0,
+            "mean_signed_error": -0.218
+          },
+          "20-49": {
+            "n": 74,
+            "exact": 0.2973,
+            "within_one": 0.7162,
+            "qwk": 0.0,
+            "mean_signed_error": -0.135
+          },
+          "50-149": {
+            "n": 141,
+            "exact": 0.3759,
+            "within_one": 0.8511,
+            "qwk": 0.0,
+            "mean_signed_error": -0.085
+          },
+          "150-399": {
+            "n": 29,
+            "exact": 0.3793,
+            "within_one": 0.8276,
+            "qwk": 0.0,
+            "mean_signed_error": -0.69
+          }
+        },
+        "predicts": "B1"
+      },
+      "cefr_sp": {
+        "n": 10004,
+        "exact": 0.3329,
+        "within_one": 0.8376,
+        "off_by_two_or_more": 0.1624,
+        "macro_f1": 0.0832,
+        "weighted_f1": 0.1663,
+        "qwk": 0.0,
+        "mean_signed_error": 0.401,
+        "mean_abs_error": 0.842,
+        "pred_distribution": {
+          "A1": 0,
+          "A2": 0,
+          "B1": 0,
+          "B2": 10004,
+          "C1": 0,
+          "C2": 0
+        },
+        "confusion_matrix": {
+          "rows_gold_cols_pred": [
+            "A1",
+            "A2",
+            "B1",
+            "B2",
+            "C1",
+            "C2"
+          ],
+          "matrix": [
+            [
+              0,
+              0,
+              0,
+              124,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0,
+              1271,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0,
+              3305,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0,
+              3330,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0,
+              1744,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0,
+              230,
+              0,
+              0
+            ]
+          ]
+        },
+        "by_length": {
+          "<20": {
+            "n": 8437,
+            "exact": 0.3052,
+            "within_one": 0.8172,
+            "qwk": 0.0,
+            "mean_signed_error": 0.533
+          },
+          "20-49": {
+            "n": 1567,
+            "exact": 0.4818,
+            "within_one": 0.947,
+            "qwk": 0.0,
+            "mean_signed_error": -0.307
+          }
+        },
+        "predicts": "B2"
+      },
+      "readme_en": {
+        "n": 2822,
+        "exact": 0.3175,
+        "within_one": 0.6719,
+        "off_by_two_or_more": 0.3281,
+        "macro_f1": 0.0803,
+        "weighted_f1": 0.153,
+        "qwk": 0.0,
+        "mean_signed_error": 0.707,
+        "mean_abs_error": 1.075,
+        "pred_distribution": {
+          "A1": 0,
+          "A2": 0,
+          "B1": 0,
+          "B2": 2822,
+          "C1": 0,
+          "C2": 0
+        },
+        "confusion_matrix": {
+          "rows_gold_cols_pred": [
+            "A1",
+            "A2",
+            "B1",
+            "B2",
+            "C1",
+            "C2"
+          ],
+          "matrix": [
+            [
+              0,
+              0,
+              0,
+              182,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0,
+              673,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0,
+              623,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0,
+              896,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0,
+              377,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0,
+              71,
+              0,
+              0
+            ]
+          ]
+        },
+        "by_length": {
+          "<20": {
+            "n": 1640,
+            "exact": 0.2171,
+            "within_one": 0.5055,
+            "qwk": 0.0,
+            "mean_signed_error": 1.275
+          },
+          "20-49": {
+            "n": 1101,
+            "exact": 0.475,
+            "within_one": 0.9119,
+            "qwk": 0.0,
+            "mean_signed_error": -0.017
+          },
+          "50-149": {
+            "n": 81,
+            "exact": 0.2099,
+            "within_one": 0.7778,
+            "qwk": 0.0,
+            "mean_signed_error": -0.938
+          }
+        },
+        "predicts": "B2"
+      }
+    },
+    "a_estimated_level_95th": {
+      "ace_cefr": {
+        "n": 890,
+        "exact": 0.3607,
+        "within_one": 0.7315,
+        "off_by_two_or_more": 0.2685,
+        "macro_f1": 0.3249,
+        "weighted_f1": 0.3116,
+        "qwk": 0.6892,
+        "mean_signed_error": -0.217,
+        "mean_abs_error": 1.003,
+        "pred_distribution": {
+          "A1": 231,
+          "A2": 142,
+          "B1": 146,
+          "B2": 115,
+          "C1": 22,
+          "C2": 234
+        },
+        "confusion_matrix": {
+          "rows_gold_cols_pred": [
+            "A1",
+            "A2",
+            "B1",
+            "B2",
+            "C1",
+            "C2"
+          ],
+          "matrix": [
+            [
+              106,
+              14,
+              3,
+              1,
+              0,
+              3
+            ],
+            [
+              72,
+              50,
+              10,
+              3,
+              0,
+              8
+            ],
+            [
+              38,
+              42,
+              44,
+              13,
+              1,
+              26
+            ],
+            [
+              14,
+              27,
+              53,
+              38,
+              6,
+              50
+            ],
+            [
+              0,
+              8,
+              30,
+              41,
+              1,
+              65
+            ],
+            [
+              1,
+              1,
+              6,
+              19,
+              14,
+              82
+            ]
+          ],
+          "no_estimate_by_gold": [
+            3,
+            8,
+            25,
+            50,
+            64,
+            77
+          ]
+        },
+        "by_length": {
+          "<20": {
+            "n": 723,
+            "exact": 0.3817,
+            "within_one": 0.7524,
+            "qwk": 0.6799,
+            "mean_signed_error": -0.115
+          },
+          "20-49": {
+            "n": 161,
+            "exact": 0.2733,
+            "within_one": 0.646,
+            "qwk": 0.4703,
+            "mean_signed_error": -0.627
+          },
+          "50-149": {
+            "n": 6,
+            "exact": 0.1667,
+            "within_one": 0.5,
+            "qwk": null,
+            "mean_signed_error": -1.5
+          }
+        },
+        "no_estimate_n": 227,
+        "no_estimate_handling": "null counted as C2 (the text's words go beyond the C2 lists)",
+        "answered_only": {
+          "n": 663,
+          "exact": 0.368,
+          "within_one": 0.7692,
+          "off_by_two_or_more": 0.2308,
+          "macro_f1": 0.2959,
+          "weighted_f1": 0.3279,
+          "qwk": 0.6353,
+          "mean_signed_error": -0.722,
+          "mean_abs_error": 0.916,
+          "pred_distribution": {
+            "A1": 231,
+            "A2": 142,
+            "B1": 146,
+            "B2": 115,
+            "C1": 22,
+            "C2": 7
+          }
+        }
+      },
+      "cambridge_exams": {
+        "n": 331,
+        "exact": 0.5408,
+        "within_one": 0.8882,
+        "off_by_two_or_more": 0.1118,
+        "macro_f1": 0.543,
+        "weighted_f1": 0.5379,
+        "qwk": 0.7536,
+        "mean_signed_error": -0.332,
+        "mean_abs_error": 0.592,
+        "pred_distribution": {
+          "A1": 1,
+          "A2": 59,
+          "B1": 100,
+          "B2": 85,
+          "C1": 44,
+          "C2": 42
+        },
+        "confusion_matrix": {
+          "rows_gold_cols_pred": [
+            "A1",
+            "A2",
+            "B1",
+            "B2",
+            "C1",
+            "C2"
+          ],
+          "matrix": [
+            [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            [
+              1,
+              48,
+              11,
+              1,
+              1,
+              2
+            ],
+            [
+              0,
+              11,
+              47,
+              2,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              36,
+              32,
+              1,
+              2
+            ],
+            [
+              0,
+              0,
+              4,
+              25,
+              26,
+              12
+            ],
+            [
+              0,
+              0,
+              2,
+              25,
+              16,
+              26
+            ]
+          ],
+          "no_estimate_by_gold": [
+            0,
+            2,
+            0,
+            2,
+            11,
+            6
+          ]
+        },
+        "by_length": {
+          "50-149": {
+            "n": 57,
+            "exact": 0.7018,
+            "within_one": 0.9298,
+            "qwk": 0.1026,
+            "mean_signed_error": 0.316
+          },
+          "150-399": {
+            "n": 59,
+            "exact": 0.6949,
+            "within_one": 0.9831,
+            "qwk": 0.8096,
+            "mean_signed_error": -0.186
+          },
+          "400+": {
+            "n": 215,
+            "exact": 0.4558,
+            "within_one": 0.8512,
+            "qwk": 0.5463,
+            "mean_signed_error": -0.544
+          }
+        },
+        "no_estimate_n": 21,
+        "no_estimate_handling": "null counted as C2 (the text's words go beyond the C2 lists)",
+        "answered_only": {
+          "n": 310,
+          "exact": 0.5581,
+          "within_one": 0.8935,
+          "off_by_two_or_more": 0.1065,
+          "macro_f1": 0.5585,
+          "weighted_f1": 0.5556,
+          "qwk": 0.7691,
+          "mean_signed_error": -0.429,
+          "mean_abs_error": 0.558,
+          "pred_distribution": {
+            "A1": 1,
+            "A2": 59,
+            "B1": 100,
+            "B2": 85,
+            "C1": 44,
+            "C2": 21
+          }
+        }
+      },
+      "elg_cefr_en": {
+        "n": 388,
+        "exact": 0.4201,
+        "within_one": 0.8351,
+        "off_by_two_or_more": 0.1649,
+        "macro_f1": 0.3306,
+        "weighted_f1": 0.4353,
+        "qwk": 0.5207,
+        "mean_signed_error": 0.327,
+        "mean_abs_error": 0.802,
+        "pred_distribution": {
+          "A1": 5,
+          "A2": 100,
+          "B1": 135,
+          "B2": 80,
+          "C1": 11,
+          "C2": 57
+        },
+        "confusion_matrix": {
+          "rows_gold_cols_pred": [
+            "A1",
+            "A2",
+            "B1",
+            "B2",
+            "C1",
+            "C2"
+          ],
+          "matrix": [
+            [
+              3,
+              16,
+              3,
+              2,
+              0,
+              1
+            ],
+            [
+              2,
+              44,
+              21,
+              7,
+              0,
+              4
+            ],
+            [
+              0,
+              37,
+              78,
+              27,
+              1,
+              8
+            ],
+            [
+              0,
+              2,
+              26,
+              38,
+              10,
+              28
+            ],
+            [
+              0,
+              1,
+              7,
+              6,
+              0,
+              16
+            ],
+            [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          ],
+          "no_estimate_by_gold": [
+            1,
+            4,
+            5,
+            26,
+            15,
+            0
+          ]
+        },
+        "by_length": {
+          "50-149": {
+            "n": 1,
+            "exact": 1.0,
+            "within_one": 1.0,
+            "qwk": null,
+            "mean_signed_error": 0.0
+          },
+          "150-399": {
+            "n": 385,
+            "exact": 0.4182,
+            "within_one": 0.8364,
+            "qwk": 0.5205,
+            "mean_signed_error": 0.325
+          },
+          "400+": {
+            "n": 2,
+            "exact": 0.5,
+            "within_one": 0.5,
+            "qwk": null,
+            "mean_signed_error": 1.0
+          }
+        },
+        "no_estimate_n": 51,
+        "no_estimate_handling": "null counted as C2 (the text's words go beyond the C2 lists)",
+        "answered_only": {
+          "n": 337,
+          "exact": 0.4837,
+          "within_one": 0.9169,
+          "off_by_two_or_more": 0.0831,
+          "macro_f1": 0.3498,
+          "weighted_f1": 0.4776,
+          "qwk": 0.5254,
+          "mean_signed_error": 0.071,
+          "mean_abs_error": 0.617,
+          "pred_distribution": {
+            "A1": 5,
+            "A2": 100,
+            "B1": 135,
+            "B2": 80,
+            "C1": 11,
+            "C2": 6
+          }
+        }
+      },
+      "icle500": {
+        "n": 488,
+        "exact": 0.3914,
+        "within_one": 0.8094,
+        "off_by_two_or_more": 0.1906,
+        "macro_f1": 0.2377,
+        "weighted_f1": 0.3597,
+        "qwk": 0.2079,
+        "mean_signed_error": -0.277,
+        "mean_abs_error": 0.834,
+        "pred_distribution": {
+          "A1": 0,
+          "A2": 2,
+          "B1": 142,
+          "B2": 276,
+          "C1": 22,
+          "C2": 46
+        },
+        "confusion_matrix": {
+          "rows_gold_cols_pred": [
+            "A1",
+            "A2",
+            "B1",
+            "B2",
+            "C1",
+            "C2"
+          ],
+          "matrix": [
+            [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0,
+              1,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              47,
+              53,
+              4,
+              10
+            ],
+            [
+              0,
+              2,
+              69,
+              127,
+              8,
+              12
+            ],
+            [
+              0,
+              0,
+              19,
+              57,
+              4,
+              11
+            ],
+            [
+              0,
+              0,
+              7,
+              38,
+              6,
+              13
+            ]
+          ],
+          "no_estimate_by_gold": [
+            0,
+            0,
+            9,
+            10,
+            9,
+            13
+          ]
+        },
+        "by_length": {
+          "400+": {
+            "n": 488,
+            "exact": 0.3914,
+            "within_one": 0.8094,
+            "qwk": 0.2079,
+            "mean_signed_error": -0.277
+          }
+        },
+        "no_estimate_n": 41,
+        "no_estimate_handling": "null counted as C2 (the text's words go beyond the C2 lists)",
+        "answered_only": {
+          "n": 447,
+          "exact": 0.3982,
+          "within_one": 0.8345,
+          "off_by_two_or_more": 0.1655,
+          "macro_f1": 0.1965,
+          "weighted_f1": 0.3477,
+          "qwk": 0.1521,
+          "mean_signed_error": -0.427,
+          "mean_abs_error": 0.785,
+          "pred_distribution": {
+            "A1": 0,
+            "A2": 2,
+            "B1": 142,
+            "B2": 276,
+            "C1": 22,
+            "C2": 5
+          }
+        }
+      },
+      "cefr_asag": {
+        "n": 299,
+        "exact": 0.2508,
+        "within_one": 0.6221,
+        "off_by_two_or_more": 0.3779,
+        "macro_f1": 0.1976,
+        "weighted_f1": 0.2729,
+        "qwk": 0.0118,
+        "mean_signed_error": 0.421,
+        "mean_abs_error": 1.425,
+        "pred_distribution": {
+          "A1": 19,
+          "A2": 54,
+          "B1": 87,
+          "B2": 70,
+          "C1": 5,
+          "C2": 64
+        },
+        "confusion_matrix": {
+          "rows_gold_cols_pred": [
+            "A1",
+            "A2",
+            "B1",
+            "B2",
+            "C1",
+            "C2"
+          ],
+          "matrix": [
+            [
+              3,
+              4,
+              3,
+              1,
+              0,
+              7
+            ],
+            [
+              3,
+              14,
+              16,
+              7,
+              0,
+              19
+            ],
+            [
+              12,
+              23,
+              30,
+              24,
+              1,
+              23
+            ],
+            [
+              1,
+              9,
+              26,
+              26,
+              1,
+              11
+            ],
+            [
+              0,
+              4,
+              11,
+              9,
+              2,
+              4
+            ],
+            [
+              0,
+              0,
+              1,
+              3,
+              1,
+              0
+            ]
+          ],
+          "no_estimate_by_gold": [
+            7,
+            19,
+            22,
+            11,
+            4,
+            0
+          ]
+        },
+        "by_length": {
+          "<20": {
+            "n": 55,
+            "exact": 0.2,
+            "within_one": 0.5091,
+            "qwk": 0.1737,
+            "mean_signed_error": -0.018
+          },
+          "20-49": {
+            "n": 74,
+            "exact": 0.2297,
+            "within_one": 0.5541,
+            "qwk": 0.0191,
+            "mean_signed_error": 0.743
+          },
+          "50-149": {
+            "n": 141,
+            "exact": 0.2553,
+            "within_one": 0.6667,
+            "qwk": -0.1129,
+            "mean_signed_error": 0.454
+          },
+          "150-399": {
+            "n": 29,
+            "exact": 0.3793,
+            "within_one": 0.7931,
+            "qwk": 0.1874,
+            "mean_signed_error": 0.276
+          }
+        },
+        "no_estimate_n": 63,
+        "no_estimate_handling": "null counted as C2 (the text's words go beyond the C2 lists)",
+        "answered_only": {
+          "n": 236,
+          "exact": 0.3178,
+          "within_one": 0.7712,
+          "off_by_two_or_more": 0.2288,
+          "macro_f1": 0.2258,
+          "weighted_f1": 0.3084,
+          "qwk": 0.3153,
+          "mean_signed_error": -0.326,
+          "mean_abs_error": 0.945,
+          "pred_distribution": {
+            "A1": 19,
+            "A2": 54,
+            "B1": 87,
+            "B2": 70,
+            "C1": 5,
+            "C2": 1
+          }
+        }
+      },
+      "cefr_sp": {
+        "n": 10004,
+        "exact": 0.2393,
+        "within_one": 0.6452,
+        "off_by_two_or_more": 0.3548,
+        "macro_f1": 0.2161,
+        "weighted_f1": 0.28,
+        "qwk": 0.4746,
+        "mean_signed_error": 0.857,
+        "mean_abs_error": 1.238,
+        "pred_distribution": {
+          "A1": 573,
+          "A2": 1071,
+          "B1": 1710,
+          "B2": 1462,
+          "C1": 249,
+          "C2": 4939
+        },
+        "confusion_matrix": {
+          "rows_gold_cols_pred": [
+            "A1",
+            "A2",
+            "B1",
+            "B2",
+            "C1",
+            "C2"
+          ],
+          "matrix": [
+            [
+              45,
+              55,
+              9,
+              8,
+              0,
+              7
+            ],
+            [
+              376,
+              427,
+              249,
+              76,
+              5,
+              138
+            ],
+            [
+              148,
+              535,
+              1022,
+              643,
+              50,
+              907
+            ],
+            [
+              4,
+              53,
+              393,
+              630,
+              147,
+              2103
+            ],
+            [
+              0,
+              1,
+              37,
+              102,
+              45,
+              1559
+            ],
+            [
+              0,
+              0,
+              0,
+              3,
+              2,
+              225
+            ]
+          ],
+          "no_estimate_by_gold": [
+            7,
+            136,
+            894,
+            2047,
+            1534,
+            225
+          ]
+        },
+        "by_length": {
+          "<20": {
+            "n": 8437,
+            "exact": 0.2353,
+            "within_one": 0.631,
+            "qwk": 0.4705,
+            "mean_signed_error": 0.901
+          },
+          "20-49": {
+            "n": 1567,
+            "exact": 0.261,
+            "within_one": 0.7218,
+            "qwk": 0.3599,
+            "mean_signed_error": 0.62
+          }
+        },
+        "no_estimate_n": 4843,
+        "no_estimate_handling": "null counted as C2 (the text's words go beyond the C2 lists)",
+        "answered_only": {
+          "n": 5161,
+          "exact": 0.4203,
+          "within_one": 0.9099,
+          "off_by_two_or_more": 0.0901,
+          "macro_f1": 0.2781,
+          "weighted_f1": 0.4419,
+          "qwk": 0.5631,
+          "mean_signed_error": -0.062,
+          "mean_abs_error": 0.677,
+          "pred_distribution": {
+            "A1": 573,
+            "A2": 1071,
+            "B1": 1710,
+            "B2": 1462,
+            "C1": 249,
+            "C2": 96
+          }
+        }
+      },
+      "readme_en": {
+        "n": 2822,
+        "exact": 0.1942,
+        "within_one": 0.551,
+        "off_by_two_or_more": 0.449,
+        "macro_f1": 0.1936,
+        "weighted_f1": 0.2207,
+        "qwk": 0.3458,
+        "mean_signed_error": 1.24,
+        "mean_abs_error": 1.523,
+        "pred_distribution": {
+          "A1": 115,
+          "A2": 253,
+          "B1": 476,
+          "B2": 522,
+          "C1": 81,
+          "C2": 1375
+        },
+        "confusion_matrix": {
+          "rows_gold_cols_pred": [
+            "A1",
+            "A2",
+            "B1",
+            "B2",
+            "C1",
+            "C2"
+          ],
+          "matrix": [
+            [
+              41,
+              72,
+              37,
+              16,
+              3,
+              13
+            ],
+            [
+              58,
+              114,
+              180,
+              102,
+              10,
+              209
+            ],
+            [
+              10,
+              43,
+              132,
+              157,
+              24,
+              257
+            ],
+            [
+              4,
+              23,
+              113,
+              184,
+              31,
+              541
+            ],
+            [
+              2,
+              1,
+              12,
+              62,
+              11,
+              289
+            ],
+            [
+              0,
+              0,
+              2,
+              1,
+              2,
+              66
+            ]
+          ],
+          "no_estimate_by_gold": [
+            13,
+            205,
+            250,
+            526,
+            276,
+            65
+          ]
+        },
+        "by_length": {
+          "<20": {
+            "n": 1640,
+            "exact": 0.1616,
+            "within_one": 0.4677,
+            "qwk": 0.2943,
+            "mean_signed_error": 1.613
+          },
+          "20-49": {
+            "n": 1101,
+            "exact": 0.2343,
+            "within_one": 0.6512,
+            "qwk": 0.339,
+            "mean_signed_error": 0.767
+          },
+          "50-149": {
+            "n": 81,
+            "exact": 0.3086,
+            "within_one": 0.8765,
+            "qwk": 0.387,
+            "mean_signed_error": 0.123
+          }
+        },
+        "no_estimate_n": 1335,
+        "no_estimate_handling": "null counted as C2 (the text's words go beyond the C2 lists)",
+        "answered_only": {
+          "n": 1487,
+          "exact": 0.3248,
+          "within_one": 0.8164,
+          "off_by_two_or_more": 0.1836,
+          "macro_f1": 0.2488,
+          "weighted_f1": 0.3214,
+          "qwk": 0.4651,
+          "mean_signed_error": 0.361,
+          "mean_abs_error": 0.898,
+          "pred_distribution": {
+            "A1": 115,
+            "A2": 253,
+            "B1": 476,
+            "B2": 522,
+            "C1": 81,
+            "C2": 40
+          }
+        }
+      }
+    },
+    "b_cefr_level_classifier": {
+      "ace_cefr": {
+        "n": 890,
+        "exact": 0.2247,
+        "within_one": 0.5371,
+        "off_by_two_or_more": 0.4629,
+        "macro_f1": 0.1681,
+        "weighted_f1": 0.155,
+        "qwk": 0.4933,
+        "mean_signed_error": -1.335,
+        "mean_abs_error": 1.366,
+        "pred_distribution": {
+          "A1": 305,
+          "A2": 293,
+          "B1": 159,
+          "B2": 106,
+          "C1": 22,
+          "C2": 5
+        },
+        "confusion_matrix": {
+          "rows_gold_cols_pred": [
+            "A1",
+            "A2",
+            "B1",
+            "B2",
+            "C1",
+            "C2"
+          ],
+          "matrix": [
+            [
+              118,
+              8,
+              1,
+              0,
+              0,
+              0
+            ],
+            [
+              83,
+              58,
+              2,
+              0,
+              0,
+              0
+            ],
+            [
+              67,
+              85,
+              12,
+              0,
+              0,
+              0
+            ],
+            [
+              23,
+              107,
+              50,
+              7,
+              0,
+              1
+            ],
+            [
+              12,
+              28,
+              75,
+              29,
+              1,
+              0
+            ],
+            [
+              2,
+              7,
+              19,
+              70,
+              21,
+              4
+            ]
+          ]
+        },
+        "by_length": {
+          "<20": {
+            "n": 723,
+            "exact": 0.2683,
+            "within_one": 0.5864,
+            "qwk": 0.4678,
+            "mean_signed_error": -1.217
+          },
+          "20-49": {
+            "n": 161,
+            "exact": 0.0373,
+            "within_one": 0.3292,
+            "qwk": 0.308,
+            "mean_signed_error": -1.807
+          },
+          "50-149": {
+            "n": 6,
+            "exact": 0.0,
+            "within_one": 0.1667,
+            "qwk": null,
+            "mean_signed_error": -2.833
+          }
+        },
+        "contaminated": false,
+        "ace_test_split_only": {
+          "n": 445,
+          "exact": 0.209,
+          "within_one": 0.5258,
+          "off_by_two_or_more": 0.4742,
+          "macro_f1": 0.1654,
+          "weighted_f1": 0.1429,
+          "qwk": 0.4663,
+          "mean_signed_error": -1.366,
+          "mean_abs_error": 1.407,
+          "pred_distribution": {
+            "A1": 136,
+            "A2": 160,
+            "B1": 81,
+            "B2": 53,
+            "C1": 12,
+            "C2": 3
+          }
+        }
+      },
+      "cambridge_exams": {
+        "n": 331,
+        "exact": 0.8671,
+        "within_one": 0.9909,
+        "off_by_two_or_more": 0.0091,
+        "macro_f1": 0.8685,
+        "weighted_f1": 0.868,
+        "qwk": 0.9592,
+        "mean_signed_error": 0.057,
+        "mean_abs_error": 0.142,
+        "pred_distribution": {
+          "A1": 0,
+          "A2": 63,
+          "B1": 51,
+          "B2": 68,
+          "C1": 85,
+          "C2": 64
+        },
+        "confusion_matrix": {
+          "rows_gold_cols_pred": [
+            "A1",
+            "A2",
+            "B1",
+            "B2",
+            "C1",
+            "C2"
+          ],
+          "matrix": [
+            [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              60,
+              4,
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              3,
+              47,
+              9,
+              1,
+              0
+            ],
+            [
+              0,
+              0,
+              0,
+              58,
+              12,
+              1
+            ],
+            [
+              0,
+              0,
+              0,
+              0,
+              63,
+              4
+            ],
+            [
+              0,
+              0,
+              0,
+              1,
+              9,
+              59
+            ]
+          ]
+        },
+        "by_length": {
+          "50-149": {
+            "n": 57,
+            "exact": 0.9474,
+            "within_one": 1.0,
+            "qwk": 0.855,
+            "mean_signed_error": -0.053
+          },
+          "150-399": {
+            "n": 59,
+            "exact": 0.8475,
+            "within_one": 0.9831,
+            "qwk": 0.9066,
+            "mean_signed_error": 0.136
+          },
+          "400+": {
+            "n": 215,
+            "exact": 0.8512,
+            "within_one": 0.9907,
+            "qwk": 0.8924,
+            "mean_signed_error": 0.065
+          }
+        },
+        "contaminated": true
+      },
+      "elg_cefr_en": {
+        "n": 388,
+        "exact": 0.6753,
+        "within_one": 0.9588,
+        "off_by_two_or_more": 0.0412,
+        "macro_f1": 0.6584,
+        "weighted_f1": 0.6909,
+        "qwk": 0.7812,
+        "mean_signed_error": 0.255,
+        "mean_abs_error": 0.374,
+        "pred_distribution": {
+          "A1": 16,
+          "A2": 64,
+          "B1": 139,
+          "B2": 109,
+          "C1": 58,
+          "C2": 2
+        },
+        "confusion_matrix": {
+          "rows_gold_cols_pred": [
+            "A1",
+            "A2",
+            "B1",
+            "B2",
+            "C1",
+            "C2"
+          ],
+          "matrix": [
+            [
+              16,
+              9,
+              0,
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              52,
+              24,
+              1,
+              1,
+              0
+            ],
+            [
+              0,
+              3,
+              108,
+              29,
+              9,
+              2
+            ],
+            [
+              0,
+              0,
+              4,
+              69,
+              31,
+              0
+            ],
+            [
+              0,
+              0,
+              3,
+              10,
+              17,
+              0
+            ],
+            [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          ]
+        },
+        "by_length": {
+          "50-149": {
+            "n": 1,
+            "exact": 1.0,
+            "within_one": 1.0,
+            "qwk": null,
+            "mean_signed_error": 0.0
+          },
+          "150-399": {
+            "n": 385,
+            "exact": 0.6753,
+            "within_one": 0.9584,
+            "qwk": 0.7819,
+            "mean_signed_error": 0.255
+          },
+          "400+": {
+            "n": 2,
+            "exact": 0.5,
+            "within_one": 1.0,
+            "qwk": null,
+            "mean_signed_error": 0.5
+          }
+        },
+        "contaminated": true
+      },
+      "icle500": {
+        "n": 488,
+        "exact": 0.584,
+        "within_one": 0.957,
+        "off_by_two_or_more": 0.043,
+        "macro_f1": 0.4657,
+        "weighted_f1": 0.5795,
+        "qwk": 0.6755,
+        "mean_signed_error": 0.322,
+        "mean_abs_error": 0.461,
+        "pred_distribution": {
+          "A1": 0,
+          "A2": 1,
+          "B1": 43,
+          "B2": 203,
+          "C1": 177,
+          "C2": 64
+        },
+        "confusion_matrix": {
+          "rows_gold_cols_pred": [
+            "A1",
+            "A2",
+            "B1",
+            "B2",
+            "C1",
+            "C2"
+          ],
+          "matrix": [
+            [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              1,
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              1,
+              39,
+              68,
+              6,
+              0
+            ],
+            [
+              0,
+              0,
+              2,
+              128,
+              75,
+              13
+            ],
+            [
+              0,
+              0,
+              0,
+              6,
+              76,
+              9
+            ],
+            [
+              0,
+              0,
+              1,
+              1,
+              20,
+              42
+            ]
+          ]
+        },
+        "by_length": {
+          "400+": {
+            "n": 488,
+            "exact": 0.584,
+            "within_one": 0.957,
+            "qwk": 0.6755,
+            "mean_signed_error": 0.322
+          }
+        },
+        "contaminated": true
+      },
+      "cefr_asag": {
+        "n": 299,
+        "exact": 0.7826,
+        "within_one": 0.9431,
+        "off_by_two_or_more": 0.0569,
+        "macro_f1": 0.751,
+        "weighted_f1": 0.7829,
+        "qwk": 0.8068,
+        "mean_signed_error": -0.201,
+        "mean_abs_error": 0.288,
+        "pred_distribution": {
+          "A1": 20,
+          "A2": 85,
+          "B1": 101,
+          "B2": 70,
+          "C1": 20,
+          "C2": 3
+        },
+        "confusion_matrix": {
+          "rows_gold_cols_pred": [
+            "A1",
+            "A2",
+            "B1",
+            "B2",
+            "C1",
+            "C2"
+          ],
+          "matrix": [
+            [
+              13,
+              5,
+              0,
+              0,
+              0,
+              0
+            ],
+            [
+              2,
+              55,
+              2,
+              0,
+              0,
+              0
+            ],
+            [
+              3,
+              18,
+              88,
+              3,
+              1,
+              0
+            ],
+            [
+              1,
+              6,
+              8,
+              58,
+              1,
+              0
+            ],
+            [
+              1,
+              1,
+              3,
+              8,
+              17,
+              0
+            ],
+            [
+              0,
+              0,
+              0,
+              1,
+              1,
+              3
+            ]
+          ]
+        },
+        "by_length": {
+          "<20": {
+            "n": 55,
+            "exact": 0.5273,
+            "within_one": 0.8,
+            "qwk": 0.3754,
+            "mean_signed_error": -0.655
+          },
+          "20-49": {
+            "n": 74,
+            "exact": 0.8514,
+            "within_one": 0.9595,
+            "qwk": 0.8386,
+            "mean_signed_error": -0.149
+          },
+          "50-149": {
+            "n": 141,
+            "exact": 0.8156,
+            "within_one": 0.9858,
+            "qwk": 0.897,
+            "mean_signed_error": -0.113
+          },
+          "150-399": {
+            "n": 29,
+            "exact": 0.931,
+            "within_one": 0.9655,
+            "qwk": 0.8985,
+            "mean_signed_error": 0.103
+          }
+        },
+        "contaminated": true
+      },
+      "cefr_sp": {
+        "n": 10004,
+        "exact": 0.9086,
+        "within_one": 0.9991,
+        "off_by_two_or_more": 0.0009,
+        "macro_f1": 0.8792,
+        "weighted_f1": 0.9082,
+        "qwk": 0.954,
+        "mean_signed_error": -0.012,
+        "mean_abs_error": 0.092,
+        "pred_distribution": {
+          "A1": 104,
+          "A2": 1242,
+          "B1": 3381,
+          "B2": 3416,
+          "C1": 1678,
+          "C2": 183
+        },
+        "confusion_matrix": {
+          "rows_gold_cols_pred": [
+            "A1",
+            "A2",
+            "B1",
+            "B2",
+            "C1",
+            "C2"
+          ],
+          "matrix": [
+            [
+              93,
+              30,
+              1,
+              0,
+              0,
+              0
+            ],
+            [
+              11,
+              1143,
+              117,
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              66,
+              3089,
+              148,
+              2,
+              0
+            ],
+            [
+              0,
+              2,
+              172,
+              3067,
+              89,
+              0
+            ],
+            [
+              0,
+              1,
+              2,
+              200,
+              1528,
+              13
+            ],
+            [
+              0,
+              0,
+              0,
+              1,
+              59,
+              170
+            ]
+          ]
+        },
+        "by_length": {
+          "<20": {
+            "n": 8437,
+            "exact": 0.9121,
+            "within_one": 0.9992,
+            "qwk": 0.9548,
+            "mean_signed_error": -0.009
+          },
+          "20-49": {
+            "n": 1567,
+            "exact": 0.8902,
+            "within_one": 0.9987,
+            "qwk": 0.8973,
+            "mean_signed_error": -0.027
+          }
+        },
+        "contaminated": true
+      },
+      "readme_en": {
+        "n": 2822,
+        "exact": 0.9011,
+        "within_one": 0.9929,
+        "off_by_two_or_more": 0.0071,
+        "macro_f1": 0.885,
+        "weighted_f1": 0.9008,
+        "qwk": 0.956,
+        "mean_signed_error": -0.0,
+        "mean_abs_error": 0.107,
+        "pred_distribution": {
+          "A1": 178,
+          "A2": 649,
+          "B1": 637,
+          "B2": 940,
+          "C1": 364,
+          "C2": 54
+        },
+        "confusion_matrix": {
+          "rows_gold_cols_pred": [
+            "A1",
+            "A2",
+            "B1",
+            "B2",
+            "C1",
+            "C2"
+          ],
+          "matrix": [
+            [
+              158,
+              23,
+              0,
+              1,
+              0,
+              0
+            ],
+            [
+              14,
+              607,
+              47,
+              5,
+              0,
+              0
+            ],
+            [
+              5,
+              15,
+              560,
+              42,
+              1,
+              0
+            ],
+            [
+              1,
+              3,
+              29,
+              841,
+              22,
+              0
+            ],
+            [
+              0,
+              0,
+              1,
+              49,
+              325,
+              2
+            ],
+            [
+              0,
+              1,
+              0,
+              2,
+              16,
+              52
+            ]
+          ]
+        },
+        "by_length": {
+          "<20": {
+            "n": 1640,
+            "exact": 0.9012,
+            "within_one": 0.9951,
+            "qwk": 0.9498,
+            "mean_signed_error": 0.013
+          },
+          "20-49": {
+            "n": 1101,
+            "exact": 0.8992,
+            "within_one": 0.9909,
+            "qwk": 0.9149,
+            "mean_signed_error": -0.013
+          },
+          "50-149": {
+            "n": 81,
+            "exact": 0.9259,
+            "within_one": 0.9753,
+            "qwk": 0.7701,
+            "mean_signed_error": -0.099
+          }
+        },
+        "contaminated": true
+      }
+    },
+    "c_ordinal_within_dataset_cv": {
+      "ace_cefr": {
+        "n": 890,
+        "exact": 0.4674,
+        "within_one": 0.9034,
+        "off_by_two_or_more": 0.0966,
+        "macro_f1": 0.4821,
+        "weighted_f1": 0.4686,
+        "qwk": 0.8185,
+        "mean_signed_error": -0.035,
+        "mean_abs_error": 0.644,
+        "pred_distribution": {
+          "A1": 112,
+          "A2": 153,
+          "B1": 174,
+          "B2": 223,
+          "C1": 111,
+          "C2": 117
+        },
+        "confusion_matrix": {
+          "rows_gold_cols_pred": [
+            "A1",
+            "A2",
+            "B1",
+            "B2",
+            "C1",
+            "C2"
+          ],
+          "matrix": [
+            [
+              83,
+              31,
+              8,
+              5,
+              0,
+              0
+            ],
+            [
+              23,
+              71,
+              39,
+              10,
+              0,
+              0
+            ],
+            [
+              5,
+              42,
+              63,
+              43,
+              10,
+              1
+            ],
+            [
+              0,
+              8,
+              54,
+              84,
+              34,
+              8
+            ],
+            [
+              0,
+              1,
+              7,
+              62,
+              41,
+              34
+            ],
+            [
+              1,
+              0,
+              3,
+              19,
+              26,
+              74
+            ]
+          ]
+        },
+        "by_length": {
+          "<20": {
+            "n": 723,
+            "exact": 0.4647,
+            "within_one": 0.8949,
+            "qwk": 0.7808,
+            "mean_signed_error": -0.047
+          },
+          "20-49": {
+            "n": 161,
+            "exact": 0.4783,
+            "within_one": 0.9379,
+            "qwk": 0.6933,
+            "mean_signed_error": 0.037
+          },
+          "50-149": {
+            "n": 6,
+            "exact": 0.5,
+            "within_one": 1.0,
+            "qwk": null,
+            "mean_signed_error": -0.5
+          }
+        },
+        "l2_alpha_per_fold": [
+          10.0,
+          1.0,
+          10.0,
+          1.0,
+          1.0
+        ]
+      },
+      "cambridge_exams": {
+        "n": 331,
+        "exact": 0.6344,
+        "within_one": 0.9758,
+        "off_by_two_or_more": 0.0242,
+        "macro_f1": 0.6349,
+        "weighted_f1": 0.6342,
+        "qwk": 0.8839,
+        "mean_signed_error": -0.036,
+        "mean_abs_error": 0.393,
+        "pred_distribution": {
+          "A1": 0,
+          "A2": 63,
+          "B1": 60,
+          "B2": 82,
+          "C1": 61,
+          "C2": 65
+        },
+        "confusion_matrix": {
+          "rows_gold_cols_pred": [
+            "A1",
+            "A2",
+            "B1",
+            "B2",
+            "C1",
+            "C2"
+          ],
+          "matrix": [
+            [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              52,
+              11,
+              1,
+              0,
+              0
+            ],
+            [
+              0,
+              11,
+              35,
+              13,
+              1,
+              0
+            ],
+            [
+              0,
+              0,
+              13,
+              46,
+              11,
+              1
+            ],
+            [
+              0,
+              0,
+              0,
+              18,
+              31,
+              18
+            ],
+            [
+              0,
+              0,
+              1,
+              4,
+              18,
+              46
+            ]
+          ]
+        },
+        "by_length": {
+          "50-149": {
+            "n": 57,
+            "exact": 0.7193,
+            "within_one": 0.9649,
+            "qwk": 0.4194,
+            "mean_signed_error": 0.14
+          },
+          "150-399": {
+            "n": 59,
+            "exact": 0.6949,
+            "within_one": 1.0,
+            "qwk": 0.8691,
+            "mean_signed_error": 0.034
+          },
+          "400+": {
+            "n": 215,
+            "exact": 0.5953,
+            "within_one": 0.9721,
+            "qwk": 0.726,
+            "mean_signed_error": -0.102
+          }
+        },
+        "l2_alpha_per_fold": [
+          10.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0
+        ]
+      },
+      "elg_cefr_en": {
+        "n": 388,
+        "exact": 0.5696,
+        "within_one": 0.9691,
+        "off_by_two_or_more": 0.0309,
+        "macro_f1": 0.4285,
+        "weighted_f1": 0.5474,
+        "qwk": 0.6859,
+        "mean_signed_error": 0.028,
+        "mean_abs_error": 0.461,
+        "pred_distribution": {
+          "A1": 2,
+          "A2": 82,
+          "B1": 186,
+          "B2": 103,
+          "C1": 15,
+          "C2": 0
+        },
+        "confusion_matrix": {
+          "rows_gold_cols_pred": [
+            "A1",
+            "A2",
+            "B1",
+            "B2",
+            "C1",
+            "C2"
+          ],
+          "matrix": [
+            [
+              2,
+              20,
+              3,
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              39,
+              38,
+              1,
+              0,
+              0
+            ],
+            [
+              0,
+              23,
+              109,
+              18,
+              1,
+              0
+            ],
+            [
+              0,
+              0,
+              29,
+              66,
+              9,
+              0
+            ],
+            [
+              0,
+              0,
+              7,
+              18,
+              5,
+              0
+            ],
+            [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          ]
+        },
+        "by_length": {
+          "50-149": {
+            "n": 1,
+            "exact": 1.0,
+            "within_one": 1.0,
+            "qwk": null,
+            "mean_signed_error": 0.0
+          },
+          "150-399": {
+            "n": 385,
+            "exact": 0.5662,
+            "within_one": 0.9688,
+            "qwk": 0.6851,
+            "mean_signed_error": 0.029
+          },
+          "400+": {
+            "n": 2,
+            "exact": 1.0,
+            "within_one": 1.0,
+            "qwk": null,
+            "mean_signed_error": 0.0
+          }
+        },
+        "l2_alpha_per_fold": [
+          1.0,
+          10.0,
+          1.0,
+          10.0,
+          1.0
+        ]
+      },
+      "icle500": {
+        "n": 488,
+        "exact": 0.4693,
+        "within_one": 0.8893,
+        "off_by_two_or_more": 0.1107,
+        "macro_f1": 0.2722,
+        "weighted_f1": 0.4095,
+        "qwk": 0.3624,
+        "mean_signed_error": -0.186,
+        "mean_abs_error": 0.645,
+        "pred_distribution": {
+          "A1": 0,
+          "A2": 0,
+          "B1": 69,
+          "B2": 371,
+          "C1": 15,
+          "C2": 33
+        },
+        "confusion_matrix": {
+          "rows_gold_cols_pred": [
+            "A1",
+            "A2",
+            "B1",
+            "B2",
+            "C1",
+            "C2"
+          ],
+          "matrix": [
+            [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              1,
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              37,
+              76,
+              0,
+              1
+            ],
+            [
+              0,
+              0,
+              29,
+              174,
+              9,
+              6
+            ],
+            [
+              0,
+              0,
+              1,
+              76,
+              3,
+              11
+            ],
+            [
+              0,
+              0,
+              1,
+              45,
+              3,
+              15
+            ]
+          ]
+        },
+        "by_length": {
+          "400+": {
+            "n": 488,
+            "exact": 0.4693,
+            "within_one": 0.8893,
+            "qwk": 0.3624,
+            "mean_signed_error": -0.186
+          }
+        },
+        "l2_alpha_per_fold": [
+          0.1,
+          0.1,
+          0.1,
+          0.1,
+          0.1
+        ]
+      },
+      "cefr_asag": {
+        "n": 299,
+        "exact": 0.4147,
+        "within_one": 0.8896,
+        "off_by_two_or_more": 0.1104,
+        "macro_f1": 0.2538,
+        "weighted_f1": 0.3921,
+        "qwk": 0.5103,
+        "mean_signed_error": -0.013,
+        "mean_abs_error": 0.702,
+        "pred_distribution": {
+          "A1": 6,
+          "A2": 49,
+          "B1": 152,
+          "B2": 76,
+          "C1": 13,
+          "C2": 3
+        },
+        "confusion_matrix": {
+          "rows_gold_cols_pred": [
+            "A1",
+            "A2",
+            "B1",
+            "B2",
+            "C1",
+            "C2"
+          ],
+          "matrix": [
+            [
+              0,
+              9,
+              9,
+              0,
+              0,
+              0
+            ],
+            [
+              3,
+              21,
+              32,
+              3,
+              0,
+              0
+            ],
+            [
+              1,
+              18,
+              70,
+              21,
+              3,
+              0
+            ],
+            [
+              2,
+              1,
+              35,
+              28,
+              5,
+              3
+            ],
+            [
+              0,
+              0,
+              6,
+              19,
+              5,
+              0
+            ],
+            [
+              0,
+              0,
+              0,
+              5,
+              0,
+              0
+            ]
+          ]
+        },
+        "by_length": {
+          "<20": {
+            "n": 55,
+            "exact": 0.3455,
+            "within_one": 0.8,
+            "qwk": 0.3051,
+            "mean_signed_error": -0.164
+          },
+          "20-49": {
+            "n": 74,
+            "exact": 0.3108,
+            "within_one": 0.8378,
+            "qwk": 0.4661,
+            "mean_signed_error": 0.068
+          },
+          "50-149": {
+            "n": 141,
+            "exact": 0.4752,
+            "within_one": 0.9362,
+            "qwk": 0.6036,
+            "mean_signed_error": 0.007
+          },
+          "150-399": {
+            "n": 29,
+            "exact": 0.5172,
+            "within_one": 0.9655,
+            "qwk": 0.4816,
+            "mean_signed_error": -0.034
+          }
+        },
+        "l2_alpha_per_fold": [
+          0.1,
+          0.1,
+          1.0,
+          1.0,
+          1.0
+        ]
+      },
+      "cefr_sp": {
+        "n": 10004,
+        "exact": 0.5876,
+        "within_one": 0.9803,
+        "off_by_two_or_more": 0.0197,
+        "macro_f1": 0.4308,
+        "weighted_f1": 0.5793,
+        "qwk": 0.7429,
+        "mean_signed_error": 0.004,
+        "mean_abs_error": 0.433,
+        "pred_distribution": {
+          "A1": 1,
+          "A2": 952,
+          "B1": 3778,
+          "B2": 3649,
+          "C1": 1540,
+          "C2": 84
+        },
+        "confusion_matrix": {
+          "rows_gold_cols_pred": [
+            "A1",
+            "A2",
+            "B1",
+            "B2",
+            "C1",
+            "C2"
+          ],
+          "matrix": [
+            [
+              1,
+              95,
+              25,
+              3,
+              0,
+              0
+            ],
+            [
+              0,
+              624,
+              608,
+              38,
+              1,
+              0
+            ],
+            [
+              0,
+              230,
+              2285,
+              765,
+              25,
+              0
+            ],
+            [
+              0,
+              3,
+              804,
+              2043,
+              475,
+              5
+            ],
+            [
+              0,
+              0,
+              55,
+              759,
+              888,
+              42
+            ],
+            [
+              0,
+              0,
+              1,
+              41,
+              151,
+              37
+            ]
+          ]
+        },
+        "by_length": {
+          "<20": {
+            "n": 8437,
+            "exact": 0.5905,
+            "within_one": 0.9789,
+            "qwk": 0.7275,
+            "mean_signed_error": -0.022
+          },
+          "20-49": {
+            "n": 1567,
+            "exact": 0.5718,
+            "within_one": 0.9879,
+            "qwk": 0.5098,
+            "mean_signed_error": 0.143
+          }
+        },
+        "l2_alpha_per_fold": [
+          1.0,
+          0.1,
+          0.1,
+          0.1,
+          0.1
+        ]
+      },
+      "readme_en": {
+        "n": 2822,
+        "exact": 0.5138,
+        "within_one": 0.9235,
+        "off_by_two_or_more": 0.0765,
+        "macro_f1": 0.4097,
+        "weighted_f1": 0.4925,
+        "qwk": 0.7251,
+        "mean_signed_error": 0.01,
+        "mean_abs_error": 0.565,
+        "pred_distribution": {
+          "A1": 25,
+          "A2": 873,
+          "B1": 497,
+          "B2": 1116,
+          "C1": 271,
+          "C2": 40
+        },
+        "confusion_matrix": {
+          "rows_gold_cols_pred": [
+            "A1",
+            "A2",
+            "B1",
+            "B2",
+            "C1",
+            "C2"
+          ],
+          "matrix": [
+            [
+              20,
+              152,
+              9,
+              1,
+              0,
+              0
+            ],
+            [
+              5,
+              481,
+              117,
+              70,
+              0,
+              0
+            ],
+            [
+              0,
+              162,
+              212,
+              244,
+              5,
+              0
+            ],
+            [
+              0,
+              73,
+              138,
+              583,
+              94,
+              8
+            ],
+            [
+              0,
+              5,
+              20,
+              194,
+              140,
+              18
+            ],
+            [
+              0,
+              0,
+              1,
+              24,
+              32,
+              14
+            ]
+          ]
+        },
+        "by_length": {
+          "<20": {
+            "n": 1640,
+            "exact": 0.5073,
+            "within_one": 0.9128,
+            "qwk": 0.611,
+            "mean_signed_error": 0.018
+          },
+          "20-49": {
+            "n": 1101,
+            "exact": 0.5259,
+            "within_one": 0.9428,
+            "qwk": 0.5069,
+            "mean_signed_error": -0.016
+          },
+          "50-149": {
+            "n": 81,
+            "exact": 0.4815,
+            "within_one": 0.8765,
+            "qwk": 0.3772,
+            "mean_signed_error": 0.222
+          }
+        },
+        "l2_alpha_per_fold": [
+          0.1,
+          1.0,
+          1.0,
+          0.1,
+          0.1
+        ]
+      }
+    },
+    "c_ridge_round_within_dataset_cv": {
+      "ace_cefr": {
+        "n": 890,
+        "exact": 0.3596,
+        "within_one": 0.891,
+        "off_by_two_or_more": 0.109,
+        "macro_f1": 0.3152,
+        "weighted_f1": 0.3251,
+        "qwk": 0.7273,
+        "mean_signed_error": -0.045,
+        "mean_abs_error": 0.769,
+        "pred_distribution": {
+          "A1": 2,
+          "A2": 195,
+          "B1": 311,
+          "B2": 223,
+          "C1": 91,
+          "C2": 68
+        },
+        "by_length": {
+          "<20": {
+            "n": 723,
+            "exact": 0.3458,
+            "within_one": 0.8852,
+            "qwk": 0.6682,
+            "mean_signed_error": 0.018
+          },
+          "20-49": {
+            "n": 161,
+            "exact": 0.4286,
+            "within_one": 0.9193,
+            "qwk": 0.6422,
+            "mean_signed_error": -0.273
+          },
+          "50-149": {
+            "n": 6,
+            "exact": 0.1667,
+            "within_one": 0.8333,
+            "qwk": null,
+            "mean_signed_error": -1.5
+          }
+        }
+      },
+      "cambridge_exams": {
+        "n": 331,
+        "exact": 0.6012,
+        "within_one": 0.9758,
+        "off_by_two_or_more": 0.0242,
+        "macro_f1": 0.6082,
+        "weighted_f1": 0.6065,
+        "qwk": 0.867,
+        "mean_signed_error": -0.012,
+        "mean_abs_error": 0.423,
+        "pred_distribution": {
+          "A1": 0,
+          "A2": 41,
+          "B1": 77,
+          "B2": 92,
+          "C1": 70,
+          "C2": 51
+        },
+        "by_length": {
+          "50-149": {
+            "n": 57,
+            "exact": 0.5789,
+            "within_one": 0.9649,
+            "qwk": 0.3681,
+            "mean_signed_error": 0.421
+          },
+          "150-399": {
+            "n": 59,
+            "exact": 0.7288,
+            "within_one": 1.0,
+            "qwk": 0.8796,
+            "mean_signed_error": 0.169
+          },
+          "400+": {
+            "n": 215,
+            "exact": 0.5721,
+            "within_one": 0.9721,
+            "qwk": 0.7092,
+            "mean_signed_error": -0.177
+          }
+        }
+      },
+      "elg_cefr_en": {
+        "n": 388,
+        "exact": 0.5799,
+        "within_one": 0.9716,
+        "off_by_two_or_more": 0.0284,
+        "macro_f1": 0.4286,
+        "weighted_f1": 0.5561,
+        "qwk": 0.6942,
+        "mean_signed_error": -0.013,
+        "mean_abs_error": 0.451,
+        "pred_distribution": {
+          "A1": 1,
+          "A2": 99,
+          "B1": 169,
+          "B2": 106,
+          "C1": 13,
+          "C2": 0
+        },
+        "by_length": {
+          "50-149": {
+            "n": 1,
+            "exact": 1.0,
+            "within_one": 1.0,
+            "qwk": null,
+            "mean_signed_error": 0.0
+          },
+          "150-399": {
+            "n": 385,
+            "exact": 0.5766,
+            "within_one": 0.9714,
+            "qwk": 0.6934,
+            "mean_signed_error": -0.013
+          },
+          "400+": {
+            "n": 2,
+            "exact": 1.0,
+            "within_one": 1.0,
+            "qwk": null,
+            "mean_signed_error": 0.0
+          }
+        }
+      },
+      "icle500": {
+        "n": 488,
+        "exact": 0.4406,
+        "within_one": 0.9221,
+        "off_by_two_or_more": 0.0779,
+        "macro_f1": 0.2348,
+        "weighted_f1": 0.3794,
+        "qwk": 0.3214,
+        "mean_signed_error": 0.004,
+        "mean_abs_error": 0.639,
+        "pred_distribution": {
+          "A1": 0,
+          "A2": 0,
+          "B1": 24,
+          "B2": 337,
+          "C1": 125,
+          "C2": 2
+        },
+        "by_length": {
+          "400+": {
+            "n": 488,
+            "exact": 0.4406,
+            "within_one": 0.9221,
+            "qwk": 0.3214,
+            "mean_signed_error": 0.004
+          }
+        }
+      },
+      "cefr_asag": {
+        "n": 299,
+        "exact": 0.4314,
+        "within_one": 0.913,
+        "off_by_two_or_more": 0.087,
+        "macro_f1": 0.2323,
+        "weighted_f1": 0.3871,
+        "qwk": 0.51,
+        "mean_signed_error": 0.04,
+        "mean_abs_error": 0.656,
+        "pred_distribution": {
+          "A1": 1,
+          "A2": 35,
+          "B1": 169,
+          "B2": 85,
+          "C1": 9,
+          "C2": 0
+        },
+        "by_length": {
+          "<20": {
+            "n": 55,
+            "exact": 0.3818,
+            "within_one": 0.8545,
+            "qwk": 0.3044,
+            "mean_signed_error": -0.109
+          },
+          "20-49": {
+            "n": 74,
+            "exact": 0.3243,
+            "within_one": 0.8784,
+            "qwk": 0.483,
+            "mean_signed_error": 0.068
+          },
+          "50-149": {
+            "n": 141,
+            "exact": 0.4823,
+            "within_one": 0.9433,
+            "qwk": 0.5722,
+            "mean_signed_error": 0.092
+          },
+          "150-399": {
+            "n": 29,
+            "exact": 0.5517,
+            "within_one": 0.9655,
+            "qwk": 0.5064,
+            "mean_signed_error": 0.0
+          }
+        }
+      },
+      "cefr_sp": {
+        "n": 10004,
+        "exact": 0.5877,
+        "within_one": 0.9809,
+        "off_by_two_or_more": 0.0191,
+        "macro_f1": 0.4304,
+        "weighted_f1": 0.5784,
+        "qwk": 0.7392,
+        "mean_signed_error": -0.004,
+        "mean_abs_error": 0.432,
+        "pred_distribution": {
+          "A1": 1,
+          "A2": 932,
+          "B1": 3721,
+          "B2": 3911,
+          "C1": 1345,
+          "C2": 94
+        },
+        "by_length": {
+          "<20": {
+            "n": 8437,
+            "exact": 0.5893,
+            "within_one": 0.9796,
+            "qwk": 0.7236,
+            "mean_signed_error": -0.025
+          },
+          "20-49": {
+            "n": 1567,
+            "exact": 0.5788,
+            "within_one": 0.9879,
+            "qwk": 0.51,
+            "mean_signed_error": 0.107
+          }
+        }
+      },
+      "readme_en": {
+        "n": 2822,
+        "exact": 0.4759,
+        "within_one": 0.9419,
+        "off_by_two_or_more": 0.0581,
+        "macro_f1": 0.3729,
+        "weighted_f1": 0.4597,
+        "qwk": 0.7016,
+        "mean_signed_error": -0.003,
+        "mean_abs_error": 0.584,
+        "pred_distribution": {
+          "A1": 3,
+          "A2": 574,
+          "B1": 1172,
+          "B2": 793,
+          "C1": 235,
+          "C2": 45
+        },
+        "by_length": {
+          "<20": {
+            "n": 1640,
+            "exact": 0.4506,
+            "within_one": 0.9384,
+            "qwk": 0.5638,
+            "mean_signed_error": 0.097
+          },
+          "20-49": {
+            "n": 1101,
+            "exact": 0.5132,
+            "within_one": 0.9519,
+            "qwk": 0.5393,
+            "mean_signed_error": -0.168
+          },
+          "50-149": {
+            "n": 81,
+            "exact": 0.4815,
+            "within_one": 0.8765,
+            "qwk": 0.3366,
+            "mean_signed_error": 0.222
+          }
+        }
+      }
+    },
+    "c_ordinal_transfer_from_reading_texts": {
+      "ace_cefr": {
+        "n": 890,
+        "exact": 0.3022,
+        "within_one": 0.7517,
+        "off_by_two_or_more": 0.2483,
+        "macro_f1": 0.296,
+        "weighted_f1": 0.2955,
+        "qwk": 0.5292,
+        "mean_signed_error": -0.143,
+        "mean_abs_error": 1.06,
+        "pred_distribution": {
+          "A1": 51,
+          "A2": 215,
+          "B1": 254,
+          "B2": 192,
+          "C1": 86,
+          "C2": 92
+        },
+        "confusion_matrix": {
+          "rows_gold_cols_pred": [
+            "A1",
+            "A2",
+            "B1",
+            "B2",
+            "C1",
+            "C2"
+          ],
+          "matrix": [
+            [
+              23,
+              73,
+              16,
+              6,
+              1,
+              8
+            ],
+            [
+              13,
+              62,
+              46,
+              11,
+              6,
+              5
+            ],
+            [
+              9,
+              47,
+              64,
+              26,
+              9,
+              9
+            ],
+            [
+              2,
+              23,
+              69,
+              59,
+              23,
+              12
+            ],
+            [
+              1,
+              7,
+              41,
+              59,
+              20,
+              17
+            ],
+            [
+              3,
+              3,
+              18,
+              31,
+              27,
+              41
+            ]
+          ]
+        },
+        "by_length": {
+          "<20": {
+            "n": 723,
+            "exact": 0.3001,
+            "within_one": 0.769,
+            "qwk": 0.4928,
+            "mean_signed_error": 0.048
+          },
+          "20-49": {
+            "n": 161,
+            "exact": 0.3106,
+            "within_one": 0.6894,
+            "qwk": 0.4167,
+            "mean_signed_error": -0.95
+          },
+          "50-149": {
+            "n": 6,
+            "exact": 0.3333,
+            "within_one": 0.3333,
+            "qwk": null,
+            "mean_signed_error": -1.5
+          }
+        }
+      },
+      "icle500": {
+        "n": 488,
+        "exact": 0.418,
+        "within_one": 0.8627,
+        "off_by_two_or_more": 0.1373,
+        "macro_f1": 0.264,
+        "weighted_f1": 0.3895,
+        "qwk": 0.3537,
+        "mean_signed_error": -0.459,
+        "mean_abs_error": 0.73,
+        "pred_distribution": {
+          "A1": 0,
+          "A2": 11,
+          "B1": 157,
+          "B2": 269,
+          "C1": 44,
+          "C2": 7
+        },
+        "confusion_matrix": {
+          "rows_gold_cols_pred": [
+            "A1",
+            "A2",
+            "B1",
+            "B2",
+            "C1",
+            "C2"
+          ],
+          "matrix": [
+            [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              1,
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              8,
+              64,
+              40,
+              2,
+              0
+            ],
+            [
+              0,
+              3,
+              73,
+              122,
+              20,
+              0
+            ],
+            [
+              0,
+              0,
+              14,
+              64,
+              12,
+              1
+            ],
+            [
+              0,
+              0,
+              5,
+              43,
+              10,
+              6
+            ]
+          ]
+        },
+        "by_length": {
+          "400+": {
+            "n": 488,
+            "exact": 0.418,
+            "within_one": 0.8627,
+            "qwk": 0.3537,
+            "mean_signed_error": -0.459
+          }
+        }
+      },
+      "cefr_asag": {
+        "n": 299,
+        "exact": 0.408,
+        "within_one": 0.8562,
+        "off_by_two_or_more": 0.1438,
+        "macro_f1": 0.3074,
+        "weighted_f1": 0.4013,
+        "qwk": 0.5307,
+        "mean_signed_error": -0.331,
+        "mean_abs_error": 0.753,
+        "pred_distribution": {
+          "A1": 21,
+          "A2": 98,
+          "B1": 103,
+          "B2": 62,
+          "C1": 12,
+          "C2": 3
+        },
+        "confusion_matrix": {
+          "rows_gold_cols_pred": [
+            "A1",
+            "A2",
+            "B1",
+            "B2",
+            "C1",
+            "C2"
+          ],
+          "matrix": [
+            [
+              6,
+              9,
+              2,
+              1,
+              0,
+              0
+            ],
+            [
+              7,
+              34,
+              17,
+              1,
+              0,
+              0
+            ],
+            [
+              7,
+              42,
+              49,
+              13,
+              1,
+              1
+            ],
+            [
+              1,
+              11,
+              26,
+              28,
+              6,
+              2
+            ],
+            [
+              0,
+              2,
+              9,
+              14,
+              5,
+              0
+            ],
+            [
+              0,
+              0,
+              0,
+              5,
+              0,
+              0
+            ]
+          ]
+        },
+        "by_length": {
+          "<20": {
+            "n": 55,
+            "exact": 0.2364,
+            "within_one": 0.6909,
+            "qwk": 0.2302,
+            "mean_signed_error": -0.418
+          },
+          "20-49": {
+            "n": 74,
+            "exact": 0.4324,
+            "within_one": 0.8108,
+            "qwk": 0.5145,
+            "mean_signed_error": -0.216
+          },
+          "50-149": {
+            "n": 141,
+            "exact": 0.4468,
+            "within_one": 0.9362,
+            "qwk": 0.6395,
+            "mean_signed_error": -0.383
+          },
+          "150-399": {
+            "n": 29,
+            "exact": 0.4828,
+            "within_one": 0.8966,
+            "qwk": 0.5265,
+            "mean_signed_error": -0.207
+          }
+        }
+      },
+      "cefr_sp": {
+        "n": 10004,
+        "exact": 0.312,
+        "within_one": 0.759,
+        "off_by_two_or_more": 0.241,
+        "macro_f1": 0.2299,
+        "weighted_f1": 0.3301,
+        "qwk": 0.325,
+        "mean_signed_error": 0.163,
+        "mean_abs_error": 1.014,
+        "pred_distribution": {
+          "A1": 332,
+          "A2": 1332,
+          "B1": 2722,
+          "B2": 2934,
+          "C1": 1367,
+          "C2": 1317
+        },
+        "confusion_matrix": {
+          "rows_gold_cols_pred": [
+            "A1",
+            "A2",
+            "B1",
+            "B2",
+            "C1",
+            "C2"
+          ],
+          "matrix": [
+            [
+              8,
+              65,
+              40,
+              7,
+              1,
+              3
+            ],
+            [
+              86,
+              454,
+              512,
+              156,
+              36,
+              27
+            ],
+            [
+              72,
+              481,
+              1175,
+              1029,
+              335,
+              213
+            ],
+            [
+              56,
+              186,
+              645,
+              1153,
+              675,
+              615
+            ],
+            [
+              75,
+              120,
+              304,
+              531,
+              293,
+              421
+            ],
+            [
+              35,
+              26,
+              46,
+              58,
+              27,
+              38
+            ]
+          ]
+        },
+        "by_length": {
+          "<20": {
+            "n": 8437,
+            "exact": 0.313,
+            "within_one": 0.7547,
+            "qwk": 0.2921,
+            "mean_signed_error": 0.156
+          },
+          "20-49": {
+            "n": 1567,
+            "exact": 0.3063,
+            "within_one": 0.7824,
+            "qwk": 0.1207,
+            "mean_signed_error": 0.203
+          }
+        }
+      },
+      "readme_en": {
+        "n": 2822,
+        "exact": 0.2332,
+        "within_one": 0.6471,
+        "off_by_two_or_more": 0.3529,
+        "macro_f1": 0.1942,
+        "weighted_f1": 0.2443,
+        "qwk": 0.3389,
+        "mean_signed_error": 0.791,
+        "mean_abs_error": 1.249,
+        "pred_distribution": {
+          "A1": 65,
+          "A2": 252,
+          "B1": 635,
+          "B2": 863,
+          "C1": 445,
+          "C2": 562
+        },
+        "confusion_matrix": {
+          "rows_gold_cols_pred": [
+            "A1",
+            "A2",
+            "B1",
+            "B2",
+            "C1",
+            "C2"
+          ],
+          "matrix": [
+            [
+              12,
+              43,
+              61,
+              41,
+              8,
+              17
+            ],
+            [
+              24,
+              108,
+              234,
+              208,
+              60,
+              39
+            ],
+            [
+              11,
+              46,
+              154,
+              225,
+              107,
+              80
+            ],
+            [
+              14,
+              44,
+              148,
+              281,
+              173,
+              236
+            ],
+            [
+              4,
+              9,
+              34,
+              91,
+              76,
+              163
+            ],
+            [
+              0,
+              2,
+              4,
+              17,
+              21,
+              27
+            ]
+          ]
+        },
+        "by_length": {
+          "<20": {
+            "n": 1640,
+            "exact": 0.2098,
+            "within_one": 0.6012,
+            "qwk": 0.2026,
+            "mean_signed_error": 0.975
+          },
+          "20-49": {
+            "n": 1101,
+            "exact": 0.2661,
+            "within_one": 0.7057,
+            "qwk": 0.2199,
+            "mean_signed_error": 0.541
+          },
+          "50-149": {
+            "n": 81,
+            "exact": 0.2593,
+            "within_one": 0.7778,
+            "qwk": 0.0794,
+            "mean_signed_error": 0.444
+          }
+        }
+      },
+      "_train": {
+        "datasets": [
+          "cambridge_exams",
+          "elg_cefr_en"
+        ],
+        "n": 718,
+        "l2_alpha": 1.0,
+        "levels_seen": [
+          "A1",
+          "C2"
+        ]
+      }
+    }
+  },
+  "ordinal_model_coefficients_reading_texts": {
+    "note": "Slopes on standardised features (positive = pushes towards a higher level). Features are strongly collinear; read signs and sizes together, not one by one.",
+    "coefficients": {
+      "cefr_C2_pct": 1.112,
+      "cefr_B1_pct": 0.745,
+      "mtld": 0.703,
+      "words_per_sentence": 0.621,
+      "bnc_cum_4k_pct": 0.563,
+      "cefr_A1_pct": -0.538,
+      "characters_per_word": -0.448,
+      "syllables_per_word": -0.43,
+      "ngsl_nawl_pct": 0.405,
+      "cefr_B2_pct": 0.4,
+      "bnc_cum_5k_pct": -0.367,
+      "cefr_A2_pct": 0.313,
+      "cefr_C1_pct": 0.267,
+      "ngsl_pct": -0.246,
+      "bnc_off_pct": -0.199,
+      "cefr_off_pct": 0.181,
+      "mattr": 0.178,
+      "ngsl_off_pct": 0.127,
+      "cefr_proper_pct": -0.127,
+      "bnc_cum_2k_pct": -0.105,
+      "bnc_cum_3k_pct": -0.102,
+      "awl_pct": 0.096,
+      "bnc_cum_1k_pct": 0.086,
+      "bnc_cum_10k_pct": 0.044
+    }
+  },
+  "human_ceiling_ace_cefr_rater1_vs_rater2": {
+    "n": 890,
+    "exact": 0.5281,
+    "within_one": 0.9562,
+    "off_by_two_or_more": 0.0438,
+    "macro_f1": 0.5369,
+    "weighted_f1": 0.5299,
+    "qwk": 0.8813,
+    "mean_signed_error": -0.099,
+    "mean_abs_error": 0.519,
+    "pred_distribution": {
+      "A1": 128,
+      "A2": 179,
+      "B1": 157,
+      "B2": 171,
+      "C1": 137,
+      "C2": 118
+    },
+    "confusion_matrix": {
+      "rows_gold_cols_pred": [
+        "A1",
+        "A2",
+        "B1",
+        "B2",
+        "C1",
+        "C2"
+      ],
+      "matrix": [
+        [
+          85,
+          20,
+          0,
+          1,
+          0,
+          0
+        ],
+        [
+          39,
+          102,
+          34,
+          3,
+          0,
+          0
+        ],
+        [
+          3,
+          51,
+          71,
+          47,
+          3,
+          0
+        ],
+        [
+          0,
+          6,
+          44,
+          72,
+          43,
+          4
+        ],
+        [
+          1,
+          0,
+          8,
+          38,
+          46,
+          20
+        ],
+        [
+          0,
+          0,
+          0,
+          10,
+          45,
+          94
+        ]
+      ]
+    },
+    "note": "Rater 2 scored against rater 1, both mapped to levels like the gold label; the gold label averages them, so this is a lower bound on gold-label reliability."
+  },
+  "features": [
+    "cefr_A1_pct",
+    "cefr_A2_pct",
+    "cefr_B1_pct",
+    "cefr_B2_pct",
+    "cefr_C1_pct",
+    "cefr_C2_pct",
+    "cefr_proper_pct",
+    "cefr_off_pct",
+    "bnc_cum_1k_pct",
+    "bnc_cum_2k_pct",
+    "bnc_cum_3k_pct",
+    "bnc_cum_4k_pct",
+    "bnc_cum_5k_pct",
+    "bnc_cum_10k_pct",
+    "bnc_off_pct",
+    "words_per_sentence",
+    "syllables_per_word",
+    "characters_per_word",
+    "mtld",
+    "mattr",
+    "awl_pct",
+    "ngsl_pct",
+    "ngsl_nawl_pct",
+    "ngsl_off_pct"
+  ],
+  "method": {
+    "levels": "A1=1 ... C2=6. '+' sub-levels (A2+, B1+, B2+) are folded into their base level. Ace-CEFR's 1-6 scores (half steps, rater averages) are mapped to the nearest level with .5 rounded down.",
+    "heuristic_nulls": "estimated_level_95th is null when on-list plus proper-noun coverage never reaches 95%; scored as C2 and reported separately.",
+    "classifier": "lexinspect.cefr_level.analyze(text) unchanged, top label.",
+    "ordinal_model": "Proportional-odds logistic regression, L2 penalty chosen by inner 3-fold CV on QWK from {0.1, 1, 10, 100}, median imputation (MTLD/MATTR are null under ~50 tokens), standardised. Within-dataset: stratified 5-fold CV, seed 0. Transfer: one model fitted on Cambridge + ELG reading texts (deduplicated), applied unchanged elsewhere.",
+    "ridge_check": "RidgeCV regression on the same features, rounded and clipped to 1-6; reported as a robustness check.",
+    "macro_f1": "Averaged over the levels present in the gold labels of that dataset.",
+    "length_buckets": [
+      "<20",
+      "20-49",
+      "50-149",
+      "150-399",
+      "400+"
+    ],
+    "length_unit": "lexinspect word count (readability.counts.words)",
+    "baseline": "Always predict the dataset's most frequent gold level (in-sample, so optimistic)."
+  },
+  "provenance": {
+    "lexinspect": "0.3.0",
+    "spacy_model": "en_core_web_sm-3.8.0",
+    "classifier": {
+      "model": "UniversalCEFR/ModernBERT-base-cefr-all-classifier",
+      "revision": "87f23fd44a4775a54b1648b39531593bfc4323c8"
+    },
+    "packages": {
+      "scikit-learn": "1.9.1",
+      "numpy": "2.4.4",
+      "scipy": "1.18.1",
+      "torch": "2.14.1",
+      "transformers": "5.20.0"
+    },
+    "limit": null
+  }
+}

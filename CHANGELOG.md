@@ -2,6 +2,24 @@
 
 Every change to lexinspect's output is listed here, by version. Output is deterministic within a version (see [VALIDITY.md](VALIDITY.md#reproducibility)), so cite the version you ran. The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and versions follow [Semantic Versioning](https://semver.org/): until 1.0, a minor version may change output values.
 
+## [0.3.1] - 2026-10-16
+
+Acts on validation Studies 2 and 5. `schema_version` stays `2`.
+
+### Fixed
+
+- A numeral with two or more dots (a section number such as `3.1.2`, a version, an IP address) raised an error and failed the whole analysis. It's now read as "three point one point two".
+
+### Added
+
+- `cefr.estimate_reliability`: `estimated_level_95th` is flagged unreliable under 50 words, a missing estimate is explained as "more than 5% of words beyond the C2 lists" rather than read as C2, and every result notes that it isn't a proficiency rating.
+- Validation results for Studies 1, 2 and 5 in `docs/validation/`, summarised in VALIDITY.md.
+
+### Changed
+
+- The `cefr` caveat and the web app give Study 5's accuracy for `estimated_level_95th`: within one level of graded reading texts 84–89% of the time, exact 42–54%.
+- The optional `cefr_level` classifier is labelled experimental, with its Study 5 result on unseen data (22% exact on short conversational passages).
+
 ## [0.3.0] - 2026-10-16
 
 Output values are unchanged from 0.2.0; every change is an addition. `schema_version` stays `2`.
@@ -45,5 +63,6 @@ First public release: CLI, HTTP API and the hosted web app at lexinspect.dqnotes
 
 Initial development; not tagged.
 
+[0.3.1]: https://github.com/quangnd159/lexinspect/compare/v0.3.0...v0.3.1
 [0.3.0]: https://github.com/quangnd159/lexinspect/compare/v0.2.0...v0.3.0
 [0.2.0]: https://github.com/quangnd159/lexinspect/releases/tag/v0.2.0

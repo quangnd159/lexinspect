@@ -239,7 +239,9 @@ function renderCefr(r, ctx) {
   out.appendChild(h('div', { class: 'stats-grid' },
     stat('Highest level', c.highest_level_present ?? '–'),
     stat('B2 and above', pct(b2plus(c))),
-    stat('Level for 95% coverage', c.estimated_level_95th ?? 'beyond C2', 'rule of thumb; names count as known'),
+    c.estimate_reliability && !c.estimate_reliability.reliable
+      ? stat('Level for 95% coverage', '–', 'needs 50+ words')
+      : stat('Level for 95% coverage', c.estimated_level_95th ?? 'beyond C2 lists', 'rough guide, ±1 level; not a proficiency rating'),
     stat('On the lists', pct(c.coverage_pct), `${num(c.counts.on_list_tokens)} of ${num(n)} words`)));
 
   for (const l of [...LEVELS].reverse()) {
@@ -263,7 +265,7 @@ function renderCefr(r, ctx) {
 
 function cefrClassifier(ctx) {
   const box = h('div', { class: 'callout' }, h('b', {}, 'Text-level estimate'),
-    h('p', {}, 'A ModernBERT classifier trained on the UniversalCEFR corpus predicts one level for the whole text. It is an estimate, not a placement.'));
+    h('p', {}, 'Experimental. A ModernBERT classifier trained on the UniversalCEFR corpus predicts one level for the whole text. On short conversational passages outside its training data it was exact only 22% of the time and rated most B1–C2 texts too low (lexinspect Study 5). Not a placement.'));
   const btn = h('button', { type: 'button', class: 'btn small' }, 'Run classifier');
   btn.addEventListener('click', async () => {
     btn.disabled = true;

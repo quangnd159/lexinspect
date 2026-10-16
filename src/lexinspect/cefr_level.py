@@ -35,7 +35,9 @@ CAVEAT = (
     "corpus (Imperial et al., EMNLP 2025), 75.8 weighted F1 on English. Vocabulary features dominate "
     "the prediction; syntactic complexity, discourse organisation, and topic "
     "familiarity are under-weighted. Trained on reading and writing texts, not "
-    "speech. Adjacent-band confusion is irreducible — within-one-level reliability "
+    "speech. Unvalidated outside its training data: on unseen Ace-CEFR passages, "
+    "lexinspect's Study 5 found 22% exact and 54% within one level, with most B1-C2 "
+    "texts rated too low. Adjacent-band confusion is irreducible — within-one-level reliability "
     "is the realistic target. Combine with readability, BNC/COCA, diversity, and "
     "metadiscourse signals before reporting a level."
 )

@@ -1,6 +1,6 @@
 """lexinspect — English text-analysis toolkit: CLI, HTTP API, and hosted web app."""
 
-__version__ = "0.3.0"
+__version__ = "0.3.1"
 
 from lexinspect import (
     awl,

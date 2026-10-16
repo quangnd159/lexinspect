@@ -252,3 +252,20 @@ def test_smog_note_alone_does_not_make_scores_unreliable():
     rel = readability.analyze(text)["reliability"]
     assert rel["reliable"] is True
     assert len(rel["notes"]) == 1 and "SMOG" in rel["notes"][0]
+
+
+@pytest.mark.parametrize(
+    ("numeral", "syllables"),
+    [
+        ("3.1", 3),  # three point one
+        ("3.1.2", 5),  # three point one point two
+        (
+            "192.168.0.1",
+            15,
+        ),  # one hundred ninety-two (6), point one six eight (4), point zero (3), point one (2)
+        ("2.", 1),  # a trailing full stop is not a fraction
+    ],
+)
+def test_numerals_with_several_dots(numeral, syllables):
+    # `3.1.2` used to raise ValueError and fail the whole analysis.
+    assert readability._numeral_syllables(numeral) == syllables

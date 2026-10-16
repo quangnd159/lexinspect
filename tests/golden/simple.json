@@ -254,7 +254,7 @@
   "supplementary": {}
  },
  "cefr": {
-  "caveat": "Heuristic only. Based on CEFR-J 1.5 + Octanove C1/C2 1.0; not Cambridge EVP. estimated_level_95th is the lowest level whose cumulative coverage reaches 95%; no published study validates it as a text's CEFR level. Cite both sources. Combine this with readability, BNC/COCA and diversity signals before reporting a level.",
+  "caveat": "Heuristic only. Based on CEFR-J 1.5 + Octanove C1/C2 1.0; not Cambridge EVP. estimated_level_95th is the lowest level whose cumulative coverage reaches 95%. It describes the vocabulary used, not the writer's proficiency. In lexinspect's Study 5 it was within one level of graded reading texts' level 84-89% of the time but exact only 42-54%, rated C1-C2 texts low, and carried almost no information on learner writing. Cite both sources. Combine this with readability, BNC/COCA and diversity signals before reporting a level.",
   "counts": {
    "content_tokens": 30,
    "off_list_tokens": 1,
@@ -264,6 +264,13 @@
   },
   "coverage_pct": 96.667,
   "dominant_level": "A1",
+  "estimate_reliability": {
+   "notes": [
+    "Only 30 words; the estimate needs 50 or more.",
+    "A rough guide: usually within one level of a reading text's graded level, and not a measure of a learner's proficiency."
+   ],
+   "reliable": false
+  },
   "estimated_level_95th": "A2",
   "highest_level_present": "A2",
   "off_list": [
