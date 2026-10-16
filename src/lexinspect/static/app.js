@@ -191,14 +191,17 @@ async function analyse({ keepTab = false, text = null } = {}) {
 
 async function requestError(res) {
   let detail = '';
+  let code = '';
   try {
     const j = await res.json();
+    code = j.detail?.error || '';
     detail = j.detail?.detail || j.detail || j.error || '';
     if (typeof detail !== 'string') detail = '';
   } catch {}
-  if (res.status === 403) return new Error('The human check didn’t go through. Reload the page and try again.');
+  if (res.status === 403) return new Error('The human check didn’t go through. Try again.');
   if (res.status === 413) return new Error(detail || 'The text is too long. Analyse it in parts.');
   if (res.status === 429) return new Error('Too many analyses in a short time. Wait a minute and try again.');
+  if (code === 'challenge_unavailable') return new Error(detail);
   if (res.status >= 500) return new Error('The analyser had a problem with this text. Try again; if it keeps failing, please report it on GitHub.');
   return new Error(detail || `Request failed (${res.status}).`);
 }
@@ -288,8 +291,7 @@ fetch('/v1/schema')
     $('liveLimit').textContent = `${num(LIMIT_BYTES / 1000)} KB`;
     $('versionMeta').textContent = `lexinspect ${s.version}`;
     updateMeter();
-  })
-  .catch(() => {});
+  }, () => Human.configure(null));
 
 setVariantUi();
 textarea.value = store.get('lexinspect:draft', '');

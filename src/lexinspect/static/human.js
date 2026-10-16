@@ -12,6 +12,10 @@ const Human = (() => {
   const PASS_MS = 55 * 60 * 1000; // a little under the server's hour
 
   let siteKey = null;
+  // Settles once /v1/schema has said whether the gate is on, so an analysis
+  // started before then doesn't go out without a token.
+  let configured;
+  const ready = new Promise((resolve) => (configured = resolve));
   let loading = null;
   let widget = null;
   let waiting = null; // { resolve, reject } for the token being fetched
@@ -59,7 +63,7 @@ const Human = (() => {
                 'error-callback': (code) => {
                   // Codes: developers.cloudflare.com/turnstile/troubleshooting/client-side-errors/
                   console.warn(`Turnstile error ${code}`);
-                  settle('reject', new Error('The human check failed. Reload the page and try again.'));
+                  settle('reject', new Error('The human check failed. Try again.'));
                   return true; // handled; don't let Turnstile throw
                 },
                 'timeout-callback': () => settle('reject', new Error('The human check timed out. Try again.')),
@@ -93,6 +97,7 @@ const Human = (() => {
     /** Call with /v1/schema's turnstile_site_key. Prefetches a token so the first analysis doesn't wait. */
     configure(key) {
       siteKey = key || null;
+      configured();
       if (!siteKey || hasPass()) return;
       const promise = freshToken();
       promise.catch(() => {});
@@ -109,6 +114,7 @@ const Human = (() => {
         if (withToken) headers.set('CF-Turnstile-Response', await token());
         return fetch(url, { ...init, headers, credentials: 'same-origin' });
       };
+      await ready;
       if (!siteKey) return fetch(url, init);
       let res = await send(!hasPass());
       if (res.status === 403) {
