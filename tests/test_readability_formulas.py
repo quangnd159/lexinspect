@@ -269,3 +269,20 @@ def test_smog_note_alone_does_not_make_scores_unreliable():
 def test_numerals_with_several_dots(numeral, syllables):
     # `3.1.2` used to raise ValueError and fail the whole analysis.
     assert readability._numeral_syllables(numeral) == syllables
+
+
+@pytest.mark.parametrize(
+    ("numeral", "syllables"),
+    [
+        ("11:00", 5),  # eleven, zero: no word between a time's parts
+        ("1/4", 2),  # one, four
+        ("3-4", 3),  # three to four
+        ("8×8", 3),  # eight by eight
+        ("12/10/2026", 7),  # twelve ten twenty twenty-six
+        ("30½", 5),  # thirty and a half
+        ("½", 2),  # a half
+        ("6'1", 2),  # six one
+    ],
+)
+def test_numerals_with_separators(numeral, syllables):
+    assert readability._numeral_syllables(numeral) == syllables

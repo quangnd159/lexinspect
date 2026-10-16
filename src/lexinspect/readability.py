@@ -104,6 +104,26 @@ def _say_int(n: int) -> list[str]:
     return out
 
 
+# Spoken forms of vulgar fractions: ½ "a half", ¾ "three quarters".
+_FRACTION_SYLLABLES = {
+    "½": 2,
+    "⅓": 2,
+    "⅔": 2,
+    "¼": 3,
+    "¾": 3,
+    "⅕": 2,
+    "⅖": 2,
+    "⅗": 2,
+    "⅘": 2,
+    "⅙": 2,
+    "⅚": 3,
+    "⅛": 2,
+    "⅜": 3,
+    "⅝": 3,
+    "⅞": 3,
+}
+
+
 def _numeral_syllables(text: str) -> int:
     """Syllables of a numeral as read aloud: `1,500` -> one thousand five hundred.
 
@@ -111,13 +131,23 @@ def _numeral_syllables(text: str) -> int:
     out; anything else (decimals, ordinals, percentages) is approximated by
     reading each digit group, which is how it would be spoken digit by digit.
     """
-    # `11:00`, `1/4`, `3-4`: each part is read on its own ("three to four").
-    parts = [p for p in re.split(r"[:/\-–]", text) if any(c.isdigit() for c in p)]
+    # `11:00`, `1/4`, `3-4`, `8×8`: each part is read on its own. A range is
+    # read with "to" and a dimension with "by", one syllable each; a time,
+    # fraction or date adds no word between its parts ("eleven hundred",
+    # "twelve ten twenty twenty-six"). Heights (`6'1`) are read "six one".
+    pieces = re.split(r"([:/⁄\-‐‑‒–−×'’′])", text)
+    parts = [p for p in pieces[::2] if any(c.isdigit() or c in _FRACTION_SYLLABLES for c in p)]
     if len(parts) > 1:
-        return sum(_numeral_syllables(p) for p in parts) + len(parts) - 1
+        seps = pieces[1::2]
+        joiners = sum(1 for s in seps if s in "-‐‑‒–−×")
+        return sum(_numeral_syllables(p) for p in parts) + joiners
+    frac = sum(_FRACTION_SYLLABLES.get(c, 0) for c in text)
     digits = "".join(c for c in text if c.isdigit() or c == ".")
     if not digits:
-        return 1
+        return max(1, frac)
+    if frac:
+        # `30½`: "thirty and a half".
+        return _numeral_syllables(digits) + 1 + frac
     # `3.1.2` (a section number, a version, an IP address) is read
     # "three point one point two": every group after a dot is a fraction.
     whole, *fracs = digits.split(".")

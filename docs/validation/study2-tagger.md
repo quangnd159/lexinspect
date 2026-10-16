@@ -1,6 +1,6 @@
 # Study 2: Tagger accuracy on learner English
 
-**Status:** done, for lexinspect 0.3.0 with `en_core_web_sm-3.8.0` (and `en_core_web_trf-3.8.0` for comparison). All numbers below come from [`study2-tagger.json`](study2-tagger.json), which records provenance, data checksums and every figure quoted here.
+**Status:** done, for lexinspect 0.3.3 with `en_core_web_sm-3.8.0` (and `en_core_web_trf-3.8.0` for comparison). All numbers below come from [`study2-tagger.json`](study2-tagger.json), which records provenance, data checksums and every figure quoted here.
 
 ## Question
 
@@ -19,7 +19,7 @@ lexinspect tags every text with spaCy `en_core_web_sm`. The tags decide which pa
 | Release | UD r2.18 | UD r2.18 |
 | Licence | CC BY-SA 4.0 | CC BY-SA 4.0 |
 | Sentences / tokens | 2,320 / 21,312 | 2,077 / 25,094 |
-| lexinspect lexical tokens | 17,438 | 21,143 |
+| lexinspect lexical tokens | 17,438 | 21,025 |
 | Texts (≥150 words) | 116 | 138 |
 | Gold annotation | XPOS (Penn Treebank) manual; UPOS converted from XPOS and checked manually; **no lemmas** | UPOS, XPOS, lemmas, all manual |
 
@@ -62,7 +62,7 @@ For each text we also run lexinspect's module functions themselves (`cefr.analyz
 | XPOS | 95.4% [95.0–95.7] | 96.0% [95.7–96.3] | 92.2% [91.6–92.8] | 94.7% [94.1–95.1] |
 | XPOS, lenient | 96.7% [96.4–97.0] | 97.4% [97.1–97.6] | 92.3% | 94.7% |
 | Lemma, exact / ignoring case | n/a (no gold) | n/a | 94.3% / 97.2% | 95.1% / 97.4% |
-| Proper-noun tag (NNP/NNPS) precision / recall | 82.9% / 97.1% | 88.4% / 98.6% | 74.6% / 93.0% | 84.5% / 96.8% |
+| Proper-noun tag (NNP/NNPS) precision / recall | 82.9% / 97.1% | 88.4% / 98.6% | 74.9% / 93.0% | 84.5% / 96.8% |
 
 On lexical tokens alone, accuracy is within about 1 point of these figures (JSON: `*_lexical_tokens`).
 
@@ -72,7 +72,7 @@ Two things stand out. First, both models score below spaCy's in-domain OntoNotes
 - Discourse *so* tagged as an adverb in gold but a conjunction by spaCy.
 - Japanese words that gold tags `FW` and spaCy tags `NNP`.
 
-On EWT the largest single error is common nouns and adjectives tagged as proper nouns: 370 `NN` and 126 `JJ` tokens tagged `NNP` by `sm`. `trf` is better on every measure, by 0.5–0.7 points on learner speech and 1.8–2.5 points on web text.
+On EWT the largest single error is common nouns and adjectives tagged as proper nouns: 342 `NN` and 104 `JJ` tokens tagged `NNP` by `sm`. `trf` is better on every measure. Its accuracy gains are 0.5–0.8 points on learner speech (tags only; that corpus has no gold lemmas) and, on web text, 1.8–2.6 points for tags but only 0.2–1.1 for lemmas. Proper-noun precision gains more: 5.5 points on learner speech and 9.7 on web text.
 
 ### 2. What changes in lexinspect's output, per lexical token
 
@@ -94,30 +94,30 @@ Each cell is the % of lexical tokens where the two conditions give a different r
 | AWL membership | 0.00 | 0.00 | 0.00 |
 | Reported proper-noun status (any profile) | 0.47 [0.35–0.59] | 0.32 [0.21–0.44] | 0.45 |
 
-**Baseline (EWT), 21,143 lexical tokens**
+**Baseline (EWT), 21,025 lexical tokens**
 
 | Change | `sm` vs gold | `trf` vs gold | `sm` vs `trf` | `sm` vs gold+lemma |
 |---|---|---|---|---|
-| XPOS tag differs | 7.31 [6.65–8.06] | 4.67 [4.24–5.11] | 5.38 | 7.31 |
-| Lemma differs | 1.21 | 0.85 | 0.77 | 3.04 |
-| **Any profile outcome differs** | **3.42 [3.04–3.82]** | **2.20 [1.96–2.48]** | 2.43 | 4.12 |
-| CEFR outcome | 3.03 [2.70–3.39] | 1.99 [1.76–2.23] | 2.19 | 3.63 |
-| of which, level shift on the list | 0.92 | 0.77 | 0.65 | 0.93 |
-| of which, on-list vs not | 0.47 | 0.29 | 0.33 | 1.13 |
-| BNC/COCA outcome | 0.67 [0.54–0.83] | 0.31 | 0.55 | 1.03 |
+| XPOS tag differs | 7.27 [6.62–8.03] | 4.69 [4.25–5.14] | 5.34 | 7.27 |
+| Lemma differs | 1.21 | 0.85 | 0.77 | 3.06 |
+| **Any profile outcome differs** | **3.40 [3.01–3.80]** | **2.21 [1.97–2.49]** | 2.40 | 4.10 |
+| CEFR outcome | 3.01 [2.68–3.38] | 2.00 [1.77–2.24] | 2.16 | 3.61 |
+| of which, level shift on the list | 0.93 | 0.77 | 0.65 | 0.93 |
+| of which, on-list vs not | 0.48 | 0.29 | 0.33 | 1.14 |
+| BNC/COCA outcome | 0.64 [0.51–0.78] | 0.31 | 0.51 | 0.99 |
 | of which, band shift | 0.01 | 0.00 | 0.01 | 0.02 |
-| NGSL/NAWL outcome | 2.00 | 1.10 | 1.40 | 2.29 |
+| NGSL/NAWL outcome | 1.97 | 1.10 | 1.37 | 2.26 |
 | AWL membership | 0.00 | 0.00 | 0.00 | 0.05 |
-| Reported proper-noun status (any profile) | 2.31 [1.98–2.63] | 1.26 [1.04–1.51] | 1.65 | 2.48 |
+| Reported proper-noun status (any profile) | 2.29 [1.95–2.60] | 1.27 [1.04–1.52] | 1.62 | 2.45 |
 
 **What actually changes.**
 
 - **CEFR level shifts** are almost all function words that the CEFR lists rate differently by part of speech. *so* as adverb (A2) vs conjunction (A1) accounts for 38 of 160 learner shifts. *for*, *in*, *all*, *as*, *over* and *up* move between A1 and A2 depending on preposition, adverb or particle tags. A few content words shift too: *present* (adjective B1 vs noun A1), *skiing* and *relaxing* (verb vs noun or adjective).
-- **Proper-noun swaps** move a token between "proper noun" and "off-list". Examples: Japanese words in learner speech (*pasokon*, *kaishain*), and *e-mail*, *T-Mobile*, file names and phone numbers in web text.
-- **BNC/COCA bands** are looked up by word form within Nation's families, so tags almost never move a token to another band (3 tokens out of 21,143). Tags matter to BNC/COCA only for proper-noun status.
+- **Proper-noun swaps** move a token between "proper noun" and "off-list". Examples: Japanese words in learner speech (*pasokon*, *kaishain*), and *e-mail*, *T-Mobile* and file names in web text.
+- **BNC/COCA bands** are looked up by word form within Nation's families, so tags almost never move a token to another band (3 tokens out of 21,025). Tags matter to BNC/COCA only for proper-noun status.
 - **AWL** coverage never changed under any model's tags. The 0.05% under `gold+lemma` comes from EWT's lemma conventions, not from tagging.
 
-Only about a third of `sm`'s tag errors change anything lexinspect reports: 1.51% of tokens out of 5.12% mistagged on learner speech, and 3.42% out of 7.31% on web text.
+Far fewer tokens change what lexinspect reports than are mistagged: on learner speech 1.51% of tokens change a reported result while 5.12% are mistagged, and on web text 3.40% against 7.27%. These are separate counts, not a share of the tag errors: a lemma difference, or a UPOS difference with the same XPOS tag (`for` as ADP or SCONJ is A1 or A2), can change a result with no XPOS error.
 
 ### 3. What changes at text level
 
@@ -126,30 +126,30 @@ Each cell is the mean absolute difference per text in percentage points (pp), wi
 | Measure | Learner `sm` vs gold | Learner `trf` vs gold | EWT `sm` vs gold | EWT `trf` vs gold |
 |---|---|---|---|---|
 | CEFR coverage per level, mean over A1–C2 | 0.27 | 0.22 | 0.26 | 0.23 |
-| Largest per-level CEFR shift in a text | 0.81 (max 2.76) | 0.66 (max 2.07) | 0.78 (max 3.95) | 0.71 (max 2.63) |
+| Largest per-level CEFR shift in a text | 0.81 (max 2.76) | 0.66 (max 2.07) | 0.78 (max 3.95) | 0.72 (max 2.63) |
 | CEFR A1 coverage | 0.62 (max 2.76) | 0.56 | 0.50 (max 3.95) | 0.52 |
-| CEFR off-list % | 0.49 (max 2.72) | 0.33 | 1.25 (max 6.12) | 0.88 |
-| CEFR proper-noun % | 0.41 (max 2.67) | 0.29 | 1.38 (max 6.90) | 0.88 |
-| BNC/COCA 1k / 2k / 3k coverage | ≤0.01 | 0 | ≤0.02 | ≤0.02 |
-| BNC/COCA coverage incl. supplementary + proper | 0.13 (max 1.38) | 0.12 | 0.53 (max 3.95) | 0.31 |
+| CEFR off-list % | 0.49 (max 2.72) | 0.33 | 1.22 (max 6.29) | 0.89 |
+| CEFR proper-noun % | 0.41 (max 2.67) | 0.29 | 1.36 (max 6.99) | 0.89 |
+| BNC/COCA 1k / 2k / 3k coverage | ≤0.01 | 0 | ≤0.02 | ≤0.01 |
+| BNC/COCA coverage incl. supplementary + proper | 0.13 (max 1.38) | 0.12 | 0.50 (max 3.50) | 0.31 |
 | NGSL coverage | 0.01 | 0.00 | 0.02 | 0.02 |
 | AWL coverage | 0 | 0 | 0 | 0 |
-| `estimated_level_95th` same as gold | **81% of texts** | **91%** | **80%** | **82%** |
+| `estimated_level_95th` same as gold | **81% of texts** | **91%** | **75%** | **76%** |
 | `highest_level_present` same as gold | 97% | 99% | 99% | 98% |
 
-When `estimated_level_95th` disagrees with gold, the gap is usually one level. On learner speech under `sm`, 19 of the 22 disagreeing texts are one level apart, and in the other 3 one condition never reaches 95% coverage. On EWT, most `sm` disagreements (21 of 28) are cases where one condition reaches 95% and the other doesn't. That happens because a handful of names flip between "proper noun", which counts as known, and "off-list". `sm` and `trf` disagree with each other on 16% of learner texts and 20% of EWT texts.
+On learner speech, when `estimated_level_95th` disagrees with gold, the gap is usually one level: under `sm`, 19 of the 22 disagreeing texts are one level apart, and in the other 3 one condition never reaches 95% coverage. On EWT, most `sm` disagreements (22 of 35) are cases where one condition reaches 95% and the other doesn't; of the other 13, 8 are one level apart and 5 two levels. That happens because a handful of names flip between "proper noun", which counts as known, and "off-list". `sm` and `trf` disagree with each other on 16% of learner texts and 20% of EWT texts.
 
 ### 4. Speed and size
 
 | | `en_core_web_sm` 3.8.0 | `en_core_web_trf` 3.8.0 |
 |---|---|---|
-| Speed, learner texts | 11,500 words/s | 1,820 words/s |
-| Speed, EWT texts | 11,400 words/s | 1,640 words/s |
-| Model load | 2.6 s | 3.7 s |
+| Speed, learner texts | 10,200 words/s | 2,090 words/s |
+| Speed, EWT texts | 11,900 words/s | 1,910 words/s |
+| Model load | 3.0 s | 4.0 s |
 | Model package | 14.5 MB | 477.5 MB |
 | Extra dependencies | none | PyTorch (500 MB), sympy, networkx, spacy-curated-transformers and others: **about 1.0 GB in total** with the model |
 
-Measured on an Apple M3 Pro, on CPU only. `trf` is about 6–7 times slower and about 70 times larger, before counting PyTorch.
+Measured on an Apple M3 Pro, on CPU only. `trf` is 4.9–6.2 times slower. Its model package is about 33 times the size of `sm`'s; with PyTorch and its other added dependencies, it adds about 70 times as much (1.0 GB).
 
 ## Interpretation
 
@@ -158,15 +158,15 @@ Measured on an Apple M3 Pro, on CPU only. `trf` is about 6–7 times slower and 
 - For about 98.5% of tokens in learner speech (96.6% in web text), `sm` gives the same CEFR level, band, list membership and proper-noun status as gold tags would. Switching to `trf` would fix about 0.4% of tokens in learner speech and 1.2% in web text.
 - Frequency-band (BNC/COCA), NGSL and AWL coverage figures are essentially immune to tagging. Band and list coverage move by hundredths of a point. The only way tags reach them is through proper-noun status, which shifts the "off-list" and "assumed known" shares by about 0.1 pp (learner) to 0.5 pp (web text) on average.
 - CEFR per-level coverage moves by about a quarter of a point on average, and by under 2 pp in 95% of texts. Most of the movement is function words switching between A1 and A2, which no user would act on.
-- **The exception is `estimated_level_95th`.** Because it is a threshold on cumulative coverage, a fraction of a point can push a text across a level boundary. Under `sm`, it differs from the gold-tag result in about one text in five, nearly always by one level. Under `trf`, that drops to about one in ten on learner speech but stays near one in five on web text. `sm` and `trf` also disagree with each other on one text in five or six. This is a fragility of the estimate itself, not something a better tagger fixes. It supports what VALIDITY.md already says: the estimate is a rule of thumb, not a text's level.
-- On this learner corpus, `sm` tags learner speech no worse than edited web text. The "two to three times as many errors" from Berzak et al. (2016), for written learner essays and the parsers they tested, did not show up here. But this is speech from short interviews with simple vocabulary, so it is not evidence about written learner essays.
+- **The exception is `estimated_level_95th`.** Because it is a threshold on cumulative coverage, a fraction of a point can push a text across a level boundary. Under `sm`, it differs from the gold-tag result in about one text in five on learner speech (19%), nearly always by one level, and one in four on web text (25%), mostly because one condition reaches 95% coverage and the other doesn't. Under `trf`, that drops to about one in ten on learner speech (9%) but stays near one in four on web text (24%). `sm` and `trf` also disagree with each other on 16% of learner texts and 20% of web texts. This is a fragility of the estimate itself, not something a better tagger fixes. It supports what VALIDITY.md already says: the estimate is a rule of thumb, not a text's level.
+- On this learner corpus, `sm` tags learner speech no worse than edited web text. Berzak et al. (2016) found that a tagger trained on English web text reached 91.9% UPOS accuracy on written learner essays (the Treebank of Learner English), and 92.9% on the same sentences once their errors were corrected. Here `sm` reaches 95.3% on learner speech and 92.5% on web text. But this is speech from short interviews with simple vocabulary, so it is not evidence about written learner essays.
 
 ## Recommendation
 
 **Keep `en_core_web_sm` as the default.**
 
 - Switching to `trf` would change about 0.4% of reported token outcomes on learner English and about 1.2% on web text.
-- It would cost about 1 GB of installed size and 6–7 times the CPU time, which rules it out for the hosted function.
+- It would cost about 1 GB of installed size and 4.9–6.2 times the CPU time, which rules it out for the hosted function.
 - If offered at all, `trf` should be an optional local extra for research users whose texts are rich in names, as `cefr_level` is.
 
 Tagging is not the weak point. Better targets are:

@@ -1,21 +1,23 @@
 # Study 3: computational agreement with reference tools
 
-> **Version note.** These results were computed with lexinspect 0.3.0. The two bugs reported under "Suspected lexinspect bugs" were fixed in 0.3.2, so rerunning the script now gives slightly different figures for the affected texts.
+> **Version note.** These results were computed with lexinspect 0.3.3. Run under 0.3.0, this study found tokenisation bugs, which were fixed in 0.3.2 and 0.3.3. [Tokenisation bugs](#tokenisation-bugs) gives what was found, what was fixed and what remains.
 
 **Question.** On the same texts, do lexinspect's indices agree with established reference implementations? Where they disagree, is the cause a documented design choice (tokenisation, sentence splitting, syllable counting, published-definition fixes) or a bug?
 
 **Short answer.**
 
-- **Diversity formulas agree.** Given the same token list, MATTR, HD-D, MSTTR and TTR are identical to TAALED, lexical-diversity and lexicalrichness on all 300 texts. MTLD and vocd-D are identical to lexicalrichness. MTLD runs 1 point (about 3%) below TAALED's original MTLD, because TAALED requires factors of at least 10 tokens and closes a factor only when TTR drops strictly below .72.
-- **Diversity scores on real text differ by tokenisation.** With each tool tokenising for itself, lexinspect is still compatible with lexicalrichness (r = .978–.997). It is not compatible with TAALED/pylats (r = .83–.86): TAALED lemmatises and drops proper nouns and unattested words, which lowers its diversity scores (lexinspect MATTR +.03, MTLD +14).
-- **Readability formulas agree.** Fed lexinspect's counts, textstat's formulas reproduce lexinspect's Flesch, Flesch–Kincaid, SMOG and ARI exactly (to rounding). Coleman–Liau differs by a constant +0.36, which is lexinspect's correction of textstat's coefficient (0.0588, not 0.058). Fog and Dale–Chall differ because lexinspect follows Gunning's and Chall & Dale's counting rules, as `readability.py` and CAVEATS.md describe.
-- **Readability scores on real text are mostly not "compatible" with textstat.** Six of eight formulas fall below r = .95 (Coleman–Liau .997 and SMOG .963 pass). The differences come from counting: sentence splitting (`U.S.`, unpunctuated learner run-ons, dropped short sentences), numerals (lexinspect says `1992` as four syllables, textstat counts one), words that textstat glues together when it strips punctuation (`school,they`, `red-green`, curly-apostrophe contractions), and the syllable fallback for words outside CMUdict. Every word in CMUdict gets the same syllable count in both tools.
-- **Two lexinspect bugs found** (not fixed here; see [Suspected lexinspect bugs](#suspected-lexinspect-bugs)):
-  1. Words joined through a dash and a quote or comma are counted as one word and one diversity type: `last”—he`, `deep,—not`. This affects 53 of 300 texts, mostly 19th-century prose, and can move MTLD by up to 22%.
-  2. Digit strings that aren't plain numbers (`1914–1918`, `11:00`, `1/4`) count as words with **0 syllables** and stay in the diversity tokens, which are meant to exclude numbers. This affects 51 texts.
+- **Diversity formulas agree.** Given the same token list, MATTR and HD-D are identical to TAALED, lexical-diversity and lexicalrichness on all 300 texts. MSTTR is identical to TAALED and lexical-diversity, and TTR to TAALED and lexicalrichness (the JSON summarises the TAALED comparisons; the per-text CSV has all four). MTLD is identical to lexicalrichness, and vocd-D agrees with it to four decimal places. MTLD runs 1.2 points (about 1.7%) below TAALED's original MTLD on average, because TAALED requires factors of at least 10 tokens and closes a factor only when TTR drops strictly below .72.
+- **Diversity scores on real text differ by tokenisation.** With each tool tokenising for itself, lexinspect is still compatible with lexicalrichness (r = .975–.997). It is not compatible with TAALED/pylats (r = .83–.86): TAALED lemmatises and drops proper nouns and unattested words, which lowers its diversity scores (lexinspect MATTR +.03, MTLD +13).
+- **Readability formulas agree.** Fed lexinspect's counts, textstat's formulas reproduce lexinspect's Flesch, Flesch–Kincaid, SMOG and ARI exactly (to rounding). Coleman–Liau does not match: it sits 0.36 higher on average (at most 0.45), which is lexinspect's correction of textstat's coefficient (0.0588, not 0.058). Fog and Dale–Chall differ because lexinspect follows Gunning's and Chall & Dale's counting rules, as `readability.py` and CAVEATS.md describe.
+- **Readability scores on real text are mostly not "compatible" with textstat.** Six of eight formulas fall below r = .95 (Coleman–Liau .997 and SMOG .961 pass). The differences come from counting: sentence splitting (`U.S.`, unpunctuated learner run-ons, dropped short sentences), numerals (lexinspect says `1992` as four syllables, textstat counts one), words that textstat glues together when it strips punctuation (`school,they`, `red-green`, curly-apostrophe contractions), and the syllable fallback for words outside CMUdict. Every word in CMUdict gets the same syllable count in both tools.
+- **Tokenisation bugs found and fixed** (see [Tokenisation bugs](#tokenisation-bugs)). Run under 0.3.0, this study found two:
+  1. Words joined through a dash and a quote or comma counted as one word and one diversity type: `last”—he`, `deep,—not`. This affected 53 of 300 texts, mostly 19th-century prose, and moved MTLD by up to 22%.
+  2. Digit strings that aren't plain numbers (`1914–1918`, `11:00`, `1/4`) counted as words with **0 syllables** and stayed in the diversity tokens, which are meant to exclude numbers. This affected 51 texts.
+
+  0.3.2 and 0.3.3 fixed these. Under 0.3.3, the diagnostics still flag 19 glued words in 13 texts (6 of them false positives: numbers with a thousands comma inside a hyphenated compound) and 7 zero-syllable digit strings in 4 texts; splitting every flagged word would move MTLD by at most 5.6%. These are known limitations of 0.3.3.
 - **vocd-D vs Text Inspector.** On the comparison passage, lexinspect's vocd-D of 245.48 is reproduced exactly by lexicalrichness, an independent implementation using scipy's unbounded curve fit. Text Inspector shows exactly 200.00. A least-squares optimum landing on a round 200.00 is implausible, so the likely cause is a ceiling or search bound at 200 in Text Inspector. That is an inference: Text Inspector's code was not inspected.
 
-Results are from lexinspect 0.3.0 with `en_core_web_sm-3.8.0`. Every number is in [`study3-agreement.json`](study3-agreement.json); per-text values are in [`study3-agreement-per-text.csv`](study3-agreement-per-text.csv).
+Results are from lexinspect 0.3.3 with `en_core_web_sm-3.8.0`. Every number is in [`study3-agreement.json`](study3-agreement.json); per-text values are in [`study3-agreement-per-text.csv`](study3-agreement-per-text.csv).
 
 ## Texts
 
@@ -32,7 +34,7 @@ Word counts are whitespace counts. Wikipedia text is the article's prose paragra
 
 | Tool | Version | Licence | Role |
 |---|---|---|---|
-| lexinspect | 0.3.0, `en_core_web_sm` 3.8.0 | MIT | Tool under test |
+| lexinspect | 0.3.3, `en_core_web_sm` 3.8.0 | MIT | Tool under test |
 | textstat | 0.7.13 | MIT | Readability reference. CMUdict via NLTK 3.10.3, Pyphen 0.18.1 fallback |
 | TAALED | 0.32 | **CC BY-NC-SA 4.0**, per `License_CC-A-NC-SA-4.0.txt` in the GitHub repo; the PyPI package declares none | Diversity reference (Kyle's tool) |
 | pylats | 0.64 | CC BY-NC-SA 4.0 (same) | TAALED's recommended preprocessing |
@@ -45,7 +47,7 @@ The reference packages are installed only in a throwaway `uv run --with` environ
 
 1. **Readability, each tool on the raw text.** lexinspect's `readability.analyze` was compared with textstat's formulas and counts (rounding off). For "Dale–Chall difficult words", textstat's count is the one its Dale–Chall formula uses: every word off the easy list. Its public `difficult_words()` defaults to words of 2+ syllables.
 2. **Readability, formula only.** Each textstat formula was recomputed on lexinspect's counts with textstat's coefficients. For Fog and Dale–Chall, textstat's hard-word definitions were applied to lexinspect's words: Fog hard words are 3+ syllables and not on the easy list; Dale–Chall difficult words are anything off the easy list. A difference here is a definition difference, not a counting one.
-3. **Syllables, word by word.** Every alphabetic word type in the corpus (14,887 types, 188,918 tokens) was counted by both syllable counters.
+3. **Syllables, word by word.** Every alphabetic word type in the corpus (14,914 types, 189,218 tokens) was counted by both syllable counters.
 4. **Diversity, same tokens.** lexinspect's token list (`diversity.tokens`: lowercased words, contractions and hyphenated compounds whole, numerals excluded) was passed unchanged to each reference. TAALED `lexdiv`, lexical-diversity's functions and `LexicalRichness(tokens, preprocessor=None, tokenizer=None)` all use window 50, threshold .72, 42 draws, and for vocd-D, sizes 35–50 with 100 samples, 3 trials and seed 42.
 5. **Diversity, own tokens.** Each reference on the raw text with its documented preprocessing:
    - TAALED via pylats `EnDefault` with the same spaCy model: lemma_POS tokens; punctuation, proper nouns, numbers and words not attested in COCA removed.
@@ -67,23 +69,23 @@ The reference packages are installed only in a throwaway `uv run --with` environ
 
 | Measure | r | ρ | Bias | MAD | Tolerance | % within | r > .95 |
 |---|---:|---:|---:|---:|---|---:|:---:|
-| Words | 1.000 | 1.000 | +1.07 | 1.07 | ±2% | 99.0 | yes |
-| Sentences | .991 | .992 | −0.26 | 1.76 | ±10% | 81.7 | yes |
-| Syllables | .997 | .998 | +37.0 | 37.0 | ±2% | 62.7 | yes |
-| Syllables, words without digits | 1.000 | .999 | +11.1 | 11.1 | ±2% | 87.0 | yes |
-| Polysyllabic words (3+) | .986 | .992 | +10.4 | 10.6 | ±5% | 48.0 | yes |
-| Dale–Chall difficult words | .848 | .901 | −90.2 | 90.2 | ±5% | 0.0 | no |
-| Flesch Reading Ease | .900 | .931 | −2.80 | 5.04 | ±5 | 63.7 | no |
-| Flesch–Kincaid grade | .903 | .929 | +0.23 | 1.15 | ±0.5 | 42.3 | no |
-| Gunning Fog | .923 | .946 | −0.69 | 1.17 | ±0.5 | 33.7 | no |
-| SMOG | .963 | .954 | +0.38 | 0.63 | ±0.5 | 54.3 | yes |
-| ARI | .921 | .961 | −1.03 | 1.27 | ±0.5 | 28.3 | no |
-| Coleman–Liau | .997 | .997 | +0.30 | 0.32 | ±0.5 | 93.3 | yes |
-| Dale–Chall raw score | .632 | .653 | −1.99 | 1.99 | ±0.5 | 3.0 | no |
-| Linsear Write | .901 | .928 | +1.77 | 2.49 | ±0.5 | 23.7 | no |
-| `text_standard` (different definitions) | .765 | .812 | +0.60 | 1.57 | ±1 | 54.3 | no |
+| Words | 1.000 | 1.000 | +1.84 | 1.84 | ±2% | 98.0 | yes |
+| Sentences | .991 | .991 | −0.19 | 1.78 | ±10% | 80.3 | yes |
+| Syllables | .997 | .997 | +39.8 | 39.8 | ±2% | 61.3 | yes |
+| Syllables, words without digits | 1.000 | .999 | +11.2 | 11.2 | ±2% | 87.0 | yes |
+| Polysyllabic words (3+) | .985 | .992 | +10.9 | 11.0 | ±5% | 48.0 | yes |
+| Dale–Chall difficult words | .849 | .902 | −90.3 | 90.3 | ±5% | 0.0 | no |
+| Flesch Reading Ease | .896 | .929 | −2.97 | 5.15 | ±5 | 63.3 | no |
+| Flesch–Kincaid grade | .901 | .928 | +0.25 | 1.16 | ±0.5 | 44.0 | no |
+| Gunning Fog | .923 | .946 | −0.71 | 1.16 | ±0.5 | 34.0 | no |
+| SMOG | .961 | .954 | +0.39 | 0.64 | ±0.5 | 55.0 | yes |
+| ARI | .921 | .959 | −1.06 | 1.29 | ±0.5 | 25.3 | no |
+| Coleman–Liau | .997 | .996 | +0.27 | 0.30 | ±0.5 | 93.7 | yes |
+| Dale–Chall raw score | .633 | .652 | −2.00 | 2.00 | ±0.5 | 3.0 | no |
+| Linsear Write | .899 | .924 | +1.72 | 2.49 | ±0.5 | 23.7 | no |
+| `text_standard` (different definitions) | .765 | .811 | +0.60 | 1.58 | ±1 | 55.3 | no |
 
-By source, the formulas agree best on Gutenberg prose (Flesch, Flesch–Kincaid, Fog and SMOG all r ≥ .98). They agree least on Wikipedia, where numerals and `U.S.`-style abbreviations are common (FRE bias about −10 on both Wikipedias), and on learner essays, where sentence punctuation is irregular. See `by_source` in the JSON.
+By source, the formulas agree best on Gutenberg prose (Flesch, Flesch–Kincaid, Fog and SMOG all r ≥ .98). They agree least on Wikipedia, where numerals and `U.S.`-style abbreviations are common (FRE bias −11.3 on English and −9.8 on Simple Wikipedia), and on learner essays, where sentence punctuation is irregular. See `by_source` in the JSON.
 
 ### Readability: formula only (textstat formulas on lexinspect's counts)
 
@@ -94,8 +96,8 @@ By source, the formulas agree best on Gutenberg prose (Flesch, Flesch–Kincaid,
 | SMOG | 1.000 | 0.000 | 0.003 | 100 | Same formula (1.043 vs 1.0430) |
 | ARI | 1.000 | 0.000 | 0.002 | 100 | Same formula, but see the note on characters below |
 | Coleman–Liau | 1.000 | +0.357 | 0.357 | 0 | Coefficient: lexinspect 0.0588 (Coleman & Liau 1975), textstat 0.058 |
-| Gunning Fog | .947 | −0.91 | 1.23 | 4 | Hard-word definition: lexinspect excludes proper nouns, hyphenated compounds and words that reach 3 syllables only through -es/-ed/-ing (Gunning 1952); textstat excludes words on the Dale–Chall easy list |
-| Dale–Chall raw score | .641 | −1.93 | 1.93 | 0 | Familiarity: lexinspect counts inflections of listed words, proper names and numerals as familiar (Chall & Dale 1995 rules); textstat counts only exact list entries as familiar |
+| Gunning Fog | .945 | −0.94 | 1.24 | 5 | Hard-word definition: lexinspect excludes proper nouns, hyphenated compounds and words that reach 3 syllables only through -es/-ed/-ing (Gunning 1952); textstat excludes words on the Dale–Chall easy list |
+| Dale–Chall raw score | .639 | −1.94 | 1.94 | 0 | Familiarity: lexinspect counts inflections of listed words, proper names and numerals as familiar (Chall & Dale 1995 rules); textstat counts only exact list entries as familiar |
 
 ARI is identical given the same counts, but the counts differ by definition: textstat divides *all* non-space characters, punctuation included, by a word count that includes punctuation-only "words". lexinspect counts letters and digits.
 
@@ -103,9 +105,9 @@ ARI is identical given the same counts, but the counts differ by definition: tex
 
 | Word types | Types | Tokens | % types identical | % tokens identical | % types within 1 | Mean diff (lexinspect − textstat) |
 |---|---:|---:|---:|---:|---:|---:|
-| All | 14,887 | 188,918 | 93.4 | 99.0 | 98.2 | +0.08 |
-| In CMUdict | 12,770 | 184,678 | **100.0** | **100.0** | 100.0 | 0.00 |
-| Not in CMUdict | 2,117 | 4,240 | 53.4 | 54.3 | 87.6 | +0.54 |
+| All | 14,914 | 189,218 | 93.4 | 99.0 | 98.2 | +0.08 |
+| In CMUdict | 12,790 | 184,962 | **100.0** | **100.0** | 100.0 | 0.00 |
+| Not in CMUdict | 2,124 | 4,256 | 53.4 | 54.3 | 87.6 | +0.54 |
 
 Both tools use CMUdict's first pronunciation, so every dictionary word agrees. Outside CMUdict, lexinspect uses spelling variants, stem plus suffix, and then rules; textstat uses Pyphen hyphenation points plus one. Pyphen undercounts: it won't hyphenate near word edges. The most frequent disagreements, with lexinspect's count first:
 
@@ -125,8 +127,8 @@ In nearly every case lexinspect's count is the one a speaker would give. A few g
 | HD-D | TAALED / lexical-diversity / lexicalrichness | 1.000 | 0 | 0 | 100 (±.01) | 100 |
 | MSTTR (50), TTR | TAALED | 1.000 | 0 | 0 | 100 | 100 |
 | MTLD | lexicalrichness | 1.000 | 0 | 0 | 100 (±5%) | 100 |
-| MTLD | TAALED original (`mtldo`) = lexical-diversity | .995 | −1.04 | 1.32 | 84.0 (±5%) | 32.7 |
-| MTLD | TAALED default (`mtld`, mean factor length) | .990 | −1.07 | 2.03 | 76.7 (±5%) | 0 |
+| MTLD | TAALED original (`mtldo`) = lexical-diversity | .993 | −1.17 | 1.50 | 82.0 (±5%) | 30.3 |
+| MTLD | TAALED default (`mtld`, mean factor length) | .988 | −1.21 | 2.17 | 76.3 (±5%) | 0 |
 | vocd-D | lexicalrichness | 1.000 | 0.000 | 0.000 | 100 (±5%) | 0.3* |
 | Maas a² | TAALED | 1.000 | −0.029 | 0.029 | 0 | 0 |
 
@@ -138,20 +140,20 @@ Maas differs only in log base: TAALED uses log₁₀ and lexinspect uses natural
 
 | Measure | Reference | r | ρ | Bias | MAD | % within tolerance | r > .95 |
 |---|---|---:|---:|---:|---:|---:|:---:|
-| Tokens | TAALED/pylats | .975 | .964 | +48.8 | 51.8 | 59.7 (±5%) | yes |
-| Tokens | lexical-diversity | .999 | .995 | −8.4 | 9.9 | 97.0 | yes |
-| Tokens | lexicalrichness | 1.000 | .999 | −5.9 | 6.4 | 99.3 | yes |
-| MATTR | TAALED/pylats | .859 | .851 | +.032 | .033 | 13.3 (±.01) | no |
-| MATTR | lexical-diversity | .968 | .959 | +.017 | .018 | 25.7 | yes |
-| MATTR | lexicalrichness | .995 | .995 | +.000 | .003 | 97.0 | yes |
-| MTLD | TAALED/pylats (original) | .836 | .827 | +14.1 | 14.4 | 11.7 (±5%) | no |
-| MTLD | TAALED/pylats (default) | .831 | .820 | +14.0 | 14.5 | 10.7 | no |
-| MTLD | lexical-diversity | .943 | .948 | +6.6 | 7.4 | 25.3 | no |
-| MTLD | lexicalrichness | .978 | .981 | +0.4 | 2.7 | 72.7 | yes |
-| HD-D | TAALED/pylats | .857 | .843 | +.031 | .031 | 12.7 (±.01) | no |
-| HD-D | lexical-diversity | .972 | .950 | +.017 | .017 | 27.0 | yes |
-| HD-D | lexicalrichness | .997 | .995 | −.000 | .002 | 98.7 | yes |
-| vocd-D | lexicalrichness | .994 | .995 | −0.1 | 1.4 | 93.7 (±5%) | yes |
+| Tokens | TAALED/pylats | .976 | .965 | +48.7 | 51.6 | 59.3 (±5%) | yes |
+| Tokens | lexical-diversity | .999 | .995 | −8.6 | 10.6 | 95.3 | yes |
+| Tokens | lexicalrichness | 1.000 | .999 | −6.0 | 6.5 | 99.3 | yes |
+| MATTR | TAALED/pylats | .860 | .852 | +.032 | .033 | 13.3 (±.01) | no |
+| MATTR | lexical-diversity | .968 | .958 | +.017 | .018 | 25.7 | yes |
+| MATTR | lexicalrichness | .996 | .995 | −.000 | .003 | 97.0 | yes |
+| MTLD | TAALED/pylats (original) | .833 | .826 | +13.5 | 13.9 | 12.7 (±5%) | no |
+| MTLD | TAALED/pylats (default) | .828 | .820 | +13.5 | 13.9 | 11.7 | no |
+| MTLD | lexical-diversity | .945 | .947 | +6.1 | 6.9 | 27.7 | no |
+| MTLD | lexicalrichness | .975 | .981 | −0.1 | 2.8 | 72.0 | yes |
+| HD-D | TAALED/pylats | .858 | .843 | +.031 | .031 | 13.0 (±.01) | no |
+| HD-D | lexical-diversity | .971 | .949 | +.016 | .017 | 27.0 | yes |
+| HD-D | lexicalrichness | .997 | .995 | −.000 | .002 | 99.0 | yes |
+| vocd-D | lexicalrichness | .995 | .995 | −0.3 | 1.4 | 94.7 (±5%) | yes |
 
 ### BNC/COCA K-band coverage
 
@@ -169,21 +171,24 @@ The JSON lists the top five texts per metric. Most share a handful of causes, gr
 | pg36-p00596 (*The War of the Worlds*) | 100 | 87 | textstat silently drops sentences of 2 words or fewer ("Good luck!", "I stared.", "Eh?"). **Design choice, documented in `readability.py`.** |
 | ellipse-0022683E9EA5 | 25 | 14 | Learner essay with a paragraph break inside a sentence ("A⏎⏎problem is…") and unpunctuated run-ons. lexinspect breaks at every blank line (documented in `_text.py`), and spaCy's parser splits some run-ons. textstat waits for `.!?`. Neither count is "right" for unpunctuated text. |
 | wiki-simple-013 (Mia Love) | 57 | 68 | `U.S.` again (six times). |
-| pg37134-p00046 (*The Elements of Style*) | 48 | 38 | An outline ("A. Facts of composition… B. Kind of poem…" and numbered items). textstat drops the 1–2-word items; lexinspect counts them, including bare list numbers (`9`, `1`, `2`) as sentences. Edge case, not prose. |
+| pg37134-p00046 (*The Elements of Style*) | 49 | 38 | An outline ("A. Facts of composition… B. Kind of poem…" and numbered items). textstat drops the 1–2-word items; lexinspect counts them, including bare list numbers (`9`, `1`, `2`) as sentences. Edge case, not prose. |
 
 ### Words
 
-The top five (wiki-en-026, ellipse-F1A4167422E2, pg36-p00596, pg74-p00649, pg2701-p01520; lexinspect +10 to +14) are all textstat merging words when it deletes punctuation. Examples:
+The top five (wiki-en-043, pg36-p00596, pg25344-p00216, pg74-p00649, wiki-en-026; lexinspect +14 to +17) are all strings without a space that textstat counts as one word and lexinspect splits. Examples:
 
 - `red-green` → `redgreen` and `parents/teachers` → `parentsteachers`;
 - learner text with no space after a comma: `school,they` → `schoolthey`, `home,eat,relax,and` → `homeeatrelaxand`;
-- em-dashes in fiction: `nearer—I` → `nearerI`.
+- em-dashes in fiction: `nearer—I` → `nearerI`;
+- number ranges such as `1985–86`, which lexinspect has read as two numerals since 0.3.2 (wiki-en-043 has 17).
 
-textstat also turns curly-apostrophe contractions into `didnt` and `Ive`, which then miss CMUdict. The word count is unchanged by that, but it moves syllables. lexinspect's counts are the right ones here, apart from the glued-word bug below, which pushes in the opposite direction.
+textstat also turns curly-apostrophe contractions into `didnt` and `Ive`, which then miss CMUdict. The word count is unchanged by that, but it moves syllables. lexinspect's counts are the right ones here, apart from the few glued words that remain (see [Tokenisation bugs](#tokenisation-bugs)), which push in the opposite direction.
+
+On this measure lexinspect moved further from textstat after 0.3.0: identical counts on 50.0% of texts, down from 62.7%, and a bias of +1.84 words, up from +1.07. That is not a regression. Between 0.3.0 and 0.3.3, lexinspect's word count changed in 68 texts, always upwards, and every one of them (39 Gutenberg and 29 Wikipedia texts) contains strings like those above that lexinspect now splits and textstat still counts as one word.
 
 ### Syllables and polysyllables
 
-Top five: wiki-en-020, wiki-simple-020, wiki-simple-021, wiki-simple-006, wiki-en-006, with lexinspect +190 to +230. Numerals cause most of it. lexinspect reads `1992` as *nineteen ninety-two* (4 syllables) and `2,000` as *two thousand*; textstat runs digits through Pyphen and gets 1. On wiki-en-020, 68 numerals give 246 syllables in lexinspect against 62 in textstat. This is documented in CAVEATS.md ("Numerals are an approximation of speech") and is a **design choice**. Excluding words with digits cuts the overall bias from +37 to +11 syllables per text, and r rises to 1.000.
+Top five: wiki-en-020, wiki-simple-020, wiki-simple-021, wiki-simple-006, wiki-en-006, with lexinspect +204 to +231. Numerals cause most of it. lexinspect reads `1992` as *nineteen ninety-two* (4 syllables) and `2,000` as *two thousand*; textstat runs digits through Pyphen and gets 1. On wiki-en-020, the 70 words containing digits (68 numbers, plus `MoistCr1tikal` and `A100`) give 250 syllables in lexinspect against 70 in textstat. This is documented in CAVEATS.md ("Numerals are an approximation of speech") and is a **design choice**. Excluding words with digits cuts the overall bias from +40 to +11 syllables per text, and r rises to 1.000.
 
 The remaining +11 comes from:
 
@@ -193,9 +198,9 @@ The remaining +11 comes from:
 
 ### Readability scores
 
-- **Flesch, Flesch–Kincaid, Fog, ARI.** The top five are mostly ELLIPSE essays with almost no full stops. On ellipse-5F67A5D3DBB0, textstat finds 5 sentences of 120+ words and gives FRE −26.9 and FK grade 47.4. lexinspect's parser finds 10 sentences and gives FRE 34.7 and FK grade 23.6. Neither is meaningful for unpunctuated text; lexinspect's is less extreme. The Wikipedia entries in the top five are the `U.S.` and numeral effects above.
-- **SMOG.** wiki-en-030, wiki-en-045, wiki-en-041 (lexinspect +2.3 to +3.7) are numeral syllables plus `U.S.` splitting. ellipse-5F67… and ellipse-0022… are sentence counts.
-- **Coleman–Liau.** The top five (wiki-en-030, wiki-simple-013, wiki-en-045, wiki-simple-029, wiki-simple-017) differ by 0.6–0.9: the 0.0588 coefficient (+0.36) plus `U.S.` sentence splitting. The best agreement of any formula.
+- **Flesch, Flesch–Kincaid, Fog, ARI.** The top five are mostly ELLIPSE essays with almost no full stops. On ellipse-5F67A5D3DBB0, textstat finds 5 sentences of 120+ words and gives FRE −26.9 and FK grade 47.4. lexinspect's parser finds 10 sentences and gives FRE 34.3 and FK grade 23.7. Neither is meaningful for unpunctuated text; lexinspect's is less extreme. The Wikipedia entries in the top five are the `U.S.` and numeral effects above.
+- **SMOG.** wiki-en-030, wiki-en-043, wiki-en-045 and wiki-simple-019 (lexinspect +2.4 to +3.7) are numeral syllables (96–211 syllables in words with digits in lexinspect, 23–43 in textstat), plus `U.S.` splitting on some. ellipse-5F67… (−3.1) is sentence counts.
+- **Coleman–Liau.** The top five (wiki-en-030, wiki-simple-013, wiki-en-045, wiki-simple-017, wiki-simple-029) differ by 0.6–0.9: the 0.0588 coefficient (+0.36) plus `U.S.` sentence splitting. The best agreement of any formula.
 - **Dale–Chall raw score.** Top five: ellipse-F57B95D17755, wiki-simple-006, pg16-p00161, ellipse-EC3F3F26E635, pg55-p00615, with lexinspect lower by 5–7. For example, ellipse-F57B95D17755 scores 1.71 in lexinspect and 8.41 in textstat. Two effects add up:
   - lexinspect treats inflections of listed words, names and numerals as familiar; textstat's list lacks `played`, `roles` and `cats`, and every name (`Plummer`, `Broadway`) counts as difficult.
   - Once lexinspect's share of difficult words falls below 5%, the formula's +3.6365 adjustment switches off. That step is why r is only .63.
@@ -212,22 +217,22 @@ The remaining +11 comes from:
 
 ### Diversity
 
-- **MTLD vs TAALED, same tokens** (pg2701-p01047 126.3 vs 137.8; ellipse-AAD6A5CBDDB9 51.5 vs 61.0; wiki-en-009; pg25344-p00300; ellipse-1D47271C213D).
+- **MTLD vs TAALED, same tokens** (pg25344-p00300 97.3 vs 113.8; pg2701-p01047 126.3 vs 137.8; pg45-p00678; pg1400-p00592; ellipse-AAD6A5CBDDB9 51.5 vs 61.0).
   - TAALED and lexical-diversity won't close a factor shorter than 10 tokens, and close one only when TTR drops strictly *below* .72. lexinspect and lexicalrichness close at ≤ .72 with no minimum.
   - Rerunning TAALED's MTLD with the 10-token minimum removed gives exactly lexinspect's 126.32 on pg2701-p01047. On ellipse-AAD6A5CBDDB9 it gives 56.5; the remaining gap is the < versus ≤.
   - **Implementation variant, not a bug.** McCarthy & Jarvis (2010) don't specify a minimum factor length. Report which MTLD you used.
-- **Own tokens, TAALED/pylats** (wiki-simple-006, wiki-en-006, wiki-en-018, wiki-simple-021, wiki-simple-013 for tokens, MATTR and HD-D). On wiki-simple-006, a biography of Christopher Plummer, pylats keeps 604 tokens against lexinspect's 932, because it drops every proper noun and every word not attested in COCA. Lemmatising (`played`, `plays` → `play_VERB`) lowers diversity further. On narrative texts (pg45, pg205, pg36) TAALED's MTLD is 40–55% lower for the same reason. **Different construct:** TAALED measures lemma diversity of common vocabulary, lexinspect measures word-form diversity. Use one tool throughout a study.
-- **Own tokens, lexical-diversity** (pg205-p00336, pg2680-p00081, …): `flemmatize` lemmatises, and it deletes punctuation before splitting, merging words like textstat does.
-- **Own tokens, lexicalrichness** (pg205-p00336 159.8 vs 134.7; wiki-en-042; ellipse-194E86ED4117; pg98-p01114; pg36-p00327). lexicalrichness splits `don't` into `don` + `t` and deletes hyphens (`well-known` → `wellknown`); lexinspect keeps contractions and compounds whole, as CAVEATS.md documents. pg205-p00336 (*Walden*) is also the worst case of the glued-word bug: 8 bogus types such as `deep,—not` and `forests;—the`. Splitting those 8 tokens alone moves lexinspect's MTLD from 159.8 to 130.6.
-- **vocd-D, own tokens** (pg36, pg74, pg2701, pg84, pg1342; lexicalrichness 8–12 higher). These are fiction with many contractions. lexicalrichness's `don` + `t` split adds frequent short "words" and raises its estimate. Tokenisation, not formula: on the same tokens the two agree to four decimal places.
+- **Own tokens, TAALED/pylats** (wiki-simple-006, wiki-en-006, wiki-en-018, wiki-simple-021, wiki-simple-013 for tokens, MATTR and HD-D). On wiki-simple-006, a biography of Christopher Plummer, pylats keeps 604 tokens against lexinspect's 931, because it drops every proper noun and every word not attested in COCA. Lemmatising (`played`, `plays` → `play_VERB`) lowers diversity further. On narrative texts such as pg45-p00678 and pg36-p00596, TAALED's MTLD is about 40% lower (39% and 38%) for the same reason. **Different construct:** TAALED measures lemma diversity of common vocabulary, lexinspect measures word-form diversity. Use one tool throughout a study.
+- **Own tokens, lexical-diversity** (pg2680-p00081, pg25344-p00566, …): `flemmatize` lemmatises, and it deletes punctuation before splitting, merging words like textstat does.
+- **Own tokens, lexicalrichness** (pg36-p00596 96.8 vs 120.1; wiki-en-042 127.8 vs 110.9; ellipse-194E86ED4117; pg1661-p00251; pg25344-p00492). lexicalrichness splits `don't` into `don` + `t` and deletes hyphens (`well-known` → `wellknown`); lexinspect keeps contractions and compounds whole, as CAVEATS.md documents. Under 0.3.0, pg205-p00336 (*Walden*) topped this list and was the worst case of the glued-word bug: 8 bogus types such as `deep,—not` and `forests;—the` raised its MTLD to 159.8 (lexicalrichness 134.7). Splitting those 8 tokens alone moved its MTLD to 130.6, which is what 0.3.3 gives.
+- **vocd-D, own tokens** (pg36, pg74, pg1342, pg84, pg2701; lexicalrichness 8.6–11.2 higher). These are fiction with many contractions. lexicalrichness's `don` + `t` split adds frequent short "words" and raises its estimate. Tokenisation, not formula: on the same tokens the two agree to four decimal places.
 
-## Suspected lexinspect bugs
+## Tokenisation bugs
 
-Both are tokenisation issues in `_text.py` and `readability.py`. Neither changes a formula. They weren't fixed in this study.
+All were tokenisation issues, fixed in `_nlp.py`, `_text.py` and `readability.py`. None changed a formula.
 
-### 1. Words glued through dashes, quotes or brackets count as one word
+### Found under 0.3.0
 
-spaCy doesn't split `last”—he` or `was—“impressively”—big`: its infix rules split an em-dash only between two letters. lexinspect's `_group_words` then treats the token as one word, because it contains letters.
+**1. Words glued through dashes, quotes or brackets counted as one word.** spaCy doesn't split `last”—he` or `was—“impressively”—big`: its infix rules split an em-dash only between two letters. lexinspect 0.3.0's `_group_words` then treated the token as one word, because it contains letters. Under 0.3.0:
 
 ```python
 >>> from lexinspect._text import analyse
@@ -237,11 +242,11 @@ spaCy doesn't split `last”—he` or `was—“impressively”—big`: its infi
 >>> # expected 10 words: It was impressively big he said at last then left
 ```
 
-In this corpus: 146 glued words in 53 of 300 texts. 41 are Gutenberg texts, where `,—` and `”—` are common, plus `great,[2`-style reference remnants and `quickly)and`. The word count moves by a median of 0.2% (max 1.6%) of tokens. MATTR barely moves (max .007). MTLD moves by a median of 0.2% but up to **22%** (*Walden*), because each glued word is a unique type. Syllables of glued words are summed over their letters, so readability is only slightly affected.
+Under 0.3.3 the same call gives the ten expected words.
 
-### 2. Digit strings that aren't plain numbers get 0 syllables and count as diversity tokens
+In this corpus under 0.3.0: 146 glued words in 53 of 300 texts. 41 were Gutenberg texts, where `,—` and `”—` are common, plus `great,[2`-style reference remnants and `quickly)and`. Splitting them moved the word count by a median of 0.2% (max 1.6%) of tokens. MATTR barely moved (max .007). MTLD moved by a median of 0.2% but up to **22%** (*Walden*), because each glued word is a unique type. Syllables of glued words were summed over their letters, so readability was only slightly affected.
 
-`_text._NUMERIC` matches `1914` but not `1914–1918`, `11:00`, `1/4` or `3-4`. These are therefore not numeric. `_parts` finds no alphabetic part, so `word_syllables` returns 0. They still count as words in every readability denominator, and they stay in `diversity.tokens`, which the docs say excludes numerals.
+**2. Digit strings that aren't plain numbers got 0 syllables and counted as diversity tokens.** In 0.3.0, `_text._NUMERIC` matched `1914` but not `1914–1918`, `11:00`, `1/4` or `3-4`. These were therefore not numeric. `_parts` found no alphabetic part, so `word_syllables` returned 0. They still counted as words in every readability denominator, and they stayed in `diversity.tokens`, which the docs say excludes numerals. Under 0.3.0:
 
 ```python
 >>> from lexinspect._text import analyse
@@ -253,16 +258,35 @@ In this corpus: 146 glued words in 53 of 300 texts. 41 are Gutenberg texts, wher
 ['the', 'war', 'lasted', 'from', '1914–1918', 'and', 'the', 'meeting', 'began', 'at', '11:00', 'in']
 ```
 
-In this corpus: 155 such words in 51 texts, almost all Wikipedia (year and score ranges, times, fractions). The effect on any one score is small: each lowers syllables per word slightly, making a text look a little easier. But it contradicts both the "numerals excluded" rule in diversity and the "numerals are read as spoken" rule in readability.
+Under 0.3.3 the range is two numerals of 4 syllables each, `11:00` is a numeral of 5 syllables, and none of them is a diversity token.
+
+In this corpus under 0.3.0: 155 such words in 51 texts, almost all Wikipedia (year and score ranges, times, fractions). Each lowered syllables per word slightly, making a text look a little easier. They contradicted both the "numerals excluded" rule in diversity and the "numerals are read as spoken" rule in readability.
+
+### Fixed in 0.3.2 and 0.3.3
+
+- **0.3.2** made em and en dashes, and quote marks touching them, separate words. It made times, fractions and hyphenated number ranges numerals, read part by part, and split en-dash ranges into two numerals.
+- **0.3.3** extended them after a rerun of this study and an independent audit showed the 0.3.2 fixes were incomplete. It handles typewriter dashes (`--`), figure and horizontal dashes, punctuation left before a dash, brackets and punctuation glued to words by a missing space (`great,[2`, `quickly)and`), and numerals written with Unicode characters (`30½`, `1⁄12`). The audit also found a closing single quote absorbed into the word before it as if it were a possessive (`‘quoted’` read as the word `quoted’`, a separate diversity type). 0.3.3 fixed that too, and the diagnostics now check for it.
+
+[CHANGELOG.md](../../CHANGELOG.md) has the details.
+
+### What remains under 0.3.3
+
+The diagnostics (`scripts/validation/study3_agreement/diagnostics.py`), rerun under 0.3.3, find:
+
+- **19 glued words in 13 texts** (2 Gutenberg, 9 Wikipedia, 2 ELLIPSE). Six are false positives of the detector: a number with a thousands comma inside a hyphenated compound (`2,148-foot`, `80,000-capacity`), which is rightly one word. Three are footnote markers in *The Federalist Papers* (`power(1`, `party(1`, `Constitution(2`), three are letters in brackets inside a word (`piece(s`, `loud[er`, `do[es`), and seven join two words through a bracket, quote or punctuation mark with no space (`rocket(Falcon`, `Netherlands),and`, `stronger?,I`). Splitting them would change the word count of the affected texts by a median of 0.1% (max 0.5%), MATTR by at most .002 and MTLD by at most 5.6%.
+- **7 digit strings with 0 syllables in 4 texts:** equation and footnote markers (`8)`, `"(2`), a fraction with a space before the fraction slash (`29 ⁄2`, which leaves `⁄2` as a word), and `39½.` with a full stop attached.
+- **No closing quotes absorbed into words.** The check counts words that end in a bare apostrophe after a letter other than *s*.
+
+These are known limitations of 0.3.3.
 
 ## In plain English
 
-- **The formulas themselves are right.** Fed the same words, lexinspect's diversity measures give the same numbers as three independent tools, to the last decimal. Its Flesch, Flesch–Kincaid, SMOG and ARI give the same numbers as textstat's when fed the same counts.
+- **The formulas themselves are right.** Fed the same words, lexinspect's MATTR, HD-D, MSTTR, TTR, MTLD and vocd-D each give the same number as at least one independent tool, to four decimal places. Maas differs only in log base. Its Flesch, Flesch–Kincaid, SMOG and ARI give the same numbers as textstat's when fed the same counts.
 - **Different tools count text differently.** Fed real text, readability scores differ from textstat's by about 1 grade level on average, and by much more on texts with lots of numbers, abbreviations like "U.S." or missing full stops. That is because each tool counts words, sentences and syllables its own way, and lexinspect's way is usually the more defensible one.
 - **A few formulas differ on purpose.** lexinspect deliberately follows the original Gunning Fog, Dale–Chall and Coleman–Liau definitions where textstat doesn't.
 - **Don't mix tools in one study.** TAALED, the tool most often used in diversity research, lemmatises and throws away names. Its diversity scores are systematically lower than lexinspect's and rank texts only moderately alike (r ≈ .85). If you compare your numbers with a paper, use the tool the paper used.
-- **vocd-D vs Text Inspector.** The 200 vs 245 gap almost certainly comes from Text Inspector capping vocd-D at 200, not from a mistake in lexinspect.
-- **Two small lexinspect bugs.** Words stuck together by a dash and a quote, and number ranges like "1914–1918", are mishandled. They affect a minority of texts and rarely move a score much, but they should be fixed.
+- **vocd-D vs Text Inspector.** The 200 vs 245 gap most likely comes from a ceiling of 200 in Text Inspector rather than a mistake in lexinspect. This is inferred from its outputs (see below), not from its code.
+- **Tokenisation bugs, now mostly fixed.** In 0.3.0, words stuck together by a dash and a quote, and number ranges like "1914–1918", were mishandled. 0.3.2 and 0.3.3 fixed them. A few rarer forms remain in 0.3.3: the diagnostics flag 19 glued words (6 of them false positives) and 7 digit strings in 300 texts, and splitting every flagged word would move MTLD by at most 5.6%.
 
 ## vocd-D: lexinspect 245.48 vs Text Inspector 200.00
 
@@ -284,7 +308,7 @@ A least-squares fit landing on exactly 200.00, in both of Text Inspector's views
 - **Agreement, not validity.** Matching textstat or TAALED shows the arithmetic is consistent, not that any score measures difficulty or diversity well. Studies 1 and 5 address meaning.
 - **References aren't ground truth.** Where tools disagree, the explanations above say which follows the published definition. On some questions (sentence breaks in unpunctuated learner text, Linsear's partial sentence, MTLD's minimum factor length) neither choice is canonical.
 - **Text selection.** Gutenberg is 19th- and early-20th-century writing from 30 hand-picked books. Wikipedia topics come from Simple Wikipedia's featured articles, which skew to biographies, animals and places. ELLIPSE is US secondary-school English learners writing persuasive essays. No speech, no social media, no texts over 1,000 words.
-- **Extraction artefacts.** A few Wikipedia paragraphs keep fragments of reference marks (`great,[2`). They are in the texts all tools saw, so they don't bias the comparison, but they add to bug 1's count.
+- **Extraction artefacts.** A few Wikipedia paragraphs keep fragments of reference marks (`great,[2`). They are in the texts all tools saw, so they don't bias the comparison, but they added to the glued-word count under 0.3.0.
 - **One version each.** textstat 0.7.13, TAALED 0.32 and the others, pinned in `run.sh`. Earlier textstat versions counted differently.
 - **AntWordProfiler not compared.** BNC/COCA coverage, NGSL and AWL still have no agreement check against a reference implementation.
 - **Thresholds are conventions.** The r > .95 "compatible" line and the tolerances were chosen for this study. Read the bias and MAD columns too.

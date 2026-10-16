@@ -259,3 +259,38 @@ def test_times_fractions_and_ranges_are_numbers():
     numerals = [w.text for w in a.words if any(c.isdigit() for c in w.text)]
     assert numerals == ["11:00", "1/4", "3-4", "1914", "1918"]
     assert all(w.is_numeric for w in a.words if w.text in numerals)
+
+
+def test_typewriter_dashes_brackets_and_punctuation_separate_words():
+    # Left over after 0.3.2 (Study 3 rerun): `--` dashes, punctuation before a
+    # dash, and brackets glued to words.
+    a = analysed(
+        "He said, dishonest,--for INGREDIENTS.--6 eggs. The end,—but not. "
+        "It was great,[2 and burning[18 slowly, quickly)and then."
+    )
+    words = [w.text for w in a.words]
+    assert words == [
+        "He", "said", "dishonest", "for", "INGREDIENTS", "6", "eggs", "The", "end",
+        "but", "not", "It", "was", "great", "2", "and", "burning", "18", "slowly",
+        "quickly", "and", "then",
+    ]  # fmt: skip
+
+
+def test_unicode_numerals_are_numbers():
+    a = analysed("Add 1⁄12 cup and 30½ grams; 6'1 tall, an 8×8 grid, ~3.8 kg, 3‐4 items, 5−3.")
+    numerals = [w.text for w in a.words if w.is_numeric]
+    assert numerals == ["1⁄12", "30½", "6'1", "8×8", "~3.8", "3‐4", "5−3"]
+
+
+def test_closing_single_quote_is_not_a_possessive():
+    # A bare apostrophe was always attached as a clitic, so `‘quoted’` became
+    # the word `quoted’`, a separate diversity type from `quoted`.
+    a = analysed(
+        "She called it ‘quoted’ and 'single' then ‘No’. "
+        "The students’ books and James' hat. The boss's car."
+    )
+    words = [w.text for w in a.words]
+    assert words == [
+        "She", "called", "it", "quoted", "and", "single", "then", "No", "The",
+        "students’", "books", "and", "James'", "hat", "The", "boss's", "car",
+    ]  # fmt: skip

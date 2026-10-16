@@ -60,13 +60,24 @@ def get_nlp(model: str = DEFAULT_MODEL):
 
 # spaCy splits `word—word` but not `was—“impressively”—big` or `last”—then`:
 # a quote beside the dash defeats its infix rules, and the whole run became one
-# "word" (Study 3 found it in 53 of 300 texts, moving MTLD by up to 22%).
+# "word" (Study 3 found this in dozens of its 300 texts).
 # Em and en dashes always separate words; so does a quote mark touching one.
 # Apostrophes inside words (`don't`, `o'clock`) are untouched.
 _DASH_INFIXES = (
-    r"[—–]",
-    r"(?<=[—–])[\"“”‘’]",
-    r"[\"“”‘’](?=[—–])",
+    r"[—–‒―]",
+    # Two or more hyphens: the typewriter em dash (`with--and`), common in
+    # Project Gutenberg texts, where it glued words together (Study 3).
+    r"-{2,}",
+    r"(?<=[—–‒―-])[\"“”‘’]",
+    r"[\"“”‘’](?=[—–‒―]|--)",
+    # Punctuation left on a word by the dash split: `dishonest,--for`, `end.—But`.
+    r"(?<=[A-Za-z0-9])[,.;:!?](?=-{2,}|[—–‒―])",
+    # Brackets and punctuation glued to words by missing spaces: `great,[2`,
+    # `burning[18`, `quickly)and`.
+    r"(?<=[A-Za-z])[,.;:](?=[\[(])",
+    r"(?<=[,.;:!?])[\[(]",
+    r"\[(?=\d)",
+    r"(?<=[a-z])\)(?=[a-z])",
 )
 
 

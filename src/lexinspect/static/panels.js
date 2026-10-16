@@ -136,7 +136,7 @@ function renderOverview(r, go) {
     card('vocabulary', 'bnc', 'Vocabulary needed', b95 ? `${b95}K` : '25K+', 'for 95%',
       b98 ? `${b98}K families for 98% coverage` : `98% not reached: ${plural(r.bnc_coca.counts.off_list_tokens, 'word')} in no list`),
     card('diversity', null, 'Lexical diversity', div.mtld == null ? '–' : num(div.mtld, 0), 'MTLD',
-      div.vocd_d == null ? 'Needs at least 50 words for vocd-D' : `vocd-D ${num(div.vocd_d, 0)}`),
+      div.vocd_d == null ? 'Needs more than 50 words (not counting numbers) for vocd-D' : `vocd-D ${num(div.vocd_d, 0)}`),
     card('vocabulary', 'awl', 'Academic words', pct(r.awl.coverage_pct), 'AWL',
       `${plural(r.awl.counts.awl_families, 'family', 'families')} · NAWL ${pct(r.ngsl.coverage_pct.nawl)}`),
     card('phrase', null, 'Phrases', num(r.phrase.counts.total_hits), null,
@@ -241,7 +241,7 @@ function renderCefr(r, ctx) {
     stat('B2 and above', pct(b2plus(c))),
     c.estimate_reliability && !c.estimate_reliability.reliable
       ? stat('Level for 95% coverage', '–', 'needs 50+ words')
-      : stat('Level for 95% coverage', c.estimated_level_95th ?? 'beyond C2 lists', 'rough guide, ±1 level; not a proficiency rating'),
+      : stat('Level for 95% coverage', c.estimated_level_95th ?? 'beyond C2 lists', 'rough guide: within one level for most graded reading texts; not a proficiency rating'),
     stat('On the lists', pct(c.coverage_pct), `${num(c.counts.on_list_tokens)} of ${num(n)} words`)));
 
   for (const l of [...LEVELS].reverse()) {
@@ -305,8 +305,8 @@ function renderBnc(r) {
   const b95 = bandFor(b.per_band, 95);
   const b98 = bandFor(b.per_band, 98);
   out.appendChild(h('div', { class: 'stats-grid' },
-    stat('95% coverage', b95 ? `${b95}K` : '25K+', 'adequate comprehension'),
-    stat('98% coverage', b98 ? `${b98}K` : '25K+', 'comfortable reading'),
+    stat('95% coverage', b95 ? `${b95}K` : '25K+', 'minimal for comprehension'),
+    stat('98% coverage', b98 ? `${b98}K` : '25K+', 'optimal for comprehension'),
     stat('In 25 bands', pct(b.coverage_pct), `${pct(b.coverage_with_supplementary_pct)} with names and supplementary`),
     stat('Off-list', num(b.counts.off_list_tokens), 'words in no list')));
 
@@ -539,7 +539,7 @@ function renderDiversity(r) {
   const hero = h('div', { class: 'hero' },
     h('div', { class: 'hero-num' }, s.mtld == null ? '–' : num(s.mtld, 0)),
     h('div', { class: 'hero-text' }, h('b', {}, 'MTLD'),
-      h('span', {}, s.mtld == null ? 'Needs at least 50 words.' : `${num(d.counts.types)} different words in ${num(d.counts.tokens)}.`)));
+      h('span', {}, s.mtld == null ? 'Needs at least 50 words, not counting numbers.' : `${num(d.counts.types)} different words in ${num(d.counts.tokens)}.`)));
   out.appendChild(hero);
 
   if (s.vocd_d != null && bands.length) {
@@ -565,13 +565,13 @@ function renderDiversity(r) {
   // Grouped by how far the research supports each index (diversity.TIERS).
   const tiers = d.tiers;
   const groups = tiers
-    ? [['Most reliable across text lengths', tiers.recommended], ['Use with care', tiers.caution], ['Depend on text length: compare only same-length texts', tiers.legacy]]
+    ? [['Use with confidence (50+ words, not counting numbers)', tiers.recommended], ['Use with caution', tiers.caution], ['Depend on text length: compare only same-length texts', tiers.legacy]]
     : [[null, DIVERSITY.map((m) => m.key)]];
   for (const [title, keys] of groups) {
     if (title) out.appendChild(h('div', { class: 'sub-h' }, title));
     out.appendChild(h('div', { class: 'rows' }, DIVERSITY.filter((m) => keys.includes(m.key)).map(row)));
   }
-  if (tiers) out.appendChild(h('div', { class: 'fine' }, 'Tiers follow Zenker & Kyle (2021) and McCarthy & Jarvis (2010).'));
+  if (tiers) out.appendChild(h('div', { class: 'fine' }, 'Tiers follow TAALED’s guidance (after Zenker & Kyle 2021). TAALED doesn’t rate vocd-D; lexinspect groups it with HD-D (McCarthy & Jarvis 2007).'));
   out.appendChild(about('diversity'));
   return out;
 }

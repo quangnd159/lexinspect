@@ -311,7 +311,7 @@
   }
  },
  "cefr": {
-  "caveat": "Heuristic only. Based on CEFR-J 1.5 + Octanove C1/C2 1.0; not Cambridge EVP. estimated_level_95th is the lowest level whose cumulative coverage reaches 95%. It describes the vocabulary used, not the writer's proficiency. In lexinspect's Study 5 it was within one level of graded reading texts' level 84-89% of the time but exact only 42-54%, rated C1-C2 texts low, and carried almost no information on learner writing. Cite both sources. Combine this with readability, BNC/COCA and diversity signals before reporting a level.",
+  "caveat": "Heuristic only. Based on CEFR-J 1.5 + Octanove C1/C2 1.0; not Cambridge EVP. estimated_level_95th is the lowest level whose cumulative coverage reaches 95%. It describes the vocabulary used, not the writer's proficiency. In lexinspect's Study 5 it was within one level of graded reading texts' level 84-89% of the time but exact only 43-54% (texts with no level counted as C2), rated C1-C2 texts low, and carried almost no information on learner writing. Cite both sources. Combine this with readability, BNC/COCA and diversity signals before reporting a level.",
   "counts": {
    "content_tokens": 114,
    "off_list_tokens": 1,
@@ -790,7 +790,7 @@
     "herdan",
     "summer"
    ],
-   "note": "MTLD and MATTR stay most stable across text lengths from about 50 tokens (Zenker & Kyle 2021, 4,542 EFL essays). HD-D, vocd-D and Maas are usable with care. TTR and its transforms, and MSTTR, change with text length; compare them only between texts of the same length.",
+   "note": "Tiers follow TAALED's guidance, whose minimum lengths draw on Zenker & Kyle (2021): MTLD and MATTR with confidence from 50 tokens; HD-D (50 tokens) and Maas (100) with caution. TTR and its transforms, and MSTTR, change with text length; compare them only between texts of the same length. TAALED doesn't rate vocd-D; lexinspect groups it with HD-D, which TAALED calls \"a more reliable calculation of vocd-D\" (HD-D: McCarthy & Jarvis 2007).",
    "recommended": [
     "mtld",
     "mattr"

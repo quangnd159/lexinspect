@@ -2,9 +2,9 @@
 
 **Question.** How well do lexinspect's readability outputs track teachers' judgements of how hard a text is? Specifically: (a) do lexinspect's eight formulas correlate with human difficulty as strongly as the published values say they should, which checks that lexinspect computes them comparably; and (b) how much better can a simple, transparent model built from lexinspect's existing features do?
 
-**Short answer.** The formulas behave as published: |r| = .43–.57 with teachers' ease scores, within about .01 of the published values for the five that were published. `text_standard` (the median of the eight) gets r = −.56, no better than the best single formula. A ridge model on 19 lexinspect features reaches cross-validated r = .65 (R² = .42), which is clearly better than any formula (best |r| = .56, R² = .32). It still falls short of the CLEAR authors' 28-feature model (r = .71) and GPT-4 Turbo zero-shot (r = .76).
+**Short answer.** The formulas behave as published: |r| = .43–.57 with teachers' ease scores, within about .01 of the published values for the five that were published. `text_standard` (the median of the eight) gets r = −.56, no better than the best single formula. A ridge model on 19 lexinspect features reaches cross-validated r = .65 (R² = .42), which is clearly better than any formula (the best, SMOG, has |r| = .57; Dale–Chall alone, cross-validated, gets r = .56, R² = .32). It still falls short of the CLEAR authors' 28-feature model (r = .71) and GPT-4 Turbo zero-shot (r = .76).
 
-Results come from lexinspect 0.3.0 with `en_core_web_sm-3.8.0`. Every number below is in [`study1-readability.json`](study1-readability.json).
+Results come from lexinspect 0.3.3 with `en_core_web_sm-3.8.0`. Every number below is in [`study1-readability.json`](study1-readability.json).
 
 ## Data
 
@@ -22,7 +22,7 @@ Results come from lexinspect 0.3.0 with `en_core_web_sm-3.8.0`. Every number bel
 - Spearman–Brown on .63 gives .77.
 - One minus the mean squared standard error over the score variance (mean s.e. 0.49, SD 1.03) also gives .77.
 
-So the ceiling for any predictor's correlation is roughly √.77 ≈ .88, not 1. Note too that the split-half .63 is a correlation between two *halves* of the judgements, so it is a lower bound on human agreement, not a target for a model.
+So, by this estimate, the ceiling for any predictor's correlation is roughly √.77 ≈ .88, not 1. Note too that the split-half .63 is a correlation between two *halves* of the judgements, so it is a lower bound on human agreement, not a target for a model.
 
 ## Method
 
@@ -57,27 +57,27 @@ Higher BT_easiness means easier, so grade-level formulas correlate negatively an
 
 | Formula | Pearson r [95% CI] | Spearman ρ [95% CI] | Published \|r\| | CLEAR-file score r (same texts) | r(lexinspect, CLEAR file) |
 |---|---|---|---|---|---|
-| Flesch Reading Ease | .546 [.526, .566] | .562 [.541, .583] | .55 | .547 | .975 |
-| Flesch–Kincaid Grade | −.523 [−.544, −.502] | −.555 [−.576, −.534] | .52 | −.517 | .976 |
-| Gunning Fog | −.514 [−.535, −.493] | −.542 [−.564, −.521] | not tested | | |
-| SMOG | −.570 [−.589, −.551] | −.579 [−.599, −.558] | .56 | −.563 | .961 |
-| ARI | −.485 [−.506, −.463] | −.522 [−.543, −.499] | .48 | −.485 | .979 |
-| Coleman–Liau | −.479 [−.500, −.456] | −.492 [−.514, −.469] | not tested | | |
-| Dale–Chall (raw score) | −.562 [−.582, −.543] | −.594 [−.614, −.574] | .56 (New Dale–Chall) | −.557 | .840 |
-| Linsear Write | −.434 [−.457, −.411] | −.483 [−.506, −.460] | not tested | | |
-| `text_standard` (median grade) | −.558 [−.577, −.538] | −.575 [−.595, −.554] | none | | |
+| Flesch Reading Ease | .548 [.527, .567] | .563 [.542, .584] | .55 | .547 | .974 |
+| Flesch–Kincaid Grade | −.525 [−.545, −.504] | −.556 [−.577, −.535] | .52 | −.517 | .977 |
+| Gunning Fog | −.515 [−.535, −.493] | −.542 [−.563, −.520] | not tested | | |
+| SMOG | −.571 [−.590, −.552] | −.579 [−.600, −.559] | .56 | −.563 | .961 |
+| ARI | −.485 [−.506, −.463] | −.521 [−.543, −.498] | .48 | −.485 | .981 |
+| Coleman–Liau | −.478 [−.500, −.456] | −.492 [−.514, −.468] | not tested | | |
+| Dale–Chall (raw score) | −.562 [−.582, −.543] | −.594 [−.613, −.573] | .56 (New Dale–Chall) | −.558 | .840 |
+| Linsear Write | −.434 [−.457, −.411] | −.483 [−.506, −.459] | not tested | | |
+| `text_standard` (median grade) | −.559 [−.578, −.539] | −.575 [−.595, −.554] | none | | |
 
-**Comparability check: passed.** For every published formula, lexinspect's |r| is within .01 of the published value, and the paired bootstrap CI for the difference from the CLEAR-file score includes zero or lies within ±.017. lexinspect's FKGL and SMOG are very slightly *more* predictive (+.006 and +.007; CIs [.000, .013] and [.001, .014]). The eight formulas intercorrelate highly (FKGL vs ARI .98, vs Gunning Fog .98, vs `text_standard` .98), so they largely duplicate one another.
+**Comparability check: passed.** For every published formula, lexinspect's |r| is within about .01 of the published value: within .005 for four of them, and .011 above it for SMOG (.571 against .56). The direct test is against the CLEAR-file scores on the same texts. There lexinspect's |r| differs from the file score's by .008 at most, and the paired bootstrap CI for each difference includes zero or lies within ±.017. lexinspect's FKGL and SMOG are very slightly *more* predictive (+.008 each; CIs [.002, .014] and [.001, .015]). The eight formulas intercorrelate highly (FKGL vs ARI .98, vs Gunning Fog .98, vs `text_standard` .98), so they largely duplicate one another.
 
 ### Models (10-fold CV × 5 seeds, nested alpha; N = 4,724)
 
 | Model | Features | CV r (mean ± SD over seeds) | CV R² | CV RMSE | Per-fold r (mean ± SD) |
 |---|---|---|---|---|---|
-| Flesch Reading Ease alone (OLS) | 1 | .546 ± .000 | .298 | .866 | .546 ± .033 |
-| `text_standard` alone (OLS) | 1 | .557 ± .000 | .311 | .858 | .558 ± .030 |
+| Flesch Reading Ease alone (OLS) | 1 | .547 ± .000 | .300 | .865 | .547 ± .032 |
+| `text_standard` alone (OLS) | 1 | .558 ± .000 | .312 | .858 | .559 ± .030 |
 | Dale–Chall alone (OLS) | 1 | .562 ± .000 | .316 | .855 | .562 ± .029 |
-| surface_3 (ridge) | 3 | .550 ± .000 | .302 | .864 | .550 ± .031 |
-| surface + Dale–Chall % (ridge) | 4 | .590 ± .000 | .348 | .834 | .590 ± .026 |
+| surface_3 (ridge) | 3 | .551 ± .000 | .304 | .863 | .551 ± .031 |
+| surface + Dale–Chall % (ridge) | 4 | .591 ± .000 | .349 | .834 | .591 ± .026 |
 | **full_19 (ridge)** | 19 | **.650 ± .001** | **.422** | **.786** | .650 ± .022 |
 | *Reference:* CLEAR paper, 28 of 107 NLP features | 28 | .712 | .507 | .726 | |
 | *Reference:* GPT-4 Turbo zero-shot (Trott & Rivière 2024) | | .76 | | | |
@@ -91,25 +91,25 @@ Sign convention: negative means harder.
 
 | Feature | β | Single-feature r with BT | VIF |
 |---|---|---|---|
-| characters_per_word | +0.296 | −.41 | 8.5 |
-| words_per_sentence | −0.278 | −.37 | 1.1 |
-| dale_chall_difficult_pct | −0.272 | −.51 | 12.5 |
-| syllables_per_word | −0.233 | −.45 | 10.6 |
-| ngsl_pct | +0.189 | +.38 | 3.0 |
-| bnc_beyond_k3_pct | +0.183 | −.34 | 7.7 |
-| cefr_off_list_pct | −0.181 | −.44 | 4.1 |
-| bnc_beyond_k5_pct | −0.105 | −.31 | 3.6 |
+| characters_per_word | +0.306 | −.41 | 8.4 |
+| words_per_sentence | −0.277 | −.37 | 1.1 |
+| dale_chall_difficult_pct | −0.271 | −.51 | 12.5 |
+| syllables_per_word | −0.250 | −.45 | 10.3 |
+| ngsl_pct | +0.185 | +.38 | 3.0 |
+| cefr_off_list_pct | −0.179 | −.44 | 4.0 |
+| bnc_beyond_k3_pct | +0.177 | −.34 | 7.7 |
+| mtld | −0.101 | −.12 | 3.2 |
 | cefr_C1_pct | −0.101 | −.25 | 1.2 |
-| mtld | −0.098 | −.12 | 3.1 |
+| bnc_beyond_k5_pct | −0.100 | −.31 | 3.6 |
 | cefr_B2_pct | −0.096 | −.35 | 1.8 |
-| bnc_beyond_k1_pct | +0.095 | −.49 | 12.1 |
+| bnc_beyond_k1_pct | +0.092 | −.49 | 12.1 |
 | cefr_B1_pct | −0.083 | −.35 | 2.9 |
 | cefr_C2_pct | −0.081 | −.22 | 1.1 |
 | cefr_A2_pct | −0.047 | −.19 | 1.5 |
-| bnc_beyond_k2_pct | −0.046 | −.49 | 11.1 |
-| mattr | +0.032 | −.09 | 3.1 |
-| awl_pct | +0.012 | −.34 | 3.9 |
-| phrase_per_1000 | −0.005 | +.08 | 1.1 |
+| bnc_beyond_k2_pct | −0.043 | −.49 | 11.1 |
+| mattr | +0.033 | −.09 | 3.1 |
+| awl_pct | +0.015 | −.34 | 3.9 |
+| phrase_per_1000 | −0.006 | +.08 | 1.1 |
 
 **Multicollinearity.** Word length (characters and syllables), Dale–Chall difficult words and the nested BNC/COCA "beyond Kn" shares have VIFs of 8–12. Their individual coefficients are not interpretable on their own. Positive βs for characters per word, beyond-K1 and beyond-K3, where the raw correlations are negative, are suppression effects among correlated predictors, not evidence that longer or rarer words make text easier. Read them as a block: the word-difficulty block and sentence length carry most of the weight, CEFR level shares add a little, and diversity (MTLD, MATTR), AWL and phrase density add almost nothing once vocabulary level is in.
 
@@ -118,14 +118,14 @@ Sign convention: negative means harder.
 - **lexinspect computes the classic formulas comparably to the published tool.** On 4,724 texts, its scores correlate .96–.98 with the authors' ARTE scores for Flesch, FKGL, SMOG and ARI, and they predict teacher judgements just as well, to within .01.
 - **Each formula explains about a quarter to a third of the variation in teachers' judgements.** That is real but modest. Choosing among them barely matters, and `text_standard` is about as good as the best of them without being better.
 - **Vocabulary profiles add real information.** Adding lexinspect's word-level features (Dale–Chall familiarity, CEFR levels, frequency bands, NGSL) to sentence and word length raises cross-validated r from .55 to .65 and R² from .30 to .42. A teacher choosing texts should read the vocabulary profile, not just the grade.
-- **lexinspect is not a state-of-the-art difficulty predictor.** The CLEAR authors' model, with cohesion, semantic and syntactic indices lexinspect doesn't compute, reaches .71; a large language model reaches .76. The criterion's reliability (about .77) caps any predictor near .88, so there is room left that lexinspect's features don't reach.
+- **lexinspect is not a state-of-the-art difficulty predictor.** The CLEAR authors' model, with cohesion, semantic and syntactic indices lexinspect doesn't compute, reaches .71; a large language model reaches .76. Our estimate of the criterion's reliability (about .77) puts the ceiling for any predictor near .88, so there is room left that lexinspect's features don't reach.
 
 ## Observations for lexinspect
 
 These are notes, not bugs.
 
-- **Dale–Chall differs most from ARTE** (r = .84 between the two scores; lexinspect's is 1.2 lower on average), yet predicts equally well (|r| .562 vs .557). The difference comes from two places:
-  - lexinspect applies the Chall & Dale (1995) counting rules: inflections of familiar words, proper names and numerals count as familiar. So it finds fewer difficult words (mean 14.5% vs about 18.8% implied by the ARTE scores).
+- **Dale–Chall differs most from ARTE** (r = .84 between the two scores; lexinspect's is 1.2 lower on average), yet predicts equally well (|r| .562 vs .558). The difference comes from two places:
+  - lexinspect applies the Chall & Dale (1995) counting rules: inflections of familiar words, proper names and numerals count as familiar. So it finds fewer difficult words: a mean of 14.5% of words, against 19.6% implied by the ARTE scores (inverting the formula with the CLEAR file's word and sentence counts; 22 of the 4,724 excerpts can't be inverted consistently and are left out; `checks.agreement_with_clear_file_scores.dale_chall_difficult_pct`).
   - Below 5% difficult words the formula drops its +3.6365 constant. 15% of CLEAR excerpts fall there, so the score has a step at 5%.
 
   Both follow the published definition. In passing, we noticed that a version without the step correlates slightly better (−.573). That was not tested properly and is not a recommendation.
@@ -136,10 +136,10 @@ These are notes, not bugs.
 
 - **Population.** CLEAR is US school reading (grades 3–12) judged by US teachers for first-language students. Nothing here validates lexinspect for second-language readers, adult learners or CEFR levels.
 - **Criterion.** The criterion is teachers' *comparative* judgement of difficulty, not measured comprehension. It is reliable at about .77, not perfectly.
-- **Text type.** Excerpts are 130–210 words of edited prose, most of it from before 1950. Results may not carry over to short texts, learner writing or other genres.
+- **Text type.** Excerpts are 129–208 words of edited prose, most of it from before 1950. Results may not carry over to short texts, learner writing or other genres.
 - **Feature set.** The model uses only features lexinspect computes today. It is a lower bound on what lexinspect's *outputs* can tell you, not a proposed scoring formula, and its coefficients should not be used as one: they are fitted to this corpus and are collinear.
 - **Comparing with the reference models.** The CLEAR paper's r = .71 used stepwise feature selection within its CV, and GPT-4's r = .76 is from a different evaluation. Neither is directly comparable to our nested CV. Published formula values were read from the paper's Figure 2 as cited in VALIDITY.md. The same-text CLEAR-file correlations in the table are the more exact comparison.
-- **Version.** All numbers are for lexinspect 0.3.0 with `en_core_web_sm-3.8.0` and may move slightly with later releases. The JSON records the provenance.
+- **Version.** All numbers are for lexinspect 0.3.3 with `en_core_web_sm-3.8.0` and may move slightly with later releases. The JSON records the provenance.
 
 ## Reproduce
 

@@ -22,7 +22,7 @@ const SECTION_INFO = {
     about:
       'Paul Nation’s BNC/COCA word families: 25 bands of 1,000 families ordered by frequency, plus his lists of proper names, marginal words, transparent compounds and acronyms. A family includes inflections and derivations, so <i>analyse</i>, <i>analysis</i> and <i>analytical</i> count as one.',
     caveats: [
-      'Readers need to know about 95% of the running words for adequate comprehension and 98% for comfortable reading (Laufer & Ravenhorst-Kalovski 2010). The 95% and 98% markers show which band gets there, counting names and the supplementary lists as known.',
+      'Laufer & Ravenhorst-Kalovski (2010) put the minimal threshold for reading comprehension at knowing 95% of the running words, and the optimal threshold at 98%. The 95% and 98% markers show which band gets there, counting names and the supplementary lists as known.',
     ],
   },
   ngsl: {
@@ -63,14 +63,14 @@ const SECTION_INFO = {
     about:
       'How varied the vocabulary is. Simple type/token ratios fall as a text grows, so they cannot compare texts of different lengths. <b>MTLD</b>, <b>HD-D</b> and <b>vocd-D</b> were designed not to.',
     caveats: [
-      'Below about 100 words every measure is unstable. Compare texts of similar genre: narrative always varies more than argument.',
+      'Below about 50 words (not counting numbers) every measure is unstable, and Maas needs about 100. Compare texts of the same genre: genre alone changes these scores.',
     ],
   },
   statistics: {
     about:
       'The counts every other measure is built on. A word is an orthographic word: <i>don’t</i>, <i>well-known</i> and <i>cannot</i> are one word each. Numbers count as words for readability and are excluded from type counts.',
     caveats: [
-      'Parts of speech come from spaCy’s small English model (about 97% tag accuracy on news text, lower on learner writing).',
+      'Parts of speech come from spaCy’s small English model (about 97% tag accuracy on spaCy’s OntoNotes benchmark of edited English, lower on learner writing).',
     ],
   },
 };

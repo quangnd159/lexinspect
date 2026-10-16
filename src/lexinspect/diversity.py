@@ -258,17 +258,22 @@ def _references_block(vocd: float | None) -> dict[str, Any]:
     return {"vocd_d_bands": bands, "note": _REFERENCES_NOTE}
 
 
-# Which indices to trust, after Zenker & Kyle (2021, Assessing Writing 47) and
-# McCarthy & Jarvis (2010, Behavior Research Methods 42), as tiered by TAALED.
+# Which indices to trust: TAALED's tiers (github.com/LCR-ADS-Lab/TAALED), whose
+# minimum lengths cite Zenker & Kyle (2021, Assessing Writing 47). TAALED doesn't
+# rate vocd-D; putting it with HD-D is lexinspect's own call, because TAALED
+# describes HD-D (McCarthy & Jarvis 2007, Language Testing 24) as "a more
+# reliable calculation of vocd-D".
 TIERS: dict[str, Any] = {
     "recommended": ["mtld", "mattr"],
     "caution": ["hdd", "vocd_d", "maas"],
     "legacy": ["ttr", "rttr", "cttr", "msttr", "herdan", "summer"],
     "note": (
-        "MTLD and MATTR stay most stable across text lengths from about 50 tokens "
-        "(Zenker & Kyle 2021, 4,542 EFL essays). HD-D, vocd-D and Maas are usable with "
-        "care. TTR and its transforms, and MSTTR, change with text length; compare them "
-        "only between texts of the same length."
+        "Tiers follow TAALED's guidance, whose minimum lengths draw on Zenker & Kyle "
+        "(2021): MTLD and MATTR with confidence from 50 tokens; HD-D (50 tokens) and "
+        "Maas (100) with caution. TTR and its transforms, and MSTTR, change with text "
+        "length; compare them only between texts of the same length. TAALED doesn't "
+        'rate vocd-D; lexinspect groups it with HD-D, which TAALED calls "a more '
+        'reliable calculation of vocd-D" (HD-D: McCarthy & Jarvis 2007).'
     ),
 }
 

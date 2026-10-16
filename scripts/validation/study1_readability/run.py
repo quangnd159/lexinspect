@@ -322,7 +322,7 @@ def main() -> None:
     clear = load_clear()
     feats, prov = features(clear, args.workers)
     data = clear[
-        ["ID", "BT_easiness", "s.e.", "Excerpt", "Sentence Count"]
+        ["ID", "BT_easiness", "s.e.", "Excerpt", "Sentence Count", "Google WC"]
         + [c for _, c in PUBLISHED.values()]
     ].merge(feats, on="ID")
     failures = data[data["error"].notna()][["ID", "error"]].to_dict("records")
@@ -387,6 +387,26 @@ def main() -> None:
             "sd_of_difference": round(float(diff.std()), 3),
             "n_abs_difference_over_2": int((diff.abs() > 2).sum()),
         }
+
+    # Difficult-word share: lexinspect's (Chall & Dale 1995 rules) against the
+    # share implied by ARTE's New Dale-Chall score, inverted with the CLEAR
+    # file's word and sentence counts and the formula's step at 5%. A row is
+    # inverted only if exactly one branch is self-consistent (no step and at
+    # most 5%, or the step and above 5%); rows where neither is are excluded
+    # and counted, since ARTE's own counts must differ from the file's there.
+    arte_dc = ok["New Dale-Chall Readability Formula"]
+    arte_wps = ok["Google WC"] / ok["Sentence Count"]
+    no_step = (arte_dc - 0.0496 * arte_wps) / 0.1579
+    with_step = (arte_dc - 3.6365 - 0.0496 * arte_wps) / 0.1579
+    valid_no, valid_with = no_step <= 5, with_step > 5
+    implied = no_step.where(valid_no, with_step.where(valid_with))
+    agreement["dale_chall_difficult_pct"] = {
+        "mean_lexinspect": round(float(ok["dale_chall_difficult_pct"].mean()), 2),
+        "share_lexinspect_below_5": round(float((ok["dale_chall_difficult_pct"] < 5).mean()), 4),
+        "mean_implied_by_arte": round(float(implied.mean()), 2),
+        "n_implied_by_arte": int(implied.notna().sum()),
+        "n_not_invertible": int(implied.isna().sum()),
+    }
 
     out = {
         "study": "Study 1: readability against human judgement",

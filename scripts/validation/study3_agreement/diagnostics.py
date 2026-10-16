@@ -9,6 +9,10 @@ Adds a `suspected_bugs` block to `docs/validation/study3-agreement.json`:
 2. Digit strings that are not plain numerals (`1914–1918`, `11:00`, `1/4`,
    `3-4`) are not `is_numeric`, so they count as words with 0 syllables and
    stay in the diversity token list, which is meant to exclude numbers.
+3. A closing single quote absorbed into the word before it (`‘quoted’` read
+   as the word `quoted’`), found by an independent audit after step 2. Counted
+   as words ending in a bare apostrophe after a letter other than s; a plural
+   possessive (`students’`) is legitimate and not counted.
 
 For each, the minimal reproducing example's actual output, how many corpus
 texts are affected, and how much the affected texts' scores move when the
@@ -73,7 +77,7 @@ def repro() -> dict:
 
 def main() -> None:
     manifest = [json.loads(x) for x in (CACHE / "manifest.jsonl").read_text("utf-8").splitlines()]
-    glued_texts, digit_texts = {}, {}
+    glued_texts, digit_texts, quote_texts = {}, {}, {}
     mtld_shift, mattr_shift, words_shift = [], [], []
     for m in manifest:
         a = analyse((CACHE / "texts" / f"{m['id']}.txt").read_text("utf-8"))
@@ -87,6 +91,13 @@ def main() -> None:
         ]
         if digits:
             digit_texts[m["id"]] = digits
+        quoted = [
+            w.text
+            for w in a.words
+            if len(w.text) > 1 and w.text[-1] in "'’" and w.text[-2].lower() != "s"
+        ]
+        if quoted:
+            quote_texts[m["id"]] = quoted
         if not glued:
             continue
         glued_texts[m["id"]] = glued
@@ -129,6 +140,11 @@ def main() -> None:
             "texts_affected": len(digit_texts),
             "words_total": sum(len(v) for v in digit_texts.values()),
             "examples": sorted({w for v in digit_texts.values() for w in v})[:20],
+        },
+        "closing_quote_absorbed": {
+            "texts_affected": len(quote_texts),
+            "words_total": sum(len(v) for v in quote_texts.values()),
+            "examples": sorted({w for v in quote_texts.values() for w in v})[:20],
         },
     }
     OUT.write_text(json.dumps(result, indent=1, ensure_ascii=False) + "\n", "utf-8")

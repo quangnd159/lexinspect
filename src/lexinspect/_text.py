@@ -69,10 +69,16 @@ _CLITICS = frozenset({"n't", "'s", "'re", "'ve", "'ll", "'d", "'m", "'", "s'"})
 # `sha|n't`. Their lemma is right; their surface isn't a word.
 _HOST_SURFACE_FIX = {"ca": "can", "wo": "will", "sha": "shall", "ai": "ai"}
 _HYPHENS = frozenset({"-", "‐", "‑"})
+_FRACTIONS = "½⅓⅔¼¾⅕⅖⅗⅘⅙⅚⅛⅜⅝⅞"
+_NUM = rf"(?:\d[\d.,]*[{_FRACTIONS}]?|[{_FRACTIONS}])"
+# Separators inside one numeral: times, fractions, ranges, dimensions
+# (`11:00`, `1/4`, `1⁄12`, `3-4`, `3‐4`, `5−3`, `8×8`).
 _NUMERIC = re.compile(
-    # Also times, fractions and hyphenated ranges (`11:00`, `1/4`, `3-4`): Study 3
-    # found them treated as words, with no syllables, in 51 of 300 texts.
-    r"^(?:[+\-−±]?[$£€¥]?(?:\d[\d.,]*(?:[:/\-]\d[\d.,]*)*|\.\d+)%?|\d+(?:st|nd|rd|th|s|'s)|'\d\ds)$",
+    # Study 3 found times, fractions and ranges treated as words, with no
+    # syllables, in 51 of 300 texts (fixed in 0.3.2); the rerun under 0.3.2
+    # found the Unicode forms and heights (`6'1`) still missed.
+    rf"^(?:[~≈]?[+\-−±]?[$£€¥]?(?:{_NUM}(?:[:/⁄\-‐‑‒–−×]{_NUM})*|\.\d+)%?"
+    rf"|\d+(?:st|nd|rd|th|s|'s)|'\d\ds|\d+['′]\d+[\"″]?|\d+[\"″′])$",
     re.IGNORECASE,
 )
 # Bound prefixes that, hyphenated, aren't words of their own: `e-mail`,
@@ -123,7 +129,37 @@ def _norm_apos(s: str) -> str:
 
 
 def is_clitic(tok) -> bool:
-    return _norm_apos(tok.lower_) in _CLITICS
+    t = _norm_apos(tok.lower_)
+    if t not in _CLITICS:
+        return False
+    return t != "'" or _is_possessive_apostrophe(tok)
+
+
+def _is_possessive_apostrophe(tok) -> bool:
+    """A bare `'` after a word is a plural possessive (`the students'`) only if
+    the word ends in s and the mark doesn't close a single quotation opened
+    earlier in the sentence (`‘quoted’`, `'idea'`). Otherwise it's punctuation."""
+    doc = tok.doc
+    if tok.i == 0:
+        return False
+    host = doc[tok.i - 1]
+    if host.whitespace_ or not host.lower_.endswith("s"):
+        return False
+    start = tok.sent.start if doc.has_annotation("SENT_START") else 0
+    open_quote = False
+    for t in doc[start : tok.i]:
+        if t.text == "‘":
+            open_quote = True
+        elif t.text in ("'", "’"):
+            before = doc[t.i - 1] if t.i > 0 else None
+            opens = (before is None or before.whitespace_ or not _has_alnum(before.text)) and (
+                t.whitespace_ == ""
+            )
+            if opens:
+                open_quote = True
+            elif open_quote:
+                open_quote = False
+    return not open_quote
 
 
 def is_numeric(text: str) -> bool:

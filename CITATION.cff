@@ -11,7 +11,7 @@ type: software
 authors:
   - given-names: Quang
     family-names: Nguyen
-version: 0.3.2
+version: 0.3.3
 license: MIT
 repository-code: https://github.com/quangnd159/lexinspect
 url: https://lexinspect.dqnotes.com
