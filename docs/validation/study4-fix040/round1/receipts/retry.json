@@ -1,0 +1,22 @@
+{
+ "delivery_spec_sha256": "35966292996aa1d41825fccc0e18c161eb27cf4da551656b23ed8fcdba9b3a23",
+ "freeze_record_sha256": "0d0d4c651c86fe5324ca10256981845503006ac741885ab3c9ed5dd07498b42e",
+ "kind": "fixcheck-stage-receipt",
+ "labels": {
+  "A.pass1.jsonl": "da001a4615a20bfaeeb907611dbed1b79724d9aeab4c5e3dacc72ca96e91102b",
+  "B.pass1.jsonl": "04fac175f864cc951ccb36b4c14a07da8e35d680997e51ba419ad5deb48eec8b"
+ },
+ "parts": {
+  "retry": {
+   "batches/A/retry/retry_01.jsonl": "fc8dece2bde067667dd7db233c44cff7b4895b6dae2ed64ad8217a0103982c21",
+   "batches/A/retry/retry_manifest.json": "941e473f41e94cc9c7b9363ef410a5759d17bd7217aa4605983813ee0d3be118",
+   "manifest_retry.json": "728f597691198f6e2cbf9940109e7ffb4419111e5a040ef47aee55f8f4331c02",
+   "orders_A.json": "5c34f0fded6958f72786f75d0df671b3af97c5c7b6e141790b042fdd899a6899",
+   "orders_B.json": "8cc86b580a1eadadeb05e3428f72ad6cbf725b3173061a967a9dbb18097af320",
+   "retry.json": "2fffa41fbd88fd584bf976e03151b01251d4837c0e945d77da77044415a11ada",
+   "retry_A.jsonl": "152e32d777bf52f2738850d5da9409e14e6ba7b2c651b2d404b0c55d7c891c48",
+   "retry_B.jsonl": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  }
+ },
+ "stage": "retry"
+}
