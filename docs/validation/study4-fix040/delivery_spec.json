@@ -1,0 +1,60 @@
+{
+ "fresh_session_rule": "one fresh session per batch, no inherited repository or review context; transcript kept and reviewed (read only the listed files; labels by hand)",
+ "kind": "fixcheck-delivery-spec",
+ "materials": {
+  "guidelines.md": {
+   "sha256": "276d35e86ffa9da147d09734cf0c3fd9ed89bd6694d9d44a860cb6e851f0466e",
+   "source": "docs/validation/study4-guidelines.md"
+  },
+  "phrase_sense_inventory.md": {
+   "sha256": "a761f159541023fd51f5ca45e1fc44432b572ab22ffcad74f414b1e35a776a5d",
+   "source": ".cache/validation/study4/phrase_sense_inventory.md"
+  }
+ },
+ "max_batch_size": 325,
+ "output_file": "labels.jsonl",
+ "pilot_hashes": {
+  "path": ".cache/validation/study4_pilot/frozen_inputs.sha256",
+  "sha256": "fe5a0d200ad0e8dd3a8c29ac724fa83df3a6620953fe56c92b93a3f63d3661b6"
+ },
+ "prompt_placeholders": {
+  "⟨dir⟩": "absolute session directory",
+  "⟨n⟩": "items in the batch"
+ },
+ "prompt_source": {
+  "path": "docs/validation/study4-preregistration.md",
+  "sha256": "459c2cbef4db2066466dba789c73735bfb79411b403e795062c2f043a2a775ed"
+ },
+ "prompt_template": "You are labelling items for a research study on the precision of an English text analyser. Read the guidelines in full, and the sense inventory, then label every item in the batch file, one JSON line per item, exactly as the guidelines specify. Judge each item yourself, one at a time, from its context and the guidelines. Do not write or run code, regular expressions or keyword rules to produce labels, and do not consult any other file, website or source. Write the labels to the output path given. Don't summarise the items. When you finish, report only the number of items labelled and the count of each label.\n\nFiles. Read ONLY these three files; do not open, list or search any other file or directory on this machine:\n- Guidelines: ⟨dir⟩/guidelines.md\n- Sense inventory, part of the guidelines (see B6): ⟨dir⟩/phrase_sense_inventory.md\n- Batch file, ⟨n⟩ items: ⟨dir⟩/items.jsonl\n- Output path: ⟨dir⟩/labels.jsonl\n\nYou may write the output file with a file-writing tool, as long as you composed every label yourself. You may write it in several appends if that helps.\n",
+ "prompt_template_sha256": "86985e10f3abb87b082ad4059dbeff8bfa36a62c23256c784122cffe362b96ee",
+ "roles": {
+  "A": {
+   "model": "claude-sonnet-5-5",
+   "provider": "anthropic (T3 delegate_task, Claude Code)",
+   "settings": {
+    "effort": "high"
+   }
+  },
+  "B": {
+   "model": "gpt-6.1-sol",
+   "provider": "openai (codex)",
+   "settings": {
+    "reasoningEffort": "high"
+   }
+  },
+  "adjudicator": {
+   "model": "opencode/deepseek-v4.1-flash-free",
+   "provider": "opencode (free route)",
+   "settings": {
+    "reasoning": "high"
+   }
+  }
+ },
+ "session_files": [
+  "guidelines.md",
+  "phrase_sense_inventory.md",
+  "items.jsonl"
+ ],
+ "spec_sha256": "2b3ccf75dd6f36b791e8ccec492990ef7eedfa9def815ccdc43319d77e7149ac",
+ "version": 1
+}

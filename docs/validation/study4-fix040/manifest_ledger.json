@@ -1,0 +1,58 @@
+{
+ "command": "/Users/quangnguyendang/webapps/lexinspect/.venv/bin/python3 -I /Users/quangnguyendang/webapps/lexinspect/scripts/validation/study4_precision/fixcheck/cli.py ledger --out /Users/quangnguyendang/webapps/lexinspect/docs/validation/study4-fix040",
+ "environment_sha256": "2a0d0883a5726ec5a315af772da5a4352f8b3499fcf131c61169eb5617d75491",
+ "git": {
+  "commit": "3d4df7012656defd5a44571410af00896f634a2d",
+  "repo": "/Users/quangnguyendang/webapps/lexinspect",
+  "src_dirty": false,
+  "src_dirty_paths": []
+ },
+ "harness": "fixcheck/1",
+ "outputs": {
+  "ledger_components.json": {
+   "bytes": 18661,
+   "sha256": "ab61336db6b762f8977109ec97c88e8ce83173204c2933967db7b8c54817e71f"
+  }
+ },
+ "python": "3.12.5",
+ "sources_sha256": {
+  "analyse.py": "e5486f58c433f919489851da0ca40822c378badcf235c681a414f3e097a59aa5",
+  "batches.py": "e073f364bc99c974111171c39207e02538ab96b7b17ba9fe59123de4d2f5bbce",
+  "build.py": "ff23c14bb764b581c807d1daf7abe7d4f00043c02ad90a573055b39235b99312",
+  "estimators.py": "4f876096e792b550bf982d067628101e2f243505c6254e0537406cf085da6e9d",
+  "fixcheck/__init__.py": "2348b0ebff9e4f25c92cde463054ffe7ece1980c646d47dad0276b333237969e",
+  "fixcheck/accept.py": "a9284160930d843f309235d23a052966b39ea9966ad96d98c5f8a113b329d813",
+  "fixcheck/assign.py": "1f4dd670b1b162110a55008ff13b1497d9ee1f82538569734d34e80343a5bff5",
+  "fixcheck/cli.py": "494998de4c5b689bd651a6fba6d16d57acfec725f2b1bc40dccb46f3c46a5574",
+  "fixcheck/collect.py": "fe7253f404f5c67c7bc14f8742e3075b1f429a727039bf3a2b45721a905a0347",
+  "fixcheck/common.py": "1030331d415d2cfe1fcdbbed4b16b3922110e48f17a82b24dc3e6736bb59e689",
+  "fixcheck/crosswalk.py": "61ebfd734ae731b390dc25ae616c1056713cc2049111255128de585fdec325fb",
+  "fixcheck/dryrun.py": "4b72512e104638b312d315e943a357a57fb93ce138770f3b2209360a0e4e14ca",
+  "fixcheck/durable.py": "c033eea78d4914a38c9dc405828dd6f0333d5b5d91bdfdb3dca33a8c4c65b8ee",
+  "fixcheck/failure.py": "b0946c17f18a1eec9c7b53c265e2366a8cf779963af9a1e4b6de2f11ed9f6c07",
+  "fixcheck/freeze.py": "66c2f6dd91dec6c25f9e4aeb0622d0492e224b1b1f9d8483f08acfa71d1b3df5",
+  "fixcheck/ledger.py": "0f25aadda5f71923c3e64fbd076a0ca0f36c37933f4ad23482b734ffe788258d",
+  "fixcheck/package.py": "b08901a34b087feecc738dca60526fe4fb768a9865dad22b981fb50963f07957",
+  "fixcheck/power.py": "4d966b6f45b857920c24f685c8e81b11e3482f4a7dda7b97e8853c8bdc8a6fb9",
+  "fixcheck/registry.py": "7a21b9cdcff20e83cc050e72afaa7056d360e691fe47da9a00282502b90248a5",
+  "fixcheck/run.py": "54501e28659e85d2241f47ad34067103afc93ed1c556fddaf54b9d26ddfc7a7c",
+  "fixcheck/sampling.py": "960f39a95fe11ccfa68c12e385a1f02a861ff6d27709d2a607e59a2e79f87ae8",
+  "fixcheck/scan.py": "5cf1debe4b5ce3cac212326db9d0c0830dbaad011479134762b5ca55889a6eab",
+  "fixcheck/sessions.py": "7acde9dcebc41845cd6e42436fd708804f615141a0b986ef93f10de9b92b5aff",
+  "fixcheck/synthetic.py": "3d309de49bd18594eaeba93a87d69ba822343215774066fcebf6e115da91a313",
+  "fixcheck/test_fixcheck.py": "7fcff2c0115e86bba6ed81d5feb10e81add982e5b3106cec5208bb841d2277be",
+  "fixcheck/test_r4.py": "bdd706053591c3184fb6a1813fd6da56b3f4177877ba9c2147c2b9aa4af050b4",
+  "fixcheck/test_r5.py": "22da275565c7532ca0380b39b470b62919b029aa83d0b2501f72a2a07a6a64a0",
+  "fixcheck/test_r6.py": "81930ffd631ab37e77fbb1d03484b6bafc9c62323d63bc66f9dc837237a7560e",
+  "fixcheck/test_r7.py": "353ebbc479664c711e15059bb15d4322645f6c6a6a549836b135cf743ee7be09",
+  "fixcheck/test_r8.py": "dc466c4a50a2a372088a78c5fedbc9f5c1cbdba9fdcc5e8fb65893e5422c8466",
+  "fixcheck/verify.py": "5afa6cf1e8d479beedc1d1a03dd3f2a01f36c3abd5ececbe2a31200ba5d9297d",
+  "fixcheck/worker.py": "04a56cd270e4b18dc9a4fa1fc2ce35ea94062866ccb2f4ea3f3a0c28b64453f9",
+  "frame.py": "4de50b8aa2b527d530e5914c052a7969b643d4cecf83cefb8d60541fddc11579",
+  "human_page.py": "c70537bb290917052195e86db590a0ecd00ff91cac01ffd36191a118b07d485e",
+  "simulate_coverage.py": "a5369dc0b8721fc8fa84e52ab1ca0df83ace06e8fe8f0a4b871e9c54e55c2f94",
+  "test_analyse.py": "29976b6d13e61f9a2cbd353e462e774e71a5868467a962494123776558753ad2"
+ },
+ "step": "ledger",
+ "written": "2026-10-17T16:58:31+00:00"
+}

@@ -1,0 +1,838 @@
+{
+ "F": 12,
+ "J": 68,
+ "J_formula": "4(F + 5)",
+ "a": 0.0007352941176470588,
+ "components": [
+  {
+   "alpha": 0.0007352941176470588,
+   "applicability": "applicable_if_frame_nonempty",
+   "bound": "upper",
+   "id": "R1.metadiscourse.MD-A.removal",
+   "kind": "removal",
+   "module": "metadiscourse",
+   "round": 1,
+   "who": "MD-A"
+  },
+  {
+   "alpha": 0.0007352941176470588,
+   "applicability": "applicable_if_frame_nonempty",
+   "bound": "upper",
+   "id": "R1.metadiscourse.MD-B.removal",
+   "kind": "removal",
+   "module": "metadiscourse",
+   "round": 1,
+   "who": "MD-B"
+  },
+  {
+   "alpha": 0.0007352941176470588,
+   "applicability": "applicable_if_frame_nonempty",
+   "bound": "upper",
+   "id": "R1.metadiscourse.MD-C.removal",
+   "kind": "removal",
+   "module": "metadiscourse",
+   "round": 1,
+   "who": "MD-C"
+  },
+  {
+   "alpha": 0.0007352941176470588,
+   "applicability": "applicable_if_frame_nonempty",
+   "bound": "upper",
+   "id": "R1.metadiscourse.MD-D.removal",
+   "kind": "removal",
+   "module": "metadiscourse",
+   "round": 1,
+   "who": "MD-D"
+  },
+  {
+   "alpha": 0.0007352941176470588,
+   "applicability": "applicable_if_frame_nonempty",
+   "bound": "upper",
+   "id": "R1.metadiscourse.MD-E.removal",
+   "kind": "removal",
+   "module": "metadiscourse",
+   "round": 1,
+   "who": "MD-E"
+  },
+  {
+   "alpha": 0.0007352941176470588,
+   "applicability": "applicable_if_frame_nonempty",
+   "bound": "upper",
+   "id": "R1.metadiscourse.MD-F.removal",
+   "kind": "removal",
+   "module": "metadiscourse",
+   "round": 1,
+   "who": "MD-F"
+  },
+  {
+   "alpha": 0.0007352941176470588,
+   "applicability": "applicable_if_frame_nonempty",
+   "bound": "upper",
+   "id": "R1.metadiscourse.MD-G.removal",
+   "kind": "removal",
+   "module": "metadiscourse",
+   "round": 1,
+   "who": "MD-G"
+  },
+  {
+   "alpha": 0.0007352941176470588,
+   "applicability": "applicable_if_frame_nonempty",
+   "bound": "upper",
+   "id": "R1.metadiscourse.MD-H.removal",
+   "kind": "removal",
+   "module": "metadiscourse",
+   "round": 1,
+   "who": "MD-H"
+  },
+  {
+   "alpha": 0.0007352941176470588,
+   "applicability": "applicable_if_frame_nonempty",
+   "bound": "upper",
+   "id": "R1.metadiscourse.MD-I.removal",
+   "kind": "removal",
+   "module": "metadiscourse",
+   "round": 1,
+   "who": "MD-I"
+  },
+  {
+   "alpha": 0.0007352941176470588,
+   "applicability": "reserved_other_module_not_applicable_unless_frame_nonempty",
+   "bound": "upper",
+   "id": "R1.metadiscourse.PH-A.removal",
+   "kind": "removal",
+   "module": "metadiscourse",
+   "round": 1,
+   "who": "PH-A"
+  },
+  {
+   "alpha": 0.0007352941176470588,
+   "applicability": "reserved_other_module_not_applicable_unless_frame_nonempty",
+   "bound": "upper",
+   "id": "R1.metadiscourse.PH-B.removal",
+   "kind": "removal",
+   "module": "metadiscourse",
+   "round": 1,
+   "who": "PH-B"
+  },
+  {
+   "alpha": 0.0007352941176470588,
+   "applicability": "reserved_other_module_not_applicable_unless_frame_nonempty",
+   "bound": "upper",
+   "id": "R1.metadiscourse.PH-C.removal",
+   "kind": "removal",
+   "module": "metadiscourse",
+   "round": 1,
+   "who": "PH-C"
+  },
+  {
+   "alpha": 0.0007352941176470588,
+   "applicability": "applicable_if_frame_nonempty",
+   "bound": "upper",
+   "id": "R1.metadiscourse.COMPLETE.removal",
+   "kind": "removal",
+   "module": "metadiscourse",
+   "outcome": null,
+   "round": 1,
+   "who": "COMPLETE"
+  },
+  {
+   "alpha": 0.0007352941176470588,
+   "applicability": "required",
+   "bound": "upper",
+   "id": "R1.metadiscourse.COMPLETE.loss_STRICT",
+   "kind": "loss_STRICT",
+   "module": "metadiscourse",
+   "outcome": "STRICT",
+   "round": 1,
+   "who": "COMPLETE"
+  },
+  {
+   "alpha": 0.0007352941176470588,
+   "applicability": "required",
+   "bound": "upper",
+   "id": "R1.metadiscourse.COMPLETE.loss_INV",
+   "kind": "loss_INV",
+   "module": "metadiscourse",
+   "outcome": "LENIENT",
+   "round": 1,
+   "who": "COMPLETE"
+  },
+  {
+   "alpha": 0.0007352941176470588,
+   "applicability": "required",
+   "bound": "lower",
+   "id": "R1.metadiscourse.COMPLETE.success_STRICT",
+   "kind": "success_STRICT",
+   "module": "metadiscourse",
+   "outcome": "STRICT",
+   "round": 1,
+   "who": "COMPLETE"
+  },
+  {
+   "alpha": 0.0007352941176470588,
+   "applicability": "required",
+   "bound": "lower",
+   "id": "R1.metadiscourse.COMPLETE.success_INV",
+   "kind": "success_INV",
+   "module": "metadiscourse",
+   "outcome": "LENIENT",
+   "round": 1,
+   "who": "COMPLETE"
+  },
+  {
+   "alpha": 0.0007352941176470588,
+   "applicability": "reserved_other_module_not_applicable_unless_frame_nonempty",
+   "bound": "upper",
+   "id": "R1.phrase.MD-A.removal",
+   "kind": "removal",
+   "module": "phrase",
+   "round": 1,
+   "who": "MD-A"
+  },
+  {
+   "alpha": 0.0007352941176470588,
+   "applicability": "reserved_other_module_not_applicable_unless_frame_nonempty",
+   "bound": "upper",
+   "id": "R1.phrase.MD-B.removal",
+   "kind": "removal",
+   "module": "phrase",
+   "round": 1,
+   "who": "MD-B"
+  },
+  {
+   "alpha": 0.0007352941176470588,
+   "applicability": "reserved_other_module_not_applicable_unless_frame_nonempty",
+   "bound": "upper",
+   "id": "R1.phrase.MD-C.removal",
+   "kind": "removal",
+   "module": "phrase",
+   "round": 1,
+   "who": "MD-C"
+  },
+  {
+   "alpha": 0.0007352941176470588,
+   "applicability": "reserved_other_module_not_applicable_unless_frame_nonempty",
+   "bound": "upper",
+   "id": "R1.phrase.MD-D.removal",
+   "kind": "removal",
+   "module": "phrase",
+   "round": 1,
+   "who": "MD-D"
+  },
+  {
+   "alpha": 0.0007352941176470588,
+   "applicability": "reserved_other_module_not_applicable_unless_frame_nonempty",
+   "bound": "upper",
+   "id": "R1.phrase.MD-E.removal",
+   "kind": "removal",
+   "module": "phrase",
+   "round": 1,
+   "who": "MD-E"
+  },
+  {
+   "alpha": 0.0007352941176470588,
+   "applicability": "reserved_other_module_not_applicable_unless_frame_nonempty",
+   "bound": "upper",
+   "id": "R1.phrase.MD-F.removal",
+   "kind": "removal",
+   "module": "phrase",
+   "round": 1,
+   "who": "MD-F"
+  },
+  {
+   "alpha": 0.0007352941176470588,
+   "applicability": "reserved_other_module_not_applicable_unless_frame_nonempty",
+   "bound": "upper",
+   "id": "R1.phrase.MD-G.removal",
+   "kind": "removal",
+   "module": "phrase",
+   "round": 1,
+   "who": "MD-G"
+  },
+  {
+   "alpha": 0.0007352941176470588,
+   "applicability": "reserved_other_module_not_applicable_unless_frame_nonempty",
+   "bound": "upper",
+   "id": "R1.phrase.MD-H.removal",
+   "kind": "removal",
+   "module": "phrase",
+   "round": 1,
+   "who": "MD-H"
+  },
+  {
+   "alpha": 0.0007352941176470588,
+   "applicability": "reserved_other_module_not_applicable_unless_frame_nonempty",
+   "bound": "upper",
+   "id": "R1.phrase.MD-I.removal",
+   "kind": "removal",
+   "module": "phrase",
+   "round": 1,
+   "who": "MD-I"
+  },
+  {
+   "alpha": 0.0007352941176470588,
+   "applicability": "applicable_if_frame_nonempty",
+   "bound": "upper",
+   "id": "R1.phrase.PH-A.removal",
+   "kind": "removal",
+   "module": "phrase",
+   "round": 1,
+   "who": "PH-A"
+  },
+  {
+   "alpha": 0.0007352941176470588,
+   "applicability": "applicable_if_frame_nonempty",
+   "bound": "upper",
+   "id": "R1.phrase.PH-B.removal",
+   "kind": "removal",
+   "module": "phrase",
+   "round": 1,
+   "who": "PH-B"
+  },
+  {
+   "alpha": 0.0007352941176470588,
+   "applicability": "applicable_if_frame_nonempty",
+   "bound": "upper",
+   "id": "R1.phrase.PH-C.removal",
+   "kind": "removal",
+   "module": "phrase",
+   "round": 1,
+   "who": "PH-C"
+  },
+  {
+   "alpha": 0.0007352941176470588,
+   "applicability": "applicable_if_frame_nonempty",
+   "bound": "upper",
+   "id": "R1.phrase.COMPLETE.removal",
+   "kind": "removal",
+   "module": "phrase",
+   "outcome": null,
+   "round": 1,
+   "who": "COMPLETE"
+  },
+  {
+   "alpha": 0.0007352941176470588,
+   "applicability": "required",
+   "bound": "upper",
+   "id": "R1.phrase.COMPLETE.loss_STRICT",
+   "kind": "loss_STRICT",
+   "module": "phrase",
+   "outcome": "STRICT",
+   "round": 1,
+   "who": "COMPLETE"
+  },
+  {
+   "alpha": 0.0007352941176470588,
+   "applicability": "required",
+   "bound": "upper",
+   "id": "R1.phrase.COMPLETE.loss_INV",
+   "kind": "loss_INV",
+   "module": "phrase",
+   "outcome": "LIST_LENIENT",
+   "round": 1,
+   "who": "COMPLETE"
+  },
+  {
+   "alpha": 0.0007352941176470588,
+   "applicability": "required",
+   "bound": "lower",
+   "id": "R1.phrase.COMPLETE.success_STRICT",
+   "kind": "success_STRICT",
+   "module": "phrase",
+   "outcome": "STRICT",
+   "round": 1,
+   "who": "COMPLETE"
+  },
+  {
+   "alpha": 0.0007352941176470588,
+   "applicability": "required",
+   "bound": "lower",
+   "id": "R1.phrase.COMPLETE.success_INV",
+   "kind": "success_INV",
+   "module": "phrase",
+   "outcome": "LIST_LENIENT",
+   "round": 1,
+   "who": "COMPLETE"
+  },
+  {
+   "alpha": 0.0007352941176470588,
+   "applicability": "reserved_round_2",
+   "bound": "upper",
+   "id": "R2.metadiscourse.MD-A.removal",
+   "kind": "removal",
+   "module": "metadiscourse",
+   "round": 2,
+   "who": "MD-A"
+  },
+  {
+   "alpha": 0.0007352941176470588,
+   "applicability": "reserved_round_2",
+   "bound": "upper",
+   "id": "R2.metadiscourse.MD-B.removal",
+   "kind": "removal",
+   "module": "metadiscourse",
+   "round": 2,
+   "who": "MD-B"
+  },
+  {
+   "alpha": 0.0007352941176470588,
+   "applicability": "reserved_round_2",
+   "bound": "upper",
+   "id": "R2.metadiscourse.MD-C.removal",
+   "kind": "removal",
+   "module": "metadiscourse",
+   "round": 2,
+   "who": "MD-C"
+  },
+  {
+   "alpha": 0.0007352941176470588,
+   "applicability": "reserved_round_2",
+   "bound": "upper",
+   "id": "R2.metadiscourse.MD-D.removal",
+   "kind": "removal",
+   "module": "metadiscourse",
+   "round": 2,
+   "who": "MD-D"
+  },
+  {
+   "alpha": 0.0007352941176470588,
+   "applicability": "reserved_round_2",
+   "bound": "upper",
+   "id": "R2.metadiscourse.MD-E.removal",
+   "kind": "removal",
+   "module": "metadiscourse",
+   "round": 2,
+   "who": "MD-E"
+  },
+  {
+   "alpha": 0.0007352941176470588,
+   "applicability": "reserved_round_2",
+   "bound": "upper",
+   "id": "R2.metadiscourse.MD-F.removal",
+   "kind": "removal",
+   "module": "metadiscourse",
+   "round": 2,
+   "who": "MD-F"
+  },
+  {
+   "alpha": 0.0007352941176470588,
+   "applicability": "reserved_round_2",
+   "bound": "upper",
+   "id": "R2.metadiscourse.MD-G.removal",
+   "kind": "removal",
+   "module": "metadiscourse",
+   "round": 2,
+   "who": "MD-G"
+  },
+  {
+   "alpha": 0.0007352941176470588,
+   "applicability": "reserved_round_2",
+   "bound": "upper",
+   "id": "R2.metadiscourse.MD-H.removal",
+   "kind": "removal",
+   "module": "metadiscourse",
+   "round": 2,
+   "who": "MD-H"
+  },
+  {
+   "alpha": 0.0007352941176470588,
+   "applicability": "reserved_round_2",
+   "bound": "upper",
+   "id": "R2.metadiscourse.MD-I.removal",
+   "kind": "removal",
+   "module": "metadiscourse",
+   "round": 2,
+   "who": "MD-I"
+  },
+  {
+   "alpha": 0.0007352941176470588,
+   "applicability": "reserved_round_2",
+   "bound": "upper",
+   "id": "R2.metadiscourse.PH-A.removal",
+   "kind": "removal",
+   "module": "metadiscourse",
+   "round": 2,
+   "who": "PH-A"
+  },
+  {
+   "alpha": 0.0007352941176470588,
+   "applicability": "reserved_round_2",
+   "bound": "upper",
+   "id": "R2.metadiscourse.PH-B.removal",
+   "kind": "removal",
+   "module": "metadiscourse",
+   "round": 2,
+   "who": "PH-B"
+  },
+  {
+   "alpha": 0.0007352941176470588,
+   "applicability": "reserved_round_2",
+   "bound": "upper",
+   "id": "R2.metadiscourse.PH-C.removal",
+   "kind": "removal",
+   "module": "metadiscourse",
+   "round": 2,
+   "who": "PH-C"
+  },
+  {
+   "alpha": 0.0007352941176470588,
+   "applicability": "reserved_round_2",
+   "bound": "upper",
+   "id": "R2.metadiscourse.COMPLETE.removal",
+   "kind": "removal",
+   "module": "metadiscourse",
+   "outcome": null,
+   "round": 2,
+   "who": "COMPLETE"
+  },
+  {
+   "alpha": 0.0007352941176470588,
+   "applicability": "reserved_round_2",
+   "bound": "upper",
+   "id": "R2.metadiscourse.COMPLETE.loss_STRICT",
+   "kind": "loss_STRICT",
+   "module": "metadiscourse",
+   "outcome": "STRICT",
+   "round": 2,
+   "who": "COMPLETE"
+  },
+  {
+   "alpha": 0.0007352941176470588,
+   "applicability": "reserved_round_2",
+   "bound": "upper",
+   "id": "R2.metadiscourse.COMPLETE.loss_INV",
+   "kind": "loss_INV",
+   "module": "metadiscourse",
+   "outcome": "LENIENT",
+   "round": 2,
+   "who": "COMPLETE"
+  },
+  {
+   "alpha": 0.0007352941176470588,
+   "applicability": "reserved_round_2",
+   "bound": "lower",
+   "id": "R2.metadiscourse.COMPLETE.success_STRICT",
+   "kind": "success_STRICT",
+   "module": "metadiscourse",
+   "outcome": "STRICT",
+   "round": 2,
+   "who": "COMPLETE"
+  },
+  {
+   "alpha": 0.0007352941176470588,
+   "applicability": "reserved_round_2",
+   "bound": "lower",
+   "id": "R2.metadiscourse.COMPLETE.success_INV",
+   "kind": "success_INV",
+   "module": "metadiscourse",
+   "outcome": "LENIENT",
+   "round": 2,
+   "who": "COMPLETE"
+  },
+  {
+   "alpha": 0.0007352941176470588,
+   "applicability": "reserved_round_2",
+   "bound": "upper",
+   "id": "R2.phrase.MD-A.removal",
+   "kind": "removal",
+   "module": "phrase",
+   "round": 2,
+   "who": "MD-A"
+  },
+  {
+   "alpha": 0.0007352941176470588,
+   "applicability": "reserved_round_2",
+   "bound": "upper",
+   "id": "R2.phrase.MD-B.removal",
+   "kind": "removal",
+   "module": "phrase",
+   "round": 2,
+   "who": "MD-B"
+  },
+  {
+   "alpha": 0.0007352941176470588,
+   "applicability": "reserved_round_2",
+   "bound": "upper",
+   "id": "R2.phrase.MD-C.removal",
+   "kind": "removal",
+   "module": "phrase",
+   "round": 2,
+   "who": "MD-C"
+  },
+  {
+   "alpha": 0.0007352941176470588,
+   "applicability": "reserved_round_2",
+   "bound": "upper",
+   "id": "R2.phrase.MD-D.removal",
+   "kind": "removal",
+   "module": "phrase",
+   "round": 2,
+   "who": "MD-D"
+  },
+  {
+   "alpha": 0.0007352941176470588,
+   "applicability": "reserved_round_2",
+   "bound": "upper",
+   "id": "R2.phrase.MD-E.removal",
+   "kind": "removal",
+   "module": "phrase",
+   "round": 2,
+   "who": "MD-E"
+  },
+  {
+   "alpha": 0.0007352941176470588,
+   "applicability": "reserved_round_2",
+   "bound": "upper",
+   "id": "R2.phrase.MD-F.removal",
+   "kind": "removal",
+   "module": "phrase",
+   "round": 2,
+   "who": "MD-F"
+  },
+  {
+   "alpha": 0.0007352941176470588,
+   "applicability": "reserved_round_2",
+   "bound": "upper",
+   "id": "R2.phrase.MD-G.removal",
+   "kind": "removal",
+   "module": "phrase",
+   "round": 2,
+   "who": "MD-G"
+  },
+  {
+   "alpha": 0.0007352941176470588,
+   "applicability": "reserved_round_2",
+   "bound": "upper",
+   "id": "R2.phrase.MD-H.removal",
+   "kind": "removal",
+   "module": "phrase",
+   "round": 2,
+   "who": "MD-H"
+  },
+  {
+   "alpha": 0.0007352941176470588,
+   "applicability": "reserved_round_2",
+   "bound": "upper",
+   "id": "R2.phrase.MD-I.removal",
+   "kind": "removal",
+   "module": "phrase",
+   "round": 2,
+   "who": "MD-I"
+  },
+  {
+   "alpha": 0.0007352941176470588,
+   "applicability": "reserved_round_2",
+   "bound": "upper",
+   "id": "R2.phrase.PH-A.removal",
+   "kind": "removal",
+   "module": "phrase",
+   "round": 2,
+   "who": "PH-A"
+  },
+  {
+   "alpha": 0.0007352941176470588,
+   "applicability": "reserved_round_2",
+   "bound": "upper",
+   "id": "R2.phrase.PH-B.removal",
+   "kind": "removal",
+   "module": "phrase",
+   "round": 2,
+   "who": "PH-B"
+  },
+  {
+   "alpha": 0.0007352941176470588,
+   "applicability": "reserved_round_2",
+   "bound": "upper",
+   "id": "R2.phrase.PH-C.removal",
+   "kind": "removal",
+   "module": "phrase",
+   "round": 2,
+   "who": "PH-C"
+  },
+  {
+   "alpha": 0.0007352941176470588,
+   "applicability": "reserved_round_2",
+   "bound": "upper",
+   "id": "R2.phrase.COMPLETE.removal",
+   "kind": "removal",
+   "module": "phrase",
+   "outcome": null,
+   "round": 2,
+   "who": "COMPLETE"
+  },
+  {
+   "alpha": 0.0007352941176470588,
+   "applicability": "reserved_round_2",
+   "bound": "upper",
+   "id": "R2.phrase.COMPLETE.loss_STRICT",
+   "kind": "loss_STRICT",
+   "module": "phrase",
+   "outcome": "STRICT",
+   "round": 2,
+   "who": "COMPLETE"
+  },
+  {
+   "alpha": 0.0007352941176470588,
+   "applicability": "reserved_round_2",
+   "bound": "upper",
+   "id": "R2.phrase.COMPLETE.loss_INV",
+   "kind": "loss_INV",
+   "module": "phrase",
+   "outcome": "LIST_LENIENT",
+   "round": 2,
+   "who": "COMPLETE"
+  },
+  {
+   "alpha": 0.0007352941176470588,
+   "applicability": "reserved_round_2",
+   "bound": "lower",
+   "id": "R2.phrase.COMPLETE.success_STRICT",
+   "kind": "success_STRICT",
+   "module": "phrase",
+   "outcome": "STRICT",
+   "round": 2,
+   "who": "COMPLETE"
+  },
+  {
+   "alpha": 0.0007352941176470588,
+   "applicability": "reserved_round_2",
+   "bound": "lower",
+   "id": "R2.phrase.COMPLETE.success_INV",
+   "kind": "success_INV",
+   "module": "phrase",
+   "outcome": "LIST_LENIENT",
+   "round": 2,
+   "who": "COMPLETE"
+  }
+ ],
+ "families": [
+  {
+   "family": "MD-A",
+   "module": "metadiscourse",
+   "rules": [
+    "MD-01",
+    "MD-02",
+    "MD-03",
+    "MD-05",
+    "MD-06",
+    "MD-25"
+   ]
+  },
+  {
+   "family": "MD-B",
+   "module": "metadiscourse",
+   "rules": [
+    "MD-04"
+   ]
+  },
+  {
+   "family": "MD-C",
+   "module": "metadiscourse",
+   "rules": [
+    "MD-07",
+    "MD-08",
+    "MD-09",
+    "MD-10",
+    "MD-11",
+    "MD-12",
+    "MD-30"
+   ]
+  },
+  {
+   "family": "MD-D",
+   "module": "metadiscourse",
+   "rules": [
+    "MD-13",
+    "MD-14",
+    "MD-15",
+    "MD-21"
+   ]
+  },
+  {
+   "family": "MD-E",
+   "module": "metadiscourse",
+   "rules": [
+    "MD-16",
+    "MD-17",
+    "MD-18",
+    "MD-19"
+   ]
+  },
+  {
+   "family": "MD-F",
+   "module": "metadiscourse",
+   "rules": [
+    "MD-20",
+    "MD-22",
+    "MD-23",
+    "MD-24",
+    "MD-26",
+    "MD-27",
+    "MD-28"
+   ]
+  },
+  {
+   "family": "MD-G",
+   "module": "metadiscourse",
+   "rules": [
+    "MD-29",
+    "MD-31"
+   ]
+  },
+  {
+   "family": "MD-H",
+   "module": "metadiscourse",
+   "rules": [
+    "MD-32"
+   ]
+  },
+  {
+   "family": "MD-I",
+   "module": "metadiscourse",
+   "rules": [
+    "SX-01"
+   ]
+  },
+  {
+   "family": "PH-A",
+   "module": "phrase",
+   "rules": [
+    "PH-01",
+    "PH-02"
+   ]
+  },
+  {
+   "family": "PH-B",
+   "module": "phrase",
+   "rules": [
+    "PH-04",
+    "PH-05",
+    "PH-06",
+    "PH-09",
+    "PH-11",
+    "PH-12"
+   ]
+  },
+  {
+   "family": "PH-C",
+   "module": "phrase",
+   "rules": [
+    "PH-10",
+    "PH-13"
+   ]
+  }
+ ],
+ "inventory_outcome": {
+  "metadiscourse": "LENIENT",
+  "phrase": "LIST_LENIENT"
+ },
+ "ledger": "Study 4 fix-check candidate ledger, round 1 (lexinspect 0.4.0 candidate)",
+ "n_components": 68,
+ "order": "each family alone against the 0.3.3 baseline (prerequisites: none); COMPLETE enables all twelve",
+ "source": ".cache/validation/study4_fix040/CANDIDATE_LEDGER.md",
+ "tolerances": {
+  "cumulative": 0.05,
+  "removal": 0.15
+ },
+ "total_alpha": 0.05
+}
