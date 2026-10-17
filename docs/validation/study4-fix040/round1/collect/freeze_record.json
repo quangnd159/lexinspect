@@ -1,0 +1,578 @@
+{
+ "bound": {
+  "delivery_spec": {
+   "in_repository": true,
+   "path": "/Users/quangnguyendang/webapps/lexinspect/docs/validation/study4-fix040/delivery_spec.json",
+   "sha256": "35966292996aa1d41825fccc0e18c161eb27cf4da551656b23ed8fcdba9b3a23"
+  },
+  "dispositions": [
+   {
+    "in_repository": true,
+    "path": "/Users/quangnguyendang/webapps/lexinspect/docs/validation/study4-fix040/HARNESS_AUDIT_R1_DISPOSITIONS.md",
+    "sha256": "ab60e44e5775eb6bdf3015d3b6cbffb5fa4ccdf663a875d619d25295c89ffdcd"
+   },
+   {
+    "in_repository": true,
+    "path": "/Users/quangnguyendang/webapps/lexinspect/docs/validation/study4-fix040/HARNESS_AUDIT_R2_DISPOSITIONS.md",
+    "sha256": "ffa86ae09f3070fe7b2079c8895ff5e163c9dec42fd8793ad9dce5a8a2c87f72"
+   },
+   {
+    "in_repository": true,
+    "path": "/Users/quangnguyendang/webapps/lexinspect/docs/validation/study4-fix040/HARNESS_AUDIT_R3_DISPOSITIONS.md",
+    "sha256": "90ad63d9ffc92cc5fad0acae79b4e3399164d092adc8007300a79b713c9f7c43"
+   },
+   {
+    "in_repository": true,
+    "path": "/Users/quangnguyendang/webapps/lexinspect/docs/validation/study4-fix040/HARNESS_AUDIT_R4_DISPOSITIONS.md",
+    "sha256": "d38c4e6a1f5573d59ca567556ebefc101667c1ba4fdf610b5d2a5cedaa608299"
+   },
+   {
+    "in_repository": true,
+    "path": "/Users/quangnguyendang/webapps/lexinspect/docs/validation/study4-fix040/HARNESS_AUDIT_R5_DISPOSITIONS.md",
+    "sha256": "57fb31b7deb92bfc2e5085877e4e806fca2cfb6104b94ecd37f3f3c65dc38415"
+   },
+   {
+    "in_repository": true,
+    "path": "/Users/quangnguyendang/webapps/lexinspect/docs/validation/study4-fix040/HARNESS_RULINGS.md",
+    "sha256": "a5a2ab1f497a2752ba27e08d0930f03e319b687a88ab76fe10cd202fae1a78b7"
+   }
+  ],
+  "preregistration": {
+   "in_repository": true,
+   "path": "/Users/quangnguyendang/webapps/lexinspect/docs/validation/study4-preregistration.md",
+   "sha256": "459c2cbef4db2066466dba789c73735bfb79411b403e795062c2f043a2a775ed"
+  },
+  "registry": {
+   "in_repository": true,
+   "path": "/Users/quangnguyendang/webapps/lexinspect/docs/validation/study4-fix040/round_registry.jsonl",
+   "sha256": "4a2bb7f5d69b7888e70f6d83989287aba04152dfac4208e7213e513cec3e737e"
+  }
+ },
+ "cache_policy": "Sampling frame = the development build's pool listings byte for byte: every file in <dev raw>/pools/ copied into <round raw>/pools/ (existing copies must be identical) at planning; pools are never re-queried (refresh=False; refresh=True raises PoolRequeryForbidden); article/page downloads go to the round's own raw cache, never to the development cache.",
+ "candidate": {
+  "commit": "3d4df7012656defd5a44571410af00896f634a2d",
+  "n_files": 78,
+  "tree_sha256": "51ed081b43a8895a6bcaef0e19998beb632e0cbc0acfc0bed2f50e68ecb7d58b"
+ },
+ "clarifications": {
+  "in_repository": true,
+  "path": "/Users/quangnguyendang/webapps/lexinspect/docs/validation/study4-fix-protocol-clarifications.md",
+  "sha256": "17e97ce89daff1da32afbabf662ba4a61c34725c18ed422052edbd3243b4f266"
+ },
+ "cwd": "/Users/quangnguyendang/webapps/lexinspect",
+ "delivery": {
+  "materials": {
+   "guidelines.md": {
+    "sha256": "276d35e86ffa9da147d09734cf0c3fd9ed89bd6694d9d44a860cb6e851f0466e",
+    "source": "docs/validation/study4-guidelines.md"
+   },
+   "phrase_sense_inventory.md": {
+    "sha256": "a761f159541023fd51f5ca45e1fc44432b572ab22ffcad74f414b1e35a776a5d",
+    "source": ".cache/validation/study4/phrase_sense_inventory.md"
+   }
+  },
+  "path": "/Users/quangnguyendang/webapps/lexinspect/docs/validation/study4-fix040/delivery_spec.json",
+  "pilot_hashes": {
+   "path": ".cache/validation/study4_pilot/frozen_inputs.sha256",
+   "sha256": "fe5a0d200ad0e8dd3a8c29ac724fa83df3a6620953fe56c92b93a3f63d3661b6"
+  },
+  "problems": [],
+  "prompt_source": {
+   "path": "docs/validation/study4-preregistration.md",
+   "sha256": "459c2cbef4db2066466dba789c73735bfb79411b403e795062c2f043a2a775ed"
+  },
+  "prompt_template_sha256": "86985e10f3abb87b082ad4059dbeff8bfa36a62c23256c784122cffe362b96ee",
+  "roles": {
+   "A": {
+    "model": "claude-sonnet-5-5",
+    "provider": "anthropic (T3 delegate_task, Claude Code)",
+    "settings": {
+     "effort": "high"
+    }
+   },
+   "B": {
+    "model": "gpt-6.1-sol",
+    "provider": "openai (codex)",
+    "settings": {
+     "reasoningEffort": "high"
+    }
+   },
+   "adjudicator": {
+    "model": "opencode/deepseek-v4.1-flash-free",
+    "provider": "opencode (free route)",
+    "settings": {
+     "reasoning": "high"
+    }
+   }
+  },
+  "spec_sha256": "2b3ccf75dd6f36b791e8ccec492990ef7eedfa9def815ccdc43319d77e7149ac"
+ },
+ "dev_manifest": {
+  "file": "/Users/quangnguyendang/webapps/lexinspect/.cache/validation/study4/texts.jsonl",
+  "n_refs": 440,
+  "n_texts": 120,
+  "sha256": "5dba40ccbb99a853ef32e6f3def90f992810ff2320cf98f366e227d7112f1cc8"
+ },
+ "dry_run": false,
+ "earlier_rounds": [],
+ "environment": {
+  "artifacts": {
+   "en_core_web_sm": {
+    "direct_url": "{\"url\":\"https://github.com/explosion/spacy-models/releases/download/en_core_web_sm-3.8.0/en_core_web_sm-3.8.0-py3-none-any.whl\",\"archive_info\":{}}",
+    "files_sha256": "47d43ec7afdd152808b7e3159f8ccc7b4d11e5f056797d7d611a06726f925247",
+    "n_files": 38,
+    "version": "3.8.0"
+   },
+   "lexinspect": {
+    "direct_url": "{\"url\":\"file:///Users/quangnguyendang/webapps/lexinspect\",\"dir_info\":{\"editable\":true}}",
+    "files_sha256": "298e7ee14649f6448c6524efecb6f516094d25a78bb75ac99ea696453209871b",
+    "n_files": 11,
+    "version": "0.3.3"
+   },
+   "numpy": {
+    "direct_url": null,
+    "files_sha256": "30b469517ae64cb06f492ce2a17982cf3bdb10543b5e1e70b1e6f01ba9e4792f",
+    "n_files": 914,
+    "version": "2.4.4"
+   },
+   "scipy": null,
+   "spacy": {
+    "direct_url": null,
+    "files_sha256": "5fc756a5795ef9dee9b320c65869ce56bf9713f6c102dbf8146d0f0018e38bc9",
+    "n_files": 1041,
+    "version": "3.8.14"
+   },
+   "thinc": {
+    "direct_url": null,
+    "files_sha256": "37ebc57e7a208c5a44b456c28a4f1887d1d6dec07a8175cdde8e371d7fdc4d12",
+    "n_files": 200,
+    "version": "8.3.13"
+   }
+  },
+  "lexinspect_source": {
+   "n_files": 78,
+   "tree_sha256": "51ed081b43a8895a6bcaef0e19998beb632e0cbc0acfc0bed2f50e68ecb7d58b"
+  },
+  "machine": "arm64",
+  "numerical": {
+   "numpy": "2.4.4",
+   "scipy": null
+  },
+  "python": "3.12.5",
+  "python_build": "3.12.5 (main, Aug  6 2024, 19:08:49) [Clang 15.0.0 (clang-1500.3.9.4)]",
+  "python_implementation": "CPython",
+  "spacy": "3.8.14",
+  "spacy_model": {
+   "en_core_web_sm": "3.8.0"
+  },
+  "uv_lock_sha256": "d9fe8ce605a2912f4faa97ec4bd6018f1ded312d9ea46ebf75b495c099a808c9"
+ },
+ "exclusions": {
+  "identifier_rule": "build.text_refs (source id, url, fulltext_url, doi, title, Europe PMC article URL, Wikipedia revision URL), normalised by build._norm_ref",
+  "n_refs": 440,
+  "refs_sha256": "f7738d0a7e4e1b663c59aa266f673749aad2cf2116c1307d34a96a7bb4b3887c"
+ },
+ "execution_argv": [
+  "/Users/quangnguyendang/webapps/lexinspect/.venv/bin/python3",
+  "-I",
+  "/Users/quangnguyendang/webapps/lexinspect/scripts/validation/study4_precision/fixcheck/cli.py",
+  "collect",
+  "--round",
+  "1",
+  "--seed",
+  "2026101801",
+  "--out",
+  "/Users/quangnguyendang/webapps/lexinspect/docs/validation/study4-fix040/round1/collect",
+  "--raw-cache",
+  "/Users/quangnguyendang/lexinspect-private/study4-fix040/round1/raw",
+  "--candidate-commit",
+  "3d4df7012656defd5a44571410af00896f634a2d",
+  "--dispositions",
+  "/Users/quangnguyendang/webapps/lexinspect/docs/validation/study4-fix040/HARNESS_AUDIT_R1_DISPOSITIONS.md",
+  "--dispositions",
+  "/Users/quangnguyendang/webapps/lexinspect/docs/validation/study4-fix040/HARNESS_AUDIT_R2_DISPOSITIONS.md",
+  "--dispositions",
+  "/Users/quangnguyendang/webapps/lexinspect/docs/validation/study4-fix040/HARNESS_AUDIT_R3_DISPOSITIONS.md",
+  "--dispositions",
+  "/Users/quangnguyendang/webapps/lexinspect/docs/validation/study4-fix040/HARNESS_AUDIT_R4_DISPOSITIONS.md",
+  "--dispositions",
+  "/Users/quangnguyendang/webapps/lexinspect/docs/validation/study4-fix040/HARNESS_AUDIT_R5_DISPOSITIONS.md",
+  "--dispositions",
+  "/Users/quangnguyendang/webapps/lexinspect/docs/validation/study4-fix040/HARNESS_RULINGS.md",
+  "--execute",
+  "--freeze-record",
+  "/Users/quangnguyendang/webapps/lexinspect/docs/validation/study4-fix040/round1/collect/freeze_record.json"
+ ],
+ "execution_command": "uv run --offline --frozen python -I /Users/quangnguyendang/webapps/lexinspect/scripts/validation/study4_precision/fixcheck/cli.py collect --round 1 --seed 2026101801 --out /Users/quangnguyendang/webapps/lexinspect/docs/validation/study4-fix040/round1/collect --raw-cache /Users/quangnguyendang/lexinspect-private/study4-fix040/round1/raw --candidate-commit 3d4df7012656defd5a44571410af00896f634a2d --dispositions /Users/quangnguyendang/webapps/lexinspect/docs/validation/study4-fix040/HARNESS_AUDIT_R1_DISPOSITIONS.md --dispositions /Users/quangnguyendang/webapps/lexinspect/docs/validation/study4-fix040/HARNESS_AUDIT_R2_DISPOSITIONS.md --dispositions /Users/quangnguyendang/webapps/lexinspect/docs/validation/study4-fix040/HARNESS_AUDIT_R3_DISPOSITIONS.md --dispositions /Users/quangnguyendang/webapps/lexinspect/docs/validation/study4-fix040/HARNESS_AUDIT_R4_DISPOSITIONS.md --dispositions /Users/quangnguyendang/webapps/lexinspect/docs/validation/study4-fix040/HARNESS_AUDIT_R5_DISPOSITIONS.md --dispositions /Users/quangnguyendang/webapps/lexinspect/docs/validation/study4-fix040/HARNESS_RULINGS.md --execute --freeze-record /Users/quangnguyendang/webapps/lexinspect/docs/validation/study4-fix040/round1/collect/freeze_record.json",
+ "fetch_failure_policy": "Article and page bodies not in the round's cache are fetched once through build.fetch (its own four attempts with back-off). A body that still fails is a rejection recorded in the selection log and the fetch log; it is never retried later, refreshed or replaced by hand. Pool listings are never re-queried (PoolRequeryForbidden).",
+ "ineligible_reasons": [],
+ "initial_cache_inventory": {
+  "files": [
+   {
+    "bytes": 71222,
+    "file": "pools/epmc_01338b319313a3ae.json",
+    "sha256": "ead301164c3431848c63f7fee99f5445a60f0d33f3b04e0858262d35f6dc0c42"
+   },
+   {
+    "bytes": 26123,
+    "file": "pools/epmc_042d906052aa3b4b.json",
+    "sha256": "d1c11961fbf74ec74105d3929d471e26ea73c54c6aa8f3c221bdfabdcef2813f"
+   },
+   {
+    "bytes": 24781,
+    "file": "pools/epmc_06f3c44e9e8d8176.json",
+    "sha256": "8d9df54dbd6589a90662d930e73e7dfbd812ffb6f456d11277abe5c821dd3674"
+   },
+   {
+    "bytes": 12666,
+    "file": "pools/epmc_2892344a18e7b644.json",
+    "sha256": "20e1b2bb3ebe2af1abaecfa132ba4cc2f0b11dced37e5897cd0e8f44873d2ead"
+   },
+   {
+    "bytes": 26341,
+    "file": "pools/epmc_310256e55718b9e9.json",
+    "sha256": "2b20e786518a494aafda6af5184d9d719ae6a2fb62fa08ae6646b11cda316883"
+   },
+   {
+    "bytes": 11451,
+    "file": "pools/epmc_3ef7feae09ba7a59.json",
+    "sha256": "1c2df2018f44ce1d2a95edf2c913e7983457e1e9de679dc4ba0339f17423db2d"
+   },
+   {
+    "bytes": 1994381,
+    "file": "pools/epmc_4ff91e518b9a5343.json",
+    "sha256": "4964f7439421cde5d288f8bdd356adb7addd132b62e031cb90cbb4d9f6f53add"
+   },
+   {
+    "bytes": 6556,
+    "file": "pools/epmc_6e1276f2cd7a9bfa.json",
+    "sha256": "5268cc9eca798af22303b566348f5b9dc56fe44fbd4d2ae250c5c2edaebb48a5"
+   },
+   {
+    "bytes": 120709,
+    "file": "pools/epmc_6edd6fabad8fb252.json",
+    "sha256": "fba83cae260f068d0b167842e25b902573e8c4deb7a3bc2a87a4fe984e503af8"
+   },
+   {
+    "bytes": 621615,
+    "file": "pools/epmc_740a26e4fb2f9c27.json",
+    "sha256": "8742fee1562443511ddb31aec60c1276ca30b950422f3cf4cf4492f5706cb17e"
+   },
+   {
+    "bytes": 53776,
+    "file": "pools/epmc_8031953006d5e430.json",
+    "sha256": "39d9cd777b2f68a24aee8ea798fe42f44db204eb197a6f96d9a57b1073cfd0f3"
+   },
+   {
+    "bytes": 13532,
+    "file": "pools/epmc_80e0923e78f10f25.json",
+    "sha256": "6bce6a416fbbabe720fdcb0ef816bfaa968fa5eb96d866712b0d172125d4823f"
+   },
+   {
+    "bytes": 41569,
+    "file": "pools/epmc_8b226e85dd87e0bc.json",
+    "sha256": "6abb3587c4d64de3409bf47d971b11c45781eea26f0a398ec6d0f7936aebd596"
+   },
+   {
+    "bytes": 96229,
+    "file": "pools/epmc_95761b60dd2aa90b.json",
+    "sha256": "edef51d969328e5bdfed25654bfc596660efc7af67fd909721b3924a7d22a3b2"
+   },
+   {
+    "bytes": 14377,
+    "file": "pools/epmc_9f7db85e28454dd9.json",
+    "sha256": "d8d33cedf9e0aefa299074cb80a4d064a380555948d4177d35a5d4e1d6b4fdbd"
+   },
+   {
+    "bytes": 257104,
+    "file": "pools/epmc_b027bee385148366.json",
+    "sha256": "4eb0775a9e4fa8f7eb116fffc6d67ad81543b5221ee52a87d2769b8de05ca08f"
+   },
+   {
+    "bytes": 157182,
+    "file": "pools/epmc_cd7eb84ecc63c60c.json",
+    "sha256": "4fea57618ab50918cca826860d4bf40dde0212b1915354e54b153754fab840f6"
+   },
+   {
+    "bytes": 46237,
+    "file": "pools/epmc_d1514874e3d4745b.json",
+    "sha256": "af462a74c4a14273a28645b001da91fb0b8f81dae908aee52968fd822a0f42cf"
+   },
+   {
+    "bytes": 8091,
+    "file": "pools/epmc_ee060ae02bbbcc17.json",
+    "sha256": "7dbbc172081f9f74c60930c0d0d42f9943f6a2f3ff925718742eb4b86dcc0d08"
+   },
+   {
+    "bytes": 8067,
+    "file": "pools/epmc_ef2c15e256c9a42e.json",
+    "sha256": "81469b313fa6f2b465657494cadb8fb8763833b1b190acd758adfc60bce277d1"
+   },
+   {
+    "bytes": 85678,
+    "file": "pools/wiki_essays.json",
+    "sha256": "8a57b9f673973c81647029c1ffc68d3c90f21a99fbe9872d1049afd80dd4a1a2"
+   },
+   {
+    "bytes": 14278,
+    "file": "pools/wiki_vital3.json",
+    "sha256": "e67479139d8e2e9f191ff421f7e2ed57ada9c4fde1e4fde8db3c6655dbd7d040"
+   }
+  ],
+  "n_files": 22,
+  "root": "/Users/quangnguyendang/lexinspect-private/study4-fix040/round1/raw",
+  "sha256": "2364d3edca09b5752d75000033d046dfe401f96a54c0e9b135289794f4995289"
+ },
+ "kind": "fixcheck-freeze-record",
+ "ledger": {
+  "components": {
+   "content_equals_ledger_py": true,
+   "path": "/Users/quangnguyendang/webapps/lexinspect/docs/validation/study4-fix040/ledger_components.json",
+   "sha256": "ab61336db6b762f8977109ec97c88e8ce83173204c2933967db7b8c54817e71f"
+  },
+  "markdown": {
+   "draft": false,
+   "path": "/Users/quangnguyendang/webapps/lexinspect/docs/validation/study4-fix040/CANDIDATE_LEDGER.md",
+   "sha256": "2b34437f30f2fefa1d717e34af2a9c3484e4009f6967d6df0b5cc0881331a938",
+   "status": "FINAL"
+  }
+ },
+ "offline": false,
+ "paths": {
+  "dev_raw": "/Users/quangnguyendang/webapps/lexinspect/.cache/validation/study4/raw",
+  "dev_texts": "/Users/quangnguyendang/webapps/lexinspect/.cache/validation/study4/texts.jsonl",
+  "earlier": [],
+  "out": "/Users/quangnguyendang/webapps/lexinspect/docs/validation/study4-fix040/round1/collect",
+  "raw_cache": "/Users/quangnguyendang/lexinspect-private/study4-fix040/round1/raw"
+ },
+ "planned_at": "2026-10-17T17:16:16+00:00",
+ "planned_by": {
+  "git": {
+   "commit": "1a0c502117f5c9098377434f36b89d8e023851d0",
+   "repo": "/Users/quangnguyendang/webapps/lexinspect",
+   "src_dirty": false,
+   "src_dirty_paths": []
+  },
+  "planning_argv": [
+   "/Users/quangnguyendang/webapps/lexinspect/.venv/bin/python3",
+   "-I",
+   "/Users/quangnguyendang/webapps/lexinspect/scripts/validation/study4_precision/fixcheck/cli.py",
+   "collect",
+   "--round",
+   "1",
+   "--seed",
+   "2026101801",
+   "--out",
+   "/Users/quangnguyendang/webapps/lexinspect/docs/validation/study4-fix040/round1/collect",
+   "--raw-cache",
+   "/Users/quangnguyendang/lexinspect-private/study4-fix040/round1/raw",
+   "--candidate-commit",
+   "3d4df7012656defd5a44571410af00896f634a2d",
+   "--dispositions",
+   "/Users/quangnguyendang/webapps/lexinspect/docs/validation/study4-fix040/HARNESS_AUDIT_R1_DISPOSITIONS.md",
+   "--dispositions",
+   "/Users/quangnguyendang/webapps/lexinspect/docs/validation/study4-fix040/HARNESS_AUDIT_R2_DISPOSITIONS.md",
+   "--dispositions",
+   "/Users/quangnguyendang/webapps/lexinspect/docs/validation/study4-fix040/HARNESS_AUDIT_R3_DISPOSITIONS.md",
+   "--dispositions",
+   "/Users/quangnguyendang/webapps/lexinspect/docs/validation/study4-fix040/HARNESS_AUDIT_R4_DISPOSITIONS.md",
+   "--dispositions",
+   "/Users/quangnguyendang/webapps/lexinspect/docs/validation/study4-fix040/HARNESS_AUDIT_R5_DISPOSITIONS.md",
+   "--dispositions",
+   "/Users/quangnguyendang/webapps/lexinspect/docs/validation/study4-fix040/HARNESS_RULINGS.md",
+   "--plan-only"
+  ]
+ },
+ "pool_inventory": [
+  {
+   "bytes": 71222,
+   "file": "pools/epmc_01338b319313a3ae.json",
+   "sha256": "ead301164c3431848c63f7fee99f5445a60f0d33f3b04e0858262d35f6dc0c42"
+  },
+  {
+   "bytes": 26123,
+   "file": "pools/epmc_042d906052aa3b4b.json",
+   "sha256": "d1c11961fbf74ec74105d3929d471e26ea73c54c6aa8f3c221bdfabdcef2813f"
+  },
+  {
+   "bytes": 24781,
+   "file": "pools/epmc_06f3c44e9e8d8176.json",
+   "sha256": "8d9df54dbd6589a90662d930e73e7dfbd812ffb6f456d11277abe5c821dd3674"
+  },
+  {
+   "bytes": 12666,
+   "file": "pools/epmc_2892344a18e7b644.json",
+   "sha256": "20e1b2bb3ebe2af1abaecfa132ba4cc2f0b11dced37e5897cd0e8f44873d2ead"
+  },
+  {
+   "bytes": 26341,
+   "file": "pools/epmc_310256e55718b9e9.json",
+   "sha256": "2b20e786518a494aafda6af5184d9d719ae6a2fb62fa08ae6646b11cda316883"
+  },
+  {
+   "bytes": 11451,
+   "file": "pools/epmc_3ef7feae09ba7a59.json",
+   "sha256": "1c2df2018f44ce1d2a95edf2c913e7983457e1e9de679dc4ba0339f17423db2d"
+  },
+  {
+   "bytes": 1994381,
+   "file": "pools/epmc_4ff91e518b9a5343.json",
+   "sha256": "4964f7439421cde5d288f8bdd356adb7addd132b62e031cb90cbb4d9f6f53add"
+  },
+  {
+   "bytes": 6556,
+   "file": "pools/epmc_6e1276f2cd7a9bfa.json",
+   "sha256": "5268cc9eca798af22303b566348f5b9dc56fe44fbd4d2ae250c5c2edaebb48a5"
+  },
+  {
+   "bytes": 120709,
+   "file": "pools/epmc_6edd6fabad8fb252.json",
+   "sha256": "fba83cae260f068d0b167842e25b902573e8c4deb7a3bc2a87a4fe984e503af8"
+  },
+  {
+   "bytes": 621615,
+   "file": "pools/epmc_740a26e4fb2f9c27.json",
+   "sha256": "8742fee1562443511ddb31aec60c1276ca30b950422f3cf4cf4492f5706cb17e"
+  },
+  {
+   "bytes": 53776,
+   "file": "pools/epmc_8031953006d5e430.json",
+   "sha256": "39d9cd777b2f68a24aee8ea798fe42f44db204eb197a6f96d9a57b1073cfd0f3"
+  },
+  {
+   "bytes": 13532,
+   "file": "pools/epmc_80e0923e78f10f25.json",
+   "sha256": "6bce6a416fbbabe720fdcb0ef816bfaa968fa5eb96d866712b0d172125d4823f"
+  },
+  {
+   "bytes": 41569,
+   "file": "pools/epmc_8b226e85dd87e0bc.json",
+   "sha256": "6abb3587c4d64de3409bf47d971b11c45781eea26f0a398ec6d0f7936aebd596"
+  },
+  {
+   "bytes": 96229,
+   "file": "pools/epmc_95761b60dd2aa90b.json",
+   "sha256": "edef51d969328e5bdfed25654bfc596660efc7af67fd909721b3924a7d22a3b2"
+  },
+  {
+   "bytes": 14377,
+   "file": "pools/epmc_9f7db85e28454dd9.json",
+   "sha256": "d8d33cedf9e0aefa299074cb80a4d064a380555948d4177d35a5d4e1d6b4fdbd"
+  },
+  {
+   "bytes": 257104,
+   "file": "pools/epmc_b027bee385148366.json",
+   "sha256": "4eb0775a9e4fa8f7eb116fffc6d67ad81543b5221ee52a87d2769b8de05ca08f"
+  },
+  {
+   "bytes": 157182,
+   "file": "pools/epmc_cd7eb84ecc63c60c.json",
+   "sha256": "4fea57618ab50918cca826860d4bf40dde0212b1915354e54b153754fab840f6"
+  },
+  {
+   "bytes": 46237,
+   "file": "pools/epmc_d1514874e3d4745b.json",
+   "sha256": "af462a74c4a14273a28645b001da91fb0b8f81dae908aee52968fd822a0f42cf"
+  },
+  {
+   "bytes": 8091,
+   "file": "pools/epmc_ee060ae02bbbcc17.json",
+   "sha256": "7dbbc172081f9f74c60930c0d0d42f9943f6a2f3ff925718742eb4b86dcc0d08"
+  },
+  {
+   "bytes": 8067,
+   "file": "pools/epmc_ef2c15e256c9a42e.json",
+   "sha256": "81469b313fa6f2b465657494cadb8fb8763833b1b190acd758adfc60bce277d1"
+  },
+  {
+   "bytes": 85678,
+   "file": "pools/wiki_essays.json",
+   "sha256": "8a57b9f673973c81647029c1ffc68d3c90f21a99fbe9872d1049afd80dd4a1a2"
+  },
+  {
+   "bytes": 14278,
+   "file": "pools/wiki_vital3.json",
+   "sha256": "e67479139d8e2e9f191ff421f7e2ed57ada9c4fde1e4fde8db3c6655dbd7d040"
+  }
+ ],
+ "production_eligible": true,
+ "protocol": {
+  "in_repository": true,
+  "path": "/Users/quangnguyendang/webapps/lexinspect/docs/validation/study4-fix-protocol.md",
+  "sha256": "0b93954b602a48b619715c507cafa796c99df5e68a72fe1d3bd9665020151ea9"
+ },
+ "receipt_ref": {
+  "problems": [],
+  "ref": "refs/remotes/origin/study4-fix040-candidate",
+  "remote": "origin",
+  "remote_url": "git@github.com:quangnd159/lexinspect.git"
+ },
+ "registry": {
+  "n_entries": 1,
+  "path": "/Users/quangnguyendang/webapps/lexinspect/docs/validation/study4-fix040/round_registry.jsonl",
+  "problems": [],
+  "reservation": {
+   "candidate_commit": "3d4df7012656defd5a44571410af00896f634a2d",
+   "candidate_tree_sha256": "51ed081b43a8895a6bcaef0e19998beb632e0cbc0acfc0bed2f50e68ecb7d58b",
+   "collect_dir": "docs/validation/study4-fix040/round1/collect",
+   "registered_at": "2026-10-17T17:16:15+00:00",
+   "round": 1,
+   "seed": 2026101801,
+   "type": "reservation"
+  },
+  "reservation_sha256": "749824232fcbbd184b8fd1cc69981b2e9b996af96efee2dcfcf7cf35a42c8540",
+  "sha256": "4a2bb7f5d69b7888e70f6d83989287aba04152dfac4208e7213e513cec3e737e"
+ },
+ "round": 1,
+ "round2": null,
+ "seed": 2026101801,
+ "sources_sha256": {
+  "analyse.py": "e5486f58c433f919489851da0ca40822c378badcf235c681a414f3e097a59aa5",
+  "batches.py": "e073f364bc99c974111171c39207e02538ab96b7b17ba9fe59123de4d2f5bbce",
+  "build.py": "ff23c14bb764b581c807d1daf7abe7d4f00043c02ad90a573055b39235b99312",
+  "estimators.py": "4f876096e792b550bf982d067628101e2f243505c6254e0537406cf085da6e9d",
+  "fixcheck/__init__.py": "2348b0ebff9e4f25c92cde463054ffe7ece1980c646d47dad0276b333237969e",
+  "fixcheck/accept.py": "a9284160930d843f309235d23a052966b39ea9966ad96d98c5f8a113b329d813",
+  "fixcheck/assign.py": "1f4dd670b1b162110a55008ff13b1497d9ee1f82538569734d34e80343a5bff5",
+  "fixcheck/cli.py": "494998de4c5b689bd651a6fba6d16d57acfec725f2b1bc40dccb46f3c46a5574",
+  "fixcheck/collect.py": "fe7253f404f5c67c7bc14f8742e3075b1f429a727039bf3a2b45721a905a0347",
+  "fixcheck/common.py": "1030331d415d2cfe1fcdbbed4b16b3922110e48f17a82b24dc3e6736bb59e689",
+  "fixcheck/crosswalk.py": "61ebfd734ae731b390dc25ae616c1056713cc2049111255128de585fdec325fb",
+  "fixcheck/dryrun.py": "4b72512e104638b312d315e943a357a57fb93ce138770f3b2209360a0e4e14ca",
+  "fixcheck/durable.py": "c033eea78d4914a38c9dc405828dd6f0333d5b5d91bdfdb3dca33a8c4c65b8ee",
+  "fixcheck/failure.py": "b0946c17f18a1eec9c7b53c265e2366a8cf779963af9a1e4b6de2f11ed9f6c07",
+  "fixcheck/freeze.py": "66c2f6dd91dec6c25f9e4aeb0622d0492e224b1b1f9d8483f08acfa71d1b3df5",
+  "fixcheck/ledger.py": "0f25aadda5f71923c3e64fbd076a0ca0f36c37933f4ad23482b734ffe788258d",
+  "fixcheck/package.py": "b08901a34b087feecc738dca60526fe4fb768a9865dad22b981fb50963f07957",
+  "fixcheck/power.py": "4d966b6f45b857920c24f685c8e81b11e3482f4a7dda7b97e8853c8bdc8a6fb9",
+  "fixcheck/registry.py": "7a21b9cdcff20e83cc050e72afaa7056d360e691fe47da9a00282502b90248a5",
+  "fixcheck/run.py": "54501e28659e85d2241f47ad34067103afc93ed1c556fddaf54b9d26ddfc7a7c",
+  "fixcheck/sampling.py": "960f39a95fe11ccfa68c12e385a1f02a861ff6d27709d2a607e59a2e79f87ae8",
+  "fixcheck/scan.py": "5cf1debe4b5ce3cac212326db9d0c0830dbaad011479134762b5ca55889a6eab",
+  "fixcheck/sessions.py": "7acde9dcebc41845cd6e42436fd708804f615141a0b986ef93f10de9b92b5aff",
+  "fixcheck/synthetic.py": "3d309de49bd18594eaeba93a87d69ba822343215774066fcebf6e115da91a313",
+  "fixcheck/test_fixcheck.py": "7fcff2c0115e86bba6ed81d5feb10e81add982e5b3106cec5208bb841d2277be",
+  "fixcheck/test_r4.py": "bdd706053591c3184fb6a1813fd6da56b3f4177877ba9c2147c2b9aa4af050b4",
+  "fixcheck/test_r5.py": "22da275565c7532ca0380b39b470b62919b029aa83d0b2501f72a2a07a6a64a0",
+  "fixcheck/test_r6.py": "81930ffd631ab37e77fbb1d03484b6bafc9c62323d63bc66f9dc837237a7560e",
+  "fixcheck/test_r7.py": "353ebbc479664c711e15059bb15d4322645f6c6a6a549836b135cf743ee7be09",
+  "fixcheck/test_r8.py": "dc466c4a50a2a372088a78c5fedbc9f5c1cbdba9fdcc5e8fb65893e5422c8466",
+  "fixcheck/verify.py": "5afa6cf1e8d479beedc1d1a03dd3f2a01f36c3abd5ececbe2a31200ba5d9297d",
+  "fixcheck/worker.py": "04a56cd270e4b18dc9a4fa1fc2ce35ea94062866ccb2f4ea3f3a0c28b64453f9",
+  "frame.py": "4de50b8aa2b527d530e5914c052a7969b643d4cecf83cefb8d60541fddc11579",
+  "human_page.py": "c70537bb290917052195e86db590a0ecd00ff91cac01ffd36191a118b07d485e",
+  "simulate_coverage.py": "a5369dc0b8721fc8fa84e52ab1ca0df83ace06e8fe8f0a4b871e9c54e55c2f94",
+  "test_analyse.py": "29976b6d13e61f9a2cbd353e462e774e71a5868467a962494123776558753ad2"
+ },
+ "targets": {
+  "academic": {
+   "humanities": 6,
+   "sciences": 7,
+   "social_sciences": 7
+  },
+  "argumentative": 20,
+  "general": 20,
+  "total": 60
+ },
+ "version": 2
+}
