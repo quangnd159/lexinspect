@@ -73,7 +73,8 @@ def test_no_hit_for_non_metadiscourse_use(text, word):
     [
         ("However, the results differ.", "however", "transitions"),
         ("Table 2 shows the results.", "table", "endophoric_markers"),
-        ("See Figure 3 for details.", "figure", "endophoric_markers"),
+        # 0.4.0 (MD-11): the label after the longer listed marker `see figure` counts
+        ("See Figure 3 for details.", "see figure", "endophoric_markers"),
         ("As noted above, it fails.", "as noted above", "endophoric_markers"),
         ("About 20 percent agreed.", "about", "hedges"),
         ("It is clear that we lost.", "clear", "boosters"),

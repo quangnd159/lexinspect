@@ -10,27 +10,64 @@ Matching, per sentence, never across punctuation:
 
 - **Inflection.** A word in the phrase matches its own form or any form with
   the same lemma, so DEAL WITH matches `dealt with` and HAVE TO matches `had to`.
-  Contractions read as their full forms (`there's` = `there is`).
+  Contractions read as their full forms (`there's` = `there is`). The bare
+  noun of a preposition + word idiom is invariable: IN PART doesn't match
+  `in parts of`, FOR GOOD doesn't match `for goods`.
 - **Senses.** Where an entry's example sentence shows its `to` as infinitival
   (TO) or prepositional (IN), or its `that` as complementiser or determiner,
   the text must agree. That's what keeps "going to the park" from counting as
   GOING TO (FUTURE), and picks USED TO (PAST) for "used to snow" but USED TO
   (ACCUSTOMED) for "used to the noise".
+- **Constructions.** Some entries also need their construction, not just
+  their words (Study 4 guidelines B3, C1–C5). Each check tests a stated
+  syntactic pattern:
+  USED TO (PAST) not after `be`/`get`/`become`/`grow` (`was used to drain`)
+  or as a participle or modifier, and USED TO (ACCUSTOMED) only after them;
+  THAT IS not with relative `that` (`a method that is used`) or a
+  clause-opening demonstrative subject of `is` followed by a predicate
+  (`That is my car`, `…; that is false`), and otherwise counted with or
+  without punctuation (`…, as long as you pay that is.`), also when the parser
+  tags its `that` as an adverb; KIND OF only with no determiner or modifier on
+  `kind` and an adjective, adverb, verb or punctuation after (`kind of tired`,
+  not `a kind of tool`); WEALTH OF only after `a`/`an`; A GOOD only before a
+  number; IS TO not after a goal noun as subject (`the aim is to`); IN A WAY
+  not with a relative clause, comparison or prepositional phrase after `way`
+  (`in a way that`); JUST AS not before an adjective or adverb (`just as
+  tall`); AS LONG AS not after a numeral, `twice`, `half` or `times` (`twice
+  as long as`); PUT IT not before a particle (`put it out`); GET OFF only
+  with `off` as a particle. Nothing inside a hyphenated word counts (`in
+  common-law countries`).
+  Not checked, so counted wherever the words match: THE CASE (`in the case
+  of`), THE LATTER (`the latter part of the year`), FOR ALL (`for all
+  members`), UP TO inside a longer verb (`live up to`), and comparative AS
+  LONG AS with no multiplier (`not as long as the book`).
 - **Overlap.** Longest match wins and consumes its tokens: `as well as` is one
   hit, not also `as well`. (The old matcher counted both.)
 
 When two senses of one form both fit (`out of`: 'IN/FROM', 'USING', 'DUE TO'),
 the hit takes the more frequent sense and lists the others in `also_possible`.
+
+The checks added in 0.4.0 belong to fix families (`_fix_families`) so the
+Study 4 fix-check can measure each against 0.3.3; all of them are on.
 """
 
 from __future__ import annotations
 
 import json
 from collections import Counter
+from collections.abc import Callable
 from functools import lru_cache
 from importlib import resources
 from typing import Any
 
+from lexinspect._context import (
+    SPECIFYING_NOUNS,
+    in_hyphenated_word,
+    next_word,
+    prev_word,
+    rephrasing_that_is,
+)
+from lexinspect._fix_families import enabled
 from lexinspect._text import Analysis, ensure
 
 POSS, REFL = "<poss>", "<refl>"
@@ -127,10 +164,209 @@ def _clause_final(tok) -> bool:
     return nxt is None or nxt.is_punct or nxt.is_space
 
 
+Check = Callable[[list], bool]
+
+# Construction checks per entry rank, each with the fix family it belongs to
+# (None: always on). Every check that applies must pass.
+_CONTEXT: dict[int, list[tuple[str | None, Check]]] = {}
+
+
+def _context(family: str | None, ranks: tuple[int, ...], check: Check) -> None:
+    for rank in ranks:
+        _CONTEXT.setdefault(rank, []).append((family, check))
+
+
 # Senses the tagger can't separate. TO GO ('REMAINING') — "two more to go" —
 # is tagged exactly like the infinitive in "trains to go to work"; the
 # remaining sense ends its clause.
-_CONTEXT = {5463: lambda span: _clause_final(span[-1])}
+_context(None, (5463,), lambda span: _clause_final(span[-1]))
+
+# Ranks of the entries the 0.4.0 checks name.
+_USED_TO_PAST, _USED_TO_ACCUSTOMED = 892, 2752
+_THAT_IS = 1764
+_IS_TO, _KIND_OF, _IN_A_WAY = 845, 2445, 2823
+_WEALTH_OF, _A_GOOD = 5306, 4259
+_PUT_IT, _GET_ON_OFF = 2983, 2388
+_JUST_AS, _AS_LONG_AS = 5231, 1931
+
+
+# PH-A: USED TO and THAT IS ------------------------------------------------------
+
+# `be used to` (ACCUSTOMED) and its near-synonymous linking verbs.
+_ACCUSTOMED_VERBS = frozenset({"be", "get", "become", "grow"})
+
+
+def _after_be_or_get(tok) -> bool:
+    """`tok` follows `be`/`get`/`become`/`grow`, across adverbs (`is not used
+    to`), or the parser gave it one as auxiliary."""
+    if any(c.dep_ in ("auxpass", "aux") and c.lemma_ in _ACCUSTOMED_VERBS for c in tok.children):
+        return True
+    p = prev_word(tok)
+    while p is not None and p.pos_ in ("ADV", "PART") and p.lower_ != "to":
+        p = prev_word(p)
+    return p is not None and p.lemma_ in _ACCUSTOMED_VERBS
+
+
+def _used_to_past(span) -> bool:
+    """PH-01. Semi-modal USED TO (PAST) is a finite verb: not passive `was used
+    to drain` (guidelines B3, C1) and not a participle or modifier (Biber et
+    al. 1999 separate semi-modal `used to` from `be used to`)."""
+    u = span[0]
+    return not (_after_be_or_get(u) or u.tag_ == "VBN" or u.dep_ in ("acl", "relcl", "amod"))
+
+
+_context("PH-A", (_USED_TO_PAST,), _used_to_past)
+_context("PH-A", (_USED_TO_ACCUSTOMED,), lambda span: _after_be_or_get(span[0]))  # PH-01
+_context("PH-A", (_THAT_IS,), lambda span: rephrasing_that_is(span[0]))  # PH-02
+
+
+# PH-B: entry-specific constructions ---------------------------------------------
+
+
+# Words after `way` that make it the manner noun with a dependent: a relative
+# (`in a way that`, `which`, `where`), a comparison (`as`, `similar`, `to`) or a
+# prepositional phrase (`in`, `of`).
+_MANNER_DEPENDENTS = frozenset({"that", "which", "in", "as", "similar", "of", "to", "where"})
+
+
+def _not_manner_noun(span) -> bool:
+    """PH-04. IN A WAY ('to some extent') isn't `in a way` + relative clause,
+    comparison or prepositional phrase: there `way` heads an ordinary noun
+    phrase, 'manner' (guidelines B3, C2)."""
+    way = span[-1]
+    if any(c.dep_ in ("relcl", "acl", "amod", "prep") for c in way.children if c.i > way.i):
+        return False
+    n = next_word(way)
+    return not (n is not None and n.lower_ in _MANNER_DEPENDENTS)
+
+
+# Determiners before `kind` make it the noun 'type' (`a kind of`, `this kind of`).
+_KIND_DETERMINERS = frozenset({"what", "which", "this", "that", "some", "any", "every", "each"})
+
+
+def _softening_kind_of(span) -> bool:
+    """PH-05. KIND OF is the adverb 'somewhat' (`kind of tired`), not the noun
+    `kind` heading a noun phrase (`a kind of tool`; guidelines B3, C2): no
+    determiner or modifier on `kind`, and an adjective, adverb, verb or
+    punctuation after."""
+    kind = span[-2]
+    if kind.lower_ != "kind" or any(
+        c.dep_ in ("det", "poss", "amod", "nummod") for c in kind.children
+    ):
+        return False
+    p = prev_word(kind)
+    if p is not None and (p.pos_ == "DET" or p.lower_ in _KIND_DETERMINERS):
+        return False
+    n = next_word(span[-1])
+    return n is None or n.pos_ in ("ADJ", "ADV", "VERB", "AUX") or n.is_punct
+
+
+def _not_specifying(span) -> bool:
+    """PH-06. IS TO isn't specifying `be` + infinitive after a goal noun (`the
+    aim is to finish`): the infinitive identifies the aim."""
+    return not any(
+        c.dep_ in ("nsubj", "nsubjpass") and c.lemma_.lower() in SPECIFYING_NOUNS
+        for c in span[0].children
+    )
+
+
+def _a_wealth_of(span) -> bool:
+    """PH-09. WEALTH OF is the quantifier `a wealth of`, not the noun `wealth`
+    with an owner (`the wealth of the family`; guidelines B3, C2)."""
+    p = prev_word(span[0])
+    return p is not None and p.lower_ in ("a", "an")
+
+
+def _before_number(span) -> bool:
+    """PH-09. A GOOD ('AT LEAST') is `a good` + a number (`a good ten miles`)."""
+    n = next_word(span[-1])
+    return n is not None and (n.like_num or n.pos_ == "NUM")
+
+
+def _not_before_particle(span) -> bool:
+    """PH-11. PUT IT ('SAY') isn't `put it` + particle (`put it out`, C3)."""
+    n = next_word(span[-1])
+    return not (n is not None and (n.tag_ == "RP" or n.dep_ == "prt"))
+
+
+def _particle_off(span) -> bool:
+    """PH-11. GET ON/OFF: `off` must be the particle, as `on` must (the tags
+    come from the one example sentence, which shows only `on`)."""
+    return span[-1].lower_ != "off" or span[-1].tag_ == "RP"
+
+
+def _not_comparative_just_as(span) -> bool:
+    """PH-12. JUST AS ('WHEN') isn't `just as` + adjective or adverb, the
+    comparative `as … as` (`just as tall`; guidelines B3, C2)."""
+    n = next_word(span[-1])
+    return not (n is not None and n.pos_ in ("ADJ", "ADV") and n.lower_ != "as")
+
+
+# Multipliers before comparative `as long as` (`twice as long as`). Focusing
+# and negating words (`only`, `just`, `not`) are not evidence of comparison:
+# `only as long as you keep quiet` is the condition. A comparative with no
+# multiplier (`not as long as the book`, `as long as the hall`) still counts
+# as AS LONG AS, a known limitation.
+_COMPARATIVE_DEGREE = frozenset({"twice", "half", "times"})
+
+
+def _not_comparative_as_long_as(span) -> bool:
+    """PH-12. AS LONG AS ('provided that') isn't a multiplier (a numeral,
+    `twice`, `half`, `times`) + comparative `as long as` (guidelines B3,
+    C2)."""
+    p = prev_word(span[0])
+    return not (p is not None and (p.lower_ in _COMPARATIVE_DEGREE or p.like_num))
+
+
+_context("PH-B", (_IN_A_WAY,), _not_manner_noun)
+_context("PH-B", (_KIND_OF,), _softening_kind_of)
+_context("PH-B", (_IS_TO,), _not_specifying)
+_context("PH-B", (_WEALTH_OF,), _a_wealth_of)
+_context("PH-B", (_A_GOOD,), _before_number)
+_context("PH-B", (_PUT_IT,), _not_before_particle)
+_context("PH-B", (_GET_ON_OFF,), _particle_off)
+_context("PH-B", (_JUST_AS,), _not_comparative_just_as)
+_context("PH-B", (_AS_LONG_AS,), _not_comparative_as_long_as)
+
+
+def _context_ok(rank: int, span) -> bool:
+    if any(
+        (fam is None or enabled(fam)) and not check(span) for fam, check in _CONTEXT.get(rank, ())
+    ):
+        return False
+    # PH-13: no part of a hyphenated word is an expression (`in common-law`, C4).
+    return not (enabled("PH-C") and in_hyphenated_word(span[0], span[-1]))
+
+
+# PH-10: prepositions whose two-word idioms with a bare word (IN PART, FOR GOOD,
+# AT LAST) are invariable: the second word matches only in its listed form.
+_PREPOSITIONS = frozenset(
+    {"in", "on", "at", "by", "for", "of", "from", "to", "with", "under", "out", "into", "without"}
+)
+
+
+def _invariable(var: tuple[str, ...]) -> bool:
+    return len(var) == 2 and var[0] in _PREPOSITIONS and var[1] not in (POSS, REFL)
+
+
+def _tags_agree(item: dict[str, Any], var: tuple[str, ...], span) -> bool:
+    tags = item.get("tags") or {}
+    for tok, w in zip(span, var, strict=True):
+        if w not in tags or _tag_class(tok.tag_) == _tag_class(tags[w]):
+            continue
+        # PH-02: sm sometimes tags rewording `that` as an adverb, so the DT its
+        # example shows would reject the real expression (`…, that is, …`). An
+        # RB `that` is accepted wherever the construction check accepts it.
+        if (
+            item["rank"] == _THAT_IS
+            and w == "that"
+            and tok.tag_ == "RB"
+            and enabled("PH-A")
+            and rephrasing_that_is(tok)
+        ):
+            continue
+        return False
+    return True
 
 
 def _segments(doc):
@@ -166,15 +402,10 @@ def analyze(text: str, *, analysis: Analysis | None = None) -> dict[str, Any]:
                         continue
                     if not all(_matches(run[i + k], norms[i + k], w) for k, w in enumerate(var)):
                         continue
-                    tags = item.get("tags") or {}
-                    if any(
-                        _tag_class(run[i + k].tag_) != _tag_class(tags[w])
-                        for k, w in enumerate(var)
-                        if w in tags
-                    ):
-                        continue
-                    check = _CONTEXT.get(item["rank"])
-                    if check is not None and not check(run[i : i + len(var)]):
+                    if enabled("PH-C") and _invariable(var) and norms[i + 1] != var[1]:
+                        continue  # PH-10
+                    span = run[i : i + len(var)]
+                    if not _tags_agree(item, var, span) or not _context_ok(item["rank"], span):
                         continue
                     if found and len(var) > len(found[0][0]):
                         found = []
