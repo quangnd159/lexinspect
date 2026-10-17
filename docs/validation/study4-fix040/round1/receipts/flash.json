@@ -1,0 +1,24 @@
+{
+ "delivery_spec_sha256": "35966292996aa1d41825fccc0e18c161eb27cf4da551656b23ed8fcdba9b3a23",
+ "freeze_record_sha256": "0d0d4c651c86fe5324ca10256981845503006ac741885ab3c9ed5dd07498b42e",
+ "kind": "fixcheck-stage-receipt",
+ "labels": {
+  "A.jsonl": "0bfcd3ad6fc30fb738869ecd43562738afc7ea39a78d330869bdd0440e746662",
+  "A.pass1.jsonl": "da001a4615a20bfaeeb907611dbed1b79724d9aeab4c5e3dacc72ca96e91102b",
+  "A.retry.jsonl": "bfd14508c254e1a832faaed67770a2198baad0a52c8c5280df966908cbce443b",
+  "B.jsonl": "04fac175f864cc951ccb36b4c14a07da8e35d680997e51ba419ad5deb48eec8b",
+  "B.pass1.jsonl": "04fac175f864cc951ccb36b4c14a07da8e35d680997e51ba419ad5deb48eec8b"
+ },
+ "parts": {
+  "flash": {
+   "batches/adjudicator/batch/batch_01.jsonl": "f8dcfef5fb2c3dee70dba12e4d6c8314db5321020fd5b80c1ffaa83f379d6948",
+   "batches/adjudicator/batch/batch_02.jsonl": "261d551ef83df1980110e5f2479baf8c056f93f14dccd6c55a820f33ddbbc7e3",
+   "batches/adjudicator/batch/batch_manifest.json": "eb8ae23d5905005f5f6f20771ef80e0246df0e9749827fcf23e352b8f60c832e",
+   "flash_assignment.json": "ef6c67c3b5200fb815d60dc5e2ca26da98fd74f836a38ae1cbb6e250d6a7a02b",
+   "flash_ids.txt": "36567cfd37678cd164bc428748cf35e4b0a056ece0794ec66a8ac608a52ae4a6",
+   "manifest_flash.json": "f86b53266baf94b1c212cd904311361d67b7099bde8753096190aabdd26ed563",
+   "orders.json": "91206209f664f4bde8adc59d8930d0219e5ae44ec69433e71a2556846bbf4120"
+  }
+ },
+ "stage": "flash"
+}
