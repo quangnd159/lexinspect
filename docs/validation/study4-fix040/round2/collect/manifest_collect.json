@@ -1,0 +1,321 @@
+{
+ "command": "/Users/quangnguyendang/webapps/lexinspect/.venv/bin/python3 -I /Users/quangnguyendang/webapps/lexinspect/scripts/validation/study4_precision/fixcheck/cli.py collect --round 2 --seed 2026101901 --out /Users/quangnguyendang/webapps/lexinspect/docs/validation/study4-fix040/round2/collect --raw-cache /Users/quangnguyendang/lexinspect-private/study4-fix040/round2/raw --candidate-commit 16aa95ef10e0ec5fc8df9113e794c85d13c8aafc --ledger-md /Users/quangnguyendang/webapps/lexinspect/docs/validation/study4-fix040/round2/CANDIDATE_LEDGER.md --earlier /Users/quangnguyendang/webapps/lexinspect/docs/validation/study4-fix040/round1/collect --narrowing-disposition /Users/quangnguyendang/webapps/lexinspect/docs/validation/study4-fix040/round2/NARROWING_DISPOSITION.md --narrowing-check /Users/quangnguyendang/webapps/lexinspect/docs/validation/study4-fix040/round2/NARROWING_CHECK.json --dispositions /Users/quangnguyendang/webapps/lexinspect/docs/validation/study4-fix040/HARNESS_AUDIT_R1_DISPOSITIONS.md --dispositions /Users/quangnguyendang/webapps/lexinspect/docs/validation/study4-fix040/HARNESS_AUDIT_R2_DISPOSITIONS.md --dispositions /Users/quangnguyendang/webapps/lexinspect/docs/validation/study4-fix040/HARNESS_AUDIT_R3_DISPOSITIONS.md --dispositions /Users/quangnguyendang/webapps/lexinspect/docs/validation/study4-fix040/HARNESS_AUDIT_R4_DISPOSITIONS.md --dispositions /Users/quangnguyendang/webapps/lexinspect/docs/validation/study4-fix040/HARNESS_AUDIT_R5_DISPOSITIONS.md --dispositions /Users/quangnguyendang/webapps/lexinspect/docs/validation/study4-fix040/HARNESS_RULINGS.md --dispositions /Users/quangnguyendang/webapps/lexinspect/docs/validation/study4-fix040/round2/HARNESS_ROUND2_RULINGS.md --execute --freeze-record /Users/quangnguyendang/webapps/lexinspect/docs/validation/study4-fix040/round2/collect/freeze_record.json",
+ "environment_sha256": "dbad7727cf433d887874ae5a56be01485cf4cfe2864db4a8bc13d78fb1dbebf4",
+ "git": {
+  "commit": "1098285e701190d764f6696fa75bc86dd3bf6262",
+  "repo": "/Users/quangnguyendang/webapps/lexinspect",
+  "src_dirty": false,
+  "src_dirty_paths": []
+ },
+ "harness": "fixcheck/1",
+ "outputs": {
+  "collection.json": {
+   "bytes": 87629,
+   "sha256": "8321bbf210c59ac7d883fd16e04a24d2ec0e0d9710c39e73f912e8ae92e9fab8"
+  },
+  "execution.json": {
+   "bytes": 15341,
+   "sha256": "eac539f166351c4f6787dab39915ebfebaf0843b68bf7e5e231d574f97255a25"
+  },
+  "execution_start.json": {
+   "bytes": 13352,
+   "sha256": "0cbd62945ae114289c9b0ad98af4e1f0b52a903226b6cc28181ecdf27a246303"
+  },
+  "fetch_journal.jsonl": {
+   "bytes": 65955,
+   "sha256": "cb9246650ae3e540a747bce0a4bbbb3f73d8e73711168284d0a9fd0aa5c1ef82"
+  },
+  "freeze_record.json": {
+   "bytes": 29839,
+   "sha256": "23f1bb6433d23ffeecb3c832d9db66f867ccb7f4d7789ae831ab07bf0fe2456f"
+  },
+  "texts.jsonl": {
+   "bytes": 42393,
+   "sha256": "50679c97fe3952d92a8fb2b0794f84dd4c741cbbc26e84b6b647d129d2b0f798"
+  },
+  "texts/T001.txt": {
+   "bytes": 35031,
+   "sha256": "951ad16a19e3bf824667384badde9810c79fe2b666446e76f1732c85f070ccf1"
+  },
+  "texts/T002.txt": {
+   "bytes": 44462,
+   "sha256": "76ab27570f0de8b6344bcf8da6aa475cd6ac77ce6492fdd46cc4ede79e86aaee"
+  },
+  "texts/T003.txt": {
+   "bytes": 42411,
+   "sha256": "fb64b1aecfbef014bdcf6e00f1f1a772e0891636f570ea6b1c4aa1cfe0410882"
+  },
+  "texts/T004.txt": {
+   "bytes": 49588,
+   "sha256": "323389ea241213a59a04dd29ff2a4725ac8c5339338b959ccdcf37ecf0fbc815"
+  },
+  "texts/T005.txt": {
+   "bytes": 32173,
+   "sha256": "f7a6cdd188a71c6a0ae76798308aeee5c1bcc87aabcd8bdae6b24b62f9361993"
+  },
+  "texts/T006.txt": {
+   "bytes": 38297,
+   "sha256": "6bc78487908fb917ac89b20a028e853ec26ca599ee77b24586f6c7ea77ccae8c"
+  },
+  "texts/T007.txt": {
+   "bytes": 38942,
+   "sha256": "f75f114d601f1d67ea353435f8c5d660831c6f9a7579ad90a7e4d9b830fd1cec"
+  },
+  "texts/T008.txt": {
+   "bytes": 31933,
+   "sha256": "32cb0dd7a2e2ca89be64f505473aeab71f7d9af1164aea4ee910124e5f257c99"
+  },
+  "texts/T009.txt": {
+   "bytes": 48633,
+   "sha256": "66b9651e18320872c2912a5735d27b1cdfd229e8dd9512123d9b5e96169cc2fc"
+  },
+  "texts/T010.txt": {
+   "bytes": 48125,
+   "sha256": "e159b42ade24617ce8f5b0d713a3f80809975f665f451c81b7e1dce9a92db112"
+  },
+  "texts/T011.txt": {
+   "bytes": 49251,
+   "sha256": "8ad162dc52d8168f65f78f83fd160a4ed6346bc8a9110392bc1fe2cf9c34f64f"
+  },
+  "texts/T012.txt": {
+   "bytes": 40241,
+   "sha256": "8a6b3636e1ad092a1498b78086aacd55fe23c1abc8e655c422a16315b65f03ee"
+  },
+  "texts/T013.txt": {
+   "bytes": 34276,
+   "sha256": "82e1eb7a17559d5c9f579f2159d3c62417984d63349afc1c200ca536f8b255dd"
+  },
+  "texts/T014.txt": {
+   "bytes": 33675,
+   "sha256": "78c4e9bdd1ee6bfc7341cf9ef17450ff2a223eff8db4401affd5f94e7305a562"
+  },
+  "texts/T015.txt": {
+   "bytes": 48581,
+   "sha256": "c1a39b795027188d1f06feb4b5d9637e10f3338d46b81566ff7795273002a922"
+  },
+  "texts/T016.txt": {
+   "bytes": 44039,
+   "sha256": "d1828c149c85c442c5dc0d8bd964b2affa2f299a2c2b1af31936acff16f2c321"
+  },
+  "texts/T017.txt": {
+   "bytes": 38184,
+   "sha256": "68b41957899f6b27a3220dd227df61e74e2c65aae5a87e292f6f2616653c03a8"
+  },
+  "texts/T018.txt": {
+   "bytes": 49918,
+   "sha256": "7de49caec54a8f22001f17c09dd58aef0b1f123f464d4e8dfa9ae60ccca66845"
+  },
+  "texts/T019.txt": {
+   "bytes": 49706,
+   "sha256": "6c47a9a7127a73be238dda9d3194e6d2fcef65b8ba2d94731a6e0951cb76953d"
+  },
+  "texts/T020.txt": {
+   "bytes": 38316,
+   "sha256": "c6ab59d154d8c6f9293795c7a019ed258dc5ba74791eb17d836be46261479ca7"
+  },
+  "texts/T021.txt": {
+   "bytes": 24666,
+   "sha256": "fcc3ed85be972cbc1425d4022b3b3371f54de9372f9d2d9f0d1652f697ea9b56"
+  },
+  "texts/T022.txt": {
+   "bytes": 18015,
+   "sha256": "b4b5df64519d745ac181d60451fe6bdcd9d013f08ef997ec96ce16ae03e9b824"
+  },
+  "texts/T023.txt": {
+   "bytes": 49956,
+   "sha256": "56eb81d424726640a35aad2c24870229910a6101c562f4a43e0b32ad9ecb1f63"
+  },
+  "texts/T024.txt": {
+   "bytes": 25943,
+   "sha256": "4776555f471a1c54327e399fc9334d5ffe3f6d4f4fd9ef70b05d1b7f137a15b9"
+  },
+  "texts/T025.txt": {
+   "bytes": 49984,
+   "sha256": "eb0495c67b6e1cbf4d472272b473a09b427c0bd46611f2719f7580c8f274cf86"
+  },
+  "texts/T026.txt": {
+   "bytes": 49764,
+   "sha256": "32ef1bbbfe5d9338cd42951c968f550cea227b1f0a36be4ed7e2a32ec26b0aaf"
+  },
+  "texts/T027.txt": {
+   "bytes": 49690,
+   "sha256": "73baf8969f76cf49866a0b3098abb1662a314d270ca9d3398838bbe9186ecc0b"
+  },
+  "texts/T028.txt": {
+   "bytes": 20257,
+   "sha256": "8a98ca54c99e9477f11a5085322eab4f75e52068b48a3b58ed10c2aefe59d32e"
+  },
+  "texts/T029.txt": {
+   "bytes": 49275,
+   "sha256": "626b37911d6ece4c5cc942fd6c0561fc34c1753ed265dddd9937808e726d204a"
+  },
+  "texts/T030.txt": {
+   "bytes": 22003,
+   "sha256": "a54bd7f06b2d3cd8c61b9b909b57b8fc2763569e1e42196daafb5637cd0e7d12"
+  },
+  "texts/T031.txt": {
+   "bytes": 36175,
+   "sha256": "e9c318dd11d7b872086af736f354a5657d2ad5777f566ade838de145a5b2b529"
+  },
+  "texts/T032.txt": {
+   "bytes": 49237,
+   "sha256": "48aad5dafdfb0c6baff662d25ae5b0784e499a4fe3dd8193a07b2c0ba845ea0b"
+  },
+  "texts/T033.txt": {
+   "bytes": 49791,
+   "sha256": "6ebbc77de254f9d989899d2d9c59ec81e877547df613d7344d41904de6ce15d9"
+  },
+  "texts/T034.txt": {
+   "bytes": 40942,
+   "sha256": "440ca0c8e7483fcf1cf09c8096069afc4bea9bab8ec9645f75429e3323b8fe7a"
+  },
+  "texts/T035.txt": {
+   "bytes": 49344,
+   "sha256": "6f9b440730d9381b6bad62e9419f178bad9a4e7a5c2737cf3ba4fe6f60b1ed12"
+  },
+  "texts/T036.txt": {
+   "bytes": 30860,
+   "sha256": "a2439d8dd4c73da98ef715699c37836cddd4821ae124d6cedb4aa777702c6734"
+  },
+  "texts/T037.txt": {
+   "bytes": 41275,
+   "sha256": "5659611c4cf0910e9641a83b2d5defc6441262fb4efdfa6a3a5d104e015f58b1"
+  },
+  "texts/T038.txt": {
+   "bytes": 48146,
+   "sha256": "73869e93e017c2c77f2948533071ba4fbeec0e2872d5c7ddf333576ddc56114d"
+  },
+  "texts/T039.txt": {
+   "bytes": 15260,
+   "sha256": "a7d07693e58108bb3d2f4f96d679000304d25e8c8047b119b72638da408107b9"
+  },
+  "texts/T040.txt": {
+   "bytes": 23345,
+   "sha256": "022cee5d3b1804db15225f747c68cc8abdd3c1533bbd8945e04f763474d39845"
+  },
+  "texts/T041.txt": {
+   "bytes": 4435,
+   "sha256": "c4640c7165dc212fdec6823a682fdf13913ffebf6de71b1d0aaf44d9f4bdfae1"
+  },
+  "texts/T042.txt": {
+   "bytes": 8369,
+   "sha256": "ba6bdf2ad3d46229a7aa7989b5f85d8f8d71a1b04bc0a8b3edfdaf9f7cf6fe6a"
+  },
+  "texts/T043.txt": {
+   "bytes": 11207,
+   "sha256": "8b1268e08fc922961a07f5bd74bc8ce94dc6d6e5e7220ad314df340410c2c119"
+  },
+  "texts/T044.txt": {
+   "bytes": 8937,
+   "sha256": "f1f3ac64c197c2166b344a3f7cc568dc426bc387158fe7e0a51f4b16f2e05a39"
+  },
+  "texts/T045.txt": {
+   "bytes": 15798,
+   "sha256": "8a1c8d92ad29112be4de9a0f0083f00cdf024f92bad92398e313fe1cb5c2df80"
+  },
+  "texts/T046.txt": {
+   "bytes": 6790,
+   "sha256": "e9ff3056c4ed418979d506aea7e90cca0a56b42008822f579f1cb6d22cca62be"
+  },
+  "texts/T047.txt": {
+   "bytes": 6287,
+   "sha256": "da9cdb47f97a81c6db946dc8fd2c700eacbcee1b5fdfd908df2d14d1d1b6816f"
+  },
+  "texts/T048.txt": {
+   "bytes": 5748,
+   "sha256": "f43bad6a50fa0a7438b1f5c6303e721dc066e3aab7d4b8e3361d0e5e09c77d75"
+  },
+  "texts/T049.txt": {
+   "bytes": 3870,
+   "sha256": "af79af8615d2c65336928b59fd63c3e902b58ca0812eef94ca2e43a34955a135"
+  },
+  "texts/T050.txt": {
+   "bytes": 10553,
+   "sha256": "53253644dfa7908cec8375475c9a6587e6218da266b14fb83bf3779526ce7967"
+  },
+  "texts/T051.txt": {
+   "bytes": 4017,
+   "sha256": "cc79525bef1b4d4cbba79a674f86deb9a41d10591fc6362305de58ac0ccd9622"
+  },
+  "texts/T052.txt": {
+   "bytes": 10999,
+   "sha256": "b83314f567b4972bc501afb509ee86686673d427e8cad7e128af021026acaf2d"
+  },
+  "texts/T053.txt": {
+   "bytes": 6514,
+   "sha256": "7e0f0d801ca9a8d60aad343e6d2d0081bc735fd01f40f195cfc619a4ea7fa453"
+  },
+  "texts/T054.txt": {
+   "bytes": 4722,
+   "sha256": "8103cd371d589591d1147d08e7de4b072229495e41180317df099657cfe021ad"
+  },
+  "texts/T055.txt": {
+   "bytes": 4720,
+   "sha256": "eb33bb32cd6cffc99c213c044426403a741498b4d828d827b253e8d91a61a668"
+  },
+  "texts/T056.txt": {
+   "bytes": 7112,
+   "sha256": "db073dea1ba34ed8c9eff61a1e4eb65078ee13c81f3a1ab23229cfc71ad9a8c7"
+  },
+  "texts/T057.txt": {
+   "bytes": 4634,
+   "sha256": "6ef0a99f1f7b6ceebfabf147e6e0f858aea4006694f8af13a959d36d6b7c771f"
+  },
+  "texts/T058.txt": {
+   "bytes": 7062,
+   "sha256": "af435d890a7397c90f0ae58911f869433b158be01e5bf2f9560094611add1341"
+  },
+  "texts/T059.txt": {
+   "bytes": 4655,
+   "sha256": "0515dc9920adfae1a0bf1f050d6f0eefdfe3fb5e1150f8076c5ecd536d51a76e"
+  },
+  "texts/T060.txt": {
+   "bytes": 21247,
+   "sha256": "47c1af3f1c8c1dec72c8d1712254fb205d7fe2a155aa5d6f4643ed784c1cf6a6"
+  }
+ },
+ "python": "3.12.5",
+ "sources_sha256": {
+  "analyse.py": "e5486f58c433f919489851da0ca40822c378badcf235c681a414f3e097a59aa5",
+  "batches.py": "e073f364bc99c974111171c39207e02538ab96b7b17ba9fe59123de4d2f5bbce",
+  "build.py": "ff23c14bb764b581c807d1daf7abe7d4f00043c02ad90a573055b39235b99312",
+  "estimators.py": "4f876096e792b550bf982d067628101e2f243505c6254e0537406cf085da6e9d",
+  "fixcheck/__init__.py": "2348b0ebff9e4f25c92cde463054ffe7ece1980c646d47dad0276b333237969e",
+  "fixcheck/accept.py": "166ab3ffc88603b5f8a3c719e7b0dc5caff85cb7e3ea670df3e688129f3d6c19",
+  "fixcheck/assign.py": "1f4dd670b1b162110a55008ff13b1497d9ee1f82538569734d34e80343a5bff5",
+  "fixcheck/cli.py": "c2dca418b834345752f54323bd29cd1b3c7567a57d6b36bf565c71c8e55099e5",
+  "fixcheck/collect.py": "bedc8039015389ac821b11b19dd964b5ff0863230aded980a0ac6d8b051c2a10",
+  "fixcheck/common.py": "1030331d415d2cfe1fcdbbed4b16b3922110e48f17a82b24dc3e6736bb59e689",
+  "fixcheck/crosswalk.py": "61ebfd734ae731b390dc25ae616c1056713cc2049111255128de585fdec325fb",
+  "fixcheck/dryrun.py": "a85574c7a54971623d740461e96c7d01e5537067d6a6d59e28fe2d4b9c61892b",
+  "fixcheck/durable.py": "c033eea78d4914a38c9dc405828dd6f0333d5b5d91bdfdb3dca33a8c4c65b8ee",
+  "fixcheck/failure.py": "b0946c17f18a1eec9c7b53c265e2366a8cf779963af9a1e4b6de2f11ed9f6c07",
+  "fixcheck/freeze.py": "fb8050e5c4c2d16ab8d19b3cec463b13285fd70c47ab80077465d0b8f6b09c5a",
+  "fixcheck/ledger.py": "0f25aadda5f71923c3e64fbd076a0ca0f36c37933f4ad23482b734ffe788258d",
+  "fixcheck/narrowing.py": "bd39a8560b8cd20a27bfb345d914822dc572c9d30700cbb078d2f0db52174a32",
+  "fixcheck/package.py": "912fe4b75b9542405adefae9dfde3ee0c764cb63738b5b02a6e2012c5bd66e76",
+  "fixcheck/power.py": "4d966b6f45b857920c24f685c8e81b11e3482f4a7dda7b97e8853c8bdc8a6fb9",
+  "fixcheck/registry.py": "e3c0eaef6e374c33d4c09d38a1a83fb21fbafad0bb67de8c54d8d42262efc42c",
+  "fixcheck/run.py": "54501e28659e85d2241f47ad34067103afc93ed1c556fddaf54b9d26ddfc7a7c",
+  "fixcheck/sampling.py": "960f39a95fe11ccfa68c12e385a1f02a861ff6d27709d2a607e59a2e79f87ae8",
+  "fixcheck/scan.py": "5cf1debe4b5ce3cac212326db9d0c0830dbaad011479134762b5ca55889a6eab",
+  "fixcheck/sessions.py": "7acde9dcebc41845cd6e42436fd708804f615141a0b986ef93f10de9b92b5aff",
+  "fixcheck/synthetic.py": "3d309de49bd18594eaeba93a87d69ba822343215774066fcebf6e115da91a313",
+  "fixcheck/test_fixcheck.py": "7fcff2c0115e86bba6ed81d5feb10e81add982e5b3106cec5208bb841d2277be",
+  "fixcheck/test_r10.py": "856e809f6e1f50ea3b546709ab1cf624be04589b0696b76c6b6b8d94ffb34be0",
+  "fixcheck/test_r4.py": "0a0fc1e066c231a1a040f87517df8716892a07b3026abcb777f86b0e6b155fcc",
+  "fixcheck/test_r5.py": "42fb68d930f7958bfe26c6bae5ac7c9b24fcb9b9c1116dd5fbfbdf9bd517b5a6",
+  "fixcheck/test_r6.py": "a22aa94e984e539d49129f4db2bb526e2d946805b93b02e6475ce38272b75fef",
+  "fixcheck/test_r7.py": "4b637783ade4293d70be4a810672116017df348eca8e109612240bbb8c064969",
+  "fixcheck/test_r8.py": "dc466c4a50a2a372088a78c5fedbc9f5c1cbdba9fdcc5e8fb65893e5422c8466",
+  "fixcheck/test_r9.py": "c918bbf6028c981038fadee50211aba05a59b642af473ea6f5c609df6eae6ed7",
+  "fixcheck/verify.py": "5afa6cf1e8d479beedc1d1a03dd3f2a01f36c3abd5ececbe2a31200ba5d9297d",
+  "fixcheck/worker.py": "04a56cd270e4b18dc9a4fa1fc2ce35ea94062866ccb2f4ea3f3a0c28b64453f9",
+  "frame.py": "4de50b8aa2b527d530e5914c052a7969b643d4cecf83cefb8d60541fddc11579",
+  "human_page.py": "c70537bb290917052195e86db590a0ecd00ff91cac01ffd36191a118b07d485e",
+  "simulate_coverage.py": "a5369dc0b8721fc8fa84e52ab1ca0df83ace06e8fe8f0a4b871e9c54e55c2f94",
+  "test_analyse.py": "29976b6d13e61f9a2cbd353e462e774e71a5868467a962494123776558753ad2"
+ },
+ "step": "collect",
+ "written": "2026-10-18T23:37:40+00:00"
+}
