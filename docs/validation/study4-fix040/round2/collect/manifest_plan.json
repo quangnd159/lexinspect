@@ -1,0 +1,65 @@
+{
+ "command": "/Users/quangnguyendang/webapps/lexinspect/.venv/bin/python3 -I /Users/quangnguyendang/webapps/lexinspect/scripts/validation/study4_precision/fixcheck/cli.py collect --round 2 --seed 2026101901 --out /Users/quangnguyendang/webapps/lexinspect/docs/validation/study4-fix040/round2/collect --raw-cache /Users/quangnguyendang/lexinspect-private/study4-fix040/round2/raw --candidate-commit 16aa95ef10e0ec5fc8df9113e794c85d13c8aafc --ledger-md /Users/quangnguyendang/webapps/lexinspect/docs/validation/study4-fix040/round2/CANDIDATE_LEDGER.md --earlier /Users/quangnguyendang/webapps/lexinspect/docs/validation/study4-fix040/round1/collect --narrowing-disposition /Users/quangnguyendang/webapps/lexinspect/docs/validation/study4-fix040/round2/NARROWING_DISPOSITION.md --narrowing-check /Users/quangnguyendang/webapps/lexinspect/docs/validation/study4-fix040/round2/NARROWING_CHECK.json --dispositions /Users/quangnguyendang/webapps/lexinspect/docs/validation/study4-fix040/HARNESS_AUDIT_R1_DISPOSITIONS.md --dispositions /Users/quangnguyendang/webapps/lexinspect/docs/validation/study4-fix040/HARNESS_AUDIT_R2_DISPOSITIONS.md --dispositions /Users/quangnguyendang/webapps/lexinspect/docs/validation/study4-fix040/HARNESS_AUDIT_R3_DISPOSITIONS.md --dispositions /Users/quangnguyendang/webapps/lexinspect/docs/validation/study4-fix040/HARNESS_AUDIT_R4_DISPOSITIONS.md --dispositions /Users/quangnguyendang/webapps/lexinspect/docs/validation/study4-fix040/HARNESS_AUDIT_R5_DISPOSITIONS.md --dispositions /Users/quangnguyendang/webapps/lexinspect/docs/validation/study4-fix040/HARNESS_RULINGS.md --dispositions /Users/quangnguyendang/webapps/lexinspect/docs/validation/study4-fix040/round2/HARNESS_ROUND2_RULINGS.md --plan-only",
+ "environment_sha256": "dbad7727cf433d887874ae5a56be01485cf4cfe2864db4a8bc13d78fb1dbebf4",
+ "git": {
+  "commit": "0e850c35416b27b26de8fb39e890a67793d638a5",
+  "repo": "/Users/quangnguyendang/webapps/lexinspect",
+  "src_dirty": false,
+  "src_dirty_paths": []
+ },
+ "harness": "fixcheck/1",
+ "outputs": {
+  "command.txt": {
+   "bytes": 1858,
+   "sha256": "f7f8024dc845b9c6cf692ac3ddec8564dc12d2186ef47dc3a41bdfcf172f9c72"
+  },
+  "freeze_record.json": {
+   "bytes": 29839,
+   "sha256": "23f1bb6433d23ffeecb3c832d9db66f867ccb7f4d7789ae831ab07bf0fe2456f"
+  }
+ },
+ "python": "3.12.5",
+ "sources_sha256": {
+  "analyse.py": "e5486f58c433f919489851da0ca40822c378badcf235c681a414f3e097a59aa5",
+  "batches.py": "e073f364bc99c974111171c39207e02538ab96b7b17ba9fe59123de4d2f5bbce",
+  "build.py": "ff23c14bb764b581c807d1daf7abe7d4f00043c02ad90a573055b39235b99312",
+  "estimators.py": "4f876096e792b550bf982d067628101e2f243505c6254e0537406cf085da6e9d",
+  "fixcheck/__init__.py": "2348b0ebff9e4f25c92cde463054ffe7ece1980c646d47dad0276b333237969e",
+  "fixcheck/accept.py": "166ab3ffc88603b5f8a3c719e7b0dc5caff85cb7e3ea670df3e688129f3d6c19",
+  "fixcheck/assign.py": "1f4dd670b1b162110a55008ff13b1497d9ee1f82538569734d34e80343a5bff5",
+  "fixcheck/cli.py": "c2dca418b834345752f54323bd29cd1b3c7567a57d6b36bf565c71c8e55099e5",
+  "fixcheck/collect.py": "bedc8039015389ac821b11b19dd964b5ff0863230aded980a0ac6d8b051c2a10",
+  "fixcheck/common.py": "1030331d415d2cfe1fcdbbed4b16b3922110e48f17a82b24dc3e6736bb59e689",
+  "fixcheck/crosswalk.py": "61ebfd734ae731b390dc25ae616c1056713cc2049111255128de585fdec325fb",
+  "fixcheck/dryrun.py": "a85574c7a54971623d740461e96c7d01e5537067d6a6d59e28fe2d4b9c61892b",
+  "fixcheck/durable.py": "c033eea78d4914a38c9dc405828dd6f0333d5b5d91bdfdb3dca33a8c4c65b8ee",
+  "fixcheck/failure.py": "b0946c17f18a1eec9c7b53c265e2366a8cf779963af9a1e4b6de2f11ed9f6c07",
+  "fixcheck/freeze.py": "fb8050e5c4c2d16ab8d19b3cec463b13285fd70c47ab80077465d0b8f6b09c5a",
+  "fixcheck/ledger.py": "0f25aadda5f71923c3e64fbd076a0ca0f36c37933f4ad23482b734ffe788258d",
+  "fixcheck/narrowing.py": "bd39a8560b8cd20a27bfb345d914822dc572c9d30700cbb078d2f0db52174a32",
+  "fixcheck/package.py": "912fe4b75b9542405adefae9dfde3ee0c764cb63738b5b02a6e2012c5bd66e76",
+  "fixcheck/power.py": "4d966b6f45b857920c24f685c8e81b11e3482f4a7dda7b97e8853c8bdc8a6fb9",
+  "fixcheck/registry.py": "e3c0eaef6e374c33d4c09d38a1a83fb21fbafad0bb67de8c54d8d42262efc42c",
+  "fixcheck/run.py": "54501e28659e85d2241f47ad34067103afc93ed1c556fddaf54b9d26ddfc7a7c",
+  "fixcheck/sampling.py": "960f39a95fe11ccfa68c12e385a1f02a861ff6d27709d2a607e59a2e79f87ae8",
+  "fixcheck/scan.py": "5cf1debe4b5ce3cac212326db9d0c0830dbaad011479134762b5ca55889a6eab",
+  "fixcheck/sessions.py": "7acde9dcebc41845cd6e42436fd708804f615141a0b986ef93f10de9b92b5aff",
+  "fixcheck/synthetic.py": "3d309de49bd18594eaeba93a87d69ba822343215774066fcebf6e115da91a313",
+  "fixcheck/test_fixcheck.py": "7fcff2c0115e86bba6ed81d5feb10e81add982e5b3106cec5208bb841d2277be",
+  "fixcheck/test_r10.py": "856e809f6e1f50ea3b546709ab1cf624be04589b0696b76c6b6b8d94ffb34be0",
+  "fixcheck/test_r4.py": "0a0fc1e066c231a1a040f87517df8716892a07b3026abcb777f86b0e6b155fcc",
+  "fixcheck/test_r5.py": "42fb68d930f7958bfe26c6bae5ac7c9b24fcb9b9c1116dd5fbfbdf9bd517b5a6",
+  "fixcheck/test_r6.py": "a22aa94e984e539d49129f4db2bb526e2d946805b93b02e6475ce38272b75fef",
+  "fixcheck/test_r7.py": "4b637783ade4293d70be4a810672116017df348eca8e109612240bbb8c064969",
+  "fixcheck/test_r8.py": "dc466c4a50a2a372088a78c5fedbc9f5c1cbdba9fdcc5e8fb65893e5422c8466",
+  "fixcheck/test_r9.py": "c918bbf6028c981038fadee50211aba05a59b642af473ea6f5c609df6eae6ed7",
+  "fixcheck/verify.py": "5afa6cf1e8d479beedc1d1a03dd3f2a01f36c3abd5ececbe2a31200ba5d9297d",
+  "fixcheck/worker.py": "04a56cd270e4b18dc9a4fa1fc2ce35ea94062866ccb2f4ea3f3a0c28b64453f9",
+  "frame.py": "4de50b8aa2b527d530e5914c052a7969b643d4cecf83cefb8d60541fddc11579",
+  "human_page.py": "c70537bb290917052195e86db590a0ecd00ff91cac01ffd36191a118b07d485e",
+  "simulate_coverage.py": "a5369dc0b8721fc8fa84e52ab1ca0df83ace06e8fe8f0a4b871e9c54e55c2f94",
+  "test_analyse.py": "29976b6d13e61f9a2cbd353e462e774e71a5868467a962494123776558753ad2"
+ },
+ "step": "plan",
+ "written": "2026-10-18T23:30:47+00:00"
+}
