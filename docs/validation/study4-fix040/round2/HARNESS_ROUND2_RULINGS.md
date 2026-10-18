@@ -1,6 +1,6 @@
 # Study 4 fix check, round 2: harness rulings
 
-**Status:** DRAFT (for the maintainer's review before the round-2 freeze)
+**Status:** FINAL (adopted by the maintainer on 2026-10-19, after methodology review round 3, `.cache/validation/sol_round2_harness_audit_r3.md`, VERDICT: ACCEPT)
 
 **Scope.** These rulings harden the harness for round 2. They address gaps G1 to G5, G7, G10 and G12 of the round-2 plan (`.cache/validation/study4_fix040/round2/ROUND2_PLAN.md`, section 4), as revised after the first review of the round-2 harness (`.cache/validation/sol_round2_harness_audit_r1.md`, findings 1 to 5) and the second (`.cache/validation/sol_round2_harness_audit_r2.md`, findings N1 to N3). Ruling A1 amends the frozen `accept.py` (review 2, N2). Each ruling states what the code enforces and what remains a prerequisite for the operator or for review. G6, G8, G9 and G11 are not changed: G6 and G8 are cosmetic or already enforced elsewhere, G9 is handled by the ledger convention in RUNBOOK section 9, and G11 is a disclosure, not a defect. The regression tests are in `scripts/validation/study4_precision/fixcheck/test_r9.py` and `test_r10.py`.
 
