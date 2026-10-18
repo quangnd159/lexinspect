@@ -84,6 +84,8 @@ The plan writes `command.txt` itself, with every placeholder resolved. Step 5 ru
    - `registration.json`
    - `manifest_accept.json`
 
+Round 2 adds its own files under `docs/validation/study4-fix040/round2/` (section 9).
+
 **Private (never committed).** These are kept in `<R1>` and archived to `<ARCHIVE>`. Their SHA-256 values are public through the stage receipts and `private_archive.sha256`.
 
 - **The collection bodies:**
@@ -192,6 +194,8 @@ These are the `materials` hashes in `delivery_spec.json`. Any other value stops 
 
    Then read `operational_power_headline`: this gives the power under the declared and module-calibrated scenarios. It is informational, and there is no gate on it.
 
+   In round 2 the dry run also takes `--ledger-md` and the kept-family identity check (section 9.1).
+
 ## 2. Pinned baseline
 
     uv run --offline --frozen python -I scripts/validation/study4_precision/fixcheck/cli.py prepare-pinned --dest <PINNED>
@@ -200,7 +204,7 @@ This uses the registered pinned commit, `dec79bc`, which is the default.
 
 ## 3. Freeze files (maintainer)
 
-1. **Ledger.**
+1. **Ledger.** (Round 1 only. In round 2, skip this step: section 9.3.)
    - Copy `.cache/validation/study4_fix040/CANDIDATE_LEDGER.md` to `docs/validation/study4-fix040/CANDIDATE_LEDGER.md`.
    - Set its status line to `**Status:** FINAL`. Only the maintainer does this.
    - Then write the components:
@@ -551,7 +555,7 @@ Do the same for B, with `B` in place of `A`.
 
 ## 8. Verification, acceptance and the terminal outcome
 
-**1. Verify:**
+**1. Verify** (round 2 adds `--ledger-md`, section 9.8):
 
     uv run --offline --frozen python -I scripts/validation/study4_precision/fixcheck/cli.py verify --out <R1>/verify --assign-dir <R1>/assign --sample-dir <R1>/sample --run-dir <R1>/run --flash-dir <R1>/assign/flash --retry-dir <R1>/assign/retry
 
@@ -566,7 +570,7 @@ Do the same for B, with `B` in place of `A`.
 - **Registry checks first.** The registry's integrity is checked first, and a damaged registry refuses before any step.
 - **The frozen runtime.** Acceptance runs in the frozen runtime: the same checkout state (`src/lexinspect` equal to `<CAND>`'s, the same `uv.lock`), the same virtual environment and Python build, and the same installed numpy, scipy, spaCy, thinc, model and lexinspect files. The check computes this identity afresh. If it differs from the freeze record's `environment`, acceptance refuses before any decision and registers nothing (R3-S3).
 - **Receipts and the registry.** The execution receipt covers the registry as it was at the freeze. Later reservation, decision and terminal lines extend it and remain valid. A rewritten, truncated or reordered registry is refused (R3-S1).
-- **Chain problems.** Any problem in the chain makes the result inconclusive.
+- **Chain problems.** Any problem in the chain makes the package production-ineligible and is passed to the acceptance calculation as a procedure problem. Any procedure problem (a chain problem, or one the calculation finds itself) makes every module and the result `inconclusive`: never a pass and never a `fail`, even if the labels give a breach certificate, which is still reported in `breach_certificates` (clarifications section 3.4, "Incomplete procedure"). Before 2026-10-18 `accept.compute` selected `fail` for a breach certificate before considering procedure problems; round-2 harness ruling A1 (`round2/HARNESS_ROUND2_RULINGS.md`, after review 2, N2) amended the frozen `accept.py` to the clarifications' rule. Round 1 was decided with no procedure problems, so the change does not affect it.
 - **Registration.** The decision is checked and appended to `round_registry.jsonl` atomically. A refused registration writes nothing.
 
 **4. Archive and publish.**
@@ -595,21 +599,118 @@ Do the same for B, with `B` in place of `A`.
 
 ## 9. Round 2 (only after a registered round-1 non-pass)
 
-Round 2 repeats sections 1 to 8 with these changes:
+Round 2 repeats sections 1 to 8 with the changes in this section. The harness rulings for round 2 (gaps G1 to G5, G7, G10 and G12, as revised after the round-2 harness review) are in `docs/validation/study4-fix040/round2/HARNESS_ROUND2_RULINGS.md`.
 
-- the revised candidate is a new commit, written in place of `<CAND>`;
-- the seed is a new one, written in place of `<SEED>`;
-- `<R2>` replaces `<R1>`;
-- `round2` replaces `round1` in every repository path;
+**Never overwrite round 1's files.** Round 1 must stay re-checkable. These files stay byte-equal, and are never edited, regenerated, recopied or deleted:
+
+- everything under `docs/validation/study4-fix040/round1/`, including the untracked private bodies in `round1/collect/` (`collection.json`, `texts.jsonl`, `texts/`, `fetch_journal.jsonl`, `execution.lock`), until the round-2 decision is registered;
+- `docs/validation/study4-fix040/CANDIDATE_LEDGER.md` (round 1's ledger), `ledger_components.json`, `manifest_ledger.json` and `delivery_spec.json`;
+- the five `HARNESS_AUDIT_R*_DISPOSITIONS.md` files and `HARNESS_RULINGS.md`;
+- the protocol, the clarifications and the preregistration;
+- `<R1>/raw` and `<R1>` as a whole.
+
+Never run `git clean`. The repository stays at the same absolute path, because the bound paths are absolute. Round-2 planning refuses if any file bound by round 1's freeze record has changed, if round 1's `command.txt` or `manifest_plan.json` is missing or changed, or if round 1's execution receipt no longer re-validates against the committed objects (G1). Only the append-only registry and the reviewed round-2 harness sources (`fixcheck/*.py`) are exempt from byte equality. Round-2 acceptance repeats these checks; a problem there is a chain problem: the result is `inconclusive`, never a pass or a `fail` (section 8, step 3, "Chain problems").
+
+**Substitutions.**
+
+- the revised candidate is a new commit, `<CAND2>`, written in place of `<CAND>`. Its `src/lexinspect` must differ from round 1's: the registry refuses a new commit with round 1's tree digest (G3);
+- the seed is a new one, `<SEED2>`, written in place of `<SEED>`. It must differ from round 1's seed (2026101801) and from the development seed;
+- `<R2>` replaces `<R1>`. It is a new private directory outside `<REPO>`, next to `<R1>`;
+- `round2` replaces `round1` in every repository path and archive name (`round2/collect`, `round2/receipts`, `round2/accept`, `<ARCHIVE>/round2-prelabel.tar`, and so on);
 - **the registry is kept (R5-M2).** `docs/validation/study4-fix040/round_registry.jsonl` is shared by both rounds. It is append-only and already holds round 1's reservation and decision (and nothing else). Skip the empty-registry requirement of step 3.4: never reset, truncate, replace or hand-edit the registry, and never copy an empty one over it. The round-2 plan appends its reservation after round 1's lines, and every check requires that history.
 
-**Additions to the plan command.** The plan also takes:
+**Public files of round 2.** The section 0 allowlist extends to these files, all under `docs/validation/study4-fix040/round2/`:
+
+- `CANDIDATE_LEDGER.md`, `NARROWING_CHECK.json`, `NARROWING_DISPOSITION.md` and `HARNESS_ROUND2_RULINGS.md`;
+- `collect/freeze_record.json`, `collect/command.txt` and `collect/manifest_plan.json`, then `collect/execution_start.json`, `collect/execution.json` and `collect/manifest_collect.json` (and `collect/procedure_failure.json` only after a failure);
+- `receipts/primary.json`, `receipts/retry.json`, `receipts/flash.json` and `receipts/private_archive.sha256`;
+- `accept/acceptance.json`, `accept/acceptance.md`, `accept/ledger_components_result.json`, `accept/registration.json` and `accept/manifest_accept.json`.
+
+The private files of section 0 are private in round 2 too, under `round2/collect/` and `<R2>`.
+
+### 9.1 The candidate and the round-2 dry run (section 1)
+
+1. **Fragments and scan.** Write `<R2>/inventory_fragments.txt` with the `scan-restricted fragments` command of section 0.3 (with `<R2>` for `<R1>`), then run the whole-set scan.
+2. **Commit the candidate** on `study4-fix040-candidate` and push. The commit is `<CAND2>`.
+3. **The round-2 ledger first, final.** Write the round-2 ledger as in 9.3 step 1, at `docs/validation/study4-fix040/round2/CANDIDATE_LEDGER.md`, and finalize it (`**Status:** FINAL`) now. The harness changes are in place and committed. Finalize the ledger before the final fresh dry run. Any later change to candidate bytes, ledger bytes, harness bytes or comparison settings requires another fresh dry run and renewed review of its conformance evidence before planning.
+4. **Final dry run in a fresh directory,** with the round-2 ledger and the narrowing check (G10):
+
+       uv run --offline --frozen python -I scripts/validation/study4_precision/fixcheck/cli.py dryrun --commit <CAND2> --out-root <REPO>/.cache/validation/study4_fix040/round2/harness_dryrun --require-fresh --jobs 8 --plan-reps 200 --power-reps 200 --ledger-md <REPO>/docs/validation/study4-fix040/round2/CANDIDATE_LEDGER.md --compare-candidate 3d4df7012656defd5a44571410af00896f634a2d --kept MD-D,MD-H,MD-I,PH-A,PH-B,PH-C
+
+   `--compare-candidate` is round 1's candidate commit; the dry run resolves it to the full commit id. `--commit` is required with it. `--kept` lists the families the narrowing disposition keeps; every other family must change nothing. Besides BASELINE and each family alone, both candidates run every combination of two or more kept families (all 64 subsets of the six kept switches, the empty one being BASELINE). That adds 57 worker runs per candidate.
+5. **Read the summary and the narrowing check.** In `dryrun_summary.json`, the following must hold:
+   - `verify_baseline.identical` is `true`;
+   - every value in `determinism` is `true`;
+   - `verify_ok`, `ledger_ok` and `blinding_ok` are `true`, and `ledger_md` is the round-2 ledger;
+   - `kept_family_identity.ok` is `true`.
+
+   The dry run writes the same result, with the identities it rests on, to `NARROWING_CHECK.json` in its directory. This file holds counts and hashes only. Its `ok` is `true` only if every input authenticated and:
+   - the BASELINE frame, each kept family's frame and each of the 57 kept combinations are byte-equal to round 1's candidate's on the same texts;
+   - every other family has zero affected rows, candidate and baseline counts equal to its rows' counts, and a hit sequence identical to BASELINE's;
+   - the new candidate's COMPLETE is identical to the six kept families together;
+   - the dry run's own checks above passed.
+
+   Production planning and round-2 acceptance validate the published file itself, not only its `ok`: its nested result must name the same candidate and comparison commits and trees as the document and the plan, and the development round the canonical development manifest gives; no recorded boolean may contradict the counts beside it (`narrowing.problems`; round-2 harness review 2, N1).
+
+   An input that does not authenticate stops the dry run with a nonzero exit. Then read `operational_power_headline` (informational, no gate). If any of these fails, stop: the candidate does not match the narrowing disposition.
+
+   G10 is a development-text conformance check, not held-out validation or proof of equivalence on all possible texts. Production planning requires its authenticated result for the exact frozen candidate, round-1 comparison candidate, final ledger, harness and reviewed kept/reverted lists. The separate source audit establishes that no new rule or condition was introduced, including under an existing family identity. The six kept families are unchanged; the six specified reverted families are inactive. COMPLETE and interactions are evaluated afresh in round 2.
+
+   What the check does not cover: other combinations that include a reverted family (with fewer than all six kept families, or reverted families only) are not run, and every result holds for the 120 development texts only.
+6. **Publish the narrowing check.** Copy it byte for byte, then re-check the copy against the dry run (it must exit 0):
+
+       cp <REPO>/.cache/validation/study4_fix040/round2/harness_dryrun/<KEY>/NARROWING_CHECK.json <REPO>/docs/validation/study4-fix040/round2/NARROWING_CHECK.json
+       uv run --offline --frozen python -I scripts/validation/study4_precision/fixcheck/cli.py narrowing-check --dryrun-dir <REPO>/.cache/validation/study4_fix040/round2/harness_dryrun/<KEY> --evidence <REPO>/docs/validation/study4-fix040/round2/NARROWING_CHECK.json
+
+   `<KEY>` is the dry run's directory name, the first 16 hex of the candidate digest. Record the copy's SHA-256 (`shasum -a 256`) for the narrowing disposition (9.3 step 2).
+
+### 9.2 Pinned baseline (section 2)
+
+Reuse `<PINNED>`. Do not run `prepare-pinned` again: it refuses a non-empty destination. `run --pinned-checkout <PINNED>` re-verifies it against `dec79bc`.
+
+### 9.3 Freeze files (section 3)
+
+1. **Ledger.** Do not do section 3, step 1. Do not copy anything over `docs/validation/study4-fix040/CANDIDATE_LEDGER.md`, and do not run the `ledger` command.
+   - The round-2 ledger is a new file, `docs/validation/study4-fix040/round2/CANDIDATE_LEDGER.md`. It names `<CAND2>`. The maintainer sets its status line to `**Status:** FINAL`.
+   - Its family table keeps four cells and the original rule identities. A reverted family's rules cell keeps its rule list and marks the reversion in parentheses (for example `MD-01, … (reverted to 0.3.3 in round 2: no rule active)`). Writing `none` or adding a fifth column fails `verify`.
+   - Reuse `docs/validation/study4-fix040/ledger_components.json` unchanged. It enumerates the identities of both rounds. The plan's default `--ledger-components` names it.
+   - Preflight (writes only under `<R2>`); it must exit 0 with `ledger.ok` true:
+
+         uv run --offline --frozen python -I scripts/validation/study4_precision/fixcheck/cli.py verify --out <R2>/preflight/verify_ledger --ledger-md <REPO>/docs/validation/study4-fix040/round2/CANDIDATE_LEDGER.md
+
+2. **Narrowing disposition.** The reviewed disposition is `docs/validation/study4-fix040/round2/NARROWING_DISPOSITION.md`, written after the final dry run. Its status line is `**Status:** FINAL`. It names `<CAND2>` (at least its first 12 characters) and the full SHA-256 of `round2/NARROWING_CHECK.json`. It states the kept families (MD-D, MD-H, MD-I, PH-A, PH-B, PH-C) and the reverted families (MD-A, MD-B, MD-C, MD-E, MD-F, MD-G). The plan refuses a disposition that is outside the repository, git-ignored, without a status line, not FINAL, or that does not name `<CAND2>` or the narrowing check's SHA-256 (G2, G10). The same tracking check applies to the ledger, its components and the narrowing check. The harness checks the family lists in the narrowing check against the authorized lists; it does not parse them from the disposition.
+3. **Round-2 harness rulings.** The maintainer reviews and adopts `round2/HARNESS_ROUND2_RULINGS.md`, replacing its status with `**Status:** FINAL` and recording the adoption date before the plan. Bind that exact committed file with `--dispositions`. The FINAL check on `--narrowing-disposition` does not validate the status of this separate rulings file.
+4. **Delivery spec, dispositions and rulings:** unchanged, already in place.
+5. **Registry:** kept (above).
+6. **Check, commit and push.** Run the whole-set scan again. Then run the checks of sections 0.2 and 0.3 on exactly the round-2 ledger, the narrowing disposition, the round-2 rulings and any harness change. Then:
+
+       git commit -m "Study 4 fix check: freeze files for round 2"
+       git push origin study4-fix040-candidate
+
+   Include `round2/NARROWING_CHECK.json` in these checks and in the commit. After the push, check as in section 3, step 5, with `<CAND2>`.
+7. **Private copies of the materials** (section 0.4) into `<R2>/materials`, with the same two hashes.
+8. **Optional preflight of the plan** (no network, no draw, a scratch registry). Copy the registry to `<R2>/preflight/registry.jsonl`, then run the 9.4 command with `--out <R2>/preflight/collect --raw-cache <R2>/preflight/raw --registry <R2>/preflight/registry.jsonl --offline --dry-run` in place of the corresponding arguments. The only acceptable `ineligible_reasons` are the dry run itself and the scratch registry's.
+
+### 9.4 Plan (section 4)
+
+Every path is absolute, because the argv is frozen verbatim:
+
+    mkdir -p <R2>
+    uv run --offline --frozen python -I scripts/validation/study4_precision/fixcheck/cli.py collect --round 2 --seed <SEED2> --out <REPO>/docs/validation/study4-fix040/round2/collect --raw-cache <R2>/raw --candidate-commit <CAND2> --ledger-md <REPO>/docs/validation/study4-fix040/round2/CANDIDATE_LEDGER.md --earlier <REPO>/docs/validation/study4-fix040/round1/collect --narrowing-disposition <REPO>/docs/validation/study4-fix040/round2/NARROWING_DISPOSITION.md --narrowing-check <REPO>/docs/validation/study4-fix040/round2/NARROWING_CHECK.json --dispositions <REPO>/docs/validation/study4-fix040/HARNESS_AUDIT_R1_DISPOSITIONS.md --dispositions <REPO>/docs/validation/study4-fix040/HARNESS_AUDIT_R2_DISPOSITIONS.md --dispositions <REPO>/docs/validation/study4-fix040/HARNESS_AUDIT_R3_DISPOSITIONS.md --dispositions <REPO>/docs/validation/study4-fix040/HARNESS_AUDIT_R4_DISPOSITIONS.md --dispositions <REPO>/docs/validation/study4-fix040/HARNESS_AUDIT_R5_DISPOSITIONS.md --dispositions <REPO>/docs/validation/study4-fix040/HARNESS_RULINGS.md --dispositions <REPO>/docs/validation/study4-fix040/round2/HARNESS_ROUND2_RULINGS.md --plan-only
+
+**The flags round 2 adds.**
 
 - `--round 2`;
 - `--earlier <REPO>/docs/validation/study4-fix040/round1/collect`, which must be the registered round 1;
-- `--narrowing-disposition <REPO>/docs/validation/study4-fix040/round2/NARROWING_DISPOSITION.md`. This is the reviewed narrowing disposition, committed in step 3.5 with the other freeze files.
+- `--narrowing-disposition`, the reviewed disposition of 9.3 step 2;
+- `--narrowing-check <REPO>/docs/validation/study4-fix040/round2/NARROWING_CHECK.json`, the published narrowing check of 9.1 step 6 (G10). The plan validates it before the reservation, the execution validates it again, the freeze record and its receipt bind it, and acceptance checks it again;
+- `--ledger-md`, the round-2 ledger. Without it the plan would bind round 1's ledger, and the plan refuses that (G1);
+- `--raw-cache <R2>/raw`, a new, empty private cache. The plan refuses a cache inside the repository (the default `<out>/raw` is), round 1's cache or any directory inside or containing it, a directory inside round 1's private directory `<R1>`, a cache holding a symbolic link into `<R1>/raw` or `<R1>`, and a cache holding anything other than byte-equal copies of the frozen pool listings (G5);
+- the round-2 rulings as a seventh `--dispositions`.
 
-**Raw cache.** Keep round 1's raw cache, `<R1>/raw`, in place. The plan authenticates the earlier collection and derives the exclusions from it.
+The other defaults stay: `--ledger-components`, `--delivery-spec`, `--preregistration`, `--registry` (the canonical one) and `--remote-ref`.
+
+**Raw cache.** Keep round 1's raw cache, `<R1>/raw`, in place. The plan authenticates the earlier collection and derives the exclusions from it. `<R2>` must not be inside `<R1>`: the plan treats the parent of round 1's raw cache as round 1's private directory.
 
 **After a round-1 `procedure_failure`.** `--earlier` is the failed round-1 directory, `<REPO>/docs/validation/study4-fix040/round1/collect`, with its private journal, any abort record or collected texts, its `procedure_failure.json`, and `<R1>/raw` still in place. The plan:
 
@@ -624,6 +725,47 @@ Round 2 repeats sections 1 to 8 with these changes:
 - round 1 is not registered or is a pass;
 - `--earlier` is not round 1;
 - round 1 is a `procedure_failure` whose exposure was not established, or whose evidence or exposure differs from the registered one;
-- the canonical source identities overlap round 1's (or round 1's exposure).
+- a file bound by round 1's freeze record has changed, round 1's `command.txt` or `manifest_plan.json` is missing or changed, round 1's execution receipt does not re-validate, or `--ledger-md` is round 1's ledger (G1);
+- a frozen Study 4 input differs from round 1's (G4);
+- the narrowing disposition, the ledger or its components fail the checks of 9.3 (G2);
+- `<CAND2>` has round 1's commit id or round 1's `src/lexinspect` tree (G3);
+- the narrowing check is missing, outside the repository or git-ignored, is not named by the disposition, or does not validate: its candidate commit and tree, round 1's candidate commit and tree, the ledger's SHA-256, the harness, the development manifest, the kept and reverted lists, every per-family and per-combination result and `ok` (G10);
+- the raw cache is inside the repository, overlaps round 1's cache, is inside round 1's private directory, links into either, or is not fresh (G5).
+
+Planning authenticates round 1 and freezes its canonical-source exclusion set. Collection skips excluded sources, and acceptance checks disjointness of the actual collected source identities.
+
+The freeze record also discloses `round2.candidate_changes_vs_round1` (the changed, added and removed files under `src/lexinspect`, with both tree digests) and `round2.harness_changed_vs_round1`.
 
 **Same receipt ref.** The receipt ref is the same: `refs/remotes/origin/study4-fix040-candidate`.
+
+**Commit and push the plan.** Check (sections 0.2 and 0.3) exactly `docs/validation/study4-fix040/round_registry.jsonl` (now three lines) and the three plan files in `docs/validation/study4-fix040/round2/collect/`. Then:
+
+    git commit -m "Study 4 fix check: round 2 reservation and freeze record"
+    git push origin study4-fix040-candidate
+
+No harness change is possible from here to the round-2 decision: the freeze record binds the harness hashes.
+
+### 9.5 to 9.7 Execute, the pre-label package and labelling (sections 5 to 7)
+
+As in sections 5 to 7, with `round2` and `<R2>`:
+
+- run `sh <REPO>/docs/validation/study4-fix040/round2/collect/command.txt` once;
+- `<R2>/package.json` is the section 0.1 map with `collect` = `<REPO>/docs/validation/study4-fix040/round2/collect`;
+- `prepare-candidate --commit <CAND2> --dest <R2>/candidate`, then `run --pinned-checkout <PINNED>`, `diff`, `sample` and `assign`, all under `<R2>`;
+- every labelling session is fresh: the registry refuses a round-1 session id or transcript.
+
+A failed round 2 is terminal (section 5, "Failure"): only `revert_0.3.3` or `amendment`.
+
+### 9.8 Verification, acceptance and the terminal outcome (section 8)
+
+`verify` needs the round-2 ledger. Without `--ledger-md`, it checks round 1's ledger and acceptance reports a chain problem ("verify.json checked another ledger than the freeze record's"): never a pass (see the chain-problem note at the end of this section):
+
+    uv run --offline --frozen python -I scripts/validation/study4_precision/fixcheck/cli.py verify --out <R2>/verify --ledger-md <REPO>/docs/validation/study4-fix040/round2/CANDIDATE_LEDGER.md --assign-dir <R2>/assign --sample-dir <R2>/sample --run-dir <R2>/run --flash-dir <R2>/assign/flash --retry-dir <R2>/assign/retry
+    uv run --offline --frozen python -I scripts/validation/study4_precision/fixcheck/cli.py accept --package <R2>/package.json --check-only --out <R2>/accept_check
+    uv run --offline --frozen python -I scripts/validation/study4_precision/fixcheck/cli.py accept --package <R2>/package.json --out <REPO>/docs/validation/study4-fix040/round2/accept
+
+Archive to `<ARCHIVE>/round2-labelled.tar`, then commit the registry, `round2/receipts/private_archive.sha256` and the five `round2/accept/` files, and push. Register the terminal outcome with `--basis <REPO>/docs/validation/study4-fix040/round2/accept/acceptance.json`: `ship` after a round-2 pass, otherwise `revert_0.3.3` or `amendment`. There is no round 3.
+
+A reverted family's removal frames are empty in round 2 (`N = 0`, `not_applicable`). That is no opportunity for removal, not evidence about the family.
+
+Round-2 acceptance also rechecks round 1's preservation (its bound files, `command.txt`, `manifest_plan.json` and its execution receipt) and the bound narrowing check. A problem there is a chain problem: the acceptance calculation makes every module and the result `inconclusive`, never a pass or a `fail`, whatever the labels give; a breach certificate the labels give is still reported, not registered as a breach (clarifications section 3.4; harness ruling A1). The registered status is that inconclusive.

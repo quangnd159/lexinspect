@@ -252,6 +252,17 @@ def no_round2_after(r1: dict[str, Any]) -> list[str]:
     return []
 
 
+def same_tree_as_round1(r1: dict[str, Any], entry: dict[str, Any]) -> list[str]:
+    """Gap G3: a new commit whose src/lexinspect tree digest equals round 1's is not a
+    revised candidate (compared only when both digests are recorded)."""
+    t1 = r1.get("candidate_tree_sha256")
+    if t1 and t1 == entry.get("candidate_tree_sha256"):
+        return [
+            "round 2 needs a revised candidate: its src/lexinspect tree digest equals round 1's"
+        ]
+    return []
+
+
 def check_reservation(entries: list[dict[str, Any]], res: dict[str, Any]) -> tuple[str, list[str]]:
     """('append' | 'present' | 'refuse', problems)."""
     problems: list[str] = []
@@ -280,6 +291,7 @@ def check_reservation(entries: list[dict[str, Any]], res: dict[str, Any]) -> tup
                 problems.append("round 1 passed: a second round is not allowed (terminal: ship)")
             if r1["candidate_commit"] == res["candidate_commit"]:
                 problems.append("round 2 needs a separately frozen revised candidate")
+            problems += same_tree_as_round1(r1, res)
             if r1["seed"] == res["seed"]:
                 problems.append("round 2 needs a seed distinct from round 1's")
             problems += no_round2_after(r1)
@@ -364,6 +376,7 @@ def check_decision(entries: list[dict[str, Any]], entry: dict[str, Any]) -> tupl
                 problems.append("round 1 passed: a second round is not allowed (terminal: ship)")
             if r1["candidate_commit"] == entry["candidate_commit"]:
                 problems.append("round 2 needs a separately frozen revised candidate")
+            problems += same_tree_as_round1(r1, entry)
             if r1["seed"] == entry["seed"]:
                 problems.append("round 2 needs a seed distinct from round 1's")
             if entry.get("round1_entry_sha256") != entry_sha256(r1):

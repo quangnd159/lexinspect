@@ -132,11 +132,18 @@ def test_production_plan_and_execution_refuse_ineligible_inputs(tmp_path):
         str(dev_raw),
         "--offline",
     ]
+    # a production plan needs a fresh download cache (G5; round-2 harness audit r1 finding 4):
+    # the pre-populated offline mock cache is refused before anything else is written
+    with pytest.raises(SystemExit, match="is not fresh"):
+        collect.main([*base, "--out", str(tmp_path / "p0"), "--plan-only"])
+    assert not (tmp_path / "p0").exists()
+    fresh = [*base]
+    fresh[fresh.index("--raw-cache") + 1] = str(tmp_path / "rawfresh")
     # no candidate commit, DRAFT ledger, no components: not a production freeze
     with pytest.raises(SystemExit, match="not a production freeze"):
-        collect.main([*base, "--out", str(tmp_path / "p"), "--plan-only"])
+        collect.main([*fresh, "--out", str(tmp_path / "p"), "--plan-only"])
     with pytest.raises(SystemExit, match="two invocations"):
-        collect.main([*base, "--out", str(tmp_path / "q")])
+        collect.main([*fresh, "--out", str(tmp_path / "q")])
     rec, ex = _plan(tmp_path, raw, dev_raw, out="d")
     with pytest.raises(SystemExit, match="only --dry-run may execute it"):
         collect.main([a for a in ex if a != "--dry-run"])

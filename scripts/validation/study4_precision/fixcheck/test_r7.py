@@ -50,14 +50,22 @@ REPO = freeze.REPO
 
 def _commits() -> tuple[str, str]:
     """Two real commits of this repository, as distinct dry-run candidates (round 2 needs a
-    separately frozen candidate)."""
-    out = subprocess.run(
-        ["git", "-C", str(REPO), "rev-parse", "HEAD", "HEAD~1"],
-        capture_output=True,
-        text=True,
-        check=True,
-    ).stdout.split()
-    return out[0], out[1]
+    separately frozen candidate whose src/lexinspect tree differs, gap G3): HEAD, and the
+    parent of the latest commit that changed src/lexinspect."""
+
+    def git(*a: str) -> str:
+        return subprocess.run(
+            ["git", "-C", str(REPO), *a], capture_output=True, text=True, check=True
+        ).stdout.strip()
+
+    head = git("rev-parse", "HEAD")
+    last = git("rev-list", "-n", "1", "HEAD", "--", "src/lexinspect")
+    other = git("rev-parse", f"{last}~1")
+    assert (
+        freeze.commit_src_digest(head)["tree_sha256"]
+        != freeze.commit_src_digest(other)["tree_sha256"]
+    )
+    return head, other
 
 
 def _plan(

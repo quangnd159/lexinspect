@@ -601,16 +601,40 @@ def _fragments() -> set[str]:
     return {f.strip() for f in re.split(r'[|;"*\n]', text) if len(f.strip()) >= 20}
 
 
+def _public_documents() -> list[Path]:
+    """The public freeze documents: the regular files of the freeze directory (the round
+    directories are directories), the git-tracked files under its round directories (never
+    the untracked private collection bodies there) and the clarifications (gap G12)."""
+    base = freeze.FREEZE_DIR.relative_to(freeze.REPO)
+    listed = subprocess.run(
+        ["git", "-C", str(freeze.REPO), "ls-files", "-z", "--", base.as_posix()],
+        capture_output=True,
+        check=True,
+    ).stdout.decode()
+    parts = [Path(rel).relative_to(base).parts for rel in listed.split("\0") if rel]
+    rounds = [
+        freeze.FREEZE_DIR.joinpath(*x) for x in parts if len(x) > 1 and x[0].startswith("round")
+    ]
+    return [
+        *[p for p in sorted(freeze.FREEZE_DIR.glob("*")) if p.is_file()],
+        *sorted(rounds),
+        freeze.CLARIFICATIONS,
+    ]
+
+
 @pytest.mark.skipif(not INVENTORY.exists(), reason="private inventory not present")
 def test_r3_s2_public_documents_carry_no_inventory_fragment():
     # the audit's executed content check: count literal matches without printing them
     frags = _fragments()
     assert len(frags) > 100
-    public = [
-        *sorted(freeze.FREEZE_DIR.glob("*")),
-        freeze.CLARIFICATIONS,
-    ]
-    counts = {p.name: sum(f in p.read_text(encoding="utf-8") for f in frags) for p in public}
+    public = _public_documents()
+    assert all(p.is_file() for p in public)
+    counts = {
+        p.relative_to(freeze.REPO).as_posix(): sum(
+            f in p.read_text(encoding="utf-8") for f in frags
+        )
+        for p in public
+    }
     assert counts and all(v == 0 for v in counts.values()), counts
     # the guidelines still hold the one known match: why they stay private (Addendum 4)
     guidelines = freeze.REPO / "docs" / "validation" / "study4-guidelines.md"

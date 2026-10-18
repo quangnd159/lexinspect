@@ -22,8 +22,12 @@ path; relative paths resolve against the package.json's directory):
 run -> pinned-baseline verification -> diff -> selection and pre-label
 decision plan -> assignment -> stage receipts -> session deliveries -> first
 pass, retry, merge, Flash -> verification -> ledger, and returns every
-problem found. Production acceptance is inconclusive if there is any problem;
-a dry-run package is computed but stamped production_eligible false.
+problem found. In production any problem makes the package production-ineligible
+and is passed to the acceptance calculation as a procedure problem, which makes
+every module and the result inconclusive: never pass and never fail, even with a
+breach certificate, which is still reported (clarifications section 3.4, "Incomplete
+procedure"; accept.py amended after audit r2 N2, harness ruling A1). A dry-run
+package is computed but stamped production_eligible false.
 
 Authenticated derived facts (audit r2 B5). Parent hashes alone are not
 enough: a self-consistent rewrite of a child with recomputed hashes would
@@ -34,7 +38,9 @@ the freeze record's):
   development manifest and earlier rounds (and no collected identifier in it),
   per-text digests, the raw-response ledger (collect.authenticate_raw), the
   archived execution gate's receipt re-validated against committed objects
-  (freeze.verify_receipt), and an authenticated replay record;
+  (freeze.verify_receipt), and an authenticated replay record; for round 2, round 1's
+  preservation (collect.round1_preservation_problems) and the bound narrowing check
+  (narrowing.problems) again (round2_chain_problems);
 - run: the configuration inventory (BASELINE, BASELINE_PINNED, COMPLETE and the
   12 families, hits and meta files) and the pinned-baseline verification;
 - diff: the crosswalk, partition, frames and links are recomputed from the run
@@ -330,6 +336,8 @@ def check_collect(P: dict[str, Path]) -> tuple[list[str], dict[str, Any]]:
         raw = Path(paths["raw_cache"])
         auth = CL.authenticate_raw(col, raw) if raw.exists() else [f"raw cache {raw} missing"]
         p += [f"raw responses: {x}" for x in auth]
+        if fr.get("round") == 2:
+            p += round2_chain_problems(fr, paths)
     gate = ex.get("gate") or {}
     if production:
         if gate.get("ok") is not True:
@@ -352,6 +360,52 @@ def check_collect(P: dict[str, Path]) -> tuple[list[str], dict[str, Any]]:
         "round2": fr.get("round2"),
     }
     return p, info
+
+
+def round2_chain_problems(fr: dict[str, Any], paths: dict[str, Any]) -> list[str]:
+    """Round 2 at acceptance (round-2 harness audit r1, findings 1 and 2). Round 1 must still
+    be as it was frozen and receipted (collect.round1_preservation_problems: its bound
+    files, command.txt, manifest_plan.json and its execution receipt), and the narrowing
+    check bound by the round-2 freeze record must still have its bound bytes and validate
+    against that record (narrowing.problems: the round-2 candidate, round 1's registered
+    candidate, the bound ledger, the frozen harness, the development manifest and the
+    development round it gives). These are chain problems: any of them makes the package
+    production-ineligible, and accept.compute then makes the status inconclusive, never
+    pass or fail, whatever the labels give (audit r2 N2; see the module docstring)."""
+    from fixcheck import collect as CL
+    from fixcheck import narrowing as NC
+
+    earlier = paths.get("earlier") or []
+    if len(earlier) != 1:
+        return ["a round-2 freeze record must name exactly one earlier round (round 1)"]
+    d1 = Path(earlier[0])
+    p = [f"round 1 preservation: {x}" for x in CL.round1_preservation_problems(d1)]
+    r2 = fr.get("round2") or {}
+    # round 1's candidate as the plan read it from the registered round-1 entry (bound by
+    # round2.round1_entry_sha256, which registration checks against the registry)
+    r1_cand = r2.get("round1_candidate") or {}
+    nc = r2.get("narrowing_check") or {}
+    path = Path(nc["path"]) if nc.get("path") else None
+    if path is None or not nc.get("sha256"):
+        p.append("the round-2 freeze record binds no narrowing check")
+    elif not path.is_file() or sha256_file(path) != nc["sha256"]:
+        p.append(f"the narrowing check {path} is missing or differs from the freeze record's")
+    else:
+        p += [
+            f"narrowing check: {x}"
+            for x in NC.file_problems(
+                path,
+                candidate=fr.get("candidate") or {},
+                round1_candidate=r1_cand,
+                ledger_md_sha256=((fr.get("ledger") or {}).get("markdown") or {}).get("sha256"),
+                sources_sha256=fr.get("sources_sha256"),
+                dev_texts_sha256=(fr.get("dev_manifest") or {}).get("sha256"),
+                dev_round_texts_sha256=NC.dev_round_texts_sha256(
+                    Path(paths["dev_texts"]) if paths.get("dev_texts") else None
+                ),
+            )
+        ]
+    return p
 
 
 def _quota_problems(texts: list[dict[str, Any]], col: dict[str, Any], CL) -> list[str]:

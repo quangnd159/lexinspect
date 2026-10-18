@@ -32,7 +32,9 @@ Subcommands, in protocol order:
                    every commit (paths and counts only; nonzero exit stops)
   verify           ledger check, blinding audit, determinism (byte) comparisons
   dryrun           end-to-end dry run on the development build (the real candidate
-                   families, the 120 development texts as the check set, synthetic labels)
+                   families, the 120 development texts as the check set, synthetic labels);
+                   round 2: --compare-candidate --kept writes NARROWING_CHECK.json
+  narrowing-check  re-check a NARROWING_CHECK.json against the dry run that produced it
 """
 
 from __future__ import annotations
@@ -167,6 +169,7 @@ def main(argv: list[str] | None = None) -> int:
         "accept": accept.main,
         "verify": verify.main,
         "dryrun": dryrun.main,
+        "narrowing-check": dryrun.narrowing_main,
     }
     if cmd not in table:
         print(f"unknown subcommand {cmd!r}\n{__doc__}", file=sys.stderr)

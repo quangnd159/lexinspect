@@ -380,9 +380,12 @@ def test_r2_b2_production_registers_atomically_and_refuses_reuse(pkg, tmp_path, 
     out = tmp_path / "acc"
     assert accept.main(["--package", str(pkg), "--registry", str(reg), "--out", str(out)]) == 0
     acc = read_json(out / "acceptance.json")
-    # a dry-run package's problems are procedure problems in production: never pass (the
-    # random synthetic labels here also hold a breach certificate, so the status is fail)
-    assert acc["status"] != "pass" and acc["procedure_problems"]
+    # a dry-run package's problems are procedure problems in production: inconclusive, never
+    # pass or fail, although the random synthetic labels here also hold a breach certificate,
+    # which is still reported (clarifications 3.4; accept.py amended after audit r2 N2)
+    assert acc["status"] == "inconclusive" and acc["procedure_problems"]
+    assert all(m["status"] == "inconclusive" for m in acc["modules"].values())
+    assert any(m["breach_certificates"] for m in acc["modules"].values())
     lines = registry.load(reg)
     assert [e["type"] for e in lines] == ["reservation", "decision"]
     assert lines[1]["status"] == acc["status"]

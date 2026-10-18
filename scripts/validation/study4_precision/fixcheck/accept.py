@@ -305,6 +305,9 @@ def compute(
     Sibling links (same-span candidate hits, crosswalk loss layer) count for the
     inventory outcome only; STRICT uses the row's own counterparts (audit r1 B4).
     With descriptive=False only the gated arithmetic runs (used by power.py).
+    Status: any procedure problem (given or found here) makes every module and the
+    round inconclusive, before fail or pass (clarifications 3.4, "Incomplete
+    procedure"; amended after audit r2 N2); breach_certificates are still reported.
     bs[module][sub] = {"N_h", "n_h", "rows": {row: payload}}
     refs[(module, outcome)][payload] = 1 | 0 | None
     """
@@ -422,7 +425,9 @@ def compute(
             g["status"] == "computed" and g["passes"] for g in mod["cumulative"].values()
         )
         mod["status"] = (
-            "fail" if breach else ("pass" if all_pass and not problems else "inconclusive")
+            "inconclusive"
+            if problems
+            else ("fail" if breach else ("pass" if all_pass else "inconclusive"))
         )
         mod["breach_certificates"] = [
             f"removal {c}" for c, r in mod["removal"].items() if r.get("breach_certificate")
@@ -476,12 +481,19 @@ def compute(
             for oc in (*GATED_OUTCOMES[m], *DIAGNOSTIC_OUTCOMES[m])
         }
         mod["frames"][f"{BASELINE_SUCCESS}|{m}"] = bcounts
+    if problems:  # also a problem found only in a later module
+        for m in MODULES:
+            out["modules"][m]["status"] = "inconclusive"
     statuses = [out["modules"][m]["status"] for m in MODULES]
     out["procedure_problems"] = problems
     out["status"] = (
-        "fail"
-        if "fail" in statuses
-        else ("pass" if all(s == "pass" for s in statuses) and not problems else "inconclusive")
+        "inconclusive"
+        if problems
+        else (
+            "fail"
+            if "fail" in statuses
+            else ("pass" if all(s == "pass" for s in statuses) else "inconclusive")
+        )
     )
     out["decision_wording"] = {
         "pass": "passed the loss safeguards (not 'all fixes validated')",

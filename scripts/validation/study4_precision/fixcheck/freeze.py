@@ -26,7 +26,12 @@ The freeze record binds:
 - the protocol and its clarifications file;
 - the SHA-256 of every harness and frozen Study 4 source;
 - for round 2: the round registry, the registered round-1 entry and the reviewed
-  narrowing disposition.
+  narrowing disposition, with its status, tracking state and whether it names the
+  candidate and the narrowing check; the narrowing check (the final dry run's
+  NARROWING_CHECK.json, narrowing.py) with its validation problems; the tracking state of
+  the ledger and its components; the candidate's src/lexinspect changes against round 1's
+  and the harness files changed since round 1 (round-2 rulings G2, G4 and G10,
+  docs/validation/study4-fix040/round2/HARNESS_ROUND2_RULINGS.md).
 
 Production execution additionally requires, before any fetch (`execution_gate`):
 - a clean tracked working tree whose HEAD descends from the candidate commit,
@@ -36,7 +41,8 @@ Production execution additionally requires, before any fetch (`execution_gate`):
 - the archive receipt (`archive_receipt`, audit r2 B1): every bound file (the
   freeze record, command.txt, the plan manifest, the ledger and its components,
   the protocol and clarifications, the preregistration, the delivery spec, the
-  registry, the dispositions and rulings, every harness and frozen source file)
+  registry, the dispositions and rulings, every harness and frozen source file, and for
+  round 2 the narrowing disposition and the narrowing check)
   is committed at HEAD (byte-equal to `git cat-file blob HEAD:<path>`), and HEAD
   is an ancestor of the registered remote-tracking ref. Only a full ref
   `refs/remotes/origin/<branch>` is accepted (round 1:
@@ -481,6 +487,136 @@ def file_identity(path: Path | None, repo: Path = REPO) -> dict[str, Any]:
     }
 
 
+_STATUS_LINE = re.compile(r"^\*\*Status:\*\*\s*([A-Z]+)", re.M)
+IGNORED_NOTE = (
+    "git check-ignore --no-index: refused even when force-added, which Git permits; a bound "
+    "round-2 file must be an ordinary tracked file"
+)
+
+
+def tracking_problems(what: str, t: dict[str, Any] | None) -> list[str]:
+    """Why a bound round-2 file (`tracking_identity`) cannot be an ordinary tracked file of
+    the repository: outside it (the archive receipt covers only files committed in it), or
+    matched by its ignore rules, or not checkable. Nothing given: no problem here."""
+    t = t or {}
+    if not t.get("path"):
+        return []
+    if not t.get("in_repository"):
+        return [
+            f"the {what} is outside the repository (the archive receipt covers only files "
+            "committed in it)"
+        ]
+    if t.get("git_ignored") is True:
+        return [f"the {what} is git-ignored ({IGNORED_NOTE})"]
+    if t.get("git_ignored") is not False:
+        return [f"the {what} could not be checked against the repository's ignore rules"]
+    return []
+
+
+def git_ignored(path: Path | None, repo: Path | None = None) -> bool | None:
+    """Whether git's ignore rules match `path` inside `repo`, tracked or not (`git
+    check-ignore --no-index`, so a force-added file under an ignored directory counts as
+    ignored). None for a path outside the repository or when git cannot answer. `repo`
+    defaults to this module's REPO at call time."""
+    repo = REPO if repo is None else repo
+    if path is None:
+        return None
+    rel = _rel(Path(path), repo)
+    if rel is None:
+        return None
+    r = git("check-ignore", "-q", "--no-index", "--", rel, repo=repo, check=False)
+    return {0: True, 1: False}.get(r.returncode)
+
+
+def tracking_identity(path: Path | None, repo: Path | None = None) -> dict[str, Any]:
+    """Where a bound file sits with respect to the repository (round 2, gap G2)."""
+    repo = REPO if repo is None else repo
+    if path is None:
+        return {"path": None, "in_repository": False, "git_ignored": None}
+    path = Path(path).resolve()
+    return {
+        "path": str(path),
+        "in_repository": _rel(path, repo) is not None,
+        "git_ignored": git_ignored(path, repo),
+    }
+
+
+def disposition_identity(
+    path: Path | None,
+    candidate_commit: str | None,
+    repo: Path | None = None,
+    narrowing_check: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    """The round-2 narrowing disposition (gap G2): its bytes, where it sits, its `**Status:**`
+    line, whether it names the round-2 candidate commit (its first 12 characters) and
+    whether it names the narrowing check it rests on (that file's full SHA-256; G10)."""
+    nc_sha = (narrowing_check or {}).get("sha256")
+    ident: dict[str, Any] = {
+        **file_identity(path),
+        **tracking_identity(path, repo),
+        "status": None,
+        "candidate_prefix": candidate_commit[:12] if candidate_commit else None,
+        "names_candidate": False,
+        "narrowing_check_sha256": nc_sha,
+        "names_narrowing_check": False,
+    }
+    if path is not None and Path(path).is_file():
+        text = Path(path).read_text(encoding="utf-8", errors="replace")
+        m = _STATUS_LINE.search(text)
+        ident["status"] = m.group(1) if m else None
+        ident["names_candidate"] = bool(candidate_commit) and candidate_commit[:12] in text
+        ident["names_narrowing_check"] = bool(nc_sha) and nc_sha in text
+    return ident
+
+
+def round2_problems(r2: dict[str, Any]) -> list[str]:
+    """The round-2 production prerequisites beyond the registered round 1 (gaps G2, G10): the
+    narrowing disposition is inside the repository, not git-ignored, FINAL and names the
+    candidate and the narrowing check; the narrowing check (narrowing.py) is given, inside
+    the repository, not git-ignored and validates against this round (its recorded
+    problems are empty); the ledger and its components are tracked (not git-ignored); the
+    candidate's changes against round 1 are recorded for disclosure. A failure here
+    surfaces at planning, before the reservation, and again when the execution rebuilds
+    the record."""
+    why = []
+    nc = r2.get("narrowing_check") or {}
+    if not nc.get("sha256"):
+        why.append(
+            "round 2 needs the final dry run's development-text narrowing check "
+            "(--narrowing-check round2/NARROWING_CHECK.json)"
+        )
+    else:
+        why += tracking_problems("narrowing check", nc)
+        why += [f"narrowing check: {x}" for x in nc.get("problems") or []]
+        if "problems" not in nc:
+            why.append("narrowing check: it was not validated")
+    nd = r2.get("narrowing_disposition") or {}
+    if nd.get("sha256") and nc.get("sha256") and not nd.get("names_narrowing_check"):
+        why.append(
+            "the narrowing disposition does not name the narrowing check's SHA-256 "
+            f"({nc['sha256']})"
+        )
+    if nd.get("sha256"):
+        why += tracking_problems("narrowing disposition", nd)
+        if nd.get("status") is None:
+            why.append("the narrowing disposition has no **Status:** line")
+        elif nd["status"] != "FINAL":
+            why.append(f"the narrowing disposition has status {nd['status']}, not FINAL")
+        if not nd.get("names_candidate"):
+            why.append(
+                "the narrowing disposition does not name the round-2 candidate commit "
+                f"({nd.get('candidate_prefix')})"
+            )
+    for name, t in sorted((r2.get("tracking") or {}).items()):
+        why += tracking_problems(name.replace("_", " "), t)
+    ch = r2.get("candidate_changes_vs_round1")
+    if not ch:
+        why.append("round 2 could not record its candidate's changes against round 1's")
+    elif not ch.get("round1_tree_matches_registry"):
+        why.append("round 1's candidate commit no longer has its registered tree digest")
+    return why
+
+
 def receipt_paths(record_path: Path, record: dict[str, Any]) -> list[Path]:
     """Every file the archive receipt must find committed at HEAD (audit r2 B1)."""
     d = record_path.parent
@@ -497,8 +633,9 @@ def receipt_paths(record_path: Path, record: dict[str, Any]) -> list[Path]:
     paths += sorted(HERE.glob("*.py"))
     paths += [STUDY4 / n for n in FROZEN_INPUTS if (STUDY4 / n).exists()]
     r2 = record.get("round2") or {}
-    if (r2.get("narrowing_disposition") or {}).get("path"):
-        paths.append(Path(r2["narrowing_disposition"]["path"]))
+    for name in ("narrowing_disposition", "narrowing_check"):
+        if (r2.get(name) or {}).get("path"):
+            paths.append(Path(r2[name]["path"]))
     return paths
 
 
@@ -576,6 +713,7 @@ def production_prerequisites(record: dict[str, Any]) -> list[str]:
             why.append("round 2 needs a registered round-1 non-pass decision")
         if not (r2.get("narrowing_disposition") or {}).get("sha256"):
             why.append("round 2 needs a reviewed narrowing disposition (--narrowing-disposition)")
+        why += round2_problems(r2)
     return why
 
 
