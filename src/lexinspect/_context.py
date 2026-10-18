@@ -35,12 +35,6 @@ def is_hyphen(tok) -> bool:
     return tok is not None and tok.text in _HYPHENS
 
 
-def spaced_hyphen(tok) -> bool:
-    """A hyphen with whitespace on both sides (`2010 - 2015`, a dash typed as
-    `-`), as opposed to one joining the parts of a word (`well-known`)."""
-    return bool(tok.whitespace_) and spaced_before(tok)
-
-
 def in_hyphenated_word(first, last) -> bool:
     """Tokens `first`…`last` are part of a hyphenated word: a hyphen is joined,
     with no space, to `first` and the word before it (`common-sense`,
@@ -116,10 +110,7 @@ def rephrasing_that_is(that) -> bool:
 # Specifying (goal and role) nouns. As the subject of `be` + to-infinitive
 # they make a specificational clause (`our goal here is to measure drift`): the infinitive
 # identifies the aim or role (Huddleston & Pullum 2002, ch. 4, specifying
-# be), so the `is to` is not the PHRASE entry IS TO (PH-06). The noun alone
-# says nothing about whose aim it is: MD-09 counts the infinitive as a stage
-# label of the text only when the goal is also recognised as the present
-# text's or study's (`metadiscourse.own_text`).
+# be), so the `is to` is not the PHRASE entry IS TO (PH-06).
 SPECIFYING_NOUNS = frozenset(
     {
         "aim",

@@ -14,7 +14,11 @@ Kinds:
   the test fails if the rule's behaviour disappears;
 - "keep": a use the rule must not touch, or a use it keeps on purpose;
 - "retain": a removed rule (Study 4 implementation audit r1): the 0.3.3
-  behaviour is kept with every family on.
+  behaviour is kept with every family on;
+- "reverted": a case of a family reverted to 0.3.3 after the first fix-check
+  round (`REVERTED`). `expected` equals `before`: the family's switch gates
+  nothing, so the family alone gives 0.3.3. The cases are the round-1 cases
+  and known limitations of those families, kept as probes.
 
 `branch` names the branch of a multi-branch rule a case exercises; `BRANCHES`
 lists the branches each such rule must cover, and with which kinds.
@@ -43,6 +47,27 @@ import pytest
 
 from lexinspect import metadiscourse, phrase
 from lexinspect._fix_families import FAMILIES, enabled, only
+from lexinspect._text import ensure
+
+# The twelve family identities of the fix-check ledger, unchanged in round 2.
+LEDGER_FAMILIES = (
+    "MD-A",
+    "MD-B",
+    "MD-C",
+    "MD-D",
+    "MD-E",
+    "MD-F",
+    "MD-G",
+    "MD-H",
+    "MD-I",
+    "PH-A",
+    "PH-B",
+    "PH-C",
+)
+# Families reverted to 0.3.3 after the first fix-check round: they keep their
+# identities and switches, and gate nothing.
+REVERTED = frozenset({"MD-A", "MD-B", "MD-C", "MD-E", "MD-F", "MD-G"})
+KEPT = tuple(f for f in LEDGER_FAMILIES if f not in REVERTED)
 
 
 class H(NamedTuple):
@@ -59,7 +84,7 @@ class H(NamedTuple):
 class Case(NamedTuple):
     rule: str
     family: str
-    kind: str  # change | keep | retain
+    kind: str  # change | keep | retain | reverted
     text: str
     target: str
     expected: object
@@ -70,30 +95,30 @@ class Case(NamedTuple):
 
 C = Case
 CASES = [
-    # --- MD-A: clause linking and transitions ------------------------------------
+    # --- MD-A: clause linking and transitions, reverted to 0.3.3 ------------------
     # MD-01: a coordinator links propositions, a comma alone isn't enough
     C(
         "MD-01",
         "MD-A",
-        "change",
+        "reverted",
         "They studied rivers, lakes, and wetlands across the region.",
         "and",
-        None,
+        (H("and", "transitions", (28, 31), "and"),),
         (H("and", "transitions", (28, 31), "and"),),
     ),
     C(
         "MD-01",
         "MD-A",
-        "change",
+        "reverted",
         "The samples were small, or in some cases damaged beyond use.",
         "or",
-        None,
+        (H("or", "transitions", (24, 26), "or"),),
         (H("or", "transitions", (24, 26), "or"),),
     ),
     C(
         "MD-01",
         "MD-A",
-        "keep",
+        "reverted",
         "The committee approved the budget, and the mayor signed it the next day.",
         "and",
         (H("and", "transitions", (35, 38), "and"),),
@@ -102,7 +127,7 @@ CASES = [
     C(
         "MD-01",
         "MD-A",
-        "keep",
+        "reverted",
         "The model fits well, but the sample is small.",
         "but",
         (H("but", "transitions", (21, 24), "but"),),
@@ -111,7 +136,7 @@ CASES = [
     C(
         "MD-01",
         "MD-A",
-        "keep",
+        "reverted",
         "Prices rose sharply; but wages stayed flat.",
         "but",
         (H("but", "transitions", (21, 24), "but"),),
@@ -120,7 +145,7 @@ CASES = [
     C(
         "MD-01",
         "MD-A",
-        "keep",
+        "reverted",
         "But the argument has a second weakness.",
         "But",
         (H("But", "transitions", (0, 3), "but"),),
@@ -130,25 +155,25 @@ CASES = [
     C(
         "MD-02",
         "MD-A",
-        "change",
+        "reverted",
         "Writing or editing such texts takes skill.",
         "or",
-        None,
+        (H("or", "transitions", (8, 10), "or"),),
         (H("or", "transitions", (8, 10), "or"),),
     ),
     C(
         "MD-02",
         "MD-A",
-        "change",
+        "reverted",
         "Interviewing and recording the witnesses took a week.",
         "and",
-        None,
+        (H("and", "transitions", (13, 16), "and"),),
         (H("and", "transitions", (13, 16), "and"),),
     ),
     C(
         "MD-02",
         "MD-A",
-        "keep",
+        "reverted",
         "Researchers collected and analysed the soil samples.",
         "and",
         (H("and", "transitions", (22, 25), "and"),),
@@ -157,7 +182,7 @@ CASES = [
     C(
         "MD-02",
         "MD-A",
-        "keep",
+        "reverted",
         "The council met in March and the plan was approved in May.",
         "and",
         (H("and", "transitions", (25, 28), "and"),),
@@ -167,25 +192,25 @@ CASES = [
     C(
         "MD-03",
         "MD-A",
-        "change",
+        "reverted",
         "While walking home, she noticed the fire.",
         "While",
-        None,
+        (H("While", "transitions", (0, 5), "while"),),
         (H("While", "transitions", (0, 5), "while"),),
     ),
     C(
         "MD-03",
         "MD-A",
-        "change",
+        "reverted",
         "Since then, prices have doubled.",
         "Since",
-        None,
+        (H("Since", "transitions", (0, 5), "since"),),
         (H("Since", "transitions", (0, 5), "since"),),
     ),
     C(
         "MD-03",
         "MD-A",
-        "keep",
+        "reverted",
         "Since the data are incomplete, the estimate is uncertain.",
         "Since",
         (H("Since", "transitions", (0, 5), "since"),),
@@ -194,7 +219,7 @@ CASES = [
     C(
         "MD-03",
         "MD-A",
-        "keep",
+        "reverted",
         "While the plan has merits, its costs are too high.",
         "While",
         (H("While", "transitions", (0, 5), "while"),),
@@ -205,16 +230,16 @@ CASES = [
     C(
         "MD-05",
         "MD-A",
-        "change",
+        "reverted",
         "Still standing, the bridge remains safe.",
         "Still",
-        None,
+        (H("Still", "transitions", (0, 5), "still"),),
         (H("Still", "transitions", (0, 5), "still"),),
     ),
     C(
         "MD-05",
         "MD-A",
-        "keep",
+        "reverted",
         "Still, the plan may work.",
         "Still",
         (H("Still", "transitions", (0, 5), "still"),),
@@ -224,34 +249,34 @@ CASES = [
     C(
         "MD-06",
         "MD-A",
-        "change",
+        "reverted",
         "The town chose repair rather than replacement.",
         "rather",
-        None,
+        (H("rather", "hedges", (22, 28), "rather"),),
         (H("rather", "hedges", (22, 28), "rather"),),
     ),
     C(
         "MD-06",
         "MD-A",
-        "change",
+        "reverted",
         "Rather than wait, they left.",
         "Rather",
-        None,
+        (H("Rather", "transitions", (0, 6), "rather"),),
         (H("Rather", "transitions", (0, 6), "rather"),),
     ),
     C(
         "MD-06",
         "MD-A",
-        "change",
+        "reverted",
         "The change was not sudden but rather gradual.",
         "rather",
-        (H("rather", "transitions", (30, 36), "rather"),),
+        (H("rather", "hedges", (30, 36), "rather"),),
         (H("rather", "hedges", (30, 36), "rather"),),
     ),
     C(
         "MD-06",
         "MD-A",
-        "keep",
+        "reverted",
         "The results were rather mixed.",
         "rather",
         (H("rather", "hedges", (17, 23), "rather"),),
@@ -261,57 +286,57 @@ CASES = [
     C(
         "MD-25",
         "MD-A",
-        "change",
+        "reverted",
         "Even if costs fall, demand may stay low.",
         "Even",
-        (H("Even", "transitions", (0, 4), "even"),),
+        (H("Even", "attitude_markers", (0, 4), "even"),),
         (H("Even", "attitude_markers", (0, 4), "even"),),
     ),
     # guidelines example (Study 4 labelling guidelines A4)
     C(
         "MD-25",
         "MD-A",
-        "keep",
+        "reverted",
         "Even experts disagree.",
         "Even",
         (H("Even", "attitude_markers", (0, 4), "even"),),
         (H("Even", "attitude_markers", (0, 4), "even"),),
     ),
-    # --- MD-B: word-internal hyphens and brackets --------------------------------
+    # --- MD-B: word-internal hyphens and brackets, reverted to 0.3.3 --------------
     # MD-04, part of a hyphenated word
     C(
         "MD-04",
         "MD-B",
-        "change",
+        "reverted",
         "The phone became a must-have item.",
         "must",
-        None,
+        (H("must", "attitude_markers", (19, 23), "must"),),
         (H("must", "attitude_markers", (19, 23), "must"),),
     ),
     C(
         "MD-04",
         "MD-B",
-        "change",
+        "reverted",
         "The pattern was low-then-high.",
         "then",
-        None,
+        (H("then", "transitions", (20, 24), "then"),),
         (H("then", "transitions", (20, 24), "then"),),
     ),
     # MD-04, an opening bracket opens no clause
     C(
         "MD-04",
         "MD-B",
-        "change",
+        "reverted",
         "The results (still preliminary) look good.",
         "still",
-        None,
+        (H("still", "transitions", (13, 18), "still"),),
         (H("still", "transitions", (13, 18), "still"),),
     ),
     # MD-04, marker + participle and spaced dashes keep their reading
     C(
         "MD-04",
         "MD-B",
-        "keep",
+        "reverted",
         "The so-called reforms changed little.",
         "called",
         (H("called", "code_glosses", (7, 13), "called"),),
@@ -320,7 +345,7 @@ CASES = [
     C(
         "MD-04",
         "MD-B",
-        "keep",
+        "reverted",
         "The above-mentioned results support the model.",
         "above",
         (H("The above", "endophoric_markers", (0, 9), "the above"),),
@@ -329,36 +354,36 @@ CASES = [
     C(
         "MD-04",
         "MD-B",
-        "keep",
+        "reverted",
         "The vote was close - then the count was redone.",
         "then",
         (H("then", "transitions", (21, 25), "then"),),
         (H("then", "transitions", (21, 25), "then"),),
     ),
-    # --- MD-C: frame and endophoric markers --------------------------------------
+    # --- MD-C: frame and endophoric markers, reverted to 0.3.3 --------------------
     # MD-07: ordinals as clause-initial adverbials
     C(
         "MD-07",
         "MD-C",
-        "change",
+        "reverted",
         "First published in 1900, the novel sold slowly.",
         "First",
-        None,
+        (H("First", "frame_markers", (0, 5), "first"),),
         (H("First", "frame_markers", (0, 5), "first"),),
     ),
     C(
         "MD-07",
         "MD-C",
-        "change",
+        "reverted",
         "Overall survival was 64 per cent.",
         "Overall",
-        None,
+        (H("Overall", "frame_markers", (0, 7), "overall"),),
         (H("Overall", "frame_markers", (0, 7), "overall"),),
     ),
     C(
         "MD-07",
         "MD-C",
-        "keep",
+        "reverted",
         "Firstly, the model ignores taxes.",
         "Firstly",
         (H("Firstly", "frame_markers", (0, 7), "firstly"),),
@@ -368,124 +393,116 @@ CASES = [
     C(
         "MD-08",
         "MD-C",
-        "change",
+        "reverted",
         "The goal of the game is to score points.",
         "The goal",
-        None,
         (H("The goal", "frame_markers", (0, 8), "the goal"),),
-        branch="not-present",
+        (H("The goal", "frame_markers", (0, 8), "the goal"),),
     ),
     # audit-derived (S2)
     C(
         "MD-08",
         "MD-C",
-        "change",
+        "reverted",
         "The purpose of this ritual is to honour ancestors.",
         "The purpose",
-        None,
         (H("The purpose", "frame_markers", (0, 11), "the purpose"),),
-        branch="not-present",
+        (H("The purpose", "frame_markers", (0, 11), "the purpose"),),
     ),
     # a relative clause mentioning a paper doesn't make the aim this text's
     # audit-derived (S2)
     C(
         "MD-08",
         "MD-C",
-        "change",
+        "reverted",
         "The aim described in Smith's paper was to win the election.",
         "The aim",
-        None,
         (H("The aim", "frame_markers", (0, 7), "the aim"),),
-        branch="relative-clause",
+        (H("The aim", "frame_markers", (0, 7), "the aim"),),
     ),
     # guidelines example (Study 4 labelling guidelines A4)
     C(
         "MD-08",
         "MD-C",
-        "keep",
+        "reverted",
         "The aim of this paper is to compare two methods.",
         "The aim",
         (H("The aim", "frame_markers", (0, 7), "the aim"),),
         (H("The aim", "frame_markers", (0, 7), "the aim"),),
-        branch="present-of",
     ),
     C(
         "MD-08",
         "MD-C",
-        "keep",
+        "reverted",
         "The purpose here is to compare two methods.",
         "The purpose",
         (H("The purpose", "frame_markers", (0, 11), "the purpose"),),
         (H("The purpose", "frame_markers", (0, 11), "the purpose"),),
-        branch="here",
     ),
     # MD-09: stage labels clause-initially or after a present-text goal + `be`
     C(
         "MD-09",
         "MD-C",
-        "change",
+        "reverted",
         "We may have to conclude that the record is lost.",
         "to conclude",
-        (H("conclude", "boosters", (15, 23), "conclude"),),  # the 0.3.3 verb check, outside MD-09
+        (
+            H("to conclude", "frame_markers", (12, 23), "to conclude"),
+        ),  # the 0.3.3 verb check, outside MD-09
         (H("to conclude", "frame_markers", (12, 23), "to conclude"),),
-        branch="verb-complement",
     ),
     # audit-derived (S2)
     C(
         "MD-09",
         "MD-C",
-        "change",
+        "reverted",
         "The aim of this plan is to begin construction in May.",
         "to begin",
-        None,
         (H("to begin", "frame_markers", (24, 32), "to begin"),),
-        branch="other-goal",
+        (H("to begin", "frame_markers", (24, 32), "to begin"),),
     ),
     C(
         "MD-09",
         "MD-C",
-        "keep",
+        "reverted",
         "The purpose of this paper is to summarise the debate.",
         "to summarise",
         (H("to summarise", "frame_markers", (29, 41), "to summarise"),),
         (H("to summarise", "frame_markers", (29, 41), "to summarise"),),
-        branch="present-of",
     ),
     C(
         "MD-09",
         "MD-C",
-        "keep",
+        "reverted",
         "Our aim is to summarise the debate.",
         "to summarise",
         (H("to summarise", "frame_markers", (11, 23), "to summarise"),),
         (H("to summarise", "frame_markers", (11, 23), "to summarise"),),
-        branch="present-our",
     ),
     C(
         "MD-09",
         "MD-C",
-        "keep",
+        "reverted",
         "To conclude, the policy failed.",
         "To conclude",
         (H("To conclude", "frame_markers", (0, 11), "to conclude"),),
         (H("To conclude", "frame_markers", (0, 11), "to conclude"),),
-        branch="initial",
     ),
     # MD-10: `by far` + superlative
     C(
         "MD-10",
         "MD-C",
-        "change",
+        "reverted",
         "It is by far the largest lake in the country.",
         "by far",
-        None,
+        (H("by far", "frame_markers", (6, 12), "by far"),),
         (H("by far", "frame_markers", (6, 12), "by far"),),
     ),
     # outside the rule's scope, unchanged (no claim that this is a frame marker)
     C(
         "MD-10",
         "MD-C",
-        "keep",
+        "reverted",
         "The effect was larger by far.",
         "by far",
         (H("by far", "frame_markers", (22, 28), "by far"),),
@@ -495,19 +512,19 @@ CASES = [
     C(
         "MD-11",
         "MD-C",
-        "change",
+        "reverted",
         "Leave a comment on the discussion page first.",
         "page",
-        None,
+        (H("page", "endophoric_markers", (34, 38), "page"),),
         (H("page", "endophoric_markers", (34, 38), "page"),),
     ),
     C(
         "MD-11",
         "MD-C",
-        "change",
+        "reverted",
         "The answer is on page one.",
         "page",
-        None,
+        (H("page", "endophoric_markers", (17, 21), "page"),),
         (H("page", "endophoric_markers", (17, 21), "page"),),
     ),
     # MD-11, multiword markers (audit S3)
@@ -515,44 +532,52 @@ CASES = [
     C(
         "MD-11",
         "MD-C",
-        "change",
+        "reverted",
         "We discuss the report in section 2.",
         "in section 2",
-        (H("in section", "endophoric_markers", (22, 32), "in section"),),
+        None,
         None,
     ),
     C(
         "MD-11",
         "MD-C",
-        "change",
+        "reverted",
         "The proof is given in chapter IV.",
         "in chapter IV",
-        (H("in chapter", "endophoric_markers", (19, 29), "in chapter"),),
+        None,
         None,
     ),
     C(
         "MD-11",
         "MD-C",
-        "change",
+        "reverted",
         "For details see table S2.",
         "see table S2",
-        (H("see table", "endophoric_markers", (12, 21), "see table"),),
+        (H("table", "endophoric_markers", (16, 21), "table"),),
         (H("table", "endophoric_markers", (16, 21), "table"),),
     ),
     C(
         "MD-11",
         "MD-C",
-        "keep",
+        "reverted",
         "The full results appear in Table S4.",
         "Table",
         (H("Table", "endophoric_markers", (27, 32), "table"),),
         (H("Table", "endophoric_markers", (27, 32), "table"),),
     ),
-    C("MD-11", "MD-C", "keep", "The story is told in chapter one.", "in chapter one", None, None),
     C(
         "MD-11",
         "MD-C",
-        "keep",
+        "reverted",
+        "The story is told in chapter one.",
+        "in chapter one",
+        None,
+        None,
+    ),
+    C(
+        "MD-11",
+        "MD-C",
+        "reverted",
         "What we read in part I forget.",
         "in part I",
         (H("I", "self_mentions", (21, 22), "i"),),
@@ -562,25 +587,25 @@ CASES = [
     C(
         "MD-12",
         "MD-C",
-        "change",
+        "reverted",
         "The valley looked green from below.",
         "below",
-        None,
+        (H("below", "endophoric_markers", (29, 34), "below"),),
         (H("below", "endophoric_markers", (29, 34), "below"),),
     ),
     C(
         "MD-12",
         "MD-C",
-        "change",
+        "reverted",
         "The offer applies to people aged 60 and above.",
         "above",
-        None,
+        (H("above", "endophoric_markers", (40, 45), "above"),),
         (H("above", "endophoric_markers", (40, 45), "above"),),
     ),
     C(
         "MD-12",
         "MD-C",
-        "keep",
+        "reverted",
         "The results, as above, favour the second model.",
         "above",
         (H("above", "endophoric_markers", (16, 21), "above"),),
@@ -589,7 +614,7 @@ CASES = [
     C(
         "MD-12",
         "MD-C",
-        "keep",
+        "reverted",
         "The scores, as shown below, rose steadily.",
         "below",
         (H("shown below", "endophoric_markers", (15, 26), "shown below"),),
@@ -600,7 +625,7 @@ CASES = [
     C(
         "MD-12",
         "MD-C",
-        "retain",
+        "reverted",
         "As discussed above and below, the estimates differ.",
         "above and below",
         (
@@ -616,7 +641,7 @@ CASES = [
     C(
         "MD-12",
         "MD-C",
-        "retain",
+        "reverted",
         "The evidence presented above and below supports our conclusion.",
         "above and below",
         (
@@ -632,16 +657,16 @@ CASES = [
     C(
         "MD-30",
         "MD-C",
-        "change",
+        "reverted",
         "The questionnaire is given in full (see Appendix B).",
         "see",
-        (H("see", "endophoric_markers", (36, 39), "see"),),
+        (H("see", "engagement_markers", (36, 39), "see"),),
         (H("see", "engagement_markers", (36, 39), "see"),),
     ),
     C(
         "MD-30",
         "MD-C",
-        "keep",
+        "reverted",
         "The method is standard (see Smith 2010).",
         "see",
         (H("see", "engagement_markers", (24, 27), "see"),),
@@ -834,203 +859,189 @@ CASES = [
         (H("indeed", "boosters", (17, 23), "indeed"),),
         (H("indeed", "boosters", (17, 23), "indeed"),),
     ),
-    # --- MD-E: sources and evidentials --------------------------------------------
+    # --- MD-E: sources and evidentials, reverted to 0.3.3 -------------------------
     # MD-16: not with the present text or study as object
     C(
         "MD-16",
         "MD-E",
-        "change",
+        "reverted",
         "According to this study, rents rose.",
         "According to",
-        None,
         (H("According to", "evidentials", (0, 12), "according to"),),
-        branch="present-this",
+        (H("According to", "evidentials", (0, 12), "according to"),),
     ),
     C(
         "MD-16",
         "MD-E",
-        "change",
+        "reverted",
         "Based on our results, we recommend reform.",
         "Based on",
-        None,
         (H("Based on", "evidentials", (0, 8), "based on"),),
-        branch="present-our",
+        (H("Based on", "evidentials", (0, 8), "based on"),),
     ),
     C(
         "MD-16",
         "MD-E",
-        "keep",
+        "reverted",
         "According to Smith, the canal opened in 1820.",
         "According to",
         (H("According to", "evidentials", (0, 12), "according to"),),
         (H("According to", "evidentials", (0, 12), "according to"),),
-        branch="name",
     ),
     # a demonstrative doesn't make a person the present work
     # audit-derived (B1)
     C(
         "MD-16",
         "MD-E",
-        "keep",
+        "reverted",
         "According to this historian, the treaty failed.",
         "According to",
         (H("According to", "evidentials", (0, 12), "according to"),),
         (H("According to", "evidentials", (0, 12), "according to"),),
-        branch="person-noun",
     ),
     # MD-16 source-object whitelist removed (audit B1/S6)
     # audit-derived (S6)
     C(
         "MD-16",
         "MD-E",
-        "retain",
+        "reverted",
         "According to the textbook, the reaction is reversible.",
         "According to",
         (H("According to", "evidentials", (0, 12), "according to"),),
         (H("According to", "evidentials", (0, 12), "according to"),),
-        branch="whitelist-removed",
     ),
     # audit-derived (S6)
     C(
         "MD-16",
         "MD-E",
-        "retain",
+        "reverted",
         "According to the witness, the door was open.",
         "According to",
         (H("According to", "evidentials", (0, 12), "according to"),),
         (H("According to", "evidentials", (0, 12), "according to"),),
-        branch="whitelist-removed",
     ),
     # MD-17: the present study as subject is not a source
     C(
         "MD-17",
         "MD-E",
-        "change",
+        "reverted",
         "This study shows that rents rose.",
         "shows",
-        (H("shows", "boosters", (11, 16), "shows"),),
         (H("shows that", "evidentials", (11, 21), "shows that"),),
-        branch="present-study",
+        (H("shows that", "evidentials", (11, 21), "shows that"),),
     ),
     C(
         "MD-17",
         "MD-E",
-        "change",
+        "reverted",
         "This analysis suggests that rents rose.",
         "suggests",
-        (H("suggests", "hedges", (14, 22), "suggests"),),
         (H("suggests that", "evidentials", (14, 27), "suggests that"),),
-        branch="present-analysis",
+        (H("suggests that", "evidentials", (14, 27), "suggests that"),),
     ),
     # MD-17 in the MD-18 path: the present study's verb is not moved to evidentials
     C(
         "MD-17",
         "MD-E",
-        "keep",
+        "reverted",
         "These findings suggest that rents rose.",
         "suggest",
         (H("suggest", "hedges", (15, 22), "suggest"),),
         (H("suggest", "hedges", (15, 22), "suggest"),),
-        branch="present-hedge-path",
     ),
     # a source noun with `this`/`current` stays a source
     # audit-derived (B1)
     C(
         "MD-17",
         "MD-E",
-        "keep",
+        "reverted",
         "This scientist argues that the result is false.",
         "argues",
         (H("argues that", "evidentials", (15, 26), "argues that"),),
         (H("argues that", "evidentials", (15, 26), "argues that"),),
-        branch="person-noun",
     ),
     # audit-derived (B1)
     C(
         "MD-17",
         "MD-E",
-        "keep",
+        "reverted",
         "The current literature suggests a different explanation.",
         "suggests",
         (H("suggests", "evidentials", (23, 31), "suggests"),),
         (H("suggests", "evidentials", (23, 31), "suggests"),),
-        branch="source-noun",
     ),
     # MD-18: reporting verbs with a source subject are evidentials
     C(
         "MD-18",
         "MD-E",
-        "change",
+        "reverted",
         "Johnson (2015) suggested that the tax was unfair.",
         "suggested",
-        (H("suggested", "evidentials", (15, 24), "suggested"),),
         (H("suggested", "hedges", (15, 24), "suggested"),),
-        branch="direct-name",
+        (H("suggested", "hedges", (15, 24), "suggested"),),
     ),
     C(
         "MD-18",
         "MD-E",
-        "change",
+        "reverted",
         "Smith tested the claim and argued that it failed.",
         "argued",
-        (H("argued", "evidentials", (27, 33), "argued"),),
         (H("argued", "hedges", (27, 33), "argued"),),
-        branch="coordinated-verb",
+        (H("argued", "hedges", (27, 33), "argued"),),
     ),
     C(
         "MD-18",
         "MD-E",
-        "keep",
+        "reverted",
         "I suggested that the tax was unfair.",
         "suggested",
         (H("suggested", "hedges", (2, 11), "suggested"),),
         (H("suggested", "hedges", (2, 11), "suggested"),),
-        branch="writer",
     ),
     # MD-19: narrated discovery, `find out`
     C(
         "MD-19",
         "MD-E",
-        "change",
+        "reverted",
         "When she opened the box, she found that it was empty.",
         "found",
-        None,
+        (H("found", "boosters", (29, 34), "found"),),
         (H("found", "boosters", (29, 34), "found"),),
     ),
     C(
         "MD-19",
         "MD-E",
-        "change",
+        "reverted",
         "We found out that the shop was closed.",
         "found",
-        None,
+        (H("found", "boosters", (3, 8), "found"),),
         (H("found", "boosters", (3, 8), "found"),),
     ),
     # guidelines example (Study 4 labelling guidelines A4)
     C(
         "MD-19",
         "MD-E",
-        "keep",
+        "reverted",
         "We found that response times doubled in every group.",
         "found",
         (H("found", "boosters", (3, 8), "found"),),
         (H("found", "boosters", (3, 8), "found"),),
     ),
-    # --- MD-F: stance -----------------------------------------------------------------
+    # --- MD-F: stance, reverted to 0.3.3 ------------------------------------------
     # MD-20: `not always`
     C(
         "MD-20",
         "MD-F",
-        "change",
+        "reverted",
         "Such reforms do not always succeed.",
         "always",
-        (H("always", "hedges", (20, 26), "always"),),
+        (H("always", "boosters", (20, 26), "always"),),
         (H("always", "boosters", (20, 26), "always"),),
     ),
     C(
         "MD-20",
         "MD-F",
-        "keep",
+        "reverted",
         "Such reforms always fail.",
         "always",
         (H("always", "boosters", (13, 19), "always"),),
@@ -1040,119 +1051,111 @@ CASES = [
     C(
         "MD-22",
         "MD-F",
-        "change",
+        "reverted",
         "She explained the rules clearly.",
         "clearly",
-        None,
         (H("clearly", "boosters", (24, 31), "clearly"),),
-        branch="manner",
+        (H("clearly", "boosters", (24, 31), "clearly"),),
     ),
     C(
         "MD-22",
         "MD-F",
-        "change",
+        "reverted",
         "They set a clearly defined goal.",
         "clearly",
-        None,
         (H("clearly", "boosters", (11, 18), "clearly"),),
-        branch="attributive",
+        (H("clearly", "boosters", (11, 18), "clearly"),),
     ),
     C(
         "MD-22",
         "MD-F",
-        "change",
+        "reverted",
         "The results very clearly show a trend.",
         "clearly",
-        None,
         (H("clearly", "boosters", (17, 24), "clearly"),),
-        branch="graded",
+        (H("clearly", "boosters", (17, 24), "clearly"),),
     ),
     C(
         "MD-22",
         "MD-F",
-        "keep",
+        "reverted",
         "Most surprisingly, the effect reversed.",
         "surprisingly",
         (H("surprisingly", "attitude_markers", (5, 17), "surprisingly"),),
         (H("surprisingly", "attitude_markers", (5, 17), "surprisingly"),),
-        branch="graded-initial",
     ),
     # guidelines example (Study 4 labelling guidelines A4)
     C(
         "MD-22",
         "MD-F",
-        "keep",
+        "reverted",
         "Clearly, the model fails here.",
         "Clearly",
         (H("Clearly", "boosters", (0, 7), "clearly"),),
         (H("Clearly", "boosters", (0, 7), "clearly"),),
-        branch="initial",
     ),
     # audit-derived (B10)
     C(
         "MD-22",
         "MD-F",
-        "keep",
+        "reverted",
         "The evidence proves, clearly, that the model is false.",
         "clearly",
         (H("clearly", "boosters", (21, 28), "clearly"),),
         (H("clearly", "boosters", (21, 28), "clearly"),),
-        branch="commas",
     ),
     # audit-derived (B10)
     C(
         "MD-22",
         "MD-F",
-        "keep",
+        "reverted",
         "The model failed, surprisingly, in every experiment.",
         "surprisingly",
         (H("surprisingly", "attitude_markers", (18, 30), "surprisingly"),),
         (H("surprisingly", "attitude_markers", (18, 30), "surprisingly"),),
-        branch="commas",
     ),
     C(
         "MD-22",
         "MD-F",
-        "keep",
+        "reverted",
         "The model failed, surprisingly.",
         "surprisingly",
         (H("surprisingly", "attitude_markers", (18, 30), "surprisingly"),),
         (H("surprisingly", "attitude_markers", (18, 30), "surprisingly"),),
-        branch="comma-final",
     ),
     # MD-23: `make (ADV) sure`; the writer as subject
     C(
         "MD-23",
         "MD-F",
-        "change",
+        "reverted",
         "Please make sure that the door is locked.",
         "sure",
-        None,
+        (H("sure", "boosters", (12, 16), "sure"),),
         (H("sure", "boosters", (12, 16), "sure"),),
     ),
     # audit-derived (S4)
     C(
         "MD-23",
         "MD-F",
-        "change",
+        "reverted",
         "It is impossible to make absolutely sure that it holds.",
         "sure",
-        None,
+        (H("sure", "boosters", (36, 40), "sure"),),
         (H("sure", "boosters", (36, 40), "sure"),),
     ),
     C(
         "MD-23",
         "MD-F",
-        "change",
+        "reverted",
         "They are sure that the vote was fair.",
         "sure",
-        None,
+        (H("sure", "boosters", (9, 13), "sure"),),
         (H("sure", "boosters", (9, 13), "sure"),),
     ),
     C(
         "MD-23",
         "MD-F",
-        "keep",
+        "reverted",
         "I am sure that the vote was fair.",
         "sure",
         (H("sure", "boosters", (5, 9), "sure"),),
@@ -1162,19 +1165,19 @@ CASES = [
     C(
         "MD-24",
         "MD-F",
-        "change",
+        "reverted",
         "There must surely be another explanation.",
         "must",
-        (H("must", "boosters", (6, 10), "must"),),
+        (H("must", "attitude_markers", (6, 10), "must"),),
         (H("must", "attitude_markers", (6, 10), "must"),),
     ),
     C(
         "MD-24",
         "MD-F",
-        "change",
+        "reverted",
         "Every member must have a valid card.",
         "must",
-        (H("must", "attitude_markers", (13, 17), "must"),),
+        (H("must", "boosters", (13, 17), "must"),),
         (H("must", "boosters", (13, 17), "must"),),
     ),
     # an adverb between `have` and the participle
@@ -1182,7 +1185,7 @@ CASES = [
     C(
         "MD-24",
         "MD-F",
-        "keep",
+        "reverted",
         "They must have surely been mistaken.",
         "must",
         (H("must", "boosters", (5, 9), "must"),),
@@ -1191,7 +1194,7 @@ CASES = [
     C(
         "MD-24",
         "MD-F",
-        "keep",
+        "reverted",
         "It must have been a mistake.",
         "must",
         (H("must", "boosters", (3, 7), "must"),),
@@ -1201,16 +1204,16 @@ CASES = [
     C(
         "MD-26",
         "MD-F",
-        "change",
+        "reverted",
         "Most voters agree with the plan.",
         "agree",
-        None,
+        (H("agree", "attitude_markers", (12, 17), "agree"),),
         (H("agree", "attitude_markers", (12, 17), "agree"),),
     ),
     C(
         "MD-26",
         "MD-F",
-        "keep",
+        "reverted",
         "I agree that the plan is fair.",
         "agree",
         (H("agree", "attitude_markers", (2, 7), "agree"),),
@@ -1221,75 +1224,71 @@ CASES = [
     C(
         "MD-27",
         "MD-F",
-        "change",
+        "reverted",
         "Scores are expected to rise.",
         "expected",
-        (H("expected", "hedges", (11, 19), "expected"),),
         (H("expected", "attitude_markers", (11, 19), "expected"),),
-        branch="to-infinitive",
+        (H("expected", "attitude_markers", (11, 19), "expected"),),
     ),
     C(
         "MD-27",
         "MD-F",
-        "keep",
+        "reverted",
         "The result was expected.",
         "expected",
         (H("expected", "attitude_markers", (15, 23), "expected"),),
         (H("expected", "attitude_markers", (15, 23), "expected"),),
-        branch="passive-no-complement",
     ),
     C(
         "MD-27",
         "MD-F",
-        "keep",
+        "reverted",
         "As expected, attendance fell.",
         "expected",
         (H("expected", "attitude_markers", (3, 11), "expected"),),
         (H("expected", "attitude_markers", (3, 11), "expected"),),
-        branch="as-expected",
     ),
     C(
         "MD-27",
         "MD-F",
-        "keep",
+        "reverted",
         "The expected profit was small.",
         "expected",
         None,
         None,
-        branch="attributive",
     ),
     # MD-28: non-epistemic `possible`
     C(
         "MD-28",
         "MD-F",
-        "change",
+        "reverted",
         "They gave the best possible answer.",
         "possible",
-        None,
+        (H("possible", "hedges", (19, 27), "possible"),),
         (H("possible", "hedges", (19, 27), "possible"),),
     ),
     C(
         "MD-28",
         "MD-F",
-        "change",
+        "reverted",
         "We tested all possible combinations.",
         "possible",
-        None,
+        (H("possible", "hedges", (14, 22), "possible"),),
         (H("possible", "hedges", (14, 22), "possible"),),
     ),
     C(
         "MD-28",
         "MD-F",
-        "change",
+        "reverted",
         "The grant made it possible to hire staff.",
         "possible",
-        None,
+        (H("possible", "hedges", (18, 26), "possible"),),
         (H("possible", "hedges", (18, 26), "possible"),),
     ),
     C(
         "MD-28",
         "MD-F",
-        "keep",
+        "reverted",
         "It is possible that the scale is faulty.",
         "possible",
         (H("possible", "hedges", (6, 14), "possible"),),
@@ -1300,7 +1299,7 @@ CASES = [
     C(
         "SX-03",
         "MD-F",
-        "retain",
+        "reverted",
         "In my view, compulsory voting is desirable for every democracy.",
         "desirable",
         (H("desirable", "attitude_markers", (33, 42), "desirable"),),
@@ -1309,140 +1308,137 @@ CASES = [
     C(
         "SX-03",
         "MD-F",
-        "retain",
+        "reverted",
         "Clean water is essential to human health.",
         "essential",
         (H("essential", "attitude_markers", (15, 24), "essential"),),
         (H("essential", "attitude_markers", (15, 24), "essential"),),
     ),
-    # --- MD-G: reader/writer forms and directives ----------------------------------
+    # --- MD-G: reader/writer forms and directives, reverted to 0.3.3 --------------
     # MD-29: infinitives, modals, relative and conditional clauses
     C(
         "MD-29",
         "MD-G",
-        "change",
+        "reverted",
         "Farmers need to consider the weather.",
         "consider",
-        None,
         (H("consider", "engagement_markers", (16, 24), "consider"),),
-        branch="infinitive",
+        (H("consider", "engagement_markers", (16, 24), "consider"),),
     ),
     C(
         "MD-29",
         "MD-G",
-        "change",
+        "reverted",
         "The birds we see in winter are mostly gulls.",
         "see",
-        None,
         (H("see", "engagement_markers", (13, 16), "see"),),
-        branch="relative",
+        (H("see", "engagement_markers", (13, 16), "see"),),
     ),
     C(
         "MD-29",
         "MD-G",
-        "change",
+        "reverted",
         "If you consider the cost, the plan fails.",
         "consider",
-        None,
         (H("consider", "engagement_markers", (7, 15), "consider"),),
-        branch="conditional",
+        (H("consider", "engagement_markers", (7, 15), "consider"),),
     ),
     C(
         "MD-29",
         "MD-G",
-        "change",
+        "reverted",
         "Visitors can rest here or consider the view.",
         "consider",
-        None,
         (H("consider", "engagement_markers", (26, 34), "consider"),),
-        branch="modal",
+        (H("consider", "engagement_markers", (26, 34), "consider"),),
     ),
     # the extraposition exception needs an attitude adjective
     # audit-derived (S4)
     C(
         "MD-29",
         "MD-G",
-        "change",
+        "reverted",
         "It is his job to consider every application.",
         "consider",
-        None,
         (H("consider", "engagement_markers", (17, 25), "consider"),),
-        branch="noun-predicate",
+        (H("consider", "engagement_markers", (17, 25), "consider"),),
     ),
     # audit-derived (S4)
     C(
         "MD-29",
         "MD-G",
-        "change",
+        "reverted",
         "It is unlikely to see a recovery this year.",
         "see",
-        None,
         (H("see", "engagement_markers", (18, 21), "see"),),
-        branch="non-directive-adjective",
+        (H("see", "engagement_markers", (18, 21), "see"),),
     ),
     C(
         "MD-29",
         "MD-G",
-        "keep",
+        "reverted",
         "Consider the case of a small farm.",
         "Consider",
         (H("Consider", "engagement_markers", (0, 8), "consider"),),
         (H("Consider", "engagement_markers", (0, 8), "consider"),),
-        branch="imperative",
     ),
     C(
         "MD-29",
         "MD-G",
-        "keep",
+        "reverted",
         "It is important to consider the weather.",
         "consider",
         (H("consider", "engagement_markers", (19, 27), "consider"),),
         (H("consider", "engagement_markers", (19, 27), "consider"),),
-        branch="importance",
     ),
     C(
         "MD-29",
         "MD-G",
-        "keep",
+        "reverted",
         "You will notice that the scale is logarithmic.",
         "notice",
         (H("notice that", "engagement_markers", (9, 20), "notice that"),),
         (H("notice that", "engagement_markers", (9, 20), "notice that"),),
-        branch="reader-subject",
     ),
     # MD-31: `US` the country unless the whole text is in capitals (audit M2); lower-case `i`
     C(
         "MD-31",
         "MD-G",
-        "change",
+        "reverted",
         "Exports to the US rose last year.",
         "US",
-        None,
         (H("US", "engagement_markers", (15, 17), "us"),),
+        (H("US", "engagement_markers", (15, 17), "us"),),
+        # with every family on, MD-I (kept) reads `US` + past tense as exclusive
+        # `us`, as in round 1 with MD-G off: MD-31 no longer drops it first
+        (H("US", "self_mentions", (15, 17), "us"),),
     ),
     # audit-derived (M2)
     C(
         "MD-31",
         "MD-G",
-        "change",
+        "reverted",
         "US IMPORTS FELL. This is normal.",
         "US",
-        None,
         (H("US", "engagement_markers", (0, 2), "us"),),
+        (H("US", "engagement_markers", (0, 2), "us"),),
+        # with every family on, MD-I (kept) reads `US` + past tense as exclusive
+        # `us`, as in round 1 with MD-G off: MD-31 no longer drops it first
+        (H("US", "self_mentions", (0, 2), "us"),),
     ),
     C(
         "MD-31",
         "MD-G",
-        "change",
+        "reverted",
         "Yesterday i went home.",
         "i",
-        None,
+        (H("i", "self_mentions", (10, 11), "i"),),
         (H("i", "self_mentions", (10, 11), "i"),),
     ),
     C(
         "MD-31",
         "MD-G",
-        "keep",
+        "reverted",
         "LET US NOW TURN TO THE SECOND QUESTION.",
         "LET US",
         (H("LET US", "engagement_markers", (0, 6), "let us"),),
@@ -1451,7 +1447,7 @@ CASES = [
     C(
         "MD-31",
         "MD-G",
-        "keep",
+        "reverted",
         "Let us now turn to the second question.",
         "us",
         (H("Let us", "engagement_markers", (0, 6), "let us"),),
@@ -2057,12 +2053,11 @@ CASES = [
     C(
         "MD-17",
         "MD-E",
-        "change",
+        "reverted",
         "This article shows that the policy failed.",
         "shows",
-        (H("shows", "boosters", (13, 18), "shows"),),
         (H("shows that", "evidentials", (13, 23), "shows that"),),
-        branch="present-article",
+        (H("shows that", "evidentials", (13, 23), "shows that"),),
     ),
     C(
         "MD-13",
@@ -2087,22 +2082,20 @@ CASES = [
     C(
         "MD-18",
         "MD-E",
-        "keep",
+        "reverted",
         "The data suggest a link.",
         "suggest",
         (H("suggest", "hedges", (9, 16), "suggest"),),
         (H("suggest", "hedges", (9, 16), "suggest"),),
-        branch="unowned-source",
     ),
     C(
         "MD-18",
         "MD-E",
-        "change",
+        "reverted",
         "Smith and Lee suggest that rents rose.",
         "suggest",
-        (H("suggest", "evidentials", (14, 21), "suggest"),),
         (H("suggest", "hedges", (14, 21), "suggest"),),
-        branch="coordinated-names",
+        (H("suggest", "hedges", (14, 21), "suggest"),),
     ),
     # Audit r2 (maintainer dispositions, AUDIT_R2_DISPOSITIONS.md). Constructed
     # sentences, except those marked "audit-derived (r2)".
@@ -2111,227 +2104,206 @@ CASES = [
     C(
         "MD-16",
         "MD-E",
-        "keep",
+        "reverted",
         "According to Smith's current study, the treatment is ineffective.",
         "According to",
         (H("According to", "evidentials", (0, 12), "according to"),),
         (H("According to", "evidentials", (0, 12), "according to"),),
-        branch="owner-name",
     ),
     # audit-derived (r2)
     C(
         "MD-16",
         "MD-E",
-        "keep",
+        "reverted",
         "According to their current model, rents will rise.",
         "According to",
         (H("According to", "evidentials", (0, 12), "according to"),),
         (H("According to", "evidentials", (0, 12), "according to"),),
-        branch="owner-pronoun",
     ),
     C(
         "MD-16",
         "MD-E",
-        "keep",
+        "reverted",
         "According to the authors' current study, rents rose.",
         "According to",
         (H("According to", "evidentials", (0, 12), "according to"),),
         (H("According to", "evidentials", (0, 12), "according to"),),
-        branch="owner-noun",
     ),
     # audit-derived (r2)
     C(
         "MD-16",
         "MD-E",
-        "keep",
+        "reverted",
         "According to this study by Smith, rents rose.",
         "According to",
         (H("According to", "evidentials", (0, 12), "according to"),),
         (H("According to", "evidentials", (0, 12), "according to"),),
-        branch="owner-by",
     ),
     C(
         "MD-16",
         "MD-E",
-        "change",
+        "reverted",
         "According to our current study, rents rose.",
         "According to",
-        None,
         (H("According to", "evidentials", (0, 12), "according to"),),
-        branch="present-current-our",
+        (H("According to", "evidentials", (0, 12), "according to"),),
     ),
     # a name in a topic phrase is not an owner
     C(
         "MD-16",
         "MD-E",
-        "change",
+        "reverted",
         "According to this study of Smith's novels, rents rose.",
         "According to",
-        None,
         (H("According to", "evidentials", (0, 12), "according to"),),
-        branch="topic-pp",
+        (H("According to", "evidentials", (0, 12), "according to"),),
     ),
     # audit-derived (r2)
     C(
         "MD-17",
         "MD-E",
-        "keep",
+        "reverted",
         "Smith's current study suggests that the treatment is ineffective.",
         "suggests",
         (H("suggests that", "evidentials", (22, 35), "suggests that"),),
         (H("suggests that", "evidentials", (22, 35), "suggests that"),),
-        branch="owner-name",
     ),
     # audit-derived (r2)
     C(
         "MD-17",
         "MD-E",
-        "keep",
+        "reverted",
         "This study by Smith shows that rents rose.",
         "shows",
         (H("shows that", "evidentials", (20, 30), "shows that"),),
         (H("shows that", "evidentials", (20, 30), "shows that"),),
-        branch="owner-by",
     ),
     C(
         "MD-17",
         "MD-E",
-        "change",
+        "reverted",
         "Our current study shows that rents rose.",
         "shows",
-        (H("shows", "boosters", (18, 23), "shows"),),
         (H("shows that", "evidentials", (18, 28), "shows that"),),
-        branch="present-current-our",
+        (H("shows that", "evidentials", (18, 28), "shows that"),),
     ),
     C(
         "MD-17",
         "MD-E",
-        "change",
+        "reverted",
         "This study by us shows that rents rose.",
         "shows",
-        (H("shows", "boosters", (17, 22), "shows"),),
         (H("shows that", "evidentials", (17, 27), "shows that"),),
-        branch="owner-by-us",
+        (H("shows that", "evidentials", (17, 27), "shows that"),),
     ),
     # audit-derived (r2)
     C(
         "MD-08",
         "MD-C",
-        "change",
+        "reverted",
         "The aim of Smith's current study is to conclude the investigation.",
         "The aim",
-        None,
         (H("The aim", "frame_markers", (0, 7), "the aim"),),
-        branch="owner-name",
+        (H("The aim", "frame_markers", (0, 7), "the aim"),),
     ),
     # audit-derived (r2)
     C(
         "MD-09",
         "MD-C",
-        "change",
+        "reverted",
         "The aim of Smith's current study is to conclude the investigation.",
         "to conclude",
-        None,
         (H("to conclude", "frame_markers", (36, 47), "to conclude"),),
-        branch="owner-name",
+        (H("to conclude", "frame_markers", (36, 47), "to conclude"),),
     ),
     C(
         "MD-08",
         "MD-C",
-        "keep",
+        "reverted",
         "The aim of our current study is to compare two methods.",
         "The aim",
         (H("The aim", "frame_markers", (0, 7), "the aim"),),
         (H("The aim", "frame_markers", (0, 7), "the aim"),),
-        branch="present-current-our",
     ),
     # A2: a self-mention text noun as the object of `according to`
     C(
         "MD-16",
         "MD-E",
-        "change",
+        "reverted",
         "According to this thesis, the policy failed.",
         "According to",
-        None,
         (H("According to", "evidentials", (0, 12), "according to"),),
-        branch="present-thesis",
+        (H("According to", "evidentials", (0, 12), "according to"),),
     ),
     # R2-B2: the nominal branch of MD-18 needs a source noun
     # audit-derived (r2)
     C(
         "MD-18",
         "MD-E",
-        "change",
+        "reverted",
         "Smith's study suggested that rents rose.",
         "suggested",
-        (H("suggested", "evidentials", (14, 23), "suggested"),),
         (H("suggested", "hedges", (14, 23), "suggested"),),
-        branch="nominal-source-possessor",
+        (H("suggested", "hedges", (14, 23), "suggested"),),
     ),
     C(
         "MD-18",
         "MD-E",
-        "change",
+        "reverted",
         "The Smith study suggested a link.",
         "suggested",
-        (H("suggested", "evidentials", (16, 25), "suggested"),),
         (H("suggested", "hedges", (16, 25), "suggested"),),
-        branch="nominal-source-compound",
+        (H("suggested", "hedges", (16, 25), "suggested"),),
     ),
     # audit-derived (r2)
     C(
         "MD-18",
         "MD-E",
-        "keep",
+        "reverted",
         "John's temperature suggests that he has an infection.",
         "suggests",
         (H("suggests", "hedges", (19, 27), "suggests"),),
         (H("suggests", "hedges", (19, 27), "suggests"),),
-        branch="non-source-owned",
     ),
     # audit-derived (r2)
     C(
         "MD-18",
         "MD-E",
-        "keep",
+        "reverted",
         "John's face suggests that he is angry.",
         "suggests",
         (H("suggests", "hedges", (12, 20), "suggests"),),
         (H("suggests", "hedges", (12, 20), "suggests"),),
-        branch="non-source-owned",
     ),
     # R2-B3: passive `expected` with a finite clause hedges too
     # audit-derived (r2)
     C(
         "MD-27",
         "MD-F",
-        "change",
+        "reverted",
         "It is expected that scores will rise.",
         "expected",
-        (H("expected", "hedges", (6, 14), "expected"),),
         (H("expected", "attitude_markers", (6, 14), "expected"),),
-        branch="finite-clause",
+        (H("expected", "attitude_markers", (6, 14), "expected"),),
     ),
     # audit-derived (r2)
     C(
         "MD-27",
         "MD-F",
-        "change",
+        "reverted",
         "It was widely expected that prices would fall.",
         "expected",
-        (H("expected", "hedges", (14, 22), "expected"),),
         (H("expected", "attitude_markers", (14, 22), "expected"),),
-        branch="finite-clause-adverb",
+        (H("expected", "attitude_markers", (14, 22), "expected"),),
     ),
     C(
         "MD-27",
         "MD-F",
-        "change",
+        "reverted",
         "The expected value is 3.",
         "expected",
-        None,
         (H("expected", "attitude_markers", (4, 12), "expected"),),
-        branch="attributive",
+        (H("expected", "attitude_markers", (4, 12), "expected"),),
     ),
     # R2-S1: a straight single opening quote opens the clause
     # audit-derived (r2)
@@ -2493,86 +2465,78 @@ CASES = [
     C(
         "MD-22",
         "MD-F",
-        "keep",
+        "reverted",
         "The evidence proves (clearly) that the model is false.",
         "clearly",
         (H("clearly", "boosters", (21, 28), "clearly"),),
         (H("clearly", "boosters", (21, 28), "clearly"),),
-        branch="brackets",
     ),
     C(
         "MD-22",
         "MD-F",
-        "keep",
+        "reverted",
         "The evidence proves (very clearly) that the model is false.",
         "clearly",
         (H("clearly", "boosters", (26, 33), "clearly"),),
         (H("clearly", "boosters", (26, 33), "clearly"),),
-        branch="brackets",
     ),
     # audit-derived (r2)
     C(
         "MD-22",
         "MD-F",
-        "keep",
+        "reverted",
         "The evidence proves—clearly—that the model is false.",
         "clearly",
         (H("clearly", "boosters", (20, 27), "clearly"),),
         (H("clearly", "boosters", (20, 27), "clearly"),),
-        branch="dashes",
     ),
     C(
         "MD-22",
         "MD-F",
-        "keep",
+        "reverted",
         "The evidence proves - clearly - that the model is false.",
         "clearly",
         (H("clearly", "boosters", (22, 29), "clearly"),),
         (H("clearly", "boosters", (22, 29), "clearly"),),
-        branch="dashes",
     ),
     C(
         "MD-22",
         "MD-F",
-        "change",
+        "reverted",
         "The model failed — surprisingly.",
         "surprisingly",
-        None,
         (H("surprisingly", "attitude_markers", (19, 31), "surprisingly"),),
-        branch="single-dash",
+        (H("surprisingly", "attitude_markers", (19, 31), "surprisingly"),),
     ),
     # R2-S3: only adjectives of importance or necessity make a directive frame
     # audit-derived (r2)
     C(
         "MD-29",
         "MD-G",
-        "change",
+        "reverted",
         "It is unfortunate to see children suffer.",
         "see",
-        None,
         (H("see", "engagement_markers", (21, 24), "see"),),
-        branch="affective",
+        (H("see", "engagement_markers", (21, 24), "see"),),
     ),
     # audit-derived (r2)
     C(
         "MD-29",
         "MD-G",
-        "change",
+        "reverted",
         "It is usual to see gulls on this coast.",
         "see",
-        None,
         (H("see", "engagement_markers", (15, 18), "see"),),
-        branch="habitual",
+        (H("see", "engagement_markers", (15, 18), "see"),),
     ),
     C(
         "MD-29",
         "MD-G",
-        "keep",
+        "reverted",
         "It is essential to note the date.",
         "note",
         (H("note", "engagement_markers", (19, 23), "note"),),
         (H("note", "engagement_markers", (19, 23), "note"),),
-        branch="necessity",
     ),
     # R2-S4: apostrophes and closing marks inside a curly single quotation
     # audit-derived (r2)
@@ -2646,11 +2610,205 @@ CASES = [
         (H("We", "engagement_markers", (39, 41), "we"),),
         branch="unmatched-possessive",
     ),
+    # --- reverted families: known limitations of their round-1 rules -------------
+    # The 0.3.3 output, which the reverted families now leave unchanged.
+    # audit-derived (B8)
+    C(
+        "MD-12",
+        "MD-C",
+        "reverted",
+        "The lights shone above and below the bridge.",
+        "above",
+        "endophoric_markers",
+        "endophoric_markers",
+    ),
+    C(
+        "MD-16",
+        "MD-E",
+        "reverted",
+        "The books are arranged according to size.",
+        "according to",
+        "evidentials",
+        "evidentials",
+    ),
+    C(
+        "MD-16",
+        "MD-E",
+        "reverted",
+        "Patients were grouped based on age.",
+        "based on",
+        "evidentials",
+        "evidentials",
+    ),
+    C(
+        "SX-03",
+        "MD-F",
+        "reverted",
+        "This protein is important for muscle repair.",
+        "important",
+        "attitude_markers",
+        "attitude_markers",
+    ),
+    C(
+        "MD-08",
+        "MD-C",
+        "reverted",
+        "The aim of this essay is to compare two cities.",
+        "The aim",
+        "frame_markers",
+        "frame_markers",
+    ),
+    C(
+        "MD-09",
+        "MD-C",
+        "reverted",
+        "Our goal is to summarise the debate.",
+        "to summarise",
+        "frame_markers",
+        "frame_markers",
+    ),
+    C(
+        "MD-17",
+        "MD-E",
+        "reverted",
+        "This result shows that rents rose.",
+        "shows",
+        (("shows that", "evidentials"),),
+        (("shows that", "evidentials"),),
+    ),
+    C(
+        "MD-29",
+        "MD-G",
+        "reverted",
+        "It is useful to imagine a world without roads.",
+        "imagine",
+        "engagement_markers",
+        "engagement_markers",
+    ),
+    C(
+        "MD-27",
+        "MD-F",
+        "reverted",
+        "Students are expected to attend every class.",
+        "expected",
+        "attitude_markers",
+        "attitude_markers",
+    ),
+    C(
+        "MD-11",
+        "MD-C",
+        "reverted",
+        "In Chapter V of his treatise, Locke argues that labour creates property.",
+        "In Chapter",
+        None,
+        None,
+    ),
+    C(
+        "MD-03",
+        "MD-A",
+        "reverted",
+        "While admitting the risks, the board approved the plan.",
+        "While",
+        "transitions",
+        "transitions",
+    ),
+    C(
+        "MD-03",
+        "MD-A",
+        "reverted",
+        "Since we arrived, it has rained every day.",
+        "Since",
+        "transitions",
+        "transitions",
+    ),
+    C(
+        "MD-19",
+        "MD-E",
+        "reverted",
+        "Smith and Lee tested the claim, and they found that it held.",
+        "found",
+        "boosters",
+        "boosters",
+    ),
+    C(
+        "MD-24",
+        "MD-F",
+        "reverted",
+        "He must not have seen the sign.",
+        "must",
+        "attitude_markers",
+        "attitude_markers",
+    ),
+    C(
+        "MD-29",
+        "MD-G",
+        "reverted",
+        "It is necessary to consider the cost.",
+        "consider",
+        "engagement_markers",
+        "engagement_markers",
+    ),
+    C(
+        "MD-29",
+        "MD-G",
+        "reverted",
+        "It is crucial to note the date.",
+        "note",
+        "engagement_markers",
+        "engagement_markers",
+    ),
+    C(
+        "MD-08",
+        "MD-C",
+        "reverted",
+        "The aim of this study by Smith is to compare two methods.",
+        "The aim",
+        "frame_markers",
+        "frame_markers",
+    ),
+    C(
+        "MD-18",
+        "MD-E",
+        "reverted",
+        "The NHANES data suggest a link.",
+        "suggest",
+        "hedges",
+        "hedges",
+    ),
+    C(
+        "MD-18",
+        "MD-E",
+        "reverted",
+        "Smith's team argued that the method failed.",
+        "argued",
+        "hedges",
+        "hedges",
+    ),
+    C(
+        "MD-27",
+        "MD-F",
+        "reverted",
+        "It is expected that employees wear helmets.",
+        "expected",
+        "attitude_markers",
+        "attitude_markers",
+    ),
+    C(
+        "MD-22",
+        "MD-F",
+        "reverted",
+        "The evidence proves clearly that the model is false.",
+        "clearly",
+        "boosters",
+        "boosters",
+    ),
 ]
 
 
 # Rule ids the cases must cover exactly: every rule of the candidate ledger, and
-# the rules removed after audit r1, which keep 0.3.3 behaviour.
+# the rules removed after audit r1, which keep 0.3.3 behaviour. The rules of the
+# reverted families are covered by "reverted" cases only (SX-03, removed after
+# audit r1, is one of them: it belongs to MD-F).
 RULES = (
     {f"MD-{n:02d}" for n in range(1, 33)}
     | {f"PH-{n:02d}" for n in range(1, 14) if n not in (3, 7, 8)}
@@ -2660,24 +2818,9 @@ REMOVED = {"PH-03", "PH-07", "PH-08", "SX-03"}
 
 # Multi-branch rules touched by the audit r1 addendum (A1-A3) and audit r2: the
 # branches their cases must cover, and the kinds each needs. Every case of these
-# rules names its branch.
+# rules names its branch. The rules of the reverted families are not listed:
+# their branches no longer exist.
 BRANCHES: dict[str, dict[str, set[str]]] = {
-    "MD-08": {
-        "not-present": {"change"},
-        "relative-clause": {"change"},
-        "owner-name": {"change"},
-        "present-of": {"keep"},
-        "here": {"keep"},
-        "present-current-our": {"keep"},
-    },
-    "MD-09": {
-        "verb-complement": {"change"},
-        "other-goal": {"change"},
-        "owner-name": {"change"},
-        "present-of": {"keep"},
-        "present-our": {"keep"},
-        "initial": {"keep"},
-    },
     "MD-13": {
         "relative": {"change"},
         "sentence-start": {"change"},
@@ -2710,76 +2853,6 @@ BRANCHES: dict[str, dict[str, set[str]]] = {
         "rewording-quoted-straight-single": {"change"},
         "rewording-final": {"keep"},
         "rewording-quoted": {"keep"},
-    },
-    "MD-16": {
-        "present-this": {"change"},
-        "present-our": {"change"},
-        "present-current-our": {"change"},
-        "present-thesis": {"change"},
-        "topic-pp": {"change"},
-        "name": {"keep"},
-        "person-noun": {"keep"},
-        "owner-name": {"keep"},
-        "owner-pronoun": {"keep"},
-        "owner-noun": {"keep"},
-        "owner-by": {"keep"},
-        "whitelist-removed": {"retain"},
-    },
-    "MD-17": {
-        "present-study": {"change"},
-        "present-analysis": {"change"},
-        "present-article": {"change"},
-        "present-current-our": {"change"},
-        "owner-by-us": {"change"},
-        "present-hedge-path": {"keep"},
-        "person-noun": {"keep"},
-        "source-noun": {"keep"},
-        "owner-name": {"keep"},
-        "owner-by": {"keep"},
-    },
-    "MD-18": {
-        "direct-name": {"change"},
-        "coordinated-verb": {"change"},
-        "coordinated-names": {"change"},
-        "nominal-source-possessor": {"change"},
-        "nominal-source-compound": {"change"},
-        "writer": {"keep"},
-        "unowned-source": {"keep"},
-        "non-source-owned": {"keep"},
-    },
-    "MD-22": {
-        "manner": {"change"},
-        "attributive": {"change"},
-        "graded": {"change"},
-        "single-dash": {"change"},
-        "graded-initial": {"keep"},
-        "initial": {"keep"},
-        "commas": {"keep"},
-        "comma-final": {"keep"},
-        "brackets": {"keep"},
-        "dashes": {"keep"},
-    },
-    "MD-27": {
-        "to-infinitive": {"change"},
-        "finite-clause": {"change"},
-        "finite-clause-adverb": {"change"},
-        "attributive": {"change", "keep"},
-        "as-expected": {"keep"},
-        "passive-no-complement": {"keep"},
-    },
-    "MD-29": {
-        "infinitive": {"change"},
-        "relative": {"change"},
-        "conditional": {"change"},
-        "modal": {"change"},
-        "noun-predicate": {"change"},
-        "non-directive-adjective": {"change"},
-        "affective": {"change"},
-        "habitual": {"change"},
-        "imperative": {"keep"},
-        "importance": {"keep"},
-        "necessity": {"keep"},
-        "reader-subject": {"keep"},
     },
     "MD-32": {
         "straight-double": {"change"},
@@ -2852,16 +2925,6 @@ LIMITATIONS = [
         None,
         "comparative AS LONG AS with no multiplier counts",
     ),
-    # audit-derived (B8)
-    (
-        "MD-12",
-        "MD-C",
-        "The lights shone above and below the bridge.",
-        "above",
-        "endophoric_markers",
-        None,
-        "removed: spatial coordinated `above` counts as endophoric",
-    ),
     # audit-derived (B9)
     (
         "MD-15",
@@ -2873,33 +2936,6 @@ LIMITATIONS = [
         "removed: phrasal `called off` counts as a code gloss",
     ),
     (
-        "MD-16",
-        "MD-E",
-        "The books are arranged according to size.",
-        "according to",
-        "evidentials",
-        None,
-        "removed: `according to` + a criterion counts as an evidential",
-    ),
-    (
-        "MD-16",
-        "MD-E",
-        "Patients were grouped based on age.",
-        "based on",
-        "evidentials",
-        None,
-        "removed: `based on` + a criterion counts as an evidential",
-    ),
-    (
-        "SX-03",
-        "MD-F",
-        "This protein is important for muscle repair.",
-        "important",
-        "attitude_markers",
-        None,
-        "removed: descriptive `important for` counts as attitude",
-    ),
-    (
         "SX-01",
         "MD-I",
         "Our survey had a low response rate.",
@@ -2907,62 +2943,6 @@ LIMITATIONS = [
         "engagement_markers",
         "self_mentions",
         "rolled back: exclusive `our` + a research noun outside the own-work class",
-    ),
-    # costs of the narrowed present-text recogniser (audit B1, S2)
-    (
-        "MD-08",
-        "MD-C",
-        "The aim of this essay is to compare two cities.",
-        "The aim",
-        {"all": None, "alone": None, "none": "frame_markers"},
-        "frame_markers",
-        "`essay` is outside the own-work class: the text goal is lost",
-    ),
-    (
-        "MD-09",
-        "MD-C",
-        "Our goal is to summarise the debate.",
-        "to summarise",
-        {"all": None, "alone": None, "none": "frame_markers"},
-        "frame_markers",
-        "`goal` is outside the own-work class: the stage label is lost",
-    ),
-    (
-        "MD-17",
-        "MD-E",
-        "This result shows that rents rose.",
-        "shows",
-        (("shows that", "evidentials"),),
-        (("shows", "boosters"),),
-        "singular `result` is outside the own-work class (writer's own result)",
-    ),
-    (
-        "MD-29",
-        "MD-G",
-        "It is useful to imagine a world without roads.",
-        "imagine",
-        {"all": None, "alone": None, "none": "engagement_markers"},
-        "engagement_markers",
-        "`useful` is not listed as an attitude marker: the directive is lost",
-    ),
-    # costs of other revised rules
-    (
-        "MD-27",
-        "MD-F",
-        "Students are expected to attend every class.",
-        "expected",
-        {"all": "hedges", "alone": "hedges", "none": "attitude_markers"},
-        None,
-        "deontic passive `expected` + to-infinitive is read as a hedge",
-    ),
-    (
-        "MD-11",
-        "MD-C",
-        "In Chapter V of his treatise, Locke argues that labour creates property.",
-        "In Chapter",
-        {"all": "endophoric_markers", "alone": "endophoric_markers", "none": None},
-        None,
-        "a labelled chapter of another work is read as endophoric",
     ),
     # other known costs
     (
@@ -2974,33 +2954,6 @@ LIMITATIONS = [
         "engagement_markers",
         "inclusive we with a past-tense verb is read as exclusive",
     ),
-    (
-        "MD-03",
-        "MD-A",
-        "While admitting the risks, the board approved the plan.",
-        "While",
-        {"all": None, "alone": None, "none": "transitions"},
-        "transitions",
-        "concessive while + participle is read as temporal",
-    ),
-    (
-        "MD-03",
-        "MD-A",
-        "Since we arrived, it has rained every day.",
-        "Since",
-        "transitions",
-        None,
-        "temporal finite since-clause counts as a transition",
-    ),
-    (
-        "MD-19",
-        "MD-E",
-        "Smith and Lee tested the claim, and they found that it held.",
-        "found",
-        {"all": None, "alone": None, "none": "boosters"},
-        "evidentials",
-        "they = cited authors: dropped rather than reassigned to evidentials",
-    ),
     # guidelines example (Study 4 labelling guidelines A4)
     # audit-derived (§5)
     (
@@ -3011,15 +2964,6 @@ LIMITATIONS = [
         "code_glosses",
         None,
         "degree word not straight after a determiner is read as a gloss",
-    ),
-    (
-        "MD-24",
-        "MD-F",
-        "He must not have seen the sign.",
-        "must",
-        "attitude_markers",
-        "boosters",
-        "negated epistemic perfect is read as obligation",
     ),
     # audit-derived (S5)
     (
@@ -3041,69 +2985,6 @@ LIMITATIONS = [
         "final rewording `that is` after a noun, parsed as relative (WDT)",
     ),
     # audit r2 dispositions
-    (
-        "MD-29",
-        "MD-G",
-        "It is necessary to consider the cost.",
-        "consider",
-        {"all": None, "alone": None, "none": "engagement_markers"},
-        "engagement_markers",
-        "`necessary` is not an attitude marker: the obligation directive is lost",
-    ),
-    (
-        "MD-29",
-        "MD-G",
-        "It is crucial to note the date.",
-        "note",
-        {"all": None, "alone": None, "none": "engagement_markers"},
-        "engagement_markers",
-        "`crucial` is not an attitude marker: the obligation directive is lost",
-    ),
-    (
-        "MD-08",
-        "MD-C",
-        "The aim of this study by Smith is to compare two methods.",
-        "The aim",
-        "frame_markers",
-        None,
-        "authorial `by` parsed on the goal noun, not the work noun: ownership unseen",
-    ),
-    (
-        "MD-18",
-        "MD-E",
-        "The NHANES data suggest a link.",
-        "suggest",
-        {"all": "evidentials", "alone": "evidentials", "none": "hedges"},
-        "hedges",
-        "a named dataset as owner is read as an outside source",
-    ),
-    (
-        "MD-18",
-        "MD-E",
-        "Smith's team argued that the method failed.",
-        "argued",
-        "hedges",
-        "evidentials",
-        "a person or group noun a name owns is outside the source-noun class: no evidential",
-    ),
-    (
-        "MD-27",
-        "MD-F",
-        "It is expected that employees wear helmets.",
-        "expected",
-        {"all": "hedges", "alone": "hedges", "none": "attitude_markers"},
-        None,
-        "deontic passive `expected` + finite clause is read as a hedge",
-    ),
-    (
-        "MD-22",
-        "MD-F",
-        "The evidence proves clearly that the model is false.",
-        "clearly",
-        {"all": None, "alone": None, "none": "boosters"},
-        "boosters",
-        "unpunctuated postverbal stance adverb is read as manner",
-    ),
     (
         "MD-32",
         "MD-H",
@@ -3186,25 +3067,32 @@ def test_with_no_family_gives_0_3_3(case):
 
 
 def test_cases_are_well_formed():
-    """Every change case can detect its rule disappearing, every retain case keeps
-    0.3.3, and every rule or removed rule has the cases its kind needs."""
+    """Every change case can detect its rule disappearing, every retain or
+    reverted case keeps 0.3.3, the cases of reverted families are exactly the
+    reverted cases, and every rule or removed rule has the cases its kind
+    needs."""
     by_rule: dict[str, set[str]] = {}
     for c in CASES:
         assert c.family in FAMILIES
-        assert c.kind in ("change", "keep", "retain")
+        assert c.kind in ("change", "keep", "retain", "reverted")
+        assert (c.kind == "reverted") == (c.family in REVERTED), c
         assert c.target in c.text
         want, before = _want(c.expected, c.target), _want(c.before, c.target)
         if c.kind == "change":
             assert want != before, c
-        if c.kind == "retain":
+        if c.kind in ("retain", "reverted"):
             assert want == before, c
         by_rule.setdefault(c.rule, set()).add(c.kind)
     assert set(by_rule) == RULES | REMOVED
     for rule, kinds in by_rule.items():
-        if rule in REMOVED:
+        if "reverted" in kinds:
+            assert kinds == {"reverted"}, rule
+        elif rule in REMOVED:
             assert kinds == {"retain"}, rule
         else:
             assert {"change", "keep"} <= kinds, rule
+    # every limitation belongs to a kept family
+    assert all(lim[1] not in REVERTED for lim in LIMITATIONS)
 
 
 def test_branches_are_covered():
@@ -3225,7 +3113,6 @@ def test_branches_are_covered():
 def test_straight_single_quote_opener():
     """Audit r2 S1: an opening straight single quote, not a possessive one."""
     from lexinspect._context import _opening_straight_single
-    from lexinspect._text import ensure
 
     def quote(text):
         return next(t for t in ensure(text, None).doc if t.text == "'")
@@ -3349,12 +3236,47 @@ def test_child_contexts_inherit_and_stay_isolated():
 
 
 def test_results_are_not_cached_across_switches():
-    text = "They studied rivers, lakes, and wetlands across the region."
-    on = overlapping("MD-A", text, "and")
+    text = "It became known as the null model."
+    on = overlapping("MD-D", text, "known as")
     with only([]):
-        off = overlapping("MD-A", text, "and")
-    assert (on, off) == ((), (("and", "transitions"),))
-    assert overlapping("MD-A", text, "and") == ()
+        off = overlapping("MD-D", text, "known as")
+    assert (on, off) == ((), (("known as", "code_glosses"),))
+    assert overlapping("MD-D", text, "known as") == ()
+
+
+# --- the reverted families -------------------------------------------------------
+
+
+def test_family_identities_are_unchanged():
+    """Round 2 keeps the original twelve family identities, reverted ones included."""
+    assert FAMILIES == LEDGER_FAMILIES
+    assert set(FAMILIES) >= REVERTED
+    with only(sorted(REVERTED)):
+        assert all(enabled(f) == (f in REVERTED) for f in FAMILIES)
+
+
+def _outputs(text: str, families) -> tuple:
+    """Both modules' complete outputs for `text` with exactly `families` on."""
+    a = ensure(text, None)
+    with only(families):
+        return metadiscourse.analyze(text, analysis=a), phrase.analyze(text, analysis=a)
+
+
+_PROBES = sorted({c.text for c in CASES} | {lim[2] for lim in LIMITATIONS})
+
+
+@pytest.mark.parametrize("family", sorted(REVERTED))
+def test_reverted_family_alone_gives_0_3_3(family):
+    """A reverted family's switch gates nothing: the family alone gives exactly
+    the output of no family, on every case and limitation text."""
+    for text in _PROBES:
+        assert _outputs(text, [family]) == _outputs(text, []), text
+
+
+def test_reverted_families_change_nothing_beside_kept_ones():
+    """With every family on, the output is that of the kept families alone."""
+    for text in _PROBES:
+        assert _outputs(text, FAMILIES) == _outputs(text, KEPT), text
 
 
 def test_phrase_is_counted_inside_quotations():

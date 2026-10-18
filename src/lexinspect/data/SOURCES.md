@@ -56,8 +56,6 @@ The context rules that decide when a listed marker counts live in `metadiscourse
 
 **Adaptation:** `this paper`, `this study` and similar phrases standing in for the writers are counted as self-mentions. Hyland (2005, p. 51) lists *the paper proposes* among frame markers. lexinspect files these under self-mentions because they refer to the writers' own work, the same convention the Study 4 labelling guidelines use.
 
-This adaptation is carried by the listed phrases themselves; the matcher resolves no reference. Where a 0.4.0 context check needs to know whether a noun phrase is the present text or study (evidentials, *the aim of …*), it uses a closed syntactic pattern, not a reference resolver: a head from the union of two pre-existing classes, the own-work list behind `our` + noun in `metadiscourse.py` (*results*, *study*, *analysis*, *data*, *model*, *paper* …) and the head nouns of the self-mentions above that name the text (adding *article* and *thesis*), with *this*, *these*, *our*, *my*, *present*, *current* or *here*, or a labelled part such as *Table 1*. An owner other than the writers overrides those words (*Smith's current study*, *their current model*, *this study by Smith*). Other phrases that refer to the present text (*this essay*, *this work*) are not recognised, and a demonstrative does not make an outside source the writer's own (*this historian*).
-
 **Caveat:** The marker lists are factual lexical inventories; the 10-category taxonomy is Hyland's intellectual contribution. Cite Hyland (2005) in any output. Numbers will not match Text Inspector's metadiscourse module: Text Inspector uses the Bax, Nakatsuhara & Waller (2019) 13-category extension, whose marker inventory is not public.
 
 ## phrase.json

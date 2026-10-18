@@ -6,10 +6,16 @@ with the Study 4 fix work). The fix-check measures each family alone against
 the 0.3.3 baseline, so every new rule asks `enabled(<its family>)` before it
 acts, and with no family enabled the matchers behave exactly as 0.3.3 did.
 
+After the first fix-check round six families were reverted to 0.3.3: MD-A,
+MD-B, MD-C, MD-E, MD-F and MD-G no longer have any rules. They stay in
+`FAMILIES` with their identities, because the fix-check's second round keeps
+the original family identities; their switches are valid names that gate
+nothing, so `only(["MD-A"])` behaves exactly as `only([])`.
+
 All twelve are on by default; that is the shipped behaviour. This is not part
 of the public API: it exists so the validation harness can run
 
-    with only(["MD-A"]):        # 0.3.3 plus one family
+    with only(["MD-D"]):        # 0.3.3 plus one family
         ...
     with only([]):              # 0.3.3
         ...
@@ -27,13 +33,13 @@ from contextlib import contextmanager
 from contextvars import ContextVar
 
 FAMILIES: tuple[str, ...] = (
-    "MD-A",  # clause linking and transitions
-    "MD-B",  # word-internal hyphens and brackets
-    "MD-C",  # frame and endophoric markers
+    "MD-A",  # clause linking and transitions (reverted to 0.3.3: gates nothing)
+    "MD-B",  # word-internal hyphens and brackets (reverted to 0.3.3: gates nothing)
+    "MD-C",  # frame and endophoric markers (reverted to 0.3.3: gates nothing)
     "MD-D",  # code glosses
-    "MD-E",  # sources and evidentials
-    "MD-F",  # stance: hedges, boosters, attitude
-    "MD-G",  # reader/writer forms and directives
+    "MD-E",  # sources and evidentials (reverted to 0.3.3: gates nothing)
+    "MD-F",  # stance: hedges, boosters, attitude (reverted to 0.3.3: gates nothing)
+    "MD-G",  # reader/writer forms and directives (reverted to 0.3.3: gates nothing)
     "MD-H",  # quotation (the writer's own voice)
     "MD-I",  # exclusive we
     "PH-A",  # USED TO and THAT IS
