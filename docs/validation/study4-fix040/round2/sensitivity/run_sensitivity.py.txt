@@ -1,0 +1,25 @@
+import sys, json, hashlib
+from pathlib import Path
+REPO = Path("/Users/quangnguyendang/webapps/lexinspect")
+sys.path.insert(0, str(REPO / "scripts/validation/study4_precision"))
+from fixcheck import accept
+R2 = Path("/Users/quangnguyendang/lexinspect-private/study4-fix040/round2")
+L = R2 / "labels"
+def run(name, files):
+    res = accept.acceptance_of(R2/"assign", R2/"sample", files, L/"adjudicator.jsonl", 2, [], flash_dir=R2/"assign/flash")
+    out = Path("/tmp/s4sens")/f"{name}.json"
+    out.write_text(json.dumps(res, indent=1, sort_keys=True, default=str))
+    print("==", name, "status", res["status"], "problems", res["procedure_problems"])
+    for m, mod in res["modules"].items():
+        print(" ", m, mod["status"], "certs", mod.get("breach_certificates"))
+        for c, r in mod["removal"].items():
+            if r["status"] == "computed":
+                print("    removal", c, "N", r["N"], "n", r["n"], "k", r["k_lo"], r["k_hi"], "bound %.4f" % r["bound"], r["passes"])
+        for c, r in mod["cumulative"].items():
+            print("    cumulative", c, {k: r.get(k) for k in ("fraction", "U_loss", "L_success", "passes") if k in r})
+    return res
+ctl = run("control_registered_A_B", {"A": L/"A.jsonl", "B": L/"B.jsonl"})
+reg = json.load(open(REPO/"docs/validation/study4-fix040/round2/accept/acceptance.json"))
+print("control modules == registered modules:", ctl["modules"] == reg["modules"])
+sb = run("S-B_B_as_A", {"A": L/"B.jsonl", "B": L/"B.jsonl"})
+print("reference sources S-B:", json.dumps(sb.get("reference_sources"))[:800])

@@ -2,6 +2,44 @@
 
 Every change to lexinspect's output is listed here, by version. Output is deterministic within a version (see [VALIDITY.md](VALIDITY.md#reproducibility)), so cite the version you ran. The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and versions follow [Semantic Versioning](https://semver.org/): until 1.0, a minor version may change output values.
 
+## [0.4.0] - 2026-10-19
+
+Tightens when a metadiscourse marker or a PHRASE List expression counts. The changes come from matcher errors found on the Study 4 development texts. Before release they met the numerical loss gates of a pre-registered check on texts never used in development. One labeller's harness showed it repository metadata the protocol says labellers must not see. This is disclosed below, with a sensitivity analysis. Output changes only in `metadiscourse` and `phrase`. Every other module gives the same output as 0.3.3. `schema_version` stays `2`.
+
+### Changed
+
+- **metadiscourse: quotation.** Markers between paired quotation marks within a paragraph no longer count. These are curly double, straight double and curly single quotes. Quoted words are usually someone else's voice, not the writer's. The known costs: scare quotes are excluded too, and two straight inch marks (`5"` … `6"`) can be read as a quotation pair. A possessive `’` (`the students’ work`) doesn't close a curly single quotation. Straight single quotes are not treated as quotation marks, so text inside them still counts.
+- **metadiscourse: code glosses.**
+  - `that is` no longer counts with relative *that* (`a method that is used`). Nor does it count when a demonstrative *that* opens its clause as the subject of *is* and a predicate follows (`That is not the point`, `but that is not`). After a comma (`Yes, that is not the point`), it can still be counted.
+  - `particularly` and `especially` don't count when they modify an adverb or a predicative adjective (`particularly cold`), or an attributive adjective straight after a determiner (`an especially good way`).
+  - `known as` doesn't count when the word straight before it is a form of *become*, *come* or *grow*. With an adverb in between (`became widely known as`), it still counts.
+  - `or indeed`, and `, indeed,` before a noun phrase, are read as code glosses (reformulation) rather than boosters.
+- **metadiscourse: exclusive *we*.** *We* and *us* are now self-mentions, not reader engagement, when their governing verb is past tense and is not *be* or *have* (`we recruited`). The earlier research-verb and own-work-noun rules, such as `our results`, are unchanged. The known costs: an inclusive `as we saw` is misread as a self-mention, and so is the country name in `the US rose`.
+- **phrase: USED TO and THAT IS.** USED TO (PAST) no longer matches after *be*, *get*, *become* or *grow*, or as a participle or modifier (`was used to drain`). USED TO (ACCUSTOMED) matches only after them. THAT IS follows the same two exclusions as the code gloss above. Otherwise it counts with or without punctuation around it, including when the tagger reads its *that* as an adverb.
+- **phrase: entry-specific constructions.**
+  - KIND OF counts only with no determiner or modifier on *kind* and an adjective, adverb, verb or punctuation after it (`kind of tired`, not `a kind of tool`). This also misses `kind of a genius`.
+  - WEALTH OF counts only straight after *a*/*an*, so `a great wealth of` is missed. A GOOD counts only before a number.
+  - IS TO doesn't count after a goal noun as subject (`the aim is to`).
+  - IN A WAY doesn't count with a relative clause, comparison or prepositional phrase after *way*.
+  - JUST AS doesn't count before an adjective or adverb (`just as tall`).
+  - AS LONG AS doesn't count after a numeral, *twice*, *half* or *times*.
+  - PUT IT doesn't count before a particle (`put it out`). GET OFF counts only with *off* as a particle, which wrongly drops `We got off the train` and keeps `He got off lightly` under the transport sense.
+- **phrase: matching form.** Nothing inside a hyphenated word counts (`in common-law countries`). The bare noun of a preposition + noun idiom doesn't inflect: IN PART doesn't match `in parts of`, and FOR GOOD doesn't match `for goods`.
+- The `metadiscourse` and `phrase` docstrings and README sections list the checks. Most other PHRASE entries have no entry-specific construction check, although the general form, tag and overlap rules still apply. Known gaps include THE CASE in `in the case of`. CAVEATS.md lists the known costs.
+
+### Validation
+
+- **Fix check.** The changes were grouped into twelve families and checked under a pre-registered protocol ([fix protocol](docs/validation/study4-fix-protocol.md), [clarifications](docs/validation/study4-fix-protocol-clarifications.md)). Each round used 60 new texts: 20 academic, 20 argumentative and 20 general.
+  - **What was labelled:** frames of changed output, censused up to 200 rows and sampled at 200 above that, plus a stratified sample of 0.3.3's hits for the baseline denominator.
+  - **Who labelled:** two language models, Claude Sonnet 5.5 and GPT-6.1-Sol, in separate sessions. DeepSeek V4.1 Flash adjudicated disagreements and non-votes. No human labelled the items.
+  - **What it measures:** removal and cumulative loss of baseline detections against the operational model reference, including harm through reassignment under the strict reading. It does **not** estimate overall precision or recall.
+- **Round 1 failed.** On metadiscourse, four families had breach certificates. The cumulative loss bound was .070 (strict) and .080 (lenient), against a limit of .05.
+- **Six of the nine metadiscourse families were reverted to 0.3.3.** These are the clause-linking, hyphen, frame/endophoric, evidential, stance and reader/writer families. The reader/writer family had passed (.148 against .15). It was reverted as a precaution decided after seeing the results, because failing any required gate stops the combined candidate from passing. The reasons are in the [narrowing disposition](docs/validation/study4-fix040/round2/NARROWING_DISPOSITION.md).
+- **Round 2 met every numerical gate, on a fresh set of 60 texts.** No removal frame's bound was above .049 (limit .15). The cumulative loss bound was .0052 (strict) and .0040 (lenient) for metadiscourse, and .0034 for PHRASE (limit .05). No breach certificates. An independent audit reproduced every gate in both rounds. The figures are in the [fix-check report](docs/validation/study4-fix-check.md) and the [registered acceptance](docs/validation/study4-fix040/round2/accept/acceptance.md).
+- **Blinding deviation.** Claude Code showed labeller A (Claude Sonnet 5.5) a git-status snapshot in every session of both rounds. It held the branch name and recent commit subjects, including, in round 2's primary sessions, `round-2 candidate (narrowed)`. It contained no items, labels, or item-level version or family information. The protocol says labellers get no version information, and the harness's procedure check did not catch this. A sensitivity analysis replaced A's labels with B's. Its decision rule was committed before it ran, and every gate still passes: the largest removal bound is .049, and the largest cumulative bound is .0053. The same gates therefore pass under this alternative reference, without A's direct contribution. This does not establish what fully blinded A sessions would have judged, or retrospectively repair the blinding breach. Details are in the [report](docs/validation/study4-fix-check.md#deviations-and-corrections).
+- **Other corrections and events.** Between the rounds, the acceptance code's status order was corrected to the protocol's stated rule, which puts procedure problems before certificates. The correction was reviewed before round 2 ([ruling A1](docs/validation/study4-fix040/round2/HARNESS_ROUND2_RULINGS.md)), and round 1's recorded result is the same under either order. A Flash server restart in round 1 duplicated 30 adjudicator records; the frozen duplicate rule turned 6 conflicting pairs into non-votes. Both events are disclosed in the report.
+- **The Study 4 precision study has not been registered or run.** Its protocol is a [draft](docs/validation/study4-preregistration.md). Before registration, it still needs a rebuilt common development pilot under 0.4.0, recalibration, a full rerun of the simulation, and a final review. It will estimate precision and concordance with the maintainer, not recall.
+
 ## [0.3.3] - 2026-10-16
 
 Finishes the tokenisation fixes of 0.3.2, which a rerun of Study 3 and an independent audit showed were incomplete, and fixes a closing-quote bug. Output changes for texts that contain these forms. `schema_version` stays `2`.

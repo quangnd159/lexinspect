@@ -1,6 +1,6 @@
 [project]
 name = "lexinspect"
-version = "0.3.3"
+version = "0.4.0"
 description = "English text analysis — readability, lexical diversity, CEFR / BNC-COCA / NGSL / AWL vocabulary profiles, phrasal expressions, metadiscourse and spelling. CLI, HTTP API and web app."
 readme = "README.md"
 authors = [{ name = "Quang Nguyen", email = "quangnd159@gmail.com" }]

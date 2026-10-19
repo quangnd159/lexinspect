@@ -76,6 +76,12 @@ What lexinspect doesn't do well today, and where to look first if you decide to 
 
 **Senses rest on one example each.** The tag constraints (`to` as TO or IN, `that` as IN or DT, particles as RP/RB or IN) are read from each entry's own example sentence at build time. An entry whose example doesn't contain the phrase gets no constraint; the build script lists those. A mis-tagged token in the user's text can also accept or reject a sense wrongly.
 
+**Construction checks cover named entries only.** 0.4.0 checks the construction for USED TO, THAT IS, KIND OF, WEALTH OF, A GOOD, IS TO, IN A WAY, JUST AS, AS LONG AS, PUT IT and GET OFF. Most other entries have no entry-specific construction check, although the general form, tag and overlap rules still apply, and TO GO keeps its older clause-final check. Known gaps include THE CASE in `in the case of` and THE LATTER in `the latter part of the year`.
+
+**Construction checks are narrow proxies.** They can reject genuine expressions. `kind of a genius` and `a great wealth of` are missed, because the rules require particular words or word classes straight after or before. GET OFF counts only when the parser tags *off* as a particle. It therefore drops the listed transport sense with a named vehicle (`We got off the train`) and keeps `He got off lightly`, a different sense, under the transport entry. The 0.4.0 fix check measured total loss across all of these rules. It did not validate each rule.
+
+**Code-gloss checks that look one word back.** `known as` is rejected only when the word straight before it is a form of *become*, *come* or *grow*, so `became widely known as` still counts. A demonstrative `that is` after a comma (`Yes, that is not the point.`) can still count as rephrasing, in both `phrase` and `metadiscourse`.
+
 **Longest match hides overlaps.** `as well as` is one hit, not also `as well`. When two senses of the same form both fit, the more frequent is chosen and the others are listed in `also_possible`; nothing decides between them semantically.
 
 **Licence is unstated.** Norbert Schmitt's resources page publishes the list with no terms of use. See Operations below.
@@ -124,9 +130,13 @@ What lexinspect doesn't do well today, and where to look first if you decide to 
 
 ## metadiscourse
 
-**Automated, not hand-coded.** Hyland's categories are functional, and his counts were checked by hand. lexinspect approximates that with context rules on the parse (clause-linking `and`, `Table 2`, reporting verbs with a clausal complement, predicative `clear`, and so on). The rules remove most false positives from everyday words, but they inherit tagger and parser errors, and some judgements are out of reach: `or` as a code gloss and bare `as` as an evidential are never counted.
+**Automated, not hand-coded.** Hyland's categories are functional, and his counts were checked by hand. lexinspect approximates that with context rules on the parse (clause-linking `and`, `Table 2`, reporting verbs with a clausal complement, predicative `clear`, and so on). The rules filter some everyday-word matches, but their overall precision has not yet been established, and they inherit tagger and parser errors. Some judgements are out of reach: `or` as a code gloss and bare `as` as an evidential are never counted.
 
-**Marker lists are partial.** Hedges mirror Hyland 2005 Appendix A; the other nine categories are curated subsets of 23–60 markers each. Coverage is enough for ELT diagnostic work but will under-report against a full-appendix tool. Markers are literal strings: inflected forms count only when listed.
+**Quoted text is excluded.** Since 0.4.0, markers between paired quotation marks within a paragraph don't count, because quoted words are usually not the writer's own. Scare quotes are excluded too, and text in straight single quotes still counts. Two straight inch marks can be mistaken for a quotation pair: in `The first rod was 5"; however, that fact does not support the claim about the 6" rod.`, `however` is wrongly excluded.
+
+**Exclusive *we* is a heuristic.** *We*/*us* before a past-tense verb (other than *be*/*have*) and *our* before an own-work noun (`our results`) count as self-mentions. An inclusive `as we saw` is misread as one. Because matching ignores case, the country name in `the US rose` is also assigned to self-mentions.
+
+**Marker lists are partial.** Hedges mirror Hyland 2005 Appendix A; the other nine categories are curated subsets of 23–60 markers each. These subsets do not establish complete coverage or adequacy for ELT decisions, and their counts are not directly comparable with those of a full-appendix tool. Markers are literal strings: inflected forms count only when listed.
 
 **One category per hit.** A marker listed in several categories is assigned by a fixed priority order and its context rules; the others are recorded in `also_listed_as`, not counted.
 
