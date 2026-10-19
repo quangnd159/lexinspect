@@ -42,3 +42,12 @@ tmp/
 design/brand/lexical-lens/
 design/brand/lexinspect-glass/
 research_notes/
+
+# Study 4: private material kept out of git by design (see docs/validation/study4-fix-check.md, "What is not public")
+docs/validation/study4-fix040/round*/collect/collection.json
+docs/validation/study4-fix040/round*/collect/execution.lock
+docs/validation/study4-fix040/round*/collect/fetch_journal.jsonl
+docs/validation/study4-fix040/round*/collect/texts.jsonl
+docs/validation/study4-fix040/round*/collect/texts/
+# bound by SHA-256 276d35e8…; published with the Stage-1 deposit once the PHRASE permission question is settled
+docs/validation/study4-guidelines.md
