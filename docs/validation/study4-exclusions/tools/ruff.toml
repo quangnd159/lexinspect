@@ -1,0 +1,5 @@
+# These are the one-off scripts that built the exclusion manifests, kept byte for
+# byte as they were run (the freeze manifest hashes them). They are a record, not
+# maintained code, so they are not linted or reformatted.
+extend = "../../../../pyproject.toml"
+extend-exclude = ["*.py"]
