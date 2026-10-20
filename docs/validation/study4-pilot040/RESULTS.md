@@ -35,7 +35,8 @@ No session generated labels by program.
 
 - **A:** 1,296/1,300 valid. The 4 invalid records gave the claimed category as the alternative category. They were retried once in a fresh session from the archived retry manifest; all 4 came back valid, and the files were merged with `analyse.py --merge-retry`.
 - **B:** 1,300/1,300 valid, with no retry.
-- **Adjudicator:** 84/84 valid, so completeness is 1.0 and no retry was needed. There were no non-votes in any role after the retry.
+- **Adjudicator:** 84/84 valid records; no missing or invalid record and no retry. One valid record was UNSURE.
+- **After the primary retry,** A and B each had 1,300 valid records and no missing or invalid record, including 9 UNSURE records each. UNSURE records remain semantic non-votes under the frozen outcome mapping. (Corrected 2026-10-21 after the Stage-1 review, finding R1-7: this line first said there were no non-votes.)
 
 **Labels by role:**
 
@@ -61,7 +62,7 @@ C = CORRECT, WC = WRONG_CATEGORY, EC = EXTERNAL_CONNECTIVE, NM = NOT_METADISCOUR
 | All-outcome adjudication requests | 67 | 17 |
 | A–B STRICT agreement | 945/983 = .961, κ .91 | 288/300 = .960, κ .89 |
 | A–B full-label agreement | .934, κ .86 | .943, κ .86 |
-| Adjudicator non-votes / UNSURE | 0 / 1 | 0 / 0 |
+| Adjudicator missing or invalid records / valid UNSURE records | 0 / 1 | 0 / 0 |
 
 Pooled over both modules there were 84 adjudication requests, of which the adjudicator answered 1 UNSURE.
 

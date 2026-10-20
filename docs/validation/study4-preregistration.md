@@ -65,7 +65,7 @@ The pilot runs on the development set only, before registration.
      - **STRICT precision, unweighted:** 693/999 = .694 metadiscourse, 230/300 = .767 PHRASE;
      - **design-weighted (N_h/r_h):** .554 and .870;
      - **STRICT reference from the adjudicator:** 54 metadiscourse and 12 PHRASE items; **unresolved:** 1 and 0;
-     - **adjudication requests:** 84 (67 and 17), with 1 adjudicator UNSURE and no non-vote;
+     - **adjudication requests:** 84 (67 and 17), with 1 adjudicator UNSURE and no missing or invalid record;
      - **A–B STRICT agreement:** .961 (945/983) and .960 (288/300).
 
      No label from the 0.3.2 pilot was reused.
@@ -126,7 +126,7 @@ The exact route and effective settings are recorded.
 
 **On the final pilot** (`docs/validation/study4-pilot040/RESULTS.md`):
 
-- Flash was complete: 84 of 84 requests got valid records, with 1 UNSURE and no non-vote.
+- Flash was complete: 84 of 84 requests got valid records, with 1 UNSURE and no missing or invalid record.
 - Of the pilot's 1,300 items, 9 are new or changed claims under 0.4.0 (7 metadiscourse, 2 PHRASE). None needed adjudication, so every request concerned a claim unchanged since 0.3.2.
 - On STRICT, Flash agreed with A on 39/58 metadiscourse and 15/17 PHRASE requests, and with B on 31/58 and 7/17.
 
@@ -145,7 +145,7 @@ Before stage 1, lexinspect 0.4.0 was developed using the original 0.3.2 pilot an
 3. **Round 1** (60 new texts) failed for metadiscourse and passed for PHRASE.
 4. **Narrowing.** Six metadiscourse families were reverted to 0.3.3: MD-A, MD-B, MD-C, MD-E, MD-F and MD-G. MD-G had passed at .148, so its reversion was a precaution decided after seeing the result.
 5. **Round 2** (60 further new texts) checked the narrowed candidate. It passed every gate, and it was the last round the protocol allowed.
-6. **The disclosed deviation.** Labeller A's sessions in both rounds carried a git-status snapshot of repository metadata. A post-hoc sensitivity analysis, whose rule was committed before it ran, found that every gate also passes without labeller A.
+6. **The disclosed deviation.** Labeller A's sessions in both rounds carried a git-status snapshot of repository metadata. A post-hoc sensitivity analysis, specified before its retained execution, found that the same numerical gates pass under B's labels with Flash only for B's non-votes, removing A's direct contribution to the round-2 reference. This does not reconstruct fully context-isolated primary judgements or repair the historical procedure. Labeller B and the adjudicator also ran with the repository as working directory (finding F1; correction in `docs/validation/study4-fix-check.md`).
 7. **The release.** 0.4.0 ships the round-2 candidate.
 
 On the 60 round-2 texts, metadiscourse output fell from 16,307 to 15,632 hits and PHRASE from 5,227 to 4,910. These are development diagnostics, not precision or recall estimates.
@@ -172,11 +172,15 @@ On the 60 round-2 texts, metadiscourse output fell from 16,307 to 15,632 hits an
 **The evaluation build, as frozen at stage 1.**
 
 - **Seed:** 3195330621. The rule is the first 8 hex digits of `sha256("study4-v040-evaluation|20261016")`, read as an integer. It was fixed on 2026-10-21, before any evaluation text existed.
-- **Pools:** the 2026-10-16 pool snapshot. Before the build, the development download cache is copied byte for byte, and the copy is verified against the original's file hashes:
+- **Pools:** the 2026-10-16 pool snapshot. Before the build, the development download cache is copied byte for byte:
 
   ```
+  set -e
+  mkdir .cache/validation/study4_eval
   cp -Rp .cache/validation/study4/raw .cache/validation/study4_eval/raw
   ```
+
+  This is the one-time preparation for the unopened evaluation destination. If `.cache/validation/study4_eval` already exists, any retained attempt is investigated before proceeding. The copy, including every pool file, is verified against the cache's file-hash inventory frozen in `docs/validation/study4-freeze.json` before collection. Recovery from an incomplete build follows the registered technical-failure rule.
 
 - **Command,** run from a clean checkout of the stage-1 commit:
 
@@ -268,7 +272,7 @@ Nothing in this list changes after registration. A change found necessary after 
 
 ## Labellers
 
-All labellers work blind and independently. In a labelling session each role receives only:
+All labellers work blind and independently. In addition to the generic provider context explicitly inventoried in the launch record (`docs/validation/study4-pilot040/LAUNCH.md`), each labelling role receives only the following study-specific materials:
 
 - its assigned items: id, module, context, marked span, and the claimed category or PHRASE entry with its other listed senses;
 - the frozen guidelines and sense inventory;
@@ -316,13 +320,13 @@ The `EXTERNAL_CONNECTIVE` label records Hyland's internal/external distinction f
 - **Batches:** model labellers work in batches of up to 325 items, each in a fresh session with the full guidelines and inventory. The session has no inherited repository or review context. It is pointed at a directory holding only the guidelines, the inventory and its batch file. They must judge every item individually, with no scripts, keyword rules or other programmatic shortcuts.
 - **How the sessions are launched** (`docs/validation/study4-pilot040/LAUNCH.md`, `scripts/validation/study4_precision/pilot040/launch.py`). Each session is started with its provider's command-line tool, in a new neutrally named directory outside any git repository, with a cleared environment.
   - **The settings:** no MCP servers, memory or user or project instruction files. Role A's tools are only Read, Write and Edit. Role B's network access is off. The adjudicator's web tools are denied.
-  - **The evidence:** context probes, a dry run and a screen of every session's injected context (`check_sessions.py`, with a positive control) show that no repository, git or review context reaches the labeller.
+  - **The evidence:** context probes, a dry run and a per-session screen (`check_sessions.py`, with a positive control) check the archived effective context for the declared markers. Missing or unreadable context is a technical failure. The screen is supplemented by transcript review of file access and code-like calls; absence of marker hits alone is not proof that no prohibited context or access occurred. Labels are collected only from clean sessions, or from flagged sessions covered by a recorded human ruling bound to the session record and its exact flags. A context-marker hit or a technical failure can't be accepted by a ruling; it stops acceptance pending technical recovery or a relaunch, and no label is generated or chosen (`LAUNCH.md`, "Screen statuses and acceptance").
   - **The archive:** each session's own provider record, its effective context, is archived with its hashes. The final 0.4.0 pilot used these settings, and the evaluation uses the same ones.
 - **Earlier sessions inherited context (disclosed).** The 0.3.2 pilot and the fix-check sessions were started as delegated tasks of a coding-agent thread whose project is this repository.
   - **Labeller A** received a git-status snapshot (branch, untracked paths, recent commit subjects) and the maintainer's personal instruction file.
   - **Labeller B and the adjudicator** ran with the repository as their working directory, so its path appeared in their environment.
 
-  None of them received items' versions, families or other labellers' answers. That is why the 0.4.0 pilot reused no earlier label (`LAUNCH.md`, finding F1).
+  The retained records disclose no item-level baseline/candidate or family assignments and no other labeller's responses; A nevertheless received the branch and commit information described above. That is why the 0.4.0 pilot reused no earlier label (`LAUNCH.md`, finding F1).
 - **Validation:** returned records are checked by the frozen validator: required keys, allowed labels, alternatives, note length, the form of an UNSURE note, and the duplicate rule.
 - **Retries:** missing or invalid records are requested once more, in a fresh session, using an archived retry manifest. Anything still missing or invalid after that is a non-vote.
 - **No selective retries:** no valid definite label is ever retried because of disagreement. Original and retry files are kept and merged deterministically.
@@ -566,9 +570,7 @@ These checks were done before registration, on development data.
   - **PHRASE** (400 replicates, 120,000 items): .0409 needed the adjudicator, against .040, and .00036 stayed unresolved, against .00048. That is 43 events where about 57 were expected, a Monte Carlo difference of about two standard errors in a very rare event.
 
   The check's script and output are in the simulation archive (`sim040/ratecheck/`).
-- **The grid** keeps every earlier scenario unchanged, with identical random streams: the boundaries, non-resolution mechanisms, weights, thresholds, discordance and adverse concordance. It adds two:
-  - `main-realistic`: the round-3/4 main scenario, with population precision about .72–.83, 3% unresolved, and 10% of the other items resolved by the adjudicator (about 13% sent to it). It now provides the high-precision cells.
-  - `low-precision-050`: precision .50, with the pilot's resolution rates.
+- **The grid.** The final run retains all 13 scenarios from the historical 0.3.2-calibrated grid: the boundaries, non-resolution mechanisms, weights, thresholds, discordance and adverse concordance, `main-realistic` and `low-precision-050`. The low-precision-050 scenario retains population precision .50 and is recalibrated to the final pilot's resolution rates. The other twelve scenarios retain their numerical settings and seed scheme. Every dev/mixed scenario uses the new 0.4.0 frame, so equal seeds do not imply identical realised finite populations or replicate samples. The main-realistic scenario has the earlier main scenario's settings: 3% unresolved and 10% of resolved items adjudicated (12.7% adjudicator-needed in expectation). In this final four-cell grid its realised population precision is .661–.748.
 
 **Reproducibility and completeness.**
 
@@ -601,7 +603,7 @@ These checks were done before registration, on development data.
   - **Concordance:** 0 in every cell and tail.
   - **Primary:** at most .005 in every cell except those where non-resolution depends on the outcome, the case its assumption excludes. There, the lower-tail error reached .1515 (`outcome-unresolved`) and .140 (`fixed-outcome-unresolved`).
   - **Korn–Graubard:** undercovered in most cells. It reached .094–.102 at the precision boundaries, .47–.57 under outcome-dependent non-resolution, and .549 in `mixed-census-unobserved`, where it is a represented-cells interval scored against full-population precision.
-  - **Why the outcome-dependent figures differ from the 0.3.2 run:** the grid's settings and random streams are unchanged, but its populations are drawn on the 0.4.0 frame. In `outcome-unresolved`, metadiscourse precision is .661–.676 there, against .797–.832 on the 0.3.2 frame. With more incorrect hits, outcome-dependent non-resolution leaves more of them unresolved, and the primary's assumption fails more strongly. This is why the resolution region is reported alongside the primary.
+  - **Why the outcome-dependent figures differ from the 0.3.2 run:** the outcome-dependent scenarios retain their settings and seed scheme, but their synthetic populations are regenerated on the 0.4.0 frame. For outcome-unresolved, MD population precision changes from .797–.832 to .661–.676; the corresponding MD lower-tail errors change from .0045–.0095 to .0900–.1515. More incorrect hits are exposed to the higher non-resolution probability, alongside changes in cell composition and weighting. The old scenario-wide maximum .0535 came from PHRASE. These are synthetic assumption-stress results, not measured version effects. The resolution region remains within .0015 in every outcome-dependent cell and tail.
   - Individual Monte Carlo intervals are reported in `sim040/final.md` and `tail_table.txt`.
 
 **Historical, not registered evidence: the 0.3.2-calibrated run** (2026-10-16/17). It ran the same 58 cells and 244,460 replicates with the 0.3.2 pilot's key, frame and parameters, merged against its declared inventory. Its hashes are in `sim_final/result_hashes.sha256`. It is kept unchanged as evidence for the 0.3.2 design, not relabelled as a 0.4.0 validation. Main-scenario results:
@@ -618,7 +620,7 @@ These checks were done before registration, on development data.
   - **Primary:** at most .0045 in every cell except those where non-resolution depends on the outcome, the case its assumption excludes. There, the lower-tail error reached .054 (`outcome-unresolved`) and .134 (`fixed-outcome-unresolved`).
   - **Korn–Graubard:** undercovered in most cells. It reached .185 at boundary-low precision, .51–.67 under outcome-dependent non-resolution, and .98 in `mixed-census-unobserved`. In that last scenario it is a represented-cells interval scored against full-population precision, so the figure reflects scope as well as approximation.
 
-**Historical, not registered evidence: the round-3 development run.** Its main scenario is now the grid's `main-realistic`: population precision about .72–.83, rather than the pilot-calibrated population targets, with 23,410 replicates × 3 population seeds × 2 modules:
+**Historical, not registered evidence: the round-3 development run.** Its main scenario is now the grid's `main-realistic`: population precision about .72–.83 on the historical development frame, rather than the pilot-calibrated population targets, with 23,410 replicates × 3 population seeds × 2 modules:
 
 | Interval | Largest tail error in the main scenario | Clopper–Pearson 95% upper bound | Mean width |
 |---|---|---|---|

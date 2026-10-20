@@ -1,20 +1,31 @@
 # Study 4 evaluation exclusion union (built 2026-10-21)
 
-This folder holds the extra exclusion file for the one evaluation build:
+The frozen additional exclusion file is docs/validation/study4-exclusions/exclusions.jsonl, SHA-256 477f2197ce00e402441d810c4825e6d98517be4fa1e50d59ee2d4c0800f9b263. It contains 909 JSON source records, 331 plain identifier/title aliases and one comment (1,241 physical lines). build.read_exclusions returns 3,132 identifiers; together with the canonical development manifest's 440, there are 3,563 distinct identifiers. The former 909-record file is retained as exclusions_v1_before_pageids.jsonl; its counts and decisions are historical. The final machine inventory is inventory.json; the former inventory is retained unchanged as inventory_v1_historical.json and is historical too.
+
+The one evaluation build passes it through `--exclude-texts` (the command in `docs/validation/study4-preregistration.md`, "The evaluation build, as frozen at stage 1"), from a clean checkout of the stage-1 commit:
 
 ```
-build.py --set evaluation --seed NEW --exclude-texts .cache/validation/study4_eval_exclusions/exclusions.jsonl
+uv run --offline --no-sync python -I scripts/validation/study4_precision/build.py \
+    --set evaluation --seed 3195330621 \
+    --out .cache/validation/study4_eval --raw-cache .cache/validation/study4_eval/raw \
+    --exclude-texts docs/validation/study4-exclusions/exclusions.jsonl
 ```
 
 build.py always excludes the canonical development manifest itself (`.cache/validation/study4/texts.jsonl`, SHA-256 `5dba40cc…f1cc8`, 120 texts, 440 normalised identifiers). This file adds every other exposed source.
 
 | File | SHA-256 |
 |---|---|
-| `exclusions.jsonl` (909 lines, one per source) | `5d8cace25244a1795c2ef242918507200ecffd985d4500a89eea875234fd0c75` |
-| `inventory.json` | `118ff3dc4417eb74b569b0497be1d4a24ed4d218f7b217cf4c6a5c42f356d58a` |
-| `tools/clear_wiki.py`, `tools/build_union.py`, `tools/inventory.py` (the scripts that made them) | listed in the report; rerun in that order |
+| `exclusions.jsonl` (frozen: 909 records, 331 alias lines, 1 comment) | `477f2197ce00e402441d810c4825e6d98517be4fa1e50d59ee2d4c0800f9b263` |
+| `inventory.json` (final inventory, written by `tools/final_inventory.py`) | `ab50507744faa38adb14e313b0339ed8d6c8e56a55ab018ca1a07d4ec3672314` |
+| `exclusions_v1_before_pageids.jsonl` (historical: the 909-record v1 file) | `5d8cace25244a1795c2ef242918507200ecffd985d4500a89eea875234fd0c75` |
+| `inventory_v1_historical.json` (historical: the v1 inventory, formerly `inventory.json`, byte for byte) | `118ff3dc4417eb74b569b0497be1d4a24ed4d218f7b217cf4c6a5c42f356d58a` |
+| `tools/clear_wiki.py`, `tools/build_union.py`, `tools/inventory.py` (built v1; rerun in that order), `tools/add_pageids.py` (added the aliases) | in `inventory.json` under `builders` |
+| `tools/final_inventory.py` (writes `inventory.json`; `--check` rebuilds it in memory and compares) | – |
+| `pageid_lookup/` (the 2026-10-21 lookup and its raw responses) | in `inventory.json` under `pageid_lookup` |
 
-Every line is a JSON object that `build.read_exclusions` reads through `build.text_refs`. The fields it uses are `source`, `source_id`, `url`, `fulltext_url`, `doi`, `title` and `revid`. The extra fields (`exposure`, `exposure_detail`, `register_source`, `all_titles`, `all_revids`, `union_key`) are for people and are ignored by build.py. Lines are sorted by source (Europe PMC, English Wikipedia, Simple English Wikipedia) and then by key. No text body, guideline text or PHRASE List material is in any output. A scan against the private fragment file found 0 restricted fragments.
+The sections below, up to the addendum, describe the v1 build. Its source records are unchanged in the frozen file; its identifier counts and open questions are historical.
+
+Every v1 line, and every `{` line of the frozen file, is a JSON object that `build.read_exclusions` reads through `build.text_refs`. The fields it uses are `source`, `source_id`, `url`, `fulltext_url`, `doi`, `title` and `revid`. The extra fields (`exposure`, `exposure_detail`, `register_source`, `all_titles`, `all_revids`, `union_key`) are for people and are ignored by build.py. Lines are sorted by source (Europe PMC, English Wikipedia, Simple English Wikipedia) and then by key. No text body, guideline text or PHRASE List material is in any output. A scan against the private fragment file found 0 restricted fragments.
 
 ## What is excluded
 
@@ -33,7 +44,7 @@ There are 1,027 distinct sources in total: 118 Europe PMC, 585 English Wikipedia
 
 Some sources have more than one exposure; the inventory lists each one. Development plus the two rounds give exactly 240 distinct labelled sources, and the three sets are disjoint. The 146 rejected candidates are all distinct from those 240.
 
-- **Normalised identifiers.** `build.read_exclusions(exclusions.jsonl)` gives 2,801. Together with the development manifest's 440 that makes 3,232, with 9 shared.
+- **Normalised identifiers (v1, historical).** `build.read_exclusions` on the v1 file gives 2,801. Together with the development manifest's 440 that made 3,232, with 9 shared. The frozen file gives 3,132 and 3,563 (see the addendum).
 - **Identities covered.**
   - Europe PMC: PMCID, the Europe PMC article URL, the full-text XML URL, DOI and title. For rejected candidates, the DOI and title come from the 2026-10-16 pool cache.
   - English Wikipedia: `pageid:N` where it is known, every observed canonical and requested title, the `/wiki/` URL, and every observed revision as an oldid URL. No source had more than two revisions, so the `url` and `revid` slots hold them all.
@@ -71,7 +82,7 @@ Simple English Wikipedia is a different site. Its page ids and revisions say not
 
 I recommend keeping these titles, to be conservative: Study 3 paired each Simple text with its English counterpart on the same topic, so the same title points at closely related content. Where the English counterpart has a different title, it has its own English record.
 
-## Open questions for the maintainer
+## Open questions for the maintainer (v1, historical; resolved in the addendum below)
 
 1. **Study 1 CLEAR is the biggest call.** I included it to be conservative, but CLEAR was only used for readability, never in Study 4 fix development, so the contamination risk is negligible.
    - The cost: 117 of the 1,001 cached Level-3 Vital titles are excluded only because of Study 1 (47 through English URLs, 70 through Simple-title aliases), mostly core science and history.

@@ -307,7 +307,7 @@ MD-I only reassigns categories, so its total is unchanged; its effect shows in t
 
 These are the registered, labelled results. They are copied from the public acceptance files, not recomputed: [round 1](study4-fix040/round1/accept/acceptance.md) ([JSON](study4-fix040/round1/accept/acceptance.json)), [round 2](study4-fix040/round2/accept/acceptance.md) ([JSON](study4-fix040/round2/accept/acceptance.json)). The reference is model labels, not a trained human reference; see the [fix-check report](study4-fix-check.md), including its disclosed blinding deviation and sensitivity analysis.
 
-**Outcomes.** Round 1: **fail** (metadiscourse fail, PHRASE pass). Round 2: **pass** (metadiscourse pass, PHRASE pass). Neither round recorded a procedure problem. The terminal outcome, `ship`, is in [`round_registry.jsonl`](study4-fix040/round_registry.jsonl).
+**Outcomes.** Round 1: **fail** (metadiscourse fail, PHRASE pass). Round 2: **pass** (metadiscourse pass, PHRASE pass). The frozen acceptance objects recorded no procedure problem; the later-discovered context-isolation deviations and their disposition are disclosed in the [fix-check report](study4-fix-check.md#deviations-and-corrections) and the [F1 correction](study4-pilot040/CORRECTION_F1.md). The terminal outcome, `ship`, is in [`round_registry.jsonl`](study4-fix040/round_registry.jsonl).
 
 ### Removal gate (per family and all families)
 

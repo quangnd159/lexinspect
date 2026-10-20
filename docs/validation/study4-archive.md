@@ -1,6 +1,6 @@
 # Study 4: archive inventory and access arrangements
 
-**Draft for the Stage-1 review; the access arrangement is the maintainer's to confirm.**
+**Status:** written for the Stage-1 review (2026-10-21). The access arrangement in section 7 was chosen by the maintainer on 2026-10-21, after the review's finding R1-1.
 
 **Date:** 2026-10-21. The inventory was surveyed on this date from the repository, the local caches and the private archive. No file was changed.
 
@@ -53,7 +53,7 @@ Each text's licence is recorded in its collection manifest (`texts.jsonl`, field
 | `study4-preregistration.md`, `study4-fix-protocol.md`, `study4-fix-protocol-clarifications.md`, `study4-fix-check.md` | Protocols and the fix-check write-up | git history |
 | `study4-fix040/` (51 tracked files) | Runbook, harness rulings and audit dispositions, candidate ledgers, delivery spec, manifest ledger, round registry. Per round: `accept/` (acceptance, registration, ledger components), `collect/` manifests (command, execution, freeze record, `manifest_collect.json`, `manifest_plan.json`), `receipts/`. Round 2 also has the narrowing check and disposition, and `sensitivity/`. | `receipts/primary.json`, `retry.json` and `flash.json` hold the SHA-256 of every package part (assign, candidate, collect, diff, replay, run, sample) and of the labels. `receipts/private_archive.sha256` holds the archive tars. `manifest_collect.json` lists the bytes and SHA-256 of every text file. |
 | `study4-pilot040/` (5 files) | Plan, launch record (with finding F1), results, the proposed F1 correction, `selection.json` | `selection.json` (21 build files); the `RESULTS.md` hash table (10 label and analysis files) |
-| `study4-exclusions/` (17 files) | Exclusion manifest (`exclusions.jsonl`, 1,241 lines, `477f2197…`), the pre-page-id version, inventory, page-id lookup, builder tools | prereg; README |
+| `study4-exclusions/` (19 files) | Exclusion manifest (`exclusions.jsonl`, 1,241 lines, `477f2197…`), the pre-page-id version, inventory, page-id lookup, builder tools | prereg; README |
 | `study4-development-effects.md` and `.json` | Development and fix-check effects report | git history |
 | `study4-freeze.json` (untracked draft) | Stage-1 freeze manifest; the deposit fields are empty | becomes the registered record |
 | `scripts/validation/study4_precision/` | Build, sampling, analysis, simulation, the fix-check harness (`fixcheck/`) and the pilot launcher and screen (`pilot040/`) | git; tag `v0.4.0` |
@@ -115,10 +115,17 @@ Each text's licence is recorded in its collection manifest (`texts.jsonl`, field
 | `study4_scratch/sim040/` | The 0.4.0-calibrated registered simulation: frozen sources, inventory, run and merged results, `SUMMARY.md`, `tail_table.txt`, rate check | 16 files | `result_hashes.sha256`; hashes in the prereg and `study4-freeze.json` | Text-free; publishable |
 | `study4_scratch/` (the rest) | Handoffs, reviews, prototype builds and copies of the development texts and raw cache (`devcopy/`, `dev032*/`, `rawcopy/`, `src032/`), practice pages | ~300 files | none | Working material; the copies hold text |
 
-**Not in the archive.** The delivered session transcripts of the 16 Oct pilot (A `-r2`, B, the adjudicator) were not copied into the private archive or a cache. As far as this survey found, they exist only in the providers' local session stores on the maintainer's machine; the F1 rescreen read the Codex sessions there (`study4-pilot040/CORRECTION_F1.md`).
+### 3.5 Private archive: `lexinspect-private/study4-pilot032-transcripts/` (13 MB)
 
-- `post_decision_events/resumed_s4pilot_A_0N_*.jsonl` are copies of four A session files that resumed on 2026-10-19. Each has 18 records dated 2026-10-16. That fits the first A launches, which failed at start, rather than the delivered `-r2` sessions; this was not checked further.
-- No OpenCode session record of the 16 Oct adjudicator runs was found (`LAUNCH.md`, F1).
+The provider session records of the 16 Oct pilot were found only in the providers' local session stores, which clean themselves up. On 2026-10-21 they were copied byte for byte into the private archive, with a `SHA256SUMS` and a README, and made read-only. They were found by each session's first instruction:
+
+| Folder | Sessions | What they are |
+|---|---:|---|
+| `claude_primary/` | 4 | Labeller A's first launches on the primary Claude account (14:43 UTC). They failed at start and resumed on 2026-10-19; the copies in `post_decision_events/` are of these sessions. |
+| `claude_extra/` | 5 | Labeller A's delivered `-r2` batches (14:45 UTC) and the retry session (14:51 UTC) |
+| `codex/` | 5 | Labeller B's four batches (14:43 UTC) and the GPT-6-Sol adjudicator dry run (14:53 UTC, never used) |
+
+**Not recovered:** no OpenCode session record of the 16 Oct adjudicator runs was found (`LAUNCH.md`, F1). This is an irretrievable gap in the historical evidence; no 0.4.0 or evaluation result depends on those sessions.
 
 ## 4. Label sets and their provenance
 
@@ -165,35 +172,36 @@ Each text's licence is recorded in its collection manifest (`texts.jsonl`, field
 - **Wikipedia.** All 160 Wikipedia texts record the revision id (`revid`, or `oldid` in the URL; rounds 1 and 2 also record its timestamp). The exact revision is therefore identifiable. But the collector took plain text from the TextExtracts API (`prop=extracts`, `explaintext`), which serves only a page's current revision. Re-extracting an old revision needs another route, such as parsing the `oldid`, and that is unlikely to reproduce the same bytes. Rendering changes in templates and modules can also alter output for the same revision.
 - **Consequence.** Identifiers let a methodologist obtain essentially the same texts, and hashes let them detect any difference. Exact recomputation of the frames from refetched texts can't be promised. Exact verification needs the archived copies (tier 3), or the frames themselves (tier 2).
 
-## 7. Access arrangement — DRAFT, for the maintainer to confirm
+## 7. Access arrangement
+
+Chosen by the maintainer on 2026-10-21. There are four tiers.
 
 | Tier | What | Terms |
 |---|---|---|
-| **1. Public now** | Everything in the repository: code, protocols, rulings, receipts, acceptance results, hashes, the effects report, the pilot plan, launch record, results and selection hashes, the exclusion manifests | As published |
-| **2. Publishable without text** (the maintainer's decision) | A text-free export of each set, with the fields in section 5: text manifests (attribution metadata), hit-frame identities, sampling memberships, keys and weights, diff links, orders, labels without notes, adjudication lists, and the SHA-256 of every file it was derived from. Texts are re-obtainable by identifier, with the limits in section 6. | Open; CC BY 4.0 suggested. It contains no CC BY-SA text. |
-| **3. Restricted: on request, for verification only** | The full packages: the archive tars, the unpacked rounds, the pilot selection and sessions, the 16 Oct pilot cache. These include copies of the source texts (licensed per text, with the attribution recorded in the manifests) and the transcripts. | For an independent methodologist, for verification only, with no redistribution. Access is a supervised share or a time-limited private transfer, logged in this folder. |
+| **1. Public** | Everything in the repository: code, protocols, rulings, receipts, acceptance results, hashes, the effects report, the pilot plan, launch record, results and selection hashes, the exclusion manifests, the Stage-1 review records and the freeze manifest | As published |
+| **2. Public text-free export** | `docs/validation/study4-textfree/`: text manifests (attribution metadata and text hashes), sampling memberships, keys, strata and weights, the frame identities and links the gates use, labels without notes, adjudication lists, and the SHA-256 of every private file each part was derived from, with a recompute script (`scripts/validation/study4_precision/textfree/`). It contains no source text, note, prompt, transcript or PHRASE List text. | Open, CC BY 4.0. |
+| **3. Full packages: supervised inspection only** | The archive tars, the unpacked rounds, the pilot selection and sessions, the 16 Oct pilot cache and session records | Until the PHRASE redistribution permission is resolved, full-package verification is available only through supervised inspection on the custodian's machine; no package copy is transferred. |
 | **4. Withheld until the PHRASE List authors agree** | Glosses, examples and the sense inventory; the guidelines (`276d35e8…`) | Published with the registration or the results once permission is given. Their SHA-256 values are already public, so the released files can be checked against them. |
 
-**A conflict between tiers 3 and 4 to resolve.** The full packages also contain PHRASE material: `materials/` (the guidelines and inventory), the `claimed` field of every PHRASE item and frame payload, and the transcripts, which read both files in full. The maintainer needs to choose one of two options:
+**How to request tier-3 access.**
 
-- **(a)** Until permission, tier-3 releases leave out `materials/` and the PHRASE fields. The archive tars can then be checked only part by part, against the receipts.
-- **(b)** Tier-3 access is limited to inspection in a supervised session, with no copy leaving the maintainer's machine, until permission.
+- **Custodian:** the maintainer, Quang Nguyen.
+- **Request:** open an issue on the lexinspect repository (https://github.com/quangnd159/lexinspect/issues) titled "Study 4 verification access", saying who you are and what you want to verify. No personal contact address is published.
+- **Access conditions:** inspection in a supervised session on the custodian's machine, for verification only. The inspector may run the frozen code at the pinned commits on the archived inputs, read the session records and check any hash. No file, excerpt or copy leaves the machine. The source texts remain under their per-text Creative Commons licences as recorded in each manifest; the restriction here comes from the PHRASE material and personal data that the packages also contain, not from those licences.
+- **Preserved inputs:** the files bound by `docs/validation/study4-freeze.json`, which `pilot040/freeze.py --check` verifies before a session starts.
+- **Access log:** every request and session is recorded in [`study4-access-log.md`](study4-access-log.md): the date, the requester, what was inspected, the commands run and the outcome.
 
 **What an external methodologist can recompute at each tier:**
 
 | Tier | Can recompute or check | Cannot |
 |---|---|---|
-| 1 | That the published decisions follow from the published registered rules; the simulation code and design; the exclusion builders; that any later-released file matches its public hash | Any gate or pilot quantity. The exclusion union can't be recomputed either, because it also needs the development manifest's identifiers. |
-| 2 | **The fix-check gates**, for both rounds: memberships, frame identities, diff links, and A, B and adjudicator labels, with the reference built by the registered rule. This includes the sensitivity analysis without A and the worst-case handling of unresolved items. **The 0.4.0 and 0.3.2 pilot quantities and the simulation recalibration:** keys with strata and weights, plus labels. **Agreement and adjudicator diagnostics. The exclusion union**, from the development identifiers. | Whether a label is right for its text (needs the text and the guidelines); rerunning the matchers. The frozen `accept.py` reads the full package and checks file hashes, so recomputing from tier 2 needs a short text-free recompute script. That script doesn't exist yet. |
-| 3 | Everything in tier 2 with the frozen code at the pinned commit; rerunning the matchers on the archived texts; the transcript access reviews and the F1 rescreen; the post-decision events | Judging PHRASE items as the labellers saw them, under option (a) |
+| 1 | That the published decisions follow from the published registered rules; the simulation code, design and results (the simulation outputs are text-free and are deposited with Stage 1); the exclusion builders; that any later-released file matches its public hash | Any gate or pilot quantity |
+| 2 | **The fix-check gates** of both rounds, including the sensitivity analysis without A and the worst-case handling of unresolved items. **The 0.4.0 and 0.3.2 pilot quantities**, and from them the simulation recalibration. **Agreement and adjudicator diagnostics.** See the export's README for the exact commands and what the recompute script checks. | Whether a label is right for its text (that needs the text and the guidelines); rerunning the matchers |
+| 3 | Everything in tier 2 with the frozen code at the pinned commits; rerunning the matchers on the archived texts; the transcript access reviews and the F1 rescreen; the post-decision events | Taking away copies |
 | 4 | Relabelling items under the frozen guidelines and inventory; checking the guideline and inventory hashes | – |
 
 ## 8. Open points
 
-1. **PHRASE permission.** Martinez's answer is pending (Schmitt agreed on 2026-10-16). The conflict between tiers 3 and 4 is open until then.
-2. **The tier-2 export and recompute script** don't exist yet. If they are made, their hashes and the commit that builds them belong in `study4-freeze.json`.
-3. **Development per-text hashes** are only in the private archive. Publishing the 120 hashes (text-free) would let refetches of the development texts be checked publicly, as the rounds' texts already can be.
-4. **The 16 Oct pilot transcripts** are only in the providers' local stores. If they are to be retained, they should be copied into the private archive with a `SHA256SUMS`. The section-4 label hashes are not contemporaneous.
-5. **The documents in `docs/`** have no stated licence.
-6. **Personal data in transcripts:** the account's email address in Claude transcripts, and local paths in all of them. Remove or accept these before any tier-3 transfer.
-7. **The simulation outputs** (`sim_final/`, `sim040/`) are text-free but only in the local cache. They are intended as files of the Stage-1 deposit.
+1. **PHRASE permission.** Martinez's answer is pending (Schmitt agreed on 2026-10-16). Tier 3 stays supervised-only and tier 4 stays withheld until then.
+2. **The documents in `docs/`** have no stated licence. The text-free export is CC BY 4.0.
+3. **Personal data in transcripts:** the account's email address in Claude transcripts, and local paths in all of them. Supervised inspection doesn't transfer them; they would have to be removed before any later transfer.

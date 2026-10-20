@@ -20,7 +20,7 @@ Every session runs in `$TMPDIR/<12 hex>/<16 hex>`, which holds only `guidelines.
 | B, GPT-6.1-Sol | `codex exec` with `-m gpt-6.1-sol`, reasoning high; `--ignore-user-config --ignore-rules`; web search off; workspace-write sandbox with network access off; apps, plugins, hooks, browser, computer use, image generation, multi-agent, skill search, goals and tool suggestions off |
 | C, DeepSeek V4.1 Flash | `opencode run --standalone` with `opencode/deepseek-v4.1-flash-free#high`; `OPENCODE_DISABLE_CLAUDE_CODE=1` (no Claude Code instruction files); web fetch, web search and skills denied |
 
-**Tools.** Role A can't run commands, so it can't generate labels by program. Roles B and C keep their shell tools; for them, as before, the transcript review enforces the no-code rule.
+**Tools.** Role A has no command-execution tool. Tools restrict execution; the transcript review checks compliance with the no-programmatic-labelling rule. Roles B and C keep their shell tools; for them, as before, the transcript review enforces the no-code rule.
 
 ## Evidence that the context is clean
 
@@ -34,6 +34,27 @@ Every session runs in `$TMPDIR/<12 hex>/<16 hex>`, which holds only `guidelines.
    It searches the injected context only, because the guidelines themselves name lexinspect. It also lists file paths outside the session's own files and calls that look like code.
    - **Positive control:** an archived 16 Oct A transcript was flagged on every marker.
    - **The dry run:** all three sessions were clean. Each read only its three files and wrote its labels by hand.
+
+**Screen statuses and acceptance (tightened 2026-10-21, after the Stage-1 review, finding R1-4).** The screen used to report a missing provider record as clean. It now gives each session one of three statuses:
+
+- **`technical_failure`:**
+  - `session.json` is missing or the session wasn't delivered;
+  - the session id is missing or inconsistent;
+  - an archived file is missing, unlisted or differs from its recorded hash;
+  - the provider record is missing, empty or lacks its expected context fields.
+- **`flagged`:**
+  - a context marker;
+  - a path outside the session's own files, or a relative, `~/`, `$HOME`, `file://` or glob path;
+  - a code-like call;
+  - a shell command other than reading commands;
+  - a tool the role wasn't given.
+- **`clean`:** none of the above.
+
+The screen also fails if the archive has no sessions, or if its launch log and session records disagree. With `--expect`, it also fails unless every assigned batch has exactly one delivered session. The launcher records a session as delivered only if its provider record was archived and passes the context checks.
+
+`collect_role.py` requires the screen result (`--screen`) and collects nothing from a session that isn't clean. A flagged session can be accepted only through a recorded human ruling (`--rulings`), after the maintainer has examined the flagged calls in the transcript. The ruling is bound to the session's `session.json` hash and to the hash of its exact flag set. A context-marker hit and a technical failure can't be accepted by any ruling. A stopped batch waits for technical recovery or a relaunch; no label is generated or chosen.
+
+**The 0.4.0 pilot under the tightened screen.** All 10 sessions and the 3 dry-run sessions have complete provider records and no technical failure. Twelve are clean. primary-A-02 is flagged for its one code-like Edit of its own labels file, examined on 2026-10-20 (`RESULTS.md`). That examination is recorded as a ruling in [`screen_rulings.jsonl`](screen_rulings.jsonl). Re-collecting all four pilot label sets with the tightened collector and that ruling reproduces the archived label files and retry manifests byte for byte. The launch inputs (argv, environment, prompt and copied files) are unchanged, and a test checks them against every archived `session.json`.
 
 The probe and dry-run records, with SHA-256 lists, are in the private archive (`lexinspect-private/study4-pilot040/probes/` and `dryrun/`).
 
@@ -67,4 +88,4 @@ The archived records of earlier sessions show the following.
 
 **What the extra context could reveal.** For B and C, it adds nothing about versions, candidates or labels. The product name it exposes is already in the guidelines (21 mentions). For A, the snapshot is the deviation already analysed in the fix-check sensitivity plan. The earlier transcript reviews checked each session's file reads. For the Stage-1 package they are rechecked with `check_sessions.py` for any path outside the batch directory.
 
-**Disposition.** This is a disclosure gap in the 16 Oct pilot record, the prereg's labelling statement and the published fix-check write-up (`docs/validation/study4-fix-check.md`). A correction is drafted with the Stage-1 package and goes to the independent review before it is published. No 0.4.0 pilot label depends on these sessions (`PLAN.md` section 3).
+**Disposition.** This is a disclosure gap in the 16 Oct pilot record, the prereg's labelling statement and the published fix-check write-up (`docs/validation/study4-fix-check.md`). The correction (`CORRECTION_F1.md`) went to the independent Stage-1 review and was applied to the fix-check write-up and the prereg on 2026-10-21, in the reviewer's wording. No 0.4.0 pilot label depends on these sessions (`PLAN.md` section 3).

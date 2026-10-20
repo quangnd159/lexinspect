@@ -29,8 +29,12 @@ One call is one fresh session:
    argv, times, exit code and every hash. launch_log.jsonl in ARCHIVE_ROOT
    gets one line per call.
 
-The script never retries. A failed session (non-zero exit or no labels file)
-is recorded as failed; a relaunch is a new call with its own directory.
+A session is `delivered` only if the CLI exits 0, labels.jsonl exists, the
+provider session id is recovered from the event stream and the provider's
+session record is archived with its expected context (check_sessions.py,
+context_failures). Anything else is recorded as `technical_failure`, with the
+reasons, after archiving everything there is. The script never retries; a
+relaunch is a new call with its own directory.
 """
 
 from __future__ import annotations
@@ -47,6 +51,9 @@ import subprocess
 import sys
 from pathlib import Path
 from typing import Any
+
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+import check_sessions as CS  # noqa: E402
 
 REPO = Path(__file__).resolve().parents[4]
 GUIDELINES = REPO / "docs" / "validation" / "study4-guidelines.md"
@@ -126,18 +133,7 @@ def argv_for(role: str, workdir: Path, prompt: str) -> tuple[list[str], dict[str
 
 
 def session_id(role: str, stream: Path) -> str | None:
-    for line in stream.read_text(errors="replace").splitlines():
-        try:
-            r = json.loads(line)
-        except json.JSONDecodeError:
-            continue
-        if role == "A" and r.get("type") == "system" and r.get("session_id"):
-            return r["session_id"]
-        if role == "B" and r.get("type") == "thread.started":
-            return r.get("thread_id")
-        if role == "C" and r.get("sessionID"):
-            return r["sessionID"]
-    return None
+    return CS.stream_session_id(role, stream)
 
 
 def archive_context(role: str, sid: str | None, dest: Path) -> list[str]:
@@ -225,7 +221,19 @@ def main(argv: list[str] | None = None) -> int:
     if delivered:
         shutil.copy2(labels, dest / "labels.jsonl")
     sid = session_id(args.role, stream)
-    ctx = archive_context(args.role, sid, dest)
+    reasons: list[str] = []
+    try:
+        ctx = archive_context(args.role, sid, dest)
+    except Exception as e:  # archive what there is; the session is not delivered
+        ctx = []
+        reasons.append(f"context archiving failed: {e!r}")
+    if rc.returncode != 0:
+        reasons.append(f"exit code {rc.returncode}")
+    if not delivered:
+        reasons.append("no labels file")
+    if sid is not None and len(ctx) != 1:
+        reasons.append(f"{len(ctx)} provider session records found (need 1)")
+    reasons += CS.context_failures(dest, args.role, sid, prompt)
     rec: dict[str, Any] = {
         "role": args.role,
         "label": args.label,
@@ -250,7 +258,8 @@ def main(argv: list[str] | None = None) -> int:
         "context_sources": ctx,
         "labels_delivered": delivered,
         "labels_sha256": sha256(dest / "labels.jsonl") if delivered else None,
-        "status": "delivered" if rc.returncode == 0 and delivered else "failed",
+        "status": "technical_failure" if reasons else "delivered",
+        "failure_reasons": reasons,
     }
     files = sorted(p.name for p in dest.iterdir())
     rec["archive_sha256"] = {f: sha256(dest / f) for f in files}

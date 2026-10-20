@@ -1,5 +1,6 @@
-# These are the one-off scripts that built the exclusion manifests, kept byte for
+# The four one-off scripts that built the exclusion manifests are kept byte for
 # byte as they were run (the freeze manifest hashes them). They are a record, not
-# maintained code, so they are not linted or reformatted.
+# maintained code, so they are not linted or reformatted. final_inventory.py is
+# maintained code and is linted as usual.
 extend = "../../../../pyproject.toml"
-extend-exclude = ["*.py"]
+extend-exclude = ["add_pageids.py", "build_union.py", "clear_wiki.py", "inventory.py"]
