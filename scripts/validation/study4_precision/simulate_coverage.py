@@ -30,11 +30,14 @@ NOT_THE_EXPRESSION, WRONG_SENSE_LISTED and WRONG_SENSE_UNLISTED, so the
 module's outcome parsing is exercised.
 
 Scenarios. The main scenario, `main-pilot`, is calibrated to the development
-pilot (PILOT, pilot_resolution): population STRICT precision exactly .491
-(metadiscourse) and .836 (PHRASE), the pilot's design-weighted estimates, via
+pilot (PILOT, pilot_resolution): the 0.4.0 common development pilot (2026-10-20,
+docs/validation/study4-pilot040/). Population STRICT precision exactly .554
+(metadiscourse) and .870 (PHRASE), the pilot's design-weighted estimates, via
 `p_target`, and per-module adjudication
-and unresolved rates equal to the pilot's (metadiscourse 63/1,000 adjudicated,
-2/1,000 unresolved; PHRASE 8/300 adjudicated and (8/300)(2/86) unresolved).
+and unresolved rates equal to the pilot's (metadiscourse 55/1,000 adjudicated,
+1/1,000 unresolved; PHRASE 12/300 adjudicated and (12/300)(1/84) unresolved).
+The 0.3.2 pilot's values (.491/.836; 63/1,000 and 2/1,000; 8/300 and
+(8/300)(2/86)) belong to the historical 2026-10-16/17 run, which is kept unchanged.
 Sub-stratum heterogeneity, register effects and the maintainer's parameters
 are BASE's: the pilot has no maintainer labels. The grid keeps the boundary,
 non-resolution, weight, threshold and adverse scenarios; `main-realistic` (the
@@ -158,28 +161,30 @@ def effective(spec: dict[str, Any], module: str) -> dict[str, Any]:
     return full | by_module.get(module, {})
 
 
-# Development pilot (the dev design: 1,000 metadiscourse and 300 PHRASE phase-one items).
+# Development pilot: the 0.4.0 common development pilot (2026-10-20; the dev design,
+# 1,000 metadiscourse and 300 PHRASE phase-one items, sample seed 473840911, key and frame
+# in .cache/validation/study4_v040; record in docs/validation/study4-pilot040/).
 # "precision" is the design-weighted pilot estimate (the registered resolution-adjusted
-# estimator, weights N_h/r_h from the dev key: MD .49140, PHRASE .83556; N_h/n_h gives
-# the same PHRASE value and MD .49131),
+# estimator, weights N_h/r_h: MD .55375, PHRASE .87002, rounded to three places as before),
 # because p_target sets the share of R = 1 in the whole population; the unweighted sample
-# shares were .622 and .670 (in metadiscourse the more heavily weighted, less sampled
-# sub-strata have lower precision; in PHRASE, higher). The resolution counts below are unweighted,
-# because they act per sampled unit. Model reference = the agreed definite A/B STRICT value, else the
-# adjudicator's. "adjudicated" = items whose STRICT reference needed the adjudicator
-# (A/B split on STRICT, or a primary UNSURE/missing); "unresolved" = the adjudicator was
-# UNSURE too. The 86 requests also include 15 items sent only because A and B split on a
-# secondary outcome; their STRICT reference is the agreed A/B value, so they do not
-# affect STRICT results and are not simulated. A-B STRICT agreement (MD .954, PHRASE
-# .973) is recorded for reference only: the simulation does not separate splits from
-# primary UNSUREs, which the STRICT reference treats the same way (the adjudicator
-# decides). The pilot has no maintainer labels, so the maintainer parameters keep BASE.
+# shares were 693/999 = .694 and 230/300 = .767. The resolution counts below are
+# unweighted, because they act per sampled unit. Model reference = the agreed definite A/B
+# STRICT value, else the adjudicator's. "adjudicated" = items whose STRICT reference needed
+# the adjudicator (A/B split on STRICT, or a primary UNSURE/missing): MD 54 resolved by the
+# adjudicator + 1 unresolved, PHRASE 12; "unresolved" = the adjudicator was UNSURE too. The
+# 84 requests also include items sent only because A and B split on a secondary outcome;
+# their STRICT reference is the agreed A/B value, so they do not affect STRICT results and
+# are not simulated. A-B STRICT agreement (MD .961, PHRASE .960) is recorded for reference
+# only: the simulation does not separate splits from primary UNSUREs, which the STRICT
+# reference treats the same way (the adjudicator decides). The pilot has no maintainer
+# labels, so the maintainer parameters keep BASE. The 0.3.2 pilot's values are history
+# (module docstring).
 PILOT: dict[str, Any] = {
-    "metadiscourse": {"items": 1000, "precision": 0.491, "adjudicated": 63, "unresolved": 2},
-    "phrase": {"items": 300, "precision": 0.836, "adjudicated": 8, "unresolved": 0},
-    "ab_strict_agreement": {"metadiscourse": 0.954, "phrase": 0.973},
-    "adjudication_requests": 86,  # of 1,300 items (6.6%)
-    "adjudicator_unsure": 2,  # of the 86 requests
+    "metadiscourse": {"items": 1000, "precision": 0.554, "adjudicated": 55, "unresolved": 1},
+    "phrase": {"items": 300, "precision": 0.870, "adjudicated": 12, "unresolved": 0},
+    "ab_strict_agreement": {"metadiscourse": 0.961, "phrase": 0.960},
+    "adjudication_requests": 84,  # of 1,300 items (6.5%)
+    "adjudicator_unsure": 1,  # of the 84 requests
 }
 
 
@@ -187,9 +192,9 @@ def pilot_resolution(module: str) -> dict[str, float]:
     """pu and p_adj that reproduce the pilot's per-module STRICT resolution rates.
 
     In `replicate`, P(adjudicator needed) = pu + (1 - pu) * p_adj and P(unresolved) = pu.
-    Metadiscourse: pu = 2/1000. PHRASE had 0 unresolved of 8 adjudicated, too few to
+    Metadiscourse: pu = 1/1000. PHRASE had 0 unresolved of 12 adjudicated, too few to
     estimate, so its pu is its adjudication share times the pooled adjudicator UNSURE
-    rate: (8/300) * (2/86)."""
+    rate: (12/300) * (1/84)."""
     p = PILOT[module]
     adj = p["adjudicated"] / p["items"]
     if p["unresolved"]:
@@ -210,7 +215,7 @@ def _pilot(p_target: float | None = None) -> dict[str, Any]:
     }
 
 
-# Main scenario: the pilot-calibrated one (population STRICT precision .491 / .836, the
+# Main scenario: the pilot-calibrated one (population STRICT precision .554 / .870, the
 # pilot's adjudication and unresolved rates, random non-resolution; sub-stratum
 # heterogeneity, register effects and maintainer parameters as in BASE).
 MAIN: dict[str, dict[str, Any]] = {"main-pilot": _pilot()}

@@ -1329,10 +1329,10 @@ def test_pilot_calibrated_scenarios():
         for k in ("q_unsure", "q_unsure_disc", "q2", "f10", "f01", "p_range", "maintainer_total"):
             assert e[k] == S.BASE[k]
         assert "by_module" not in e
-    assert S.effective(S.MAIN["main-pilot"], "metadiscourse")["pu1"] == 2 / 1000
-    assert S.effective(S.MAIN["main-pilot"], "phrase")["pu1"] == pytest.approx(8 / 300 * 2 / 86)
-    assert (pilot["metadiscourse"]["precision"], pilot["phrase"]["precision"]) == (0.491, 0.836)
-    assert pilot["adjudication_requests"] == 86 and pilot["adjudicator_unsure"] == 2
+    assert S.effective(S.MAIN["main-pilot"], "metadiscourse")["pu1"] == 1 / 1000
+    assert S.effective(S.MAIN["main-pilot"], "phrase")["pu1"] == pytest.approx(12 / 300 * 1 / 84)
+    assert (pilot["metadiscourse"]["precision"], pilot["phrase"]["precision"]) == (0.554, 0.870)
+    assert pilot["adjudication_requests"] == 84 and pilot["adjudicator_unsure"] == 1
     assert S.effective(S.GRID["low-precision-050"], "phrase")["p_target"] == 0.5
     for kept in ("boundary-high", "boundary-low", "adverse-concordance", "main-realistic"):
         assert kept in S.GRID
