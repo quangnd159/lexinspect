@@ -15,7 +15,7 @@
   - copies of the source texts (Creative Commons, per text);
   - PHRASE List material (no open licence; permission pending);
   - model transcripts, which quote both.
-- **The gap and the proposed fix:** a text-free release of memberships, frames and labels (tier 2 in section 7) would let an external methodologist recompute the gates and the pilot quantities. It doesn't exist yet.
+- **Public text-free export:** memberships, keys, frame identities and links, and labels with text-free stand-ins for their notes (tier 2 in section 7). Its recompute script reproduces both pilots' quantities, both rounds' gates and the sensitivity analysis from public files alone (72 checks, all equal to the published values).
 
 ## 2. Licences and permissions
 
@@ -145,7 +145,8 @@ The provider session records of the 16 Oct pilot were found only in the provider
 | `labels_A_original.jsonl` | `e33510cbf4e836ff1866394b4c8115be251059f6e3fa6a7957121e651a33bfa7` |
 | `labels_A.jsonl` (after the retry merge) | `53acd4a96cde4aa66ee78e9fa2c563809260dcc39b8aed3bac2242ce95276103` |
 | `labels_B.jsonl` | `21078903be63966401e23007b3209b907a69c047fe7f9e92d05c6608e8feb7ff` |
-| `retry_A.jsonl` | `dc7c46e5541a4ef0525ef8103b0080df586fc69ed7088a48da12034ec0c886cb` |
+| `retry_A.jsonl` (A's retry manifest: ids and reasons, not labels) | `dc7c46e5541a4ef0525ef8103b0080df586fc69ed7088a48da12034ec0c886cb` |
+| `raw/A_retry.jsonl` (A's retry labels) | `6505ccda9ee50a54812085ae1e8cb1266c45abfaa6d9e0a318f06b2b0bb55537` |
 | `needs_adjudication.txt` | `eaca38000318024d7a8bf9e185297f03c3bf6bf1f629b2a52d5ec69667d7b2fd` |
 | `raw/DSF2_flash.jsonl` (adjudicator) | `9f3297a9d5b9baa30c6b7c26669ed194e5bb5187f7b95982d7ad2f9016cf97ea` |
 | `raw/G6S_dryrun.jsonl` (not used) | `604c7bf7f5b77e0769f94885e522b91d15471e4792b773455f0c2210d8f15b21` |
@@ -179,7 +180,7 @@ Chosen by the maintainer on 2026-10-21. There are four tiers.
 | Tier | What | Terms |
 |---|---|---|
 | **1. Public** | Everything in the repository: code, protocols, rulings, receipts, acceptance results, hashes, the effects report, the pilot plan, launch record, results and selection hashes, the exclusion manifests, the Stage-1 review records and the freeze manifest | As published |
-| **2. Public text-free export** | `docs/validation/study4-textfree/`: text manifests (attribution metadata and text hashes), sampling memberships, keys, strata and weights, the frame identities and links the gates use, labels without notes, adjudication lists, and the SHA-256 of every private file each part was derived from, with a recompute script (`scripts/validation/study4_precision/textfree/`). It contains no source text, note, prompt, transcript or PHRASE List text. | Open, CC BY 4.0. |
+| **2. Public text-free export** | `docs/validation/study4-textfree/`: text manifests (attribution metadata and text hashes), sampling memberships, keys, strata and weights, the frame identities and links the gates use, labels with text-free stand-ins for their notes and PHRASE alternatives (chosen so that the frozen validator gives identical results), adjudication lists, and the SHA-256 of every private file each part was derived from, with a recompute script (`scripts/validation/study4_precision/textfree/`). It contains no source text, note, prompt, transcript or PHRASE List gloss, example or inventory text; sub-strata named by a PHRASE expression are coded. A guard checks every file against the source texts, the guidelines, the inventory and the restricted fragments. | Open, CC BY 4.0. |
 | **3. Full packages: supervised inspection only** | The archive tars, the unpacked rounds, the pilot selection and sessions, the 16 Oct pilot cache and session records | Until the PHRASE redistribution permission is resolved, full-package verification is available only through supervised inspection on the custodian's machine; no package copy is transferred. |
 | **4. Withheld until the PHRASE List authors agree** | Glosses, examples and the sense inventory; the guidelines (`276d35e8…`) | Published with the registration or the results once permission is given. Their SHA-256 values are already public, so the released files can be checked against them. |
 

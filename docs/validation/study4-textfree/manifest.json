@@ -1,0 +1,730 @@
+{
+ "files": {
+  "fixcheck/round1/flash_ids.txt": {
+   "bytes": 1980,
+   "derived_from": [
+    {
+     "path": "lexinspect-private/study4-fix040/round1/assign/flash/flash_ids.txt",
+     "sha256": "36567cfd37678cd164bc428748cf35e4b0a056ece0794ec66a8ac608a52ae4a6"
+    }
+   ],
+   "sha256": "36567cfd37678cd164bc428748cf35e4b0a056ece0794ec66a8ac608a52ae4a6",
+   "what": "the adjudicator's assignment"
+  },
+  "fixcheck/round1/items.jsonl.gz": {
+   "bytes": 27664,
+   "derived_from": [
+    {
+     "path": "lexinspect-private/study4-fix040/round1/assign/items.jsonl",
+     "sha256": "c4a3a23fda8525f8130cd105549a7ef6c9508349d021573d9a8763e34bd06624"
+    }
+   ],
+   "lines": 3215,
+   "sha256": "17b5d271f841bf8a029c23c3849a5a4ce88a9e85a56cd9024916a9a9f1a7d23c",
+   "what": "item shapes (no text)"
+  },
+  "fixcheck/round1/key.jsonl.gz": {
+   "bytes": 299198,
+   "derived_from": [
+    {
+     "path": "lexinspect-private/study4-fix040/round1/assign/key.jsonl",
+     "sha256": "fbb62df13087294b9206619e725bdfb4d188d61bb02ae0ed77a28f0f8574d246"
+    }
+   ],
+   "lines": 3215,
+   "sha256": "65da60a1ef22da43f5a819b8489a52b91ab5f90b3247ab30d7b8802be215dae7",
+   "what": "one line per label unit: payload hash, claim code, frame memberships and occurrence locators (source id, text SHA-256, module, offsets)"
+  },
+  "fixcheck/round1/labels/A.jsonl.gz": {
+   "bytes": 28417,
+   "derived_from": [
+    {
+     "path": "lexinspect-private/study4-fix040/round1/labels/A.jsonl",
+     "sha256": "0bfcd3ad6fc30fb738869ecd43562738afc7ea39a78d330869bdd0440e746662"
+    }
+   ],
+   "expected_ids": "all items",
+   "lines": 3215,
+   "sha256": "7a26b2053036901543afb0186f52b19e8d90d4cff37088f817f278f40150682c",
+   "validator_summary": {
+    "expected": 3215,
+    "lines": 3215,
+    "problems_by_reason": {},
+    "retry": 0,
+    "retry_by_reason": {},
+    "valid": 3215,
+    "warnings": 0
+   },
+   "what": "label shapes of role A (one line per line of the source file)"
+  },
+  "fixcheck/round1/labels/B.jsonl.gz": {
+   "bytes": 27759,
+   "derived_from": [
+    {
+     "path": "lexinspect-private/study4-fix040/round1/labels/B.jsonl",
+     "sha256": "04fac175f864cc951ccb36b4c14a07da8e35d680997e51ba419ad5deb48eec8b"
+    }
+   ],
+   "expected_ids": "all items",
+   "lines": 3215,
+   "sha256": "6e812a3a2a068104086a10c21e75755fa5ac226d07511c162847425b48411b8b",
+   "validator_summary": {
+    "expected": 3215,
+    "lines": 3215,
+    "problems_by_reason": {},
+    "retry": 0,
+    "retry_by_reason": {},
+    "valid": 3215,
+    "warnings": 0
+   },
+   "what": "label shapes of role B (one line per line of the source file)"
+  },
+  "fixcheck/round1/labels/adjudicator.jsonl.gz": {
+   "bytes": 2063,
+   "derived_from": [
+    {
+     "path": "lexinspect-private/study4-fix040/round1/labels/adjudicator.jsonl",
+     "sha256": "1f57f688ba6099b95027d83f66e65fadc60a060dcca52f0597426b469f981ad4"
+    }
+   ],
+   "expected_ids": 180,
+   "lines": 210,
+   "sha256": "ee05d2293481b5c3416c3fe860a18bbec8cd76afc91292b172d0be525a344b55",
+   "validator_summary": {
+    "expected": 180,
+    "lines": 210,
+    "problems_by_reason": {
+     "conflicting_duplicate": 6
+    },
+    "retry": 6,
+    "retry_by_reason": {
+     "conflicting_duplicate": 6
+    },
+    "valid": 174,
+    "warnings": 24
+   },
+   "what": "label shapes of role adjudicator (one line per line of the source file)"
+  },
+  "fixcheck/round1/selection.json": {
+   "bytes": 212090,
+   "derived_from": [
+    {
+     "path": "lexinspect-private/study4-fix040/round1/sample/selection.json",
+     "sha256": "6da078f58eb7719812fec95da23f4744c7706c26f5bae52fbde351d1798120e0"
+    }
+   ],
+   "sha256": "5f46672648c3dced5e6186abb72a546f15b635de46e6b8c9ac9ee64288496a05",
+   "what": "frame sizes, SRS selections and the baseline-success strata (sub-stratum names coded)"
+  },
+  "fixcheck/round2/flash_ids.txt": {
+   "bytes": 1089,
+   "derived_from": [
+    {
+     "path": "lexinspect-private/study4-fix040/round2/assign/flash/flash_ids.txt",
+     "sha256": "5bff8a84745a5529fe0e88a449429de5661167e28df9e806869b0f0307f63735"
+    }
+   ],
+   "sha256": "5bff8a84745a5529fe0e88a449429de5661167e28df9e806869b0f0307f63735",
+   "what": "the adjudicator's assignment"
+  },
+  "fixcheck/round2/items.jsonl.gz": {
+   "bytes": 20152,
+   "derived_from": [
+    {
+     "path": "lexinspect-private/study4-fix040/round2/assign/items.jsonl",
+     "sha256": "003acbba167ec1b99a2daa51f97105b4b50d180d1cd3da862b56bffc7f9180e2"
+    }
+   ],
+   "lines": 2314,
+   "sha256": "b7d17aa954a55c013711d7d8977e9041a4a05f4d046455dc599a882e613e4459",
+   "what": "item shapes (no text)"
+  },
+  "fixcheck/round2/key.jsonl.gz": {
+   "bytes": 214667,
+   "derived_from": [
+    {
+     "path": "lexinspect-private/study4-fix040/round2/assign/key.jsonl",
+     "sha256": "af3ce6d4527705113ae52ea722cb1410750a45f868aa2ead4f1b74cf8154a770"
+    }
+   ],
+   "lines": 2314,
+   "sha256": "04c76388616496af5827bcaf847301c537d3b656fee0e97a9dbe1197b2a62a01",
+   "what": "one line per label unit: payload hash, claim code, frame memberships and occurrence locators (source id, text SHA-256, module, offsets)"
+  },
+  "fixcheck/round2/labels/A.jsonl.gz": {
+   "bytes": 20351,
+   "derived_from": [
+    {
+     "path": "lexinspect-private/study4-fix040/round2/labels/A.jsonl",
+     "sha256": "4e7634e4eb330b6073d2cd8dee1a4e31d9aadca4fd3f170758d26dda46966cfa"
+    }
+   ],
+   "expected_ids": "all items",
+   "lines": 2314,
+   "sha256": "bdaec34bdb4863a6b3ab23157605299bcb25abd924014fd5fc07e35935bd64c3",
+   "validator_summary": {
+    "expected": 2314,
+    "lines": 2314,
+    "problems_by_reason": {},
+    "retry": 0,
+    "retry_by_reason": {},
+    "valid": 2314,
+    "warnings": 0
+   },
+   "what": "label shapes of role A (one line per line of the source file)"
+  },
+  "fixcheck/round2/labels/B.jsonl.gz": {
+   "bytes": 19880,
+   "derived_from": [
+    {
+     "path": "lexinspect-private/study4-fix040/round2/labels/B.jsonl",
+     "sha256": "6b8a32167b41d9a98743da4fe3b69c96171b57327c779fe6c73b171e77ef8802"
+    }
+   ],
+   "expected_ids": "all items",
+   "lines": 2314,
+   "sha256": "9718d93dad41ce3836b01b725b5ffdb6183db36a89ce0ce07a1b6526c2865a16",
+   "validator_summary": {
+    "expected": 2314,
+    "lines": 2314,
+    "problems_by_reason": {},
+    "retry": 0,
+    "retry_by_reason": {},
+    "valid": 2314,
+    "warnings": 0
+   },
+   "what": "label shapes of role B (one line per line of the source file)"
+  },
+  "fixcheck/round2/labels/adjudicator.jsonl.gz": {
+   "bytes": 1245,
+   "derived_from": [
+    {
+     "path": "lexinspect-private/study4-fix040/round2/labels/adjudicator.jsonl",
+     "sha256": "6f030e5d009b107d78e92941f4df912da80f6605841c3975e17489a62d6123ec"
+    }
+   ],
+   "expected_ids": 99,
+   "lines": 99,
+   "sha256": "a83b14157ade921d6df322452b339e1e31fe74576dbf2e841cb32270297ca7ce",
+   "validator_summary": {
+    "expected": 99,
+    "lines": 99,
+    "problems_by_reason": {},
+    "retry": 0,
+    "retry_by_reason": {},
+    "valid": 99,
+    "warnings": 0
+   },
+   "what": "label shapes of role adjudicator (one line per line of the source file)"
+  },
+  "fixcheck/round2/selection.json": {
+   "bytes": 175662,
+   "derived_from": [
+    {
+     "path": "lexinspect-private/study4-fix040/round2/sample/selection.json",
+     "sha256": "2c30bb7117a2e463c75d5b11dae8ad4ea78d64e137e16c11db77e5038e91a390"
+    }
+   ],
+   "sha256": "8ca5d33fbf330ad1f800af87e908fbfa535d7885e8161b1b645e17e32c9e4919",
+   "what": "frame sizes, SRS selections and the baseline-success strata (sub-stratum names coded)"
+  },
+  "pilot032/frame.json": {
+   "bytes": 6470,
+   "derived_from": [
+    {
+     "path": ".cache/validation/study4_scratch/dev032/frame.json",
+     "sha256": "c1d083d7aaf074746e5b685710e3dff3bfa389a9fcb6966298232218097bbf46"
+    }
+   ],
+   "sha256": "ec8327bdcd0c8d76378c1bf85e95176665cad9c8b5e7d87194ba0687a78f47b0",
+   "what": "N_h and register counts per sub-stratum"
+  },
+  "pilot032/items.jsonl.gz": {
+   "bytes": 11516,
+   "derived_from": [
+    {
+     "path": ".cache/validation/study4/items.jsonl",
+     "sha256": "966a880676eb5782ba24fd720f05fb0cd883a13f81c7c41aa7754abd697c79e5"
+    }
+   ],
+   "lines": 1300,
+   "sha256": "ba2b6bbdd198f0f8d429eb1b125158e0c65f119e5c2fa88f0172dc434b4cf093",
+   "what": "item shapes: module and claimed category, or PHRASE word counts (no text)"
+  },
+  "pilot032/key.jsonl.gz": {
+   "bytes": 57844,
+   "derived_from": [
+    {
+     "path": ".cache/validation/study4/key.jsonl",
+     "sha256": "5796bc2acefdf99d557630e5c196ed4fb19816207aa34da250ebf7b273e1b655"
+    }
+   ],
+   "dropped_fields": [
+    "also_possible",
+    "expression",
+    "licence",
+    "marker_key",
+    "source",
+    "surface",
+    "title",
+    "url"
+   ],
+   "lines": 1300,
+   "sha256": "74259a3138bacc888bb8c39a7bea61e71485e7fec6af7a2eec6e1bde7b610a17",
+   "what": "sampled items: strata, weights, text identity and offsets (analyse.py key)"
+  },
+  "pilot032/labels/A.jsonl.gz": {
+   "bytes": 11433,
+   "derived_from": [
+    {
+     "path": ".cache/validation/study4_pilot/labels_A.jsonl",
+     "sha256": "53acd4a96cde4aa66ee78e9fa2c563809260dcc39b8aed3bac2242ce95276103"
+    }
+   ],
+   "expected_ids": "all items",
+   "lines": 1300,
+   "sha256": "0c5a7737a16f403860ea7d57f39d795a2ccf57a4f9634b21827d93e9521e7ad4",
+   "validator_summary": {
+    "expected": 1300,
+    "lines": 1300,
+    "problems_by_reason": {},
+    "retry": 0,
+    "retry_by_reason": {},
+    "valid": 1300,
+    "warnings": 0
+   },
+   "what": "label shapes of role A (one line per line of the source file)"
+  },
+  "pilot032/labels/A_original.jsonl.gz": {
+   "bytes": 11443,
+   "derived_from": [
+    {
+     "path": ".cache/validation/study4_pilot/labels_A_original.jsonl",
+     "sha256": "e33510cbf4e836ff1866394b4c8115be251059f6e3fa6a7957121e651a33bfa7"
+    }
+   ],
+   "expected_ids": "all items",
+   "lines": 1300,
+   "sha256": "9fd29526b442a2783e4c5611a030c9c60c6bbeb45508fce1a03bcf3eb0920196",
+   "validator_summary": {
+    "expected": 1300,
+    "lines": 1300,
+    "problems_by_reason": {
+     "alt_category_same_as_claimed": 5
+    },
+    "retry": 5,
+    "retry_by_reason": {
+     "alt_category_same_as_claimed": 5
+    },
+    "valid": 1295,
+    "warnings": 0
+   },
+   "what": "label shapes of role A_original (one line per line of the source file)"
+  },
+  "pilot032/labels/A_retry.jsonl.gz": {
+   "bytes": 141,
+   "derived_from": [
+    {
+     "path": ".cache/validation/study4_pilot/raw/A_retry.jsonl",
+     "sha256": "6505ccda9ee50a54812085ae1e8cb1266c45abfaa6d9e0a318f06b2b0bb55537"
+    }
+   ],
+   "expected_ids": 5,
+   "lines": 5,
+   "sha256": "a8a2231a2a62ece307c6f2f38cde3c0bc9b06a945a3ad1d1078ce72422f39e52",
+   "validator_summary": {
+    "expected": 5,
+    "lines": 5,
+    "problems_by_reason": {},
+    "retry": 0,
+    "retry_by_reason": {},
+    "valid": 5,
+    "warnings": 0
+   },
+   "what": "label shapes of role A_retry (one line per line of the source file)"
+  },
+  "pilot032/labels/A_retry_ids.txt": {
+   "bytes": 55,
+   "derived_from": [
+    {
+     "path": ".cache/validation/study4_pilot/retry_A_manifest.jsonl",
+     "sha256": "dc7c46e5541a4ef0525ef8103b0080df586fc69ed7088a48da12034ec0c886cb"
+    }
+   ],
+   "sha256": "76cb78e99f1c3128a8d67e5df7fddc78b8f3d00ad2b4c2e7a2441560490e22fe",
+   "what": "ids of A's retry manifest (reasons and details dropped)"
+  },
+  "pilot032/labels/B.jsonl.gz": {
+   "bytes": 11177,
+   "derived_from": [
+    {
+     "path": ".cache/validation/study4_pilot/labels_B.jsonl",
+     "sha256": "21078903be63966401e23007b3209b907a69c047fe7f9e92d05c6608e8feb7ff"
+    }
+   ],
+   "expected_ids": "all items",
+   "lines": 1300,
+   "sha256": "f9dc0fbc5ea4c21fa368c9064f2b3d2c331ed418c7b892417412227425551462",
+   "validator_summary": {
+    "expected": 1300,
+    "lines": 1300,
+    "problems_by_reason": {},
+    "retry": 0,
+    "retry_by_reason": {},
+    "valid": 1300,
+    "warnings": 0
+   },
+   "what": "label shapes of role B (one line per line of the source file)"
+  },
+  "pilot032/labels/adjudicator.jsonl.gz": {
+   "bytes": 2770,
+   "derived_from": [
+    {
+     "path": ".cache/validation/study4_pilot/raw/DSF2_flash.jsonl",
+     "sha256": "9f3297a9d5b9baa30c6b7c26669ed194e5bb5187f7b95982d7ad2f9016cf97ea"
+    }
+   ],
+   "expected_ids": 86,
+   "lines": 284,
+   "sha256": "7b96b0ced9c55889364858fc3175f2d22000de94437521f336f0cec51521634f",
+   "validator_summary": {
+    "expected": 86,
+    "lines": 284,
+    "problems_by_reason": {
+     "not_assigned": 198
+    },
+    "retry": 0,
+    "retry_by_reason": {},
+    "valid": 86,
+    "warnings": 0
+   },
+   "what": "label shapes of role adjudicator (one line per line of the source file)"
+  },
+  "pilot032/labels/needs_adjudication.txt": {
+   "bytes": 946,
+   "derived_from": [
+    {
+     "path": ".cache/validation/study4_pilot/needs_adjudication.txt",
+     "sha256": "eaca38000318024d7a8bf9e185297f03c3bf6bf1f629b2a52d5ec69667d7b2fd"
+    }
+   ],
+   "sha256": "eaca38000318024d7a8bf9e185297f03c3bf6bf1f629b2a52d5ec69667d7b2fd",
+   "what": "the adjudicator's assignment (analyse.needs_adjudication)"
+  },
+  "pilot032/maintainer_sample_ids.txt": {
+   "bytes": 2112,
+   "derived_from": [
+    {
+     "path": ".cache/validation/study4/human_sample_ids.txt",
+     "sha256": "7f2608dbbb0a9f0669c8a71bc4e8c32e3ce30f02ab0457f5d540cab4e048f786"
+    }
+   ],
+   "sha256": "7f2608dbbb0a9f0669c8a71bc4e8c32e3ce30f02ab0457f5d540cab4e048f786",
+   "what": "maintainer audit-sample ids (no maintainer labels exist)"
+  },
+  "pilot032/orders.json": {
+   "bytes": 74126,
+   "derived_from": [
+    {
+     "path": ".cache/validation/study4_pilot/orders.json",
+     "sha256": "37aa98df0ce7849bf76fca9069c63d51468b997958602ea13f6b12a5924948b2"
+    }
+   ],
+   "sha256": "4b4801dc3a73493459378458a0a78f4e84ee842802360789b06623ebc088b90d",
+   "what": "labelling orders and batch sizes per role (the descriptive 'note' string dropped)"
+  },
+  "pilot040/dev032_hits.jsonl.gz": {
+   "bytes": 349536,
+   "derived_from": [
+    {
+     "path": ".cache/validation/study4/hits.jsonl",
+     "sha256": "98053a49dbe2a0470c1081423d94d6155125c842547d9ce61aea2d32d46d2fb2"
+    }
+   ],
+   "lines": 44529,
+   "sha256": "c3ab6502701cfef62069bdc3c37f00d1d11aac92bbc707311ec93cd65b71ae9d",
+   "what": "identity of every 0.3.2 development hit: module, text, span, claim (category or PHRASE rank)"
+  },
+  "pilot040/frame.json": {
+   "bytes": 6249,
+   "derived_from": [
+    {
+     "path": "lexinspect-private/study4-pilot040/selection/build/frame.json",
+     "sha256": "55a1d909f54df8fadb27e1c17313ab1c1ba8135709813f6684a3cab172b872dc"
+    }
+   ],
+   "sha256": "fc9e1363a9af47fed4734e5b41c387e7da23d78455d23842234107445ead6373",
+   "what": "N_h and register counts per sub-stratum"
+  },
+  "pilot040/items.jsonl.gz": {
+   "bytes": 11480,
+   "derived_from": [
+    {
+     "path": "lexinspect-private/study4-pilot040/selection/build/items.jsonl",
+     "sha256": "2556ae7f5c44daff48bdee8170e6dfeb4b04a23c7fd0ef7f59bc148853d72eb3"
+    }
+   ],
+   "lines": 1300,
+   "sha256": "9097d456b1f0d013c01a036c05d492f487be8cbbe38df59308173b11b898c3ba",
+   "what": "item shapes: module and claimed category, or PHRASE word counts (no text)"
+  },
+  "pilot040/key.jsonl.gz": {
+   "bytes": 57357,
+   "derived_from": [
+    {
+     "path": "lexinspect-private/study4-pilot040/selection/build/key.jsonl",
+     "sha256": "c95e7820cf0369164074b395aab6525615c7f7912fb656eea870f4bc3b66e24d"
+    }
+   ],
+   "dropped_fields": [
+    "also_possible",
+    "expression",
+    "licence",
+    "marker_key",
+    "source",
+    "surface",
+    "title",
+    "url"
+   ],
+   "lines": 1300,
+   "sha256": "a2c78f254f257efde9f52fc1fdf706ff3f7517d057c7235e6a11aabb3f6e2127",
+   "what": "sampled items: strata, weights, text identity and offsets (analyse.py key)"
+  },
+  "pilot040/labels/A.jsonl.gz": {
+   "bytes": 11379,
+   "derived_from": [
+    {
+     "path": "lexinspect-private/study4-pilot040/labels/A_merged.jsonl",
+     "sha256": "43b3d1a89434ee062e1b0a35a7b8f6581d7d76e5ceed873d8d914284c499a7d1"
+    }
+   ],
+   "expected_ids": "all items",
+   "lines": 1300,
+   "sha256": "6dbecadc22458cf8f68c07d1f27bd958628166ebf6a1e7f586ef83c6c26e6e1d",
+   "validator_summary": {
+    "expected": 1300,
+    "lines": 1300,
+    "problems_by_reason": {},
+    "retry": 0,
+    "retry_by_reason": {},
+    "valid": 1300,
+    "warnings": 0
+   },
+   "what": "label shapes of role A (one line per line of the source file)"
+  },
+  "pilot040/labels/A_original.jsonl.gz": {
+   "bytes": 11389,
+   "derived_from": [
+    {
+     "path": "lexinspect-private/study4-pilot040/labels/A_batch.jsonl",
+     "sha256": "ac020889769028bf0760ebfe176e093985d3a0a3504ba7a6a6f126f1233db57f"
+    }
+   ],
+   "expected_ids": "all items",
+   "lines": 1300,
+   "sha256": "1a3b49829e91c3f3d4ab3d0049c6bb2b35618496e8e2babe1daf7c7af61eb09e",
+   "validator_summary": {
+    "expected": 1300,
+    "lines": 1300,
+    "problems_by_reason": {
+     "alt_category_same_as_claimed": 4
+    },
+    "retry": 4,
+    "retry_by_reason": {
+     "alt_category_same_as_claimed": 4
+    },
+    "valid": 1296,
+    "warnings": 0
+   },
+   "what": "label shapes of role A_original (one line per line of the source file)"
+  },
+  "pilot040/labels/A_retry.jsonl.gz": {
+   "bytes": 130,
+   "derived_from": [
+    {
+     "path": "lexinspect-private/study4-pilot040/labels/A_retry.jsonl",
+     "sha256": "f8be163fe1f67d3dbde6b20725f4359e5e95b4859221b8e0d3e075f547682107"
+    }
+   ],
+   "expected_ids": 4,
+   "lines": 4,
+   "sha256": "03f34f049cabb5836aa2bc891d9df533d81f60d78af0b97f6eff9fbf61662d42",
+   "validator_summary": {
+    "expected": 4,
+    "lines": 4,
+    "problems_by_reason": {},
+    "retry": 0,
+    "retry_by_reason": {},
+    "valid": 4,
+    "warnings": 0
+   },
+   "what": "label shapes of role A_retry (one line per line of the source file)"
+  },
+  "pilot040/labels/A_retry_ids.txt": {
+   "bytes": 44,
+   "derived_from": [
+    {
+     "path": "lexinspect-private/study4-pilot040/labels/A_batch_retry.jsonl",
+     "sha256": "41e92cacefabd01777fbff3c1d112d16e264f2254134066e97a60e2ce8c6f028"
+    }
+   ],
+   "sha256": "9789de4ae6756b2dafbdefc1b502754398461259bcd1329551c8777be8f7d615",
+   "what": "ids of A's retry manifest (reasons and details dropped)"
+  },
+  "pilot040/labels/B.jsonl.gz": {
+   "bytes": 11351,
+   "derived_from": [
+    {
+     "path": "lexinspect-private/study4-pilot040/labels/B_batch.jsonl",
+     "sha256": "b8b529442a101183db3241d10a92f9e829718106af12df444f7652edf3fbdf4e"
+    }
+   ],
+   "expected_ids": "all items",
+   "lines": 1300,
+   "sha256": "617216f4755b324f21e1570cdce2399602df597828a19006d381f01562484b22",
+   "validator_summary": {
+    "expected": 1300,
+    "lines": 1300,
+    "problems_by_reason": {},
+    "retry": 0,
+    "retry_by_reason": {},
+    "valid": 1300,
+    "warnings": 0
+   },
+   "what": "label shapes of role B (one line per line of the source file)"
+  },
+  "pilot040/labels/adjudicator.jsonl.gz": {
+   "bytes": 1063,
+   "derived_from": [
+    {
+     "path": "lexinspect-private/study4-pilot040/labels/adjudicator_adjudication.jsonl",
+     "sha256": "52bfa59fc0035678d6ef697445a2128dc67d8c8962955483e88e72c6918cf62d"
+    }
+   ],
+   "expected_ids": 84,
+   "lines": 84,
+   "sha256": "cfd3c68a172562909546b62a6c239360962605d842abf89f5e90c7abf010b159",
+   "validator_summary": {
+    "expected": 84,
+    "lines": 84,
+    "problems_by_reason": {},
+    "retry": 0,
+    "retry_by_reason": {},
+    "valid": 84,
+    "warnings": 0
+   },
+   "what": "label shapes of role adjudicator (one line per line of the source file)"
+  },
+  "pilot040/labels/needs_adjudication.txt": {
+   "bytes": 924,
+   "derived_from": [
+    {
+     "path": "lexinspect-private/study4-pilot040/labels/needs_adjudication.txt",
+     "sha256": "4e545200556de4e1e7c150feead3d7c2af759defd04a7334dea91d5f073f4d5f"
+    }
+   ],
+   "sha256": "4e545200556de4e1e7c150feead3d7c2af759defd04a7334dea91d5f073f4d5f",
+   "what": "the adjudicator's assignment (analyse.needs_adjudication)"
+  },
+  "pilot040/maintainer_sample_ids.txt": {
+   "bytes": 2112,
+   "derived_from": [
+    {
+     "path": "lexinspect-private/study4-pilot040/selection/build/human_sample_ids.txt",
+     "sha256": "75b7acce9e20d36908c38f4f1a1610636f4ef74ec8ba99e9ae5df871db12aea5"
+    }
+   ],
+   "sha256": "75b7acce9e20d36908c38f4f1a1610636f4ef74ec8ba99e9ae5df871db12aea5",
+   "what": "maintainer audit-sample ids (no maintainer labels exist)"
+  },
+  "pilot040/orders.json": {
+   "bytes": 74131,
+   "derived_from": [
+    {
+     "path": "lexinspect-private/study4-pilot040/selection/build/orders.json",
+     "sha256": "bb4d335d5ae3381294c494e8f5e3dc55ba7be10cf88e85ed18e33311b0e481e1"
+    }
+   ],
+   "sha256": "eb99640d69b277e568db2608323014f915a72d9be0f4497d3c7742a3736bd2ff",
+   "what": "labelling orders and batch sizes per role (the descriptive 'note' string dropped)"
+  },
+  "pilot040/reference/flash_diagnostics.json": {
+   "bytes": 707,
+   "derived_from": [
+    {
+     "path": "lexinspect-private/study4-pilot040/analysis/flash_diagnostics.json",
+     "sha256": "e3d2d90dbb6673fd386b4c36a5b94a5963dbd532972e6b8e139342568a953d38"
+    }
+   ],
+   "sha256": "e3d2d90dbb6673fd386b4c36a5b94a5963dbd532972e6b8e139342568a953d38",
+   "what": "byte copy (text-free; SHA-256 published in RESULTS.md)"
+  },
+  "pilot040/reference/pilot_textfree.json": {
+   "bytes": 256475,
+   "derived_from": [
+    {
+     "path": "lexinspect-private/study4-pilot040/analysis/pilot.json",
+     "sha256": "f3aa1dd84cff957a2272fba354e4fa055cc5ff178eb235700ff261d99b8d24b4"
+    }
+   ],
+   "sha256": "c41e8ab52c1a9d6187d0ba858ac8be798dd2a6a9cde122abaf5bc80226dc9216",
+   "what": "analysis/pilot.json with alt_categories.<role>.phrase removed (PHRASE wording) and sub-stratum names coded; everything else unchanged"
+  },
+  "texts/development.jsonl": {
+   "bytes": 52882,
+   "derived_from": [
+    {
+     "path": ".cache/validation/study4/texts.jsonl",
+     "sha256": "5dba40ccbb99a853ef32e6f3def90f992810ff2320cf98f366e227d7112f1cc8"
+    },
+    {
+     "path": "lexinspect-private/study4-pilot040/selection/build/SHA256SUMS",
+     "sha256": "81d61c2ab8dd9cc125e4e74b0d2a1eed614681b2675ca7b174b1763e5b650fd1"
+    }
+   ],
+   "lines": 120,
+   "sha256": "84443e1735e55cf83e45b8952c39f64a1bb572f9eb717679257d27cca1f90f4b",
+   "what": "the 120 development texts: identifiers, licence, length and SHA-256 of the archived text (no title, authors or journal)"
+  },
+  "texts/round1.jsonl": {
+   "bytes": 32769,
+   "derived_from": [
+    {
+     "path": "docs/validation/study4-fix040/round1/collect/texts.jsonl",
+     "sha256": "e517be6ab16f60b4a8180dee9c4401e520b7fae3d74b638bb35bbd27da5dc5dc"
+    },
+    {
+     "path": "docs/validation/study4-fix040/round1/collect/manifest_collect.json",
+     "sha256": "359758e97100c5f9ba25c0ff0f9aa3295054ca1c3f7a8c39f25a8e385a5df531"
+    }
+   ],
+   "lines": 60,
+   "sha256": "c0ea0db1c0c47121db4a522c3ced1a9439be995ef43c1387c2da3d4744fce235",
+   "what": "the 60 fix-check round-1 texts (as above)"
+  },
+  "texts/round2.jsonl": {
+   "bytes": 32763,
+   "derived_from": [
+    {
+     "path": "docs/validation/study4-fix040/round2/collect/texts.jsonl",
+     "sha256": "50679c97fe3952d92a8fb2b0794f84dd4c741cbbc26e84b6b647d129d2b0f798"
+    },
+    {
+     "path": "docs/validation/study4-fix040/round2/collect/manifest_collect.json",
+     "sha256": "f08a29da60cb51888997a906f1f6179a771477b766cdf29f100e024800deebf2"
+    }
+   ],
+   "lines": 60,
+   "sha256": "55ed94c43d12340cec17f02b0719ec4686c763ce1c594ee9a24f3f16956569fb",
+   "what": "the 60 fix-check round-2 texts (as above)"
+  }
+ },
+ "format": "study4-textfree/1",
+ "generator": "scripts/validation/study4_precision/textfree/export.py",
+ "label_shapes": "see scripts/validation/study4_precision/textfree/common.py",
+ "substratum_codes": {
+  "n_coded": 31,
+  "n_names": 50,
+  "scheme": "<stratum>|rest kept; <stratum>|marker=<words> -> <stratum>|marker=m<NNN>, numbered in the sorted order of all original names (one numbering for every dataset); the mapping is not published"
+ }
+}

@@ -1,0 +1,352 @@
+{
+ "checks": {
+  "design_N_match": true,
+  "problems": []
+ },
+ "modules": {
+  "metadiscourse": {
+   "attitude_markers|marker=m008": {
+    "N": 364,
+    "by_register": {
+     "academic": 203,
+     "argumentative": 73,
+     "general": 88
+    }
+   },
+   "attitude_markers|marker=m009": {
+    "N": 308,
+    "by_register": {
+     "academic": 142,
+     "argumentative": 50,
+     "general": 116
+    }
+   },
+   "attitude_markers|rest": {
+    "N": 691,
+    "by_register": {
+     "academic": 423,
+     "argumentative": 121,
+     "general": 147
+    }
+   },
+   "boosters|rest": {
+    "N": 1374,
+    "by_register": {
+     "academic": 858,
+     "argumentative": 216,
+     "general": 300
+    }
+   },
+   "code_glosses|marker=m010": {
+    "N": 396,
+    "by_register": {
+     "academic": 168,
+     "argumentative": 37,
+     "general": 191
+    }
+   },
+   "code_glosses|marker=m011": {
+    "N": 863,
+    "by_register": {
+     "academic": 286,
+     "argumentative": 52,
+     "general": 525
+    }
+   },
+   "code_glosses|rest": {
+    "N": 1677,
+    "by_register": {
+     "academic": 808,
+     "argumentative": 108,
+     "general": 761
+    }
+   },
+   "endophoric_markers|marker=m012": {
+    "N": 74,
+    "by_register": {
+     "academic": 62,
+     "argumentative": 2,
+     "general": 10
+    }
+   },
+   "endophoric_markers|marker=m013": {
+    "N": 44,
+    "by_register": {
+     "academic": 25,
+     "argumentative": 9,
+     "general": 10
+    }
+   },
+   "endophoric_markers|marker=m014": {
+    "N": 253,
+    "by_register": {
+     "academic": 251,
+     "general": 2
+    }
+   },
+   "endophoric_markers|marker=m015": {
+    "N": 99,
+    "by_register": {
+     "academic": 99
+    }
+   },
+   "endophoric_markers|rest": {
+    "N": 48,
+    "by_register": {
+     "academic": 28,
+     "argumentative": 8,
+     "general": 12
+    }
+   },
+   "engagement_markers|marker=m017": {
+    "N": 399,
+    "by_register": {
+     "academic": 333,
+     "argumentative": 17,
+     "general": 49
+    }
+   },
+   "engagement_markers|marker=m019": {
+    "N": 848,
+    "by_register": {
+     "academic": 746,
+     "argumentative": 57,
+     "general": 45
+    }
+   },
+   "engagement_markers|marker=m020": {
+    "N": 350,
+    "by_register": {
+     "academic": 33,
+     "argumentative": 297,
+     "general": 20
+    }
+   },
+   "engagement_markers|rest": {
+    "N": 1076,
+    "by_register": {
+     "academic": 635,
+     "argumentative": 258,
+     "general": 183
+    }
+   },
+   "evidentials|marker=m021": {
+    "N": 232,
+    "by_register": {
+     "academic": 88,
+     "argumentative": 5,
+     "general": 139
+    }
+   },
+   "evidentials|marker=m022": {
+    "N": 287,
+    "by_register": {
+     "academic": 150,
+     "argumentative": 21,
+     "general": 116
+    }
+   },
+   "evidentials|rest": {
+    "N": 305,
+    "by_register": {
+     "academic": 146,
+     "argumentative": 16,
+     "general": 143
+    }
+   },
+   "frame_markers|marker=m023": {
+    "N": 86,
+    "by_register": {
+     "academic": 76,
+     "argumentative": 2,
+     "general": 8
+    }
+   },
+   "frame_markers|marker=m024": {
+    "N": 98,
+    "by_register": {
+     "academic": 81,
+     "argumentative": 1,
+     "general": 16
+    }
+   },
+   "frame_markers|rest": {
+    "N": 333,
+    "by_register": {
+     "academic": 284,
+     "argumentative": 23,
+     "general": 26
+    }
+   },
+   "hedges|rest": {
+    "N": 6580,
+    "by_register": {
+     "academic": 3230,
+     "argumentative": 948,
+     "general": 2402
+    }
+   },
+   "self_mentions|marker=m026": {
+    "N": 496,
+    "by_register": {
+     "academic": 413,
+     "argumentative": 31,
+     "general": 52
+    }
+   },
+   "self_mentions|marker=m028": {
+    "N": 186,
+    "by_register": {
+     "academic": 186
+    }
+   },
+   "self_mentions|marker=m029": {
+    "N": 880,
+    "by_register": {
+     "academic": 874,
+     "argumentative": 3,
+     "general": 3
+    }
+   },
+   "self_mentions|rest": {
+    "N": 462,
+    "by_register": {
+     "academic": 381,
+     "argumentative": 25,
+     "general": 56
+    }
+   },
+   "transitions|marker=m030": {
+    "N": 5946,
+    "by_register": {
+     "academic": 2689,
+     "argumentative": 537,
+     "general": 2720
+    }
+   },
+   "transitions|rest": {
+    "N": 7736,
+    "by_register": {
+     "academic": 4132,
+     "argumentative": 808,
+     "general": 2796
+    }
+   }
+  },
+  "phrase": {
+   "K1-multi|rest": {
+    "N": 5,
+    "by_register": {
+     "academic": 2,
+     "argumentative": 1,
+     "general": 2
+    }
+   },
+   "K1-single|marker=m000": {
+    "N": 864,
+    "by_register": {
+     "academic": 287,
+     "argumentative": 52,
+     "general": 525
+    }
+   },
+   "K1-single|marker=m001": {
+    "N": 608,
+    "by_register": {
+     "academic": 261,
+     "argumentative": 125,
+     "general": 222
+    }
+   },
+   "K1-single|rest": {
+    "N": 2185,
+    "by_register": {
+     "academic": 1171,
+     "argumentative": 301,
+     "general": 713
+    }
+   },
+   "K2-multi|rest": {
+    "N": 15,
+    "by_register": {
+     "academic": 2,
+     "general": 13
+    }
+   },
+   "K2-single|rest": {
+    "N": 3072,
+    "by_register": {
+     "academic": 1507,
+     "argumentative": 321,
+     "general": 1244
+    }
+   },
+   "K3-multi|marker=m004": {
+    "N": 76,
+    "by_register": {
+     "academic": 36,
+     "argumentative": 7,
+     "general": 33
+    }
+   },
+   "K3-multi|marker=m005": {
+    "N": 10,
+    "by_register": {
+     "academic": 3,
+     "argumentative": 1,
+     "general": 6
+    }
+   },
+   "K3-multi|rest": {
+    "N": 8,
+    "by_register": {
+     "academic": 3,
+     "argumentative": 1,
+     "general": 4
+    }
+   },
+   "K3-single|rest": {
+    "N": 1484,
+    "by_register": {
+     "academic": 800,
+     "argumentative": 167,
+     "general": 517
+    }
+   },
+   "K4-multi|rest": {
+    "N": 2,
+    "by_register": {
+     "academic": 1,
+     "argumentative": 1
+    }
+   },
+   "K4-single|rest": {
+    "N": 1140,
+    "by_register": {
+     "academic": 679,
+     "argumentative": 120,
+     "general": 341
+    }
+   },
+   "K5-single|marker=m007": {
+    "N": 77,
+    "by_register": {
+     "academic": 55,
+     "general": 22
+    }
+   },
+   "K5-single|rest": {
+    "N": 417,
+    "by_register": {
+     "academic": 225,
+     "argumentative": 57,
+     "general": 135
+    }
+   }
+  }
+ },
+ "source": {
+  "hits_sha256": "7ebb3c20ec98cc0bfc252753435b39ddda6e9a051d4c39271936828685a56604",
+  "n_hits": 42454
+ }
+}

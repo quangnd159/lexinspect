@@ -1,0 +1,31 @@
+{
+ "change_status_counts": {
+  "metadiscourse|unchanged": 993,
+  "phrase|unchanged": 298,
+  "metadiscourse|new_or_changed": 7,
+  "phrase|new_or_changed": 2
+ },
+ "flash_by_module_change": {
+  "metadiscourse|unchanged": {
+   "requests": 67,
+   "valid": 67,
+   "unsure": 1,
+   "strict_pairs_A": 58,
+   "agree_A": 39,
+   "strict_pairs_B": 58,
+   "agree_B": 31,
+   "ab_strict_split": 38
+  },
+  "phrase|unchanged": {
+   "requests": 17,
+   "valid": 17,
+   "unsure": 0,
+   "strict_pairs_A": 17,
+   "agree_A": 15,
+   "strict_pairs_B": 17,
+   "agree_B": 7,
+   "ab_strict_split": 12
+  }
+ },
+ "rule": "unchanged = a 0.3.2 development hit with the same module, text_id, span and claim (category or PHRASE rank) exists"
+}
