@@ -167,6 +167,26 @@ On the 60 round-2 texts, metadiscourse output fell from 16,307 to 15,632 hits an
 - the policy for snapshotting the cache and source pools;
 - the build command.
 
+**The evaluation build, as frozen at stage 1.**
+
+- **Seed:** 3195330621. The rule is the first 8 hex digits of `sha256("study4-v040-evaluation|20261016")`, read as an integer. It was fixed on 2026-10-21, before any evaluation text existed.
+- **Pools:** the 2026-10-16 pool snapshot. Before the build, the development download cache is copied byte for byte, and the copy is verified against the original's file hashes:
+
+  ```
+  cp -Rp .cache/validation/study4/raw .cache/validation/study4_eval/raw
+  ```
+
+- **Command,** run from a clean checkout of the stage-1 commit:
+
+  ```
+  uv run --offline --no-sync python -I scripts/validation/study4_precision/build.py \
+      --set evaluation --seed 3195330621 \
+      --out .cache/validation/study4_eval --raw-cache .cache/validation/study4_eval/raw \
+      --exclude-texts docs/validation/study4-exclusions/exclusions.jsonl
+  ```
+
+  With no `--refresh`, cached pool listings are reused and only new texts are downloaded. The maintainer-sample totals and batch size are the defaults (300 and 300; 325). `build.py` refuses a tree with uncommitted changes under `src/`, checks the canonical development manifest's hash, excludes both manifests' identifiers while drawing, and stops if any collected text overlaps the union.
+
 **Stage 2: one evaluation build.** We generate exactly one evaluation build from that specification. Before any evaluation label is requested or inspected, we archive the final registration package: the build's inputs, allocations, orders, counts and hashes, linked to the stage-1 record.
 
 **Between the stages:** no substantive procedure or seed changes.
