@@ -150,6 +150,8 @@ Before stage 1, lexinspect 0.4.0 was developed using the original 0.3.2 pilot an
 
 On the 60 round-2 texts, metadiscourse output fell from 16,307 to 15,632 hits and PHRASE from 5,227 to 4,910. These are development diagnostics, not precision or recall estimates.
 
+**Complete output changes** (`docs/validation/study4-development-effects.md`, with every number in its JSON). This gives hit counts and hits per 1,000 words by category or K-band and register for 0.3.2, 0.3.3 and 0.4.0 on the 120 development texts, and for 0.3.3 against each round's candidate on the fix-check texts. It also gives each family's net change and summarises the published gates, losses, unresolved references and added or changed output. Every count comes from archived detector output.
+
 ## Registration and freeze
 
 **Stage 1: protocol freeze.** Before any evaluation text is collected, we archive:
@@ -637,7 +639,7 @@ Regardless of what the results show:
   - **PHRASE List content:** the glosses and examples in `claimed`, and the sense inventory, are not part of that release. They are published only if the list's authors agree. Until then, PHRASE items are published as ids, offsets and expression names.
 - **Changes to lexinspect:** precision per category and per band goes into VALIDITY.md and the CHANGELOG, and the app shows it next to the counts it describes.
 - **Problems:** every deviation and every failed check is reported.
-- **Fix-process disclosure.** Publish the original and final development pilot summaries, the 0.3.2→0.3.3→0.4.0 bridge, the dated protocol/iteration ledger, all candidate-family dispositions, every check round and its exposure/exclusion manifest, all sampling probabilities and decisions, unresolved labels, per-family and combined losses, additions/reassignments, and complete output-count changes. Link the final source and release identities and any construct amendments. Label all of this as development evidence. Report the evaluation regardless of its precision; do not select the published version or headline after seeing evaluation outcomes.
+- **Fix-process disclosure.** Publish the original and final development pilot summaries, the 0.3.2→0.3.3→0.4.0 bridge, the dated protocol/iteration ledger, all candidate-family dispositions, every check round and its exposure/exclusion manifest, all sampling probabilities and decisions, unresolved labels, per-family and combined losses, additions/reassignments, and complete output-count changes (`docs/validation/study4-development-effects.md`). Link the final source and release identities and any construct amendments. Label all of this as development evidence. Report the evaluation regardless of its precision; do not select the published version or headline after seeing evaluation outcomes.
 - **Private material.** The guidelines, the PHRASE sense inventory and the private text bodies of the fix-check rounds are kept out of the public repository; their hashes are published. Whether the guidelines and inventory are published with stage 1 depends on the PHRASE List authors' permission, which is pending; the PHRASE content of items is likewise published only with that permission. Until then their hashes are published.
 
 ## After the study

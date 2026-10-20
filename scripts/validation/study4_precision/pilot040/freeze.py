@@ -20,7 +20,8 @@ It records, with SHA-256 throughout:
   and the historical 0.3.2 run's result hashes;
 - the exclusions (the canonical development manifest and the additional
   manifest, with identifier counts) and the evaluation seed and command;
-- the protocol documents: the prereg, the fix protocol and clarifications, and
+- the protocol documents: the prereg, the fix protocol and clarifications, the
+  fix-check write-up, the development effects report, and
   every file in docs/validation/study4-fix040/, study4-pilot040/ and
   study4-exclusions/.
 
@@ -240,6 +241,8 @@ def build_manifest() -> dict[str, Any]:
                 REPO / "docs/validation/study4-fix-protocol.md",
                 REPO / "docs/validation/study4-fix-protocol-clarifications.md",
                 REPO / "docs/validation/study4-fix-check.md",
+                REPO / "docs/validation/study4-development-effects.md",
+                REPO / "docs/validation/study4-development-effects.json",
             ]
         ),
         "fix_check_records": tracked("docs/validation/study4-fix040"),
