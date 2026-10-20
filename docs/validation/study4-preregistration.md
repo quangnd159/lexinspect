@@ -14,17 +14,30 @@ The study doesn't measure:
 
 ## What is tested
 
-- **Version and modules:** lexinspect ⟨freeze: version and commit⟩ with spaCy `en_core_web_sm` 3.8.0, modules `metadiscourse` and `phrase`, as shipped. The freeze manifest records the SHA-256 of the detector source and data, and of the lock file.
+- **Version and modules:** lexinspect 0.4.0 at commit `0556d0826001112eb6a82d08883e3592d05010ea` (tag `v0.4.0`), with spaCy 3.8.14 and the pipeline package `en_core_web_sm` 3.8.0, on Python 3.12.5, modules `metadiscourse` and `phrase`, as shipped in that release. lexinspect customises the tokenizer's infix rules (`src/lexinspect/_nlp.py`). Stage 1 records the source and data hashes, the lock file (`uv.lock`), the environment, the tokenizer and pipeline customisations and the release identity (`docs/validation/study4-freeze.json`). The evaluation executes this archived configuration.
 - **Scope:** results describe this version only. Any later change to matching needs a new measurement (see "After the study").
 
 ## Development and evaluation
 
 The study keeps calibration and testing apart.
 
-- **Development set** (seed 20261016, built 2026-10-16 with lexinspect 0.3.2): the pinned 120 texts, 40 per register, and a stratified sample of 1,300 hits. It is used only to develop the guidelines, the sense inventory, the matcher fixes, the labelling workflow and the analysis, and for the pilot below. No development label or result is reported as evidence of precision. The maintainer's practice labelling page uses development items and is training, never evaluation data.
+- **Development sets.** Each is development data, and no development label or result is reported as evidence of precision.
+  - **The original development set** (seed 20261016, built 2026-10-16 with lexinspect 0.3.2): the pinned 120 texts, 40 per register, and a stratified sample of 1,300 hits. It was used to develop the guidelines, the sense inventory, the matcher fixes, the labelling workflow and the analysis, and for the 0.3.2 pilot.
+  - **The 0.4.0 common development pilot** (2026-10-20): the full 0.4.0 hit population on the same 120 text bytes, and a newly identified sample of 1,300 hits drawn with sample seed 473840911 (`docs/validation/study4-pilot040/`). It calibrates the final simulation (see "Pilot").
+  - **The fix-check sets:** two disjoint rounds of 60 new texts each, collected for the 0.4.0 fix check (`docs/validation/study4-fix-protocol.md`, `docs/validation/study4-fix-check.md`, `docs/validation/study4-fix040/`). Each has its own manifest.
+  - **Training:** the maintainer's practice labelling page uses development items and is training, never evaluation data.
 - **Evaluation set:** fresh texts from the same sources, drawn once, by the procedure in "Registration and freeze".
-  - **Exclusion:** the build excludes every source of the development set. It does this through the pinned development manifest (`.cache/validation/study4/texts.jsonl`, SHA-256 `5dba40ccbb99a853ef32e6f3def90f992810ff2320cf98f366e227d7112f1cc8`, 120 distinct texts), matched on every identifier: PMCID, Europe PMC and full-text URLs, DOI, title, Wikipedia page id, page title and revision URL.
-  - **Overlap check:** after collection, the build checks overlap again and records it. The registered overlap must be zero.
+  - **Exclusion:** the evaluation build excludes the canonical 120-text development source manifest and a separately frozen manifest containing every fix-check or additional fix-development text collected or inspected in any round, including failed, inconclusive and superseded rounds. Canonical-development and additional-exclusion paths, hashes, source counts and normalised identifier counts are recorded in stage 1. Exclusion uses all available source identifiers, titles, DOIs, article/page identities and revision/full-text URLs; a new revision of an exposed source does not make it evaluation-eligible. The frozen evaluation build command passes the additional manifest through `--exclude-texts`. Local T-number identifiers alone are not used to establish source separation.
+    - **The canonical development manifest:** `.cache/validation/study4/texts.jsonl`, SHA-256 `5dba40ccbb99a853ef32e6f3def90f992810ff2320cf98f366e227d7112f1cc8`, 120 distinct texts. `build.py` checks this hash and always excludes every identifier of these texts.
+    - **The additional exclusion manifest:** `docs/validation/study4-exclusions/exclusions.jsonl`, SHA-256 `477f2197ce00e402441d810c4825e6d98517be4fa1e50d59ee2d4c0800f9b263`, with its inventory, tools and README in the same folder. It lists 909 sources beyond the 118 that are only development texts. Together with those, there are 1,027 distinct exposed sources: 118 Europe PMC, 585 English Wikipedia and 324 Simple English Wikipedia.
+      - **Labelled texts:** the 120 development texts and the 2 × 60 fix-check texts (240 distinct, disjoint);
+      - **Fetched but rejected:** 146 candidates fetched and rejected by the eligibility filters in development or either round;
+      - **Study 3:** the 50 English and 50 Simple English Wikipedia texts (part of the fix check's equivalence evidence);
+      - **Study 1:** 548 CLEAR excerpts (274 English and 274 Simple English pages) that cite a Wikipedia URL. They were never used in Study 4 development and are excluded as a precaution.
+
+      `build.read_exclusions` gives 3,132 normalised identifiers. With the development manifest's 440, the union holds 3,563. English Wikipedia sources are matched by page id as well as by title and revision. The page ids of the 317 records that had only titles were looked up on 2026-10-21; 14 of those pages had been renamed. Simple English titles are kept as aliases, so a same-title English article is excluded too. The constructed test sentences and fixtures are not sources and are not listed.
+    - **Pools:** the evaluation build uses the 2026-10-16 pool snapshot, through a byte copy of the development download cache made into the evaluation build's own cache, with no `--refresh`.
+  - **Overlap check:** after collection, the evaluation build checks all evaluation source identities against the union of these exclusions, records the result and requires zero overlap. Known duplicate copies or aliases of exposed texts are also excluded and documented. The same exclusion union applies to any later remeasurement, together with all evaluation sources.
 
 ### What development may change
 
@@ -34,7 +47,7 @@ The study keeps calibration and testing apart.
   - the prompts;
   - the validation and delivery workflow.
 - **The log:** every iteration is logged with its date, reason, changed files and their hashes, the development items, labels and results inspected, and the resulting version. The actual number of iterations is disclosed.
-- **Old builds and labels** are kept. The development text set stays the pinned 120 texts. A matcher change may produce a new development hit sample, identified as such.
+- **Old builds and labels** are kept. The original development text set stays the pinned 120 texts. Additional fix-check texts form separately identified development sets with separate manifests; they are never merged into evaluation or silently substituted for that original set. A matcher change may produce a new development hit sample, identified as such.
 - **No pooling across versions:** labels produced under different guideline, inventory or prompt versions are not pooled for the final pilot rates or for choosing the adjudicator. When an applicable rule changes, the final common pilot is relabelled.
 - **When the pilot ends:** when the final workflow runs without an unresolved delivery or validation defect, and the final versions and adjudicator choice have been reviewed and archived.
 - **What the pilot can't change:** it doesn't authorise silent changes to the estimands, outcome mappings, reference rule, audit targets, phase-one targets, allocation, interval methods, α or reporting family. Any such change needs an explicit revised draft, reviewed before the protocol freeze.
@@ -46,7 +59,17 @@ The study keeps calibration and testing apart.
 The pilot runs on the development set only, before registration.
 
 1. **Labelling:** A and B each label the same complete development sample under the final pilot guidelines and inventory. Both get the single missing/invalid-record retry. Records from dry runs or earlier iterations are kept but never mixed with the final pilot records.
-2. **What it measures:** how often the labellers disagree, how often items need adjudication, how often they end up unresolved, how often each label is used, and STRICT precision against the model reference, both unweighted and design-weighted. The main simulation scenario behind "Evidence for the analysis" uses the rounded design-weighted precision (.491 metadiscourse, .836 PHRASE) as its population target, and the unweighted per-item adjudication and non-resolution rates. It is set before the final validation run.
+2. **What it measures:** how often the labellers disagree, how often items need adjudication, how often they end up unresolved, how often each label is used, and STRICT precision against the model reference, both unweighted and design-weighted.
+   - **History.** The original lexinspect 0.3.2 development pilot yielded unweighted STRICT precision .622 metadiscourse and .670 PHRASE, and design-weighted estimates .491 and .836, against the operational model reference. These historical figures motivated development and are retained with their original records. Its labelling sessions inherited repository context (see "Labellers").
+   - **The final pilot.** The final 0.4.0 common development pilot is separately identified by its sampling, label and version manifests (`docs/validation/study4-pilot040/`). Its unweighted and design-weighted estimates, adjudication and non-resolution counts are reported with actual denominators:
+     - **STRICT precision, unweighted:** 693/999 = .694 metadiscourse, 230/300 = .767 PHRASE;
+     - **design-weighted (N_h/r_h):** .554 and .870;
+     - **STRICT reference from the adjudicator:** 54 metadiscourse and 12 PHRASE items; **unresolved:** 1 and 0;
+     - **adjudication requests:** 84 (67 and 17), with 1 adjudicator UNSURE and no non-vote;
+     - **A–B STRICT agreement:** .961 (945/983) and .960 (288/300).
+
+     No label from the 0.3.2 pilot was reused.
+   - **The simulation.** The final simulation's main-pilot targets and resolution parameters use that final pilot; every parameter in "Evidence for the analysis" names its source pilot/version. Reusing the same numerical value requires actual support from the final pilot or an explicit decision to treat it as an assumption, not simply carrying the old label forward. The parameters are set before the final validation run.
 3. **Reporting:** pilot results are reported as development results.
 
 ### Choosing the adjudicator
@@ -99,22 +122,48 @@ The exact route and effective settings are recorded.
 
 **Publication.** The chosen model, route, settings, scores, denominators, non-votes and rejected candidates are published with the development report.
 
+**The qualification's scope.** Flash's original qualification (193/200 agreement with definite agreed primary STRICT values) concerns the archived original calibration set. It is not a correctness estimate or a guarantee for the final detector's changed hit distribution. Flash remains the selected adjudicator unless a prospectively reviewed amendment is needed; it is not replaced to improve development precision. On the final common pilot we report its completeness, unresolved responses and agreement diagnostics by module and change status, including new/changed claims. If a new qualification or candidate-selection procedure is required, its assignment, criteria and fallback rule are archived before the corresponding candidate outcomes are inspected. A semantic change to the reference instructions invokes the common-pilot and selection amendment rules; it cannot inherit the old qualification as if nothing changed.
+
+**On the final pilot** (`docs/validation/study4-pilot040/RESULTS.md`):
+
+- Flash was complete: 84 of 84 requests got valid records, with 1 UNSURE and no non-vote.
+- Of the pilot's 1,300 items, 9 are new or changed claims under 0.4.0 (7 metadiscourse, 2 PHRASE). None needed adjudication, so every request concerned a claim unchanged since 0.3.2.
+- On STRICT, Flash agreed with A on 39/58 metadiscourse and 15/17 PHRASE requests, and with B on 31/58 and 7/17.
+
+No guideline, inventory or prompt changed, so no new qualification was run.
+
 ### Matcher fixes
 
 Errors found in development are fixed before the protocol freeze. The version tested is the fixed version. Development scores are used only for development and calibration, never reported as evaluation precision.
+
+Before stage 1, lexinspect 0.4.0 was developed using the original 0.3.2 pilot and the separately identified fix-check process. The archived fix protocol, amendments and candidate ledger record the rules tried, evidence inspected, code/model identities, accepted and rejected changes, checks, non-votes, collateral loss and actual number of iterations. Every fix-check set is development data and is excluded from evaluation. The study measures the frozen final version's precision; it does not test a pre-registered hypothesis that 0.4.0 improves on 0.3.2 or 0.3.3. Development before/after differences cannot establish that comparative claim.
+
+**What happened** (`docs/validation/study4-fix-check.md`):
+
+1. **The baseline.** The 0.3.2 pilot exposed matcher errors. Release 0.3.3 first fixed tokenisation defects found by Study 3, and 0.3.3 is the fix check's baseline.
+2. **The candidate.** The candidate grouped its changes into twelve families: MD-A to MD-I for metadiscourse and PH-A to PH-C for PHRASE. Two rounds of independent methodology audit revised them before any check text was collected, including the maintainer's addenda A1–A3 (`study4-fix040/CANDIDATE_LEDGER.md`).
+3. **Round 1** (60 new texts) failed for metadiscourse and passed for PHRASE.
+4. **Narrowing.** Six metadiscourse families were reverted to 0.3.3: MD-A, MD-B, MD-C, MD-E, MD-F and MD-G. MD-G had passed at .148, so its reversion was a precaution decided after seeing the result.
+5. **Round 2** (60 further new texts) checked the narrowed candidate. It passed every gate, and it was the last round the protocol allowed.
+6. **The disclosed deviation.** Labeller A's sessions in both rounds carried a git-status snapshot of repository metadata. A post-hoc sensitivity analysis, whose rule was committed before it ran, found that every gate also passes without labeller A.
+7. **The release.** 0.4.0 ships the round-2 candidate.
+
+On the 60 round-2 texts, metadiscourse output fell from 16,307 to 15,632 hits and PHRASE from 5,227 to 4,910. These are development diagnostics, not precision or recall estimates.
 
 ## Registration and freeze
 
 **Stage 1: protocol freeze.** Before any evaluation text is collected, we archive:
 
-- the detector;
+- the detector: the 0.4.0 release identity, source and data hashes, lock file and environment;
 - the guidelines and inventory;
-- the prompts and role-specific system or developer instructions, and the tool and file access each role gets;
-- the analysis and sampling code, and the simulation and its results;
+- the prompts and role-specific system or developer instructions, the tool and file access each role gets, and the effective context of each role's launch settings (`docs/validation/study4-pilot040/LAUNCH.md`);
+- the analysis and sampling code, and the simulation and its results (the historical 0.3.2 run and the final 0.4.0 run);
 - the selected adjudicator;
+- the original 0.3.2 pilot and the final 0.4.0 common pilot: sampling, label and version manifests, results and hashes;
+- the fix protocol, its clarifications and amendments, both candidates and rounds, the candidate ledgers, sampling and judgement identities, decisions and review dispositions (`docs/validation/study4-fix040/`);
 - the collection targets and eligibility rules;
 - the exact evaluation seed;
-- the exclusion manifest;
+- the exclusion manifests (canonical development and additional exposure), with their hashes and counts;
 - the policy for snapshotting the cache and source pools;
 - the build command.
 
@@ -186,10 +235,10 @@ Errors found in development are fixed before the protocol freeze. The version te
 
 The following are frozen at stage 1, and their SHA-256 values are recorded in the freeze manifest:
 
-- **Guidelines:** `docs/validation/study4-guidelines.md`, version 3.2 (or the later version, if the pilot leads to one).
-- **The PHRASE sense inventory** (`phrase_sense_inventory.md`, version 2.1 or later). It is part of the guidelines but is kept out of the public repository until the PHRASE List's authors permit redistribution. Its hash is published, and the file is published once permission is granted.
+- **Guidelines:** `docs/validation/study4-guidelines.md`, version 3.2, SHA-256 `276d35e86ffa9da147d09734cf0c3fd9ed89bd6694d9d44a860cb6e851f0466e`.
+- **The PHRASE sense inventory** (`phrase_sense_inventory.md`, version 2.1, SHA-256 `a761f159541023fd51f5ca45e1fc44432b572ab22ffcad74f414b1e35a776a5d`). It is part of the guidelines but is kept out of the public repository until the PHRASE List's authors permit redistribution. Its hash is published, and the file is published once permission is granted.
 - **The labeller prompts**, given below.
-- **Analysis code:** every script in `scripts/validation/study4_precision/` (`build.py`, `frame.py`, `batches.py`, `analyse.py`, `estimators.py`, `human_page.py`, `simulate_coverage.py`, `test_analyse.py`).
+- **Analysis code:** every script in `scripts/validation/study4_precision/` (`build.py`, `frame.py`, `batches.py`, `analyse.py`, `estimators.py`, `human_page.py`, `simulate_coverage.py`, `test_analyse.py`), and the labelling launcher and screen in `pilot040/` (`launch.py`, `check_sessions.py`, `collect_role.py`).
 - **Environment:** `uv.lock`, and the Python and dependency versions.
 - **The validation simulation's manifest** (see "Evidence for the analysis"). It identifies exactly which code was validated.
 
@@ -209,7 +258,7 @@ No role is given another labeller's responses, source or key information, or ana
 |---|---|---|
 | Primary A | Claude Sonnet 5.5 (Anthropic) | all phase-one items |
 | Primary B | GPT-6.1-Sol (OpenAI) | all phase-one items |
-| Adjudicator | DeepSeek V4.1 Flash (`opencode/deepseek-v4.1-flash-free`, reasoning "high"), chosen in the pilot by the rule in "Choosing the adjudicator": completeness 284/284, calibration agreement 193/200 = .965 (metadiscourse 95/100, PHRASE 98/100), no calibration non-votes; two UNSURE responses among the 86 adjudication requests. The GPT-6-Sol fallback was not run under the rule. | every item needing adjudication (below) |
+| Adjudicator | DeepSeek V4.1 Flash (`opencode/deepseek-v4.1-flash-free`, reasoning "high"), chosen in the original 0.3.2 pilot by the rule in "Choosing the adjudicator": completeness 284/284, calibration agreement 193/200 = .965 (metadiscourse 95/100, PHRASE 98/100) on that pilot's calibration set, no calibration non-votes; two UNSURE responses among its 86 adjudication requests. This qualification is historical and doesn't guarantee performance on 0.4.0's hits (see "The qualification's scope"). On the final 0.4.0 pilot: 84/84 valid, 1 UNSURE. The GPT-6-Sol fallback was not run under the rule. | every item needing adjudication (below) |
 | Maintainer H | the maintainer (Quang Nguyen) | the frozen audit sample, targeted at 300 per module and capped at phase-one availability |
 
 The exact model identifiers, settings and run metadata are recorded in the freeze manifest and with the labels.
@@ -222,7 +271,13 @@ The exact model identifiers, settings and run metadata are recorded in the freez
   - **How the reference is built:** it takes agreed definite A–B outcome values, and otherwise the adjudicator's definite value. It isn't a vote on full labels.
   - **What separation can't do:** keeping providers and sessions separate doesn't make their errors independent or establish correctness.
   - **Primary-only results:** precision with each primary labeller alone as the reference shows some differences between references. It can't detect errors they share.
-- **GPT-6.1-Sol has two roles.** It reviewed the guidelines and the analysis code, and then this plan, in separate sessions before registration: eleven sessions (one study-design review, three guideline reviews, four analysis-code reviews, two reviews of this plan with the code, and one final-results verification). Three earlier study-design reviews were by another OpenAI model, GPT-6-Astra, which has no labelling role. It is also labeller B. During those reviews it saw development items, never evaluation items. Each labelling batch runs in a fresh session with no memory of the reviews.
+- **GPT-6.1-Sol has two roles.** It is labeller B, and it was also the methodology reviewer, in separate sessions before registration:
+  - **before the fix check:** eleven sessions (one study-design review, three guideline reviews, four analysis-code reviews, two reviews of this plan with the code, and one final-results verification);
+  - **the fix check:** eighteen fix-work reviews (three protocol, three implementation, eight initial-harness, one narrowed-candidate and three round-2 harness reviews);
+  - **the release audit:** run twice because of a usage-limit interruption, then one verification round;
+  - **the Stage-1 package:** ⟨stage-1 review count⟩.
+
+  Three earlier study-design reviews were by another OpenAI model, GPT-6-Astra, which has no labelling role. During its reviews GPT-6.1-Sol saw development and fix-check items, never evaluation items. Each labelling batch runs in a fresh session with no memory of the reviews. Review sessions by one model family are not independent annotators, and they are not human validation.
 - **The maintainer** created lexinspect and steered the guidelines. The audit therefore measures concordance with the maintainer, not with an independent expert. An independent trained annotator is the main improvement left for future work.
 
 **Adapted framework.** The guidelines operationalise Hyland's (2005) model for single flagged spans. Where Hyland gives no ruling, they adopt explicit Study 4 conventions, each marked as such in the guidelines:
@@ -237,6 +292,15 @@ The `EXTERNAL_CONNECTIVE` label records Hyland's internal/external distinction f
 **Batches and returned labels.**
 
 - **Batches:** model labellers work in batches of up to 325 items, each in a fresh session with the full guidelines and inventory. The session has no inherited repository or review context. It is pointed at a directory holding only the guidelines, the inventory and its batch file. They must judge every item individually, with no scripts, keyword rules or other programmatic shortcuts.
+- **How the sessions are launched** (`docs/validation/study4-pilot040/LAUNCH.md`, `scripts/validation/study4_precision/pilot040/launch.py`). Each session is started with its provider's command-line tool, in a new neutrally named directory outside any git repository, with a cleared environment.
+  - **The settings:** no MCP servers, memory or user or project instruction files. Role A's tools are only Read, Write and Edit. Role B's network access is off. The adjudicator's web tools are denied.
+  - **The evidence:** context probes, a dry run and a screen of every session's injected context (`check_sessions.py`, with a positive control) show that no repository, git or review context reaches the labeller.
+  - **The archive:** each session's own provider record, its effective context, is archived with its hashes. The final 0.4.0 pilot used these settings, and the evaluation uses the same ones.
+- **Earlier sessions inherited context (disclosed).** The 0.3.2 pilot and the fix-check sessions were started as delegated tasks of a coding-agent thread whose project is this repository.
+  - **Labeller A** received a git-status snapshot (branch, untracked paths, recent commit subjects) and the maintainer's personal instruction file.
+  - **Labeller B and the adjudicator** ran with the repository as their working directory, so its path appeared in their environment.
+
+  None of them received items' versions, families or other labellers' answers. That is why the 0.4.0 pilot reused no earlier label (`LAUNCH.md`, finding F1).
 - **Validation:** returned records are checked by the frozen validator: required keys, allowed labels, alternatives, note length, the form of an UNSURE note, and the duplicate rule.
 - **Retries:** missing or invalid records are requested once more, in a fresh session, using an archived retry manifest. Anything still missing or invalid after that is a non-vote.
 - **No selective retries:** no valid definite label is ever retried because of disagreement. Original and retry files are kept and merged deterministically.
@@ -426,7 +490,7 @@ U = UCL Pr(d_hi = +1) − LCL Pr(d_hi = −1)
 - **Unknown mass:** unknown values and unaudited sub-strata stay unknown. No comparability threshold discards them.
 - **Assumptions:** none about why values are missing. It does treat definite labels as fixed, so it doesn't protect against errors the model reference and the maintainer share.
 
-**Expected precision.** With 300 items per module, the round-3 development simulations gave a mean interval width of about .20 after the second pass (about .24–.25 without it). In adverse settings it was about .34–.37. These are historical figures. The final pilot-calibrated run gives .146–.162 after the second pass, .201–.208 without it, and .334–.365 (.380–.414 without the second pass) in the adverse-concordance setting. The interval can rule out large differences only. **No equivalence, adequacy, interchangeability, gold-standard or certification claim is made from concordance.** Its results can prompt further work or matcher revision. They don't change this study's analysis.
+**Expected precision.** With 300 items per module, the round-3 development simulations gave a mean interval width of about .20 after the second pass (about .24–.25 without it). In adverse settings it was about .34–.37. These are historical figures, and so are those of the 0.3.2-calibrated run of 2026-10-16/17: .146–.162 after the second pass, .201–.208 without it, and .334–.365 (.380–.414 without the second pass) in the adverse-concordance setting. The final 0.4.0-calibrated run gives ⟨sim040: concordance widths, main and adverse, with and without pass 2⟩. The interval can rule out large differences only. **No equivalence, adequacy, interchangeability, gold-standard or certification claim is made from concordance.** Its results can prompt further work or matcher revision. They don't change this study's analysis.
 
 ### Agreement and errors
 
@@ -458,22 +522,28 @@ These checks were done before registration, on development data.
 - **Not covered:** it doesn't test the labelling-file workflow, semantic judgement, the category, band and register tables, the secondary outcomes or the maintainer-only analysis.
 - **Monte Carlo error:** tail-error rates are reported with Clopper–Pearson intervals, which are individual, not simultaneous. Module outputs from the same replicate are paired and aren't pooled as independent.
 
-**The main scenario is calibrated to the development pilot** (`main-pilot` in `simulate_coverage.py`, constants `PILOT` and `pilot_resolution`). Its model reference is the agreed A/B STRICT value, else the adjudicator's. Precision is the pilot's design-weighted estimate, because the simulation sets the share of correct hits in the whole population; the unweighted sample shares were .622 and .670. The resolution rates are unweighted, because they apply to each sampled item.
+**The main scenario is calibrated to the final 0.4.0 common development pilot** (`main-pilot` in `simulate_coverage.py`, constants `PILOT` and `pilot_resolution`; `docs/validation/study4-pilot040/RESULTS.md`). Its model reference is the agreed A/B STRICT value, else the adjudicator's. Precision is the pilot's design-weighted estimate, because the simulation sets the share of correct hits in the whole population; the unweighted sample shares were 693/999 = .694 and 230/300 = .767. The resolution rates are unweighted, because they apply to each sampled item. The simulation uses the 0.4.0 pilot's key and frame (`.cache/validation/study4_v040/`).
 
 | Parameter | Metadiscourse | PHRASE | Where it comes from |
 |---|---|---|---|
-| Population STRICT precision | .491 | .836 | Pilot design-weighted precision. Each unit's probability is shifted by one common amount, so the population hits it exactly (to 1/N) for every seed. |
-| Items whose STRICT reference needs the adjudicator | 63/1,000 = .063 | 8/300 = .027 | Pilot |
-| Items left unresolved | 2/1,000 = .002 | (8/300) × (2/86) ≈ .0006 | Pilot. PHRASE had 0 of 8, too few to estimate, so its adjudication share is multiplied by the pooled adjudicator UNSURE rate, 2/86. |
+| Population STRICT precision | .554 | .870 | 0.4.0 pilot design-weighted precision (.55375, .87002), rounded to three places. Each unit's probability is shifted by one common amount, so the population hits it exactly (to 1/N) for every seed. |
+| Items whose STRICT reference needs the adjudicator | 55/1,000 = .055 | 12/300 = .040 | 0.4.0 pilot |
+| Items left unresolved | 1/1,000 = .001 | (12/300) × (1/84) ≈ .00048 | 0.4.0 pilot. PHRASE had 0 of 12, too few to estimate, so its adjudication share is multiplied by the pooled adjudicator UNSURE rate, 1/84 (the retained `pilot_resolution` rule). |
 | Non-resolution mechanism | random | random | Assumption. Outcome-dependent and fixed mechanisms are in the grid. |
 | Spread of precision across sub-strata | U(.45, .97) plus register effects (general +.04, argumentative −.10), before the shift | same | Assumption, as in round 3 |
-| Maintainer disagreement with the reference (each direction) | .02 | .02 | Assumption. The pilot has no maintainer labels. |
-| Maintainer pass-1 UNSURE (agreeing / disagreeing items); share resolved in pass 2 | .05 / .05; .70 | same | Assumption. The pilot has no maintainer labels. |
+| Maintainer disagreement with the reference (each direction) | .02 | .02 | Assumption. No pilot has maintainer labels. |
+| Maintainer pass-1 UNSURE (agreeing / disagreeing items); share resolved in pass 2 | .05 / .05; .70 | same | Assumption. No pilot has maintainer labels. |
+
+**History.** The 0.3.2 pilot's parameters were .491 and .836 (precision), 63/1,000 and 8/300 (adjudicator needed), and 2/1,000 and (8/300) × (2/86) (unresolved). They calibrated the historical 2026-10-16/17 run below.
 
 - **Pilot figures not used as parameters:**
-  - **A–B STRICT agreement** (.954 and .973): the simulation doesn't separate A/B splits from a primary UNSURE. The STRICT reference treats both the same way: the adjudicator decides.
-  - **Secondary-only requests:** of 86 adjudication requests (6.6% of 1,300 items), 15 were secondary-only (1.15% of items; 17.4% of requests). Their agreed STRICT reference is unchanged, so this STRICT-only simulation omits those requests.
-- **Pilot rates reproduced:** in a check through the real reference code, simulated replicates reproduced these rates (metadiscourse .063 adjudicated and .002 unresolved; PHRASE .026 and .0007).
+  - **A–B STRICT agreement** (.961 and .960; it was .954 and .973 in the 0.3.2 pilot): the simulation doesn't separate A/B splits from a primary UNSURE. The STRICT reference treats both the same way: the adjudicator decides.
+  - **Secondary-only requests:** of the 84 adjudication requests (6.5% of 1,300 items), 17 were sent only because A and B split on a secondary outcome (67 STRICT-relevant: 55 + 12). Their agreed STRICT reference is unchanged, so this STRICT-only simulation omits those requests.
+- **Pilot rates reproduced:** in a check through the real reference code (population seed 101), simulated replicates reproduced these rates.
+  - **Metadiscourse** (150 replicates, 150,000 items): .0551 needed the adjudicator, against .055, and .00093 stayed unresolved, against .001.
+  - **PHRASE** (400 replicates, 120,000 items): .0409 needed the adjudicator, against .040, and .00036 stayed unresolved, against .00048. That is 43 events where about 57 were expected, a Monte Carlo difference of about two standard errors in a very rare event.
+
+  The check's script and output are in the simulation archive (`sim040/ratecheck/`).
 - **The grid** keeps every earlier scenario unchanged, with identical random streams: the boundaries, non-resolution mechanisms, weights, thresholds, discordance and adverse concordance. It adds two:
   - `main-realistic`: the round-3/4 main scenario, with population precision about .72–.83, 3% unresolved, and 10% of the other items resolved by the adjudicator (about 13% sent to it). It now provides the high-precision cells.
   - `low-precision-050`: precision .50, with the pilot's resolution rates.
@@ -492,7 +562,21 @@ These checks were done before registration, on development data.
 - **Merging:** the merge accepts only complete parts with matching frozen settings, run by the same code. Cells must be unique, and their union must equal the declared inventory.
 - **In the freeze manifest:** the final merged file's hash and the inventory's hash.
 
-**The registered evidence** is the final run of the frozen code on the pilot-calibrated scenarios: `main-pilot` with 23,410 replicates × 3 population seeds × 2 modules, and the grid of 13 scenarios with 2,000 replicates × 2 seeds × 2 modules. That is 58 cells and 244,460 replicates, run 2026-10-16/17 and merged against the declared inventory. The merged-file and inventory hashes are in `sim_final/result_hashes.sha256` and will be included in the stage-1 freeze manifest. Main-scenario results:
+**The registered evidence** is the final run of the frozen code on the 0.4.0-calibrated scenarios: `main-pilot` with 23,410 replicates × 3 population seeds × 2 modules, and the grid of 13 scenarios with 2,000 replicates × 2 seeds × 2 modules. That is 58 cells and 244,460 replicates, merged against the declared inventory (`sim040/inventory.json`, frozen with every source hash before the run started).
+
+- **Run:** ⟨sim040: dates, status, resumes, merge result⟩.
+- **Hashes:** ⟨sim040: merged-file and inventory hashes⟩, also in the stage-1 freeze manifest.
+
+| Interval | Largest tail error in the main scenario | Clopper–Pearson 95% upper bound | Mean width |
+|---|---|---|---|
+| Primary | ⟨sim040⟩ | ⟨sim040⟩ | ⟨sim040⟩ |
+| Resolution region | ⟨sim040⟩ | ⟨sim040⟩ | ⟨sim040⟩ |
+| Concordance | ⟨sim040⟩ | ⟨sim040⟩ | ⟨sim040⟩ |
+| Korn–Graubard (secondary) | ⟨sim040⟩ | n/a | n/a |
+
+- **In the final grid:** ⟨sim040: region and concordance maxima; primary maxima outside and inside the outcome-dependent cells; Korn–Graubard⟩.
+
+**Historical, not registered evidence: the 0.3.2-calibrated run** (2026-10-16/17). It ran the same 58 cells and 244,460 replicates with the 0.3.2 pilot's key, frame and parameters, merged against its declared inventory. Its hashes are in `sim_final/result_hashes.sha256`. It is kept unchanged as evidence for the 0.3.2 design, not relabelled as a 0.4.0 validation. Main-scenario results:
 
 | Interval | Largest tail error in the main scenario | Clopper–Pearson 95% upper bound | Mean width |
 |---|---|---|---|
@@ -501,12 +585,12 @@ These checks were done before registration, on development data.
 | Concordance | 0/23,410 in every cell and tail | .00016 | .146–.162 after pass 2 |
 | Korn–Graubard (secondary) | 828/23,410 = .035 | n/a | n/a |
 
-- **In the final grid:**
+- **In its grid:**
   - **Resolution region and concordance:** the observed tail-error rate was at most .003 in every tested cell and tail, including the outcome-dependent, fixed, boundary, extreme-weight, threshold and adverse cells. Individual Monte Carlo intervals are reported.
   - **Primary:** at most .0045 in every cell except those where non-resolution depends on the outcome, the case its assumption excludes. There, the lower-tail error reached .054 (`outcome-unresolved`) and .134 (`fixed-outcome-unresolved`).
   - **Korn–Graubard:** undercovered in most cells. It reached .185 at boundary-low precision, .51–.67 under outcome-dependent non-resolution, and .98 in `mixed-census-unobserved`. In that last scenario it is a represented-cells interval scored against full-population precision, so the figure reflects scope as well as approximation.
 
-**Historical, not registered evidence: the round-3 development run.** Its main scenario is now the grid's `main-realistic`: population precision about .72–.83, rather than the pilot-calibrated population targets .491 and .836, with 23,410 replicates × 3 population seeds × 2 modules:
+**Historical, not registered evidence: the round-3 development run.** Its main scenario is now the grid's `main-realistic`: population precision about .72–.83, rather than the pilot-calibrated population targets, with 23,410 replicates × 3 population seeds × 2 modules:
 
 | Interval | Largest tail error in the main scenario | Clopper–Pearson 95% upper bound | Mean width |
 |---|---|---|---|
@@ -533,6 +617,8 @@ Regardless of what the results show:
   - **PHRASE List content:** the glosses and examples in `claimed`, and the sense inventory, are not part of that release. They are published only if the list's authors agree. Until then, PHRASE items are published as ids, offsets and expression names.
 - **Changes to lexinspect:** precision per category and per band goes into VALIDITY.md and the CHANGELOG, and the app shows it next to the counts it describes.
 - **Problems:** every deviation and every failed check is reported.
+- **Fix-process disclosure.** Publish the original and final development pilot summaries, the 0.3.2→0.3.3→0.4.0 bridge, the dated protocol/iteration ledger, all candidate-family dispositions, every check round and its exposure/exclusion manifest, all sampling probabilities and decisions, unresolved labels, per-family and combined losses, additions/reassignments, and complete output-count changes. Link the final source and release identities and any construct amendments. Label all of this as development evidence. Report the evaluation regardless of its precision; do not select the published version or headline after seeing evaluation outcomes.
+- **Private material.** The guidelines, the PHRASE sense inventory and the private text bodies of the fix-check rounds are kept out of the public repository; their hashes are published. Whether the guidelines and inventory are published with stage 1 depends on the PHRASE List authors' permission, which is pending; the PHRASE content of items is likewise published only with that permission. Until then their hashes are published.
 
 ## After the study
 
@@ -549,6 +635,10 @@ Regardless of what the results show:
 - **The results are conditional.** They are conditional on the evaluation texts. Text-selection uncertainty is not in the intervals.
 - **Subgroup results are sparse.** Category, band and register limits are wide, and register estimates are exploratory.
 - **The framework is adapted.** Precision is measured against an operational adaptation of Hyland's model and the PHRASE List, with documented Study 4 conventions. Other operationalisations could give different results.
+- **Recall and output coverage.** We sample detector outputs, not all construct occurrences in text. Neither Study 4 nor the development fix-check estimates recall, establishes non-inferior recall, or validates count completeness. The fix-check quantifies loss among baseline-detected occurrences on its fixed texts against the operational reference; it cannot find occurrences missed by both versions. Better precision therefore does not establish a more complete detector, valid absolute construct-frequency measurement, or comparable category/sense counts across versions.
+- **The fix process used development data repeatedly.** The matcher was revised on the development texts and two fix-check rounds, with one precautionary reversion decided after seeing a result. Development and fix-check figures are not evidence of improvement, and they are not reported as such.
+- **Earlier labelling sessions inherited context.** The 0.3.2 pilot and fix-check sessions are disclosed under "Labellers". The final pilot and the evaluation use the clean launch settings.
+- **No independent human reference.** The planned human work is concordance with the maintainer, not independent expert validation. The reference is the models' operational judgement.
 
 ## References
 
