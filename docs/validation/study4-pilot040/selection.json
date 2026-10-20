@@ -1,0 +1,162 @@
+{
+ "record": "Study 4 0.4.0 common development pilot: selection archive (before any labelling request)",
+ "date": "2026-10-20",
+ "declaration": "docs/validation/study4-pilot040/PLAN.md (commit 1c7dd36)",
+ "command": "uv run --offline --no-sync python -I scripts/validation/study4_precision/build.py --set development --sample-seed 473840911 --out .cache/validation/study4_v040 --raw-cache .cache/validation/study4_v040/raw",
+ "lexinspect": {
+  "lexinspect": "0.4.0",
+  "spacy_model": "en_core_web_sm-3.8.0"
+ },
+ "lexinspect_commit": "1c7dd36b4fd80be4713cb5b49238c636acccfec0",
+ "tree_dirty": false,
+ "collection_seed": 20261016,
+ "sample_seed": 473840911,
+ "sample_seed_rule": "int(sha256(\"study4-v040-common-pilot|20261016\").hexdigest()[:8], 16)",
+ "checks": {
+  "texts_jsonl_sha256_equals_pinned": true,
+  "texts_bytes_identical_to_0.3.2_build": true,
+  "raw_cache_copy_identical_files": 264,
+  "new_downloads": 0,
+  "id_collisions_with_0.3.2_pilot": 0,
+  "frame_design_N_match": true
+ },
+ "population": {
+  "metadiscourse_hits": 32491,
+  "phrase_hits": 9963
+ },
+ "items": {
+  "n": 1300,
+  "by_module": {
+   "metadiscourse": 1000,
+   "phrase": 300
+  },
+  "max_items_from_one_text": 37,
+  "human_sample": 192,
+  "maintainer_sample": 192
+ },
+ "strata": {
+  "metadiscourse": {
+   "transitions": {
+    "N": 13682,
+    "n": 100,
+    "substrata": 2
+   },
+   "frame_markers": {
+    "N": 517,
+    "n": 100,
+    "substrata": 3
+   },
+   "endophoric_markers": {
+    "N": 518,
+    "n": 100,
+    "substrata": 5
+   },
+   "evidentials": {
+    "N": 824,
+    "n": 100,
+    "substrata": 3
+   },
+   "code_glosses": {
+    "N": 2936,
+    "n": 100,
+    "substrata": 3
+   },
+   "hedges": {
+    "N": 6580,
+    "n": 100,
+    "substrata": 1
+   },
+   "boosters": {
+    "N": 1374,
+    "n": 100,
+    "substrata": 1
+   },
+   "attitude_markers": {
+    "N": 1363,
+    "n": 100,
+    "substrata": 3
+   },
+   "engagement_markers": {
+    "N": 2673,
+    "n": 100,
+    "substrata": 4
+   },
+   "self_mentions": {
+    "N": 2024,
+    "n": 100,
+    "substrata": 4
+   }
+  },
+  "phrase": {
+   "K1-multi": {
+    "N": 5,
+    "n": 5,
+    "substrata": 1
+   },
+   "K1-single": {
+    "N": 3657,
+    "n": 47,
+    "substrata": 3
+   },
+   "K2-multi": {
+    "N": 15,
+    "n": 15,
+    "substrata": 1
+   },
+   "K2-single": {
+    "N": 3072,
+    "n": 47,
+    "substrata": 1
+   },
+   "K3-multi": {
+    "N": 94,
+    "n": 46,
+    "substrata": 3
+   },
+   "K3-single": {
+    "N": 1484,
+    "n": 46,
+    "substrata": 1
+   },
+   "K4-multi": {
+    "N": 2,
+    "n": 2,
+    "substrata": 1
+   },
+   "K4-single": {
+    "N": 1140,
+    "n": 46,
+    "substrata": 1
+   },
+   "K5-single": {
+    "N": 494,
+    "n": 46,
+    "substrata": 2
+   }
+  }
+ },
+ "sha256": {
+  "texts.jsonl": "5dba40ccbb99a853ef32e6f3def90f992810ff2320cf98f366e227d7112f1cc8",
+  "hits.jsonl": "7ebb3c20ec98cc0bfc252753435b39ddda6e9a051d4c39271936828685a56604",
+  "items.jsonl": "2556ae7f5c44daff48bdee8170e6dfeb4b04a23c7fd0ef7f59bc148853d72eb3",
+  "key.jsonl": "c95e7820cf0369164074b395aab6525615c7f7912fb656eea870f4bc3b66e24d",
+  "frame.json": "55a1d909f54df8fadb27e1c17313ab1c1ba8135709813f6684a3cab172b872dc",
+  "manifest.json": "53a85285fa5fa00cd47c6b063a9144eab314dc5e67bd168f750664c8633ec97e",
+  "orders.json": "bb4d335d5ae3381294c494e8f5e3dc55ba7be10cf88e85ed18e33311b0e481e1",
+  "population.json": "a425ac92e47fa3032c5231b30cc6ab4541cd59c0d3f5f96e52f2d3fb5295c835",
+  "human_sample_ids.txt": "75b7acce9e20d36908c38f4f1a1610636f4ef74ec8ba99e9ae5df871db12aea5",
+  "batches/A/batch/batch_01.jsonl": "522cfebdf0b2662b5ea3892b43ff604fbb44f505c5eb9c0a126f186fd924d6ae",
+  "batches/A/batch/batch_02.jsonl": "37b85c3b40d1243f10340b4debd4b8ab7e6129d6f1ccf5d66c8057b8304bdc8a",
+  "batches/A/batch/batch_03.jsonl": "1e6b953ce2a524e37ebb48315d959a3306d34f096957ce1690d968dedc729905",
+  "batches/A/batch/batch_04.jsonl": "ae892a12f12867c4f505c7f953e2a17086f69fa3d520258e449874025f816d91",
+  "batches/A/batch/batch_manifest.json": "560e798205bd96b08ea5faf73a616ff63cfb83f413e2054729473db20a24db9f",
+  "batches/B/batch/batch_01.jsonl": "3e6a449a69659d57626ededc107aab501247dd224e272a50d0494c7e91bd32d6",
+  "batches/B/batch/batch_02.jsonl": "c74657a9a13730d6e8a99d7678055dad61c8eb00c4edc009d81c1a17243a9bfc",
+  "batches/B/batch/batch_03.jsonl": "9c2352a298b28be1dea60aa319a3a2cb554699be111f83e054724b04938b269b",
+  "batches/B/batch/batch_04.jsonl": "b606914d00f83e0266de503e96cc527c210ff2ea519336c7bcb676f7f06db5ea",
+  "batches/B/batch/batch_manifest.json": "b59a1098af8ab4ab0eccddb8251e9e2dabde5811abf01c60f2e2ee54cb821027",
+  "batches/maintainer/batch/batch_01.jsonl": "060fc6e92a206a2110da66ec312806d2c4424b968542f82857c79e76a2ba9b70",
+  "batches/maintainer/batch/batch_manifest.json": "90865ef8d583cdd0a1a77f719ea0dfd9427983efa69a94a6d7f99ddfb75ee621"
+ },
+ "labels": "none exist; no reuse (PLAN.md section 3)"
+}
