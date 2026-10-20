@@ -112,7 +112,7 @@ Each text's licence is recorded in its collection manifest (`texts.jsonl`, field
 | `study4_pilot/` | The 16 Oct 0.3.2 pilot: labels, raw session outputs, retry manifests, adjudicator-selection files (`adj_r5/`), plan, log and disagreement review | 47, 2.4 MB | `frozen_inputs.sha256` covers the guidelines and inventory only. The labels have no contemporaneous public hash; see section 4. | Restricted: the notes quote text |
 | `study4_fix040/` | Fix-work material: implementation, harness and audit reports and dispositions; Sol reviews; harness dry runs (2.4 GB); equivalence runs (355 MB); a round-2 working area (10 GB); a harness snapshot (1.6 GB); the final audit | 9,996, 14 GB | None as a set. The registered inputs are the archived packages, not these. | Restricted working material. The public dispositions and rulings summarise it; the original review reports are not all published (`study4-fix-check.md`). |
 | `study4_scratch/sim_final/` | The 0.3.2-calibrated historical simulation | 12, 764 KB | `result_hashes.sha256`; three hashes in `study4-freeze.json` | Text-free; publishable |
-| `study4_scratch/sim040/` | The 0.4.0 simulation, still running | not surveyed | to be recorded in `study4-freeze.json` | Text-free once finished |
+| `study4_scratch/sim040/` | The 0.4.0-calibrated registered simulation: frozen sources, inventory, run and merged results, `SUMMARY.md`, `tail_table.txt`, rate check | 16 files | `result_hashes.sha256`; hashes in the prereg and `study4-freeze.json` | Text-free; publishable |
 | `study4_scratch/` (the rest) | Handoffs, reviews, prototype builds and copies of the development texts and raw cache (`devcopy/`, `dev032*/`, `rawcopy/`, `src032/`), practice pages | ~300 files | none | Working material; the copies hold text |
 
 **Not in the archive.** The delivered session transcripts of the 16 Oct pilot (A `-r2`, B, the adjudicator) were not copied into the private archive or a cache. As far as this survey found, they exist only in the providers' local session stores on the maintainer's machine; the F1 rescreen read the Codex sessions there (`study4-pilot040/CORRECTION_F1.md`).
@@ -196,4 +196,4 @@ Each text's licence is recorded in its collection manifest (`texts.jsonl`, field
 4. **The 16 Oct pilot transcripts** are only in the providers' local stores. If they are to be retained, they should be copied into the private archive with a `SHA256SUMS`. The section-4 label hashes are not contemporaneous.
 5. **The documents in `docs/`** have no stated licence.
 6. **Personal data in transcripts:** the account's email address in Claude transcripts, and local paths in all of them. Remove or accept these before any tier-3 transfer.
-7. **`sim040/`** is still running. Its result hashes are to be added to `study4-freeze.json` when it finishes.
+7. **The simulation outputs** (`sim_final/`, `sim040/`) are text-free but only in the local cache. They are intended as files of the Stage-1 deposit.

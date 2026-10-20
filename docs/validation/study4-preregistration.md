@@ -512,7 +512,7 @@ U = UCL Pr(d_hi = +1) − LCL Pr(d_hi = −1)
 - **Unknown mass:** unknown values and unaudited sub-strata stay unknown. No comparability threshold discards them.
 - **Assumptions:** none about why values are missing. It does treat definite labels as fixed, so it doesn't protect against errors the model reference and the maintainer share.
 
-**Expected precision.** With 300 items per module, the round-3 development simulations gave a mean interval width of about .20 after the second pass (about .24–.25 without it). In adverse settings it was about .34–.37. These are historical figures, and so are those of the 0.3.2-calibrated run of 2026-10-16/17: .146–.162 after the second pass, .201–.208 without it, and .334–.365 (.380–.414 without the second pass) in the adverse-concordance setting. The final 0.4.0-calibrated run gives ⟨sim040: concordance widths, main and adverse, with and without pass 2⟩. The interval can rule out large differences only. **No equivalence, adequacy, interchangeability, gold-standard or certification claim is made from concordance.** Its results can prompt further work or matcher revision. They don't change this study's analysis.
+**Expected precision.** With 300 items per module, the round-3 development simulations gave a mean interval width of about .20 after the second pass (about .24–.25 without it). In adverse settings it was about .34–.37. These are historical figures, and so are those of the 0.3.2-calibrated run of 2026-10-16/17: .146–.162 after the second pass, .201–.208 without it, and .334–.365 (.380–.414 without the second pass) in the adverse-concordance setting. The final 0.4.0-calibrated run gives .139–.162 after the second pass and .192–.208 without it in the main scenario, and .341–.354 (.387–.403 without the second pass) in the adverse-concordance setting. The interval can rule out large differences only. **No equivalence, adequacy, interchangeability, gold-standard or certification claim is made from concordance.** Its results can prompt further work or matcher revision. They don't change this study's analysis.
 
 ### Agreement and errors
 
@@ -586,17 +586,23 @@ These checks were done before registration, on development data.
 
 **The registered evidence** is the final run of the frozen code on the 0.4.0-calibrated scenarios: `main-pilot` with 23,410 replicates × 3 population seeds × 2 modules, and the grid of 13 scenarios with 2,000 replicates × 2 seeds × 2 modules. That is 58 cells and 244,460 replicates, merged against the declared inventory (`sim040/inventory.json`, frozen with every source hash before the run started).
 
-- **Run:** ⟨sim040: dates, status, resumes, merge result⟩.
-- **Hashes:** ⟨sim040: merged-file and inventory hashes⟩, also in the stage-1 freeze manifest.
+- **Run:** started 2026-10-20 17:02 UTC. The first invocation stopped when the maintainer's session ended, with 4 of 58 cells saved. The same request was resumed with `--resume` at 21:22 UTC after the code, key, frame and inventory hashes were checked, and it completed at 22:24 UTC with status `complete`. The merge against the declared inventory succeeded: 58 cells, exactly the inventory. Summary: `sim040/SUMMARY.md`.
+- **Hashes:** merged file `final.json` `0e93658f030ed0788d8ef13de3b65bc2d278665150ed0d2190f19808dd6871fe`; inventory `f17f920f8b69d459c9ce67fcf268e5a8c41e96ad89f63ff33c55c7d2e56fb80e`; run file `all.json` `c3a90db164ab051dc0fb33a920453859bd9753e182324c9c8680dbdf1a3f4ad4` (`sim040/result_hashes.sha256`), also in the stage-1 freeze manifest.
 
 | Interval | Largest tail error in the main scenario | Clopper–Pearson 95% upper bound | Mean width |
 |---|---|---|---|
-| Primary | ⟨sim040⟩ | ⟨sim040⟩ | ⟨sim040⟩ |
-| Resolution region | ⟨sim040⟩ | ⟨sim040⟩ | ⟨sim040⟩ |
-| Concordance | ⟨sim040⟩ | ⟨sim040⟩ | ⟨sim040⟩ |
-| Korn–Graubard (secondary) | ⟨sim040⟩ | n/a | n/a |
+| Primary | 66/23,410 = .0028 | .0036 | .149–.162 |
+| Resolution region | 61/23,410 = .0026 | .0033 | .149–.163 |
+| Concordance | 0/23,410 in every cell and tail | .00016 | .139–.162 after pass 2 |
+| Korn–Graubard (secondary) | 903/23,410 = .039 | n/a | n/a |
 
-- **In the final grid:** ⟨sim040: region and concordance maxima; primary maxima outside and inside the outcome-dependent cells; Korn–Graubard⟩.
+- **In the final grid:**
+  - **Resolution region:** the observed tail-error rate was at most .005 in every tested cell and tail (the maximum, 10/2,000, in `low-precision-050`), and at most .0015 under outcome-dependent non-resolution.
+  - **Concordance:** 0 in every cell and tail.
+  - **Primary:** at most .005 in every cell except those where non-resolution depends on the outcome, the case its assumption excludes. There, the lower-tail error reached .1515 (`outcome-unresolved`) and .140 (`fixed-outcome-unresolved`).
+  - **Korn–Graubard:** undercovered in most cells. It reached .094–.102 at the precision boundaries, .47–.57 under outcome-dependent non-resolution, and .549 in `mixed-census-unobserved`, where it is a represented-cells interval scored against full-population precision.
+  - **Why the outcome-dependent figures differ from the 0.3.2 run:** the grid's settings and random streams are unchanged, but its populations are drawn on the 0.4.0 frame. In `outcome-unresolved`, metadiscourse precision is .661–.676 there, against .797–.832 on the 0.3.2 frame. With more incorrect hits, outcome-dependent non-resolution leaves more of them unresolved, and the primary's assumption fails more strongly. This is why the resolution region is reported alongside the primary.
+  - Individual Monte Carlo intervals are reported in `sim040/final.md` and `tail_table.txt`.
 
 **Historical, not registered evidence: the 0.3.2-calibrated run** (2026-10-16/17). It ran the same 58 cells and 244,460 replicates with the 0.3.2 pilot's key, frame and parameters, merged against its declared inventory. Its hashes are in `sim_final/result_hashes.sha256`. It is kept unchanged as evidence for the 0.3.2 design, not relabelled as a 0.4.0 validation. Main-scenario results:
 
