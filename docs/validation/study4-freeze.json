@@ -1640,7 +1640,7 @@
   "command": "uv run --offline --no-sync python -I scripts/validation/study4_precision/build.py --set evaluation --seed 3195330621 --out .cache/validation/study4_eval --raw-cache .cache/validation/study4_eval/raw --exclude-texts docs/validation/study4-exclusions/exclusions.jsonl"
  },
  "protocol": {
-  "docs/validation/study4-preregistration.md": "dfacd113a3e7f41395f9b66a4045fcb59fe99e1a706645c9bfa8499824329ba0",
+  "docs/validation/study4-preregistration.md": "ffccead403bd698e334ae41ec2e4160ef0d47f0fcd7e570fb75dfecfdc2a144a",
   "docs/validation/study4-fix-protocol.md": "0b93954b602a48b619715c507cafa796c99df5e68a72fe1d3bd9665020151ea9",
   "docs/validation/study4-fix-protocol-clarifications.md": "17e97ce89daff1da32afbabf662ba4a61c34725c18ed422052edbd3243b4f266",
   "docs/validation/study4-fix-check.md": "682b9a22d8a215f98a44c98d0aeed94a67c66fce2ecbde380235c022e8456ddb",
@@ -1707,8 +1707,8 @@
   "note": "the external deposit's service, identifier and receipt are kept in the record file, outside this manifest"
  },
  "observed": {
-  "built": "2026-10-20T23:36:06+00:00",
-  "built_from_commit": "0d80be3bb009e057a01705b95ea9992cde9b62ee",
+  "built": "2026-10-20T23:36:48+00:00",
+  "built_from_commit": "d845e89c848de271ecf544e1603918c4a6c00cde",
   "platform": "macOS-27.0.1-arm64-arm-64bit",
   "cli_versions_now": {
    "claude": "2.1.305 (Claude Code)",
