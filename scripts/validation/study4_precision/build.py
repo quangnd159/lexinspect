@@ -1132,6 +1132,12 @@ def main(argv: list[str] | None = None) -> int:
         "fresh texts (development texts always excluded), a new --seed and a new --out",
     )
     ap.add_argument("--overwrite", action="store_true", help="allow replacing an existing build")
+    ap.add_argument(
+        "--sample-seed",
+        type=int,
+        help="development only: collect the texts with seed 20261016, then draw the sample "
+        "(items, ids, orders) with this seed instead; for a new pilot on the same texts",
+    )
     args = ap.parse_args(argv)
     SEED, OUT = args.seed, args.out.resolve()
     RAW = (args.raw_cache or OUT / "raw").resolve()
@@ -1140,6 +1146,10 @@ def main(argv: list[str] | None = None) -> int:
     dev_info: dict[str, Any] | None = None
     if dev and (SEED != DEV_SEED or extra):
         raise SystemExit("--set development means seed 20261016 and no exclusions")
+    if args.sample_seed is not None and (not dev or args.sample_seed == DEV_SEED):
+        raise SystemExit("--sample-seed is for development rebuilds and must differ from 20261016")
+    if args.sample_seed is not None and DEV_OUT.resolve() == OUT:
+        raise SystemExit("--sample-seed needs a new --out")
     if not dev:
         if SEED == DEV_SEED:
             raise SystemExit("--set evaluation needs a new --seed")
@@ -1185,6 +1195,9 @@ def main(argv: list[str] | None = None) -> int:
         (OUT / "texts" / f"{t['text_id']}.txt").write_text(t["text"], encoding="utf-8")
     reg = {t["text_id"]: t for t in texts}
     write_jsonl(OUT / "hits.jsonl", hits)
+    collection_seed = SEED
+    if args.sample_seed is not None:
+        SEED = args.sample_seed  # rng() labels from here on are sampling only
 
     # 3. sample
     sampled, design = draw(hits)
@@ -1336,6 +1349,7 @@ def main(argv: list[str] | None = None) -> int:
         "study": "lexinspect Study 4: precision of metadiscourse and PHRASE detection",
         "built": today(),
         "seed": SEED,
+        "collection_seed": collection_seed,
         "set": "development" if dev else "evaluation",
         "provenance": prov,
         "lexinspect_version": prov.get("lexinspect"),

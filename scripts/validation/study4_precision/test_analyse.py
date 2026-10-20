@@ -2075,6 +2075,8 @@ def test_exclusions_cover_every_identifier_type(tmp_path):
     [
         (["--set", "evaluation", "--seed", "5", "--dev-texts", "/nonexistent"], "not found"),
         (["--set", "development", "--seed", "5"], "seed 20261016"),
+        (["--set", "evaluation", "--seed", "5", "--sample-seed", "6"], "--sample-seed is for"),
+        (["--sample-seed", "20261016"], "--sample-seed is for"),
     ],
 )
 def test_build_refuses_unsafe_configurations(tmp_path, args, msg):
