@@ -24,12 +24,26 @@ It records, with SHA-256 throughout, every input the Stage-1 package depends on:
 - the evaluation pool cache: every file of .cache/validation/study4/raw, which
   the evaluation copy is verified against;
 - both simulation bundles, file by file, and the tail-table tool;
-- the fix check: its tracked records, every file named in each round's stage
-  receipts (checked against the current file), and the archive tars (checked
-  against receipts/private_archive.sha256);
+- the fix check: its tracked public records; every current file named in the
+  stage receipts; the unchanged archived tars; the later access-review addenda;
+  the post-decision event archive, including its checksums and their targets;
+  and the versioned inventory of retained launch/access-review scripts and cited
+  review reports. The manifest separately identifies the immutable
+  decision-time packages and the later disclosure evidence. Both are required
+  and checked against the deposited hashes;
 - the exclusions, the evaluation seed, preparation and command;
-- the protocol documents, the archive inventory and access log, the effects
-  report, the public text-free export and the Stage-1 review records.
+- the protocol documents, the archive inventory, the Stage-1 snapshot of the
+  access log, the effects report, the public text-free export and the Stage-1
+  review records.
+
+Every SHA256SUMS file in a bound private folder is checked against the current
+bytes. The pinned baseline checkout (pinned-dec79bc/) is checked blob for blob
+against its commit, apart from its .venv, which is an environment cache.
+
+The live access log, docs/validation/study4-access-log.md, is an
+append-only administrative record: the manifest names it but doesn't hash it,
+so recording an access request never requires rebuilding the manifest. Its
+Stage-1 state is the hashed snapshot docs/validation/study4-access-log.stage1.md.
 
 Every input is required. A missing file, a receipt or tar whose current bytes
 differ from its recorded hash, a model file that differs from its RECORD, or a
@@ -81,6 +95,10 @@ EVAL_SEED = 3195330621
 EVAL_SEED_RULE = 'int(sha256("study4-v040-evaluation|20261016").hexdigest()[:8], 16)'
 EXCLUSIONS = REPO / "docs" / "validation" / "study4-exclusions" / "exclusions.jsonl"
 SKIP_NAMES = {".DS_Store"}
+FIXCACHE = CACHE / "study4_fix040"
+PINNED = FIX040 / "pinned-dec79bc"
+ACCESS_LOG = REPO / "docs" / "validation" / "study4-access-log.md"
+ACCESS_LOG_STAGE1 = REPO / "docs" / "validation" / "study4-access-log.stage1.md"
 
 # Files the package cannot do without. They are also hashed inside the trees
 # below; listing them here makes their absence a build failure, not just a
@@ -119,6 +137,12 @@ KEY_FILES = [
     *(SIM032 / n for n in ("inventory.json", "final.json", "result_hashes.sha256")),
     DEV032 / "key.jsonl",
     DEV032 / "frame.json",
+    *(FIX040 / f"round{r}" / "transcripts" / "ACCESS_REVIEW_RULINGS.md" for r in (1, 2)),
+    FIX040 / "post_decision_events" / "README.md",
+    FIX040 / "post_decision_events" / "SHA256SUMS",
+    PINNED / "PINNED_COMMIT.json",
+    *(FIXCACHE / "final_audit" / n for n in ("RESPONSES_r1.md", "sol_final_audit_r2.md")),
+    ACCESS_LOG_STAGE1,
 ]
 
 PROBLEMS: list[str] = []
@@ -328,6 +352,92 @@ def fixcheck_receipts(verify_tars: bool = True) -> dict[str, Any]:
     return out
 
 
+def checksums(sums: Path) -> dict[str, Any]:
+    """Check every entry of a SHA256SUMS file against the current bytes of its target."""
+    want = need(sums)
+    if want is None:
+        return {}
+    listed, bad = {}, []
+    for line in sums.read_text().splitlines():
+        if not line.strip():
+            continue
+        h, name = line.split(maxsplit=1)
+        name = name.lstrip("*")
+        listed[name] = h
+        if sha(sums.parent / name) != h:
+            bad.append(name)
+    for name in bad:
+        problem(f"checksum mismatch: {label(sums.parent / name)}")
+    if not listed:
+        problem(f"empty checksum file: {label(sums)}")
+    return {"sha256": want, "entries": len(listed), "mismatched": bad}
+
+
+def git_blob(p: Path) -> str:
+    data = p.read_bytes()
+    return hashlib.sha1(b"blob %d\0" % len(data) + data).hexdigest()
+
+
+def pinned_baseline() -> dict[str, Any]:
+    """The pinned checkout must equal its commit, blob for blob (its .venv aside)."""
+    rec = json.loads(PINNED.joinpath("PINNED_COMMIT.json").read_text())
+    listing = git("ls-tree", "-r", rec["commit"]).splitlines()
+    tag = {line.split("\t", 1)[1]: line.split()[2] for line in listing}
+    differ = sorted(
+        f for f, blob in tag.items() if not (PINNED / f).is_file() or git_blob(PINNED / f) != blob
+    )
+    present = tree(PINNED, exclude=(".venv",))
+    extra = sorted(set(present) - set(tag) - {"PINNED_COMMIT.json"})
+    for f in differ:
+        problem(f"pinned baseline differs from {rec['commit'][:8]}: {f}")
+    for f in extra:
+        problem(f"pinned baseline file not in {rec['commit'][:8]}: {f}")
+    return {
+        "record": rec,
+        "record_sha256": sha(PINNED / "PINNED_COMMIT.json"),
+        "files_compared": len(tag),
+        "differ": differ,
+        "extra": extra,
+        "files": present,
+        "not_compared": ".venv (environment cache, rebuilt from the pinned uv.lock)",
+    }
+
+
+def later_evidence() -> dict[str, Any]:
+    """Fix-check evidence written after the decision-time tars."""
+    return {
+        "note": (
+            "written after the decision-time tars; the tars are not substituted for it. "
+            "round1/ and round2/ are the unpacked packages with their later addenda."
+        ),
+        "access_review_addenda": files(
+            [FIX040 / f"round{r}" / "transcripts" / "ACCESS_REVIEW_RULINGS.md" for r in (1, 2)]
+        ),
+        "round1": tree(FIX040 / "round1"),
+        "round2": tree(FIX040 / "round2"),
+        "materials_checksums": {
+            f"round{r}": checksums(FIX040 / f"round{r}" / "materials" / "SHA256SUMS")
+            for r in (1, 2)
+        },
+        "post_decision_events": {
+            "files": tree(FIX040 / "post_decision_events"),
+            "checksums": checksums(FIX040 / "post_decision_events" / "SHA256SUMS"),
+        },
+        "launch_and_access_review_scripts": tree(FIX040 / "tools"),
+        "pinned_baseline": pinned_baseline(),
+        "review_reports": {
+            "path": ".cache/validation (restricted working material, held by the custodian)",
+            "fix040_reports": files(sorted(FIXCACHE.glob("*.md"))),
+            "fix040_round2_reports": files(sorted((FIXCACHE / "round2").glob("*.md"))),
+            "fix040_scripts": tree(FIXCACHE / "scripts"),
+            "final_audit": tree(FIXCACHE / "final_audit"),
+            "round2_harness_audits": files(
+                [CACHE / f"sol_round2_harness_audit_r{i}.md" for i in (1, 2, 3)]
+            ),
+        },
+    }
+
+
 def build_manifest(verify_tars: bool = True) -> dict[str, Any]:
     PROBLEMS.clear()
     tag_commit = git("rev-parse", "v0.4.0^{commit}")
@@ -392,11 +502,17 @@ def build_manifest(verify_tars: bool = True) -> dict[str, Any]:
             "records": tracked("docs/validation/study4-pilot040"),
             "build": tree(V040),
             "private_archive": tree(PILOT040),
+            "private_checksums": {
+                n: checksums(PILOT040 / n / "SHA256SUMS") for n in ("selection/build", "probes")
+            },
         },
         "history_0_3_2": {
             "development_build": tree(DEV, exclude=("raw",)),
             "pilot_2026_10_16": tree(PILOT032),
             "pilot_2026_10_16_session_records": tree(PRIVATE / "study4-pilot032-transcripts"),
+            "pilot_2026_10_16_session_checksums": checksums(
+                PRIVATE / "study4-pilot032-transcripts" / "SHA256SUMS"
+            ),
             "simulation_key_frame": files([DEV032 / "key.jsonl", DEV032 / "frame.json"]),
             "simulation": tree(SIM032),
         },
@@ -410,7 +526,8 @@ def build_manifest(verify_tars: bool = True) -> dict[str, Any]:
         },
         "fix_check": {
             "records": tracked("docs/validation/study4-fix040"),
-            "receipts_verified": fixcheck_receipts(verify_tars),
+            "decision_time_packages": {"receipts_verified": fixcheck_receipts(verify_tars)},
+            "later_evidence": later_evidence(),
         },
         "exclusions": {
             "development_manifest": dev_info,
@@ -447,9 +564,17 @@ def build_manifest(verify_tars: bool = True) -> dict[str, Any]:
                 REPO / "docs/validation/study4-development-effects.md",
                 REPO / "docs/validation/study4-development-effects.json",
                 REPO / "docs/validation/study4-archive.md",
-                REPO / "docs/validation/study4-access-log.md",
+                ACCESS_LOG_STAGE1,
             ]
         ),
+        "administrative_records": {
+            "access_log": str(ACCESS_LOG.relative_to(REPO)),
+            "note": (
+                "append-only and versioned in git; not hashed here, so recording an access "
+                "request leaves this manifest unchanged. Its Stage-1 state is the snapshot "
+                "under protocol. Each inspection records the access-log version and hash."
+            ),
+        },
         "textfree_export": tracked("docs/validation/study4-textfree"),
         "stage1_review": tracked("docs/validation/study4-stage1-review"),
         "deposit": {

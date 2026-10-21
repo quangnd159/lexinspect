@@ -660,6 +660,9 @@ def screen_archive(root: Path, expect: list[str] | None = None) -> dict[str, Any
     return {
         "archive": str(root),
         "check_sessions_sha256": sha256(Path(__file__)),
+        "launch_log_sha256": (
+            sha256(root / "launch_log.jsonl") if (root / "launch_log.jsonl").is_file() else None
+        ),
         "ok": ok,
         "inventory_problems": inv,
         "coverage": cov,

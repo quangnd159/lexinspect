@@ -669,6 +669,62 @@ def test_collect_refuses_archive_with_missing_session(root):
         CR.main(["B", "batch", str(sessions), str(build), str(out), "--screen", str(scr)])
 
 
+def test_collect_rechecks_the_archive_after_screening(root):
+    """Negative controls: the archive changes between the screen and the collection."""
+    sessions, build, out = collect_fixture(root)
+    make_session(sessions, "A", "tokA")
+    scr = write_screen(sessions, root / "screen.json")
+    args = ["B", "batch", str(sessions), str(build), str(out), "--screen", str(scr)]
+    log = sessions / "launch_log.jsonl"
+    before = log.read_text()
+    # a logged delivered session with no archive, appended after the screen
+    log.write_text(
+        before + json.dumps({"role": "A", "token": "gone", "status": "delivered"}) + "\n"
+    )
+    with pytest.raises(SystemExit, match="current archive problems.*A/gone has no archive"):
+        CR.main(args)
+    log.write_text(before)
+    # an archive removed after the screen
+    moved = root / "tokA.moved"
+    (sessions / "A" / "tokA").rename(moved)
+    with pytest.raises(SystemExit, match="current archive problems.*A/tokA has no archive"):
+        CR.main(args)
+    # an unlogged archive added after the screen
+    moved.rename(sessions / "A" / "tokA")
+    make_session(sessions, "A", "tokA2")
+    log.write_text(before)
+    with pytest.raises(SystemExit, match="A/tokA2 is not in the launch log"):
+        CR.main(args)
+    # logged too, but never screened
+    make_session(sessions, "A", "tokA3")
+    shutil.rmtree(sessions / "A" / "tokA2")
+    lines = [r for r in log.read_text().splitlines() if '"tokA2"' not in r]
+    log.write_text("\n".join(lines) + "\n")
+    with pytest.raises(SystemExit, match="different launch log"):
+        CR.main(args)
+    assert not out.exists()
+
+
+def test_collect_refuses_screen_from_another_inventory(root):
+    sessions, build, out = collect_fixture(root)
+    scr = root / "screen.json"
+    screen = CS.screen_archive(sessions)
+    screen["sessions"] = []
+    scr.write_text(json.dumps(screen))
+    with pytest.raises(SystemExit, match="does not list exactly the sessions now archived"):
+        CR.main(["B", "batch", str(sessions), str(build), str(out), "--screen", str(scr)])
+    assert not out.exists()
+
+
+def test_empty_assignment_is_not_applicable(root, capsys):
+    sessions, build, out = collect_fixture(root)
+    (build / "batches" / "B" / "batch" / "batch_manifest.json").write_text('{"batches": []}')
+    scr = write_screen(sessions, root / "screen.json")
+    rc = CR.main(["B", "batch", str(sessions), str(build), str(out), "--screen", str(scr)])
+    assert rc == 3 and "not applicable" in capsys.readouterr().out
+    assert not out.exists()
+
+
 # ------------------------------------------------------ the real pilot archive
 
 
@@ -692,7 +748,7 @@ def test_real_pilot_archive_screen():
             assert s["status"] == "clean", label
 
 
-# --- recorded human rulings on flagged sessions ------------------------------
+# --- recorded rulings on flagged sessions ------------------------------
 
 
 def _flagged(**over):

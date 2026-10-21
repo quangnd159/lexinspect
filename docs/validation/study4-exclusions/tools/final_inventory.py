@@ -299,7 +299,8 @@ def inventory() -> dict:
             "lint_config": {
                 "path": rel(tools / "ruff.toml"),
                 "sha256": sha(tools / "ruff.toml"),
-                "note": "Only excludes the *.py files in tools/ from ruff; it builds nothing and changes no output.",
+                "note": "Excludes only the four archived builders from ruff; final_inventory.py "
+                "remains linted. This configuration builds nothing and changes no scientific output.",
             },
         },
         "self_check": {

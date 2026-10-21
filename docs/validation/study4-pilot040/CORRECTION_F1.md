@@ -9,7 +9,7 @@
    - B: 10 primary sessions in round 1; 8 primary sessions and 1 retry in round 2;
    - the adjudicator: 2 Flash sessions in each round.
 
-   Their environment therefore named `/Users/quangnguyendang/webapps/lexinspect`, and B's filesystem access was not limited to its batch directory. No git status, branch, commit or candidate information reached them.
+   Their environment therefore named `/Users/quangnguyendang/webapps/lexinspect`, and B's filesystem access was not limited to its batch directory. In the retained model-visible records inspected, we found no branch/commit snapshot, candidate-direction information, item-level version/family assignments or other labellers' responses. This conclusion is limited to those records; the original pilot adjudicator's effective context was not recovered.
 
 ## Proposed replacement for the deviation's second paragraph (as first drafted)
 
@@ -23,12 +23,12 @@
 
 ## Effect on the result
 
-- **No gate changes.** The sensitivity analysis already replaces labeller A, whose context carried the version-direction information. B's and the adjudicator's extra context carried no version, family or label information.
+- **No gate changes.** The sensitivity analysis already replaces labeller A, whose context carried the version-direction information. In the retained model-visible records inspected, we found no branch/commit snapshot, candidate-direction information, item-level version/family assignments or other labellers' responses. This conclusion is limited to those records; the original pilot adjudicator's effective context was not recovered.
 - **The disclosure changes.** The blinding statement for B and the adjudicator becomes "no version, family or label information" rather than "no repository context".
 - **The rereview, done 2026-10-21.** Every archived labelling session of B and of the adjudicator was rescreened for file access outside its batch directory:
   - **B:** 24 Codex sessions, those whose first instruction is the labelling prompt: the 16 Oct pilot's 4 batches and the GPT-6-Sol dry run, 10 round-1 sessions and 9 round-2 sessions;
   - **the adjudicator:** the 5 fix-check Flash transcripts.
 
-  Every path in their tool calls lies inside the session's own batch directory, and none ran a command with a relative path. With the repository as working directory, a relative path would have read repository files. No session read or listed a file outside its batch directory. Review sessions that only quote the prompt are not labelling sessions and are excluded by the first-instruction rule.
+  In the retained labelling records included in the rescreen, we found no read or listing outside the session's batch directory and no command with a relative path. This does not establish the contents of unrecovered records or undisclosed provider-side context. Review sessions that only quote the prompt are excluded by the first-instruction rule.
 
 - **Limits (added after the review).** The rescreen supports the correction; it does not establish a causal zero effect of the repository context. The existing post-hoc sensitivity removes A's direct contribution to the round-2 reference; it does not erase historical context exposure or establish what fully context-isolated sessions would have judged. The original pilot adjudicator's effective context could not be recovered. The reviewer found no basis to require a third fix-check round, selective relabelling, a new adjudicator qualification or detector changes.

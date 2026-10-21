@@ -8,22 +8,37 @@ script reads the role's assignment manifest
 (BUILD/batches/<role>/<prefix>/<prefix>_manifest.json) and, for every batch,
 the one delivered session in SESSIONS_ROOT whose items SHA-256 equals that
 batch file's. SCREEN_JSON is check_sessions.py's --json output for
-SESSIONS_ROOT. The script stops, and collects nothing, if a batch has no
-delivered session or more than one, if the matched session is a technical
-failure, if the screen is missing, is for another root, lists an archive
-problem, has no entry for the session or was made from a different
-session.json, or if the session's screen status (in the file, and on a fresh
-in-process screen) is not `clean`. It never generates or chooses a label: a
-stopped batch waits for technical recovery or a relaunch.
+SESSIONS_ROOT.
 
-A `flagged` session is accepted only with a recorded human ruling
-(--rulings, one JSON object per line) that names the role, the session token,
-the SHA-256 of its session.json and the SHA-256 of its exact flag set
-(`flags_sha256`, below), with `"ruling": "accept"`, the reviewer, the date
-and the reason. A ruling can accept only path, code-like and review flags,
-after the maintainer has examined them in the transcript. A context-marker hit
+The collector checks the current archive against its launch log and the
+non-empty assignment manifest before accepting any labels. The saved screen
+must match the current archive inventory and the session records. Missing,
+additional or inconsistent records stop collection pending technical recovery.
+A stage with no assigned items is recorded as not applicable and is not
+collected. No label is generated or chosen.
+
+In detail, it stops, and writes nothing, if the current archive has an
+inventory problem (a logged session without an archive, an archived session
+not in the launch log, or a launch-log entry that disagrees with its
+session.json); if the saved screen is missing, is for another root, lists an
+archive problem, was made from a different launch log, or doesn't list exactly
+the sessions now archived, each with its current session.json; if a batch has
+no delivered session or more than one; or if the matched session's screen
+status (in the file, and on a fresh in-process screen) is not `clean`. An empty
+`batches` list prints "not applicable" and exits 3. A stopped batch waits for
+technical recovery or a relaunch.
+
+A `flagged` session is accepted only with a recorded ruling (--rulings, one
+JSON object per line) that names the role, the session token, the SHA-256 of
+its session.json and the SHA-256 of its exact flag set (`flags_sha256`,
+below), with `"ruling": "accept"`, the reviewer, the date and the reason. A
+ruling can accept only path, code-like and review flags. A context-marker hit
 (forbidden context injected into the session) and a technical failure can't be
-accepted by any ruling. If the flags change, the ruling no longer matches.
+accepted by any ruling. If the flags change, the ruling no longer matches. The
+collector verifies the ruling's completeness and its binding to the session
+and flags; it can't establish who the reviewer is. That the maintainer
+personally examined the transcript and approved the ruling, with a date, is an
+operational commitment of the protocol, recorded in the ruling's fields.
 Labels are concatenated in batch order and validated per batch with the
 frozen validator (analyse.validate_lines), against the ids assigned to that
 batch. It writes:
@@ -71,7 +86,39 @@ def load_screen(path: Path | None, sessions: Path) -> dict:
             "archive problems stop acceptance pending technical recovery (no label is "
             "generated or chosen): " + "; ".join(screen["inventory_problems"])
         )
-    return {(e.get("role"), e.get("token")): e for e in entries}
+    entries = {(e.get("role"), e.get("token")): e for e in entries}
+    current_inventory(sessions, screen, entries)
+    return entries
+
+
+def current_inventory(sessions: Path, screen: dict, entries: dict) -> None:
+    """The archive as it is now: consistent with its launch log, and as screened."""
+    dirs = CS.session_dirs(sessions)
+    now = CS.inventory_problems(sessions, dirs)
+    if now:
+        raise SystemExit(
+            "current archive problems stop acceptance pending technical recovery (no label is "
+            "generated or chosen): " + "; ".join(now)
+        )
+    log = sessions / "launch_log.jsonl"
+    if screen.get("launch_log_sha256") != sha256(log):
+        raise SystemExit(
+            f"screen result was made from a different launch log than the current {log}; "
+            "screen the archive again"
+        )
+    archived = {(d.parent.name, d.name): d for d in dirs}
+    if set(entries) != set(archived):
+        raise SystemExit(
+            "screen result does not list exactly the sessions now archived "
+            f"(only screened: {sorted(set(entries) - set(archived))}; "
+            f"only archived: {sorted(set(archived) - set(entries))}); screen the archive again"
+        )
+    for key, d in archived.items():
+        f = d / "session.json"
+        if entries[key].get("session_json_sha256") != (sha256(f) if f.is_file() else None):
+            raise SystemExit(
+                f"{key[0]}/{key[1]}: screen result was made from a different session.json"
+            )
 
 
 FLAG_KEYS = ("other_paths", "code_like_calls", "review")
@@ -116,7 +163,7 @@ def load_rulings(path: Path | None) -> dict:
 
 
 def ruled(r: dict, ruling: dict | None, session_sha: str) -> bool:
-    """True if a flagged screen result is covered by a matching human ruling."""
+    """True if a flagged screen result is covered by a matching recorded ruling."""
     return (
         ruling is not None
         and r.get("status") == "flagged"
@@ -160,12 +207,18 @@ def main(argv: list[str] | None = None) -> int:
     ap.add_argument("build", type=Path)
     ap.add_argument("out", type=Path)
     ap.add_argument("--screen", type=Path, help="check_sessions.py --json output")
-    ap.add_argument("--rulings", type=Path, help="recorded human rulings on flagged sessions")
+    ap.add_argument("--rulings", type=Path, help="recorded rulings on flagged sessions")
     args = ap.parse_args(argv)
-    screened = load_screen(args.screen, args.sessions)
-    rulings = load_rulings(args.rulings)
     bdir = args.build / "batches" / args.role / args.prefix
     manifest = json.loads((bdir / f"{args.prefix}_manifest.json").read_text())
+    if not manifest.get("batches"):
+        print(
+            f"{args.role} {args.prefix}: not applicable: the assignment manifest lists no batch. "
+            "Nothing is collected and no output is written."
+        )
+        return 3
+    screened = load_screen(args.screen, args.sessions)
+    rulings = load_rulings(args.rulings)
     items = {r["id"]: r for r in A.read_jsonl(args.build / "items.jsonl")}
     sessions = [
         json.loads(p.read_text())

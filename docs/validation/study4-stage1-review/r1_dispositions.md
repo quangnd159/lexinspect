@@ -110,3 +110,7 @@ No number changed.
 ## Also corrected
 
 `study4-archive.md` §4 listed the 0.3.2 pilot's `retry_A.jsonl` as labels. It is A's retry manifest. The retry labels are `raw/A_retry.jsonl` (`6505ccda…`), and both are now listed.
+
+## Erratum, 2026-10-21 (after review round 2)
+
+Under R1-1, "for all 22 label files" is wrong. The export's manifest and `export.py` check **16** source label files: five per pilot and three per fix-check round. The round-2 review found this (R2-6); the text above is left as written.

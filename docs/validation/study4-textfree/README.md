@@ -1,6 +1,6 @@
 # Study 4: text-free export (tier 2)
 
-**Draft for the maintainer; not yet committed or registered.**
+**Status:** committed public text-free export for Stage-1 review; not externally registered until the Stage-1 deposit receipt is recorded.
 
 **Date:** 2026-10-21. Built by `scripts/validation/study4_precision/textfree/export.py` from the private archive and the local caches, which were read and not changed.
 
@@ -39,7 +39,7 @@ It turns the export back into a text-free "shadow package" in a temporary direct
 
 **Bypassed:**
 
-- `fixcheck.package.check_package`: it hashes every file of the full package, including texts and transcripts.
+- `fixcheck.package.check_package` is not run. Besides checking private-file hashes, it re-derives crosswalks, selections and assignments, authenticates delivery/retry provenance and checks runtime. The text-free run verifies the conditional arithmetic from exported keys and labels; it does not independently revalidate those production/provenance conditions.
 - The registry and runtime checks of `accept.main`.
 
 The label-file SHA-256 values that `acceptance.json` reports are those of the private files. Recompute compares them with the source hashes recorded in `manifest.json`.
@@ -53,6 +53,8 @@ The label-file SHA-256 values that `acceptance.json` reports are those of the pr
 | 3. Gates | Every computed field of `round{1,2}/accept/acceptance.json` (`a`, `components`, `decision_wording`, `labels`, `modules`, `procedure_problems`, `reference_sources`, `round`, `status`). Round 1 fails and round 2 passes, as registered. | identical |
 | 4. Sensitivity | `S-B_acceptance.json` and `control_acceptance.json` in full, after checking both files against their `SHA256SUMS` | identical |
 
+The external `procedure_problems` input is set to an empty list, matching the retained arithmetic run; its equality is not a fresh procedural audit. Reported original label-file paths and hashes are checked against the export's recorded source metadata, not derived by hashing the synthetic files. Full-chain verification requires the preserved packages and supervised inspection.
+
 **Two notes on the comparison:**
 
 - **Sub-stratum names in the published acceptance files.** These files name the baseline-success strata by their original sub-stratum names. The export uses codes instead (see below). Recompute pairs the published names with the codes in sort order, which the codes preserve, and requires each pair to have the same stratum and kind. Everything attached to the names is then compared exactly.
@@ -65,7 +67,7 @@ The label-file SHA-256 values that `acceptance.json` reports are those of the pr
 - **The package hash chain.** The receipts in `study4-fix040/round*/receipts/` authenticate the private files. This folder records each source file's SHA-256, so a later tier-3 release can be matched to it.
 - **The PHRASE part of `pilot.json`'s `alt_categories`.** It counts claimed expressions against the senses or glosses given, so it is removed from the reference copy and not compared. The metadiscourse part is kept and compared.
 - **The adjudicator selection of 16 October** (completeness 284/284, calibration agreement 193/200). The adjudicator's 198 calibration labels are in `pilot032/labels/adjudicator.jsonl.gz` (validated as `not_assigned`), but the calibration ids and scoring are not exported or checked.
-- **The exclusion union.** `texts/development.jsonl` carries the development identifiers it needs, but recompute does not check it.
+- **The exclusion union.** The exact exclusion union cannot be reconstructed from this export alone. Its development metadata preserve 320 of the canonical manifest’s 440 normalised identifiers; the 120 title references were omitted. Combining it with the public additional manifest gives 3,448 identifiers, rather than the frozen 3,563. Exact union verification requires the archived canonical development manifest through supervised access.
 
 ## How the text was removed
 
@@ -82,7 +84,7 @@ The label-file SHA-256 values that `acceptance.json` reports are those of the pr
   - `alt_category`: metadiscourse codes are kept as written. A PHRASE value becomes `s<i>` (the item's i-th other listed sense), `e` (the claimed entry) or `g<j>` (the j-th distinct free gloss for that item within the set, so the same gloss gets the same token in every role's file). It is padded with `x` to the original word count and written in capitals exactly when the original was.
   - Line structure is kept, including blank, malformed and duplicate lines.
 
-  **The proof.** For each of the 22 label files, `export.py` runs `analyse.validate_lines` on the real file and on its shapes and requires identical results: summary, valid ids and labels, problems, warnings and retry list. `recompute.py` rebuilds the records with `common.synth_line` and `common.pseudo_item`.
+  **The proof.** For each of the **16** source label files, `export.py` checks equivalence under the frozen validator (five files per pilot and three per fix-check round): it runs `analyse.validate_lines` on the real file and on its shapes and requires identical results: summary, valid ids and labels, problems, warnings and retry list. `recompute.py` rebuilds the records with `common.synth_line` and `common.pseudo_item`.
 - **What remains is not text.** Payload SHA-256 values are hashes of whole sentence contexts. Offsets, token indexes, PHRASE ranks and K-bands are numbers. A rank identifies a PHRASE List entry only through the List itself.
 
 ## Files
@@ -187,12 +189,12 @@ Paths are relative to the repository or to the private archive root (`lexinspect
 
 ## Licence and the texts
 
-- **Licence (suggested):** CC BY 4.0 for this folder; the maintainer is to confirm. It contains no CC BY-SA text: no Wikipedia or Europe PMC wording, no titles, no matched words. The guard confirms that no source substring of 30 or more characters occurs. Identifiers, URLs, offsets and hashes remain.
+- **Licence:** CC BY 4.0 for this folder, as confirmed in `study4-archive.md`, section 7. It contains no CC BY-SA text: no Wikipedia or Europe PMC wording, no titles, no matched words. The guard confirms that no source substring of 30 or more characters occurs. Identifiers, URLs, offsets and hashes remain.
 - **No PHRASE List material:** no expression, gloss, example or sense wording; only ranks, K-bands and word counts.
 - **The texts** are re-obtainable from the identifiers in `texts/*.jsonl`: the PMCID, DOI and full-text URL for Europe PMC, and the page id and revision (`oldid`) for Wikipedia. The limits are those of `study4-archive.md`, section 6: neither source guarantees the same bytes later. `text_sha256` lets a refetch be checked. With this folder, that now holds for the development texts too, whose per-text hashes were only private until now (archive inventory, open point 3).
 
-## Open points for the maintainer
+## Points recorded for the maintainer
 
-1. **Licence:** confirm CC BY 4.0 for this folder.
+1. **Licence confirmed:** CC BY 4.0.
 2. **The published acceptance files already name some sub-strata by PHRASE expression.** `study4-fix040/round{1,2}/accept/acceptance.json` and both sensitivity files use the original baseline-success sub-stratum names, which include five PHRASE expressions, for example `K3-multi|marker=…`. This folder codes them, but the published files do not.
-3. **Freeze record:** if this folder is registered, add its `SHA256SUMS` hash and the building commit to `study4-freeze.json` (archive inventory, open point 2).
+3. **Freeze record:** The committed freeze manifest inventories the export and its `SHA256SUMS`; the final registration commit and deposit receipt will identify the externally deposited version.

@@ -121,7 +121,7 @@
   "lint_config": {
    "path": "docs/validation/study4-exclusions/tools/ruff.toml",
    "sha256": "183aad766c86a35903ec49f9e97cc808609717742d3dc39a9ad37772554488a4",
-   "note": "Only excludes the *.py files in tools/ from ruff; it builds nothing and changes no output."
+   "note": "Excludes only the four archived builders from ruff; final_inventory.py remains linted. This configuration builds nothing and changes no scientific output."
   }
  },
  "self_check": {

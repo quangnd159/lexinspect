@@ -16,7 +16,7 @@ build.py always excludes the canonical development manifest itself (`.cache/vali
 | File | SHA-256 |
 |---|---|
 | `exclusions.jsonl` (frozen: 909 records, 331 alias lines, 1 comment) | `477f2197ce00e402441d810c4825e6d98517be4fa1e50d59ee2d4c0800f9b263` |
-| `inventory.json` (final inventory, written by `tools/final_inventory.py`) | `ab50507744faa38adb14e313b0339ed8d6c8e56a55ab018ca1a07d4ec3672314` |
+| `inventory.json` (final inventory, written by `tools/final_inventory.py`) | `11daffc283629070c502f5558e648057e757bbc112638ccf6ee8c2edbed36641` |
 | `exclusions_v1_before_pageids.jsonl` (historical: the 909-record v1 file) | `5d8cace25244a1795c2ef242918507200ecffd985d4500a89eea875234fd0c75` |
 | `inventory_v1_historical.json` (historical: the v1 inventory, formerly `inventory.json`, byte for byte) | `118ff3dc4417eb74b569b0497be1d4a24ed4d218f7b217cf4c6a5c42f356d58a` |
 | `tools/clear_wiki.py`, `tools/build_union.py`, `tools/inventory.py` (built v1; rerun in that order), `tools/add_pageids.py` (added the aliases) | in `inventory.json` under `builders` |
