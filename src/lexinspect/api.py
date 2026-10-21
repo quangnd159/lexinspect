@@ -156,6 +156,11 @@ def licences() -> FileResponse:
     return FileResponse(_STATIC_DIR / "licences.html", headers={"Cache-Control": "no-cache"})
 
 
+@app.get("/privacy", include_in_schema=False)
+def privacy() -> FileResponse:
+    return FileResponse(_STATIC_DIR / "privacy.html", headers={"Cache-Control": "no-cache"})
+
+
 @app.get("/comparison", include_in_schema=False)
 def comparison() -> FileResponse:
     return FileResponse(_STATIC_DIR / "comparison.html", headers={"Cache-Control": "no-cache"})

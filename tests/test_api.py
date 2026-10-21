@@ -34,6 +34,16 @@ def test_index_serves_html(client):
     assert r.status_code == 200
     assert "text/html" in r.headers["content-type"]
     assert "<textarea" in r.text
+    assert 'href="/privacy"' in r.text
+
+
+def test_privacy_page(client):
+    r = client.get("/privacy")
+    assert r.status_code == 200
+    assert "text/html" in r.headers["content-type"]
+    # every name the page lists is one the site actually stores
+    for name in ("lexinspect_pass", "lexinspect:draft", "lexinspect:variant", "lexinspect:pass-until"):
+        assert name in r.text
 
 
 def test_version(client):

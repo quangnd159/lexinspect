@@ -61,6 +61,7 @@ jobs:
           cp src/lexinspect/static/*.js src/lexinspect/static/*.css src/lexinspect/static/*.png public/static/
           cp src/lexinspect/static/index.html public/index.html
           cp src/lexinspect/static/licences.html public/licences.html
+          cp src/lexinspect/static/privacy.html public/privacy.html
           cp src/lexinspect/static/comparison.html public/comparison.html
           cp -R src/lexinspect/static/comparison public/static/comparison
           cp -R src/lexinspect/static/fonts public/static/fonts

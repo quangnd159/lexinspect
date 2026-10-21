@@ -214,6 +214,9 @@ kbd { font: 500 11px/1 var(--font-ui); }
   touch-action: manipulation;
 }
 .intro.licences-content { width: 100%; max-width: 760px; margin: 0 auto; padding: 24px 16px 48px; }
+.privacy-content table { width: 100%; border-collapse: collapse; margin: 12px 0; font-size: 14px; display: block; overflow-x: auto; }
+.privacy-content th, .privacy-content td { text-align: left; vertical-align: top; padding: 8px 10px; border-bottom: 1px solid var(--line); }
+.privacy-content th { color: var(--ink-2); font-weight: 600; border-bottom-color: var(--line-2); }
 
 /* ---- layout ------------------------------------------------------------- */
 

@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>lexinspect — privacy</title>
+  <link rel="canonical" href="https://lexinspect.dqnotes.com/privacy">
+  <link rel="stylesheet" href="/static/fonts/fonts.css">
+  <link rel="stylesheet" href="/static/styles.css" />
+<link rel="icon" type="image/png" sizes="64x64" href="/static/favicon.png">
+<link rel="icon" type="image/png" sizes="64x64" href="/static/favicon-dark.png" media="(prefers-color-scheme: dark)">
+<link rel="apple-touch-icon" sizes="180x180" href="/static/apple-touch-icon.png">
+<meta name="theme-color" content="#fbfaf7" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#131312" media="(prefers-color-scheme: dark)">
+</head>
+<body>
+<header class="topbar">
+  <a class="wordmark" href="/" aria-label="lexinspect home">
+    <picture class="brand-icon">
+      <source srcset="/static/logo-dark.png" media="(prefers-color-scheme: dark)">
+      <img src="/static/logo.png" width="36" height="36" alt="" decoding="async">
+    </picture>
+    <span class="wordmark-label">lex<span>inspect</span></span>
+  </a>
+  <nav class="toplinks" aria-label="Site">
+    <a href="/">Analyser</a>
+    <a href="/licences">Sources</a>
+    <a href="/docs" target="_blank" rel="noopener">API</a>
+    <a href="https://github.com/quangnd159/lexinspect" target="_blank" rel="noopener">GitHub</a>
+  </nav>
+</header>
+
+<main class="intro licences-content privacy-content">
+    <h1>Privacy</h1>
+    <p class="fine">Last updated: 21 October 2026</p>
+    <p>
+      lexinspect is a free tool run by Quang Nguyen. This page explains what happens to the text you
+      analyse and to anything else the site handles. In short: <b>your text is analysed and then
+      discarded. lexinspect has no accounts, no analytics and no advertising.</b>
+    </p>
+
+    <h3>Your text</h3>
+    <ul>
+      <li>When you press Analyse, your text is sent over an encrypted connection (HTTPS) to lexinspect's
+        server. It is analysed in memory and sent back to your browser with the results. The same
+        applies to text sent to the API.</li>
+      <li>lexinspect's code doesn't store, log or share your text, and doesn't use it to train anything.
+        The analysis runs once, and the text is gone when the response is sent.</li>
+      <li>Your browser keeps your current draft in its own local storage, so it survives a page reload.
+        It stays on your device. You can clear it by clearing the text box or your browser's data for
+        this site.</li>
+    </ul>
+
+    <h3>Who else is involved</h3>
+    <p>lexinspect relies on two companies to run the site. Each one handles a limited amount of data
+      under its own privacy terms.</p>
+    <table>
+      <thead><tr><th>Service</th><th>What it does</th><th>What it sees</th><th>Where</th></tr></thead>
+      <tbody>
+        <tr>
+          <td><b>Vercel</b></td>
+          <td>Hosts the site and runs the analysis</td>
+          <td>The text you analyse while it is processed. Standard request logs (time, page, response
+            status, IP address), kept for a short period under Vercel's policy.</td>
+          <td>The analysis runs in the United States (Washington, D.C.). Pages are served from the nearest Vercel location.</td>
+        </tr>
+        <tr>
+          <td><b>Cloudflare Turnstile</b></td>
+          <td>Checks that requests come from a person, not a script, which keeps the free service
+            available</td>
+          <td>Signals from your browser, and your IP address. Never the text you analyse.</td>
+          <td>Cloudflare's global network</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>Vercel: <a href="https://vercel.com/legal/privacy-policy" target="_blank" rel="noopener">privacy policy</a>
+      and <a href="https://vercel.com/legal/dpa" target="_blank" rel="noopener">data processing addendum</a>.
+      Cloudflare Turnstile: <a href="https://www.cloudflare.com/turnstile-privacy-policy/" target="_blank" rel="noopener">privacy addendum</a>.</p>
+    <p>Fonts are served from lexinspect's own site, so loading a page sends nothing to a font service.
+      The one exception is the API documentation page (<code>/docs</code>), which loads its viewer
+      from the jsDelivr CDN. That page never handles your text.</p>
+
+    <h3>Cookies and local storage</h3>
+    <table>
+      <thead><tr><th>Name</th><th>Type</th><th>Purpose</th><th>Lasts</th></tr></thead>
+      <tbody>
+        <tr><td><code>lexinspect_pass</code></td><td>Cookie (HTTP-only, sent only to the analysis API)</td>
+          <td>Remembers that you passed the human check, so you aren't checked on every analysis. It holds
+            only an expiry time and a signature, nothing about who you are.</td><td>1 hour</td></tr>
+        <tr><td><code>lexinspect:draft</code></td><td>Local storage</td><td>Your draft text, so it survives a reload</td><td>Until you clear it</td></tr>
+        <tr><td><code>lexinspect:variant</code></td><td>Local storage</td><td>Your choice of British or American spelling</td><td>Until you clear it</td></tr>
+        <tr><td><code>lexinspect:pass-until</code></td><td>Local storage</td><td>When the human-check pass expires</td><td>Until you clear it</td></tr>
+      </tbody>
+    </table>
+    <p>All of these are strictly necessary for the site to work as you'd expect, so lexinspect doesn't
+      ask for cookie consent. Cloudflare Turnstile may store its own data as part of the check.</p>
+
+    <h3>For schools and institutions</h3>
+    <ul>
+      <li><b>Students' writing.</b> Don't paste anything that identifies a student, such as a name or an ID
+        number. lexinspect doesn't need it to analyse a text.</li>
+      <li><b>Data protection.</b> lexinspect is offered as is, with no contract or data processing
+        agreement. If your institution needs one, or needs data to stay in a particular country, run
+        lexinspect yourself. It's open source, installs with one command and works entirely offline: see the
+        <a href="https://github.com/quangnd159/lexinspect#install" target="_blank" rel="noopener">README</a>.</li>
+      <li><b>Children.</b> lexinspect has no accounts and asks for no personal information. In class, use it
+        under a teacher's supervision.</li>
+    </ul>
+
+    <h3>Your rights</h3>
+    <p>lexinspect doesn't keep your text or build a profile of you, so there is normally nothing to
+      access, correct or delete. For anything Vercel or Cloudflare holds, see their policies above.
+      Questions: <a href="mailto:quangnd159@gmail.com">quangnd159@gmail.com</a>.</p>
+
+    <h3>Changes</h3>
+    <p>Changes to this page are recorded in the
+      <a href="https://github.com/quangnd159/lexinspect/commits/main/src/lexinspect/static/privacy.html" target="_blank" rel="noopener">project's history on GitHub</a>.</p>
+</main>
+
+<footer class="site-footer">
+  <p>Built by Quang at <a href="https://dqnotes.com" target="_blank" rel="noopener">dqnotes.com</a> · <a href="/privacy">Privacy</a></p>
+</footer>
+</body>
+</html>
