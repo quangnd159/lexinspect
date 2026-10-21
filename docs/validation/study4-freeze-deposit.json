@@ -1,0 +1,34 @@
+{
+ "study": "lexinspect Study 4",
+ "stage": 1,
+ "status": "submitted; pending OSF registration approval (approved by the admin's email link or automatically after 48 hours). Stage 1 counts as registered once approved; this record is then updated with the approval time and DOI.",
+ "service": "OSF Registries",
+ "template": "Open-Ended Registration",
+ "registration_url": "https://osf.io/agxpw/",
+ "registration_id": "agxpw",
+ "project_url": "https://osf.io/ksy75/",
+ "date_registered_utc": "2026-10-21T04:34:58Z",
+ "submitted_utc": "2026-10-21T04:35:02Z",
+ "approved_utc": null,
+ "doi": null,
+ "visibility": "public on approval (registration_choice immediate); licence CC BY 4.0, copyright Quang Nguyen",
+ "subjects": [
+  "Applied Linguistics",
+  "Computational Linguistics",
+  "Discourse and Text Linguistics"
+ ],
+ "package_commit": "4fa07f462af20080edb6dfc8804c5c7fc402ed7c",
+ "freeze_manifest_sha256": "7b16997b8090bce502d29cd73ceb7c3fbe28bc2b384d1206ad2e9a7d45ec9ebe",
+ "package_zip_sha256": "5f55c3120bd166b49df08c74ee62f8e597d830207bd88ed46fb7c8002362d94b",
+ "package_index_sha256": "20910da491c9f01682d4f594c67938fbe7df2fc21c7c1cec6545837846c5321a",
+ "uploaded_files_sha256": {
+  "study4-stage1-4fa07f46.zip": "5f55c3120bd166b49df08c74ee62f8e597d830207bd88ed46fb7c8002362d94b",
+  "README.md": "51f30c09c4c4beb113776d7b3dd875c4ae854b0667bcb14ef06d6fc545868e86",
+  "CUSTODY.md": "486b07f3cdc258c4c4bd2593a81eda99d6d1e3a96ef8d680ccdb6a81398a3aa5",
+  "INDEX.sha256": "20910da491c9f01682d4f594c67938fbe7df2fc21c7c1cec6545837846c5321a",
+  "study4-preregistration.md": "81292d07a4f92da90b7ac58e76bb98f17c5fa5f97eef37b6e64814d628068a25",
+  "study4-freeze.json": "7b16997b8090bce502d29cd73ceb7c3fbe28bc2b384d1206ad2e9a7d45ec9ebe"
+ },
+ "submitted_by": "Claude Code session acting for the maintainer, through the OSF API, with the maintainer's token and explicit authorisation (2026-10-21)",
+ "builder": "tools/deposit_package.py in the package; byte-reproducible from the package commit"
+}
