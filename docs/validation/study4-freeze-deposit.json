@@ -1,17 +1,22 @@
 {
  "study": "lexinspect Study 4",
  "stage": 1,
- "status": "submitted; pending OSF registration approval (approved by the admin's email link or automatically after 48 hours). Stage 1 counts as registered once approved; this record is then updated with the approval time and DOI.",
+ "status": "registered: approved by the maintainer's OSF approval link on 2026-10-21; public in OSF Registries",
  "service": "OSF Registries",
  "template": "Open-Ended Registration",
  "registration_url": "https://osf.io/agxpw/",
  "registration_id": "agxpw",
- "project_url": "https://osf.io/ksy75/",
+ "doi": "10.17605/OSF.IO/AGXPW",
+ "doi_url": "https://doi.org/10.17605/OSF.IO/AGXPW",
  "date_registered_utc": "2026-10-21T04:34:58Z",
  "submitted_utc": "2026-10-21T04:35:02Z",
- "approved_utc": null,
- "doi": null,
- "visibility": "public on approval (registration_choice immediate); licence CC BY 4.0, copyright Quang Nguyen",
+ "approval": {
+  "by": "the maintainer (Quang Nguyen), using OSF's emailed approval link",
+  "observed_public_utc": "2026-10-21T04:42:25Z",
+  "note": "OSF's API does not report the approval moment; this is the time the registration was first observed public and no longer pending"
+ },
+ "project_url": "https://osf.io/ksy75/",
+ "visibility": "public (registration and project); licence CC BY 4.0, copyright Quang Nguyen",
  "subjects": [
   "Applied Linguistics",
   "Computational Linguistics",
@@ -28,6 +33,13 @@
   "INDEX.sha256": "20910da491c9f01682d4f594c67938fbe7df2fc21c7c1cec6545837846c5321a",
   "study4-preregistration.md": "81292d07a4f92da90b7ac58e76bb98f17c5fa5f97eef37b6e64814d628068a25",
   "study4-freeze.json": "7b16997b8090bce502d29cd73ceb7c3fbe28bc2b384d1206ad2e9a7d45ec9ebe"
+ },
+ "archive_check": {
+  "checked_utc": "2026-10-21T04:42:25Z",
+  "method": "anonymous OSF API listing of the registration's 'Archive of OSF Storage'",
+  "files": 6,
+  "all_sha256_match_uploaded": true,
+  "doi_resolves_to": "https://osf.io/agxpw/"
  },
  "submitted_by": "Claude Code session acting for the maintainer, through the OSF API, with the maintainer's token and explicit authorisation (2026-10-21)",
  "builder": "tools/deposit_package.py in the package; byte-reproducible from the package commit"
