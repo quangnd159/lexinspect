@@ -24,7 +24,7 @@
 ## Effect on the result
 
 - **No gate changes.** The sensitivity analysis already replaces labeller A, whose context carried the version-direction information. In the retained model-visible records inspected, we found no branch/commit snapshot, candidate-direction information, item-level version/family assignments or other labellers' responses. This conclusion is limited to those records; the original pilot adjudicator's effective context was not recovered.
-- **The disclosure changes.** The blinding statement for B and the adjudicator becomes "no version, family or label information" rather than "no repository context".
+- **The disclosure changes.** For B and the adjudicator, the claim is limited to the retained records inspected: no branch/commit snapshot, candidate-direction information, item-level version/family assignments or other labellers' responses were found there. It does not claim absence of repository context or establish the contents of unrecovered records.
 - **The rereview, done 2026-10-21.** Every archived labelling session of B and of the adjudicator was rescreened for file access outside its batch directory:
   - **B:** 24 Codex sessions, those whose first instruction is the labelling prompt: the 16 Oct pilot's 4 batches and the GPT-6-Sol dry run, 10 round-1 sessions and 9 round-2 sessions;
   - **the adjudicator:** the 5 fix-check Flash transcripts.
