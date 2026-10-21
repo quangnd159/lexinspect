@@ -42,7 +42,12 @@ def test_privacy_page(client):
     assert r.status_code == 200
     assert "text/html" in r.headers["content-type"]
     # every name the page lists is one the site actually stores
-    for name in ("lexinspect_pass", "lexinspect:draft", "lexinspect:variant", "lexinspect:pass-until"):
+    for name in (
+        "lexinspect_pass",
+        "lexinspect:draft",
+        "lexinspect:variant",
+        "lexinspect:pass-until",
+    ):
         assert name in r.text
 
 
