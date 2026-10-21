@@ -42,7 +42,7 @@ Each text's licence is recorded in its collection manifest (`texts.jsonl`, field
 | Guidelines (`docs/validation/study4-guidelines.md`, v3.2, `276d35e8…`, 63,682 bytes) | The maintainer's own text, but it embeds PHRASE material. | Follows the PHRASE permission. The file is gitignored (`.gitignore` line 53). |
 | Model labels and session transcripts | Outputs of Claude Sonnet 5.5, GPT-6.1-Sol and DeepSeek V4.1 Flash, made under the maintainer's accounts. The labels' `note` fields and the transcripts quote source text, and transcripts quote the guidelines and the inventory, which the sessions read in full. | See section 5 for which fields are text-free. Claude transcripts also carry the account's email address (`study4-pilot040/LAUNCH.md`), and all transcripts carry local paths. |
 | Code (`scripts/validation/study4_precision/`, `src/`) | The maintainer. MIT, which covers the code only (`LICENSE`). | Public. |
-| Protocols, rulings and reports in `docs/` | The maintainer. | Public. No licence is stated for the documents; the maintainer may want to add one (for example CC BY 4.0). |
+| Protocols, rulings and reports in `docs/` | The maintainer. | Public. The Study 4 documents and data (`docs/validation/study4-*`) are CC BY 4.0, chosen by the maintainer on 2026-10-21 for the Stage-1 deposit. The licence covers the maintainer's own text and data only. Third-party material cited in them keeps its own terms: the PHRASE List expressions named in some acceptance files (`src/lexinspect/data/LICENSE.md`) and the bibliographic metadata of the source texts. |
 
 ## 3. Inventory
 
@@ -204,5 +204,5 @@ Chosen by the maintainer on 2026-10-21. There are four tiers.
 ## 8. Open points
 
 1. **PHRASE permission.** Martinez's answer is pending (Schmitt agreed on 2026-10-16). Tier 3 stays supervised-only and tier 4 stays withheld until then.
-2. **The documents in `docs/`** have no stated licence. The text-free export is CC BY 4.0.
+2. **Licence of the documents:** settled on 2026-10-21. The Study 4 documents and data are CC BY 4.0, within the limits in section 2.
 3. **Personal data in transcripts:** the account's email address in Claude transcripts, and local paths in all of them. Supervised inspection doesn't transfer them; they would have to be removed before any later transfer.

@@ -304,7 +304,18 @@ The exact model identifiers, settings and run metadata are recorded in the freez
   - **the Stage-1 package:** two methodology-review rounds and one verification round, all by GPT-6.1-Sol (reasoning high) on 2026-10-21, with the maintainer's dated dispositions ([`study4-stage1-review/`](study4-stage1-review/): `r1_review.md`, `r1_dispositions.md`, `r2_review.md`, `r2_dispositions.md`, `r3_review.md`, `r3_dispositions.md`). Round 3 found the package ready for deposit (0 blocking, 0 should-fix, 2 editorial nits, both applied). The freeze manifest binds the folder.
 
   Three earlier study-design reviews were by another OpenAI model, GPT-6-Astra, which has no labelling role. During its reviews GPT-6.1-Sol saw development and fix-check items, never evaluation items. Each labelling batch runs in a fresh session with no memory of the reviews. Review sessions by one model family are not independent annotators, and they are not human validation.
-- **The maintainer** created lexinspect and steered the guidelines. The audit therefore measures concordance with the maintainer, not with an independent expert. An independent trained annotator is the main improvement left for future work.
+- **The maintainer** owns lexinspect and accepted the guidelines, which AI agents drafted (see the next item). The audit therefore measures concordance with one human reader applying those guidelines: the maintainer, not an independent expert. An independent trained annotator is the main improvement left for future work.
+- **AI coding agents did essentially all of the study's work, at the maintainer's request.** This is separate from the labelling and review roles above. The agents were mainly Claude Code sessions (Anthropic Claude models), with Codex sessions (OpenAI) for some audits and reviews. They:
+  - wrote essentially all of the code: build, sampling, analysis, simulation, fix-check harness, launcher, session screen, freeze builder and text-free export;
+  - ran the pipelines;
+  - wrote essentially all of the documents, including this preregistration, the dispositions and the archive records;
+  - examined session transcripts. The one pilot screen ruling is an agent's examination (`study4-pilot040/LAUNCH.md`).
+
+  **The maintainer's role.** It is narrower than the records' wording ("the maintainer's session", "chosen by the maintainer") may suggest. The maintainer asked for a validation study that institutions could rely on, and the agents designed it: the operational question, the design, the guidelines, the analysis and the simulation. The maintainer was consulted on some decisions and, by the maintainer's own account, almost always chose the option the agents recommended. Most of the methods are beyond the maintainer's current expertise, so the maintainer did not evaluate them independently. The maintainer's own judgement enters the study in two ways:
+  - through the blind audit labels (phase two), which the maintainer makes personally;
+  - through the maintainer's accountability for depositing this plan, following it and reporting any deviation.
+
+  The agents' work was checked by the tests, by the reproducibility checks in this plan and by the methodology reviews, which were themselves model reviews. No human with methodological expertise has checked it. No coding agent produced a label: every label comes from a labelling role above, in a separate session. Records written by an agent for the maintainer say so (for example "the maintainer's session").
 
 **Adapted framework.** The guidelines operationalise Hyland's (2005) model for single flagged spans. Where Hyland gives no ruling, they adopt explicit Study 4 conventions, each marked as such in the guidelines:
 
@@ -660,7 +671,7 @@ Regardless of what the results show:
 
 - **No learner writing.** lexinspect's main users analyse student and learner texts. These results don't show how precise it is on them.
 - **The reference is operational.** It comes from two language models and an adjudicator. They may share systematic errors: independent prompting doesn't make their judgements independent evidence of truth.
-- **The maintainer isn't independent.** The concordance check uses the maintainer, who built lexinspect and steered the guidelines. Blinding reduces exposure bias but not that dependence. An independent trained annotator is future work.
+- **The maintainer isn't independent.** The concordance check uses the maintainer, who owns lexinspect and accepted the guidelines. Blinding reduces exposure bias but not that dependence. An independent trained annotator is future work.
 - **Concordance is imprecise.** With 300 items per module, the concordance interval is about ±.10, so small differences between the model reference and the maintainer can't be ruled out.
 - **The primary limits rely on an assumption.** They assume resolution is exchangeable with correctness, which the data can't test. The co-primary region doesn't need it but is wider.
 - **The results are conditional.** They are conditional on the evaluation texts. Text-selection uncertainty is not in the intervals.
@@ -669,6 +680,7 @@ Regardless of what the results show:
 - **Recall and output coverage.** We sample detector outputs, not all construct occurrences in text. Neither Study 4 nor the development fix-check estimates recall, establishes non-inferior recall, or validates count completeness. The fix-check quantifies loss among baseline-detected occurrences on its fixed texts against the operational reference; it cannot find occurrences missed by both versions. Better precision therefore does not establish a more complete detector, valid absolute construct-frequency measurement, or comparable category/sense counts across versions.
 - **The fix process used development data repeatedly.** The matcher was revised on the development texts and two fix-check rounds, with one precautionary reversion decided after seeing a result. Development and fix-check figures are not evidence of improvement, and they are not reported as such.
 - **Earlier labelling sessions inherited context.** The 0.3.2 pilot and fix-check sessions are disclosed under "Labellers". The final pilot and the evaluation use the clean launch settings.
+- **The study's own work was done by AI agents.** Essentially all of the code, the analyses and the documents were produced by AI coding agents at the maintainer's request (see "Labellers"). They were checked by tests, reproducibility checks and model reviews. The maintainer did not evaluate the methods independently, and no human with methodological expertise has reviewed the methods or the code.
 - **No independent human reference.** The planned human work is concordance with the maintainer, not independent expert validation. The reference is the models' operational judgement.
 
 ## References

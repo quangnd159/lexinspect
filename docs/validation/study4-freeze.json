@@ -261,6 +261,7 @@
   "scripts/validation/study4_precision/analyse.py": "e5486f58c433f919489851da0ca40822c378badcf235c681a414f3e097a59aa5",
   "scripts/validation/study4_precision/batches.py": "e073f364bc99c974111171c39207e02538ab96b7b17ba9fe59123de4d2f5bbce",
   "scripts/validation/study4_precision/build.py": "11de65ed03175f0fa633df633f4a64bd4d5191daa1c166ed1a1401bbce62f4ad",
+  "scripts/validation/study4_precision/conftest.py": "d8dc54f43d099668dc12c0a8aa65ac6f193ce25d89dc2add8fcd4a94439a5682",
   "scripts/validation/study4_precision/estimators.py": "4f876096e792b550bf982d067628101e2f243505c6254e0537406cf085da6e9d",
   "scripts/validation/study4_precision/fixcheck/__init__.py": "2348b0ebff9e4f25c92cde463054ffe7ece1980c646d47dad0276b333237969e",
   "scripts/validation/study4_precision/fixcheck/accept.py": "166ab3ffc88603b5f8a3c719e7b0dc5caff85cb7e3ea670df3e688129f3d6c19",
@@ -303,6 +304,7 @@
   "scripts/validation/study4_precision/pilot040/probe_claude.sh": "c0dfb832a4c61cbe9b3cf3e41b0ef5bd65a065e4644b3f9276cccbcb6ee701a0",
   "scripts/validation/study4_precision/pilot040/probe_codex.sh": "39f23cbaef8e33d1171d8c3a8ad524d542705415ba68a9eb14d0fe61e33bc72c",
   "scripts/validation/study4_precision/pilot040/probe_opencode.sh": "94c07a20ebf86cc7944374fa923b5bffeae352f65437eda710a60ca45672d6db",
+  "scripts/validation/study4_precision/pilot040/test_fixcheck_history.py": "b9ed2555828148a3318d9588cbdabd90db301f706c3078a02617abcc065b6ef9",
   "scripts/validation/study4_precision/pilot040/test_freeze.py": "6f24b4a6faa944776a389875385e6c16aea613b323dbd2186e4a726fb65b797d",
   "scripts/validation/study4_precision/pilot040/test_pilot040.py": "80e2898a0c9ccab3cf49414f7ea980c7a1b7df8269e6102a183b69f9f32abd11",
   "scripts/validation/study4_precision/simulate_coverage.py": "3f791044387b5e65545e2da617bc58acdf15b0550b02525579d4de4031121bcc",
@@ -3074,13 +3076,13 @@
   "command": "uv run --offline --no-sync python -I scripts/validation/study4_precision/build.py --set evaluation --seed 3195330621 --out .cache/validation/study4_eval --raw-cache .cache/validation/study4_eval/raw --exclude-texts docs/validation/study4-exclusions/exclusions.jsonl"
  },
  "protocol": {
-  "docs/validation/study4-preregistration.md": "83e5817b2e5416353e153d8953ea94a659b0784654b9dcf6cc2ee88ca5bdd909",
+  "docs/validation/study4-preregistration.md": "81292d07a4f92da90b7ac58e76bb98f17c5fa5f97eef37b6e64814d628068a25",
   "docs/validation/study4-fix-protocol.md": "0b93954b602a48b619715c507cafa796c99df5e68a72fe1d3bd9665020151ea9",
   "docs/validation/study4-fix-protocol-clarifications.md": "17e97ce89daff1da32afbabf662ba4a61c34725c18ed422052edbd3243b4f266",
   "docs/validation/study4-fix-check.md": "682b9a22d8a215f98a44c98d0aeed94a67c66fce2ecbde380235c022e8456ddb",
   "docs/validation/study4-development-effects.md": "a129b278accb042e014d2a60879685e059f731c005f2d1ed710b003cb5368ba5",
   "docs/validation/study4-development-effects.json": "0db003f3ca8dcb4c68b2479d64b26c5d9af6c8bd864dd265b5e7043a524a8607",
-  "docs/validation/study4-archive.md": "d457791f5832984481c3ba995aa5316457ffeb214c0391c6fbf910a52bc4265a",
+  "docs/validation/study4-archive.md": "2a411840dec47252f4b0a65858ecd9bccbd249039fe17907638b6a9d5ca1d8bf",
   "docs/validation/study4-access-log.stage1.md": "23b682c81bc58d613cb1fdcae96d95d3e89a8ec974d5b77987bf599e4056d276"
  },
  "administrative_records": {
@@ -3141,7 +3143,7 @@
   "docs/validation/study4-stage1-review/r1_review.md": "229d75e1fb07ade9a0a88de28fca119a428a50d5a0f02ec30043eca0e0efceea",
   "docs/validation/study4-stage1-review/r2_dispositions.md": "d1416328632836b7d490d7cd56e52f73ddcde2b729f862c9f3701e1fcfb04cea",
   "docs/validation/study4-stage1-review/r2_review.md": "48f1a86e76ec0f9f2cd019f3fbaf9a6aa30d3aaa3be86ab7a5d659d59b193fb1",
-  "docs/validation/study4-stage1-review/r3_dispositions.md": "3405eab43dd5162e589e11a5d6c9d5686ffac730f1d76c95cc78e613bfa9f59a",
+  "docs/validation/study4-stage1-review/r3_dispositions.md": "3e5334f4d92db81a8b7cddbc6c77a0d1c2d521b2dce08b36e477b4fedf62420d",
   "docs/validation/study4-stage1-review/r3_review.md": "e430e7195fcdca8c2e1fe0bd0f72bd940009041a58dc2df3b2ccf990554cd90c"
  },
  "deposit": {
@@ -3149,11 +3151,11 @@
   "note": "the external deposit's service, identifier and receipt are kept in the record file, outside this manifest"
  },
  "observed": {
-  "built": "2026-10-21T03:31:21+00:00",
-  "built_from_commit": "e8e5255669b91e8cecce6f138d10be24308c8884",
+  "built": "2026-10-21T04:25:02+00:00",
+  "built_from_commit": "0ff972792ab28c211b6f04c85b49c7c7362cd827",
   "platform": "macOS-27.0.1-arm64-arm-64bit",
   "cli_versions_now": {
-   "claude": "2.1.305 (Claude Code)",
+   "claude": "2.1.306 (Claude Code)",
    "codex": "codex-cli 0.163.0",
    "opencode": "opencode v2.1.1"
   }
