@@ -207,7 +207,7 @@ Exports are built in the browser from the results on screen; nothing is sent aga
 | Full results (`.json`) | The `/v1/analyze` response, as the CLI's `analyze` emits it |
 | Copy citation | APA and BibTeX for the version that produced the numbers |
 
-Every file records the lexinspect version, spaCy model, spelling variety, export time and a SHA-256 of the submitted text, so a row can be matched to its text without storing the text. CSVs are UTF-8 with a byte-order mark (for Excel) and CRLF line ends; missing values are empty and booleans are `TRUE`/`FALSE`. A text cell that starts with `=`, `+`, `-` or `@` gets a leading `'` so spreadsheets don't run it as a formula. Summary column names are stable: new columns are added at the end, and existing ones aren't renamed. The column definitions live in `static/export.js`.
+Every file records the lexinspect version, spaCy model, spelling variety, export time and a SHA-256 of the submitted text, so a row can be matched to its text without storing the text. CSVs are UTF-8 with a byte-order mark (for Excel) and CRLF line ends; missing values are empty and booleans are `TRUE`/`FALSE`. A text cell that starts with `=`, `+`, `-` or `@` gets a leading `'` so spreadsheets don't run it as a formula. Summary column names are stable: new columns are added at the end, and existing ones aren't renamed; if one ever has to change, the changelog says so. The column definitions live in `static/export.js`.
 
 ## Deployment
 

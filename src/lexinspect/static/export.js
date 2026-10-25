@@ -49,7 +49,7 @@ const Export = (() => {
   col('spelling_variant', (d) => R(d).errors.variant, 'Spelling variety checked: gb (British) or us (American).');
   col('exported_at', (d, m) => m.exportedAt, 'When this file was exported, UTC, ISO 8601.');
   col('text_sha256', (d, m) => m.sha256, 'SHA-256 of the text as submitted (UTF-8, leading and trailing whitespace removed). Matches the same text analysed again; identifies a text without storing it.');
-  col('text_excerpt', (d) => excerpt(d.submitted), 'The first 80 characters of the text, to help you recognise the row.');
+  col('text_excerpt', (d) => excerpt(d.submitted), 'The first 80 characters of the text, to help you recognise the row. In the CSV, an excerpt starting with = + - or @ gets a leading \' so spreadsheets don’t run it as a formula.');
 
   col('words', (d) => R(d).readability.counts.words, 'Orthographic words, including numbers (don’t, well-known and cannot are one word each).');
   col('sentences', (d) => R(d).readability.counts.sentences, 'Sentences.');
@@ -144,7 +144,7 @@ const Export = (() => {
     ['index', 'Position of the word in the text, from 1.'],
     ['start', 'Character offset where the word starts (0-based, in the analysed text).'],
     ['end', 'Character offset just after the word.'],
-    ['word', 'The word as written.'],
+    ['word', 'The word as written. In the CSV, a word starting with = + - or @ gets a leading \' so spreadsheets don’t run it as a formula.'],
     ['cefr', 'CEFR level for its part of speech; proper for names; blank if in neither list.'],
     ['bnc_band', 'BNC/COCA band 1–25; proper or supplementary for Nation’s extra lists; blank if in no list.'],
     ['awl_sublist', 'AWL sublist 1–10; blank if not an AWL word.'],

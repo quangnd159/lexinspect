@@ -2,6 +2,14 @@
 
 Every change to lexinspect's output is listed here, by version. Output is deterministic within a version (see [VALIDITY.md](VALIDITY.md#reproducibility)), so cite the version you ran. The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and versions follow [Semantic Versioning](https://semver.org/): until 1.0, a minor version may change output values.
 
+## [Unreleased]
+
+Web app only; no change to any module's output.
+
+### Added
+
+- **Export menu in the web app**, replacing Copy JSON and Download JSON. It offers a plain-text summary to copy, a printable report (also printed by Cmd/Ctrl+P after an analysis), an Excel workbook with one sheet per table and a codebook, a one-row summary CSV with stable columns for stacking texts, a word-by-word CSV, the full JSON, and an APA/BibTeX citation. Every file records the version, spaCy model, spelling variety, export time and a SHA-256 of the text. Files are built in the browser; nothing is sent again. See the README's [Export from the web app](README.md#export-from-the-web-app).
+
 ## [0.4.0] - 2026-10-19
 
 Tightens when a metadiscourse marker or a PHRASE List expression counts. The changes come from matcher errors found on the Study 4 development texts. Before release they met the numerical loss gates of a pre-registered check on texts never used in development. One labeller's harness showed it repository metadata the protocol says labellers must not see. This is disclosed below, with a sensitivity analysis. Output changes only in `metadiscourse` and `phrase`. Every other module gives the same output as 0.3.3. `schema_version` stays `2`.
