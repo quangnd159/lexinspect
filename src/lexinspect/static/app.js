@@ -176,6 +176,7 @@ async function analyse({ keepTab = false, text = null } = {}) {
     const data = await res.json();
     data.submitted = body;
     last = data;
+    Export.meta(data); // hash the text now so Cmd/Ctrl+P can show it
     show(data, keepTab);
   } catch (err) {
     if (err.name === 'AbortError') return;
@@ -256,29 +257,103 @@ Reader.onLensChange((lens) => Panels.followLens(lens));
 analyseBtn.addEventListener('click', () => analyse());
 
 // ---- export ----------------------------------------------------------------------
+// Built from `last` in the browser (export.js); nothing is re-sent.
 
-function exportable() {
-  const { submitted, ...rest } = last;
-  return JSON.stringify(rest, null, 2);
+const exportBtn = $('exportBtn');
+const exportMenu = $('exportMenu');
+
+function toggleExport(open) {
+  open ??= exportMenu.hidden;
+  exportBtn.setAttribute('aria-expanded', String(open));
+  if (open) {
+    exportMenu.hidden = false;
+    requestAnimationFrame(() => exportMenu.classList.add('open'));
+  } else {
+    exportMenu.classList.remove('open');
+    exportMenu.hidden = true;
+  }
 }
 
-$('copyJson').addEventListener('click', async () => {
-  try {
-    await navigator.clipboard.writeText(exportable());
-    toast('Analysis JSON copied');
-  } catch {
-    toast('Copy failed; use Download instead');
+exportBtn.addEventListener('click', (e) => {
+  e.stopPropagation();
+  toggleExport();
+  if (!exportMenu.hidden) exportMenu.querySelector('.menu-item')?.focus({ preventScroll: true });
+});
+document.addEventListener('click', (e) => !exportMenu.hidden && !exportMenu.contains(e.target) && toggleExport(false));
+exportMenu.addEventListener('keydown', (e) => {
+  const items = [...exportMenu.querySelectorAll('.menu-item')];
+  const i = items.indexOf(document.activeElement);
+  const go = { ArrowDown: i + 1, ArrowUp: i - 1, Home: 0, End: items.length - 1 }[e.key];
+  if (e.key === 'Escape' || e.key === 'Tab') {
+    if (e.key === 'Escape') e.preventDefault();
+    toggleExport(false);
+    exportBtn.focus();
+  } else if (go != null) {
+    e.preventDefault();
+    items[(go + items.length) % items.length].focus();
   }
 });
 
-$('downloadJson').addEventListener('click', () => {
-  const url = URL.createObjectURL(new Blob([exportable()], { type: 'application/json' }));
-  const a = h('a', { href: url, download: 'lexinspect-analysis.json' });
+function save(data, name, type) {
+  const url = URL.createObjectURL(data instanceof Blob ? data : new Blob([data], { type }));
+  const a = h('a', { href: url, download: name });
   document.body.appendChild(a);
   a.click();
   a.remove();
   setTimeout(() => URL.revokeObjectURL(url), 1000);
+  toast(`Downloaded ${name}`);
+}
+
+async function copy(text, done) {
+  try {
+    await navigator.clipboard.writeText(text);
+    toast(done);
+  } catch {
+    toast('Copy failed; use a download instead');
+  }
+}
+
+function buildReport(m) {
+  $('report').replaceChildren(Export.report(last, m));
+  document.body.classList.add('print-report');
+}
+
+const EXPORTS = {
+  summary: async (m) => copy(Export.summaryText(last, m), 'Summary copied'),
+  print: async (m) => {
+    buildReport(m);
+    window.print();
+  },
+  xlsx: async (m) => save(await Export.xlsx(last, m), Export.filename(last, m, '', 'xlsx')),
+  'summary-csv': async (m) => save(Export.summaryCsv(last, m), Export.filename(last, m, 'summary', 'csv'), 'text/csv;charset=utf-8'),
+  'words-csv': async (m) => save(Export.wordsCsv(last, m), Export.filename(last, m, 'words', 'csv'), 'text/csv;charset=utf-8'),
+  json: async (m) => save(Export.json(last), Export.filename(last, m, '', 'json'), 'application/json'),
+  'copy-json': async () => copy(Export.json(last), 'Analysis JSON copied'),
+  cite: async (m) => copy(Export.citationText(last, m), 'Citation copied'),
+};
+
+exportMenu.addEventListener('click', async (e) => {
+  const item = e.target.closest('[data-export]');
+  if (!item || !last) return;
+  toggleExport(false);
+  exportBtn.focus({ preventScroll: true });
+  try {
+    await EXPORTS[item.dataset.export](await Export.meta(last));
+  } catch (err) {
+    console.error(err);
+    toast('Export failed. Please report it on GitHub.');
+  }
 });
+
+// Cmd/Ctrl+P prints the report too, once there is an analysis to print. The
+// report is rebuilt each time so its timestamp is the print time.
+window.addEventListener('beforeprint', () => {
+  if (last && !document.body.classList.contains('print-report')) {
+    $('report').replaceChildren(Export.report(last, Export.metaNow(last)));
+    document.body.classList.add('print-report');
+  }
+});
+window.addEventListener('afterprint', () => document.body.classList.remove('print-report'));
 
 // ---- boot ------------------------------------------------------------------------
 

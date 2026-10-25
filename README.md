@@ -191,7 +191,23 @@ GET  /docs               Swagger UI
 
 `/v1/analyze` runs readability, statistics, diversity, tagger, awl, bnc_coca, ngsl, phrase, cefr, metadiscourse, errors and profile. Requests over 50 KB of text (`LEXINSPECT_MAX_TEXT_BYTES`) get a 413. Responses over 2 KB are gzipped. CORS is open by default; set `LEXINSPECT_ALLOWED_ORIGINS` to a comma-separated list to restrict it. The app loads spaCy, CMUdict, the word lists and both dictionaries at startup (about a second), so the first request doesn't pay for them.
 
-The web UI shows the analysed text with findings highlighted in place, one lens at a time: Spelling, CEFR, Frequency, Academic, NGSL, Phrases, Metadiscourse. Lenses are linked to the analysis tabs; hovering a word shows what each list says about it, clicking an item in a tab locates it in the text, and spelling suggestions apply with one click and re-analyse. It also has a UK/US toggle, sample texts, JSON copy and download, and follows the system's light or dark setting.
+The web UI shows the analysed text with findings highlighted in place, one lens at a time: Spelling, CEFR, Frequency, Academic, NGSL, Phrases, Metadiscourse. Lenses are linked to the analysis tabs; hovering a word shows what each list says about it, clicking an item in a tab locates it in the text, and spelling suggestions apply with one click and re-analyse. It also has a UK/US toggle, sample texts and an Export menu, and follows the system's light or dark setting.
+
+### Export from the web app
+
+Exports are built in the browser from the results on screen; nothing is sent again or stored.
+
+| Export | For |
+| --- | --- |
+| Copy summary | A few plain-text lines for an email, feedback form or document |
+| Print or save as PDF | A report of every section plus the text (Cmd/Ctrl+P after an analysis prints the same report) |
+| Excel workbook (`.xlsx`) | Every table on its own sheet: Summary (each value with its description, so it doubles as a codebook), Words, Readability, CEFR, BNC-COCA, AWL, Word lists, Phrases, Metadiscourse, Metadiscourse hits, Spelling, Diversity, Parts of speech, Text and About |
+| Summary (`.csv`) | One row per text, about 160 columns in a fixed order, so rows from different texts stack (`rbind`, `pd.concat`) |
+| Word by word (`.csv`) | One row per word: offsets, CEFR level, BNC/COCA band, AWL sublist, NGSL/NAWL, spelling flag, and the phrase and metadiscourse marker it belongs to |
+| Full results (`.json`) | The `/v1/analyze` response, as the CLI's `analyze` emits it |
+| Copy citation | APA and BibTeX for the version that produced the numbers |
+
+Every file records the lexinspect version, spaCy model, spelling variety, export time and a SHA-256 of the submitted text, so a row can be matched to its text without storing the text. CSVs are UTF-8 with a byte-order mark (for Excel) and CRLF line ends; missing values are empty and booleans are `TRUE`/`FALSE`. A text cell that starts with `=`, `+`, `-` or `@` gets a leading `'` so spreadsheets don't run it as a formula. Summary column names are stable: new columns are added at the end, and existing ones aren't renamed. The column definitions live in `static/export.js`.
 
 ## Deployment
 
@@ -209,7 +225,7 @@ uv run ruff format .
 
 See [CONTRIBUTING.md](CONTRIBUTING.md) for how to propose changes and [SECURITY.md](SECURITY.md) for reporting vulnerabilities.
 
-The web UI is framework-free with no build step. `src/lexinspect/static/` holds `index.html`, `licences.html`, `styles.css` and six scripts for the app: `dom.js` (DOM and formatting helpers), `human.js` (the Turnstile check, loaded only when the server has a site key), `copy.js` (explanatory text and samples), `reader.js` (the highlighted text and lenses), `panels.js` (one renderer per tab) and `app.js` (editor, requests, wiring). The comparison page has its own `comparison.html`, `comparison.css` and `comparison.js`, with its evidence files under `comparison/`. Locally, FastAPI serves the directory at `/static/`.
+The web UI is framework-free with no build step. `src/lexinspect/static/` holds `index.html`, `licences.html`, `styles.css` and seven scripts for the app: `dom.js` (DOM and formatting helpers), `human.js` (the Turnstile check, loaded only when the server has a site key), `copy.js` (explanatory text and samples), `reader.js` (the highlighted text and lenses), `panels.js` (one renderer per tab), `export.js` (the Export menu's files, report and citation) and `app.js` (editor, requests, wiring). The comparison page has its own `comparison.html`, `comparison.css` and `comparison.js`, with its evidence files under `comparison/`. Locally, FastAPI serves the directory at `/static/`.
 
 Data refresh: see `scripts/build_data/README.md`.
 

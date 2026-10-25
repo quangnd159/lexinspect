@@ -230,3 +230,17 @@ def test_static_assets_served(client):
     r = client.get("/static/app.js")
     assert r.status_code == 200
     assert r.headers["content-type"].split(";")[0] in {"application/javascript", "text/javascript"}
+
+
+def test_export_menu_wired(client):
+    # export.js reads LEVELS from panels.js and is used by app.js: order matters.
+    page = client.get("/").text
+    assert (
+        page.index("/static/panels.js")
+        < page.index("/static/export.js")
+        < page.index("/static/app.js")
+    )
+    assert 'id="exportMenu"' in page and 'id="report"' in page
+    js = client.get("/static/export.js")
+    assert js.status_code == 200
+    assert "summaryCsv" in js.text

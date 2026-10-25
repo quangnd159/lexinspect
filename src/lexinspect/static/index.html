@@ -76,10 +76,22 @@
     <div class="panels" id="panels"></div>
     <footer class="results-foot">
       <span class="foot-meta"><span id="versionMeta"></span> · <a href="https://github.com/quangnd159/lexinspect/blob/main/VALIDITY.md" target="_blank" rel="noopener">How reliable are these numbers?</a></span>
-      <span class="foot-actions">
-        <button class="btn ghost small" type="button" id="copyJson">Copy JSON</button>
-        <button class="btn ghost small" type="button" id="downloadJson">Download JSON</button>
-      </span>
+      <div class="exports" id="exports">
+        <button class="btn ghost small" type="button" id="exportBtn" aria-haspopup="menu" aria-expanded="false" aria-controls="exportMenu">Export<span class="caret" aria-hidden="true"></span></button>
+        <div class="menu menu-up-right" id="exportMenu" role="menu" aria-label="Export" hidden>
+          <p class="menu-group" role="presentation">Share</p>
+          <button type="button" role="menuitem" class="menu-item" data-export="summary"><span class="menu-label">Copy summary</span><span class="menu-note">Plain text for an email or document</span></button>
+          <button type="button" role="menuitem" class="menu-item" data-export="print"><span class="menu-label">Print or save as PDF</span><span class="menu-note">A report with every section and your text</span></button>
+          <p class="menu-group" role="presentation">Data</p>
+          <button type="button" role="menuitem" class="menu-item" data-export="xlsx"><span class="menu-label">Excel workbook <span class="menu-ext">.xlsx</span></span><span class="menu-note">Every table on its own sheet, with a codebook</span></button>
+          <button type="button" role="menuitem" class="menu-item" data-export="summary-csv"><span class="menu-label">Summary <span class="menu-ext">.csv</span></span><span class="menu-note">One row per text, fixed columns: stack many texts</span></button>
+          <button type="button" role="menuitem" class="menu-item" data-export="words-csv"><span class="menu-label">Word by word <span class="menu-ext">.csv</span></span><span class="menu-note">Each word with its CEFR level, band and lists</span></button>
+          <button type="button" role="menuitem" class="menu-item" data-export="json"><span class="menu-label">Full results <span class="menu-ext">.json</span></span><span class="menu-note">The complete API response</span></button>
+          <button type="button" role="menuitem" class="menu-item" data-export="copy-json"><span class="menu-label">Copy JSON</span></button>
+          <p class="menu-group" role="presentation">Cite</p>
+          <button type="button" role="menuitem" class="menu-item" data-export="cite"><span class="menu-label">Copy citation</span><span class="menu-note">APA and BibTeX for this version</span></button>
+        </div>
+      </div>
     </footer>
   </section>
 
@@ -105,12 +117,14 @@
   <div id="challengeWidget"></div>
 </div>
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
+<div class="report" id="report" aria-hidden="true"></div>
 
 <script src="/static/dom.js"></script>
 <script src="/static/human.js"></script>
 <script src="/static/copy.js"></script>
 <script src="/static/reader.js"></script>
 <script src="/static/panels.js"></script>
+<script src="/static/export.js"></script>
 <script src="/static/app.js"></script>
 </body>
 </html>
