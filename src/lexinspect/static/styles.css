@@ -582,6 +582,10 @@ kbd { font: 500 11px/1 var(--font-ui); }
 .ngsl-ngsl { --hl: var(--h0); } .ngsl-nawl { --hl: var(--t2); }
 .ngsl-off { --hl: transparent; --hl-line: var(--err); } .ngsl-proper { --hl: transparent; --hl-line: var(--line-2); }
 .phrase-1 { --hl: var(--v1); } .phrase-2 { --hl: var(--v2); } .phrase-3 { --hl: var(--v3); } .phrase-4 { --hl: var(--v4); } .phrase-5 { --hl: var(--v5); }
+/* PHRASE register ratings: darker is more common in that register. */
+.reg-most_common { --hl: var(--v5); } .reg-less_common { --hl: var(--v3); }
+.reg-infrequent { --hl: var(--v1); --hl-line: var(--v3); } .reg-rare { --hl: transparent; --hl-line: var(--ink-3); }
+.sw.reg-rare { background: repeating-linear-gradient(135deg, transparent 0 2px, color-mix(in srgb, var(--hl-line) 45%, transparent) 2px 3.5px); }
 .md-ia { --hl: var(--md-ia); } .md-il { --hl: var(--md-il); }
 .spelling-err { --hl: color-mix(in srgb, var(--err) 18%, transparent); --hl-line: var(--err); }
 .spelling-var { --hl: transparent; --hl-line: var(--var); }
@@ -650,6 +654,7 @@ kbd { font: 500 11px/1 var(--font-ui); }
 .pop-row.current { background: var(--surface-2); }
 .pop-block { flex-direction: column; gap: 0; }
 .pop-block b { text-align: left; }
+.pop-block .ratings { display: flex; gap: 10px; margin-top: 3px; font-size: 12px; }
 .pop-err span { color: var(--err); }
 .pop-var span { color: var(--var); }
 
@@ -840,7 +845,7 @@ kbd { font: 500 11px/1 var(--font-ui); }
 .stack-wrap { margin: 2px 0 6px; }
 .stack { display: flex; gap: 2px; height: 14px; border-radius: 7px; overflow: hidden; background: var(--surface-2); }
 .stack .seg { min-width: 3px; background: var(--hl); box-shadow: inset 0 0 0 1.5px var(--hl-line, transparent); }
-.stack .seg.cefr-off, .stack .seg.bnc-off, .stack .seg.ngsl-off { background: repeating-linear-gradient(135deg, transparent 0 3px, color-mix(in srgb, var(--hl-line) 35%, transparent) 3px 5px); box-shadow: none; }
+.stack .seg.cefr-off, .stack .seg.bnc-off, .stack .seg.ngsl-off, .stack .seg.reg-rare { background: repeating-linear-gradient(135deg, transparent 0 3px, color-mix(in srgb, var(--hl-line) 35%, transparent) 3px 5px); box-shadow: none; }
 .stack .seg.cefr-proper, .stack .seg.bnc-proper, .stack .seg.ngsl-proper { background: var(--surface-3); box-shadow: none; }
 .stack-keys { display: flex; flex-wrap: wrap; gap: 2px 4px; margin-top: 8px; }
 .stack-key {
@@ -915,6 +920,17 @@ kbd { font: 500 11px/1 var(--font-ui); }
 .chip-n { font-size: 11px; color: var(--ink-3); font-variant-numeric: tabular-nums; }
 
 .sub-h { margin: 20px 0 8px; font-size: 13px; font-weight: 600; color: var(--ink-2); }
+
+/* PHRASE: one bar per register, and each expression's ratings as dots. */
+.reg-bars { display: grid; grid-template-columns: max-content minmax(0, 1fr); align-items: center; gap: 8px 12px; }
+.reg-label { font-size: 12.5px; color: var(--ink-2); }
+.row-note.ratings { display: flex; flex-wrap: wrap; gap: 2px 12px; margin-top: 2px; }
+.rating { display: inline-flex; align-items: center; gap: 5px; }
+.dots { display: inline-flex; gap: 2px; }
+.dots i { width: 6px; height: 6px; border-radius: 50%; box-shadow: inset 0 0 0 1px var(--line-2); }
+.dots i.on { background: var(--v5); box-shadow: none; }
+.word-band { font-variant-numeric: tabular-nums; }
+.row-note.example { font-style: italic; }
 .subnav { margin-bottom: 16px; }
 
 .curve-wrap { position: relative; margin: 6px 0 4px; }

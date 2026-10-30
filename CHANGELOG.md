@@ -4,14 +4,17 @@ Every change to lexinspect's output is listed here, by version. Output is determ
 
 ## [Unreleased]
 
-Web app only; no change to any module's output.
+No change to any existing number. `phrase` gains fields; everything else is the web app.
 
 ### Added
 
 - **Export menu in the web app**, replacing Copy JSON and Download JSON. It offers a plain-text summary to copy, a printable report (also printed by Cmd/Ctrl+P after an analysis), an Excel workbook with one sheet per table and a codebook, a one-row summary CSV with stable columns for stacking texts, a word-by-word CSV, the full JSON, and an APA/BibTeX citation. Every file records the version, spaCy model, spelling variety, export time and a SHA-256 of the text. Files are built in the browser; nothing is sent again. See the README's [Export from the web app](README.md#export-from-the-web-app).
+- **The PHRASE List's own data, used.** Every expression now carries what Martinez & Schmitt published with it: its frequency per 100 million words, its ratings in spoken, written and academic English, its example sentence, and the highest BNC/COCA band among its words (`expressions`). `register` counts the hits by rating. `integrated_profile` is the BNC/COCA profile with each expression's words counted at the expression's band, the way the PHRASE List merges into the word-family lists. In the web app, the Phrases tab shows register bars, the expressions rated rare or absent in each register, and each expression's ratings and example. The Frequency tab gains a *Words and phrases* view, and the reader card shows a phrase's ratings. Exports gain an Expressions sheet, phrase-aware columns on the BNC-COCA sheet, and five summary columns at the end (`bnc_band_95_with_phrases`, `bnc_band_98_with_phrases`, `phrase_words_pct`, `phrase_rare_*_hits`).
 
 ### Changed
 
+- **Detection is unchanged.** The new phrase fields are derived from the hits. On the 120 Study 4 development texts, `hits` and the `bnc_coca` output are byte-identical to 0.4.0, so Study 4's precision estimate for 0.4.0 applies to this version's PHRASE hits too.
+- **PHRASE names in the web app keep their optional parts.** IN (THE SENSE) THAT showed as "in that", and IN ADDITION (TO) as "in addition". Only the sense gloss is dropped now, and glosses that were abbreviations (`TRANs`, `+NP`, `adv.`) read in full. An expression with another possible sense names that sense ("could also be using, due to") instead of repeating the same words.
 - **PHRASE List licence notes.** Both authors approved lexinspect's use of the list (Norbert Schmitt, 2026-10-16; Ron Martinez, 2026-10-30). `CAVEATS.md`, the data `LICENSE.md` and `SOURCES.md`, and the `/licences` page now say so. `phrase.json` is unchanged.
 
 ## [0.4.0] - 2026-10-19

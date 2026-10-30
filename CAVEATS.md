@@ -84,6 +84,10 @@ What lexinspect doesn't do well today, and where to look first if you decide to 
 
 **Longest match hides overlaps.** `as well as` is one hit, not also `as well`. When two senses of the same form both fit, the more frequent is chosen and the others are listed in `also_possible`; nothing decides between them semantically.
 
+**Register ratings are the list's, and coarse.** Each expression has one of four ratings per register, judged relative to its other registers. They say nothing about how frequent an expression is in absolute terms, nothing about sub-registers (a lab report and a literature review are both "academic"), and they date from the BNC, whose spoken and written texts are from the 1980s and early 1990s. `rare` in academic writing is a prompt to check a choice, not evidence that it is wrong.
+
+**The integrated profile mixes two word lists.** The PHRASE bands place expressions among Nation's BNC word families, the lists the PHRASE List was built against. `bnc_coca` uses his later BNC/COCA families. The bands are close in kind but not the same lists, so `word_band` and the integrated profile are approximations at the band edges. Only the 506 PHRASE entries become units; every other multi-word expression and idiom still counts word by word, so the integrated profile still understates what a text demands. Its accuracy rests on detection: a false hit moves its words to the wrong band. On the 120 Study 4 development texts, words inside expressions made up a median of 4–5% of words, and counting them as units moved the 95% band up by one in 17 texts and the 98% band in one.
+
 **Used with the authors' permission.** Schmitt's resources page states no terms of use for the list, so both authors were asked. Norbert Schmitt agreed on 2026-10-16 and Ron Martinez on 2026-10-30. They approved the use as it stands: the free hosted app, `phrase.json` in the public repository with its added variant fields, and the Study 4 materials based on the list, all citing Martinez & Schmitt (2012). The list still has no open licence. See Operations below.
 
 ## cefr

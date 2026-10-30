@@ -649,6 +649,7 @@
    "total_hits": 0,
    "unique_phrases": 0
   },
+  "expressions": [],
   "hits": [],
   "hits_per_k_band": {
    "1": 0,
@@ -657,7 +658,218 @@
    "4": 0,
    "5": 0
   },
-  "phrase_frequency": {}
+  "integrated_profile": {
+   "counts": {
+    "content_tokens": 30,
+    "lowered_tokens": 0,
+    "off_list_tokens": 0,
+    "on_list_tokens": 30,
+    "phrase_tokens": 0,
+    "proper_noun_tokens": 0,
+    "raised_tokens": 0,
+    "supplementary_tokens": 0
+   },
+   "coverage_pct": 100.0,
+   "coverage_with_supplementary_pct": 100.0,
+   "per_band": {
+    "1": {
+     "coverage_pct": 93.333,
+     "cumulative_coverage_pct": 93.333,
+     "cumulative_coverage_with_supplementary_pct": 93.333,
+     "phrase_tokens": 0,
+     "tokens": 28
+    },
+    "10": {
+     "coverage_pct": 0.0,
+     "cumulative_coverage_pct": 100.0,
+     "cumulative_coverage_with_supplementary_pct": 100.0,
+     "phrase_tokens": 0,
+     "tokens": 0
+    },
+    "11": {
+     "coverage_pct": 0.0,
+     "cumulative_coverage_pct": 100.0,
+     "cumulative_coverage_with_supplementary_pct": 100.0,
+     "phrase_tokens": 0,
+     "tokens": 0
+    },
+    "12": {
+     "coverage_pct": 0.0,
+     "cumulative_coverage_pct": 100.0,
+     "cumulative_coverage_with_supplementary_pct": 100.0,
+     "phrase_tokens": 0,
+     "tokens": 0
+    },
+    "13": {
+     "coverage_pct": 0.0,
+     "cumulative_coverage_pct": 100.0,
+     "cumulative_coverage_with_supplementary_pct": 100.0,
+     "phrase_tokens": 0,
+     "tokens": 0
+    },
+    "14": {
+     "coverage_pct": 0.0,
+     "cumulative_coverage_pct": 100.0,
+     "cumulative_coverage_with_supplementary_pct": 100.0,
+     "phrase_tokens": 0,
+     "tokens": 0
+    },
+    "15": {
+     "coverage_pct": 0.0,
+     "cumulative_coverage_pct": 100.0,
+     "cumulative_coverage_with_supplementary_pct": 100.0,
+     "phrase_tokens": 0,
+     "tokens": 0
+    },
+    "16": {
+     "coverage_pct": 0.0,
+     "cumulative_coverage_pct": 100.0,
+     "cumulative_coverage_with_supplementary_pct": 100.0,
+     "phrase_tokens": 0,
+     "tokens": 0
+    },
+    "17": {
+     "coverage_pct": 0.0,
+     "cumulative_coverage_pct": 100.0,
+     "cumulative_coverage_with_supplementary_pct": 100.0,
+     "phrase_tokens": 0,
+     "tokens": 0
+    },
+    "18": {
+     "coverage_pct": 0.0,
+     "cumulative_coverage_pct": 100.0,
+     "cumulative_coverage_with_supplementary_pct": 100.0,
+     "phrase_tokens": 0,
+     "tokens": 0
+    },
+    "19": {
+     "coverage_pct": 0.0,
+     "cumulative_coverage_pct": 100.0,
+     "cumulative_coverage_with_supplementary_pct": 100.0,
+     "phrase_tokens": 0,
+     "tokens": 0
+    },
+    "2": {
+     "coverage_pct": 3.333,
+     "cumulative_coverage_pct": 96.667,
+     "cumulative_coverage_with_supplementary_pct": 96.667,
+     "phrase_tokens": 0,
+     "tokens": 1
+    },
+    "20": {
+     "coverage_pct": 0.0,
+     "cumulative_coverage_pct": 100.0,
+     "cumulative_coverage_with_supplementary_pct": 100.0,
+     "phrase_tokens": 0,
+     "tokens": 0
+    },
+    "21": {
+     "coverage_pct": 0.0,
+     "cumulative_coverage_pct": 100.0,
+     "cumulative_coverage_with_supplementary_pct": 100.0,
+     "phrase_tokens": 0,
+     "tokens": 0
+    },
+    "22": {
+     "coverage_pct": 0.0,
+     "cumulative_coverage_pct": 100.0,
+     "cumulative_coverage_with_supplementary_pct": 100.0,
+     "phrase_tokens": 0,
+     "tokens": 0
+    },
+    "23": {
+     "coverage_pct": 0.0,
+     "cumulative_coverage_pct": 100.0,
+     "cumulative_coverage_with_supplementary_pct": 100.0,
+     "phrase_tokens": 0,
+     "tokens": 0
+    },
+    "24": {
+     "coverage_pct": 0.0,
+     "cumulative_coverage_pct": 100.0,
+     "cumulative_coverage_with_supplementary_pct": 100.0,
+     "phrase_tokens": 0,
+     "tokens": 0
+    },
+    "25": {
+     "coverage_pct": 0.0,
+     "cumulative_coverage_pct": 100.0,
+     "cumulative_coverage_with_supplementary_pct": 100.0,
+     "phrase_tokens": 0,
+     "tokens": 0
+    },
+    "3": {
+     "coverage_pct": 0.0,
+     "cumulative_coverage_pct": 96.667,
+     "cumulative_coverage_with_supplementary_pct": 96.667,
+     "phrase_tokens": 0,
+     "tokens": 0
+    },
+    "4": {
+     "coverage_pct": 3.333,
+     "cumulative_coverage_pct": 100.0,
+     "cumulative_coverage_with_supplementary_pct": 100.0,
+     "phrase_tokens": 0,
+     "tokens": 1
+    },
+    "5": {
+     "coverage_pct": 0.0,
+     "cumulative_coverage_pct": 100.0,
+     "cumulative_coverage_with_supplementary_pct": 100.0,
+     "phrase_tokens": 0,
+     "tokens": 0
+    },
+    "6": {
+     "coverage_pct": 0.0,
+     "cumulative_coverage_pct": 100.0,
+     "cumulative_coverage_with_supplementary_pct": 100.0,
+     "phrase_tokens": 0,
+     "tokens": 0
+    },
+    "7": {
+     "coverage_pct": 0.0,
+     "cumulative_coverage_pct": 100.0,
+     "cumulative_coverage_with_supplementary_pct": 100.0,
+     "phrase_tokens": 0,
+     "tokens": 0
+    },
+    "8": {
+     "coverage_pct": 0.0,
+     "cumulative_coverage_pct": 100.0,
+     "cumulative_coverage_with_supplementary_pct": 100.0,
+     "phrase_tokens": 0,
+     "tokens": 0
+    },
+    "9": {
+     "coverage_pct": 0.0,
+     "cumulative_coverage_pct": 100.0,
+     "cumulative_coverage_with_supplementary_pct": 100.0,
+     "phrase_tokens": 0,
+     "tokens": 0
+    }
+   }
+  },
+  "phrase_frequency": {},
+  "register": {
+   "spoken_general": {
+    "infrequent": 0,
+    "less_common": 0,
+    "most_common": 0,
+    "rare": 0
+   },
+   "written_academic": {
+    "infrequent": 0,
+    "less_common": 0,
+    "most_common": 0,
+    "rare": 0
+   },
+   "written_general": {
+    "infrequent": 0,
+    "less_common": 0,
+    "most_common": 0,
+    "rare": 0
+   }
+  }
  },
  "profile": {
   "columns": [

@@ -123,6 +123,12 @@ const Export = (() => {
   col('pos_tokens', (d) => R(d).tagger.counts.total_tokens, 'Tokens tagged, including punctuation.');
   for (const [tag, label] of Object.entries(UPOS)) col(`pos_${tag.toLowerCase()}`, (d) => R(d).tagger.upos_distribution[tag] ?? 0, `${label} (Universal POS tag ${tag}).`);
 
+  // PHRASE register and integrated profile. Columns are only ever appended.
+  col('bnc_band_95_with_phrases', (d) => bandFor(R(d).phrase.integrated_profile.per_band, 95), 'As bnc_band_95, with each word inside a PHRASE-list expression counted at the expression’s band (Martinez & Schmitt’s integrated list).');
+  col('bnc_band_98_with_phrases', (d) => bandFor(R(d).phrase.integrated_profile.per_band, 98), 'As bnc_band_98, with each word inside a PHRASE-list expression counted at the expression’s band.');
+  col('phrase_words_pct', (d) => { const c = R(d).phrase.integrated_profile.counts; return c.content_tokens ? Math.round((c.phrase_tokens / c.content_tokens) * 1000) / 10 : null; }, 'Percentage of words that are part of a PHRASE-list expression.');
+  for (const g of PHRASE_REGISTERS) col(`phrase_rare_${g.key}_hits`, (d) => R(d).phrase.register[g.key].rare, `Expressions the PHRASE list rates rare or non-existent in ${g.long} (its x rating).`);
+
   function summaryRow(d, m) {
     return COLUMNS.map((c) => {
       try {
@@ -213,8 +219,9 @@ const Export = (() => {
     sheet('CEFR', ['Level', 'Words', 'Lemmas', 'Coverage %', 'Cumulative %'],
       LEVELS.map((l) => { const v = r.cefr.per_level[l]; return [l, v.tokens, v.lemmas, v.coverage_pct, v.cumulative_coverage_pct]; }), [8, 9, 9, 12, 13]);
 
-    sheet('BNC-COCA', ['Band (1,000 families)', 'Words', 'Headwords', 'Coverage %', 'Cumulative %', 'Cumulative with supplementary %'],
-      Object.entries(r.bnc_coca.per_band).map(([k, v]) => [Number(k), v.tokens, v.headwords, v.coverage_pct, v.cumulative_coverage_pct, v.cumulative_coverage_with_supplementary_pct]), [20, 9, 11, 12, 13, 30]);
+    const ip = r.phrase.integrated_profile.per_band;
+    sheet('BNC-COCA', ['Band (1,000 families)', 'Words', 'Headwords', 'Coverage %', 'Cumulative %', 'Cumulative with supplementary %', 'Words, phrases as units', 'Of them in expressions', 'Cumulative with supplementary, phrases as units %'],
+      Object.entries(r.bnc_coca.per_band).map(([k, v]) => [Number(k), v.tokens, v.headwords, v.coverage_pct, v.cumulative_coverage_pct, v.cumulative_coverage_with_supplementary_pct, ip[k].tokens, ip[k].phrase_tokens, ip[k].cumulative_coverage_with_supplementary_pct]), [20, 9, 11, 12, 13, 30, 22, 22, 44]);
 
     sheet('AWL', ['Sublist', 'Words', 'Families', 'Coverage %'],
       Object.entries(r.awl.per_sublist).map(([k, v]) => [Number(k), v.tokens, v.families, v.coverage_pct]), [9, 9, 10, 12]);
@@ -229,6 +236,10 @@ const Export = (() => {
     for (const f of r.awl.families_detail || []) lists.push(['AWL', `sublist ${f.sublist}`, f.headword, f.tokens]);
     sheet('Word lists', ['List', 'Group', 'Word', 'Count'], lists, [12, 14, 22, 8]);
 
+    const rating = (k) => PHRASE_RATINGS.find((x) => x.key === k).label.toLowerCase();
+    sheet('Expressions', ['Expression', 'Sense', 'K band', 'Integrated rank', 'Count', 'Per 100 million words', ...PHRASE_REGISTERS.map((g) => `${g.label} (rating)`), 'Highest band of its words', 'Example (PHRASE list)'],
+      (r.phrase.expressions || []).map((e) => [e.phrase, e.sense, e.k_band, e.rank, e.count, e.freq_per_100m, ...PHRASE_REGISTERS.map((g) => rating(e.register[g.key])), e.word_band, e.example]),
+      [26, 18, 8, 15, 8, 20, 16, 16, 16, 24, 50]);
     sheet('Phrases', ['Expression', 'As written', 'Sense', 'K band', 'Rank', 'Start', 'End'],
       r.phrase.hits.map((p) => [p.phrase, p.surface, p.sense, p.k_band, p.rank, p.span[0], p.span[1]]), [26, 26, 20, 8, 8, 8, 8]);
 
@@ -405,6 +416,24 @@ const Export = (() => {
     return `${c.apa}\n\n${c.bibtex}\n\nAlso cite the word lists and formulas you report on: ${SITE}/licences\n`;
   }
 
+  /** The 95% band counting PHRASE expressions as units, or null when it is
+   *  the same as for words alone. */
+  function band95WithPhrases(r) {
+    const p = bandFor(r.phrase.integrated_profile.per_band, 95);
+    return p === bandFor(r.bnc_coca.per_band, 95) ? null : p ? `${p},000` : 'more than 25,000';
+  }
+
+  function withPhrases(r) {
+    const b = band95WithPhrases(r);
+    return b ? ` (${b} for 95% counting PHRASE expressions as units)` : '';
+  }
+
+  function phraseSummary(p) {
+    const rare = (p.expressions || []).filter((e) => e.register.written_academic === 'rare');
+    const tail = rare.length ? `; rare or absent in academic writing: ${rare.map((e) => (e.count > 1 ? `${phraseName(e)} ×${e.count}` : phraseName(e))).join(', ')}` : '';
+    return `Phrases: ${plural(p.counts.total_hits, 'expression')} from the PHRASE list${tail}`;
+  }
+
   /** A few lines to paste into an email, a feedback form or a document. */
   function summaryText(d, m) {
     const r = d.results;
@@ -425,10 +454,10 @@ const Export = (() => {
       `Length: ${plural(rd.counts.words, 'word')}, ${plural(rd.counts.sentences, 'sentence')}, ${num(rd.averages.words_per_sentence, 1)} words per sentence, about ${duration(rd.counts.reading_time_seconds)} to read`,
       `Readability: grade ${num(grade, 1)} (${gradeLabel(grade).toLowerCase()}); Flesch Reading Ease ${num(ease)} (${easeLabel.toLowerCase()})${rd.reliability.reliable ? '' : '. Short text: indicative only'}`,
       `Vocabulary level: highest CEFR level ${r.cefr.highest_level_present ?? '–'}; ${pct(b2)} of words at B2 or above`,
-      `Vocabulary needed: ${b95 ? `${b95},000` : 'more than 25,000'} word families for 95% coverage${b98 ? `, ${b98},000 for 98%` : ''}`,
+      `Vocabulary needed: ${b95 ? `${b95},000` : 'more than 25,000'} word families for 95% coverage${b98 ? `, ${b98},000 for 98%` : ''}${withPhrases(r)}`,
       `Academic words: ${pct(r.awl.coverage_pct)} AWL, ${pct(r.ngsl.coverage_pct.nawl)} NAWL`,
       `Lexical diversity: ${div.mtld == null ? 'text too short to measure' : `MTLD ${num(div.mtld)}${div.vocd_d == null ? '' : `, vocd-D ${num(div.vocd_d)}`}`}`,
-      `Phrases: ${plural(r.phrase.counts.total_hits, 'expression')} from the PHRASE list`,
+      phraseSummary(r.phrase),
       `Metadiscourse: ${plural(r.metadiscourse.counts.total_hits, 'marker')}, ${num(r.metadiscourse.density_per_1000)} per 1,000 words`,
       `Spelling (${e.variant === 'us' ? 'US' : 'UK'}): ${e.counts.errors_total ? `${plural(e.counts.errors_total, 'possible error')}: ${errs.join(', ')}${e.errors.length > errs.length ? ', …' : ''}` : 'no errors found'}`,
       '',
@@ -451,7 +480,7 @@ const Export = (() => {
     const b98 = bandFor(r.bnc_coca.per_band, 98);
     const lastBand = Math.max(b98 ?? 0, ...Object.entries(r.bnc_coca.per_band).filter(([, v]) => v.tokens).map(([k]) => Number(k)), 1);
     const notes = [...(rd.reliability.notes || []), ...(r.cefr.estimate_reliability?.notes || []), ...(r.diversity.note ? [r.diversity.note] : [])];
-    const phraseCounts = Object.entries(r.phrase.phrase_frequency || {}).map(([word, count]) => ({ word: word.toLowerCase(), count }));
+    const STARS = { most_common: '***', less_common: '**', infrequent: '*', rare: 'x' };
     const e = r.errors;
 
     return h('div', { class: 'report-body' },
@@ -475,7 +504,7 @@ const Export = (() => {
         h('p', { class: 'report-words' }, h('b', {}, 'B2 and above: '), words(['B2', 'C1', 'C2'].flatMap((l) => r.cefr.words_by_level[l] || [])))),
 
       section('Vocabulary: frequency (BNC/COCA)',
-        h('p', {}, `${b95 ? `${b95},000` : 'More than 25,000'} word families give 95% coverage${b98 ? `; ${b98},000 give 98%` : '; 98% is not reached'}, counting names and Nation’s supplementary lists as known.`),
+        h('p', {}, `${b95 ? `${b95},000` : 'More than 25,000'} word families give 95% coverage${b98 ? `; ${b98},000 give 98%` : '; 98% is not reached'}, counting names and Nation’s supplementary lists as known.${band95WithPhrases(r) ? ` Counting PHRASE expressions as units, ${band95WithPhrases(r)} give 95%.` : ''}`),
         table(['Band', 'Words', 'Share', 'Cumulative'], Object.entries(r.bnc_coca.per_band).filter(([k]) => Number(k) <= lastBand)
           .map(([k, v]) => [`${k}K`, num(v.tokens), pct(v.coverage_pct), pct(v.cumulative_coverage_with_supplementary_pct)])),
         h('p', { class: 'report-words' }, h('b', {}, 'In no list: '), words(r.bnc_coca.off_list || []))),
@@ -486,7 +515,11 @@ const Export = (() => {
 
       section('Phrases',
         h('p', {}, `${plural(r.phrase.counts.total_hits, 'expression')} from the PHRASE list, ${num(r.phrase.counts.hits_per_1000_words, 1)} per 1,000 words.`),
-        phraseCounts.length ? h('p', { class: 'report-words' }, words(phraseCounts)) : null),
+        (r.phrase.expressions || []).length
+          ? table(['Expression', 'Band', 'Count', ...PHRASE_REGISTERS.map((g) => g.label)],
+            r.phrase.expressions.map((x) => [phraseName(x) + (senseLabel(x) ? ` (${senseLabel(x)})` : ''), `K${x.k_band}`, num(x.count), ...PHRASE_REGISTERS.map((g) => STARS[x.register[g.key]])]))
+          : null,
+        (r.phrase.expressions || []).length ? h('p', { class: 'fine' }, 'Register ratings from the PHRASE list: *** most common in that register (or as common), ** less common, * infrequent, x rare or non-existent.') : null),
 
       section('Metadiscourse',
         h('p', {}, `${plural(r.metadiscourse.counts.total_hits, 'marker')}, ${num(r.metadiscourse.density_per_1000, 1)} per 1,000 words.`),

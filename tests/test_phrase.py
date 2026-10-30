@@ -160,3 +160,112 @@ def test_to_go_remaining_needs_clause_end():
 
     assert not any(p.startswith("TO GO") for p in phrases("People rely on trains to go to work."))
     assert any(p.startswith("TO GO") for p in phrases("Two more weeks to go."))
+
+
+# --- what the list says about each hit -------------------------------------------
+
+
+def run(text: str) -> dict:
+    return phrase.analyze(text, analysis=analysed(text))
+
+
+def expression(text: str, name: str) -> dict:
+    (e,) = [e for e in run(text)["expressions"] if e["phrase"] == name]
+    return e
+
+
+def test_every_source_rating_is_in_the_legend():
+    for item in phrase._load()["items"]:
+        for r in phrase.REGISTERS:
+            assert item[r] in phrase._RATINGS, (item["phrase"], r, item[r])
+
+
+def test_register_ratings_follow_the_source_legend():
+    # Source row: A LOT  * * *  *  x  (spoken, written general, written academic).
+    e = expression("They go camping a lot in the summer.", "A LOT")
+    assert e["register"] == {
+        "spoken_general": "most_common",
+        "written_general": "infrequent",
+        "written_academic": "rare",
+    }
+    assert e["freq_per_100m"] == 22332
+    assert e["example"] == "They go camping a lot in the summer."
+
+
+def test_register_counts_every_hit_once_per_register():
+    text = "I have to go, of course. I have to, and it is sort of late."
+    out = run(text)
+    for r in phrase.REGISTERS:
+        assert sum(out["register"][r].values()) == out["counts"]["total_hits"]
+    assert out["register"]["written_academic"]["rare"] == 1  # SORT OF
+
+
+def test_expressions_group_hits_by_entry():
+    out = run("I have to go. She had to stay. Of course.")
+    assert [(e["phrase"], e["count"]) for e in out["expressions"]] == [
+        ("HAVE TO", 2),
+        ("OF COURSE", 1),
+    ]
+    assert sum(e["count"] for e in out["expressions"]) == out["counts"]["total_hits"]
+
+
+def test_expression_lists_alternative_senses():
+    e = expression("We made it out of wood.", "OUT OF (‘IN’/’FROM’)")
+    assert {a["sense"] for a in e["also_possible"]} == {"USING", "DUE TO"}
+
+
+def test_word_band_is_the_highest_band_of_its_words():
+    e = expression("What is the limit in terms of price?", "IN TERMS OF")
+    assert (e["k_band"], e["word_band"]) == (2, 1)
+    # SPITE is a rarer word than IN SPITE OF is an expression.
+    e = expression("They went outside in spite of the rain.", "IN SPITE OF")
+    assert e["word_band"] > e["k_band"]
+
+
+def test_word_band_needs_every_word_in_a_band():
+    # `oh` is on Nation's marginal-words list, not in a band.
+    assert expression("Oh dear, I forgot.", "OH DEAR")["word_band"] is None
+
+
+# --- integrated profile ----------------------------------------------------------
+
+
+def test_integrated_profile_equals_bnc_coca_without_expressions():
+    from lexinspect import bnc_coca
+
+    text = "The cat sat on the mat in London."
+    a = analysed(text)
+    ip = phrase.analyze(text, analysis=a)["integrated_profile"]
+    words = bnc_coca.analyze(text, analysis=a)
+    assert ip["counts"]["phrase_tokens"] == 0
+    for b, row in words["per_band"].items():
+        assert ip["per_band"][b] == {
+            **{k: v for k, v in row.items() if k != "headwords"},
+            "phrase_tokens": 0,
+        }
+    assert ip["coverage_with_supplementary_pct"] == words["coverage_with_supplementary_pct"]
+
+
+def test_integrated_profile_counts_words_at_the_expressions_band():
+    ip = run("What is the limit in terms of price?")["integrated_profile"]
+    assert ip["per_band"]["2"]["phrase_tokens"] == 3
+    assert ip["counts"]["phrase_tokens"] == 3
+    assert ip["counts"]["raised_tokens"] == 3  # in, terms, of: all 1K words
+    assert ip["counts"]["lowered_tokens"] == 0
+
+
+def test_integrated_profile_can_lower_a_rare_word():
+    ip = run("They went outside in spite of the rain.")["integrated_profile"]
+    assert ip["counts"]["lowered_tokens"] == 1  # spite
+    assert ip["counts"]["raised_tokens"] == 2  # in, of
+
+
+def test_integrated_profile_keeps_every_token():
+    ip = run("By and large, Mr Smith had to deal with it, oh well, in spite of everything.")[
+        "integrated_profile"
+    ]
+    c = ip["counts"]
+    in_bands = sum(row["tokens"] for row in ip["per_band"].values())
+    assert in_bands == c["on_list_tokens"]
+    total = in_bands + c["supplementary_tokens"] + c["proper_noun_tokens"] + c["off_list_tokens"]
+    assert total == c["content_tokens"]

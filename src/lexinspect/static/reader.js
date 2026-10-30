@@ -299,8 +299,12 @@ const Reader = (() => {
     }
     if (ds.p != null) {
       const x = phrases[ds.p];
-      lines.push(h('div', { class: 'pop-row pop-block', 'data-lens-row': 'phrase' }, h('span', {}, `Phrase · K${x.k_band}`),
-        h('b', {}, x.phrase.toLowerCase(), x.sense ? h('em', {}, ` ${x.sense.toLowerCase()}`) : null)));
+      const e = r.phrase.expressions?.find((y) => y.rank === x.rank);
+      const sense = senseLabel(x);
+      lines.push(h('div', { class: 'pop-row pop-block', 'data-lens-row': 'phrase' },
+        h('span', {}, `Phrase · K${x.k_band}`, e?.word_band != null ? ` · its words ${e.word_band}K` : ''),
+        h('b', {}, phraseName(x), sense ? h('em', {}, ` ${sense}`) : null),
+        e ? h('span', { class: 'ratings' }, PHRASE_REGISTERS.map((reg) => ratingDots(reg, e.register[reg.key]))) : null));
     }
     if (ds.m != null) {
       const x = md[ds.m];

@@ -1303,6 +1303,56 @@
    "total_hits": 3,
    "unique_phrases": 3
   },
+  "expressions": [
+   {
+    "also_possible": [],
+    "count": 1,
+    "example": "There are some problems.",
+    "freq_per_100m": 59833,
+    "k_band": 1,
+    "phrase": "THERE IS/ARE",
+    "rank": 165,
+    "register": {
+     "spoken_general": "most_common",
+     "written_academic": "less_common",
+     "written_general": "most_common"
+    },
+    "sense": null,
+    "word_band": 1
+   },
+   {
+    "also_possible": [],
+    "count": 1,
+    "example": "On the other hand, the business did make a profit.",
+    "freq_per_100m": 5267,
+    "k_band": 2,
+    "phrase": "ON THE OTHER HAND",
+    "rank": 1877,
+    "register": {
+     "spoken_general": "most_common",
+     "written_academic": "less_common",
+     "written_general": "most_common"
+    },
+    "sense": null,
+    "word_band": 1
+   },
+   {
+    "also_possible": [],
+    "count": 1,
+    "example": "It makes no difference as long as it’s done.",
+    "freq_per_100m": 5084,
+    "k_band": 2,
+    "phrase": "AS LONG AS",
+    "rank": 1931,
+    "register": {
+     "spoken_general": "most_common",
+     "written_academic": "infrequent",
+     "written_general": "most_common"
+    },
+    "sense": null,
+    "word_band": 1
+   }
+  ],
   "hits": [
    {
     "k_band": 1,
@@ -1348,10 +1398,221 @@
    "4": 0,
    "5": 0
   },
+  "integrated_profile": {
+   "counts": {
+    "content_tokens": 114,
+    "lowered_tokens": 0,
+    "off_list_tokens": 0,
+    "on_list_tokens": 111,
+    "phrase_tokens": 9,
+    "proper_noun_tokens": 1,
+    "raised_tokens": 7,
+    "supplementary_tokens": 2
+   },
+   "coverage_pct": 97.368,
+   "coverage_with_supplementary_pct": 100.0,
+   "per_band": {
+    "1": {
+     "coverage_pct": 76.316,
+     "cumulative_coverage_pct": 76.316,
+     "cumulative_coverage_with_supplementary_pct": 78.947,
+     "phrase_tokens": 2,
+     "tokens": 87
+    },
+    "10": {
+     "coverage_pct": 0.0,
+     "cumulative_coverage_pct": 97.368,
+     "cumulative_coverage_with_supplementary_pct": 100.0,
+     "phrase_tokens": 0,
+     "tokens": 0
+    },
+    "11": {
+     "coverage_pct": 0.0,
+     "cumulative_coverage_pct": 97.368,
+     "cumulative_coverage_with_supplementary_pct": 100.0,
+     "phrase_tokens": 0,
+     "tokens": 0
+    },
+    "12": {
+     "coverage_pct": 0.0,
+     "cumulative_coverage_pct": 97.368,
+     "cumulative_coverage_with_supplementary_pct": 100.0,
+     "phrase_tokens": 0,
+     "tokens": 0
+    },
+    "13": {
+     "coverage_pct": 0.0,
+     "cumulative_coverage_pct": 97.368,
+     "cumulative_coverage_with_supplementary_pct": 100.0,
+     "phrase_tokens": 0,
+     "tokens": 0
+    },
+    "14": {
+     "coverage_pct": 0.0,
+     "cumulative_coverage_pct": 97.368,
+     "cumulative_coverage_with_supplementary_pct": 100.0,
+     "phrase_tokens": 0,
+     "tokens": 0
+    },
+    "15": {
+     "coverage_pct": 0.0,
+     "cumulative_coverage_pct": 97.368,
+     "cumulative_coverage_with_supplementary_pct": 100.0,
+     "phrase_tokens": 0,
+     "tokens": 0
+    },
+    "16": {
+     "coverage_pct": 0.0,
+     "cumulative_coverage_pct": 97.368,
+     "cumulative_coverage_with_supplementary_pct": 100.0,
+     "phrase_tokens": 0,
+     "tokens": 0
+    },
+    "17": {
+     "coverage_pct": 0.0,
+     "cumulative_coverage_pct": 97.368,
+     "cumulative_coverage_with_supplementary_pct": 100.0,
+     "phrase_tokens": 0,
+     "tokens": 0
+    },
+    "18": {
+     "coverage_pct": 0.0,
+     "cumulative_coverage_pct": 97.368,
+     "cumulative_coverage_with_supplementary_pct": 100.0,
+     "phrase_tokens": 0,
+     "tokens": 0
+    },
+    "19": {
+     "coverage_pct": 0.0,
+     "cumulative_coverage_pct": 97.368,
+     "cumulative_coverage_with_supplementary_pct": 100.0,
+     "phrase_tokens": 0,
+     "tokens": 0
+    },
+    "2": {
+     "coverage_pct": 14.912,
+     "cumulative_coverage_pct": 91.228,
+     "cumulative_coverage_with_supplementary_pct": 93.86,
+     "phrase_tokens": 7,
+     "tokens": 17
+    },
+    "20": {
+     "coverage_pct": 0.0,
+     "cumulative_coverage_pct": 97.368,
+     "cumulative_coverage_with_supplementary_pct": 100.0,
+     "phrase_tokens": 0,
+     "tokens": 0
+    },
+    "21": {
+     "coverage_pct": 0.0,
+     "cumulative_coverage_pct": 97.368,
+     "cumulative_coverage_with_supplementary_pct": 100.0,
+     "phrase_tokens": 0,
+     "tokens": 0
+    },
+    "22": {
+     "coverage_pct": 0.0,
+     "cumulative_coverage_pct": 97.368,
+     "cumulative_coverage_with_supplementary_pct": 100.0,
+     "phrase_tokens": 0,
+     "tokens": 0
+    },
+    "23": {
+     "coverage_pct": 0.0,
+     "cumulative_coverage_pct": 97.368,
+     "cumulative_coverage_with_supplementary_pct": 100.0,
+     "phrase_tokens": 0,
+     "tokens": 0
+    },
+    "24": {
+     "coverage_pct": 0.0,
+     "cumulative_coverage_pct": 97.368,
+     "cumulative_coverage_with_supplementary_pct": 100.0,
+     "phrase_tokens": 0,
+     "tokens": 0
+    },
+    "25": {
+     "coverage_pct": 0.0,
+     "cumulative_coverage_pct": 97.368,
+     "cumulative_coverage_with_supplementary_pct": 100.0,
+     "phrase_tokens": 0,
+     "tokens": 0
+    },
+    "3": {
+     "coverage_pct": 3.509,
+     "cumulative_coverage_pct": 94.737,
+     "cumulative_coverage_with_supplementary_pct": 97.368,
+     "phrase_tokens": 0,
+     "tokens": 4
+    },
+    "4": {
+     "coverage_pct": 1.754,
+     "cumulative_coverage_pct": 96.491,
+     "cumulative_coverage_with_supplementary_pct": 99.123,
+     "phrase_tokens": 0,
+     "tokens": 2
+    },
+    "5": {
+     "coverage_pct": 0.0,
+     "cumulative_coverage_pct": 96.491,
+     "cumulative_coverage_with_supplementary_pct": 99.123,
+     "phrase_tokens": 0,
+     "tokens": 0
+    },
+    "6": {
+     "coverage_pct": 0.877,
+     "cumulative_coverage_pct": 97.368,
+     "cumulative_coverage_with_supplementary_pct": 100.0,
+     "phrase_tokens": 0,
+     "tokens": 1
+    },
+    "7": {
+     "coverage_pct": 0.0,
+     "cumulative_coverage_pct": 97.368,
+     "cumulative_coverage_with_supplementary_pct": 100.0,
+     "phrase_tokens": 0,
+     "tokens": 0
+    },
+    "8": {
+     "coverage_pct": 0.0,
+     "cumulative_coverage_pct": 97.368,
+     "cumulative_coverage_with_supplementary_pct": 100.0,
+     "phrase_tokens": 0,
+     "tokens": 0
+    },
+    "9": {
+     "coverage_pct": 0.0,
+     "cumulative_coverage_pct": 97.368,
+     "cumulative_coverage_with_supplementary_pct": 100.0,
+     "phrase_tokens": 0,
+     "tokens": 0
+    }
+   }
+  },
   "phrase_frequency": {
    "AS LONG AS": 1,
    "ON THE OTHER HAND": 1,
    "THERE IS/ARE": 1
+  },
+  "register": {
+   "spoken_general": {
+    "infrequent": 0,
+    "less_common": 0,
+    "most_common": 3,
+    "rare": 0
+   },
+   "written_academic": {
+    "infrequent": 1,
+    "less_common": 2,
+    "most_common": 0,
+    "rare": 0
+   },
+   "written_general": {
+    "infrequent": 0,
+    "less_common": 0,
+    "most_common": 3,
+    "rare": 0
+   }
   }
  },
  "profile": {

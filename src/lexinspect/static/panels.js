@@ -283,8 +283,45 @@ function cefrClassifier(ctx) {
   return box;
 }
 
+let BNC_WITH_PHRASES = false; // the Frequency tab's view, kept across analyses
+
 function renderBnc(r) {
-  const b = r.bnc_coca;
+  const ip = r.phrase?.integrated_profile;
+  if (!ip?.counts.phrase_tokens) return bncView(r.bnc_coca, null);
+  const out = h('div', {});
+  const nav = h('div', { class: 'subnav segmented', role: 'radiogroup', 'aria-label': 'Count PHRASE expressions' });
+  const body = h('div', {});
+  const views = {};
+  const select = (withPhrases) => {
+    BNC_WITH_PHRASES = withPhrases;
+    nav.querySelectorAll('button').forEach((b) => b.setAttribute('aria-checked', String(b.dataset.phrases === String(withPhrases))));
+    views[withPhrases] ??= bncView(withPhrases ? { ...r.bnc_coca, ...ip } : r.bnc_coca, phraseUnitsNote(r.bnc_coca, ip, withPhrases));
+    body.replaceChildren(views[withPhrases]);
+  };
+  [[false, 'Words'], [true, 'Words and phrases']].forEach(([v, label]) =>
+    nav.appendChild(h('button', { type: 'button', role: 'radio', dataset: { phrases: String(v) }, onclick: () => select(v) }, label)));
+  out.append(nav, body);
+  select(BNC_WITH_PHRASES);
+  return out;
+}
+
+/** What counting PHRASE expressions as units changes, in one sentence. */
+function phraseUnitsNote(b, ip, withPhrases) {
+  const k = (v) => (v ? `${v}K` : '25K+');
+  const shift = (t) => {
+    const w = bandFor(b.per_band, t);
+    const p = bandFor(ip.per_band, t);
+    return w === p ? `${t}% coverage stays at ${k(w)}` : `${t}% coverage moves from ${k(w)} to ${k(p)}`;
+  };
+  const k1 = (x) => pct(x.per_band['1'].cumulative_coverage_with_supplementary_pct);
+  const lead = withPhrases
+    ? `The ${plural(ip.counts.phrase_tokens, 'word')} inside PHRASE expressions count at each expression’s band (${num(ip.counts.raised_tokens)} higher than their own, ${num(ip.counts.lowered_tokens)} lower).`
+    : `Counting the ${plural(ip.counts.phrase_tokens, 'word')} inside PHRASE expressions at each expression’s band:`;
+  const facts = `${shift(95)}, ${shift(98)}, and the first 1,000 families cover ${k1(ip)} instead of ${k1(b)}.`;
+  return withPhrases ? `${lead} Against words alone, ${facts}` : `${lead} ${facts.charAt(0).toLowerCase()}${facts.slice(1)}`;
+}
+
+function bncView(b, note) {
   const n = b.counts.content_tokens;
   const out = h('div', {});
   const bands = Object.entries(b.per_band).map(([k, v]) => ({ band: Number(k), ...v }));
@@ -309,6 +346,7 @@ function renderBnc(r) {
     stat('98% coverage', b98 ? `${b98}K` : '25K+', 'optimal for comprehension'),
     stat('In 25 bands', pct(b.coverage_pct), `${pct(b.coverage_with_supplementary_pct)} with names and supplementary`),
     stat('Off-list', num(b.counts.off_list_tokens), 'words in no list')));
+  if (note) out.appendChild(h('p', { class: 'fine' }, note));
 
   // Coverage curve, one bar per band up to the last band used. The axis starts
   // near the 1K value rather than at 0: the decisions (95%, 98%) are made in the
@@ -322,7 +360,8 @@ function renderBnc(r) {
   let prev = b.counts.content_tokens ? ((b.counts.supplementary_tokens + b.counts.proper_noun_tokens) / n) * 100 : 0;
   bands.filter((x) => x.band <= last).forEach((x) => {
     const cum = x.cumulative_coverage_with_supplementary_pct;
-    curve.appendChild(h('div', { class: 'curve-col', title: `${x.band}K: ${num(x.tokens)} words (${pct(x.coverage_pct)}); cumulative ${pct(cum)}` },
+    const inPhrases = x.phrase_tokens ? `, ${num(x.phrase_tokens)} of them in expressions` : '';
+    curve.appendChild(h('div', { class: 'curve-col', title: `${x.band}K: ${num(x.tokens)} words (${pct(x.coverage_pct)})${inPhrases}; cumulative ${pct(cum)}` },
       h('span', { class: 'curve-track' },
         h('span', { class: 'curve-bar', style: { height: `${y(cum) * 100}%` } }),
         h('span', { class: 'curve-own', style: { bottom: `${y(prev) * 100}%`, height: `${(y(cum) - y(prev)) * 100}%` } })),
@@ -417,40 +456,92 @@ function renderVocabulary(r, ctx, sub) {
 
 // ---- phrases -------------------------------------------------------------------------
 
+/** Hit spans per entry rank, for flashing an expression in the reader. */
+function phraseSpans(p) {
+  const out = new Map();
+  for (const x of p.hits) {
+    if (!out.has(x.rank)) out.set(x.rank, { spans: [], surfaces: new Set() });
+    const g = out.get(x.rank);
+    g.spans.push(x.span);
+    g.surfaces.add(x.surface.toLowerCase());
+  }
+  return out;
+}
+
+/** The list's rating as three dots, filled for each star (x is none). */
+function ratingDots(register, rating) {
+  const r = PHRASE_RATINGS.find((x) => x.key === rating);
+  const dots = h('span', { class: 'dots', 'aria-hidden': 'true' }, [0, 1, 2].map((i) => h('i', { class: i < r.dots ? 'on' : null })));
+  return h('span', { class: 'rating', title: `${register.label}: ${r.label.toLowerCase()}`, 'aria-label': `${register.label}: ${r.label.toLowerCase()}` }, register.label, dots);
+}
+
+/** One bar per register: the share of hits at each of the list's ratings. */
+function registerBars(reg) {
+  const grid = h('div', { class: 'reg-bars' });
+  for (const g of PHRASE_REGISTERS) {
+    const counts = reg[g.key];
+    const total = PHRASE_RATINGS.reduce((s, x) => s + counts[x.key], 0);
+    const bar = h('div', { class: 'stack', role: 'img', 'aria-label': `${g.label}: ${PHRASE_RATINGS.map((x) => `${x.label.toLowerCase()} ${pct((counts[x.key] / total) * 100, 0)}`).join(', ')}` });
+    PHRASE_RATINGS.forEach((x) => {
+      if (counts[x.key]) bar.appendChild(h('span', { class: `seg reg-${x.key}`, style: { flexGrow: String(counts[x.key]) }, title: `${x.label} in ${g.long}: ${pct((counts[x.key] / total) * 100, 0)}` }));
+    });
+    grid.append(h('span', { class: 'reg-label' }, g.label), bar);
+  }
+  const keys = h('div', { class: 'stack-keys' }, PHRASE_RATINGS.map((x) => h('span', { class: 'stack-key' }, h('i', { class: `sw reg-${x.key}` }), x.label)));
+  return h('div', { class: 'stack-wrap' }, grid, keys);
+}
+
 function renderPhrases(r) {
   const p = r.phrase;
+  const ip = p.integrated_profile;
   const out = h('div', {});
   out.appendChild(h('div', { class: 'stats-grid' },
     stat('Expressions', num(p.counts.total_hits), plural(p.counts.unique_phrases, 'distinct one')),
-    stat('Per 1,000 words', num(p.counts.hits_per_1000_words, 1))));
-  if (p.counts.total_hits) {
-    out.appendChild(h('div', { class: 'sub-h' }, 'By frequency band (K1 most common, K5 least)'));
-    out.appendChild(stack([1, 2, 3, 4, 5].map((k) => ({ key: String(k), label: `K${k}`, value: p.hits_per_k_band[k] })), { lens: 'phrase' }));
+    stat('Per 1,000 words', num(p.counts.hits_per_1000_words, 1)),
+    ip && ip.counts.content_tokens ? stat('Words inside them', pct((ip.counts.phrase_tokens / ip.counts.content_tokens) * 100), 'of all words') : null));
+  if (!p.counts.total_hits) {
+    out.appendChild(h('p', { class: 'muted' }, 'No PHRASE-list expressions in this text.'));
+    out.appendChild(about('phrase'));
+    return out;
   }
 
-  const groups = new Map();
-  for (const x of p.hits) {
-    const key = `${x.rank}`;
-    if (!groups.has(key)) groups.set(key, { ...x, spans: [], surfaces: new Set(), also: new Set() });
-    const g = groups.get(key);
-    g.spans.push(x.span);
-    g.surfaces.add(x.surface.toLowerCase());
-    (x.also_possible || []).forEach((a) => g.also.add(a));
+  out.appendChild(h('div', { class: 'sub-h' }, 'By frequency band (K1 most common, K5 least)'));
+  out.appendChild(stack([1, 2, 3, 4, 5].map((k) => ({ key: String(k), label: `K${k}`, value: p.hits_per_k_band[k] })), { lens: 'phrase' }));
+
+  const groups = phraseSpans(p);
+  const exps = p.expressions || [];
+  if (p.register) {
+    out.appendChild(h('div', { class: 'sub-h' }, 'How common they are in each register'));
+    out.appendChild(registerBars(p.register));
+    out.appendChild(h('p', { class: 'fine' }, 'The PHRASE list’s own ratings, for every expression found: how common each one is in speech, general writing and academic writing, compared with the other two.'));
+    for (const g of PHRASE_REGISTERS) {
+      const rare = exps.filter((e) => e.register[g.key] === 'rare');
+      if (!rare.length) continue;
+      out.appendChild(h('div', { class: 'level' },
+        h('div', { class: 'level-head static' }, `Rare or absent in ${g.long}`),
+        chips(rare, { lens: 'phrase', label: phraseName, count: (e) => e.count, spans: (e) => groups.get(e.rank).spans })));
+    }
   }
+
+  out.appendChild(h('div', { class: 'sub-h' }, 'Expressions found'));
   const list = h('div', { class: 'rows' });
-  [...groups.values()]
-    .sort((a, b) => b.spans.length - a.spans.length || a.k_band - b.k_band || a.rank - b.rank)
-    .forEach((g) => {
-      list.appendChild(h('button', { type: 'button', class: 'row clickable', onclick: () => Reader.flash(g.spans, 'phrase') },
-        h('div', { class: 'row-main' },
-          h('span', { class: 'row-name' }, h('span', { class: `badge phrase-${g.k_band}` }, `K${g.k_band}`), ' ', g.phrase.replace(/\s*\(.*?\)\s*/g, ' ').trim().toLowerCase()),
-          h('span', { class: 'row-note' },
-            g.sense ? `${g.sense.toLowerCase()} · ` : '',
-            [...g.surfaces].map((s) => `“${s}”`).join(', '),
-            g.also.size ? ` · could also be ${[...g.also].map((a) => a.toLowerCase()).join(', ')}` : '')),
-        h('div', { class: 'row-val' }, h('b', {}, `×${g.spans.length}`))));
-    });
-  if (!groups.size) list.appendChild(h('p', { class: 'muted' }, 'No PHRASE-list expressions in this text.'));
+  for (const e of exps) {
+    const g = groups.get(e.rank);
+    const sense = senseLabel(e);
+    const name = phraseName(e);
+    // The forms used, when any differs from the entry's own (`there are`, `dealt with`).
+    const forms = [...g.surfaces].some((x) => x !== name) ? [...g.surfaces].map((x) => `“${x}”`).join(', ') : '';
+    const note = [sense, forms, e.also_possible?.length ? `could also be ${e.also_possible.map((a) => senseLabel(a) ?? phraseName(a)).join(', ')}` : ''].filter(Boolean).join(' · ');
+    list.appendChild(h('button', { type: 'button', class: 'row clickable', onclick: () => Reader.flash(g.spans, 'phrase') },
+      h('div', { class: 'row-main' },
+        h('span', { class: 'row-name' }, h('span', { class: `badge phrase-${e.k_band}` }, `K${e.k_band}`), ' ', name),
+        note ? h('span', { class: 'row-note' }, note) : null,
+        h('span', { class: 'row-note ratings' },
+          PHRASE_REGISTERS.map((reg) => ratingDots(reg, e.register[reg.key])),
+          e.word_band != null ? h('span', { class: 'word-band' }, `its words ${e.word_band}K`) : null),
+        e.example ? h('span', { class: 'row-note example' }, e.example) : null),
+      h('div', { class: 'row-val' }, h('b', {}, `×${e.count}`))));
+  }
   out.appendChild(list);
   out.appendChild(about('phrase'));
   return out;

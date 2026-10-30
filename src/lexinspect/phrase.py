@@ -49,6 +49,28 @@ the hit takes the more frequent sense and lists the others in `also_possible`.
 
 The checks added in 0.4.0 belong to fix families (`_fix_families`) so the
 Study 4 fix-check can measure each against 0.3.3; all of them are on.
+
+Beyond the hits, the output carries what the list itself says about them.
+These are all derived from the hits, so they never change which hits count:
+
+- **Expressions.** One row per distinct entry, with its frequency per 100
+  million words, the register ratings, the published example and the highest
+  BNC/COCA band among its words. `rank` is the list's Integrated List Rank:
+  the item's place when the PHRASE List and the BNC word-family lists are
+  merged, so HAVE TO (rank 107) is the 107th most frequent item of the two.
+- **Register.** The list rates each expression in spoken general, written
+  general and written academic English. Its legend: `* * *` "most common in
+  this genre (or as common)", `* *` "less common", `*` "infrequent", `x` "rare
+  or non-existent". The ratings compare genres for one expression; they are
+  not frequencies, and two expressions with the same rating can differ widely
+  in `freq_per_100m`.
+- **Integrated profile.** The list's bands are built to sit inside the 1K
+  word-family bands, which is what lets an expression replace its words in a
+  frequency profile. `integrated_profile` is the `bnc_coca` profile with every
+  word inside an expression counted at the expression's band: `in terms of`
+  is three 1K words to `bnc_coca` and three K2 tokens here. 446 of the 501
+  entries whose words are all in the bands sit above their highest word, so
+  the integrated profile is usually the harder one.
 """
 
 from __future__ import annotations
@@ -60,6 +82,7 @@ from functools import lru_cache
 from importlib import resources
 from typing import Any
 
+from lexinspect import bnc_coca
 from lexinspect._context import (
     SPECIFYING_NOUNS,
     in_hyphenated_word,
@@ -71,6 +94,10 @@ from lexinspect._fix_families import enabled
 from lexinspect._text import Analysis, ensure
 
 POSS, REFL = "<poss>", "<refl>"
+
+# The published list's register columns and its legend for them.
+REGISTERS = ("spoken_general", "written_general", "written_academic")
+_RATINGS = {"* * *": "most_common", "* *": "less_common", "*": "infrequent", "x": "rare"}
 _POSSESSIVES = frozenset({"my", "your", "his", "her", "its", "our", "their", "one's"})
 _REFLEXIVES = frozenset(
     {
@@ -391,6 +418,8 @@ def analyze(text: str, *, analysis: Analysis | None = None) -> dict[str, Any]:
     index = _index()
 
     hits: list[dict[str, Any]] = []
+    # Per hit: its entry, the other entries that fit the same words, its tokens.
+    matched: list[tuple[dict[str, Any], list[dict[str, Any]], list[int]]] = []
     for run in _segments(a.doc):
         norms = [_norm(t) for t in run]
         i, n = 0, len(run)
@@ -429,6 +458,8 @@ def analyze(text: str, *, analysis: Analysis | None = None) -> dict[str, Any]:
             if others:
                 hit["also_possible"] = others
             hits.append(hit)
+            alternatives = [f[1] for f in found[1:] if f[1]["rank"] != item["rank"]]
+            matched.append((item, alternatives, [t.i for t in span]))
             i += len(var)
 
     per_band = {str(k): 0 for k in range(1, 6)}
@@ -446,4 +477,106 @@ def analyze(text: str, *, analysis: Analysis | None = None) -> dict[str, Any]:
         "hits_per_k_band": per_band,
         "hits": sorted(hits, key=lambda h: (h["rank"], h["token_index"])),
         "phrase_frequency": dict(Counter(h["phrase"] for h in hits).most_common()),
+        **_derived(a, matched),
+    }
+
+
+def _derived(a: Analysis, matched) -> dict[str, Any]:
+    """Expressions, register counts and the integrated profile, from the hits."""
+    lex_at = {lex.i: lex for lex in a.lexical}
+    phrase_band: dict[int, int] = {}  # lexical token index -> its expression's band
+    register = {r: dict.fromkeys(_RATINGS.values(), 0) for r in REGISTERS}
+    rows: dict[int, dict[str, Any]] = {}
+    for item, alternatives, token_ids in matched:
+        lexes = [lex_at[i] for i in token_ids if i in lex_at]
+        for lex in lexes:
+            phrase_band[lex.i] = item["k_band"]
+        for r in REGISTERS:
+            register[r][_RATINGS[item[r]]] += 1
+        row = rows.get(item["rank"])
+        if row is None:
+            row = rows[item["rank"]] = {
+                "rank": item["rank"],
+                "phrase": item["phrase"],
+                "sense": item.get("sense"),
+                "k_band": item["k_band"],
+                "count": 0,
+                "freq_per_100m": item["freq_per_100m"],
+                "register": {r: _RATINGS[item[r]] for r in REGISTERS},
+                "word_band": None,
+                "example": item["example"],
+                "also_possible": [],
+            }
+        row["count"] += 1
+        for alt in alternatives:
+            if all(x["rank"] != alt["rank"] for x in row["also_possible"]):
+                row["also_possible"].append(
+                    {"rank": alt["rank"], "phrase": alt["phrase"], "sense": alt.get("sense")}
+                )
+        wb = _word_band(lexes)
+        if wb is not None and (row["word_band"] is None or wb > row["word_band"]):
+            row["word_band"] = wb
+    return {
+        "expressions": sorted(rows.values(), key=lambda e: (-e["count"], e["rank"])),
+        "register": register,
+        "integrated_profile": _integrated_profile(a, phrase_band),
+    }
+
+
+def _word_band(lexes) -> int | None:
+    """Highest BNC/COCA band among an occurrence's words; None unless every
+    word is in a band (`oh` is on the marginal-words list, not in a band)."""
+    bands = []
+    for lex in lexes:
+        kind, fam = bnc_coca.classify(lex)
+        if kind != "band":
+            return None
+        bands.append(fam.band)
+    return max(bands) if bands else None
+
+
+def _integrated_profile(a: Analysis, phrase_band: dict[int, int]) -> dict[str, Any]:
+    """The `bnc_coca` profile with each word inside an expression counted at
+    the expression's band (Martinez & Schmitt's integrated list). Same tokens,
+    same supplementary and proper-noun rules, so the two profiles differ only
+    where an expression is."""
+    lexical = a.lexical
+    n = len(lexical)
+    band_tokens: Counter[int] = Counter()
+    phrase_tokens: Counter[int] = Counter()
+    kinds: Counter[str] = Counter()
+    raised = lowered = 0
+    for lex in lexical:
+        kind, value = bnc_coca.classify(lex)
+        band = phrase_band.get(lex.i)
+        if band is not None:
+            band_tokens[band] += 1
+            phrase_tokens[band] += 1
+            if kind == "band":
+                raised += band > value.band
+                lowered += band < value.band
+        elif kind == "band":
+            band_tokens[value.band] += 1
+        else:
+            kinds[kind] += 1
+    on_list = sum(band_tokens.values())
+    assumed_known = kinds["supplementary"] + kinds["proper"]
+    per_band = {
+        b: {"tokens": row.pop("tokens"), "phrase_tokens": phrase_tokens[int(b)], **row}
+        for b, row in bnc_coca.coverage_by_band(band_tokens, n, assumed_known).items()
+    }
+    return {
+        "counts": {
+            "content_tokens": n,
+            "phrase_tokens": sum(phrase_tokens.values()),
+            "raised_tokens": raised,
+            "lowered_tokens": lowered,
+            "on_list_tokens": on_list,
+            "proper_noun_tokens": kinds["proper"],
+            "supplementary_tokens": kinds["supplementary"],
+            "off_list_tokens": kinds["off"],
+        },
+        "coverage_pct": bnc_coca.pct(on_list, n),
+        "coverage_with_supplementary_pct": bnc_coca.pct(on_list + assumed_known, n),
+        "per_band": per_band,
     }

@@ -23,6 +23,7 @@ const SECTION_INFO = {
       'Paul Nation’s BNC/COCA word families: 25 bands of 1,000 families ordered by frequency, plus his lists of proper names, marginal words, transparent compounds and acronyms. A family includes inflections and derivations, so <i>analyse</i>, <i>analysis</i> and <i>analytical</i> count as one.',
     caveats: [
       'Laufer & Ravenhorst-Kalovski (2010) put the minimal threshold for reading comprehension at knowing 95% of the running words, and the optimal threshold at 98%. The 95% and 98% markers show which band gets there, counting names and the supplementary lists as known.',
+      '<b>Words and phrases</b> counts each word inside a PHRASE-list expression at the expression’s band, the way Martinez & Schmitt’s integrated list ranks them: <i>in terms of</i> is three 2K words there, not three 1K ones. Only the PHRASE list’s expressions are treated as units; any other multi-word expression still counts word by word.',
     ],
   },
   ngsl: {
@@ -39,8 +40,10 @@ const SECTION_INFO = {
   },
   phrase: {
     about:
-      'The PHRASE list (Martinez & Schmitt 2012): 506 common multi-word expressions whose meaning is not the sum of their parts, banded K1–K5 by frequency. Matching follows inflections (<i>dealt with</i>), checks the grammar where senses differ (<i>going to</i> as future, not direction), and counts the longest expression once.',
+      'The PHRASE list (Martinez & Schmitt 2012): 506 frequent multi-word expressions whose meaning isn’t fully predictable from their words. Each one has a place in the same 1,000-item bands as the BNC word families, as if words and phrases were one list, so <i>in terms of</i>, made of 1K words, is a K2 item. The list also rates how common each expression is in speech, general writing and academic writing. Matching follows inflections (<i>dealt with</i>), checks the grammar where senses differ (<i>going to</i> as future, not direction), and counts the longest expression once.',
     caveats: [
+      'The register ratings compare the three registers for one expression; they are not frequencies. <i>Rare in academic writing</i> is a reason to look at a choice again, not a rule against it.',
+      'An expression’s band comes from the BNC lists the PHRASE list was built on; the word bands come from Nation’s later BNC/COCA lists. They are built from different corpora, so a one-band gap between an expression and its words is approximate.',
       'When two senses of one form fit, the more frequent is shown and the others are listed. Expressions split by inserted words (<i>on the very other hand</i>) are not found.',
     ],
   },
@@ -127,6 +130,38 @@ const MD_CATEGORIES = {
   engagement_markers: { label: 'Engagement markers', note: 'Address the reader directly', eg: 'consider, note that, you' },
   self_mentions: { label: 'Self-mentions', note: 'Refer to the author', eg: 'I, we argue, my' },
 };
+
+// The PHRASE list's register columns, and its legend for the ratings in them
+// (* * * most common in this genre, or as common; * * less common;
+// * infrequent; x rare or non-existent).
+const PHRASE_REGISTERS = [
+  { key: 'spoken_general', label: 'Spoken', long: 'speech' },
+  { key: 'written_general', label: 'Written', long: 'general writing' },
+  { key: 'written_academic', label: 'Academic', long: 'academic writing' },
+];
+const PHRASE_RATINGS = [
+  { key: 'most_common', label: 'Most common', dots: 3 },
+  { key: 'less_common', label: 'Less common', dots: 2 },
+  { key: 'infrequent', label: 'Infrequent', dots: 1 },
+  { key: 'rare', label: 'Rare or absent', dots: 0 },
+];
+
+/** An entry's form for display: its sense gloss dropped, optional parts kept,
+ *  so IN (THE SENSE) THAT reads "in (the sense) that", not "in that". */
+function phraseName(x) {
+  const form = x.sense ? x.phrase.replace(/\s*\([^()]*\)\s*$/, '') : x.phrase;
+  return form.toLowerCase();
+}
+
+// Glosses in the source that are abbreviations or carry stray quotes.
+const SENSE_LABELS = {
+  '+NP': 'with a noun phrase', TRANs: 'transport', 'adv.': 'adverb', 'IN’/’FROM': 'in, from',
+  anaphor: 'referring back', DECISIONS: 'someone’s decision',
+};
+
+function senseLabel(x) {
+  return x.sense ? (SENSE_LABELS[x.sense] ?? x.sense.toLowerCase()) : null;
+}
 
 const UPOS = {
   NOUN: 'Nouns', VERB: 'Verbs', ADJ: 'Adjectives', ADV: 'Adverbs', PRON: 'Pronouns', PROPN: 'Proper nouns',
