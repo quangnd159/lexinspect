@@ -160,7 +160,7 @@ def build_phrase() -> None:
     out = {
         "source": "Martinez, R., & Schmitt, N. (2012). A phrasal expressions list. Applied Linguistics, 33(3), 299–320.",
         "version": "PHRASE List (505 items, K1–K5 bands)",
-        "license": "No stated terms of use and no open licence. Cite Martinez & Schmitt (2012).",
+        "license": "No open licence. Used in lexinspect with both authors' permission (2026-10). Cite Martinez & Schmitt (2012).",
         "item_count": len(items),
         "items": items,
     }

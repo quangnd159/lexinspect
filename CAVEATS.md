@@ -84,7 +84,7 @@ What lexinspect doesn't do well today, and where to look first if you decide to 
 
 **Longest match hides overlaps.** `as well as` is one hit, not also `as well`. When two senses of the same form both fit, the more frequent is chosen and the others are listed in `also_possible`; nothing decides between them semantically.
 
-**Used with the authors' permission.** Schmitt's resources page states no terms of use for the list, so both authors were asked. Norbert Schmitt agreed on 2026-10-16 and Ron Martinez on 2026-10-30. They approved the use as it stands: the free hosted app, and `phrase.json` in the public repository, with variant fields added and Martinez & Schmitt (2012) cited. The list still has no open licence. See Operations below.
+**Used with the authors' permission.** Schmitt's resources page states no terms of use for the list, so both authors were asked. Norbert Schmitt agreed on 2026-10-16 and Ron Martinez on 2026-10-30. They approved the use as it stands: the free hosted app, `phrase.json` in the public repository with its added variant fields, and the Study 4 materials based on the list, all citing Martinez & Schmitt (2012). The list still has no open licence. See Operations below.
 
 ## cefr
 

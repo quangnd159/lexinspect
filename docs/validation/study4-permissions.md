@@ -14,4 +14,6 @@ Both authors attached no conditions beyond attribution. Schmitt called the list 
 - **Tier 4** (glosses, examples, the sense inventory `a761f159…`, the guidelines `276d35e8…`) was to be "published with the registration or the results once permission is given". The permission is now given. Released files must match the public SHA-256 values.
 - **Tier 3** (full packages) was supervised-only "until the PHRASE redistribution permission is resolved". The PHRASE restriction is resolved. The packages still hold personal data, and the archive lists that as a separate reason to restrict them.
 
+**Not yet updated:** the `license` field in `src/lexinspect/data/phrase.json` still reads "No stated terms of use". The file is detector data pinned by the freeze. `build_phase2.py` now emits the new wording, so the field changes at the next data rebuild, with a new evaluation build.
+
 Each release, when it happens, is dated here.
