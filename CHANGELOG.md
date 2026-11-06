@@ -28,6 +28,7 @@ No change to any existing number. Three modules are new (`syntax`, `level`, `alt
 
 - **Detection is unchanged.** The new phrase fields are derived from the hits. On the 120 development texts used for the 0.4.0 matcher work, `hits` and the `bnc_coca` output are byte-identical to 0.4.0.
 - **One icon set.** Buttons, menus, sorting, links and the language menu use Lucide icons (ISC licence) at one stroke weight, in place of text arrows and CSS shapes; arrows mirror in right-to-left languages.
+- **Phones.** Menus open as sheets from the bottom of the screen, rows of options scroll sideways with a fade at the hidden edge, and the top bar stays on one line in every language: the language menu shrinks to its icon first, then the wordmark to its logo.
 - **The Analyse button's spinner turns.** It sat still while an analysis ran, because its spin and its entrance animated the same property.
 - **Static files are versioned** (`?v=0.5.0`), so a cached old script can't run with a new page.
 - **The CEFR caveats** name the benchmark they cite (`docs/validation/study5-cefr.md`) instead of "Study 5".
