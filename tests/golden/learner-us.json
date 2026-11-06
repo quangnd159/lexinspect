@@ -1,4 +1,315 @@
 {
+ "alternatives": {
+  "items": [
+   {
+    "count": 1,
+    "lemma": "learning",
+    "level": "B2",
+    "occurrences": [
+     {
+      "replacements": {},
+      "span": [
+       210,
+       218
+      ],
+      "surface": "learning",
+      "tag": "NN"
+     }
+    ],
+    "pos": "noun",
+    "suggestions": []
+   },
+   {
+    "count": 1,
+    "lemma": "flexible",
+    "level": "B2",
+    "occurrences": [
+     {
+      "replacements": {},
+      "span": [
+       238,
+       246
+      ],
+      "surface": "flexible",
+      "tag": "JJ"
+     }
+    ],
+    "pos": "adjective",
+    "suggestions": []
+   },
+   {
+    "count": 1,
+    "lemma": "pace",
+    "level": "B1",
+    "occurrences": [
+     {
+      "replacements": {},
+      "span": [
+       277,
+       281
+      ],
+      "surface": "pace",
+      "tag": "NN"
+     }
+    ],
+    "pos": "noun",
+    "suggestions": []
+   },
+   {
+    "count": 1,
+    "lemma": "motivation",
+    "level": "B1",
+    "occurrences": [
+     {
+      "replacements": {},
+      "span": [
+       428,
+       438
+      ],
+      "surface": "motivation",
+      "tag": "NN"
+     }
+    ],
+    "pos": "noun",
+    "suggestions": []
+   },
+   {
+    "count": 1,
+    "lemma": "furthermore",
+    "level": "B1",
+    "occurrences": [
+     {
+      "replacements": {},
+      "span": [
+       455,
+       466
+      ],
+      "surface": "Furthermore",
+      "tag": "RB"
+     }
+    ],
+    "pos": "adverb",
+    "suggestions": []
+   },
+   {
+    "count": 1,
+    "lemma": "outweigh",
+    "level": "B1",
+    "occurrences": [
+     {
+      "replacements": {},
+      "span": [
+       583,
+       591
+      ],
+      "surface": "outweigh",
+      "tag": "VBP"
+     }
+    ],
+    "pos": "verb",
+    "suggestions": []
+   },
+   {
+    "count": 2,
+    "lemma": "advantage",
+    "level": "A2",
+    "occurrences": [
+     {
+      "replacements": {},
+      "span": [
+       190,
+       199
+      ],
+      "surface": "advantage",
+      "tag": "NN"
+     },
+     {
+      "replacements": {},
+      "span": [
+       572,
+       582
+      ],
+      "surface": "advantages",
+      "tag": "NNS"
+     }
+    ],
+    "pos": "noun",
+    "suggestions": []
+   },
+   {
+    "count": 2,
+    "lemma": "disadvantage",
+    "level": "A2",
+    "occurrences": [
+     {
+      "replacements": {},
+      "span": [
+       358,
+       370
+      ],
+      "surface": "disadvantage",
+      "tag": "NN"
+     },
+     {
+      "replacements": {},
+      "span": [
+       596,
+       609
+      ],
+      "surface": "disadvantages",
+      "tag": "NNS"
+     }
+    ],
+    "pos": "noun",
+    "suggestions": []
+   },
+   {
+    "count": 1,
+    "lemma": "opinion",
+    "level": "A2",
+    "occurrences": [
+     {
+      "replacements": {},
+      "span": [
+       6,
+       13
+      ],
+      "surface": "opinion",
+      "tag": "NN"
+     }
+    ],
+    "pos": "noun",
+    "suggestions": []
+   },
+   {
+    "count": 1,
+    "lemma": "textbook",
+    "level": "A2",
+    "occurrences": [
+     {
+      "replacements": {},
+      "span": [
+       93,
+       101
+      ],
+      "surface": "textbook",
+      "tag": "NN"
+     }
+    ],
+    "pos": "noun",
+    "suggestions": []
+   },
+   {
+    "count": 1,
+    "lemma": "online",
+    "level": "A2",
+    "occurrences": [
+     {
+      "replacements": {},
+      "span": [
+       203,
+       209
+      ],
+      "surface": "online",
+      "tag": "JJ"
+     }
+    ],
+    "pos": "adjective",
+    "suggestions": []
+   },
+   {
+    "count": 1,
+    "lemma": "cheap",
+    "level": "A2",
+    "occurrences": [
+     {
+      "replacements": {},
+      "span": [
+       228,
+       233
+      ],
+      "surface": "cheap",
+      "tag": "JJ"
+     }
+    ],
+    "pos": "adjective",
+    "suggestions": []
+   },
+   {
+    "count": 1,
+    "lemma": "however",
+    "level": "A2",
+    "occurrences": [
+     {
+      "replacements": {},
+      "span": [
+       334,
+       341
+      ],
+      "surface": "However",
+      "tag": "RB"
+     }
+    ],
+    "pos": "adverb",
+    "suggestions": []
+   },
+   {
+    "count": 1,
+    "lemma": "screen",
+    "level": "A2",
+    "occurrences": [
+     {
+      "replacements": {},
+      "span": [
+       486,
+       492
+      ],
+      "surface": "screen",
+      "tag": "NN"
+     }
+    ],
+    "pos": "noun",
+    "suggestions": []
+   },
+   {
+    "count": 1,
+    "lemma": "long",
+    "level": "A2",
+    "occurrences": [
+     {
+      "replacements": {},
+      "span": [
+       614,
+       618
+      ],
+      "surface": "long",
+      "tag": "RB"
+     }
+    ],
+    "pos": "adverb",
+    "suggestions": []
+   },
+   {
+    "count": 1,
+    "lemma": "organise",
+    "level": "A2",
+    "occurrences": [
+     {
+      "replacements": {},
+      "span": [
+       631,
+       639
+      ],
+      "surface": "organise",
+      "tag": "VBP"
+     }
+    ],
+    "pos": "verb",
+    "suggestions": []
+   }
+  ],
+  "source": "Synonyms: Open English WordNet 2025 (CC BY 4.0); sense frequencies: WordNet 3.0 (Princeton). Levels: CEFR-J 1.5 + Octanove C1/C2. Bands: Nation BNC/COCA."
+ },
  "awl": {
   "counts": {
    "awl_families": 4,
@@ -311,7 +622,7 @@
   }
  },
  "cefr": {
-  "caveat": "Heuristic only. Based on CEFR-J 1.5 + Octanove C1/C2 1.0; not Cambridge EVP. estimated_level_95th is the lowest level whose cumulative coverage reaches 95%. It describes the vocabulary used, not the writer's proficiency. In lexinspect's Study 5 it was within one level of graded reading texts' level 84-89% of the time but exact only 43-54% (texts with no level counted as C2), rated C1-C2 texts low, and carried almost no information on learner writing. Cite both sources. Combine this with readability, BNC/COCA and diversity signals before reporting a level.",
+  "caveat": "Heuristic only. Based on CEFR-J 1.5 + Octanove C1/C2 1.0; not Cambridge EVP. estimated_level_95th is the lowest level whose cumulative coverage reaches 95%. It describes the vocabulary used, not the writer's proficiency. In lexinspect's CEFR benchmark (docs/validation/study5-cefr.md) it was within one level of graded reading texts' level 84-89% of the time but exact only 43-54% (texts with no level counted as C2), rated C1-C2 texts low, and carried almost no information on learner writing. Cite both sources. Combine this with readability, BNC/COCA and diversity signals before reporting a level.",
   "counts": {
    "content_tokens": 114,
    "off_list_tokens": 1,
@@ -906,6 +1217,69 @@
     "surface": "practise"
    }
   ]
+ },
+ "level": {
+  "applicable": true,
+  "caveat": "An estimate of the CEFR level of a reading text (material written or chosen for learners), learned from Cambridge exam passages and ELG-CEFR-EN graded texts. It describes the text, not a writer's proficiency: do not use it to grade learner writing, where it does no better than always answering B2. Not applicable under 100 words.",
+  "confidence": {
+   "beyond_training_features": [],
+   "beyond_training_range": [],
+   "description": "The text sits between two adjacent levels.",
+   "label": "moderate",
+   "top_probability": 0.517
+  },
+  "contributions": [
+   {
+    "direction": "up",
+    "effect": 1.311,
+    "feature": "mtld",
+    "label": "vocabulary variety (MTLD)",
+    "text": "Vocabulary variety (MTLD) is high (137.5; typical training text 87.5), which raises the estimate.",
+    "typical": 87.486,
+    "value": 137.512
+   },
+   {
+    "direction": "down",
+    "effect": -0.524,
+    "feature": "cefr_above_A2_pct",
+    "label": "share of words above A2 (CEFR-J/Octanove)",
+    "text": "Share of words above A2 (CEFR-J/Octanove) is low (6.1%; typical training text 11.2%), which lowers the estimate.",
+    "typical": 11.208,
+    "value": 6.141
+   },
+   {
+    "direction": "up",
+    "effect": 0.481,
+    "feature": "cefr_proper_noun_pct",
+    "label": "share of proper nouns",
+    "text": "Share of proper nouns is low (0.9%; typical training text 4.5%), which raises the estimate.",
+    "typical": 4.49,
+    "value": 0.877
+   }
+  ],
+  "evaluation": {
+   "cross_dataset_within_one_worst": 0.8276,
+   "held_out_exact": 0.517,
+   "held_out_qwk": 0.761,
+   "held_out_within_one": 0.9221,
+   "n_texts": 706,
+   "range_contains_true_level": 0.8824,
+   "text": "Tested on 706 exam and graded reading passages it hadn't seen (5-fold cross-validation), the estimate was within one level of the published level 92% of the time and exactly right 52% of the time; the shown range contained the published level 88% of the time. Trained on one collection and tested on the other, within-one accuracy was 83% at worst. It is for reading texts, not for grading writing."
+  },
+  "level": "B2",
+  "probabilities": {
+   "A1": 0.0014,
+   "A2": 0.0268,
+   "B1": 0.2941,
+   "B2": 0.5167,
+   "C1": 0.1254,
+   "C2": 0.0357
+  },
+  "range": [
+   "B1",
+   "B2"
+  ],
+  "reason": null
  },
  "metadiscourse": {
   "counts": {
@@ -2641,6 +3015,155 @@
    "unique_types_excluding_numbers": 87
   },
   "excluded_digits": []
+ },
+ "syntax": {
+  "counts": {
+   "clauses": 17,
+   "complex_nominals": 11,
+   "complex_t_units": 3,
+   "coordinate_phrases": 3,
+   "dependent_clauses": 4,
+   "passive_clauses": 0,
+   "sentences": 7,
+   "t_units": 10,
+   "verb_phrases": 18,
+   "words": 113
+  },
+  "dependency": {
+   "mean_dependency_distance": 2.093,
+   "mean_parse_depth": 4.0
+  },
+  "indices": {
+   "c_s": 2.429,
+   "c_t": 1.7,
+   "cn_c": 0.647,
+   "cn_t": 1.1,
+   "cp_c": 0.176,
+   "cp_t": 0.3,
+   "ct_t": 0.3,
+   "dc_c": 0.235,
+   "dc_t": 0.4,
+   "mlc": 6.647,
+   "mls": 16.143,
+   "mlt": 11.3,
+   "t_s": 1.429,
+   "vp_t": 1.8
+  },
+  "passive": {
+   "clauses": 0,
+   "share_of_clauses": 0.0
+  },
+  "phrasal": {
+   "attributive_adjectives": 5,
+   "attributive_adjectives_per_1000_words": 44.25,
+   "premodifying_nouns": 1,
+   "premodifying_nouns_per_1000_words": 8.85,
+   "prepositional_postmodifiers": 3,
+   "prepositional_postmodifiers_per_1000_words": 26.55
+  },
+  "reliability": {
+   "notes": [],
+   "reliable": true
+  },
+  "sentences": [
+   {
+    "clauses": 2,
+    "dependent_clauses": 1,
+    "depth": 3,
+    "mdd": 1.9,
+    "passive": 0,
+    "span": [
+     0,
+     62
+    ],
+    "t_units": 1,
+    "words": 11
+   },
+   {
+    "clauses": 3,
+    "dependent_clauses": 1,
+    "depth": 3,
+    "mdd": 2.368,
+    "passive": 0,
+    "span": [
+     63,
+     172
+    ],
+    "t_units": 2,
+    "words": 20
+   },
+   {
+    "clauses": 4,
+    "dependent_clauses": 0,
+    "depth": 7,
+    "mdd": 2.0,
+    "passive": 0,
+    "span": [
+     174,
+     332
+    ],
+    "t_units": 1,
+    "words": 27
+   },
+   {
+    "clauses": 1,
+    "dependent_clauses": 0,
+    "depth": 2,
+    "mdd": 1.6,
+    "passive": 0,
+    "span": [
+     334,
+     371
+    ],
+    "t_units": 1,
+    "words": 6
+   },
+   {
+    "clauses": 2,
+    "dependent_clauses": 0,
+    "depth": 4,
+    "mdd": 1.929,
+    "passive": 0,
+    "span": [
+     372,
+     454
+    ],
+    "t_units": 2,
+    "words": 14
+   },
+   {
+    "clauses": 2,
+    "dependent_clauses": 0,
+    "depth": 4,
+    "mdd": 2.286,
+    "passive": 0,
+    "span": [
+     455,
+     535
+    ],
+    "t_units": 2,
+    "words": 15
+   },
+   {
+    "clauses": 3,
+    "dependent_clauses": 2,
+    "depth": 5,
+    "mdd": 2.158,
+    "passive": 0,
+    "span": [
+     536,
+     661
+    ],
+    "t_units": 1,
+    "words": 20
+   }
+  ],
+  "validity": {
+   "evidence": "Not yet validated against L2SCA output. A cruder UD label-counting approach correlated r = .90 with L2SCA's clause count, .63 for dependent clauses and .68 for coordinate phrases on 135 Japanese EFL paragraphs (Spring & Johnson 2022).",
+   "method": "Lu's (2010) L2SCA units re-derived from spaCy's dependency parse (en_core_web_sm) instead of Tregex patterns over Stanford constituency trees. Rules follow the Tregex patterns; counts will differ from L2SCA's on the same text wherever the two parsers or the two representations disagree.",
+   "population": "Parsers are trained on edited native-speaker English; learner English parses less accurately, so counts on learner texts carry more error.",
+   "status": "approximation"
+  }
  },
  "tagger": {
   "counts": {

@@ -1,4 +1,431 @@
 {
+ "alternatives": {
+  "items": [
+   {
+    "count": 1,
+    "lemma": "roll",
+    "level": "B2",
+    "occurrences": [
+     {
+      "replacements": {},
+      "span": [
+       108,
+       114
+      ],
+      "surface": "rolled",
+      "tag": "VBD"
+     }
+    ],
+    "pos": "verb",
+    "suggestions": []
+   },
+   {
+    "count": 1,
+    "lemma": "gently",
+    "level": "B2",
+    "occurrences": [
+     {
+      "replacements": {},
+      "span": [
+       240,
+       246
+      ],
+      "surface": "gently",
+      "tag": "RB"
+     }
+    ],
+    "pos": "adverb",
+    "suggestions": []
+   },
+   {
+    "count": 1,
+    "lemma": "cocoa",
+    "level": "B2",
+    "occurrences": [
+     {
+      "replacements": {},
+      "span": [
+       323,
+       328
+      ],
+      "surface": "cocoa",
+      "tag": "NN"
+     }
+    ],
+    "pos": "noun",
+    "suggestions": []
+   },
+   {
+    "count": 1,
+    "lemma": "race",
+    "level": "B1",
+    "occurrences": [
+     {
+      "replacements": {},
+      "span": [
+       76,
+       80
+      ],
+      "surface": "race",
+      "tag": "VB"
+     }
+    ],
+    "pos": "verb",
+    "suggestions": []
+   },
+   {
+    "count": 1,
+    "lemma": "thunder",
+    "level": "B1",
+    "occurrences": [
+     {
+      "replacements": {},
+      "span": [
+       100,
+       107
+      ],
+      "surface": "thunder",
+      "tag": "NN"
+     }
+    ],
+    "pos": "noun",
+    "suggestions": []
+   },
+   {
+    "count": 1,
+    "lemma": "form",
+    "level": "B1",
+    "occurrences": [
+     {
+      "replacements": {},
+      "span": [
+       178,
+       184
+      ],
+      "surface": "formed",
+      "tag": "VBD"
+     }
+    ],
+    "pos": "verb",
+    "suggestions": []
+   },
+   {
+    "count": 1,
+    "lemma": "scold",
+    "level": "B1",
+    "occurrences": [
+     {
+      "replacements": {},
+      "span": [
+       230,
+       235
+      ],
+      "surface": "scold",
+      "tag": "VB"
+     }
+    ],
+    "pos": "verb",
+    "suggestions": []
+   },
+   {
+    "count": 1,
+    "lemma": "wrap",
+    "level": "B1",
+    "occurrences": [
+     {
+      "replacements": {},
+      "span": [
+       248,
+       256
+      ],
+      "surface": "wrapping",
+      "tag": "VBG"
+     }
+    ],
+    "pos": "verb",
+    "suggestions": []
+   },
+   {
+    "count": 1,
+    "lemma": "press",
+    "level": "B1",
+    "occurrences": [
+     {
+      "replacements": {},
+      "span": [
+       296,
+       304
+      ],
+      "surface": "pressing",
+      "tag": "VBG"
+     }
+    ],
+    "pos": "verb",
+    "suggestions": []
+   },
+   {
+    "count": 1,
+    "lemma": "rise",
+    "level": "B1",
+    "occurrences": [
+     {
+      "replacements": {},
+      "span": [
+       461,
+       467
+      ],
+      "surface": "rising",
+      "tag": "VBG"
+     }
+    ],
+    "pos": "verb",
+    "suggestions": []
+   },
+   {
+    "count": 1,
+    "lemma": "loud",
+    "level": "B1",
+    "occurrences": [
+     {
+      "replacements": {
+       "loudly": "loudly"
+      },
+      "span": [
+       502,
+       506
+      ],
+      "surface": "loud",
+      "tag": "RB"
+     }
+    ],
+    "pos": "adverb",
+    "suggestions": [
+     {
+      "band": 1,
+      "level": "A2",
+      "word": "loudly"
+     }
+    ]
+   },
+   {
+    "count": 1,
+    "lemma": "earth",
+    "level": "A2",
+    "occurrences": [
+     {
+      "replacements": {},
+      "span": [
+       48,
+       53
+      ],
+      "surface": "earth",
+      "tag": "NN"
+     }
+    ],
+    "pos": "noun",
+    "suggestions": []
+   },
+   {
+    "count": 1,
+    "lemma": "valley",
+    "level": "A2",
+    "occurrences": [
+     {
+      "replacements": {},
+      "span": [
+       126,
+       132
+      ],
+      "surface": "valley",
+      "tag": "NN"
+     }
+    ],
+    "pos": "noun",
+    "suggestions": []
+   },
+   {
+    "count": 1,
+    "lemma": "splash",
+    "level": "A2",
+    "occurrences": [
+     {
+      "replacements": {},
+      "span": [
+       134,
+       143
+      ],
+      "surface": "splashing",
+      "tag": "VBG"
+     }
+    ],
+    "pos": "verb",
+    "suggestions": []
+   },
+   {
+    "count": 1,
+    "lemma": "road",
+    "level": "A2",
+    "occurrences": [
+     {
+      "replacements": {},
+      "span": [
+       202,
+       206
+      ],
+      "surface": "road",
+      "tag": "NN"
+     }
+    ],
+    "pos": "noun",
+    "suggestions": []
+   },
+   {
+    "count": 1,
+    "lemma": "mug",
+    "level": "A2",
+    "occurrences": [
+     {
+      "replacements": {},
+      "span": [
+       316,
+       319
+      ],
+      "surface": "mug",
+      "tag": "NN"
+     }
+    ],
+    "pos": "noun",
+    "suggestions": []
+   },
+   {
+    "count": 1,
+    "lemma": "home",
+    "level": "A2",
+    "occurrences": [
+     {
+      "replacements": {},
+      "span": [
+       371,
+       375
+      ],
+      "surface": "home",
+      "tag": "RB"
+     }
+    ],
+    "pos": "adverb",
+    "suggestions": []
+   },
+   {
+    "count": 1,
+    "lemma": "sudden",
+    "level": "A2",
+    "occurrences": [
+     {
+      "replacements": {},
+      "span": [
+       386,
+       392
+      ],
+      "surface": "sudden",
+      "tag": "JJ"
+     }
+    ],
+    "pos": "adjective",
+    "suggestions": []
+   },
+   {
+    "count": 1,
+    "lemma": "far",
+    "level": "A2",
+    "occurrences": [
+     {
+      "replacements": {},
+      "span": [
+       412,
+       415
+      ],
+      "surface": "far",
+      "tag": "RB"
+     }
+    ],
+    "pos": "adverb",
+    "suggestions": []
+   },
+   {
+    "count": 1,
+    "lemma": "wild",
+    "level": "A2",
+    "occurrences": [
+     {
+      "replacements": {},
+      "span": [
+       452,
+       456
+      ],
+      "surface": "wild",
+      "tag": "JJ"
+     }
+    ],
+    "pos": "adjective",
+    "suggestions": []
+   },
+   {
+    "count": 1,
+    "lemma": "joy",
+    "level": "A2",
+    "occurrences": [
+     {
+      "replacements": {},
+      "span": [
+       457,
+       460
+      ],
+      "surface": "joy",
+      "tag": "NN"
+     }
+    ],
+    "pos": "noun",
+    "suggestions": []
+   },
+   {
+    "count": 1,
+    "lemma": "chest",
+    "level": "A2",
+    "occurrences": [
+     {
+      "replacements": {},
+      "span": [
+       475,
+       480
+      ],
+      "surface": "chest",
+      "tag": "NN"
+     }
+    ],
+    "pos": "noun",
+    "suggestions": []
+   },
+   {
+    "count": 1,
+    "lemma": "all",
+    "level": "A2",
+    "occurrences": [
+     {
+      "replacements": {},
+      "span": [
+       521,
+       524
+      ],
+      "surface": "all",
+      "tag": "RB"
+     }
+    ],
+    "pos": "adverb",
+    "suggestions": []
+   }
+  ],
+  "source": "Synonyms: Open English WordNet 2025 (CC BY 4.0); sense frequencies: WordNet 3.0 (Princeton). Levels: CEFR-J 1.5 + Octanove C1/C2. Bands: Nation BNC/COCA."
+ },
  "awl": {
   "counts": {
    "awl_families": 0,
@@ -261,7 +688,7 @@
   }
  },
  "cefr": {
-  "caveat": "Heuristic only. Based on CEFR-J 1.5 + Octanove C1/C2 1.0; not Cambridge EVP. estimated_level_95th is the lowest level whose cumulative coverage reaches 95%. It describes the vocabulary used, not the writer's proficiency. In lexinspect's Study 5 it was within one level of graded reading texts' level 84-89% of the time but exact only 43-54% (texts with no level counted as C2), rated C1-C2 texts low, and carried almost no information on learner writing. Cite both sources. Combine this with readability, BNC/COCA and diversity signals before reporting a level.",
+  "caveat": "Heuristic only. Based on CEFR-J 1.5 + Octanove C1/C2 1.0; not Cambridge EVP. estimated_level_95th is the lowest level whose cumulative coverage reaches 95%. It describes the vocabulary used, not the writer's proficiency. In lexinspect's CEFR benchmark (docs/validation/study5-cefr.md) it was within one level of graded reading texts' level 84-89% of the time but exact only 43-54% (texts with no level counted as C2), rated C1-C2 texts low, and carried almost no information on learner writing. Cite both sources. Combine this with readability, BNC/COCA and diversity signals before reporting a level.",
   "counts": {
    "content_tokens": 94,
    "off_list_tokens": 5,
@@ -715,6 +1142,25 @@
   "unknown_names": [],
   "variant": "gb",
   "variant_mismatches": []
+ },
+ "level": {
+  "applicable": false,
+  "caveat": "An estimate of the CEFR level of a reading text (material written or chosen for learners), learned from Cambridge exam passages and ELG-CEFR-EN graded texts. It describes the text, not a writer's proficiency: do not use it to grade learner writing, where it does no better than always answering B2. Not applicable under 100 words.",
+  "confidence": null,
+  "contributions": [],
+  "evaluation": {
+   "cross_dataset_within_one_worst": 0.8276,
+   "held_out_exact": 0.517,
+   "held_out_qwk": 0.761,
+   "held_out_within_one": 0.9221,
+   "n_texts": 706,
+   "range_contains_true_level": 0.8824,
+   "text": "Tested on 706 exam and graded reading passages it hadn't seen (5-fold cross-validation), the estimate was within one level of the published level 92% of the time and exactly right 52% of the time; the shown range contained the published level 88% of the time. Trained on one collection and tested on the other, within-one accuracy was 83% at worst. It is for reading texts, not for grading writing."
+  },
+  "level": null,
+  "probabilities": null,
+  "range": null,
+  "reason": "The text has 94 words; the level estimate needs at least 100. On short texts one or two words decide the level."
  },
  "metadiscourse": {
   "counts": {
@@ -2088,6 +2534,119 @@
    "unique_types_excluding_numbers": 73
   },
   "excluded_digits": []
+ },
+ "syntax": {
+  "counts": {
+   "clauses": 7,
+   "complex_nominals": 9,
+   "complex_t_units": 1,
+   "coordinate_phrases": 1,
+   "dependent_clauses": 2,
+   "passive_clauses": 0,
+   "sentences": 4,
+   "t_units": 5,
+   "verb_phrases": 11,
+   "words": 94
+  },
+  "dependency": {
+   "mean_dependency_distance": 2.389,
+   "mean_parse_depth": 6.0
+  },
+  "indices": {
+   "c_s": 1.75,
+   "c_t": 1.4,
+   "cn_c": 1.286,
+   "cn_t": 1.8,
+   "cp_c": 0.143,
+   "cp_t": 0.2,
+   "ct_t": 0.2,
+   "dc_c": 0.286,
+   "dc_t": 0.4,
+   "mlc": 13.429,
+   "mls": 23.5,
+   "mlt": 18.8,
+   "t_s": 1.25,
+   "vp_t": 2.2
+  },
+  "passive": {
+   "clauses": 0,
+   "share_of_clauses": 0.0
+  },
+  "phrasal": {
+   "attributive_adjectives": 7,
+   "attributive_adjectives_per_1000_words": 74.47,
+   "premodifying_nouns": 1,
+   "premodifying_nouns_per_1000_words": 10.64,
+   "prepositional_postmodifiers": 5,
+   "prepositional_postmodifiers_per_1000_words": 53.19
+  },
+  "reliability": {
+   "notes": [
+    "Only 94 words. Syntactic complexity ratios need 100+ words; on shorter texts one sentence swings every index.",
+    "Only 4 sentences. Per-sentence and per-T-unit ratios need 5+ sentences to mean much."
+   ],
+   "reliable": false
+  },
+  "sentences": [
+   {
+    "clauses": 1,
+    "dependent_clauses": 0,
+    "depth": 4,
+    "mdd": 1.7,
+    "passive": 0,
+    "span": [
+     0,
+     54
+    ],
+    "t_units": 1,
+    "words": 11
+   },
+   {
+    "clauses": 3,
+    "dependent_clauses": 2,
+    "depth": 8,
+    "mdd": 1.833,
+    "passive": 0,
+    "span": [
+     55,
+     207
+    ],
+    "t_units": 1,
+    "words": 25
+   },
+   {
+    "clauses": 1,
+    "dependent_clauses": 0,
+    "depth": 5,
+    "mdd": 2.391,
+    "passive": 0,
+    "span": [
+     208,
+     349
+    ],
+    "t_units": 1,
+    "words": 24
+   },
+   {
+    "clauses": 2,
+    "dependent_clauses": 0,
+    "depth": 7,
+    "mdd": 3.0,
+    "passive": 0,
+    "span": [
+     350,
+     525
+    ],
+    "t_units": 2,
+    "words": 34
+   }
+  ],
+  "validity": {
+   "evidence": "Not yet validated against L2SCA output. A cruder UD label-counting approach correlated r = .90 with L2SCA's clause count, .63 for dependent clauses and .68 for coordinate phrases on 135 Japanese EFL paragraphs (Spring & Johnson 2022).",
+   "method": "Lu's (2010) L2SCA units re-derived from spaCy's dependency parse (en_core_web_sm) instead of Tregex patterns over Stanford constituency trees. Rules follow the Tregex patterns; counts will differ from L2SCA's on the same text wherever the two parsers or the two representations disagree.",
+   "population": "Parsers are trained on edited native-speaker English; learner English parses less accurately, so counts on learner texts carry more error.",
+   "status": "approximation"
+  }
  },
  "tagger": {
   "counts": {

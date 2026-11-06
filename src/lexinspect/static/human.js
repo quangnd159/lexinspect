@@ -32,7 +32,7 @@ const Human = (() => {
       s.async = true;
       s.onerror = () => {
         loading = null;
-        reject(new Error('The human check couldn’t load. Check your connection or content blocker, then try again.'));
+        reject(new Error(t('The human check couldn’t load. Check your connection or content blocker, then try again.')));
       };
       document.head.appendChild(s);
     });
@@ -59,14 +59,14 @@ const Human = (() => {
                 action: 'analyse',
                 appearance: 'interaction-only',
                 execution: 'execute',
-                callback: (t) => settle('resolve', t),
+                callback: (tok) => settle('resolve', tok),
                 'error-callback': (code) => {
                   // Codes: developers.cloudflare.com/turnstile/troubleshooting/client-side-errors/
                   console.warn(`Turnstile error ${code}`);
-                  settle('reject', new Error('The human check failed. Try again.'));
+                  settle('reject', new Error(t('The human check failed. Try again.')));
                   return true; // handled; don't let Turnstile throw
                 },
-                'timeout-callback': () => settle('reject', new Error('The human check timed out. Try again.')),
+                'timeout-callback': () => settle('reject', new Error(t('The human check timed out. Try again.'))),
                 'before-interactive-callback': () => $('challenge').classList.add('asking'),
                 'after-interactive-callback': () => $('challenge').classList.remove('asking'),
               });

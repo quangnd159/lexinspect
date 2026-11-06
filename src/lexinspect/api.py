@@ -31,6 +31,7 @@ from pydantic import BaseModel, Field
 from lexinspect import (
     __version__,
     _human,
+    alternatives,
     awl,
     bnc_coca,
     cefr,
@@ -43,6 +44,7 @@ from lexinspect import (
     pipeline,
     readability,
     statistics,
+    syntax,
     tagger,
 )
 from lexinspect._schema import SCHEMA_VERSION, envelope, provenance
@@ -120,6 +122,10 @@ async def security_headers(request: Request, call_next):
         if header == "Content-Security-Policy" and request.url.path in _CSP_EXEMPT_PATHS:
             continue
         response.headers.setdefault(header, value)
+    if request.url.path.startswith("/static/"):
+        # Local serving only (the CDN sets its own): revalidate every load so an
+        # edited script is never mixed with a cached one.
+        response.headers.setdefault("Cache-Control", "no-cache")
     if request.url.path.startswith("/v1/"):
         # Analyses are a pure function of the body; nothing to cache on GET
         # except the metadata endpoints, which set their own headers.
@@ -161,6 +167,11 @@ def privacy() -> FileResponse:
     return FileResponse(_STATIC_DIR / "privacy.html", headers={"Cache-Control": "no-cache"})
 
 
+@app.get("/batch", include_in_schema=False)
+def batch() -> FileResponse:
+    return FileResponse(_STATIC_DIR / "batch.html", headers={"Cache-Control": "no-cache"})
+
+
 @app.get("/comparison", include_in_schema=False)
 def comparison() -> FileResponse:
     return FileResponse(_STATIC_DIR / "comparison.html", headers={"Cache-Control": "no-cache"})
@@ -190,7 +201,7 @@ class AnalyzeIn(TextIn):
     )
     modules: list[str] | None = Field(
         default=None,
-        description=f"Subset of modules to run (default: all). One of {list(pipeline.MODULES)}.",
+        description=f"Subset of modules to run (default: all). One of {pipeline.ALL_MODULES}.",
     )
 
 
@@ -250,7 +261,7 @@ def schema() -> JSONResponse:
         {
             "schema_version": SCHEMA_VERSION,
             "version": __version__,
-            "modules": list(pipeline.MODULES),
+            "modules": pipeline.ALL_MODULES,
             "modules_optional": {name: extra for name, (extra, _p) in _OPTIONAL_MODULES.items()},
             "optional_available": {
                 name: all(_installed(p) for p in pkgs)
@@ -290,6 +301,11 @@ def post_tag(body: TagIn) -> dict[str, Any]:
     return _run("tagger", body, tagger.analyze, include_tokens=body.include_tokens)
 
 
+@app.post("/v1/syntax", dependencies=_GATED)
+def post_syntax(body: TextIn) -> dict[str, Any]:
+    return _run("syntax", body, syntax.analyze)
+
+
 @app.post("/v1/awl", dependencies=_GATED)
 def post_awl(body: TextIn) -> dict[str, Any]:
     return _run("awl", body, awl.analyze)
@@ -320,6 +336,12 @@ def post_metadiscourse(body: TextIn) -> dict[str, Any]:
     return _run("metadiscourse", body, metadiscourse.analyze)
 
 
+@app.post("/v1/alternatives", dependencies=_GATED)
+def post_alternatives(body: ErrorsIn) -> dict[str, Any]:
+    """Simpler words (Open English WordNet) for every word at A2 or above, inflected per occurrence."""
+    return _run("alternatives", body, alternatives.analyze, variant=body.variant)
+
+
 @app.post("/v1/errors", dependencies=_GATED)
 def post_errors(body: ErrorsIn) -> dict[str, Any]:
     try:
@@ -342,7 +364,7 @@ def post_cefr_level(body: TextIn) -> dict[str, Any]:
 @app.post("/v1/analyze", dependencies=_GATED)
 def post_analyze(body: AnalyzeIn) -> dict[str, Any]:
     _check(body.text)
-    unknown = sorted(set(body.modules or ()) - set(pipeline.MODULES))
+    unknown = sorted(set(body.modules or ()) - set(pipeline.ALL_MODULES))
     if unknown:
         raise HTTPException(
             422, {"error": "invalid_request", "detail": f"unknown modules: {unknown}"}

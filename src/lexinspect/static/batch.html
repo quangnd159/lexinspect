@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Many texts · lexinspect</title>
+<meta name="description" content="Profile many English texts at once and compare them in one table: readability, CEFR level, vocabulary coverage, phrases, sentence complexity. Export one CSV row per text.">
+<meta name="color-scheme" content="light dark">
+<link rel="stylesheet" href="/static/fonts/fonts.css?v=0.5.0">
+<link rel="stylesheet" href="/static/styles.css?v=0.5.0">
+<script src="/static/i18n.js?v=0.5.0"></script>
+<script src="/static/icons.js?v=0.5.0"></script>
+<meta name="i18n-title" content="Many texts · lexinspect">
+<link rel="icon" type="image/png" sizes="64x64" href="/static/favicon.png">
+<link rel="icon" type="image/png" sizes="64x64" href="/static/favicon-dark.png" media="(prefers-color-scheme: dark)">
+<link rel="apple-touch-icon" sizes="180x180" href="/static/apple-touch-icon.png">
+<meta name="theme-color" content="#fbfaf7" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#131312" media="(prefers-color-scheme: dark)">
+</head>
+<body>
+<header class="topbar">
+  <a class="wordmark" href="/" aria-label="lexinspect home" data-i18n-attr="aria-label">
+    <picture class="brand-icon">
+      <source srcset="/static/logo-dark.png" media="(prefers-color-scheme: dark)">
+      <img src="/static/logo.png" width="36" height="36" alt="" decoding="async">
+    </picture>
+    <span class="wordmark-label">lex<span>inspect</span></span>
+  </a>
+  <nav class="toplinks" aria-label="Site" data-i18n-attr="aria-label">
+    <a href="/" data-i18n="One text">One text</a>
+    <a href="/batch" aria-current="page" data-i18n="Many texts">Many texts</a>
+    <a class="hide-sm" href="/docs" target="_blank" rel="noopener">API</a>
+    <a class="hide-sm" href="/licences" data-i18n="Sources">Sources</a>
+    <a class="hide-sm" href="https://github.com/quangnd159/lexinspect" target="_blank" rel="noopener">GitHub</a>
+  </nav>
+</header>
+
+<main class="batch">
+  <div class="batch-intro">
+    <h1 data-i18n="Many texts">Many texts</h1>
+    <p data-i18n="Profile up to 100 texts and compare them side by side: a coursebook’s reading texts, a set of essays, a corpus sample. Each text is analysed exactly as a single text would be, and nothing is stored.">Profile up to 100 texts and compare them side by side: a coursebook’s reading texts, a set of essays, a corpus sample. Each text is analysed exactly as a single text would be, and nothing is stored.</p>
+  </div>
+
+  <section class="batch-drop" id="batchDrop" aria-label="Add texts" data-i18n-attr="aria-label">
+    <div class="batch-drop-inner">
+      <span class="i" data-icon="upload" data-size="20"></span>
+      <b data-i18n="Drop .txt, .md, .docx or .odt files here">Drop .txt, .md, .docx or .odt files here</b>
+      <span data-i18n="or">or</span>
+      <div class="batch-buttons">
+        <button class="btn primary" type="button" id="batchPick"><span class="i" data-icon="folder-open"></span><span data-i18n="Choose files">Choose files</span></button>
+        <button class="btn" type="button" id="batchPasteBtn"><span class="i" data-icon="clipboard-paste"></span><span data-i18n="Paste texts">Paste texts</span></button>
+      </div>
+      <input type="file" id="batchFiles" multiple hidden>
+    </div>
+  </section>
+
+  <section class="batch-paste" id="batchPaste" hidden aria-label="Paste texts" data-i18n-attr="aria-label">
+    <label for="batchText" class="target-label"><span data-i18n="Paste several texts. Put a line of three dashes between one text and the next:">Paste several texts. Put a line of three dashes between one text and the next:</span> <code>---</code></label>
+    <textarea id="batchText" lang="en" dir="ltr" spellcheck="false" placeholder="First text…&#10;---&#10;Second text…" data-i18n-attr="placeholder"></textarea>
+    <div class="batch-buttons">
+      <button class="btn primary" type="button" id="batchPasteGo" data-i18n="Add these texts">Add these texts</button>
+      <button class="btn ghost" type="button" id="batchPasteCancel" data-i18n="Cancel">Cancel</button>
+    </div>
+  </section>
+
+  <section class="batch-results" id="batchResults" hidden aria-label="Results" data-i18n-attr="aria-label">
+    <div class="batch-bar">
+      <div class="batch-progress" id="batchProgress" role="status" aria-live="polite"></div>
+      <div class="batch-controls">
+        <div class="target-picker" id="batchTarget"></div>
+        <div class="segmented small" role="radiogroup" aria-label="Spelling variety" data-i18n-attr="aria-label" id="batchVariant">
+          <button type="button" role="radio" data-variant="gb" aria-checked="true" title="British spelling" data-i18n-attr="title" data-i18n="UK">UK</button>
+          <button type="button" role="radio" data-variant="us" aria-checked="false" title="American spelling" data-i18n-attr="title" data-i18n="US">US</button>
+        </div>
+        <button class="btn small" type="button" id="batchCsv" disabled><span class="i" data-icon="download" data-size="14"></span><span data-i18n="Download CSV">Download CSV</span></button>
+        <button class="btn small ghost" type="button" id="batchClear" data-i18n="Clear">Clear</button>
+      </div>
+    </div>
+    <div class="batch-table-wrap">
+      <table class="batch-table" id="batchTable"></table>
+    </div>
+    <p class="fine" data-i18n="Select a column heading to sort it, or Open to see a text with every finding marked. The text travels inside the link and is never stored. The CSV holds every measure, one row per text, in the same columns as the single-text summary.">Select a column heading to sort it, or Open to see a text with every finding marked. The text travels inside the link and is never stored. The CSV holds every measure, one row per text, in the same columns as the single-text summary.</p>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <p><span data-i18n="Built by Quang">Built by Quang</span> · <a href="https://dqnotes.com" target="_blank" rel="noopener">dqnotes.com</a> · <a href="/privacy" data-i18n="Privacy">Privacy</a></p>
+</footer>
+
+<div class="challenge" id="challenge" aria-live="polite">
+  <p class="challenge-note" data-i18n="A quick check that you’re a person">A quick check that you’re a person</p>
+  <div id="challengeWidget"></div>
+</div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script src="/static/dom.js?v=0.5.0"></script>
+<script src="/static/share.js?v=0.5.0"></script>
+<script src="/static/files.js?v=0.5.0"></script>
+<script src="/static/human.js?v=0.5.0"></script>
+<script src="/static/copy.js?v=0.5.0"></script>
+<script src="/static/insights.js?v=0.5.0"></script>
+<script src="/static/metrics.js?v=0.5.0"></script>
+<script src="/static/sentences.js?v=0.5.0"></script>
+<script src="/static/export.js?v=0.5.0"></script>
+<script src="/static/batch.js?v=0.5.0"></script>
+</body>
+</html>

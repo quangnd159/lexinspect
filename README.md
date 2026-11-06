@@ -11,7 +11,7 @@
 
 English text-analysis toolkit. CLI-first, JSON-out, with an HTTP API and a web app on top of the same code. Designed to be driven by AI agents (Claude Code, Claude Skills) as well as by people.
 
-A free, self-hosted complement to commercial tools like Text Inspector. It reports readability (eight published formulas), lexical diversity, POS tags, vocabulary profiles against CEFR-J/Octanove, Nation's BNC/COCA families, NGSL/NAWL and the Academic Word List, Martinez & Schmitt's PHRASE list, Hyland's metadiscourse markers, and British/American spelling.
+A free, self-hosted complement to commercial tools like Text Inspector. It reports readability (eight published formulas), lexical diversity, POS tags, vocabulary profiles against CEFR-J/Octanove, Nation's BNC/COCA families, NGSL/NAWL and the Academic Word List, Martinez & Schmitt's PHRASE list (with the authors' permission), syntactic complexity after Lu's L2SCA, Hyland's metadiscourse markers, and British/American spelling. On top of those it estimates a reading text's CEFR level, with a range and its reasons, and suggests simpler words for readers at a chosen level.
 
 ## Install
 
@@ -45,6 +45,9 @@ uv run lexinspect ngsl passage.txt
 uv run lexinspect phrase passage.txt
 uv run lexinspect cefr passage.txt
 uv run lexinspect metadiscourse passage.txt
+uv run lexinspect syntax passage.txt
+uv run lexinspect alternatives passage.txt   # simpler words for every word from A2 up
+uv run lexinspect level passage.txt          # reading-text CEFR estimate (runs the modules it needs)
 uv run lexinspect errors passage.txt --variant gb   # British (default)
 uv run lexinspect errors passage.txt --variant us   # American
 
@@ -153,6 +156,18 @@ Spelling check with Hunspell (via [spylls](https://github.com/zverok/spylls)) an
 
 Words containing digits, URLs, email addresses and short abbreviations with a full stop (`e.g.`, `Dr.`) are not checked.
 
+### syntax
+
+Syntactic complexity from spaCy's dependency parse. The fourteen indices of Lu's (2010) L2 Syntactic Complexity Analyzer, under its names: length (`mls`, `mlt`, `mlc`), subordination (`c_s`, `c_t`, `dc_c`, `dc_t`, `ct_t`), coordination (`t_s`, `cp_t`, `cp_c`) and phrasal sophistication (`cn_t`, `cn_c`, `vp_t`). L2SCA matches Tregex patterns on constituency trees; lexinspect finds clauses, T-units, coordinate phrases and complex nominals from dependency labels instead, so values track L2SCA's without being identical. Also `dependency` (mean dependency distance, Liu 2008, and mean parse depth), `passive` clauses, and `phrasal`: attributive adjectives, premodifying nouns and prepositional postmodifiers, raw and per 1,000 words (Biber, Gray & Poonpon 2011). `sentences` lists each sentence's span, words, clauses, dependent clauses, T-units, passives, depth and dependency distance. `reliability` flags texts too short for the ratios to settle. About 4 ms per 1,000 words on top of the shared parse.
+
+### level
+
+A CEFR level estimate for a **reading text** (A1–C2), derived from the other modules' results, so it costs no extra parsing. A proportional-odds (ordinal) regression on 23 measures from `cefr`, `bnc_coca`, `ngsl`, `awl`, `phrase`, `readability` and `diversity`, each coefficient constrained to the direction research expects, fitted on Cambridge English exam passages (Xia, Kochmar & Briscoe 2016) and ELG-CEFR-EN (Breuker 2023). It returns `level`, a `range` that held the true level 88% of the time in testing, `probabilities` per level, `confidence`, the `contributions` that pushed the estimate up or down (each with a plain-English `text`), and `evaluation`: within one level 92% of the time in cross-validation and 83–85% when trained on one dataset and tested on the other, exact about half the time. Not applicable under 100 words, and not meant for learner writing, which differs from graded reading in ways the model never saw. `level_model.json` is CC BY-NC-SA 4.0 because its training data is; rebuild it with `scripts/build_data/build_level_model.py`.
+
+### alternatives
+
+Simpler words for adapting a text. For each lemma at A2 or above: its CEFR level and occurrences, and up to five same-part-of-speech synonyms from Open English WordNet that sit at a lower CEFR level, with their level and BNC/COCA band. Each occurrence carries `replacements`, every suggestion inflected and capitalised to fit that place in the text. Only each word's main sense is used, so suggestions favour precision over recall: about 1 in 12 A2+ headwords has one, and about 9 in 10 suggestions looked acceptable in an AI-made spot check of 150 random entries (not a human evaluation). Check that a swap fits the sentence. The web app's Adapt tab filters them to the readers' level.
+
 ### profile
 
 One row per lexical token: `[start, end, cefr, bnc, awl, ngsl]`, returned as a column table (`columns` plus `rows`) to keep large texts compact. `cefr` is a level, `"proper"` or null; `bnc` is a band 1–25, `"proper"`, `"supplementary"` or null; `awl` is a sublist or null; `ngsl` is `"ngsl"`, `"nawl"`, `"proper"` or null. Each value comes from the same lookup the list module makes, so a word highlighted as B2 is the word counted under B2. The web UI's in-text highlighting reads this.
@@ -195,9 +210,19 @@ GET  /healthz
 GET  /docs               Swagger UI
 ```
 
-`/v1/analyze` runs readability, statistics, diversity, tagger, awl, bnc_coca, ngsl, phrase, cefr, metadiscourse, errors and profile. Requests over 50 KB of text (`LEXINSPECT_MAX_TEXT_BYTES`) get a 413. Responses over 2 KB are gzipped. CORS is open by default; set `LEXINSPECT_ALLOWED_ORIGINS` to a comma-separated list to restrict it. The app loads spaCy, CMUdict, the word lists and both dictionaries at startup (about a second), so the first request doesn't pay for them.
+`/v1/analyze` runs readability, statistics, diversity, tagger, syntax, awl, bnc_coca, ngsl, phrase, cefr, metadiscourse, errors, alternatives and profile, then the `level` estimate from their results. Pass `modules` to run a subset; asking for `level` runs what it needs. Requests over 50 KB of text (`LEXINSPECT_MAX_TEXT_BYTES`) get a 413. Responses over 2 KB are gzipped. CORS is open by default; set `LEXINSPECT_ALLOWED_ORIGINS` to a comma-separated list to restrict it. The app loads spaCy, CMUdict, the word lists and both dictionaries at startup (about a second), so the first request doesn't pay for them.
 
-The web UI shows the analysed text with findings highlighted in place, one lens at a time: Spelling, CEFR, Frequency, Academic, NGSL, Phrases, Metadiscourse. Lenses are linked to the analysis tabs; hovering a word shows what each list says about it, clicking an item in a tab locates it in the text, and spelling suggestions apply with one click and re-analyse. It also has a UK/US toggle, sample texts and an Export menu, and follows the system's light or dark setting.
+The web UI shows the analysed text with findings highlighted in place, one lens at a time: Above the readers' level, Spelling, CEFR, Frequency, Academic, NGSL, Phrases, Sentences, Metadiscourse. Lenses are linked to the analysis tabs; hovering a word shows what each list says about it and its simpler alternatives, clicking an item in a tab locates it in the text, and spelling fixes and word swaps apply with one click and re-analyse.
+
+- **Readers' level.** Pick A1–C1 and every view answers for those readers: the share of words they likely know, against the 95% and 98% coverage thresholds (Laufer & Ravenhorst-Kalovski 2010).
+- **Overview.** The level estimate with its range and reasons; *What stands out*, the few findings worth acting on, each linked to where it is; and after an edit, how each measure moved since the original version.
+- **Adapt.** The words above the readers' level with simpler words to swap in, words on no list, phrases rarer than their words, sentences worth splitting, and a word list to copy.
+- **Sentences.** The `syntax` measures, sentences by length, and the longest sentences a click from the text.
+- **Open a file** (`.txt`, `.md`, `.docx`, `.odt`, read in the browser) or drop it on the editor; **Copy link** puts the text, compressed, after the link's `#`, which browsers never send to a server.
+- **Many texts** (`/batch`): up to 100 files or pasted texts in one sortable table, with a one-row-per-text CSV.
+- **Twelve interface languages**: English, Arabic, German, Spanish, French, Indonesian, Japanese, Korean, Brazilian Portuguese, Turkish, Vietnamese and Simplified Chinese. The analysed text stays English, and data exports keep English column names.
+
+It also has a UK/US toggle, sample texts and an Export menu, and follows the system's light or dark setting.
 
 ### Export from the web app
 
@@ -207,7 +232,7 @@ Exports are built in the browser from the results on screen; nothing is sent aga
 | --- | --- |
 | Copy summary | A few plain-text lines for an email, feedback form or document |
 | Print or save as PDF | A report of every section plus the text (Cmd/Ctrl+P after an analysis prints the same report) |
-| Excel workbook (`.xlsx`) | Every table on its own sheet: Summary (each value with its description, so it doubles as a codebook), Words, Readability, CEFR, BNC-COCA (with and without phrases as units), AWL, Word lists, Expressions (one row per PHRASE entry, with its ratings and example), Phrases, Metadiscourse, Metadiscourse hits, Spelling, Diversity, Parts of speech, Text and About |
+| Excel workbook (`.xlsx`) | Every table on its own sheet: Summary (each value with its description, so it doubles as a codebook), Level estimate, Words, Readability, Syntax, Sentences, CEFR, BNC-COCA (with and without phrases as units), AWL, Word lists, Expressions (one row per PHRASE entry, with its ratings and example), Phrases, Metadiscourse, Metadiscourse hits, Spelling, Diversity, Parts of speech, Text and About |
 | Summary (`.csv`) | One row per text, about 160 columns in a fixed order, so rows from different texts stack (`rbind`, `pd.concat`) |
 | Word by word (`.csv`) | One row per word: offsets, CEFR level, BNC/COCA band, AWL sublist, NGSL/NAWL, spelling flag, and the phrase and metadiscourse marker it belongs to |
 | Full results (`.json`) | The `/v1/analyze` response, as the CLI's `analyze` emits it |
@@ -231,13 +256,13 @@ uv run ruff format .
 
 See [CONTRIBUTING.md](CONTRIBUTING.md) for how to propose changes and [SECURITY.md](SECURITY.md) for reporting vulnerabilities.
 
-The web UI is framework-free with no build step. `src/lexinspect/static/` holds `index.html`, `licences.html`, `styles.css` and seven scripts for the app: `dom.js` (DOM and formatting helpers), `human.js` (the Turnstile check, loaded only when the server has a site key), `copy.js` (explanatory text and samples), `reader.js` (the highlighted text and lenses), `panels.js` (one renderer per tab), `export.js` (the Export menu's files, report and citation) and `app.js` (editor, requests, wiring). The comparison page has its own `comparison.html`, `comparison.css` and `comparison.js`, with its evidence files under `comparison/`. Locally, FastAPI serves the directory at `/static/`.
+The web UI is framework-free with no build step. `src/lexinspect/static/` holds `index.html`, `licences.html`, `styles.css` and the app's scripts: `i18n.js` (interface language: `t()`, plurals, the language menu; catalogues in `static/locales/`, messages extracted by `scripts/i18n/extract.py` and checked by `tests/test_i18n.py`), `icons.js` (the Lucide icons used), `dom.js` (DOM and locale-aware formatting helpers), `human.js` (the Turnstile check, loaded only when the server has a site key), `copy.js` (explanatory text and samples), `reader.js` (the highlighted text and lenses), `panels.js` (one renderer per tab), `export.js` (the Export menu's files, report and citation) and `app.js` (editor, requests, wiring). The comparison page has its own `comparison.html`, `comparison.css` and `comparison.js`, with its evidence files under `comparison/`. Locally, FastAPI serves the directory at `/static/`.
 
 Data refresh: see `scripts/build_data/README.md`.
 
 ## Validity and caveats
 
-[VALIDITY.md](VALIDITY.md) says what each number is for and not for, and what evidence stands behind it: the research on each measure, and lexinspect's own validation studies. lexinspect is for teaching, materials work, research description and diagnosis, not for high-stakes decisions about people.
+[VALIDITY.md](VALIDITY.md) says what each number is for and not for, and what evidence stands behind it: the research on each measure, and lexinspect's own benchmarks. lexinspect is for teaching, materials work, research description and diagnosis, not for high-stakes decisions about people.
 
 [CAVEATS.md](CAVEATS.md) catalogues the known limitations and conscious trade-offs, per module, transport and operations.
 

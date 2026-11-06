@@ -47,7 +47,7 @@ def test_analyze_combines_modules():
     payload = json.loads(result.stdout)
     assert payload["module"] == "analyze"
     assert payload["schema_version"] == "2"
-    assert list(payload["results"]) == list(pipeline.MODULES)
+    assert list(payload["results"]) == pipeline.ALL_MODULES
     assert "errors" in payload["results"]
     inp = payload["input"]
     assert inp["word_count"] == payload["results"]["readability"]["counts"]["words"]

@@ -5,13 +5,14 @@ message: >-
 title: lexinspect
 abstract: >-
   English text analysis: readability, lexical diversity, CEFR, BNC/COCA, NGSL
-  and AWL vocabulary profiles, phrasal expressions, metadiscourse and spelling.
+  and AWL vocabulary profiles, phrasal expressions, syntactic complexity, a
+  reading-text CEFR level estimate, metadiscourse and spelling.
   CLI, HTTP API and web app.
 type: software
 authors:
   - given-names: Quang
     family-names: Nguyen
-version: 0.4.0
+version: 0.5.0
 license: MIT
 repository-code: https://github.com/quangnd159/lexinspect
 url: https://lexinspect.dqnotes.com

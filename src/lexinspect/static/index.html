@@ -6,8 +6,11 @@
 <title>lexinspect</title>
 <meta name="description" content="Readability, vocabulary level, frequency profile, phrases, metadiscourse and spelling for any English text, highlighted in place.">
 <meta name="color-scheme" content="light dark">
-<link rel="stylesheet" href="/static/fonts/fonts.css">
-<link rel="stylesheet" href="/static/styles.css">
+<link rel="stylesheet" href="/static/fonts/fonts.css?v=0.5.0">
+<link rel="stylesheet" href="/static/styles.css?v=0.5.0">
+<script src="/static/i18n.js?v=0.5.0"></script>
+<script src="/static/icons.js?v=0.5.0"></script>
+<meta name="i18n-title" content="lexinspect">
 <link rel="icon" type="image/png" sizes="64x64" href="/static/favicon.png">
 <link rel="icon" type="image/png" sizes="64x64" href="/static/favicon-dark.png" media="(prefers-color-scheme: dark)">
 <link rel="apple-touch-icon" sizes="180x180" href="/static/apple-touch-icon.png">
@@ -16,39 +19,41 @@
 </head>
 <body>
 <header class="topbar">
-  <a class="wordmark" href="/" aria-label="lexinspect home">
+  <a class="wordmark" href="/" aria-label="lexinspect home" data-i18n-attr="aria-label">
     <picture class="brand-icon">
       <source srcset="/static/logo-dark.png" media="(prefers-color-scheme: dark)">
       <img src="/static/logo.png" width="36" height="36" alt="" decoding="async">
     </picture>
     <span class="wordmark-label">lex<span>inspect</span></span>
   </a>
-  <nav class="toplinks" aria-label="Site">
-    <a href="/docs" target="_blank" rel="noopener">API</a>
-    <a href="/licences">Sources</a>
-    <a href="https://github.com/quangnd159/lexinspect" target="_blank" rel="noopener">GitHub</a>
+  <nav class="toplinks" aria-label="Site" data-i18n-attr="aria-label">
+    <a href="/batch" data-i18n="Many texts">Many texts</a>
+    <a class="hide-sm" href="/docs" target="_blank" rel="noopener">API</a>
+    <a class="hide-sm" href="/licences" data-i18n="Sources">Sources</a>
+    <a class="hide-sm" href="https://github.com/quangnd159/lexinspect" target="_blank" rel="noopener">GitHub</a>
   </nav>
 </header>
 
 <main class="workspace" id="workspace" data-mode="edit">
-  <section class="pane pane-text" aria-label="Your text">
+  <section class="pane pane-text" aria-label="Your text" data-i18n-attr="aria-label">
     <div class="editor" id="editor">
-      <label class="sr-only" for="text">Text to analyse</label>
-      <textarea id="text" spellcheck="false" placeholder="Paste or write English text — an essay, a reading passage, an exam item, a draft — and press Analyse."></textarea>
+      <label class="sr-only" for="text" data-i18n="Text to analyse">Text to analyse</label>
+      <textarea id="text" lang="en" dir="ltr" spellcheck="false" placeholder="Paste or type an English text, such as an essay, a reading passage or an exam item, then press Analyse." data-i18n-attr="placeholder"></textarea>
+      <div class="dropzone" id="dropzone" aria-hidden="true"><span class="i" data-icon="upload" data-size="20"></span><span data-i18n="Drop a .txt, .md, .docx or .odt file to open it">Drop a .txt, .md, .docx or .odt file to open it</span></div>
       <div class="editor-bar">
         <div class="meter" id="meter" aria-live="polite">
-          <span id="liveWords">0</span> words
-          <span class="meter-sep">·</span>
-          <span id="liveSize">0 KB</span> of <span id="liveLimit">50 KB</span>
+          <span id="liveWords">0 words</span><span class="meter-sep">·</span><span id="liveSize">0 kB of 50 kB</span>
         </div>
         <div class="editor-actions">
+          <button class="btn ghost" type="button" id="openBtn" title="Open a .txt, .md, .docx or .odt file, or drop one here" data-i18n-attr="title"><span class="i" data-icon="folder-open"></span><span data-i18n="Open file">Open file</span></button>
+          <input type="file" id="fileInput" hidden>
           <div class="samples" id="samples">
-            <button class="btn ghost" type="button" id="samplesBtn" aria-haspopup="menu" aria-expanded="false">Try a sample</button>
+            <button class="btn ghost" type="button" id="samplesBtn" aria-haspopup="menu" aria-expanded="false"><span data-i18n="Try a sample">Try a sample</span><span class="i trail" data-icon="chevron-down" data-size="14"></span></button>
             <div class="menu" id="samplesMenu" role="menu" hidden></div>
           </div>
-          <div class="segmented" role="radiogroup" aria-label="Spelling variety" id="variant">
-            <button type="button" role="radio" data-variant="gb" aria-checked="true" title="British spelling">UK</button>
-            <button type="button" role="radio" data-variant="us" aria-checked="false" title="American spelling">US</button>
+          <div class="segmented" role="radiogroup" aria-label="Spelling variety" data-i18n-attr="aria-label" id="variant">
+            <button type="button" role="radio" data-variant="gb" aria-checked="true" title="British spelling" data-i18n-attr="title" data-i18n="UK">UK</button>
+            <button type="button" role="radio" data-variant="us" aria-checked="false" title="American spelling" data-i18n-attr="title" data-i18n="US">US</button>
           </div>
           <button class="btn primary" type="button" id="analyseBtn">
             <span class="btn-label">Analyse</span>
@@ -61,70 +66,77 @@
 
     <div class="reader" id="reader" hidden>
       <div class="reader-bar">
-        <div class="lenses" role="tablist" aria-label="Highlight" id="lenses"></div>
-        <button class="btn ghost small" type="button" id="editBtn">Edit text</button>
+        <div class="lenses" role="group" aria-label="Highlight" data-i18n-attr="aria-label" id="lenses"></div>
+        <button class="btn ghost small" type="button" id="editBtn"><span class="i" data-icon="pencil" data-size="14"></span><span data-i18n="Edit text">Edit text</span></button>
       </div>
       <div class="legend" id="legend"></div>
-      <article class="doc" id="doc" data-lens="none" tabindex="-1"></article>
+      <article class="doc" id="doc" lang="en" dir="ltr" data-lens="none" tabindex="-1"></article>
     </div>
   </section>
 
-  <section class="pane pane-results" id="results" aria-label="Analysis" hidden>
-    <nav class="tabs" role="tablist" aria-label="Analysis sections" id="tabs">
+  <section class="pane pane-results" id="results" aria-label="Analysis" data-i18n-attr="aria-label" hidden>
+    <nav class="tabs" role="tablist" aria-label="Analysis sections" data-i18n-attr="aria-label" id="tabs">
       <span class="tab-indicator" id="tabIndicator" aria-hidden="true"></span>
     </nav>
     <div class="panels" id="panels"></div>
     <footer class="results-foot">
-      <span class="foot-meta"><span id="versionMeta"></span> · <a href="https://github.com/quangnd159/lexinspect/blob/main/VALIDITY.md" target="_blank" rel="noopener">How reliable are these numbers?</a></span>
+      <span class="foot-meta"><span id="versionMeta"></span> · <a href="https://github.com/quangnd159/lexinspect/blob/main/VALIDITY.md" target="_blank" rel="noopener" data-i18n="How reliable are these numbers?">How reliable are these numbers?</a></span>
       <div class="exports" id="exports">
-        <button class="btn ghost small" type="button" id="exportBtn" aria-haspopup="menu" aria-expanded="false" aria-controls="exportMenu">Export<span class="caret" aria-hidden="true"></span></button>
-        <div class="menu menu-up-right" id="exportMenu" role="menu" aria-label="Export" hidden>
-          <p class="menu-group" role="presentation">Share</p>
-          <button type="button" role="menuitem" class="menu-item" data-export="summary"><span class="menu-label">Copy summary</span><span class="menu-note">Plain text for an email or document</span></button>
-          <button type="button" role="menuitem" class="menu-item" data-export="print"><span class="menu-label">Print or save as PDF</span><span class="menu-note">A report with every section and your text</span></button>
-          <p class="menu-group" role="presentation">Data</p>
-          <button type="button" role="menuitem" class="menu-item" data-export="xlsx"><span class="menu-label">Excel workbook <span class="menu-ext">.xlsx</span></span><span class="menu-note">Every table on its own sheet, with a codebook</span></button>
-          <button type="button" role="menuitem" class="menu-item" data-export="summary-csv"><span class="menu-label">Summary <span class="menu-ext">.csv</span></span><span class="menu-note">One row per text, fixed columns: stack many texts</span></button>
-          <button type="button" role="menuitem" class="menu-item" data-export="words-csv"><span class="menu-label">Word by word <span class="menu-ext">.csv</span></span><span class="menu-note">Each word with its CEFR level, band and lists</span></button>
-          <button type="button" role="menuitem" class="menu-item" data-export="json"><span class="menu-label">Full results <span class="menu-ext">.json</span></span><span class="menu-note">The complete API response</span></button>
-          <button type="button" role="menuitem" class="menu-item" data-export="copy-json"><span class="menu-label">Copy JSON</span></button>
-          <p class="menu-group" role="presentation">Cite</p>
-          <button type="button" role="menuitem" class="menu-item" data-export="cite"><span class="menu-label">Copy citation</span><span class="menu-note">APA and BibTeX for this version</span></button>
+        <button class="btn ghost small" type="button" id="exportBtn" aria-haspopup="menu" aria-expanded="false" aria-controls="exportMenu"><span data-i18n="Export">Export</span><span class="i trail" data-icon="chevron-down" data-size="14"></span></button>
+        <div class="menu menu-up-right" id="exportMenu" role="menu" aria-label="Export" data-i18n-attr="aria-label" hidden>
+          <p class="menu-group" role="presentation" data-i18n="Share">Share</p>
+          <button type="button" role="menuitem" class="menu-item" data-export="link"><span class="i" data-icon="link"></span><span class="menu-label" data-i18n="Copy link">Copy link</span><span class="menu-note" data-i18n="The text travels inside the link; nothing is stored">The text travels inside the link; nothing is stored</span></button>
+          <button type="button" role="menuitem" class="menu-item" data-export="summary"><span class="i" data-icon="copy"></span><span class="menu-label" data-i18n="Copy summary">Copy summary</span><span class="menu-note" data-i18n="Plain text for an email or document">Plain text for an email or document</span></button>
+          <button type="button" role="menuitem" class="menu-item" data-export="print"><span class="i" data-icon="printer"></span><span class="menu-label" data-i18n="Print or save as PDF">Print or save as PDF</span><span class="menu-note" data-i18n="A report of every measure, with your text">A report of every measure, with your text</span></button>
+          <p class="menu-group" role="presentation" data-i18n="Data">Data</p>
+          <button type="button" role="menuitem" class="menu-item" data-export="xlsx"><span class="i" data-icon="sheet"></span><span class="menu-label"><span data-i18n="Excel workbook">Excel workbook</span> <span class="menu-ext">.xlsx</span></span><span class="menu-note" data-i18n="Every table on its own sheet, with a codebook">Every table on its own sheet, with a codebook</span></button>
+          <button type="button" role="menuitem" class="menu-item" data-export="summary-csv"><span class="i" data-icon="table-2"></span><span class="menu-label"><span data-i18n="Summary">Summary</span> <span class="menu-ext">.csv</span></span><span class="menu-note" data-i18n="One row per text, in fixed columns, so many texts stack into one table">One row per text, in fixed columns, so many texts stack into one table</span></button>
+          <button type="button" role="menuitem" class="menu-item" data-export="words-csv"><span class="i" data-icon="list"></span><span class="menu-label"><span data-i18n="Word by word">Word by word</span> <span class="menu-ext">.csv</span></span><span class="menu-note" data-i18n="Each word with its CEFR level, frequency band and lists">Each word with its CEFR level, frequency band and lists</span></button>
+          <button type="button" role="menuitem" class="menu-item" data-export="json"><span class="i" data-icon="braces"></span><span class="menu-label"><span data-i18n="Full results">Full results</span> <span class="menu-ext">.json</span></span><span class="menu-note" data-i18n="The complete API response">The complete API response</span></button>
+          <button type="button" role="menuitem" class="menu-item" data-export="copy-json"><span class="i" data-icon="clipboard"></span><span class="menu-label" data-i18n="Copy JSON">Copy JSON</span></button>
+          <p class="menu-group" role="presentation" data-i18n="Cite">Cite</p>
+          <button type="button" role="menuitem" class="menu-item" data-export="cite"><span class="i" data-icon="quote"></span><span class="menu-label" data-i18n="Copy citation">Copy citation</span><span class="menu-note" data-i18n="APA and BibTeX for this version">APA and BibTeX for this version</span></button>
         </div>
       </div>
     </footer>
   </section>
 
-  <aside class="intro" id="intro" aria-label="About lexinspect">
-    <h1>See what makes a text hard, in the text itself.</h1>
-    <p>lexinspect profiles English writing the way applied linguists do: readability by eight published formulas, vocabulary against CEFR-J, Nation's BNC/COCA families, NGSL and the AWL, the 506 PHRASE-list expressions, Hyland's metadiscourse and a UK/US spell check. Every finding is highlighted where it occurs.</p>
+  <aside class="intro" id="intro" aria-label="About lexinspect" data-i18n-attr="aria-label">
+    <h1 data-i18n="See what makes a text hard, in the text itself.">See what makes a text hard, in the text itself.</h1>
+    <p data-i18n="lexinspect profiles English writing the way applied linguists do: readability by eight published formulas, vocabulary against CEFR-J, Nation’s BNC/COCA families, NGSL and the AWL, multiword expressions from Martinez &amp; Schmitt’s PHRASE List, sentence complexity after Lu’s L2SCA, Hyland’s metadiscourse and a UK/US spell check. Every finding is marked where it occurs, with what to change for readers at a given CEFR level.">lexinspect profiles English writing the way applied linguists do: readability by eight published formulas, vocabulary against CEFR-J, Nation’s BNC/COCA families, NGSL and the AWL, multiword expressions from Martinez &amp; Schmitt’s PHRASE List, sentence complexity after Lu’s L2SCA, Hyland’s metadiscourse and a UK/US spell check. Every finding is marked where it occurs, with what to change for readers at a given CEFR level.</p>
     <ul class="intro-points">
-      <li><b>Free and open.</b> No account, nothing stored. Your text is analysed and forgotten.</li>
-      <li><b>Cited, not guessed.</b> Every list and formula is the published one; sources and licences are on the <a href="/licences">Sources</a> page.</li>
-      <li><b>Open source.</b> Run the same analysis yourself with the <code>lexinspect</code> command-line tool or Python package.</li>
+      <li><b data-i18n="Free and open.">Free and open.</b> <span data-i18n="No account, nothing stored. Your text is analysed and forgotten.">No account, nothing stored. Your text is analysed and forgotten.</span></li>
+      <li><b data-i18n="Cited, not guessed.">Cited, not guessed.</b> <span id="introSources">Every list and formula is the published one, with its source and licence on the <a href="/licences">Sources</a> page.</span></li>
+      <li><b data-i18n="Open source.">Open source.</b> <span id="introCli">Run the same analysis yourself with the <code>lexinspect</code> command-line tool or Python package.</span></li>
     </ul>
-    <p class="intro-comparison"><a href="/comparison">Compare our results with Text Inspector</a></p>
+    <p class="intro-comparison"><a href="/comparison" data-i18n="How the results compare with Text Inspector">How the results compare with Text Inspector</a></p>
   </aside>
 </main>
 
 <footer class="site-footer">
-  <p>Built by Quang at <a href="https://dqnotes.com" target="_blank" rel="noopener">dqnotes.com</a> · <a href="/privacy">Privacy</a></p>
+  <p><span data-i18n="Built by Quang">Built by Quang</span> · <a href="https://dqnotes.com" target="_blank" rel="noopener">dqnotes.com</a> · <a href="/privacy" data-i18n="Privacy">Privacy</a></p>
 </footer>
 
 <div class="popover" id="popover" role="tooltip" hidden></div>
 <div class="challenge" id="challenge" aria-live="polite">
-  <p class="challenge-note">A quick check that you’re a person</p>
+  <p class="challenge-note" data-i18n="A quick check that you’re a person">A quick check that you’re a person</p>
   <div id="challengeWidget"></div>
 </div>
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 <div class="report" id="report" aria-hidden="true"></div>
 
-<script src="/static/dom.js"></script>
-<script src="/static/human.js"></script>
-<script src="/static/copy.js"></script>
-<script src="/static/reader.js"></script>
-<script src="/static/panels.js"></script>
-<script src="/static/export.js"></script>
-<script src="/static/app.js"></script>
+<script src="/static/dom.js?v=0.5.0"></script>
+<script src="/static/share.js?v=0.5.0"></script>
+<script src="/static/files.js?v=0.5.0"></script>
+<script src="/static/human.js?v=0.5.0"></script>
+<script src="/static/copy.js?v=0.5.0"></script>
+<script src="/static/insights.js?v=0.5.0"></script>
+<script src="/static/metrics.js?v=0.5.0"></script>
+<script src="/static/reader.js?v=0.5.0"></script>
+<script src="/static/panels.js?v=0.5.0"></script>
+<script src="/static/adapt.js?v=0.5.0"></script>
+<script src="/static/sentences.js?v=0.5.0"></script>
+<script src="/static/export.js?v=0.5.0"></script>
+<script src="/static/app.js?v=0.5.0"></script>
 </body>
 </html>

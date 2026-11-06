@@ -78,7 +78,7 @@ What lexinspect doesn't do well today, and where to look first if you decide to 
 
 **Construction checks cover named entries only.** 0.4.0 checks the construction for USED TO, THAT IS, KIND OF, WEALTH OF, A GOOD, IS TO, IN A WAY, JUST AS, AS LONG AS, PUT IT and GET OFF. Most other entries have no entry-specific construction check, although the general form, tag and overlap rules still apply, and TO GO keeps its older clause-final check. Known gaps include THE CASE in `in the case of` and THE LATTER in `the latter part of the year`.
 
-**Construction checks are narrow proxies.** They can reject genuine expressions. `kind of a genius` and `a great wealth of` are missed, because the rules require particular words or word classes straight after or before. GET OFF counts only when the parser tags *off* as a particle. It therefore drops the listed transport sense with a named vehicle (`We got off the train`) and keeps `He got off lightly`, a different sense, under the transport entry. The 0.4.0 fix check measured total loss across all of these rules. It did not validate each rule.
+**Construction checks are narrow proxies.** They can reject genuine expressions. `kind of a genius` and `a great wealth of` are missed, because the rules require particular words or word classes straight after or before. GET OFF counts only when the parser tags *off* as a particle. It therefore drops the listed transport sense with a named vehicle (`We got off the train`) and keeps `He got off lightly`, a different sense, under the transport entry. No rule's precision has been measured against human judgement. The cases in `tests/test_matcher_rules.py` show what each rule does on constructed sentences, not how often it is right.
 
 **Code-gloss checks that look one word back.** `known as` is rejected only when the word straight before it is a form of *become*, *come* or *grow*, so `became widely known as` still counts. A demonstrative `that is` after a comma (`Yes, that is not the point.`) can still count as rephrasing, in both `phrase` and `metadiscourse`.
 
@@ -86,9 +86,9 @@ What lexinspect doesn't do well today, and where to look first if you decide to 
 
 **Register ratings are the list's, and coarse.** Each expression has one of four ratings per register, judged relative to its other registers. They say nothing about how frequent an expression is in absolute terms, nothing about sub-registers (a lab report and a literature review are both "academic"), and they date from the BNC, whose spoken and written texts are from the 1980s and early 1990s. `rare` in academic writing is a prompt to check a choice, not evidence that it is wrong.
 
-**The integrated profile mixes two word lists.** The PHRASE bands place expressions among Nation's BNC word families, the lists the PHRASE List was built against. `bnc_coca` uses his later BNC/COCA families. The bands are close in kind but not the same lists, so `word_band` and the integrated profile are approximations at the band edges. Only the 506 PHRASE entries become units; every other multi-word expression and idiom still counts word by word, so the integrated profile still understates what a text demands. Its accuracy rests on detection: a false hit moves its words to the wrong band. On the 120 Study 4 development texts, words inside expressions made up a median of 4–5% of words, and counting them as units moved the 95% band up by one in 17 texts and the 98% band in one.
+**The integrated profile mixes two word lists.** The PHRASE bands place expressions among Nation's BNC word families, the lists the PHRASE List was built against. `bnc_coca` uses his later BNC/COCA families. The bands are close in kind but not the same lists, so `word_band` and the integrated profile are approximations at the band edges. Only the 506 PHRASE entries become units; every other multi-word expression and idiom still counts word by word, so the integrated profile still understates what a text demands. Its accuracy rests on detection: a false hit moves its words to the wrong band.
 
-**Used with the authors' permission.** Schmitt's resources page states no terms of use for the list, so both authors were asked. Norbert Schmitt agreed on 2026-10-16 and Ron Martinez on 2026-10-30. They approved the use as it stands: the free hosted app, `phrase.json` in the public repository with its added variant fields, and the Study 4 materials based on the list, all citing Martinez & Schmitt (2012). The list still has no open licence. See Operations below.
+**Used with the authors' permission.** Schmitt's resources page states no terms of use for the list, so both authors were asked. Norbert Schmitt agreed on 2026-10-16 and Ron Martinez on 2026-10-30. They approved free, non-commercial use in lexinspect: the hosted app and `phrase.json` in the public repository with its added variant fields, with full attribution to both authors (Martinez & Schmitt 2012). The list still has no open licence. The replies are recorded in [docs/permissions.md](docs/permissions.md). See Operations below.
 
 ## cefr
 
@@ -99,6 +99,25 @@ What lexinspect doesn't do well today, and where to look first if you decide to 
 **`estimated_level_95th` can be null.** Proper nouns are counted as known, but a text with more than 5% off-list words (technical terms, rare words) never reaches 95% and gets no estimate.
 
 **POS fallback.** When the source lists no level for the token's part of speech, the lowest listed level is used and counted in `pos_fallback_tokens`. A high count means the levels are less specific than they look.
+
+## syntax
+
+- **Dependency approximation of L2SCA.** Clauses, T-units, coordinate phrases and complex nominals are found from spaCy dependency labels, not from L2SCA's Tregex patterns on constituency trees. Values follow L2SCA's definitions but won't match its output exactly, and no comparison with L2SCA or NeoSCA has been run yet.
+- **Parser errors carry through.** `en_core_web_sm` mis-attaches more often in long sentences and in learner English; a wrong attachment can add or drop a dependent clause.
+- **Short texts.** Ratios over a few sentences swing with each sentence; `reliability` flags texts below its minimums.
+
+## level
+
+- **For reading texts only.** Fitted on graded reading passages (Cambridge English exams, ELG-CEFR-EN). Learner writing differs in ways the model never saw; the module reports `applicable: false` under 100 words, but it can't tell writing from reading.
+- **Weakest at C1–C2**, where training texts are fewer and the levels overlap most. Read the `range` and `probabilities`, not only `level`.
+- **Inherits the inputs' limits**: CEFR-J/Octanove word levels, BNC/COCA bands, readability formulas.
+- **Non-commercial.** `level_model.json` is CC BY-NC-SA 4.0 because its training data is.
+
+## alternatives
+
+- **Coverage is low by design.** Only each word's main WordNet sense is used, so about 1 in 12 A2+ headwords gets a suggestion.
+- **Context isn't checked.** A suggestion fits the word's main sense; it can still be wrong in a sentence that uses another sense. The web app swaps every occurrence at once, so read the result.
+- **No human evaluation.** The only precision figure is an AI-made spot check of 150 entries.
 
 ## cefr_level (optional, requires `cefr-level` extra)
 
@@ -134,7 +153,7 @@ What lexinspect doesn't do well today, and where to look first if you decide to 
 
 ## metadiscourse
 
-**Automated, not hand-coded.** Hyland's categories are functional, and his counts were checked by hand. lexinspect approximates that with context rules on the parse (clause-linking `and`, `Table 2`, reporting verbs with a clausal complement, predicative `clear`, and so on). The rules filter some everyday-word matches, but their overall precision has not yet been established, and they inherit tagger and parser errors. Some judgements are out of reach: `or` as a code gloss and bare `as` as an evidential are never counted.
+**Automated, not hand-coded.** Hyland's categories are functional, and his counts were checked by hand. lexinspect approximates that with context rules on the parse (clause-linking `and`, `Table 2`, reporting verbs with a clausal complement, predicative `clear`, and so on). The rules filter some everyday-word matches, but their precision has not been measured against human judgement, and they inherit tagger and parser errors. Some judgements are out of reach: `or` as a code gloss and bare `as` as an evidential are never counted.
 
 **Quoted text is excluded.** Since 0.4.0, markers between paired quotation marks within a paragraph don't count, because quoted words are usually not the writer's own. Scare quotes are excluded too, and text in straight single quotes still counts. Two straight inch marks can be mistaken for a quotation pair: in `The first rod was 5"; however, that fact does not support the claim about the 6" rod.`, `however` is wrongly excluded.
 
@@ -185,7 +204,7 @@ What lexinspect doesn't do well today, and where to look first if you decide to 
 **Serving the data publicly changes the licence position.** `/licences` carries the attribution for every bundled dataset, because CC BY-SA terms run to whoever receives the work, not just whoever reads the repo. Points to keep in mind:
 
 - `bnc_coca.json`, `ngsl.json` and `nawl.json` are adaptations of CC BY-SA 4.0 lists and are therefore CC BY-SA 4.0 themselves. `cefr.json` merges CEFR-J (citation terms) with Octanove (CC BY-SA 4.0); share it under CC BY-SA with both credits.
-- The PHRASE list has no stated terms of use and no open licence. (The "freely available for research and pedagogical purposes" line on Schmitt's page belongs to the Vocabulary Levels Tests; earlier versions of these docs misattributed it.) Both authors have approved how the hosted app and the public repository use it (Schmitt, 2026-10-16; Martinez, 2026-10-30). That approval covers this free use. Commercial use, or redistribution outside lexinspect, needs their permission again.
+- The PHRASE list has no stated terms of use and no open licence. (The "freely available for research and pedagogical purposes" line on Schmitt's page belongs to the Vocabulary Levels Tests; earlier versions of these docs misattributed it.) Both authors have approved how the hosted app and the public repository use it (Schmitt, 2026-10-16; Martinez, 2026-10-30; see [docs/permissions.md](docs/permissions.md)). That approval covers this free use. Commercial use, or redistribution outside lexinspect, needs their permission again.
 - The Hyland 2005 hedges lexicon mirror has no stated licence.
 - VarCon's and CMUdict's permissive notices require the copyright and permission text to accompany copies; `SOURCES.md` and `data/hunspell/LICENSES/` carry them.
 

@@ -1,0 +1,5523 @@
+{
+ "schema_version": 1,
+ "licence": "CC BY-NC-SA 4.0 (derived from the training datasets listed in metadata.training_data)",
+ "model": "proportional-odds (cumulative logit) regression: P(level <= k) = sigmoid(theta_k - sum_j weight_j * clip((x_j - mean_j) / sd_j, -z_clip, z_clip)); a missing x_j takes the training median.",
+ "levels": [
+  "A1",
+  "A2",
+  "B1",
+  "B2",
+  "C1",
+  "C2"
+ ],
+ "thresholds": [
+  -5.587824,
+  -2.553771,
+  0.244171,
+  2.637806,
+  4.284938
+ ],
+ "min_words": 100,
+ "z_clip": 3.0,
+ "features": [
+  {
+   "name": "cefr_above_A1_pct",
+   "label": "share of words above A1 (CEFR-J/Octanove)",
+   "unit": "%",
+   "mean": 21.944015,
+   "sd": 9.418219,
+   "median": 22.021561,
+   "weight": 0.567966,
+   "sign_constraint": ">= 0"
+  },
+  {
+   "name": "cefr_above_A2_pct",
+   "label": "share of words above A2 (CEFR-J/Octanove)",
+   "unit": "%",
+   "mean": 11.208025,
+   "sd": 6.865067,
+   "median": 10.035768,
+   "weight": 0.710452,
+   "sign_constraint": ">= 0"
+  },
+  {
+   "name": "cefr_above_B1_pct",
+   "label": "share of words above B1 (CEFR-J/Octanove)",
+   "unit": "%",
+   "mean": 5.378563,
+   "sd": 4.141914,
+   "median": 4.316597,
+   "weight": 0.119287,
+   "sign_constraint": ">= 0"
+  },
+  {
+   "name": "cefr_above_B2_pct",
+   "label": "share of words above B2 (CEFR-J/Octanove)",
+   "unit": "%",
+   "mean": 2.848172,
+   "sd": 2.515812,
+   "median": 2.094277,
+   "weight": 0.206688,
+   "sign_constraint": ">= 0"
+  },
+  {
+   "name": "cefr_above_C1_pct",
+   "label": "share of words above C1 (CEFR-J/Octanove)",
+   "unit": "%",
+   "mean": 2.440932,
+   "sd": 2.127049,
+   "median": 1.913112,
+   "weight": 0.0,
+   "sign_constraint": ">= 0"
+  },
+  {
+   "name": "cefr_off_list_pct",
+   "label": "share of words beyond the C2 lists",
+   "unit": "%",
+   "mean": 2.252709,
+   "sd": 1.938293,
+   "median": 1.818934,
+   "weight": 0.0,
+   "sign_constraint": ">= 0"
+  },
+  {
+   "name": "cefr_proper_noun_pct",
+   "label": "share of proper nouns",
+   "unit": "%",
+   "mean": 4.489981,
+   "sd": 3.667543,
+   "median": 3.724511,
+   "weight": -0.488462,
+   "sign_constraint": "free"
+  },
+  {
+   "name": "bnc_beyond_1k_pct",
+   "label": "share of words beyond the 1,000 most frequent word families (BNC/COCA)",
+   "unit": "%",
+   "mean": 12.644113,
+   "sd": 7.424051,
+   "median": 11.6145,
+   "weight": 0.0,
+   "sign_constraint": ">= 0"
+  },
+  {
+   "name": "bnc_beyond_2k_pct",
+   "label": "share of words beyond the 2,000 most frequent word families (BNC/COCA)",
+   "unit": "%",
+   "mean": 6.090695,
+   "sd": 4.506324,
+   "median": 5.204,
+   "weight": 0.0,
+   "sign_constraint": ">= 0"
+  },
+  {
+   "name": "bnc_beyond_3k_pct",
+   "label": "share of words beyond the 3,000 most frequent word families (BNC/COCA)",
+   "unit": "%",
+   "mean": 3.170443,
+   "sd": 2.490409,
+   "median": 2.627,
+   "weight": 0.005721,
+   "sign_constraint": ">= 0"
+  },
+  {
+   "name": "bnc_beyond_4k_pct",
+   "label": "share of words beyond the 4,000 most frequent word families (BNC/COCA)",
+   "unit": "%",
+   "mean": 2.110656,
+   "sd": 1.879704,
+   "median": 1.71,
+   "weight": 0.0,
+   "sign_constraint": ">= 0"
+  },
+  {
+   "name": "bnc_beyond_5k_pct",
+   "label": "share of words beyond the 5,000 most frequent word families (BNC/COCA)",
+   "unit": "%",
+   "mean": 1.442834,
+   "sd": 1.479116,
+   "median": 1.009,
+   "weight": 0.047241,
+   "sign_constraint": ">= 0"
+  },
+  {
+   "name": "bnc_beyond_10k_pct",
+   "label": "share of words beyond the 10,000 most frequent word families (BNC/COCA)",
+   "unit": "%",
+   "mean": 0.419678,
+   "sd": 0.624804,
+   "median": 0.204,
+   "weight": 0.0,
+   "sign_constraint": ">= 0"
+  },
+  {
+   "name": "bnc_off_list_pct",
+   "label": "share of words on no BNC/COCA list",
+   "unit": "%",
+   "mean": 0.12364,
+   "sd": 0.242666,
+   "median": 0.0,
+   "weight": 0.0,
+   "sign_constraint": ">= 0"
+  },
+  {
+   "name": "words_per_sentence",
+   "label": "average sentence length",
+   "unit": "words",
+   "mean": 14.728588,
+   "sd": 5.301761,
+   "median": 14.899,
+   "weight": 0.72292,
+   "sign_constraint": ">= 0"
+  },
+  {
+   "name": "syllables_per_word",
+   "label": "average word length in syllables",
+   "unit": "syllables",
+   "mean": 1.454558,
+   "sd": 0.155595,
+   "median": 1.436,
+   "weight": 0.0,
+   "sign_constraint": ">= 0"
+  },
+  {
+   "name": "characters_per_word",
+   "label": "average word length in letters",
+   "unit": "letters",
+   "mean": 4.411127,
+   "sd": 0.394244,
+   "median": 4.3815,
+   "weight": 0.0,
+   "sign_constraint": ">= 0"
+  },
+  {
+   "name": "mtld",
+   "label": "vocabulary variety (MTLD)",
+   "unit": "",
+   "mean": 87.486069,
+   "sd": 29.671331,
+   "median": 84.54625,
+   "weight": 0.777471,
+   "sign_constraint": ">= 0"
+  },
+  {
+   "name": "mattr",
+   "label": "vocabulary variety (MATTR)",
+   "unit": "",
+   "mean": 0.798101,
+   "sd": 0.042479,
+   "median": 0.80375,
+   "weight": 0.0,
+   "sign_constraint": ">= 0"
+  },
+  {
+   "name": "awl_pct",
+   "label": "share of Academic Word List words",
+   "unit": "%",
+   "mean": 2.703662,
+   "sd": 2.890851,
+   "median": 1.8925,
+   "weight": 0.0,
+   "sign_constraint": ">= 0"
+  },
+  {
+   "name": "outside_ngsl_pct",
+   "label": "share of words outside the New General Service List",
+   "unit": "%",
+   "mean": 11.109458,
+   "sd": 5.076385,
+   "median": 10.345,
+   "weight": 0.0,
+   "sign_constraint": ">= 0"
+  },
+  {
+   "name": "outside_ngsl_nawl_pct",
+   "label": "share of words outside the NGSL and New Academic Word List",
+   "unit": "%",
+   "mean": 10.264029,
+   "sd": 4.851794,
+   "median": 9.609,
+   "weight": 0.0,
+   "sign_constraint": ">= 0"
+  },
+  {
+   "name": "ngsl_off_list_pct",
+   "label": "share of words on neither the NGSL nor the NAWL (names excluded)",
+   "unit": "%",
+   "mean": 5.358948,
+   "sd": 3.066556,
+   "median": 4.9735,
+   "weight": 0.0,
+   "sign_constraint": ">= 0"
+  }
+ ],
+ "caveat": "An estimate of the CEFR level of a reading text (material written or chosen for learners), learned from Cambridge exam passages and ELG-CEFR-EN graded texts. It describes the text, not a writer's proficiency: do not use it to grade learner writing, where it does no better than always answering B2. Not applicable under 100 words.",
+ "summary_for_users": {
+  "held_out_within_one": 0.9221,
+  "held_out_exact": 0.517,
+  "held_out_qwk": 0.761,
+  "range_contains_true_level": 0.8824,
+  "cross_dataset_within_one_worst": 0.8276,
+  "n_texts": 706,
+  "text": "Tested on 706 exam and graded reading passages it hadn't seen (5-fold cross-validation), the estimate was within one level of the published level 92% of the time and exactly right 52% of the time; the shown range contained the published level 88% of the time. Trained on one collection and tested on the other, within-one accuracy was 83% at worst. It is for reading texts, not for grading writing."
+ },
+ "evaluation": {
+  "chosen_config": "study5_24_signed",
+  "choice_rule": "The sign-constrained feature set with the higher cross-validated QWK on texts of 100+ words (sign constraints fixed in advance, for readable contributions). Only sets computable from run_all's results were eligible; the CVLA-index sets need the parsed Analysis and are reported for comparison.",
+  "decision": {
+   "rule": "Don't ship if cross-validated within-one accuracy is below 85% or either leave-one-dataset-out within-one accuracy is below 80% (texts of 100+ words).",
+   "cv_within_one": 0.9221,
+   "leave_one_dataset_out_within_one": {
+    "train_elg_cefr_en_test_cambridge_exams": 0.8276,
+    "train_cambridge_exams_test_elg_cefr_en": 0.8479
+   },
+   "passes": true
+  },
+  "configs": {
+   "study5_24_signed": {
+    "cv_all": {
+     "n": 718,
+     "exact": 0.5153,
+     "within_one": 0.9234,
+     "off_by_two_or_more": 0.0766,
+     "qwk": 0.7623,
+     "macro_f1": 0.4136,
+     "mean_signed_error": -0.052,
+     "mean_abs_error": 0.564,
+     "n_per_gold_level": {
+      "A1": 25,
+      "A2": 142,
+      "B1": 210,
+      "B2": 175,
+      "C1": 97,
+      "C2": 69
+     },
+     "pred_distribution": {
+      "A1": 1,
+      "A2": 154,
+      "B1": 240,
+      "B2": 205,
+      "C1": 56,
+      "C2": 62
+     },
+     "confusion_matrix": {
+      "rows_gold_cols_pred": [
+       "A1",
+       "A2",
+       "B1",
+       "B2",
+       "C1",
+       "C2"
+      ],
+      "matrix": [
+       [
+        1,
+        24,
+        0,
+        0,
+        0,
+        0
+       ],
+       [
+        0,
+        82,
+        59,
+        1,
+        0,
+        0
+       ],
+       [
+        0,
+        47,
+        131,
+        30,
+        2,
+        0
+       ],
+       [
+        0,
+        0,
+        40,
+        106,
+        15,
+        14
+       ],
+       [
+        0,
+        1,
+        9,
+        41,
+        24,
+        22
+       ],
+       [
+        0,
+        0,
+        1,
+        27,
+        15,
+        26
+       ]
+      ]
+     },
+     "range_80": {
+      "gold_inside": 0.8844,
+      "mean_width_levels": 2.322,
+      "width_distribution": {
+       "1": 6,
+       "2": 475,
+       "3": 237
+      }
+     },
+     "by_length": {
+      "<150": {
+       "n": 58,
+       "exact": 0.4483,
+       "within_one": 0.9828,
+       "qwk": 0.2234,
+       "mean_signed_error": 0.534
+      },
+      "150-300": {
+       "n": 437,
+       "exact": 0.5263,
+       "within_one": 0.9474,
+       "qwk": 0.7085,
+       "mean_signed_error": 0.053
+      },
+      "300+": {
+       "n": 223,
+       "exact": 0.5112,
+       "within_one": 0.861,
+       "qwk": 0.5395,
+       "mean_signed_error": -0.408
+      }
+     }
+    },
+    "cv_applicable": {
+     "n": 706,
+     "exact": 0.517,
+     "within_one": 0.9221,
+     "off_by_two_or_more": 0.0779,
+     "qwk": 0.761,
+     "macro_f1": 0.4148,
+     "mean_signed_error": -0.062,
+     "mean_abs_error": 0.564,
+     "n_per_gold_level": {
+      "A1": 25,
+      "A2": 130,
+      "B1": 210,
+      "B2": 175,
+      "C1": 97,
+      "C2": 69
+     },
+     "pred_distribution": {
+      "A1": 1,
+      "A2": 149,
+      "B1": 233,
+      "B2": 205,
+      "C1": 56,
+      "C2": 62
+     },
+     "confusion_matrix": {
+      "rows_gold_cols_pred": [
+       "A1",
+       "A2",
+       "B1",
+       "B2",
+       "C1",
+       "C2"
+      ],
+      "matrix": [
+       [
+        1,
+        24,
+        0,
+        0,
+        0,
+        0
+       ],
+       [
+        0,
+        77,
+        52,
+        1,
+        0,
+        0
+       ],
+       [
+        0,
+        47,
+        131,
+        30,
+        2,
+        0
+       ],
+       [
+        0,
+        0,
+        40,
+        106,
+        15,
+        14
+       ],
+       [
+        0,
+        1,
+        9,
+        41,
+        24,
+        22
+       ],
+       [
+        0,
+        0,
+        1,
+        27,
+        15,
+        26
+       ]
+      ]
+     },
+     "range_80": {
+      "gold_inside": 0.8824,
+      "mean_width_levels": 2.326,
+      "width_distribution": {
+       "1": 6,
+       "2": 464,
+       "3": 236
+      }
+     },
+     "by_length": {
+      "<150": {
+       "n": 46,
+       "exact": 0.4565,
+       "within_one": 0.9783,
+       "qwk": 0.226,
+       "mean_signed_error": 0.522
+      },
+      "150-300": {
+       "n": 437,
+       "exact": 0.5263,
+       "within_one": 0.9474,
+       "qwk": 0.7085,
+       "mean_signed_error": 0.053
+      },
+      "300+": {
+       "n": 223,
+       "exact": 0.5112,
+       "within_one": 0.861,
+       "qwk": 0.5395,
+       "mean_signed_error": -0.408
+      }
+     }
+    },
+    "cv_alpha_per_fold": [
+     0.3,
+     1.0,
+     0.3,
+     0.3,
+     0.3
+    ],
+    "cv_by_dataset_applicable": {
+     "cambridge_exams": {
+      "n": 318,
+      "exact": 0.5031,
+      "within_one": 0.8994,
+      "qwk": 0.7407,
+      "mean_signed_error": -0.154,
+      "range_80": {
+       "gold_inside": 0.9088,
+       "mean_width_levels": 2.428,
+       "width_distribution": {
+        "1": 4,
+        "2": 174,
+        "3": 140
+       }
+      }
+     },
+     "elg_cefr_en": {
+      "n": 388,
+      "exact": 0.5284,
+      "within_one": 0.9407,
+      "qwk": 0.6953,
+      "mean_signed_error": 0.013,
+      "range_80": {
+       "gold_inside": 0.8608,
+       "mean_width_levels": 2.242,
+       "width_distribution": {
+        "1": 2,
+        "2": 290,
+        "3": 96
+       }
+      }
+     }
+    },
+    "leave_one_dataset_out": {
+     "train_elg_cefr_en_test_cambridge_exams": {
+      "trained_levels": [
+       "A1",
+       "C1"
+      ],
+      "l2_alpha": 0.3,
+      "all": {
+       "n": 331,
+       "exact": 0.3444,
+       "within_one": 0.8338,
+       "off_by_two_or_more": 0.1662,
+       "qwk": 0.5247,
+       "macro_f1": 0.2674,
+       "mean_signed_error": -0.338,
+       "mean_abs_error": 0.834,
+       "n_per_gold_level": {
+        "A1": 0,
+        "A2": 64,
+        "B1": 60,
+        "B2": 71,
+        "C1": 67,
+        "C2": 69
+       },
+       "pred_distribution": {
+        "A1": 0,
+        "A2": 6,
+        "B1": 118,
+        "B2": 172,
+        "C1": 35,
+        "C2": 0
+       },
+       "confusion_matrix": {
+        "rows_gold_cols_pred": [
+         "A1",
+         "A2",
+         "B1",
+         "B2",
+         "C1",
+         "C2"
+        ],
+        "matrix": [
+         [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+         ],
+         [
+          0,
+          6,
+          58,
+          0,
+          0,
+          0
+         ],
+         [
+          0,
+          0,
+          39,
+          20,
+          1,
+          0
+         ],
+         [
+          0,
+          0,
+          14,
+          55,
+          2,
+          0
+         ],
+         [
+          0,
+          0,
+          3,
+          50,
+          14,
+          0
+         ],
+         [
+          0,
+          0,
+          4,
+          47,
+          18,
+          0
+         ]
+        ]
+       },
+       "range_80": {
+        "gold_inside": 0.6979,
+        "mean_width_levels": 1.997,
+        "width_distribution": {
+         "1": 1,
+         "2": 330
+        }
+       },
+       "by_length": {
+        "<150": {
+         "n": 57,
+         "exact": 0.3158,
+         "within_one": 0.9825,
+         "qwk": 0.1773,
+         "mean_signed_error": 0.702
+        },
+        "150-300": {
+         "n": 55,
+         "exact": 0.3273,
+         "within_one": 0.9818,
+         "qwk": 0.572,
+         "mean_signed_error": 0.436
+        },
+        "300+": {
+         "n": 219,
+         "exact": 0.3562,
+         "within_one": 0.758,
+         "qwk": 0.2157,
+         "mean_signed_error": -0.804
+        }
+       }
+      },
+      "applicable": {
+       "n": 319,
+       "exact": 0.3448,
+       "within_one": 0.8276,
+       "off_by_two_or_more": 0.1724,
+       "qwk": 0.4976,
+       "macro_f1": 0.252,
+       "mean_signed_error": -0.376,
+       "mean_abs_error": 0.84,
+       "n_per_gold_level": {
+        "A1": 0,
+        "A2": 52,
+        "B1": 60,
+        "B2": 71,
+        "C1": 67,
+        "C2": 69
+       },
+       "pred_distribution": {
+        "A1": 0,
+        "A2": 2,
+        "B1": 110,
+        "B2": 172,
+        "C1": 35,
+        "C2": 0
+       },
+       "confusion_matrix": {
+        "rows_gold_cols_pred": [
+         "A1",
+         "A2",
+         "B1",
+         "B2",
+         "C1",
+         "C2"
+        ],
+        "matrix": [
+         [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+         ],
+         [
+          0,
+          2,
+          50,
+          0,
+          0,
+          0
+         ],
+         [
+          0,
+          0,
+          39,
+          20,
+          1,
+          0
+         ],
+         [
+          0,
+          0,
+          14,
+          55,
+          2,
+          0
+         ],
+         [
+          0,
+          0,
+          3,
+          50,
+          14,
+          0
+         ],
+         [
+          0,
+          0,
+          4,
+          47,
+          18,
+          0
+         ]
+        ]
+       },
+       "range_80": {
+        "gold_inside": 0.6897,
+        "mean_width_levels": 1.997,
+        "width_distribution": {
+         "1": 1,
+         "2": 318
+        }
+       },
+       "by_length": {
+        "<150": {
+         "n": 45,
+         "exact": 0.3111,
+         "within_one": 0.9778,
+         "qwk": 0.1639,
+         "mean_signed_error": 0.711
+        },
+        "150-300": {
+         "n": 55,
+         "exact": 0.3273,
+         "within_one": 0.9818,
+         "qwk": 0.572,
+         "mean_signed_error": 0.436
+        },
+        "300+": {
+         "n": 219,
+         "exact": 0.3562,
+         "within_one": 0.758,
+         "qwk": 0.2157,
+         "mean_signed_error": -0.804
+        }
+       }
+      }
+     },
+     "train_cambridge_exams_test_elg_cefr_en": {
+      "trained_levels": [
+       "A2",
+       "C2"
+      ],
+      "l2_alpha": 10.0,
+      "all": {
+       "n": 388,
+       "exact": 0.3531,
+       "within_one": 0.8479,
+       "off_by_two_or_more": 0.1521,
+       "qwk": 0.6048,
+       "macro_f1": 0.2735,
+       "mean_signed_error": 0.178,
+       "mean_abs_error": 0.817,
+       "n_per_gold_level": {
+        "A1": 25,
+        "A2": 78,
+        "B1": 151,
+        "B2": 104,
+        "C1": 30,
+        "C2": 0
+       },
+       "pred_distribution": {
+        "A1": 0,
+        "A2": 175,
+        "B1": 59,
+        "B2": 69,
+        "C1": 44,
+        "C2": 41
+       },
+       "confusion_matrix": {
+        "rows_gold_cols_pred": [
+         "A1",
+         "A2",
+         "B1",
+         "B2",
+         "C1",
+         "C2"
+        ],
+        "matrix": [
+         [
+          0,
+          24,
+          1,
+          0,
+          0,
+          0
+         ],
+         [
+          0,
+          64,
+          7,
+          6,
+          1,
+          0
+         ],
+         [
+          0,
+          77,
+          37,
+          26,
+          9,
+          2
+         ],
+         [
+          0,
+          6,
+          12,
+          30,
+          28,
+          28
+         ],
+         [
+          0,
+          4,
+          2,
+          7,
+          6,
+          11
+         ],
+         [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+         ]
+        ]
+       },
+       "range_80": {
+        "gold_inside": 0.7036,
+        "mean_width_levels": 2.157,
+        "width_distribution": {
+         "1": 85,
+         "2": 157,
+         "3": 146
+        }
+       },
+       "by_length": {
+        "<150": {
+         "n": 1,
+         "exact": 0.0,
+         "within_one": 1.0,
+         "qwk": null,
+         "mean_signed_error": 1.0
+        },
+        "150-300": {
+         "n": 383,
+         "exact": 0.3551,
+         "within_one": 0.846,
+         "qwk": 0.6047,
+         "mean_signed_error": 0.175
+        },
+        "300+": {
+         "n": 4,
+         "exact": 0.25,
+         "within_one": 1.0,
+         "qwk": null,
+         "mean_signed_error": 0.25
+        }
+       }
+      },
+      "applicable": {
+       "n": 388,
+       "exact": 0.3531,
+       "within_one": 0.8479,
+       "off_by_two_or_more": 0.1521,
+       "qwk": 0.6048,
+       "macro_f1": 0.2735,
+       "mean_signed_error": 0.178,
+       "mean_abs_error": 0.817,
+       "n_per_gold_level": {
+        "A1": 25,
+        "A2": 78,
+        "B1": 151,
+        "B2": 104,
+        "C1": 30,
+        "C2": 0
+       },
+       "pred_distribution": {
+        "A1": 0,
+        "A2": 175,
+        "B1": 59,
+        "B2": 69,
+        "C1": 44,
+        "C2": 41
+       },
+       "confusion_matrix": {
+        "rows_gold_cols_pred": [
+         "A1",
+         "A2",
+         "B1",
+         "B2",
+         "C1",
+         "C2"
+        ],
+        "matrix": [
+         [
+          0,
+          24,
+          1,
+          0,
+          0,
+          0
+         ],
+         [
+          0,
+          64,
+          7,
+          6,
+          1,
+          0
+         ],
+         [
+          0,
+          77,
+          37,
+          26,
+          9,
+          2
+         ],
+         [
+          0,
+          6,
+          12,
+          30,
+          28,
+          28
+         ],
+         [
+          0,
+          4,
+          2,
+          7,
+          6,
+          11
+         ],
+         [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+         ]
+        ]
+       },
+       "range_80": {
+        "gold_inside": 0.7036,
+        "mean_width_levels": 2.157,
+        "width_distribution": {
+         "1": 85,
+         "2": 157,
+         "3": 146
+        }
+       },
+       "by_length": {
+        "<150": {
+         "n": 1,
+         "exact": 0.0,
+         "within_one": 1.0,
+         "qwk": null,
+         "mean_signed_error": 1.0
+        },
+        "150-300": {
+         "n": 383,
+         "exact": 0.3551,
+         "within_one": 0.846,
+         "qwk": 0.6047,
+         "mean_signed_error": 0.175
+        },
+        "300+": {
+         "n": 4,
+         "exact": 0.25,
+         "within_one": 1.0,
+         "qwk": null,
+         "mean_signed_error": 0.25
+        }
+       }
+      }
+     }
+    }
+   },
+   "study5_24_unconstrained": {
+    "cv_all": {
+     "n": 718,
+     "exact": 0.532,
+     "within_one": 0.9513,
+     "off_by_two_or_more": 0.0487,
+     "qwk": 0.7952,
+     "macro_f1": 0.4274,
+     "mean_signed_error": -0.025,
+     "mean_abs_error": 0.521,
+     "n_per_gold_level": {
+      "A1": 25,
+      "A2": 142,
+      "B1": 210,
+      "B2": 175,
+      "C1": 97,
+      "C2": 69
+     },
+     "pred_distribution": {
+      "A1": 0,
+      "A2": 153,
+      "B1": 243,
+      "B2": 188,
+      "C1": 71,
+      "C2": 63
+     },
+     "confusion_matrix": {
+      "rows_gold_cols_pred": [
+       "A1",
+       "A2",
+       "B1",
+       "B2",
+       "C1",
+       "C2"
+      ],
+      "matrix": [
+       [
+        0,
+        24,
+        1,
+        0,
+        0,
+        0
+       ],
+       [
+        0,
+        86,
+        55,
+        1,
+        0,
+        0
+       ],
+       [
+        0,
+        43,
+        134,
+        30,
+        2,
+        1
+       ],
+       [
+        0,
+        0,
+        42,
+        102,
+        25,
+        6
+       ],
+       [
+        0,
+        0,
+        9,
+        42,
+        25,
+        21
+       ],
+       [
+        0,
+        0,
+        2,
+        13,
+        19,
+        35
+       ]
+      ]
+     },
+     "range_80": {
+      "gold_inside": 0.8747,
+      "mean_width_levels": 2.169,
+      "width_distribution": {
+       "1": 17,
+       "2": 563,
+       "3": 138
+      }
+     },
+     "by_length": {
+      "<150": {
+       "n": 58,
+       "exact": 0.5172,
+       "within_one": 0.9828,
+       "qwk": 0.249,
+       "mean_signed_error": 0.466
+      },
+      "150-300": {
+       "n": 437,
+       "exact": 0.5378,
+       "within_one": 0.9588,
+       "qwk": 0.7188,
+       "mean_signed_error": 0.053
+      },
+      "300+": {
+       "n": 223,
+       "exact": 0.5247,
+       "within_one": 0.9283,
+       "qwk": 0.6344,
+       "mean_signed_error": -0.305
+      }
+     }
+    },
+    "cv_applicable": {
+     "n": 706,
+     "exact": 0.5354,
+     "within_one": 0.9504,
+     "off_by_two_or_more": 0.0496,
+     "qwk": 0.7951,
+     "macro_f1": 0.43,
+     "mean_signed_error": -0.037,
+     "mean_abs_error": 0.518,
+     "n_per_gold_level": {
+      "A1": 25,
+      "A2": 130,
+      "B1": 210,
+      "B2": 175,
+      "C1": 97,
+      "C2": 69
+     },
+     "pred_distribution": {
+      "A1": 0,
+      "A2": 149,
+      "B1": 235,
+      "B2": 188,
+      "C1": 71,
+      "C2": 63
+     },
+     "confusion_matrix": {
+      "rows_gold_cols_pred": [
+       "A1",
+       "A2",
+       "B1",
+       "B2",
+       "C1",
+       "C2"
+      ],
+      "matrix": [
+       [
+        0,
+        24,
+        1,
+        0,
+        0,
+        0
+       ],
+       [
+        0,
+        82,
+        47,
+        1,
+        0,
+        0
+       ],
+       [
+        0,
+        43,
+        134,
+        30,
+        2,
+        1
+       ],
+       [
+        0,
+        0,
+        42,
+        102,
+        25,
+        6
+       ],
+       [
+        0,
+        0,
+        9,
+        42,
+        25,
+        21
+       ],
+       [
+        0,
+        0,
+        2,
+        13,
+        19,
+        35
+       ]
+      ]
+     },
+     "range_80": {
+      "gold_inside": 0.8739,
+      "mean_width_levels": 2.171,
+      "width_distribution": {
+       "1": 17,
+       "2": 551,
+       "3": 138
+      }
+     },
+     "by_length": {
+      "<150": {
+       "n": 46,
+       "exact": 0.5652,
+       "within_one": 0.9783,
+       "qwk": 0.2956,
+       "mean_signed_error": 0.413
+      },
+      "150-300": {
+       "n": 437,
+       "exact": 0.5378,
+       "within_one": 0.9588,
+       "qwk": 0.7188,
+       "mean_signed_error": 0.053
+      },
+      "300+": {
+       "n": 223,
+       "exact": 0.5247,
+       "within_one": 0.9283,
+       "qwk": 0.6344,
+       "mean_signed_error": -0.305
+      }
+     }
+    },
+    "cv_alpha_per_fold": [
+     0.3,
+     0.3,
+     0.3,
+     1.0,
+     1.0
+    ],
+    "cv_by_dataset_applicable": {
+     "cambridge_exams": {
+      "n": 318,
+      "exact": 0.5409,
+      "within_one": 0.9465,
+      "qwk": 0.8041,
+      "mean_signed_error": -0.104,
+      "range_80": {
+       "gold_inside": 0.9025,
+       "mean_width_levels": 2.226,
+       "width_distribution": {
+        "1": 15,
+        "2": 216,
+        "3": 87
+       }
+      }
+     },
+     "elg_cefr_en": {
+      "n": 388,
+      "exact": 0.5309,
+      "within_one": 0.9536,
+      "qwk": 0.6976,
+      "mean_signed_error": 0.018,
+      "range_80": {
+       "gold_inside": 0.8505,
+       "mean_width_levels": 2.126,
+       "width_distribution": {
+        "1": 2,
+        "2": 335,
+        "3": 51
+       }
+      }
+     }
+    },
+    "leave_one_dataset_out": {
+     "train_elg_cefr_en_test_cambridge_exams": {
+      "trained_levels": [
+       "A1",
+       "C1"
+      ],
+      "l2_alpha": 3.0,
+      "all": {
+       "n": 331,
+       "exact": 0.3595,
+       "within_one": 0.8278,
+       "off_by_two_or_more": 0.1722,
+       "qwk": 0.5362,
+       "macro_f1": 0.2871,
+       "mean_signed_error": -0.35,
+       "mean_abs_error": 0.822,
+       "n_per_gold_level": {
+        "A1": 0,
+        "A2": 64,
+        "B1": 60,
+        "B2": 71,
+        "C1": 67,
+        "C2": 69
+       },
+       "pred_distribution": {
+        "A1": 0,
+        "A2": 8,
+        "B1": 120,
+        "B2": 166,
+        "C1": 37,
+        "C2": 0
+       },
+       "confusion_matrix": {
+        "rows_gold_cols_pred": [
+         "A1",
+         "A2",
+         "B1",
+         "B2",
+         "C1",
+         "C2"
+        ],
+        "matrix": [
+         [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+         ],
+         [
+          0,
+          8,
+          56,
+          0,
+          0,
+          0
+         ],
+         [
+          0,
+          0,
+          43,
+          16,
+          1,
+          0
+         ],
+         [
+          0,
+          0,
+          14,
+          53,
+          4,
+          0
+         ],
+         [
+          0,
+          0,
+          4,
+          48,
+          15,
+          0
+         ],
+         [
+          0,
+          0,
+          3,
+          49,
+          17,
+          0
+         ]
+        ]
+       },
+       "range_80": {
+        "gold_inside": 0.7039,
+        "mean_width_levels": 1.994,
+        "width_distribution": {
+         "1": 2,
+         "2": 329
+        }
+       },
+       "by_length": {
+        "<150": {
+         "n": 57,
+         "exact": 0.3333,
+         "within_one": 0.9825,
+         "qwk": 0.1894,
+         "mean_signed_error": 0.684
+        },
+        "150-300": {
+         "n": 55,
+         "exact": 0.4,
+         "within_one": 0.9818,
+         "qwk": 0.6214,
+         "mean_signed_error": 0.4
+        },
+        "300+": {
+         "n": 219,
+         "exact": 0.3562,
+         "within_one": 0.7489,
+         "qwk": 0.222,
+         "mean_signed_error": -0.808
+        }
+       }
+      },
+      "applicable": {
+       "n": 319,
+       "exact": 0.3636,
+       "within_one": 0.8213,
+       "off_by_two_or_more": 0.1787,
+       "qwk": 0.5141,
+       "macro_f1": 0.2828,
+       "mean_signed_error": -0.392,
+       "mean_abs_error": 0.824,
+       "n_per_gold_level": {
+        "A1": 0,
+        "A2": 52,
+        "B1": 60,
+        "B2": 71,
+        "C1": 67,
+        "C2": 69
+       },
+       "pred_distribution": {
+        "A1": 0,
+        "A2": 5,
+        "B1": 111,
+        "B2": 166,
+        "C1": 37,
+        "C2": 0
+       },
+       "confusion_matrix": {
+        "rows_gold_cols_pred": [
+         "A1",
+         "A2",
+         "B1",
+         "B2",
+         "C1",
+         "C2"
+        ],
+        "matrix": [
+         [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+         ],
+         [
+          0,
+          5,
+          47,
+          0,
+          0,
+          0
+         ],
+         [
+          0,
+          0,
+          43,
+          16,
+          1,
+          0
+         ],
+         [
+          0,
+          0,
+          14,
+          53,
+          4,
+          0
+         ],
+         [
+          0,
+          0,
+          4,
+          48,
+          15,
+          0
+         ],
+         [
+          0,
+          0,
+          3,
+          49,
+          17,
+          0
+         ]
+        ]
+       },
+       "range_80": {
+        "gold_inside": 0.6959,
+        "mean_width_levels": 1.994,
+        "width_distribution": {
+         "1": 2,
+         "2": 317
+        }
+       },
+       "by_length": {
+        "<150": {
+         "n": 45,
+         "exact": 0.3556,
+         "within_one": 0.9778,
+         "qwk": 0.2,
+         "mean_signed_error": 0.667
+        },
+        "150-300": {
+         "n": 55,
+         "exact": 0.4,
+         "within_one": 0.9818,
+         "qwk": 0.6214,
+         "mean_signed_error": 0.4
+        },
+        "300+": {
+         "n": 219,
+         "exact": 0.3562,
+         "within_one": 0.7489,
+         "qwk": 0.222,
+         "mean_signed_error": -0.808
+        }
+       }
+      }
+     },
+     "train_cambridge_exams_test_elg_cefr_en": {
+      "trained_levels": [
+       "A2",
+       "C2"
+      ],
+      "l2_alpha": 0.3,
+      "all": {
+       "n": 388,
+       "exact": 0.3582,
+       "within_one": 0.8557,
+       "off_by_two_or_more": 0.1443,
+       "qwk": 0.6113,
+       "macro_f1": 0.2689,
+       "mean_signed_error": 0.113,
+       "mean_abs_error": 0.799,
+       "n_per_gold_level": {
+        "A1": 25,
+        "A2": 78,
+        "B1": 151,
+        "B2": 104,
+        "C1": 30,
+        "C2": 0
+       },
+       "pred_distribution": {
+        "A1": 0,
+        "A2": 174,
+        "B1": 83,
+        "B2": 46,
+        "C1": 47,
+        "C2": 38
+       },
+       "confusion_matrix": {
+        "rows_gold_cols_pred": [
+         "A1",
+         "A2",
+         "B1",
+         "B2",
+         "C1",
+         "C2"
+        ],
+        "matrix": [
+         [
+          0,
+          25,
+          0,
+          0,
+          0,
+          0
+         ],
+         [
+          0,
+          62,
+          13,
+          2,
+          1,
+          0
+         ],
+         [
+          0,
+          78,
+          47,
+          13,
+          12,
+          1
+         ],
+         [
+          0,
+          6,
+          17,
+          26,
+          30,
+          25
+         ],
+         [
+          0,
+          3,
+          6,
+          5,
+          4,
+          12
+         ],
+         [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+         ]
+        ]
+       },
+       "range_80": {
+        "gold_inside": 0.6263,
+        "mean_width_levels": 1.737,
+        "width_distribution": {
+         "1": 120,
+         "2": 250,
+         "3": 18
+        }
+       },
+       "by_length": {
+        "<150": {
+         "n": 1,
+         "exact": 1.0,
+         "within_one": 1.0,
+         "qwk": null,
+         "mean_signed_error": 0.0
+        },
+        "150-300": {
+         "n": 383,
+         "exact": 0.3551,
+         "within_one": 0.8564,
+         "qwk": 0.6117,
+         "mean_signed_error": 0.112
+        },
+        "300+": {
+         "n": 4,
+         "exact": 0.5,
+         "within_one": 0.75,
+         "qwk": null,
+         "mean_signed_error": 0.25
+        }
+       }
+      },
+      "applicable": {
+       "n": 388,
+       "exact": 0.3582,
+       "within_one": 0.8557,
+       "off_by_two_or_more": 0.1443,
+       "qwk": 0.6113,
+       "macro_f1": 0.2689,
+       "mean_signed_error": 0.113,
+       "mean_abs_error": 0.799,
+       "n_per_gold_level": {
+        "A1": 25,
+        "A2": 78,
+        "B1": 151,
+        "B2": 104,
+        "C1": 30,
+        "C2": 0
+       },
+       "pred_distribution": {
+        "A1": 0,
+        "A2": 174,
+        "B1": 83,
+        "B2": 46,
+        "C1": 47,
+        "C2": 38
+       },
+       "confusion_matrix": {
+        "rows_gold_cols_pred": [
+         "A1",
+         "A2",
+         "B1",
+         "B2",
+         "C1",
+         "C2"
+        ],
+        "matrix": [
+         [
+          0,
+          25,
+          0,
+          0,
+          0,
+          0
+         ],
+         [
+          0,
+          62,
+          13,
+          2,
+          1,
+          0
+         ],
+         [
+          0,
+          78,
+          47,
+          13,
+          12,
+          1
+         ],
+         [
+          0,
+          6,
+          17,
+          26,
+          30,
+          25
+         ],
+         [
+          0,
+          3,
+          6,
+          5,
+          4,
+          12
+         ],
+         [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+         ]
+        ]
+       },
+       "range_80": {
+        "gold_inside": 0.6263,
+        "mean_width_levels": 1.737,
+        "width_distribution": {
+         "1": 120,
+         "2": 250,
+         "3": 18
+        }
+       },
+       "by_length": {
+        "<150": {
+         "n": 1,
+         "exact": 1.0,
+         "within_one": 1.0,
+         "qwk": null,
+         "mean_signed_error": 0.0
+        },
+        "150-300": {
+         "n": 383,
+         "exact": 0.3551,
+         "within_one": 0.8564,
+         "qwk": 0.6117,
+         "mean_signed_error": 0.112
+        },
+        "300+": {
+         "n": 4,
+         "exact": 0.5,
+         "within_one": 0.75,
+         "qwk": null,
+         "mean_signed_error": 0.25
+        }
+       }
+      }
+     }
+    }
+   },
+   "extended_signed": {
+    "cv_all": {
+     "n": 718,
+     "exact": 0.5209,
+     "within_one": 0.9234,
+     "off_by_two_or_more": 0.0766,
+     "qwk": 0.7616,
+     "macro_f1": 0.4159,
+     "mean_signed_error": -0.05,
+     "mean_abs_error": 0.56,
+     "n_per_gold_level": {
+      "A1": 25,
+      "A2": 142,
+      "B1": 210,
+      "B2": 175,
+      "C1": 97,
+      "C2": 69
+     },
+     "pred_distribution": {
+      "A1": 2,
+      "A2": 151,
+      "B1": 242,
+      "B2": 204,
+      "C1": 58,
+      "C2": 61
+     },
+     "confusion_matrix": {
+      "rows_gold_cols_pred": [
+       "A1",
+       "A2",
+       "B1",
+       "B2",
+       "C1",
+       "C2"
+      ],
+      "matrix": [
+       [
+        1,
+        24,
+        0,
+        0,
+        0,
+        0
+       ],
+       [
+        1,
+        80,
+        60,
+        1,
+        0,
+        0
+       ],
+       [
+        0,
+        44,
+        134,
+        30,
+        2,
+        0
+       ],
+       [
+        0,
+        1,
+        38,
+        109,
+        13,
+        14
+       ],
+       [
+        0,
+        2,
+        9,
+        39,
+        25,
+        22
+       ],
+       [
+        0,
+        0,
+        1,
+        25,
+        18,
+        25
+       ]
+      ]
+     },
+     "range_80": {
+      "gold_inside": 0.8802,
+      "mean_width_levels": 2.315,
+      "width_distribution": {
+       "1": 6,
+       "2": 480,
+       "3": 232
+      }
+     },
+     "by_length": {
+      "<150": {
+       "n": 58,
+       "exact": 0.4483,
+       "within_one": 0.9828,
+       "qwk": 0.2234,
+       "mean_signed_error": 0.534
+      },
+      "150-300": {
+       "n": 437,
+       "exact": 0.5355,
+       "within_one": 0.9428,
+       "qwk": 0.7015,
+       "mean_signed_error": 0.055
+      },
+      "300+": {
+       "n": 223,
+       "exact": 0.5112,
+       "within_one": 0.87,
+       "qwk": 0.5508,
+       "mean_signed_error": -0.408
+      }
+     }
+    },
+    "cv_applicable": {
+     "n": 706,
+     "exact": 0.5227,
+     "within_one": 0.9221,
+     "off_by_two_or_more": 0.0779,
+     "qwk": 0.7603,
+     "macro_f1": 0.417,
+     "mean_signed_error": -0.061,
+     "mean_abs_error": 0.559,
+     "n_per_gold_level": {
+      "A1": 25,
+      "A2": 130,
+      "B1": 210,
+      "B2": 175,
+      "C1": 97,
+      "C2": 69
+     },
+     "pred_distribution": {
+      "A1": 2,
+      "A2": 146,
+      "B1": 235,
+      "B2": 204,
+      "C1": 58,
+      "C2": 61
+     },
+     "confusion_matrix": {
+      "rows_gold_cols_pred": [
+       "A1",
+       "A2",
+       "B1",
+       "B2",
+       "C1",
+       "C2"
+      ],
+      "matrix": [
+       [
+        1,
+        24,
+        0,
+        0,
+        0,
+        0
+       ],
+       [
+        1,
+        75,
+        53,
+        1,
+        0,
+        0
+       ],
+       [
+        0,
+        44,
+        134,
+        30,
+        2,
+        0
+       ],
+       [
+        0,
+        1,
+        38,
+        109,
+        13,
+        14
+       ],
+       [
+        0,
+        2,
+        9,
+        39,
+        25,
+        22
+       ],
+       [
+        0,
+        0,
+        1,
+        25,
+        18,
+        25
+       ]
+      ]
+     },
+     "range_80": {
+      "gold_inside": 0.8782,
+      "mean_width_levels": 2.319,
+      "width_distribution": {
+       "1": 6,
+       "2": 469,
+       "3": 231
+      }
+     },
+     "by_length": {
+      "<150": {
+       "n": 46,
+       "exact": 0.4565,
+       "within_one": 0.9783,
+       "qwk": 0.226,
+       "mean_signed_error": 0.522
+      },
+      "150-300": {
+       "n": 437,
+       "exact": 0.5355,
+       "within_one": 0.9428,
+       "qwk": 0.7015,
+       "mean_signed_error": 0.055
+      },
+      "300+": {
+       "n": 223,
+       "exact": 0.5112,
+       "within_one": 0.87,
+       "qwk": 0.5508,
+       "mean_signed_error": -0.408
+      }
+     }
+    },
+    "cv_alpha_per_fold": [
+     0.3,
+     3.0,
+     3.0,
+     0.3,
+     3.0
+    ],
+    "cv_by_dataset_applicable": {
+     "cambridge_exams": {
+      "n": 318,
+      "exact": 0.5,
+      "within_one": 0.9057,
+      "qwk": 0.7444,
+      "mean_signed_error": -0.151,
+      "range_80": {
+       "gold_inside": 0.9119,
+       "mean_width_levels": 2.425,
+       "width_distribution": {
+        "1": 4,
+        "2": 175,
+        "3": 139
+       }
+      }
+     },
+     "elg_cefr_en": {
+      "n": 388,
+      "exact": 0.5412,
+      "within_one": 0.9356,
+      "qwk": 0.6889,
+      "mean_signed_error": 0.013,
+      "range_80": {
+       "gold_inside": 0.8505,
+       "mean_width_levels": 2.232,
+       "width_distribution": {
+        "1": 2,
+        "2": 294,
+        "3": 92
+       }
+      }
+     }
+    },
+    "leave_one_dataset_out": {
+     "train_elg_cefr_en_test_cambridge_exams": {
+      "trained_levels": [
+       "A1",
+       "C1"
+      ],
+      "l2_alpha": 0.3,
+      "all": {
+       "n": 331,
+       "exact": 0.3474,
+       "within_one": 0.8369,
+       "off_by_two_or_more": 0.1631,
+       "qwk": 0.5399,
+       "macro_f1": 0.2692,
+       "mean_signed_error": -0.326,
+       "mean_abs_error": 0.822,
+       "n_per_gold_level": {
+        "A1": 0,
+        "A2": 64,
+        "B1": 60,
+        "B2": 71,
+        "C1": 67,
+        "C2": 69
+       },
+       "pred_distribution": {
+        "A1": 0,
+        "A2": 6,
+        "B1": 115,
+        "B2": 174,
+        "C1": 36,
+        "C2": 0
+       },
+       "confusion_matrix": {
+        "rows_gold_cols_pred": [
+         "A1",
+         "A2",
+         "B1",
+         "B2",
+         "C1",
+         "C2"
+        ],
+        "matrix": [
+         [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+         ],
+         [
+          0,
+          6,
+          58,
+          0,
+          0,
+          0
+         ],
+         [
+          0,
+          0,
+          39,
+          20,
+          1,
+          0
+         ],
+         [
+          0,
+          0,
+          13,
+          56,
+          2,
+          0
+         ],
+         [
+          0,
+          0,
+          3,
+          50,
+          14,
+          0
+         ],
+         [
+          0,
+          0,
+          2,
+          48,
+          19,
+          0
+         ]
+        ]
+       },
+       "range_80": {
+        "gold_inside": 0.7009,
+        "mean_width_levels": 1.991,
+        "width_distribution": {
+         "1": 3,
+         "2": 328
+        }
+       },
+       "by_length": {
+        "<150": {
+         "n": 57,
+         "exact": 0.3158,
+         "within_one": 0.9825,
+         "qwk": 0.1773,
+         "mean_signed_error": 0.702
+        },
+        "150-300": {
+         "n": 55,
+         "exact": 0.3273,
+         "within_one": 0.9818,
+         "qwk": 0.572,
+         "mean_signed_error": 0.436
+        },
+        "300+": {
+         "n": 219,
+         "exact": 0.3607,
+         "within_one": 0.7626,
+         "qwk": 0.2342,
+         "mean_signed_error": -0.785
+        }
+       }
+      },
+      "applicable": {
+       "n": 319,
+       "exact": 0.348,
+       "within_one": 0.8307,
+       "off_by_two_or_more": 0.1693,
+       "qwk": 0.5136,
+       "macro_f1": 0.254,
+       "mean_signed_error": -0.364,
+       "mean_abs_error": 0.828,
+       "n_per_gold_level": {
+        "A1": 0,
+        "A2": 52,
+        "B1": 60,
+        "B2": 71,
+        "C1": 67,
+        "C2": 69
+       },
+       "pred_distribution": {
+        "A1": 0,
+        "A2": 2,
+        "B1": 107,
+        "B2": 174,
+        "C1": 36,
+        "C2": 0
+       },
+       "confusion_matrix": {
+        "rows_gold_cols_pred": [
+         "A1",
+         "A2",
+         "B1",
+         "B2",
+         "C1",
+         "C2"
+        ],
+        "matrix": [
+         [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+         ],
+         [
+          0,
+          2,
+          50,
+          0,
+          0,
+          0
+         ],
+         [
+          0,
+          0,
+          39,
+          20,
+          1,
+          0
+         ],
+         [
+          0,
+          0,
+          13,
+          56,
+          2,
+          0
+         ],
+         [
+          0,
+          0,
+          3,
+          50,
+          14,
+          0
+         ],
+         [
+          0,
+          0,
+          2,
+          48,
+          19,
+          0
+         ]
+        ]
+       },
+       "range_80": {
+        "gold_inside": 0.6928,
+        "mean_width_levels": 1.991,
+        "width_distribution": {
+         "1": 3,
+         "2": 316
+        }
+       },
+       "by_length": {
+        "<150": {
+         "n": 45,
+         "exact": 0.3111,
+         "within_one": 0.9778,
+         "qwk": 0.1639,
+         "mean_signed_error": 0.711
+        },
+        "150-300": {
+         "n": 55,
+         "exact": 0.3273,
+         "within_one": 0.9818,
+         "qwk": 0.572,
+         "mean_signed_error": 0.436
+        },
+        "300+": {
+         "n": 219,
+         "exact": 0.3607,
+         "within_one": 0.7626,
+         "qwk": 0.2342,
+         "mean_signed_error": -0.785
+        }
+       }
+      }
+     },
+     "train_cambridge_exams_test_elg_cefr_en": {
+      "trained_levels": [
+       "A2",
+       "C2"
+      ],
+      "l2_alpha": 3.0,
+      "all": {
+       "n": 388,
+       "exact": 0.3557,
+       "within_one": 0.8479,
+       "off_by_two_or_more": 0.1521,
+       "qwk": 0.6088,
+       "macro_f1": 0.2714,
+       "mean_signed_error": 0.168,
+       "mean_abs_error": 0.812,
+       "n_per_gold_level": {
+        "A1": 25,
+        "A2": 78,
+        "B1": 151,
+        "B2": 104,
+        "C1": 30,
+        "C2": 0
+       },
+       "pred_distribution": {
+        "A1": 0,
+        "A2": 175,
+        "B1": 63,
+        "B2": 65,
+        "C1": 44,
+        "C2": 41
+       },
+       "confusion_matrix": {
+        "rows_gold_cols_pred": [
+         "A1",
+         "A2",
+         "B1",
+         "B2",
+         "C1",
+         "C2"
+        ],
+        "matrix": [
+         [
+          0,
+          24,
+          1,
+          0,
+          0,
+          0
+         ],
+         [
+          0,
+          63,
+          9,
+          5,
+          1,
+          0
+         ],
+         [
+          0,
+          75,
+          42,
+          25,
+          8,
+          1
+         ],
+         [
+          0,
+          9,
+          9,
+          28,
+          30,
+          28
+         ],
+         [
+          0,
+          4,
+          2,
+          7,
+          5,
+          12
+         ],
+         [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+         ]
+        ]
+       },
+       "range_80": {
+        "gold_inside": 0.6546,
+        "mean_width_levels": 1.892,
+        "width_distribution": {
+         "1": 102,
+         "2": 226,
+         "3": 60
+        }
+       },
+       "by_length": {
+        "<150": {
+         "n": 1,
+         "exact": 1.0,
+         "within_one": 1.0,
+         "qwk": null,
+         "mean_signed_error": 0.0
+        },
+        "150-300": {
+         "n": 383,
+         "exact": 0.3551,
+         "within_one": 0.846,
+         "qwk": 0.6081,
+         "mean_signed_error": 0.167
+        },
+        "300+": {
+         "n": 4,
+         "exact": 0.25,
+         "within_one": 1.0,
+         "qwk": null,
+         "mean_signed_error": 0.25
+        }
+       }
+      },
+      "applicable": {
+       "n": 388,
+       "exact": 0.3557,
+       "within_one": 0.8479,
+       "off_by_two_or_more": 0.1521,
+       "qwk": 0.6088,
+       "macro_f1": 0.2714,
+       "mean_signed_error": 0.168,
+       "mean_abs_error": 0.812,
+       "n_per_gold_level": {
+        "A1": 25,
+        "A2": 78,
+        "B1": 151,
+        "B2": 104,
+        "C1": 30,
+        "C2": 0
+       },
+       "pred_distribution": {
+        "A1": 0,
+        "A2": 175,
+        "B1": 63,
+        "B2": 65,
+        "C1": 44,
+        "C2": 41
+       },
+       "confusion_matrix": {
+        "rows_gold_cols_pred": [
+         "A1",
+         "A2",
+         "B1",
+         "B2",
+         "C1",
+         "C2"
+        ],
+        "matrix": [
+         [
+          0,
+          24,
+          1,
+          0,
+          0,
+          0
+         ],
+         [
+          0,
+          63,
+          9,
+          5,
+          1,
+          0
+         ],
+         [
+          0,
+          75,
+          42,
+          25,
+          8,
+          1
+         ],
+         [
+          0,
+          9,
+          9,
+          28,
+          30,
+          28
+         ],
+         [
+          0,
+          4,
+          2,
+          7,
+          5,
+          12
+         ],
+         [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+         ]
+        ]
+       },
+       "range_80": {
+        "gold_inside": 0.6546,
+        "mean_width_levels": 1.892,
+        "width_distribution": {
+         "1": 102,
+         "2": 226,
+         "3": 60
+        }
+       },
+       "by_length": {
+        "<150": {
+         "n": 1,
+         "exact": 1.0,
+         "within_one": 1.0,
+         "qwk": null,
+         "mean_signed_error": 0.0
+        },
+        "150-300": {
+         "n": 383,
+         "exact": 0.3551,
+         "within_one": 0.846,
+         "qwk": 0.6081,
+         "mean_signed_error": 0.167
+        },
+        "300+": {
+         "n": 4,
+         "exact": 0.25,
+         "within_one": 1.0,
+         "qwk": null,
+         "mean_signed_error": 0.25
+        }
+       }
+      }
+     }
+    }
+   },
+   "extended_unconstrained": {
+    "cv_all": {
+     "n": 718,
+     "exact": 0.5306,
+     "within_one": 0.9499,
+     "off_by_two_or_more": 0.0501,
+     "qwk": 0.7979,
+     "macro_f1": 0.4277,
+     "mean_signed_error": -0.031,
+     "mean_abs_error": 0.521,
+     "n_per_gold_level": {
+      "A1": 25,
+      "A2": 142,
+      "B1": 210,
+      "B2": 175,
+      "C1": 97,
+      "C2": 69
+     },
+     "pred_distribution": {
+      "A1": 3,
+      "A2": 153,
+      "B1": 234,
+      "B2": 193,
+      "C1": 77,
+      "C2": 58
+     },
+     "confusion_matrix": {
+      "rows_gold_cols_pred": [
+       "A1",
+       "A2",
+       "B1",
+       "B2",
+       "C1",
+       "C2"
+      ],
+      "matrix": [
+       [
+        1,
+        23,
+        1,
+        0,
+        0,
+        0
+       ],
+       [
+        2,
+        90,
+        49,
+        1,
+        0,
+        0
+       ],
+       [
+        0,
+        39,
+        138,
+        31,
+        2,
+        0
+       ],
+       [
+        0,
+        1,
+        36,
+        101,
+        30,
+        7
+       ],
+       [
+        0,
+        0,
+        9,
+        46,
+        21,
+        21
+       ],
+       [
+        0,
+        0,
+        1,
+        14,
+        24,
+        30
+       ]
+      ]
+     },
+     "range_80": {
+      "gold_inside": 0.876,
+      "mean_width_levels": 2.093,
+      "width_distribution": {
+       "1": 17,
+       "2": 617,
+       "3": 84
+      }
+     },
+     "by_length": {
+      "<150": {
+       "n": 58,
+       "exact": 0.5345,
+       "within_one": 0.9828,
+       "qwk": 0.2134,
+       "mean_signed_error": 0.345
+      },
+      "150-300": {
+       "n": 437,
+       "exact": 0.5469,
+       "within_one": 0.9565,
+       "qwk": 0.7247,
+       "mean_signed_error": 0.053
+      },
+      "300+": {
+       "n": 223,
+       "exact": 0.4978,
+       "within_one": 0.9283,
+       "qwk": 0.6153,
+       "mean_signed_error": -0.291
+      }
+     }
+    },
+    "cv_applicable": {
+     "n": 706,
+     "exact": 0.5312,
+     "within_one": 0.949,
+     "off_by_two_or_more": 0.051,
+     "qwk": 0.7966,
+     "macro_f1": 0.4285,
+     "mean_signed_error": -0.04,
+     "mean_abs_error": 0.521,
+     "n_per_gold_level": {
+      "A1": 25,
+      "A2": 130,
+      "B1": 210,
+      "B2": 175,
+      "C1": 97,
+      "C2": 69
+     },
+     "pred_distribution": {
+      "A1": 3,
+      "A2": 147,
+      "B1": 228,
+      "B2": 193,
+      "C1": 77,
+      "C2": 58
+     },
+     "confusion_matrix": {
+      "rows_gold_cols_pred": [
+       "A1",
+       "A2",
+       "B1",
+       "B2",
+       "C1",
+       "C2"
+      ],
+      "matrix": [
+       [
+        1,
+        23,
+        1,
+        0,
+        0,
+        0
+       ],
+       [
+        2,
+        84,
+        43,
+        1,
+        0,
+        0
+       ],
+       [
+        0,
+        39,
+        138,
+        31,
+        2,
+        0
+       ],
+       [
+        0,
+        1,
+        36,
+        101,
+        30,
+        7
+       ],
+       [
+        0,
+        0,
+        9,
+        46,
+        21,
+        21
+       ],
+       [
+        0,
+        0,
+        1,
+        14,
+        24,
+        30
+       ]
+      ]
+     },
+     "range_80": {
+      "gold_inside": 0.8754,
+      "mean_width_levels": 2.095,
+      "width_distribution": {
+       "1": 17,
+       "2": 605,
+       "3": 84
+      }
+     },
+     "by_length": {
+      "<150": {
+       "n": 46,
+       "exact": 0.5435,
+       "within_one": 0.9783,
+       "qwk": 0.2291,
+       "mean_signed_error": 0.304
+      },
+      "150-300": {
+       "n": 437,
+       "exact": 0.5469,
+       "within_one": 0.9565,
+       "qwk": 0.7247,
+       "mean_signed_error": 0.053
+      },
+      "300+": {
+       "n": 223,
+       "exact": 0.4978,
+       "within_one": 0.9283,
+       "qwk": 0.6153,
+       "mean_signed_error": -0.291
+      }
+     }
+    },
+    "cv_alpha_per_fold": [
+     0.3,
+     0.3,
+     0.3,
+     0.3,
+     0.3
+    ],
+    "cv_by_dataset_applicable": {
+     "cambridge_exams": {
+      "n": 318,
+      "exact": 0.5252,
+      "within_one": 0.9465,
+      "qwk": 0.8029,
+      "mean_signed_error": -0.123,
+      "range_80": {
+       "gold_inside": 0.8994,
+       "mean_width_levels": 2.094,
+       "width_distribution": {
+        "1": 14,
+        "2": 260,
+        "3": 44
+       }
+      }
+     },
+     "elg_cefr_en": {
+      "n": 388,
+      "exact": 0.5361,
+      "within_one": 0.951,
+      "qwk": 0.7075,
+      "mean_signed_error": 0.028,
+      "range_80": {
+       "gold_inside": 0.8557,
+       "mean_width_levels": 2.095,
+       "width_distribution": {
+        "1": 3,
+        "2": 345,
+        "3": 40
+       }
+      }
+     }
+    },
+    "leave_one_dataset_out": {
+     "train_elg_cefr_en_test_cambridge_exams": {
+      "trained_levels": [
+       "A1",
+       "C1"
+      ],
+      "l2_alpha": 3.0,
+      "all": {
+       "n": 331,
+       "exact": 0.3776,
+       "within_one": 0.8278,
+       "off_by_two_or_more": 0.1722,
+       "qwk": 0.5388,
+       "macro_f1": 0.3072,
+       "mean_signed_error": -0.341,
+       "mean_abs_error": 0.807,
+       "n_per_gold_level": {
+        "A1": 0,
+        "A2": 64,
+        "B1": 60,
+        "B2": 71,
+        "C1": 67,
+        "C2": 69
+       },
+       "pred_distribution": {
+        "A1": 0,
+        "A2": 10,
+        "B1": 114,
+        "B2": 169,
+        "C1": 38,
+        "C2": 0
+       },
+       "confusion_matrix": {
+        "rows_gold_cols_pred": [
+         "A1",
+         "A2",
+         "B1",
+         "B2",
+         "C1",
+         "C2"
+        ],
+        "matrix": [
+         [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+         ],
+         [
+          0,
+          10,
+          53,
+          1,
+          0,
+          0
+         ],
+         [
+          0,
+          0,
+          43,
+          16,
+          1,
+          0
+         ],
+         [
+          0,
+          0,
+          11,
+          56,
+          4,
+          0
+         ],
+         [
+          0,
+          0,
+          3,
+          48,
+          16,
+          0
+         ],
+         [
+          0,
+          0,
+          4,
+          48,
+          17,
+          0
+         ]
+        ]
+       },
+       "range_80": {
+        "gold_inside": 0.713,
+        "mean_width_levels": 1.991,
+        "width_distribution": {
+         "1": 3,
+         "2": 328
+        }
+       },
+       "by_length": {
+        "<150": {
+         "n": 57,
+         "exact": 0.3684,
+         "within_one": 0.9825,
+         "qwk": 0.2142,
+         "mean_signed_error": 0.649
+        },
+        "150-300": {
+         "n": 55,
+         "exact": 0.4,
+         "within_one": 0.9636,
+         "qwk": 0.5949,
+         "mean_signed_error": 0.418
+        },
+        "300+": {
+         "n": 219,
+         "exact": 0.3744,
+         "within_one": 0.7534,
+         "qwk": 0.2107,
+         "mean_signed_error": -0.79
+        }
+       }
+      },
+      "applicable": {
+       "n": 319,
+       "exact": 0.3793,
+       "within_one": 0.8213,
+       "off_by_two_or_more": 0.1787,
+       "qwk": 0.5135,
+       "macro_f1": 0.2993,
+       "mean_signed_error": -0.379,
+       "mean_abs_error": 0.812,
+       "n_per_gold_level": {
+        "A1": 0,
+        "A2": 52,
+        "B1": 60,
+        "B2": 71,
+        "C1": 67,
+        "C2": 69
+       },
+       "pred_distribution": {
+        "A1": 0,
+        "A2": 6,
+        "B1": 106,
+        "B2": 169,
+        "C1": 38,
+        "C2": 0
+       },
+       "confusion_matrix": {
+        "rows_gold_cols_pred": [
+         "A1",
+         "A2",
+         "B1",
+         "B2",
+         "C1",
+         "C2"
+        ],
+        "matrix": [
+         [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+         ],
+         [
+          0,
+          6,
+          45,
+          1,
+          0,
+          0
+         ],
+         [
+          0,
+          0,
+          43,
+          16,
+          1,
+          0
+         ],
+         [
+          0,
+          0,
+          11,
+          56,
+          4,
+          0
+         ],
+         [
+          0,
+          0,
+          3,
+          48,
+          16,
+          0
+         ],
+         [
+          0,
+          0,
+          4,
+          48,
+          17,
+          0
+         ]
+        ]
+       },
+       "range_80": {
+        "gold_inside": 0.7053,
+        "mean_width_levels": 1.991,
+        "width_distribution": {
+         "1": 3,
+         "2": 316
+        }
+       },
+       "by_length": {
+        "<150": {
+         "n": 45,
+         "exact": 0.3778,
+         "within_one": 0.9778,
+         "qwk": 0.2185,
+         "mean_signed_error": 0.644
+        },
+        "150-300": {
+         "n": 55,
+         "exact": 0.4,
+         "within_one": 0.9636,
+         "qwk": 0.5949,
+         "mean_signed_error": 0.418
+        },
+        "300+": {
+         "n": 219,
+         "exact": 0.3744,
+         "within_one": 0.7534,
+         "qwk": 0.2107,
+         "mean_signed_error": -0.79
+        }
+       }
+      }
+     },
+     "train_cambridge_exams_test_elg_cefr_en": {
+      "trained_levels": [
+       "A2",
+       "C2"
+      ],
+      "l2_alpha": 0.3,
+      "all": {
+       "n": 388,
+       "exact": 0.3763,
+       "within_one": 0.8608,
+       "off_by_two_or_more": 0.1392,
+       "qwk": 0.6175,
+       "macro_f1": 0.2813,
+       "mean_signed_error": 0.095,
+       "mean_abs_error": 0.776,
+       "n_per_gold_level": {
+        "A1": 25,
+        "A2": 78,
+        "B1": 151,
+        "B2": 104,
+        "C1": 30,
+        "C2": 0
+       },
+       "pred_distribution": {
+        "A1": 0,
+        "A2": 173,
+        "B1": 88,
+        "B2": 46,
+        "C1": 43,
+        "C2": 38
+       },
+       "confusion_matrix": {
+        "rows_gold_cols_pred": [
+         "A1",
+         "A2",
+         "B1",
+         "B2",
+         "C1",
+         "C2"
+        ],
+        "matrix": [
+         [
+          0,
+          25,
+          0,
+          0,
+          0,
+          0
+         ],
+         [
+          0,
+          63,
+          13,
+          1,
+          1,
+          0
+         ],
+         [
+          0,
+          75,
+          52,
+          14,
+          9,
+          1
+         ],
+         [
+          0,
+          7,
+          16,
+          27,
+          29,
+          25
+         ],
+         [
+          0,
+          3,
+          7,
+          4,
+          4,
+          12
+         ],
+         [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+         ]
+        ]
+       },
+       "range_80": {
+        "gold_inside": 0.6211,
+        "mean_width_levels": 1.696,
+        "width_distribution": {
+         "1": 122,
+         "2": 262,
+         "3": 4
+        }
+       },
+       "by_length": {
+        "<150": {
+         "n": 1,
+         "exact": 1.0,
+         "within_one": 1.0,
+         "qwk": null,
+         "mean_signed_error": 0.0
+        },
+        "150-300": {
+         "n": 383,
+         "exact": 0.3734,
+         "within_one": 0.8616,
+         "qwk": 0.6179,
+         "mean_signed_error": 0.094
+        },
+        "300+": {
+         "n": 4,
+         "exact": 0.5,
+         "within_one": 0.75,
+         "qwk": null,
+         "mean_signed_error": 0.25
+        }
+       }
+      },
+      "applicable": {
+       "n": 388,
+       "exact": 0.3763,
+       "within_one": 0.8608,
+       "off_by_two_or_more": 0.1392,
+       "qwk": 0.6175,
+       "macro_f1": 0.2813,
+       "mean_signed_error": 0.095,
+       "mean_abs_error": 0.776,
+       "n_per_gold_level": {
+        "A1": 25,
+        "A2": 78,
+        "B1": 151,
+        "B2": 104,
+        "C1": 30,
+        "C2": 0
+       },
+       "pred_distribution": {
+        "A1": 0,
+        "A2": 173,
+        "B1": 88,
+        "B2": 46,
+        "C1": 43,
+        "C2": 38
+       },
+       "confusion_matrix": {
+        "rows_gold_cols_pred": [
+         "A1",
+         "A2",
+         "B1",
+         "B2",
+         "C1",
+         "C2"
+        ],
+        "matrix": [
+         [
+          0,
+          25,
+          0,
+          0,
+          0,
+          0
+         ],
+         [
+          0,
+          63,
+          13,
+          1,
+          1,
+          0
+         ],
+         [
+          0,
+          75,
+          52,
+          14,
+          9,
+          1
+         ],
+         [
+          0,
+          7,
+          16,
+          27,
+          29,
+          25
+         ],
+         [
+          0,
+          3,
+          7,
+          4,
+          4,
+          12
+         ],
+         [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+         ]
+        ]
+       },
+       "range_80": {
+        "gold_inside": 0.6211,
+        "mean_width_levels": 1.696,
+        "width_distribution": {
+         "1": 122,
+         "2": 262,
+         "3": 4
+        }
+       },
+       "by_length": {
+        "<150": {
+         "n": 1,
+         "exact": 1.0,
+         "within_one": 1.0,
+         "qwk": null,
+         "mean_signed_error": 0.0
+        },
+        "150-300": {
+         "n": 383,
+         "exact": 0.3734,
+         "within_one": 0.8616,
+         "qwk": 0.6179,
+         "mean_signed_error": 0.094
+        },
+        "300+": {
+         "n": 4,
+         "exact": 0.5,
+         "within_one": 0.75,
+         "qwk": null,
+         "mean_signed_error": 0.25
+        }
+       }
+      }
+     }
+    }
+   },
+   "extended_plus_cvla_indices_signed": {
+    "cv_all": {
+     "n": 718,
+     "exact": 0.5404,
+     "within_one": 0.9304,
+     "off_by_two_or_more": 0.0696,
+     "qwk": 0.7787,
+     "macro_f1": 0.4354,
+     "mean_signed_error": -0.052,
+     "mean_abs_error": 0.531,
+     "n_per_gold_level": {
+      "A1": 25,
+      "A2": 142,
+      "B1": 210,
+      "B2": 175,
+      "C1": 97,
+      "C2": 69
+     },
+     "pred_distribution": {
+      "A1": 3,
+      "A2": 155,
+      "B1": 225,
+      "B2": 220,
+      "C1": 57,
+      "C2": 58
+     },
+     "confusion_matrix": {
+      "rows_gold_cols_pred": [
+       "A1",
+       "A2",
+       "B1",
+       "B2",
+       "C1",
+       "C2"
+      ],
+      "matrix": [
+       [
+        2,
+        23,
+        0,
+        0,
+        0,
+        0
+       ],
+       [
+        1,
+        92,
+        48,
+        1,
+        0,
+        0
+       ],
+       [
+        0,
+        39,
+        138,
+        32,
+        1,
+        0
+       ],
+       [
+        0,
+        0,
+        32,
+        111,
+        19,
+        13
+       ],
+       [
+        0,
+        1,
+        7,
+        49,
+        20,
+        20
+       ],
+       [
+        0,
+        0,
+        0,
+        27,
+        17,
+        25
+       ]
+      ]
+     },
+     "range_80": {
+      "gold_inside": 0.8858,
+      "mean_width_levels": 2.284,
+      "width_distribution": {
+       "1": 7,
+       "2": 500,
+       "3": 211
+      }
+     },
+     "by_length": {
+      "<150": {
+       "n": 58,
+       "exact": 0.6034,
+       "within_one": 1.0,
+       "qwk": 0.3556,
+       "mean_signed_error": 0.328
+      },
+      "150-300": {
+       "n": 437,
+       "exact": 0.5378,
+       "within_one": 0.9497,
+       "qwk": 0.7175,
+       "mean_signed_error": 0.08
+      },
+      "300+": {
+       "n": 223,
+       "exact": 0.5291,
+       "within_one": 0.8744,
+       "qwk": 0.5599,
+       "mean_signed_error": -0.408
+      }
+     }
+    },
+    "cv_applicable": {
+     "n": 706,
+     "exact": 0.5382,
+     "within_one": 0.9292,
+     "off_by_two_or_more": 0.0708,
+     "qwk": 0.7757,
+     "macro_f1": 0.4342,
+     "mean_signed_error": -0.058,
+     "mean_abs_error": 0.534,
+     "n_per_gold_level": {
+      "A1": 25,
+      "A2": 130,
+      "B1": 210,
+      "B2": 175,
+      "C1": 97,
+      "C2": 69
+     },
+     "pred_distribution": {
+      "A1": 3,
+      "A2": 147,
+      "B1": 221,
+      "B2": 220,
+      "C1": 57,
+      "C2": 58
+     },
+     "confusion_matrix": {
+      "rows_gold_cols_pred": [
+       "A1",
+       "A2",
+       "B1",
+       "B2",
+       "C1",
+       "C2"
+      ],
+      "matrix": [
+       [
+        2,
+        23,
+        0,
+        0,
+        0,
+        0
+       ],
+       [
+        1,
+        84,
+        44,
+        1,
+        0,
+        0
+       ],
+       [
+        0,
+        39,
+        138,
+        32,
+        1,
+        0
+       ],
+       [
+        0,
+        0,
+        32,
+        111,
+        19,
+        13
+       ],
+       [
+        0,
+        1,
+        7,
+        49,
+        20,
+        20
+       ],
+       [
+        0,
+        0,
+        0,
+        27,
+        17,
+        25
+       ]
+      ]
+     },
+     "range_80": {
+      "gold_inside": 0.8839,
+      "mean_width_levels": 2.289,
+      "width_distribution": {
+       "1": 7,
+       "2": 488,
+       "3": 211
+      }
+     },
+     "by_length": {
+      "<150": {
+       "n": 46,
+       "exact": 0.587,
+       "within_one": 1.0,
+       "qwk": 0.3545,
+       "mean_signed_error": 0.326
+      },
+      "150-300": {
+       "n": 437,
+       "exact": 0.5378,
+       "within_one": 0.9497,
+       "qwk": 0.7175,
+       "mean_signed_error": 0.08
+      },
+      "300+": {
+       "n": 223,
+       "exact": 0.5291,
+       "within_one": 0.8744,
+       "qwk": 0.5599,
+       "mean_signed_error": -0.408
+      }
+     }
+    },
+    "cv_alpha_per_fold": [
+     0.3,
+     0.3,
+     0.3,
+     0.3,
+     1.0
+    ],
+    "cv_by_dataset_applicable": {
+     "cambridge_exams": {
+      "n": 318,
+      "exact": 0.5409,
+      "within_one": 0.9119,
+      "qwk": 0.7701,
+      "mean_signed_error": -0.182,
+      "range_80": {
+       "gold_inside": 0.9214,
+       "mean_width_levels": 2.409,
+       "width_distribution": {
+        "1": 3,
+        "2": 182,
+        "3": 133
+       }
+      }
+     },
+     "elg_cefr_en": {
+      "n": 388,
+      "exact": 0.5361,
+      "within_one": 0.9433,
+      "qwk": 0.7044,
+      "mean_signed_error": 0.044,
+      "range_80": {
+       "gold_inside": 0.8531,
+       "mean_width_levels": 2.191,
+       "width_distribution": {
+        "1": 4,
+        "2": 306,
+        "3": 78
+       }
+      }
+     }
+    },
+    "leave_one_dataset_out": {
+     "train_elg_cefr_en_test_cambridge_exams": {
+      "trained_levels": [
+       "A1",
+       "C1"
+      ],
+      "l2_alpha": 0.3,
+      "all": {
+       "n": 331,
+       "exact": 0.4048,
+       "within_one": 0.8278,
+       "off_by_two_or_more": 0.1722,
+       "qwk": 0.5654,
+       "macro_f1": 0.3255,
+       "mean_signed_error": -0.384,
+       "mean_abs_error": 0.77,
+       "n_per_gold_level": {
+        "A1": 0,
+        "A2": 64,
+        "B1": 60,
+        "B2": 71,
+        "C1": 67,
+        "C2": 69
+       },
+       "pred_distribution": {
+        "A1": 0,
+        "A2": 14,
+        "B1": 107,
+        "B2": 185,
+        "C1": 25,
+        "C2": 0
+       },
+       "confusion_matrix": {
+        "rows_gold_cols_pred": [
+         "A1",
+         "A2",
+         "B1",
+         "B2",
+         "C1",
+         "C2"
+        ],
+        "matrix": [
+         [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+         ],
+         [
+          0,
+          14,
+          50,
+          0,
+          0,
+          0
+         ],
+         [
+          0,
+          0,
+          46,
+          14,
+          0,
+          0
+         ],
+         [
+          0,
+          0,
+          7,
+          64,
+          0,
+          0
+         ],
+         [
+          0,
+          0,
+          3,
+          54,
+          10,
+          0
+         ],
+         [
+          0,
+          0,
+          1,
+          53,
+          15,
+          0
+         ]
+        ]
+       },
+       "range_80": {
+        "gold_inside": 0.7069,
+        "mean_width_levels": 1.997,
+        "width_distribution": {
+         "1": 3,
+         "2": 326,
+         "3": 2
+        }
+       },
+       "by_length": {
+        "<150": {
+         "n": 57,
+         "exact": 0.4561,
+         "within_one": 1.0,
+         "qwk": 0.24,
+         "mean_signed_error": 0.544
+        },
+        "150-300": {
+         "n": 55,
+         "exact": 0.3455,
+         "within_one": 0.9818,
+         "qwk": 0.5863,
+         "mean_signed_error": 0.418
+        },
+        "300+": {
+         "n": 219,
+         "exact": 0.4064,
+         "within_one": 0.7443,
+         "qwk": 0.2482,
+         "mean_signed_error": -0.826
+        }
+       }
+      },
+      "applicable": {
+       "n": 319,
+       "exact": 0.4044,
+       "within_one": 0.8213,
+       "off_by_two_or_more": 0.1787,
+       "qwk": 0.5401,
+       "macro_f1": 0.3175,
+       "mean_signed_error": -0.42,
+       "mean_abs_error": 0.777,
+       "n_per_gold_level": {
+        "A1": 0,
+        "A2": 52,
+        "B1": 60,
+        "B2": 71,
+        "C1": 67,
+        "C2": 69
+       },
+       "pred_distribution": {
+        "A1": 0,
+        "A2": 9,
+        "B1": 100,
+        "B2": 185,
+        "C1": 25,
+        "C2": 0
+       },
+       "confusion_matrix": {
+        "rows_gold_cols_pred": [
+         "A1",
+         "A2",
+         "B1",
+         "B2",
+         "C1",
+         "C2"
+        ],
+        "matrix": [
+         [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+         ],
+         [
+          0,
+          9,
+          43,
+          0,
+          0,
+          0
+         ],
+         [
+          0,
+          0,
+          46,
+          14,
+          0,
+          0
+         ],
+         [
+          0,
+          0,
+          7,
+          64,
+          0,
+          0
+         ],
+         [
+          0,
+          0,
+          3,
+          54,
+          10,
+          0
+         ],
+         [
+          0,
+          0,
+          1,
+          53,
+          15,
+          0
+         ]
+        ]
+       },
+       "range_80": {
+        "gold_inside": 0.6959,
+        "mean_width_levels": 1.991,
+        "width_distribution": {
+         "1": 3,
+         "2": 316
+        }
+       },
+       "by_length": {
+        "<150": {
+         "n": 45,
+         "exact": 0.4667,
+         "within_one": 1.0,
+         "qwk": 0.25,
+         "mean_signed_error": 0.533
+        },
+        "150-300": {
+         "n": 55,
+         "exact": 0.3455,
+         "within_one": 0.9818,
+         "qwk": 0.5863,
+         "mean_signed_error": 0.418
+        },
+        "300+": {
+         "n": 219,
+         "exact": 0.4064,
+         "within_one": 0.7443,
+         "qwk": 0.2482,
+         "mean_signed_error": -0.826
+        }
+       }
+      }
+     },
+     "train_cambridge_exams_test_elg_cefr_en": {
+      "trained_levels": [
+       "A2",
+       "C2"
+      ],
+      "l2_alpha": 3.0,
+      "all": {
+       "n": 388,
+       "exact": 0.3763,
+       "within_one": 0.8428,
+       "off_by_two_or_more": 0.1572,
+       "qwk": 0.624,
+       "macro_f1": 0.284,
+       "mean_signed_error": 0.245,
+       "mean_abs_error": 0.802,
+       "n_per_gold_level": {
+        "A1": 25,
+        "A2": 78,
+        "B1": 151,
+        "B2": 104,
+        "C1": 30,
+        "C2": 0
+       },
+       "pred_distribution": {
+        "A1": 0,
+        "A2": 161,
+        "B1": 83,
+        "B2": 51,
+        "C1": 38,
+        "C2": 55
+       },
+       "confusion_matrix": {
+        "rows_gold_cols_pred": [
+         "A1",
+         "A2",
+         "B1",
+         "B2",
+         "C1",
+         "C2"
+        ],
+        "matrix": [
+         [
+          0,
+          25,
+          0,
+          0,
+          0,
+          0
+         ],
+         [
+          0,
+          64,
+          10,
+          2,
+          2,
+          0
+         ],
+         [
+          0,
+          65,
+          55,
+          21,
+          7,
+          3
+         ],
+         [
+          0,
+          4,
+          15,
+          23,
+          25,
+          37
+         ],
+         [
+          0,
+          3,
+          3,
+          5,
+          4,
+          15
+         ],
+         [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+         ]
+        ]
+       },
+       "range_80": {
+        "gold_inside": 0.6186,
+        "mean_width_levels": 1.786,
+        "width_distribution": {
+         "1": 107,
+         "2": 257,
+         "3": 24
+        }
+       },
+       "by_length": {
+        "<150": {
+         "n": 1,
+         "exact": 1.0,
+         "within_one": 1.0,
+         "qwk": null,
+         "mean_signed_error": 0.0
+        },
+        "150-300": {
+         "n": 383,
+         "exact": 0.3734,
+         "within_one": 0.8407,
+         "qwk": 0.6236,
+         "mean_signed_error": 0.248
+        },
+        "300+": {
+         "n": 4,
+         "exact": 0.5,
+         "within_one": 1.0,
+         "qwk": null,
+         "mean_signed_error": 0.0
+        }
+       }
+      },
+      "applicable": {
+       "n": 388,
+       "exact": 0.3763,
+       "within_one": 0.8428,
+       "off_by_two_or_more": 0.1572,
+       "qwk": 0.624,
+       "macro_f1": 0.284,
+       "mean_signed_error": 0.245,
+       "mean_abs_error": 0.802,
+       "n_per_gold_level": {
+        "A1": 25,
+        "A2": 78,
+        "B1": 151,
+        "B2": 104,
+        "C1": 30,
+        "C2": 0
+       },
+       "pred_distribution": {
+        "A1": 0,
+        "A2": 161,
+        "B1": 83,
+        "B2": 51,
+        "C1": 38,
+        "C2": 55
+       },
+       "confusion_matrix": {
+        "rows_gold_cols_pred": [
+         "A1",
+         "A2",
+         "B1",
+         "B2",
+         "C1",
+         "C2"
+        ],
+        "matrix": [
+         [
+          0,
+          25,
+          0,
+          0,
+          0,
+          0
+         ],
+         [
+          0,
+          64,
+          10,
+          2,
+          2,
+          0
+         ],
+         [
+          0,
+          65,
+          55,
+          21,
+          7,
+          3
+         ],
+         [
+          0,
+          4,
+          15,
+          23,
+          25,
+          37
+         ],
+         [
+          0,
+          3,
+          3,
+          5,
+          4,
+          15
+         ],
+         [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+         ]
+        ]
+       },
+       "range_80": {
+        "gold_inside": 0.6186,
+        "mean_width_levels": 1.786,
+        "width_distribution": {
+         "1": 107,
+         "2": 257,
+         "3": 24
+        }
+       },
+       "by_length": {
+        "<150": {
+         "n": 1,
+         "exact": 1.0,
+         "within_one": 1.0,
+         "qwk": null,
+         "mean_signed_error": 0.0
+        },
+        "150-300": {
+         "n": 383,
+         "exact": 0.3734,
+         "within_one": 0.8407,
+         "qwk": 0.6236,
+         "mean_signed_error": 0.248
+        },
+        "300+": {
+         "n": 4,
+         "exact": 0.5,
+         "within_one": 1.0,
+         "qwk": null,
+         "mean_signed_error": 0.0
+        }
+       }
+      }
+     }
+    }
+   },
+   "cvla_indices_refitted_signed": {
+    "cv_all": {
+     "n": 718,
+     "exact": 0.5014,
+     "within_one": 0.8663,
+     "off_by_two_or_more": 0.1337,
+     "qwk": 0.6913,
+     "macro_f1": 0.3575,
+     "mean_signed_error": -0.091,
+     "mean_abs_error": 0.642,
+     "n_per_gold_level": {
+      "A1": 25,
+      "A2": 142,
+      "B1": 210,
+      "B2": 175,
+      "C1": 97,
+      "C2": 69
+     },
+     "pred_distribution": {
+      "A1": 0,
+      "A2": 164,
+      "B1": 237,
+      "B2": 222,
+      "C1": 24,
+      "C2": 71
+     },
+     "confusion_matrix": {
+      "rows_gold_cols_pred": [
+       "A1",
+       "A2",
+       "B1",
+       "B2",
+       "C1",
+       "C2"
+      ],
+      "matrix": [
+       [
+        0,
+        25,
+        0,
+        0,
+        0,
+        0
+       ],
+       [
+        0,
+        103,
+        36,
+        3,
+        0,
+        0
+       ],
+       [
+        0,
+        35,
+        140,
+        32,
+        0,
+        3
+       ],
+       [
+        0,
+        1,
+        42,
+        91,
+        11,
+        30
+       ],
+       [
+        0,
+        0,
+        15,
+        56,
+        7,
+        19
+       ],
+       [
+        0,
+        0,
+        4,
+        40,
+        6,
+        19
+       ]
+      ]
+     },
+     "range_80": {
+      "gold_inside": 0.8621,
+      "mean_width_levels": 2.4,
+      "width_distribution": {
+       "1": 5,
+       "2": 421,
+       "3": 292
+      }
+     },
+     "by_length": {
+      "<150": {
+       "n": 58,
+       "exact": 0.8621,
+       "within_one": 1.0,
+       "qwk": 0.7218,
+       "mean_signed_error": 0.138
+      },
+      "150-300": {
+       "n": 437,
+       "exact": 0.5034,
+       "within_one": 0.8947,
+       "qwk": 0.6646,
+       "mean_signed_error": 0.188
+      },
+      "300+": {
+       "n": 223,
+       "exact": 0.4036,
+       "within_one": 0.7758,
+       "qwk": 0.3808,
+       "mean_signed_error": -0.695
+      }
+     }
+    },
+    "cv_applicable": {
+     "n": 706,
+     "exact": 0.4929,
+     "within_one": 0.864,
+     "off_by_two_or_more": 0.136,
+     "qwk": 0.6835,
+     "macro_f1": 0.3529,
+     "mean_signed_error": -0.092,
+     "mean_abs_error": 0.653,
+     "n_per_gold_level": {
+      "A1": 25,
+      "A2": 130,
+      "B1": 210,
+      "B2": 175,
+      "C1": 97,
+      "C2": 69
+     },
+     "pred_distribution": {
+      "A1": 0,
+      "A2": 152,
+      "B1": 237,
+      "B2": 222,
+      "C1": 24,
+      "C2": 71
+     },
+     "confusion_matrix": {
+      "rows_gold_cols_pred": [
+       "A1",
+       "A2",
+       "B1",
+       "B2",
+       "C1",
+       "C2"
+      ],
+      "matrix": [
+       [
+        0,
+        25,
+        0,
+        0,
+        0,
+        0
+       ],
+       [
+        0,
+        91,
+        36,
+        3,
+        0,
+        0
+       ],
+       [
+        0,
+        35,
+        140,
+        32,
+        0,
+        3
+       ],
+       [
+        0,
+        1,
+        42,
+        91,
+        11,
+        30
+       ],
+       [
+        0,
+        0,
+        15,
+        56,
+        7,
+        19
+       ],
+       [
+        0,
+        0,
+        4,
+        40,
+        6,
+        19
+       ]
+      ]
+     },
+     "range_80": {
+      "gold_inside": 0.8598,
+      "mean_width_levels": 2.407,
+      "width_distribution": {
+       "1": 5,
+       "2": 409,
+       "3": 292
+      }
+     },
+     "by_length": {
+      "<150": {
+       "n": 46,
+       "exact": 0.8261,
+       "within_one": 1.0,
+       "qwk": 0.6838,
+       "mean_signed_error": 0.174
+      },
+      "150-300": {
+       "n": 437,
+       "exact": 0.5034,
+       "within_one": 0.8947,
+       "qwk": 0.6646,
+       "mean_signed_error": 0.188
+      },
+      "300+": {
+       "n": 223,
+       "exact": 0.4036,
+       "within_one": 0.7758,
+       "qwk": 0.3808,
+       "mean_signed_error": -0.695
+      }
+     }
+    },
+    "cv_alpha_per_fold": [
+     1.0,
+     0.3,
+     0.3,
+     0.3,
+     0.3
+    ],
+    "cv_by_dataset_applicable": {
+     "cambridge_exams": {
+      "n": 318,
+      "exact": 0.4874,
+      "within_one": 0.8365,
+      "qwk": 0.6588,
+      "mean_signed_error": -0.425,
+      "range_80": {
+       "gold_inside": 0.8805,
+       "mean_width_levels": 2.544,
+       "width_distribution": {
+        "1": 3,
+        "2": 139,
+        "3": 176
+       }
+      }
+     },
+     "elg_cefr_en": {
+      "n": 388,
+      "exact": 0.4974,
+      "within_one": 0.8866,
+      "qwk": 0.6581,
+      "mean_signed_error": 0.18,
+      "range_80": {
+       "gold_inside": 0.8428,
+       "mean_width_levels": 2.294,
+       "width_distribution": {
+        "1": 2,
+        "2": 270,
+        "3": 116
+       }
+      }
+     }
+    },
+    "leave_one_dataset_out": {
+     "train_elg_cefr_en_test_cambridge_exams": {
+      "trained_levels": [
+       "A1",
+       "C1"
+      ],
+      "l2_alpha": 0.3,
+      "all": {
+       "n": 331,
+       "exact": 0.3988,
+       "within_one": 0.7613,
+       "off_by_two_or_more": 0.2387,
+       "qwk": 0.5038,
+       "macro_f1": 0.3331,
+       "mean_signed_error": -0.616,
+       "mean_abs_error": 0.858,
+       "n_per_gold_level": {
+        "A1": 0,
+        "A2": 64,
+        "B1": 60,
+        "B2": 71,
+        "C1": 67,
+        "C2": 69
+       },
+       "pred_distribution": {
+        "A1": 0,
+        "A2": 30,
+        "B1": 134,
+        "B2": 160,
+        "C1": 7,
+        "C2": 0
+       },
+       "confusion_matrix": {
+        "rows_gold_cols_pred": [
+         "A1",
+         "A2",
+         "B1",
+         "B2",
+         "C1",
+         "C2"
+        ],
+        "matrix": [
+         [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+         ],
+         [
+          0,
+          30,
+          34,
+          0,
+          0,
+          0
+         ],
+         [
+          0,
+          0,
+          54,
+          6,
+          0,
+          0
+         ],
+         [
+          0,
+          0,
+          26,
+          45,
+          0,
+          0
+         ],
+         [
+          0,
+          0,
+          14,
+          50,
+          3,
+          0
+         ],
+         [
+          0,
+          0,
+          6,
+          59,
+          4,
+          0
+         ]
+        ]
+       },
+       "range_80": {
+        "gold_inside": 0.6344,
+        "mean_width_levels": 2.03,
+        "width_distribution": {
+         "2": 321,
+         "3": 10
+        }
+       },
+       "by_length": {
+        "<150": {
+         "n": 57,
+         "exact": 0.7193,
+         "within_one": 1.0,
+         "qwk": 0.495,
+         "mean_signed_error": 0.281
+        },
+        "150-300": {
+         "n": 55,
+         "exact": 0.4909,
+         "within_one": 0.9455,
+         "qwk": 0.5513,
+         "mean_signed_error": 0.236
+        },
+        "300+": {
+         "n": 219,
+         "exact": 0.2922,
+         "within_one": 0.653,
+         "qwk": 0.1848,
+         "mean_signed_error": -1.064
+        }
+       }
+      },
+      "applicable": {
+       "n": 319,
+       "exact": 0.3793,
+       "within_one": 0.7524,
+       "off_by_two_or_more": 0.2476,
+       "qwk": 0.465,
+       "macro_f1": 0.3131,
+       "mean_signed_error": -0.643,
+       "mean_abs_error": 0.887,
+       "n_per_gold_level": {
+        "A1": 0,
+        "A2": 52,
+        "B1": 60,
+        "B2": 71,
+        "C1": 67,
+        "C2": 69
+       },
+       "pred_distribution": {
+        "A1": 0,
+        "A2": 19,
+        "B1": 133,
+        "B2": 160,
+        "C1": 7,
+        "C2": 0
+       },
+       "confusion_matrix": {
+        "rows_gold_cols_pred": [
+         "A1",
+         "A2",
+         "B1",
+         "B2",
+         "C1",
+         "C2"
+        ],
+        "matrix": [
+         [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+         ],
+         [
+          0,
+          19,
+          33,
+          0,
+          0,
+          0
+         ],
+         [
+          0,
+          0,
+          54,
+          6,
+          0,
+          0
+         ],
+         [
+          0,
+          0,
+          26,
+          45,
+          0,
+          0
+         ],
+         [
+          0,
+          0,
+          14,
+          50,
+          3,
+          0
+         ],
+         [
+          0,
+          0,
+          6,
+          59,
+          4,
+          0
+         ]
+        ]
+       },
+       "range_80": {
+        "gold_inside": 0.6207,
+        "mean_width_levels": 2.016,
+        "width_distribution": {
+         "2": 314,
+         "3": 5
+        }
+       },
+       "by_length": {
+        "<150": {
+         "n": 45,
+         "exact": 0.6667,
+         "within_one": 1.0,
+         "qwk": 0.4444,
+         "mean_signed_error": 0.333
+        },
+        "150-300": {
+         "n": 55,
+         "exact": 0.4909,
+         "within_one": 0.9455,
+         "qwk": 0.5513,
+         "mean_signed_error": 0.236
+        },
+        "300+": {
+         "n": 219,
+         "exact": 0.2922,
+         "within_one": 0.653,
+         "qwk": 0.1848,
+         "mean_signed_error": -1.064
+        }
+       }
+      }
+     },
+     "train_cambridge_exams_test_elg_cefr_en": {
+      "trained_levels": [
+       "A2",
+       "C2"
+      ],
+      "l2_alpha": 3.0,
+      "all": {
+       "n": 388,
+       "exact": 0.3608,
+       "within_one": 0.7784,
+       "off_by_two_or_more": 0.2216,
+       "qwk": 0.5911,
+       "macro_f1": 0.2687,
+       "mean_signed_error": 0.371,
+       "mean_abs_error": 0.887,
+       "n_per_gold_level": {
+        "A1": 25,
+        "A2": 78,
+        "B1": 151,
+        "B2": 104,
+        "C1": 30,
+        "C2": 0
+       },
+       "pred_distribution": {
+        "A1": 0,
+        "A2": 153,
+        "B1": 81,
+        "B2": 51,
+        "C1": 27,
+        "C2": 76
+       },
+       "confusion_matrix": {
+        "rows_gold_cols_pred": [
+         "A1",
+         "A2",
+         "B1",
+         "B2",
+         "C1",
+         "C2"
+        ],
+        "matrix": [
+         [
+          0,
+          25,
+          0,
+          0,
+          0,
+          0
+         ],
+         [
+          0,
+          64,
+          8,
+          4,
+          1,
+          1
+         ],
+         [
+          0,
+          59,
+          55,
+          21,
+          10,
+          6
+         ],
+         [
+          0,
+          4,
+          13,
+          19,
+          14,
+          54
+         ],
+         [
+          0,
+          1,
+          5,
+          7,
+          2,
+          15
+         ],
+         [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+         ]
+        ]
+       },
+       "range_80": {
+        "gold_inside": 0.6521,
+        "mean_width_levels": 2.026,
+        "width_distribution": {
+         "1": 104,
+         "2": 170,
+         "3": 114
+        }
+       },
+       "by_length": {
+        "<150": {
+         "n": 1,
+         "exact": 1.0,
+         "within_one": 1.0,
+         "qwk": null,
+         "mean_signed_error": 0.0
+        },
+        "150-300": {
+         "n": 383,
+         "exact": 0.3577,
+         "within_one": 0.7755,
+         "qwk": 0.5907,
+         "mean_signed_error": 0.376
+        },
+        "300+": {
+         "n": 4,
+         "exact": 0.5,
+         "within_one": 1.0,
+         "qwk": null,
+         "mean_signed_error": 0.0
+        }
+       }
+      },
+      "applicable": {
+       "n": 388,
+       "exact": 0.3608,
+       "within_one": 0.7784,
+       "off_by_two_or_more": 0.2216,
+       "qwk": 0.5911,
+       "macro_f1": 0.2687,
+       "mean_signed_error": 0.371,
+       "mean_abs_error": 0.887,
+       "n_per_gold_level": {
+        "A1": 25,
+        "A2": 78,
+        "B1": 151,
+        "B2": 104,
+        "C1": 30,
+        "C2": 0
+       },
+       "pred_distribution": {
+        "A1": 0,
+        "A2": 153,
+        "B1": 81,
+        "B2": 51,
+        "C1": 27,
+        "C2": 76
+       },
+       "confusion_matrix": {
+        "rows_gold_cols_pred": [
+         "A1",
+         "A2",
+         "B1",
+         "B2",
+         "C1",
+         "C2"
+        ],
+        "matrix": [
+         [
+          0,
+          25,
+          0,
+          0,
+          0,
+          0
+         ],
+         [
+          0,
+          64,
+          8,
+          4,
+          1,
+          1
+         ],
+         [
+          0,
+          59,
+          55,
+          21,
+          10,
+          6
+         ],
+         [
+          0,
+          4,
+          13,
+          19,
+          14,
+          54
+         ],
+         [
+          0,
+          1,
+          5,
+          7,
+          2,
+          15
+         ],
+         [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+         ]
+        ]
+       },
+       "range_80": {
+        "gold_inside": 0.6521,
+        "mean_width_levels": 2.026,
+        "width_distribution": {
+         "1": 104,
+         "2": 170,
+         "3": 114
+        }
+       },
+       "by_length": {
+        "<150": {
+         "n": 1,
+         "exact": 1.0,
+         "within_one": 1.0,
+         "qwk": null,
+         "mean_signed_error": 0.0
+        },
+        "150-300": {
+         "n": 383,
+         "exact": 0.3577,
+         "within_one": 0.7755,
+         "qwk": 0.5907,
+         "mean_signed_error": 0.376
+        },
+        "300+": {
+         "n": 4,
+         "exact": 0.5,
+         "within_one": 1.0,
+         "qwk": null,
+         "mean_signed_error": 0.0
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "baselines_on_training_texts_100_plus_words": {
+   "always_modal_level": {
+    "predicts": "B1",
+    "n": 706,
+    "exact": 0.2975,
+    "within_one": 0.7295,
+    "qwk": 0.0,
+    "mean_signed_error": -0.561
+   },
+   "estimated_level_95th_null_as_C2": {
+    "n": 706,
+    "exact": 0.4717,
+    "within_one": 0.8612,
+    "qwk": 0.6643,
+    "mean_signed_error": 0.008
+   },
+   "estimated_level_95th_by_dataset": {
+    "cambridge_exams": {
+     "n": 318,
+     "exact": 0.5283,
+     "within_one": 0.8868,
+     "qwk": 0.7394,
+     "mean_signed_error": -0.355
+    },
+    "elg_cefr_en": {
+     "n": 388,
+     "exact": 0.4253,
+     "within_one": 0.8402,
+     "qwk": 0.5466,
+     "mean_signed_error": 0.307
+    }
+   },
+   "note": "estimated_level_95th is not fitted to these texts, so its figures are out-of-sample; compare it with the leave-one-dataset-out figures as well as CV."
+  },
+  "not_for_these_uses": {
+   "ace_cefr": {
+    "what": "Ace-CEFR conversational passages of 50+ words",
+    "model": {
+     "n": 6,
+     "exact": 0.1667,
+     "within_one": 0.5,
+     "off_by_two_or_more": 0.5,
+     "qwk": 0.1923,
+     "macro_f1": 0.2,
+     "mean_signed_error": -1.333,
+     "mean_abs_error": 1.333,
+     "n_per_gold_level": {
+      "A1": 0,
+      "A2": 0,
+      "B1": 0,
+      "B2": 0,
+      "C1": 2,
+      "C2": 4
+     },
+     "pred_distribution": {
+      "A1": 0,
+      "A2": 0,
+      "B1": 1,
+      "B2": 3,
+      "C1": 1,
+      "C2": 1
+     },
+     "confusion_matrix": {
+      "rows_gold_cols_pred": [
+       "A1",
+       "A2",
+       "B1",
+       "B2",
+       "C1",
+       "C2"
+      ],
+      "matrix": [
+       [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+       ],
+       [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+       ],
+       [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+       ],
+       [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+       ],
+       [
+        0,
+        0,
+        1,
+        1,
+        0,
+        0
+       ],
+       [
+        0,
+        0,
+        0,
+        2,
+        1,
+        1
+       ]
+      ]
+     },
+     "range_80": {
+      "gold_inside": 0.3333,
+      "mean_width_levels": 2.333,
+      "width_distribution": {
+       "2": 4,
+       "3": 2
+      }
+     },
+     "by_length": {
+      "<150": {
+       "n": 6,
+       "exact": 0.1667,
+       "within_one": 0.5,
+       "qwk": null,
+       "mean_signed_error": -1.333
+      }
+     }
+    },
+    "cvla_published": {
+     "n": 6,
+     "exact": 0.5,
+     "within_one": 0.8333,
+     "qwk": 0.2979,
+     "mean_signed_error": -0.5
+    },
+    "baseline_always_modal_level": {
+     "predicts": "C2",
+     "n": 6,
+     "exact": 0.6667,
+     "within_one": 1.0,
+     "qwk": 0.0,
+     "mean_signed_error": 0.333
+    },
+    "estimated_level_95th": {
+     "n": 6,
+     "exact": 0.1667,
+     "within_one": 0.5,
+     "qwk": 0.1231,
+     "mean_signed_error": -1.5
+    },
+    "note": "Only a handful of Ace-CEFR passages reach 50 words, and none reaches the 100-word floor, so the shipped estimator would answer none of them; the figures are the raw model, for completeness only.",
+    "model_20_plus_words_for_context": {
+     "n": 167,
+     "exact": 0.4012,
+     "within_one": 0.8503,
+     "qwk": 0.6334,
+     "mean_signed_error": -0.467,
+     "range_80": {
+      "gold_inside": 0.7425,
+      "mean_width_levels": 2.102,
+      "width_distribution": {
+       "1": 31,
+       "2": 88,
+       "3": 48
+      }
+     }
+    }
+   },
+   "icle500": {
+    "what": "ICLE learner essays (graded at the writer's level)",
+    "model": {
+     "n": 488,
+     "exact": 0.4344,
+     "within_one": 0.8545,
+     "off_by_two_or_more": 0.1455,
+     "qwk": 0.2971,
+     "macro_f1": 0.2795,
+     "mean_signed_error": -0.119,
+     "mean_abs_error": 0.717,
+     "n_per_gold_level": {
+      "A1": 0,
+      "A2": 1,
+      "B1": 114,
+      "B2": 218,
+      "C1": 91,
+      "C2": 64
+     },
+     "pred_distribution": {
+      "A1": 0,
+      "A2": 0,
+      "B1": 78,
+      "B2": 322,
+      "C1": 53,
+      "C2": 35
+     },
+     "confusion_matrix": {
+      "rows_gold_cols_pred": [
+       "A1",
+       "A2",
+       "B1",
+       "B2",
+       "C1",
+       "C2"
+      ],
+      "matrix": [
+       [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+       ],
+       [
+        0,
+        0,
+        0,
+        1,
+        0,
+        0
+       ],
+       [
+        0,
+        0,
+        35,
+        70,
+        7,
+        2
+       ],
+       [
+        0,
+        0,
+        36,
+        148,
+        25,
+        9
+       ],
+       [
+        0,
+        0,
+        6,
+        58,
+        16,
+        11
+       ],
+       [
+        0,
+        0,
+        1,
+        45,
+        5,
+        13
+       ]
+      ]
+     },
+     "range_80": {
+      "gold_inside": 0.8422,
+      "mean_width_levels": 2.619,
+      "width_distribution": {
+       "1": 4,
+       "2": 178,
+       "3": 306
+      }
+     },
+     "by_length": {
+      "300+": {
+       "n": 488,
+       "exact": 0.4344,
+       "within_one": 0.8545,
+       "qwk": 0.2971,
+       "mean_signed_error": -0.119
+      }
+     }
+    },
+    "cvla_published": {
+     "n": 488,
+     "exact": 0.3074,
+     "within_one": 0.7131,
+     "qwk": 0.2688,
+     "mean_signed_error": 0.359
+    },
+    "baseline_always_modal_level": {
+     "predicts": "B2",
+     "n": 488,
+     "exact": 0.4467,
+     "within_one": 0.8668,
+     "qwk": 0.0,
+     "mean_signed_error": -0.211
+    },
+    "estimated_level_95th": {
+     "n": 488,
+     "exact": 0.3955,
+     "within_one": 0.8115,
+     "qwk": 0.2123,
+     "mean_signed_error": -0.283
+    }
+   }
+  },
+  "cvla_published": {
+   "what": "CVLA Reading mode as published (Uchida & Negishi 2018, sec. 3.5): mean of four per-index regressions on ARI, verbs per sentence, mean CEFR-J level of content words, and B/A content-word ratio; CEFR-J level from the published bands, folded to six levels (Pre-A1 and A1.x = A1, ..., B2.x = B2, C1 < 5, C2 >= 5). Computed with lexinspect's spaCy tags and CEFR-J 1.5 (the paper used TreeTagger and CEFR-J 1.3). Calibrated on A1-B2 coursebooks, so C1/C2 are extrapolation.",
+   "training_texts_all": {
+    "n": 718,
+    "exact": 0.2702,
+    "within_one": 0.7479,
+    "off_by_two_or_more": 0.2521,
+    "qwk": 0.6819,
+    "macro_f1": 0.2577,
+    "mean_signed_error": -0.331,
+    "mean_abs_error": 1.014,
+    "n_per_gold_level": {
+     "A1": 25,
+     "A2": 142,
+     "B1": 210,
+     "B2": 175,
+     "C1": 97,
+     "C2": 69
+    },
+    "pred_distribution": {
+     "A1": 196,
+     "A2": 100,
+     "B1": 114,
+     "B2": 116,
+     "C1": 54,
+     "C2": 138
+    },
+    "confusion_matrix": {
+     "rows_gold_cols_pred": [
+      "A1",
+      "A2",
+      "B1",
+      "B2",
+      "C1",
+      "C2"
+     ],
+     "matrix": [
+      [
+       24,
+       1,
+       0,
+       0,
+       0,
+       0
+      ],
+      [
+       114,
+       20,
+       4,
+       3,
+       0,
+       1
+      ],
+      [
+       54,
+       64,
+       60,
+       20,
+       5,
+       7
+      ],
+      [
+       3,
+       12,
+       34,
+       44,
+       21,
+       61
+      ],
+      [
+       1,
+       3,
+       10,
+       34,
+       13,
+       36
+      ],
+      [
+       0,
+       0,
+       6,
+       15,
+       15,
+       33
+      ]
+     ]
+    },
+    "by_length": {
+     "<150": {
+      "n": 58,
+      "exact": 0.2586,
+      "within_one": 1.0,
+      "qwk": 0.4251,
+      "mean_signed_error": -0.707
+     },
+     "150-300": {
+      "n": 437,
+      "exact": 0.2082,
+      "within_one": 0.6796,
+      "qwk": 0.5834,
+      "mean_signed_error": -0.247
+     },
+     "300+": {
+      "n": 223,
+      "exact": 0.3946,
+      "within_one": 0.8161,
+      "qwk": 0.479,
+      "mean_signed_error": -0.399
+     }
+    }
+   },
+   "training_texts_applicable": {
+    "n": 706,
+    "exact": 0.2748,
+    "within_one": 0.7436,
+    "off_by_two_or_more": 0.2564,
+    "qwk": 0.6769,
+    "macro_f1": 0.2612,
+    "mean_signed_error": -0.32,
+    "mean_abs_error": 1.014,
+    "n_per_gold_level": {
+     "A1": 25,
+     "A2": 130,
+     "B1": 210,
+     "B2": 175,
+     "C1": 97,
+     "C2": 69
+    },
+    "pred_distribution": {
+     "A1": 184,
+     "A2": 100,
+     "B1": 114,
+     "B2": 116,
+     "C1": 54,
+     "C2": 138
+    },
+    "confusion_matrix": {
+     "rows_gold_cols_pred": [
+      "A1",
+      "A2",
+      "B1",
+      "B2",
+      "C1",
+      "C2"
+     ],
+     "matrix": [
+      [
+       24,
+       1,
+       0,
+       0,
+       0,
+       0
+      ],
+      [
+       102,
+       20,
+       4,
+       3,
+       0,
+       1
+      ],
+      [
+       54,
+       64,
+       60,
+       20,
+       5,
+       7
+      ],
+      [
+       3,
+       12,
+       34,
+       44,
+       21,
+       61
+      ],
+      [
+       1,
+       3,
+       10,
+       34,
+       13,
+       36
+      ],
+      [
+       0,
+       0,
+       6,
+       15,
+       15,
+       33
+      ]
+     ]
+    },
+    "by_length": {
+     "<150": {
+      "n": 46,
+      "exact": 0.3261,
+      "within_one": 1.0,
+      "qwk": 0.4659,
+      "mean_signed_error": -0.63
+     },
+     "150-300": {
+      "n": 437,
+      "exact": 0.2082,
+      "within_one": 0.6796,
+      "qwk": 0.5834,
+      "mean_signed_error": -0.247
+     },
+     "300+": {
+      "n": 223,
+      "exact": 0.3946,
+      "within_one": 0.8161,
+      "qwk": 0.479,
+      "mean_signed_error": -0.399
+     }
+    }
+   },
+   "by_dataset_applicable": {
+    "cambridge_exams": {
+     "n": 318,
+     "exact": 0.3868,
+     "within_one": 0.8742,
+     "qwk": 0.7635,
+     "mean_signed_error": -0.44
+    },
+    "elg_cefr_en": {
+     "n": 388,
+     "exact": 0.183,
+     "within_one": 0.6366,
+     "qwk": 0.5559,
+     "mean_signed_error": -0.222
+    }
+   },
+   "score_by_gold_level_mean": {
+    "A1": 0.437,
+    "A2": 0.999,
+    "B1": 2.372,
+    "B2": 4.488,
+    "C1": 4.72,
+    "C2": 5.106
+   },
+   "as_leave_one_dataset_out_test_sets_applicable": {
+    "cambridge_exams": {
+     "n": 319,
+     "exact": 0.3856,
+     "within_one": 0.8746,
+     "qwk": 0.7636,
+     "mean_signed_error": -0.442
+    },
+    "elg_cefr_en": {
+     "n": 388,
+     "exact": 0.183,
+     "within_one": 0.6366,
+     "qwk": 0.5559,
+     "mean_signed_error": -0.222
+    }
+   }
+  },
+  "ensemble_ordinal_plus_cvla": {
+   "what": "round((expected level under study5_24_signed + CVLA level) / 2)",
+   "cv_applicable": {
+    "n": 706,
+    "exact": 0.4164,
+    "within_one": 0.9023,
+    "qwk": 0.743,
+    "mean_signed_error": -0.174
+   },
+   "leave_one_dataset_out_applicable": {
+    "train_elg_cefr_en_test_cambridge_exams": {
+     "n": 319,
+     "exact": 0.4984,
+     "within_one": 0.9028,
+     "qwk": 0.7306,
+     "mean_signed_error": -0.47
+    },
+    "train_cambridge_exams_test_elg_cefr_en": {
+     "n": 388,
+     "exact": 0.3144,
+     "within_one": 0.8247,
+     "qwk": 0.5892,
+     "mean_signed_error": 0.121
+    }
+   }
+  },
+  "final_model_l2_alpha": 0.3,
+  "final_model_converged": true,
+  "method": "Stratified 5-fold CV (seed 0) on the pooled reading texts; within each training fold the L2 penalty is chosen from [0.3, 1.0, 3.0, 10.0, 30.0, 100.0] by inner 3-fold CV on QWK, and the imputation medians, means and SDs are fitted on the training fold only. Leave-one-dataset-out fits on one collection and tests on the other; a model fitted on one collection can only predict the levels it saw. 'applicable' = texts of 100+ lexinspect words, the floor below which the estimator declines. range_80 is the shortest run of adjacent levels holding 80% of the probability. Length is lexinspect's readability word count."
+ },
+ "metadata": {
+  "built": "2026-11-06",
+  "lexinspect_version": "0.4.0",
+  "provenance": {
+   "lexinspect": "0.4.0",
+   "spacy_model": "en_core_web_sm-3.8.0"
+  },
+  "training_packages": {
+   "numpy": "2.4.4",
+   "scipy": "1.18.1",
+   "scikit-learn": "1.9.1"
+  },
+  "training_data": {
+   "cambridge_exams": {
+    "citation": "Xia, M., Kochmar, E., & Briscoe, T. (2016). Text readability assessment for second language learners. Proceedings of the 11th Workshop on Innovative Use of NLP for Building Educational Applications (BEA), 12-22. Distributed via UniversalCEFR (Imperial et al. 2025, arXiv:2506.01419).",
+    "source": "Xia, Kochmar & Briscoe 2016 (Cambridge English exam reading passages), via UniversalCEFR",
+    "licence": "CC BY-NC-SA 4.0",
+    "revision": "27cb64a28f823e56638a5b029f3716e438311168",
+    "sha256": "e762c547dbf513a05c551a03479a9f521fedab41e50267638c3259b4d9b862c5",
+    "n": 331,
+    "n_per_level": {
+     "A1": 0,
+     "A2": 64,
+     "B1": 60,
+     "B2": 71,
+     "C1": 67,
+     "C2": 69
+    }
+   },
+   "elg_cefr_en": {
+    "citation": "Breuker, M. (2023). CEFR labelling and assessment services. In G. Rehm (Ed.), European Language Grid (pp. 277-282). Springer. doi:10.1007/978-3-031-17258-8_16. Distributed via UniversalCEFR (Imperial et al. 2025, arXiv:2506.01419).",
+    "source": "Breuker 2023, ELG CEFR Labelling (EDIA), via UniversalCEFR",
+    "licence": "CC BY-NC 4.0 (dataset card; records say CC BY-NC-SA 4.0)",
+    "revision": "5bcca039738fa3e611847964741234b73405718d",
+    "sha256": "5f748ae566c6470389681dbb1f3959dcf990b08a718e7bc81a176ed95eee2b98",
+    "n": 388,
+    "n_per_level": {
+     "A1": 25,
+     "A2": 78,
+     "B1": 151,
+     "B2": 104,
+     "C1": 30,
+     "C2": 0
+    }
+   }
+  },
+  "training_n": 718,
+  "training_note": "ELG-CEFR-EN minus the 324 passages it shares with the Cambridge exams set (as in Study 5). ELG has no C2 texts and Cambridge no A1 texts, so A1 rests on ELG alone and C2 on Cambridge alone.",
+  "licence_note": "The coefficients, thresholds and standardisation figures in this file are derived from datasets licensed CC BY-NC 4.0 and CC BY-NC-SA 4.0 (Xia, Kochmar & Briscoe 2016; Breuker 2023; both via UniversalCEFR), and the Cambridge readability data's own terms limit information derived from it to non-commercial research and education. This file is therefore treated as an adaptation and licensed CC BY-NC-SA 4.0. No text from the datasets is included. The estimate is offered in free, non-commercial lexinspect; the MIT licence of lexinspect's code does not extend to this file.",
+  "open_alternative_checked": "No openly licensed (CC BY / CC BY-SA / CC0) CEFR-labelled set of reading passages of comparable size was found: OneStopEnglish (CC BY-SA 4.0) has three non-CEFR levels; Ace-CEFR (CC0) is short conversational text (median 10 words); CLEAR is CC BY-NC-SA and US-grade based.",
+  "cvla_reference": "Uchida, S., & Negishi, M. (2018). Assigning CEFR-J levels to English texts based on textual features. Proceedings of the 4th Asia Pacific Corpus Linguistics Conference, 463-467. hdl:2324/2244112",
+  "build_command": "uv run --with numpy --with scipy --with scikit-learn python scripts/build_data/build_level_model.py"
+ }
+}

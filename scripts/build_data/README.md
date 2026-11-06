@@ -9,6 +9,8 @@ One-shot extractors that turn upstream sources into the data files in `src/lexin
 | `build_phase4.py` | `metadiscourse.json` | `/tmp/lex4/hedges.txt` |
 | `build_lists.py SRC_DIR` | `bnc_coca.json`, `ngsl.json`, `cefr.json`, `spelling.json` | files in `SRC_DIR` |
 | `build_phrase_index.py` | adds `variants`, `sense` and `tags` to `phrase.json` in place | `phrase.json`, spaCy `en_core_web_sm` |
+| `build_alternatives.py` | `alternatives.json` | Open English WordNet 2025 and Princeton WordNet 3.0 tag counts, downloaded at pinned SHA-256s into `.cache/alternatives/`; `cefr.json`, `bnc_coca.json`. Run with `uv run --with lemminflect==0.2.3` |
+| `build_level_model.py` | `level_model.json` | UniversalCEFR's Cambridge exams and ELG-CEFR-EN sets, downloaded at pinned revisions; lexinspect's own module outputs. Run with `uv run --with numpy --with scipy --with scikit-learn` |
 
 `build_phase3.py` (the old `cefr.json` builder) is superseded by `build_lists.py`. The scripts write into `src/lexinspect/data/` relative to the checkout.
 

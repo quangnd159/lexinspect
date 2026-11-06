@@ -63,8 +63,10 @@ jobs:
           cp src/lexinspect/static/licences.html public/licences.html
           cp src/lexinspect/static/privacy.html public/privacy.html
           cp src/lexinspect/static/comparison.html public/comparison.html
+          cp src/lexinspect/static/batch.html public/batch.html
           cp -R src/lexinspect/static/comparison public/static/comparison
           cp -R src/lexinspect/static/fonts public/static/fonts
+          mkdir -p public/static/locales && cp src/lexinspect/static/locales/*.json public/static/locales/ && rm public/static/locales/messages.json
 
       # The Linux bundle is ~280 MB, over the builder's standard limit, because
       # spaCy, blis and numpy ship .so files with debug symbols. Over the limit

@@ -5,8 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>lexinspect — privacy</title>
   <link rel="canonical" href="https://lexinspect.dqnotes.com/privacy">
-  <link rel="stylesheet" href="/static/fonts/fonts.css">
-  <link rel="stylesheet" href="/static/styles.css" />
+  <link rel="stylesheet" href="/static/fonts/fonts.css?v=0.5.0">
+  <link rel="stylesheet" href="/static/styles.css?v=0.5.0" />
 <link rel="icon" type="image/png" sizes="64x64" href="/static/favicon.png">
 <link rel="icon" type="image/png" sizes="64x64" href="/static/favicon-dark.png" media="(prefers-color-scheme: dark)">
 <link rel="apple-touch-icon" sizes="180x180" href="/static/apple-touch-icon.png">
@@ -32,7 +32,7 @@
 
 <main class="intro licences-content privacy-content">
     <h1>Privacy</h1>
-    <p class="fine">Last updated: 21 October 2026</p>
+    <p class="fine">Last updated: 6 November 2026</p>
     <p>
       lexinspect is a free tool run by Quang Nguyen. This page explains what happens to the text you
       analyse and to anything else the site handles. In short: <b>your text is analysed and then
@@ -46,6 +46,12 @@
         applies to text sent to the API.</li>
       <li>lexinspect's code doesn't store, log or share your text, and doesn't use it to train anything.
         The analysis runs once, and the text is gone when the response is sent.</li>
+      <li>Files you open or drop are read in your browser. Only their text is sent, the same way as
+        typed text; the file itself never leaves your device.</li>
+      <li><b>Copy link</b> puts the text itself, compressed, into the part of the link after <code>#</code>.
+        Browsers never send that part to a server, so the text reaches lexinspect only when the person
+        you share the link with presses Analyse. Anyone with the link can read the text: share it as you
+        would the text itself.</li>
       <li>Your browser keeps your current draft in its own local storage, so it survives a page reload.
         It stays on your device. You can clear it by clearing the text box or your browser's data for
         this site.</li>
@@ -89,6 +95,7 @@
             only an expiry time and a signature, nothing about who you are.</td><td>1 hour</td></tr>
         <tr><td><code>lexinspect:draft</code></td><td>Local storage</td><td>Your draft text, so it survives a reload</td><td>Until you clear it</td></tr>
         <tr><td><code>lexinspect:variant</code></td><td>Local storage</td><td>Your choice of British or American spelling</td><td>Until you clear it</td></tr>
+        <tr><td><code>lexinspect:target</code></td><td>Local storage</td><td>The readers’ CEFR level you picked</td><td>Until you clear it</td></tr>
         <tr><td><code>lexinspect:pass-until</code></td><td>Local storage</td><td>When the human-check pass expires</td><td>Until you clear it</td></tr>
       </tbody>
     </table>

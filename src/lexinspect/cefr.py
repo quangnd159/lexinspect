@@ -32,7 +32,7 @@ from lexinspect import _lists
 from lexinspect._text import Analysis, ensure, lookup
 
 WORDS_PER_LEVEL_LIMIT = 100
-# Below this the 95% estimate rests on too few words to mean anything (Study 5).
+# Below this the 95% estimate rests on too few words to mean anything (see the CEFR benchmark, docs/validation/study5-cefr.md).
 MIN_WORDS_ESTIMATE = 50
 OFF_LIST_LIMIT = 200
 
@@ -103,7 +103,7 @@ def analyze(text: str, *, analysis: Analysis | None = None) -> dict[str, Any]:
             "Heuristic only. Based on CEFR-J 1.5 + Octanove C1/C2 1.0; not Cambridge EVP. "
             "estimated_level_95th is the lowest level whose cumulative coverage reaches "
             "95%. It describes the vocabulary used, not the writer's proficiency. In "
-            "lexinspect's Study 5 it was within one level of graded reading texts' level "
+            "lexinspect's CEFR benchmark (docs/validation/study5-cefr.md) it was within one level of graded reading texts' level "
             "84-89% of the time but exact only 43-54% (texts with no level counted as C2), "
             "rated C1-C2 texts low, and carried "
             "almost no information on learner writing. "

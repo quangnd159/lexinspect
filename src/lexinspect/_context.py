@@ -50,16 +50,15 @@ def in_hyphenated_word(first, last) -> bool:
 
 # Rewording `that is` is an appositive linking adverbial (Biber et al. 1999,
 # linking adverbials of apposition): `the median, that is, the middle value`.
-# Two constructions share its words (Study 4 guidelines B4, C1): relative
-# `that` (`a method that is used`) and demonstrative `that` as the subject of
-# `is` (`That is my car`). They are told apart by the clause role of `that`,
-# not by punctuation, which the rewording use need not have (`…, as long as
-# you pay that is.`).
+# Two other constructions share its words: relative `that` (`a method that is
+# used`) and demonstrative `that` as the subject of `is` (`That is my car`).
+# They are told apart by the clause role of `that`, not by punctuation, which
+# the rewording use need not have (`…, as long as you pay that is.`).
 _CLAUSE_OPENERS = frozenset({";", ":", "(", "[", "“", "‘", '"'})
 
 
 def _opening_straight_single(p) -> bool:
-    """Audit r2 S1: `p` is a straight single quote opening a quotation: a
+    """`p` is a straight single quote opening a quotation: a
     token of its own, not a possessive (dependency `case`, tag POS: `the
     students' view`), with whitespace or the start of the text before it and
     the quoted clause straight after it (`He said, 'That is wrong.'`)."""
@@ -110,7 +109,7 @@ def rephrasing_that_is(that) -> bool:
 # Specifying (goal and role) nouns. As the subject of `be` + to-infinitive
 # they make a specificational clause (`our goal here is to measure drift`): the infinitive
 # identifies the aim or role (Huddleston & Pullum 2002, ch. 4, specifying
-# be), so the `is to` is not the PHRASE entry IS TO (PH-06).
+# be), so the `is to` is not the PHRASE entry IS TO.
 SPECIFYING_NOUNS = frozenset(
     {
         "aim",

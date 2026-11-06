@@ -64,7 +64,7 @@ def test_schema(client):
     assert r.status_code == 200
     body = r.json()
     assert body["schema_version"] == "2"
-    assert body["modules"] == list(pipeline.MODULES)
+    assert body["modules"] == pipeline.ALL_MODULES
     assert set(body["modules"]) >= CORE_MODULES
     assert body["limits"] == {"max_text_bytes": MAX_TEXT_BYTES}
     assert "cefr_level" in body["modules_optional"]
@@ -106,7 +106,7 @@ def test_analyze_runs_every_module_including_errors(client):
     body = r.json()
     assert body["module"] == "analyze"
     assert body["schema_version"] == "2"
-    assert list(body["results"]) == list(pipeline.MODULES)
+    assert list(body["results"]) == pipeline.ALL_MODULES
     assert set(body["results"]) >= CORE_MODULES
     inp = body["input"]
     assert inp["word_count"] == body["results"]["readability"]["counts"]["words"]

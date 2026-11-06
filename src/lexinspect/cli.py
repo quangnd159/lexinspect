@@ -163,6 +163,26 @@ def cefr_cmd(file: FileArg, format: FormatOpt = "json") -> None:
     _emit(envelope("cefr", src, len(text), result), format)
 
 
+@app.command(name="syntax")
+def syntax_cmd(file: FileArg, format: FormatOpt = "json") -> None:
+    """Syntactic complexity after Lu's L2SCA (14 indices), from the dependency parse."""
+    from lexinspect import syntax
+
+    text, src = read_text(file)
+    result = syntax.analyze(text)
+    _emit(envelope("syntax", src, len(text), result), format)
+
+
+@app.command(name="level")
+def level_cmd(file: FileArg, format: FormatOpt = "json") -> None:
+    """Estimated CEFR level of a reading text (ordinal model; not for grading writing)."""
+    from lexinspect import pipeline
+
+    text, src = read_text(file)
+    _a, results = pipeline.run_all(text, modules=["level"])
+    _emit(envelope("level", src, len(text), results["level"]), format)
+
+
 @app.command(name="cefr-level")
 def cefr_level_cmd(file: FileArg, format: FormatOpt = "json") -> None:
     """CEFR text-level classification (A1–C2) via UniversalCEFR ModernBERT.
@@ -184,6 +204,25 @@ def metadiscourse_cmd(file: FileArg, format: FormatOpt = "json") -> None:
     text, src = read_text(file)
     result = metadiscourse.analyze(text)
     _emit(envelope("metadiscourse", src, len(text), result), format)
+
+
+@app.command(name="alternatives")
+def alternatives_cmd(
+    file: FileArg,
+    format: FormatOpt = "json",
+    variant: Annotated[
+        str,
+        typer.Option("--variant", help="English variant: gb (British) | us (American)"),
+    ] = "gb",
+) -> None:
+    """Simpler words for every word at A2 or above (Open English WordNet + CEFR lists)."""
+    from lexinspect import alternatives
+
+    text, src = read_text(file)
+    _emit(
+        envelope("alternatives", src, len(text), alternatives.analyze(text, variant=variant)),
+        format,
+    )
 
 
 @app.command(name="errors")

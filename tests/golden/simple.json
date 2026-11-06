@@ -1,4 +1,27 @@
 {
+ "alternatives": {
+  "items": [
+   {
+    "count": 1,
+    "lemma": "high",
+    "level": "A2",
+    "occurrences": [
+     {
+      "replacements": {},
+      "span": [
+       59,
+       63
+      ],
+      "surface": "high",
+      "tag": "RB"
+     }
+    ],
+    "pos": "adverb",
+    "suggestions": []
+   }
+  ],
+  "source": "Synonyms: Open English WordNet 2025 (CC BY 4.0); sense frequencies: WordNet 3.0 (Princeton). Levels: CEFR-J 1.5 + Octanove C1/C2. Bands: Nation BNC/COCA."
+ },
  "awl": {
   "counts": {
    "awl_families": 0,
@@ -254,7 +277,7 @@
   "supplementary": {}
  },
  "cefr": {
-  "caveat": "Heuristic only. Based on CEFR-J 1.5 + Octanove C1/C2 1.0; not Cambridge EVP. estimated_level_95th is the lowest level whose cumulative coverage reaches 95%. It describes the vocabulary used, not the writer's proficiency. In lexinspect's Study 5 it was within one level of graded reading texts' level 84-89% of the time but exact only 43-54% (texts with no level counted as C2), rated C1-C2 texts low, and carried almost no information on learner writing. Cite both sources. Combine this with readability, BNC/COCA and diversity signals before reporting a level.",
+  "caveat": "Heuristic only. Based on CEFR-J 1.5 + Octanove C1/C2 1.0; not Cambridge EVP. estimated_level_95th is the lowest level whose cumulative coverage reaches 95%. It describes the vocabulary used, not the writer's proficiency. In lexinspect's CEFR benchmark (docs/validation/study5-cefr.md) it was within one level of graded reading texts' level 84-89% of the time but exact only 43-54% (texts with no level counted as C2), rated C1-C2 texts low, and carried almost no information on learner writing. Cite both sources. Combine this with readability, BNC/COCA and diversity signals before reporting a level.",
   "counts": {
    "content_tokens": 30,
    "off_list_tokens": 1,
@@ -504,6 +527,25 @@
   "unknown_names": [],
   "variant": "gb",
   "variant_mismatches": []
+ },
+ "level": {
+  "applicable": false,
+  "caveat": "An estimate of the CEFR level of a reading text (material written or chosen for learners), learned from Cambridge exam passages and ELG-CEFR-EN graded texts. It describes the text, not a writer's proficiency: do not use it to grade learner writing, where it does no better than always answering B2. Not applicable under 100 words.",
+  "confidence": null,
+  "contributions": [],
+  "evaluation": {
+   "cross_dataset_within_one_worst": 0.8276,
+   "held_out_exact": 0.517,
+   "held_out_qwk": 0.761,
+   "held_out_within_one": 0.9221,
+   "n_texts": 706,
+   "range_contains_true_level": 0.8824,
+   "text": "Tested on 706 exam and graded reading passages it hadn't seen (5-fold cross-validation), the estimate was within one level of the published level 92% of the time and exactly right 52% of the time; the shown range contained the published level 88% of the time. Trained on one collection and tested on the other, within-one accuracy was 83% at worst. It is for reading texts, not for grading writing."
+  },
+  "level": null,
+  "probabilities": null,
+  "range": null,
+  "reason": "The text has 30 words; the level estimate needs at least 100. On short texts one or two words decide the level."
  },
  "metadiscourse": {
   "counts": {
@@ -1186,6 +1228,131 @@
    "unique_types_excluding_numbers": 24
   },
   "excluded_digits": []
+ },
+ "syntax": {
+  "counts": {
+   "clauses": 5,
+   "complex_nominals": 0,
+   "complex_t_units": 0,
+   "coordinate_phrases": 1,
+   "dependent_clauses": 0,
+   "passive_clauses": 0,
+   "sentences": 5,
+   "t_units": 5,
+   "verb_phrases": 5,
+   "words": 30
+  },
+  "dependency": {
+   "mean_dependency_distance": 1.32,
+   "mean_parse_depth": 2.6
+  },
+  "indices": {
+   "c_s": 1.0,
+   "c_t": 1.0,
+   "cn_c": 0.0,
+   "cn_t": 0.0,
+   "cp_c": 0.2,
+   "cp_t": 0.2,
+   "ct_t": 0.0,
+   "dc_c": 0.0,
+   "dc_t": 0.0,
+   "mlc": 6.0,
+   "mls": 6.0,
+   "mlt": 6.0,
+   "t_s": 1.0,
+   "vp_t": 1.0
+  },
+  "passive": {
+   "clauses": 0,
+   "share_of_clauses": 0.0
+  },
+  "phrasal": {
+   "attributive_adjectives": 0,
+   "attributive_adjectives_per_1000_words": 0.0,
+   "premodifying_nouns": 0,
+   "premodifying_nouns_per_1000_words": 0.0,
+   "prepositional_postmodifiers": 0,
+   "prepositional_postmodifiers_per_1000_words": 0.0
+  },
+  "reliability": {
+   "notes": [
+    "Only 30 words. Syntactic complexity ratios need 100+ words; on shorter texts one sentence swings every index."
+   ],
+   "reliable": false
+  },
+  "sentences": [
+   {
+    "clauses": 1,
+    "dependent_clauses": 0,
+    "depth": 3,
+    "mdd": 1.2,
+    "passive": 0,
+    "span": [
+     0,
+     23
+    ],
+    "t_units": 1,
+    "words": 6
+   },
+   {
+    "clauses": 1,
+    "dependent_clauses": 0,
+    "depth": 3,
+    "mdd": 1.2,
+    "passive": 0,
+    "span": [
+     24,
+     48
+    ],
+    "t_units": 1,
+    "words": 6
+   },
+   {
+    "clauses": 1,
+    "dependent_clauses": 0,
+    "depth": 3,
+    "mdd": 1.4,
+    "passive": 0,
+    "span": [
+     49,
+     75
+    ],
+    "t_units": 1,
+    "words": 6
+   },
+   {
+    "clauses": 1,
+    "dependent_clauses": 0,
+    "depth": 2,
+    "mdd": 1.6,
+    "passive": 0,
+    "span": [
+     76,
+     110
+    ],
+    "t_units": 1,
+    "words": 6
+   },
+   {
+    "clauses": 1,
+    "dependent_clauses": 0,
+    "depth": 2,
+    "mdd": 1.2,
+    "passive": 0,
+    "span": [
+     111,
+     138
+    ],
+    "t_units": 1,
+    "words": 6
+   }
+  ],
+  "validity": {
+   "evidence": "Not yet validated against L2SCA output. A cruder UD label-counting approach correlated r = .90 with L2SCA's clause count, .63 for dependent clauses and .68 for coordinate phrases on 135 Japanese EFL paragraphs (Spring & Johnson 2022).",
+   "method": "Lu's (2010) L2SCA units re-derived from spaCy's dependency parse (en_core_web_sm) instead of Tregex patterns over Stanford constituency trees. Rules follow the Tregex patterns; counts will differ from L2SCA's on the same text wherever the two parsers or the two representations disagree.",
+   "population": "Parsers are trained on edited native-speaker English; learner English parses less accurately, so counts on learner texts carry more error.",
+   "status": "approximation"
+  }
  },
  "tagger": {
   "counts": {

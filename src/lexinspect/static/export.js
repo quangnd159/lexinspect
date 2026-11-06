@@ -100,10 +100,10 @@ const Export = (() => {
   col('awl_families', (d) => R(d).awl.counts.awl_families, 'Distinct AWL word families.');
   for (let s = 1; s <= 10; s++) col(`awl_sublist${s}_pct`, (d) => R(d).awl.per_sublist[s]?.coverage_pct, `Percentage of words in AWL sublist ${s}.`);
 
-  col('phrase_hits', (d) => R(d).phrase.counts.total_hits, 'PHRASE-list expressions found (Martinez & Schmitt 2012).');
-  col('phrase_unique', (d) => R(d).phrase.counts.unique_phrases, 'Distinct PHRASE-list expressions.');
+  col('phrase_hits', (d) => R(d).phrase.counts.total_hits, 'PHRASE List expressions found (Martinez & Schmitt 2012).');
+  col('phrase_unique', (d) => R(d).phrase.counts.unique_phrases, 'Distinct PHRASE List expressions.');
   col('phrase_per_1000_words', (d) => R(d).phrase.counts.hits_per_1000_words, 'Expressions per 1,000 words.');
-  for (let k = 1; k <= 5; k++) col(`phrase_k${k}_hits`, (d) => R(d).phrase.hits_per_k_band[k], `Expressions in frequency band K${k}.`);
+  for (let k = 1; k <= 5; k++) col(`phrase_k${k}_hits`, (d) => R(d).phrase.hits_per_k_band[k], `Expressions in frequency band ${k}K.`);
 
   col('md_hits', (d) => R(d).metadiscourse.counts.total_hits, 'Metadiscourse markers (Hyland 2005).');
   col('md_per_1000_words', (d) => R(d).metadiscourse.density_per_1000, 'Markers per 1,000 words.');
@@ -124,10 +124,23 @@ const Export = (() => {
   for (const [tag, label] of Object.entries(UPOS)) col(`pos_${tag.toLowerCase()}`, (d) => R(d).tagger.upos_distribution[tag] ?? 0, `${label} (Universal POS tag ${tag}).`);
 
   // PHRASE register and integrated profile. Columns are only ever appended.
-  col('bnc_band_95_with_phrases', (d) => bandFor(R(d).phrase.integrated_profile.per_band, 95), 'As bnc_band_95, with each word inside a PHRASE-list expression counted at the expression’s band (Martinez & Schmitt’s integrated list).');
-  col('bnc_band_98_with_phrases', (d) => bandFor(R(d).phrase.integrated_profile.per_band, 98), 'As bnc_band_98, with each word inside a PHRASE-list expression counted at the expression’s band.');
-  col('phrase_words_pct', (d) => { const c = R(d).phrase.integrated_profile.counts; return c.content_tokens ? Math.round((c.phrase_tokens / c.content_tokens) * 1000) / 10 : null; }, 'Percentage of words that are part of a PHRASE-list expression.');
-  for (const g of PHRASE_REGISTERS) col(`phrase_rare_${g.key}_hits`, (d) => R(d).phrase.register[g.key].rare, `Expressions the PHRASE list rates rare or non-existent in ${g.long} (its x rating).`);
+  col('bnc_band_95_with_phrases', (d) => bandFor(R(d).phrase.integrated_profile.per_band, 95), 'As bnc_band_95, with each word inside a PHRASE List expression counted at the expression’s band (Martinez & Schmitt’s integrated list).');
+  col('bnc_band_98_with_phrases', (d) => bandFor(R(d).phrase.integrated_profile.per_band, 98), 'As bnc_band_98, with each word inside a PHRASE List expression counted at the expression’s band.');
+  col('phrase_words_pct', (d) => { const c = R(d).phrase.integrated_profile.counts; return c.content_tokens ? Math.round((c.phrase_tokens / c.content_tokens) * 1000) / 10 : null; }, 'Percentage of words that are part of a PHRASE List expression.');
+  for (const g of PHRASE_REGISTERS) col(`phrase_rare_${g.key}_hits`, (d) => R(d).phrase.register[g.key].rare, `Expressions the PHRASE List rates rare or non-existent in ${g.long} (its x rating).`);
+
+  // 0.5: reading-level estimate and syntactic complexity. Appended, never reordered.
+  col('level_estimate', (d) => (R(d).level?.applicable ? R(d).level.level : null), 'Estimated CEFR level of a reading text (ordinal model calibrated on Cambridge exam and ELG-CEFR-EN graded texts). Blank under 100 words. Not for grading learner writing.');
+  col('level_range', (d) => (R(d).level?.applicable ? R(d).level.range.join('-') : null), 'Smallest run of adjacent levels holding 80% of the estimate’s probability.');
+  for (const l of LEVELS) col(`level_p_${l.toLowerCase()}`, (d) => R(d).level?.probabilities?.[l] ?? null, `Probability the estimate gives to ${l}.`);
+  for (const g of SYNTAX) for (const x of g.items) col(`syntax_${x.key}`, (d) => R(d).syntax?.indices?.[x.key], `${x.name} (${x.abbr}, after Lu 2010).${x.note ? ` ${x.note}` : ''}`);
+  for (const k of ['clauses', 'dependent_clauses', 't_units', 'complex_t_units', 'coordinate_phrases', 'complex_nominals', 'verb_phrases', 'passive_clauses'])
+    col(`syntax_${k}`, (d) => R(d).syntax?.counts?.[k], `Count of ${k.replace(/_/g, ' ')} (dependency-based approximation of L2SCA units).`);
+  col('syntax_passive_share', (d) => R(d).syntax?.passive?.share_of_clauses, 'Share of clauses that are passive.');
+  col('syntax_mean_dependency_distance', (d) => R(d).syntax?.dependency?.mean_dependency_distance, 'Mean dependency distance (Liu 2008), punctuation excluded.');
+  col('syntax_attributive_adjectives_per_1000_words', (d) => R(d).syntax?.phrasal?.attributive_adjectives_per_1000_words, 'Attributive adjectives per 1,000 words (Biber, Gray & Poonpon 2011).');
+  col('syntax_premodifying_nouns_per_1000_words', (d) => R(d).syntax?.phrasal?.premodifying_nouns_per_1000_words, 'Nouns premodifying nouns per 1,000 words.');
+  col('syntax_prepositional_postmodifiers_per_1000_words', (d) => R(d).syntax?.phrasal?.prepositional_postmodifiers_per_1000_words, 'Prepositional phrases postmodifying nouns per 1,000 words.');
 
   function summaryRow(d, m) {
     return COLUMNS.map((c) => {
@@ -156,7 +169,7 @@ const Export = (() => {
     ['awl_sublist', 'AWL sublist 1–10; blank if not an AWL word.'],
     ['ngsl', 'ngsl, nawl or proper; blank if in neither list.'],
     ['spelling', 'error, other_variety or unknown_name when flagged by the spell check.'],
-    ['phrase', 'The PHRASE-list expression this word is part of, if any.'],
+    ['phrase', 'The PHRASE List expression this word is part of, if any.'],
     ['metadiscourse', 'Metadiscourse category of the marker this word is part of, if any.'],
   ];
 
@@ -198,6 +211,8 @@ const Export = (() => {
   const csv = (header, rows) => '﻿' + [header, ...rows].map((r) => r.map(csvCell).join(',')).join('\r\n') + '\r\n';
 
   const summaryCsv = (d, m) => csv(COLUMNS.map((c) => c.name), [summaryRow(d, m)]);
+  /** One row per text, same columns: [{d, m, name}] -> CSV with a leading file-name column. */
+  const summaryCsvMany = (list) => csv(['file', ...COLUMNS.map((c) => c.name)], list.map(({ d, m, name }) => [name, ...summaryRow(d, m)]));
   const wordsCsv = (d) => csv(WORD_COLUMNS.map((c) => c[0]), wordRows(d));
 
   // ---- workbook -----------------------------------------------------------------
@@ -248,6 +263,17 @@ const Export = (() => {
       [20, 14, 9, 9, 15, 34, 34]);
     sheet('Metadiscourse hits', ['Category', 'Dimension', 'Marker', 'As written', 'Start', 'End'],
       r.metadiscourse.hits.map((x) => [MD_CATEGORIES[x.category]?.label ?? x.category, x.dimension, x.marker, x.surface, x.span[0], x.span[1]]), [20, 14, 20, 20, 8, 8]);
+
+    if (r.syntax) {
+      sheet('Syntax', ['Measure', 'Abbreviation', 'Value', 'Group'],
+        SYNTAX.flatMap((g) => g.items.map((x) => [x.name, x.abbr, r.syntax.indices[x.key], g.group])), [32, 12, 10, 16]);
+      sheet('Sentences', ['Sentence', 'Words', 'Clauses', 'Dependent clauses', 'T-units', 'Passive clauses', 'Parse depth', 'Mean dependency distance', 'Start', 'End', 'Text'],
+        r.syntax.sentences.map((x, i) => [i + 1, x.words, x.clauses, x.dependent_clauses, x.t_units, x.passive, x.depth, x.mdd, x.span[0], x.span[1], analysedText(d).slice(x.span[0], x.span[1])]),
+        [10, 8, 9, 17, 9, 15, 12, 24, 8, 8, 90]);
+    }
+    if (r.level?.applicable) {
+      sheet('Level estimate', ['Level', 'Probability'], LEVELS.map((l) => [l, r.level.probabilities[l]]), [10, 12]);
+    }
 
     const sp = [];
     for (const [list, kind] of [[r.errors.errors, 'error'], [r.errors.variant_mismatches, 'other variety'], [r.errors.unknown_names, 'unknown name']])
@@ -326,13 +352,13 @@ const Export = (() => {
   // Deflated with the browser's CompressionStream where there is one, else stored.
 
   const CRC = (() => {
-    const t = new Uint32Array(256);
+    const table = new Uint32Array(256);
     for (let n = 0; n < 256; n++) {
       let c = n;
       for (let k = 0; k < 8; k++) c = c & 1 ? 0xedb88320 ^ (c >>> 1) : c >>> 1;
-      t[n] = c >>> 0;
+      table[n] = c >>> 0;
     }
-    return t;
+    return table;
   })();
   function crc32(bytes) {
     let c = 0xffffffff;
@@ -400,6 +426,10 @@ const Export = (() => {
   }
 
   // ---- text for people ----------------------------------------------------------
+  // The copied summary, the printed report and the label around the citation
+  // follow the interface language. Words, phrases and the text itself stay
+  // English: quoted() in plain text, en() in the report. The citation keeps its
+  // standard English form.
 
   function citation(d, m) {
     const v = d.provenance?.lexinspect ?? '';
@@ -411,27 +441,80 @@ const Export = (() => {
     };
   }
 
+  const alsoCite = () => t('Also cite the word lists and formulas you report on: {url}', { url: `${SITE}/licences` });
+
   function citationText(d, m) {
     const c = citation(d, m);
-    return `${c.apa}\n\n${c.bibtex}\n\nAlso cite the word lists and formulas you report on: ${SITE}/licences\n`;
+    return `${c.apa}\n\n${c.bibtex}\n\n${alsoCite()}\n`;
   }
 
-  /** The 95% band counting PHRASE expressions as units, or null when it is
-   *  the same as for words alone. */
+  /** A copy.js label inside a sentence: first letter lowered ("plain English"),
+   *  except in German, where nouns keep their capital. */
+  function inline(label) {
+    if (!label || I18n.locale === 'de') return label;
+    return label.charAt(0).toLocaleLowerCase(I18n.intl) + label.slice(1);
+  }
+
+  /** Dates in the interface language; English ones in British order (6 Nov 2026). */
+  const dateLocale = () => (I18n.locale === 'en' ? 'en-GB' : I18n.intl);
+
+  const easeLabel = (ease) => {
+    const band = EASE_BANDS.find(([lo]) => ease >= lo);
+    return band ? t(band[1]) : '';
+  };
+  const variety = (e) => (e.variant === 'us' ? t('American English') : t('British English'));
+  /** A band (in thousands of families) as a number of word families: 4 -> "4,000". */
+  const families = (band) => num(band * 1000);
+  const levelRange = (lv) => (lv.range.length > 1 ? `${lv.range[0]}–${lv.range[lv.range.length - 1]}` : lv.level);
+  /** "word" or "word ×3": an English word list entry. */
+  const times = (word, count) => (count > 1 ? `${word} ×${num(count)}` : word);
+  const fix = (x) => (x.suggestions?.[0] ? `${x.surface} → ${x.suggestions[0]}` : x.surface);
+
+  /** The 95% band counting PHRASE List expressions as units: undefined when it
+   *  is the same as for words alone, null when 25,000 families aren't enough. */
   function band95WithPhrases(r) {
     const p = bandFor(r.phrase.integrated_profile.per_band, 95);
-    return p === bandFor(r.bnc_coca.per_band, 95) ? null : p ? `${p},000` : 'more than 25,000';
+    return p === bandFor(r.bnc_coca.per_band, 95) ? undefined : p;
   }
 
-  function withPhrases(r) {
-    const b = band95WithPhrases(r);
-    return b ? ` (${b} for 95% counting PHRASE expressions as units)` : '';
-  }
+  // Thresholds behind the server's reliability flags (readability.py, cefr.py,
+  // diversity.py). The cautions are worded here, from the counts, so they
+  // follow the interface language.
+  const SMOG_SENTENCES = 30;
 
-  function phraseSummary(p) {
-    const rare = (p.expressions || []).filter((e) => e.register.written_academic === 'rare');
-    const tail = rare.length ? `; rare or absent in academic writing: ${rare.map((e) => (e.count > 1 ? `${phraseName(e)} ×${e.count}` : phraseName(e))).join(', ')}` : '';
-    return `Phrases: ${plural(p.counts.total_hits, 'expression')} from the PHRASE list${tail}`;
+  /** Cautions on the scores, for the report's "Read with care" box. */
+  function cautions(d) {
+    const r = d.results;
+    const rd = r.readability;
+    const out = new Set();
+    const words = rd.counts.words;
+    if (!words) out.add(t('No words to measure.'));
+    else {
+      if (!rd.reliability.reliable)
+        out.add(tn(words,
+          'Only {n} word. Readability formulas were fitted on passages of 100 words or more; on shorter texts one long word or sentence can swing every score.',
+          'Only {n} words. Readability formulas were fitted on passages of 100 words or more; on shorter texts one long word or sentence can swing every score.'));
+      if (rd.counts.sentences < SMOG_SENTENCES)
+        out.add(tn(rd.counts.sentences,
+          'SMOG was normed on samples of 30 sentences. This text has {n} sentence, so its SMOG score is extrapolated.',
+          'SMOG was normed on samples of 30 sentences. This text has {n} sentences, so its SMOG score is extrapolated.'));
+    }
+    const cr = r.cefr.estimate_reliability;
+    if (cr) {
+      const n = d.input.word_count;
+      if (!cr.reliable) out.add(tn(n, 'Only {n} word. The CEFR vocabulary estimate needs 50 words or more.', 'Only {n} words. The CEFR vocabulary estimate needs 50 words or more.'));
+      if (r.cefr.estimated_level_95th == null && n) out.add(t('More than 5% of the words are beyond the C2 lists, so no CEFR level covers 95% of them. That does not make the text C2.'));
+      out.add(t('The CEFR vocabulary estimate is a rough guide. It is usually within one level of a reading text’s graded level, and it does not measure a learner’s proficiency.'));
+    }
+    if (r.diversity.note) {
+      const n = r.diversity.counts?.tokens ?? 0;
+      out.add(n
+        ? tn(n,
+          'Only {n} word counted for lexical diversity. Diversity measures depend on text length: under about 50 words they are unstable, and some cannot be computed at all.',
+          'Only {n} words counted for lexical diversity. Diversity measures depend on text length: under about 50 words they are unstable, and some cannot be computed at all.')
+        : t('No words to measure.'));
+    }
+    return [...out];
   }
 
   /** A few lines to paste into an email, a feedback form or a document. */
@@ -440,26 +523,70 @@ const Export = (() => {
     const rd = r.readability;
     const grade = rd.scores.text_standard;
     const ease = rd.scores.flesch_reading_ease;
-    const easeLabel = EASE_BANDS.find(([lo]) => ease >= lo)?.[1] ?? '';
     const b95 = bandFor(r.bnc_coca.per_band, 95);
     const b98 = bandFor(r.bnc_coca.per_band, 98);
+    const bp = band95WithPhrases(r);
     const b2 = ['B2', 'C1', 'C2'].reduce((s, l) => s + r.cefr.per_level[l].coverage_pct, 0);
     const div = r.diversity.scores;
     const e = r.errors;
-    const errs = e.errors.slice(0, 8).map((x) => (x.suggestions?.[0] ? `${x.surface} → ${x.suggestions[0]}` : x.surface));
+    const lv = r.level;
+    const errs = e.errors.slice(0, 8).map(fix);
+    const rare = (r.phrase.expressions || []).filter((x) => x.register.written_academic === 'rare').map((x) => times(phraseName(x), x.count));
+    const scores = { grade: num(grade, 1), label: inline(gradeLabel(grade)), ease: num(ease), band: inline(easeLabel(ease)) };
+    const hits = r.phrase.counts.total_hits;
+    const md = r.metadiscourse.counts.total_hits;
     const lines = [
-      `Text analysis by lexinspect, ${m.date.toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })}`,
-      `“${excerpt(d.submitted, 60)}”`,
+      t('Text analysis by lexinspect, {date}', { date: m.date.toLocaleDateString(dateLocale(), { day: 'numeric', month: 'short', year: 'numeric' }) }),
+      quoted(excerpt(d.submitted, 60)),
       '',
-      `Length: ${plural(rd.counts.words, 'word')}, ${plural(rd.counts.sentences, 'sentence')}, ${num(rd.averages.words_per_sentence, 1)} words per sentence, about ${duration(rd.counts.reading_time_seconds)} to read`,
-      `Readability: grade ${num(grade, 1)} (${gradeLabel(grade).toLowerCase()}); Flesch Reading Ease ${num(ease)} (${easeLabel.toLowerCase()})${rd.reliability.reliable ? '' : '. Short text: indicative only'}`,
-      `Vocabulary level: highest CEFR level ${r.cefr.highest_level_present ?? '–'}; ${pct(b2)} of words at B2 or above`,
-      `Vocabulary needed: ${b95 ? `${b95},000` : 'more than 25,000'} word families for 95% coverage${b98 ? `, ${b98},000 for 98%` : ''}${withPhrases(r)}`,
-      `Academic words: ${pct(r.awl.coverage_pct)} AWL, ${pct(r.ngsl.coverage_pct.nawl)} NAWL`,
-      `Lexical diversity: ${div.mtld == null ? 'text too short to measure' : `MTLD ${num(div.mtld)}${div.vocd_d == null ? '' : `, vocd-D ${num(div.vocd_d)}`}`}`,
-      phraseSummary(r.phrase),
-      `Metadiscourse: ${plural(r.metadiscourse.counts.total_hits, 'marker')}, ${num(r.metadiscourse.density_per_1000)} per 1,000 words`,
-      `Spelling (${e.variant === 'us' ? 'US' : 'UK'}): ${e.counts.errors_total ? `${plural(e.counts.errors_total, 'possible error')}: ${errs.join(', ')}${e.errors.length > errs.length ? ', …' : ''}` : 'no errors found'}`,
+      t('Length: {words}, {sentences}, {perSentence} words per sentence, about {time} to read', {
+        words: tn(rd.counts.words, '{n} word', '{n} words'),
+        sentences: tn(rd.counts.sentences, '{n} sentence', '{n} sentences'),
+        perSentence: num(rd.averages.words_per_sentence, 1),
+        time: duration(rd.counts.reading_time_seconds),
+      }),
+      rd.reliability.reliable
+        ? t('Readability: grade {grade} ({label}); Flesch Reading Ease {ease} ({band})', scores)
+        : t('Readability: grade {grade} ({label}); Flesch Reading Ease {ease} ({band}). Indicative only, as the text is under 100 words', scores),
+      ...(lv?.applicable
+        ? [lv.range.length > 1
+          ? t('Estimated reading level: {range}, most likely {level} (a model estimate, within one level for 8 to 9 in 10 of the graded reading texts it was tested on)', { range: levelRange(lv), level: lv.level })
+          : t('Estimated reading level: {level} (a model estimate, within one level for 8 to 9 in 10 of the graded reading texts it was tested on)', { level: lv.level })]
+        : []),
+      t('Vocabulary level: highest CEFR level {level}; {pct} of words at B2 or above', { level: r.cefr.highest_level_present ?? '–', pct: pct(b2) }),
+      ...(r.syntax?.indices
+        ? [t('Sentences: {perTunit} words per T-unit, {perSentence} clauses per sentence, {passive} of clauses in the passive', {
+          perTunit: num(r.syntax.indices.mlt, 1),
+          perSentence: num(r.syntax.indices.c_s, 2),
+          passive: pct((r.syntax.passive?.share_of_clauses ?? 0) * 100, 0),
+        })]
+        : []),
+      !b95
+        ? t('Vocabulary needed: more than 25,000 word families for 95% coverage')
+        : b98
+          ? t('Vocabulary needed: {families95} word families for 95% coverage, {families98} for 98%', { families95: families(b95), families98: families(b98) })
+          : t('Vocabulary needed: {families95} word families for 95% coverage; 98% needs more than 25,000', { families95: families(b95) }),
+      ...(bp === undefined
+        ? []
+        : [bp
+          ? t('Vocabulary needed, with PHRASE List expressions as units: {families95} word families for 95% coverage', { families95: families(bp) })
+          : t('Vocabulary needed, with PHRASE List expressions as units: more than 25,000 word families for 95% coverage')]),
+      t('Academic words: {awl} AWL, {nawl} NAWL', { awl: pct(r.awl.coverage_pct), nawl: pct(r.ngsl.coverage_pct.nawl) }),
+      div.mtld == null
+        ? t('Lexical diversity: text too short to measure')
+        : div.vocd_d == null
+          ? t('Lexical diversity: MTLD {mtld}', { mtld: num(div.mtld) })
+          : t('Lexical diversity: MTLD {mtld}, vocd-D {vocd}', { mtld: num(div.mtld), vocd: num(div.vocd_d) }),
+      rare.length
+        ? tn(hits, 'Phrases: {n} expression from the PHRASE List; rare or absent in academic writing: {phrases}', 'Phrases: {n} expressions from the PHRASE List; rare or absent in academic writing: {phrases}', { phrases: rare.join(', ') })
+        : tn(hits, 'Phrases: {n} expression from the PHRASE List', 'Phrases: {n} expressions from the PHRASE List'),
+      tn(md, 'Metadiscourse: {n} marker, {density} per 1,000 words', 'Metadiscourse: {n} markers, {density} per 1,000 words', { density: num(r.metadiscourse.density_per_1000) }),
+      e.counts.errors_total
+        ? tn(e.counts.errors_total, 'Spelling ({variety}): {n} possible error: {words}', 'Spelling ({variety}): {n} possible errors: {words}', {
+          variety: variety(e),
+          words: `${errs.join(', ')}${e.errors.length > errs.length ? ', …' : ''}`,
+        })
+        : t('Spelling ({variety}): no errors found', { variety: variety(e) }),
       '',
       `lexinspect ${d.provenance?.lexinspect ?? ''} · ${SITE}`,
     ];
@@ -473,73 +600,112 @@ const Export = (() => {
     const table = (head, rows, cls) =>
       h('table', { class: cls || null }, h('thead', {}, h('tr', {}, head.map((x) => h('th', {}, x)))), h('tbody', {}, rows.map((row) => h('tr', {}, row.map((x) => h('td', {}, x ?? '–'))))));
     const section = (title, ...body) => h('section', {}, h('h2', {}, title), body);
-    const words = (list, n = 60) => (list.length ? `${list.slice(0, n).map((w) => (w.count > 1 ? `${w.word} ×${w.count}` : w.word)).join(', ')}${list.length > n ? `, … (${list.length - n} more)` : ''}` : 'None');
+    /** English words, the first n of them, as an English run with a translated tail. */
+    const words = (list, n = 60) => {
+      if (!list.length) return t('None');
+      const shown = en(list.slice(0, n).map((w) => times(w.word, w.count)).join(', '));
+      return list.length > n ? [shown, ' ', tn(list.length - n, 'and {n} more', 'and {n} more')] : shown;
+    };
+    const english = (list) => (list.length ? en(list.join(', ')) : t('None'));
+    // The interface's quotation marks around an English excerpt.
+    const [open, close] = t('“{text}”').split('{text}');
     const grade = rd.scores.text_standard;
     const ease = rd.scores.flesch_reading_ease;
     const b95 = bandFor(r.bnc_coca.per_band, 95);
     const b98 = bandFor(r.bnc_coca.per_band, 98);
+    const bp = band95WithPhrases(r);
     const lastBand = Math.max(b98 ?? 0, ...Object.entries(r.bnc_coca.per_band).filter(([, v]) => v.tokens).map(([k]) => Number(k)), 1);
-    const notes = [...(rd.reliability.notes || []), ...(r.cefr.estimate_reliability?.notes || []), ...(r.diversity.note ? [r.diversity.note] : [])];
+    const notes = cautions(d);
     const STARS = { most_common: '***', less_common: '**', infrequent: '*', rare: 'x' };
     const e = r.errors;
+    const lv = r.level;
+    const hasPhrases = (r.phrase.expressions || []).length > 0;
+
+    const coverage = !b95
+      ? t('Counting names and Nation’s supplementary lists as known, 95% coverage of the text needs more than 25,000 word families.')
+      : b98
+        ? t('Counting names and Nation’s supplementary lists as known, the most frequent {families95} word families cover 95% of the text and {families98} cover 98%.', { families95: families(b95), families98: families(b98) })
+        : t('Counting names and Nation’s supplementary lists as known, the most frequent {families95} word families cover 95% of the text; 98% needs more than 25,000.', { families95: families(b95) });
+    const coverageWithPhrases = bp === undefined
+      ? null
+      : bp
+        ? t('Counting PHRASE List expressions as units, {families95} word families cover 95%.', { families95: families(bp) })
+        : t('Counting PHRASE List expressions as units, 95% coverage needs more than 25,000 word families.');
 
     return h('div', { class: 'report-body' },
       h('header', {},
-        h('h1', {}, 'Text analysis'),
+        h('h1', {}, t('Text analysis')),
         h('p', { class: 'report-meta' },
-          `lexinspect ${d.provenance?.lexinspect ?? ''} · ${m.date.toLocaleString('en-GB', { dateStyle: 'long', timeStyle: 'short' })} · ${e.variant === 'us' ? 'US' : 'UK'} spelling · ${SITE}`),
-        h('p', { class: 'report-excerpt' }, `“${excerpt(d.submitted, 140)}”`)),
+          [`lexinspect ${d.provenance?.lexinspect ?? ''}`, m.date.toLocaleString(dateLocale(), { dateStyle: 'long', timeStyle: 'short' }),
+            e.variant === 'us' ? t('American spelling') : t('British spelling'), SITE].join(' · ')),
+        h('p', { class: 'report-excerpt' }, open, en(excerpt(d.submitted, 140)), close)),
       h('div', { class: 'report-stats' },
-        [['Words', num(rd.counts.words)], ['Sentences', num(rd.counts.sentences)], ['Words per sentence', num(rd.averages.words_per_sentence, 1)],
-          ['Readability grade', num(grade, 1)], ['Highest CEFR level', r.cefr.highest_level_present ?? '–'], ['Families for 95%', b95 ? `${b95}K` : '25K+']]
+        [[t('Words'), num(rd.counts.words)], [t('Sentences'), num(rd.counts.sentences)], [t('Words per sentence'), num(rd.averages.words_per_sentence, 1)],
+          [t('Readability grade'), num(grade, 1)], [t('Highest CEFR level'), r.cefr.highest_level_present ?? '–'], [t('Word families for 95%'), b95 ? `${b95}K` : '25K+'],
+          ...(lv?.applicable ? [[t('Estimated reading level'), levelRange(lv)]] : [])]
           .map(([k, v]) => h('div', {}, h('span', {}, k), h('b', {}, v)))),
-      notes.length ? h('div', { class: 'report-notes' }, h('b', {}, 'Read with care'), h('ul', {}, notes.map((n) => h('li', {}, n)))) : null,
+      notes.length ? h('div', { class: 'report-notes' }, h('b', {}, t('Read with care')), h('ul', {}, notes.map((n) => h('li', {}, n)))) : null,
 
-      section('Readability',
-        h('p', {}, `Median grade ${num(grade, 1)} (${gradeLabel(grade).toLowerCase()}). Flesch Reading Ease ${num(ease)}, ${(EASE_BANDS.find(([lo]) => ease >= lo)?.[1] ?? '').toLowerCase()}.`),
-        table(['Formula', 'Score', 'Reference'], FORMULAS.map((f) => [f.name, num(rd.scores[f.key], f.kind === 'ease' ? 0 : 1), f.ref]))),
+      section(t('Readability'),
+        h('p', {}, t('Median grade {grade} ({label}). Flesch Reading Ease {ease} ({band}).', { grade: num(grade, 1), label: inline(gradeLabel(grade)), ease: num(ease), band: inline(easeLabel(ease)) })),
+        table([t('Formula'), t('Score'), t('Reference')], FORMULAS.map((f) => [t(f.name), num(rd.scores[f.key], f.kind === 'ease' ? 0 : 1), f.ref]))),
 
-      section('Vocabulary: CEFR',
-        table(['Level', 'Words', 'Share', 'Cumulative'], LEVELS.map((l) => { const v = r.cefr.per_level[l]; return [l, num(v.tokens), pct(v.coverage_pct), pct(v.cumulative_coverage_pct)]; })),
-        h('p', { class: 'report-words' }, h('b', {}, 'B2 and above: '), words(['B2', 'C1', 'C2'].flatMap((l) => r.cefr.words_by_level[l] || [])))),
+      section(t('Vocabulary: CEFR levels'),
+        table([t('Level'), t('Words'), t('Share of words'), t('Cumulative')], LEVELS.map((l) => { const v = r.cefr.per_level[l]; return [l, num(v.tokens), pct(v.coverage_pct), pct(v.cumulative_coverage_pct)]; })),
+        h('p', { class: 'report-words' }, h('b', {}, t('B2 and above:')), ' ', words(['B2', 'C1', 'C2'].flatMap((l) => r.cefr.words_by_level[l] || [])))),
 
-      section('Vocabulary: frequency (BNC/COCA)',
-        h('p', {}, `${b95 ? `${b95},000` : 'More than 25,000'} word families give 95% coverage${b98 ? `; ${b98},000 give 98%` : '; 98% is not reached'}, counting names and Nation’s supplementary lists as known.${band95WithPhrases(r) ? ` Counting PHRASE expressions as units, ${band95WithPhrases(r)} give 95%.` : ''}`),
-        table(['Band', 'Words', 'Share', 'Cumulative'], Object.entries(r.bnc_coca.per_band).filter(([k]) => Number(k) <= lastBand)
+      section(t('Vocabulary: frequency bands (BNC/COCA)'),
+        h('p', {}, coverage, coverageWithPhrases ? [' ', coverageWithPhrases] : null),
+        table([t('Band'), t('Words'), t('Share of words'), t('Cumulative')], Object.entries(r.bnc_coca.per_band).filter(([k]) => Number(k) <= lastBand)
           .map(([k, v]) => [`${k}K`, num(v.tokens), pct(v.coverage_pct), pct(v.cumulative_coverage_with_supplementary_pct)])),
-        h('p', { class: 'report-words' }, h('b', {}, 'In no list: '), words(r.bnc_coca.off_list || []))),
+        h('p', { class: 'report-words' }, h('b', {}, t('In no BNC/COCA list:')), ' ', words(r.bnc_coca.off_list || []))),
 
-      section('Vocabulary: NGSL, NAWL and AWL',
-        table(['List', 'Share of words'], [['NGSL', pct(r.ngsl.coverage_pct.ngsl)], ['NAWL', pct(r.ngsl.coverage_pct.nawl)], ['AWL', pct(r.awl.coverage_pct)]]),
-        h('p', { class: 'report-words' }, h('b', {}, 'AWL families: '), words((r.awl.families_detail || []).map((f) => ({ word: f.headword, count: f.tokens }))))),
+      section(t('Vocabulary: NGSL, NAWL and AWL'),
+        table([t('List'), t('Share of words')], [['NGSL', pct(r.ngsl.coverage_pct.ngsl)], ['NAWL', pct(r.ngsl.coverage_pct.nawl)], ['AWL', pct(r.awl.coverage_pct)]]),
+        h('p', { class: 'report-words' }, h('b', {}, t('AWL families:')), ' ', words((r.awl.families_detail || []).map((f) => ({ word: f.headword, count: f.tokens }))))),
 
-      section('Phrases',
-        h('p', {}, `${plural(r.phrase.counts.total_hits, 'expression')} from the PHRASE list, ${num(r.phrase.counts.hits_per_1000_words, 1)} per 1,000 words.`),
-        (r.phrase.expressions || []).length
-          ? table(['Expression', 'Band', 'Count', ...PHRASE_REGISTERS.map((g) => g.label)],
-            r.phrase.expressions.map((x) => [phraseName(x) + (senseLabel(x) ? ` (${senseLabel(x)})` : ''), `K${x.k_band}`, num(x.count), ...PHRASE_REGISTERS.map((g) => STARS[x.register[g.key]])]))
+      section(t('Phrases'),
+        h('p', {}, tn(r.phrase.counts.total_hits,
+          '{n} expression from the PHRASE List (Martinez & Schmitt 2012), {density} per 1,000 words.',
+          '{n} expressions from the PHRASE List (Martinez & Schmitt 2012), {density} per 1,000 words.',
+          { density: num(r.phrase.counts.hits_per_1000_words, 1) })),
+        hasPhrases
+          ? table([t('Expression'), t('Band'), t('Count'), ...PHRASE_REGISTERS.map((g) => t(g.label))],
+            r.phrase.expressions.map((x) => [en(phraseName(x) + (senseLabel(x) ? ` (${senseLabel(x)})` : '')), `${x.k_band}K`, num(x.count), ...PHRASE_REGISTERS.map((g) => STARS[x.register[g.key]])]))
           : null,
-        (r.phrase.expressions || []).length ? h('p', { class: 'fine' }, 'Register ratings from the PHRASE list: *** most common in that register (or as common), ** less common, * infrequent, x rare or non-existent.') : null),
+        hasPhrases ? h('p', { class: 'fine' }, t('Register ratings from the PHRASE List: *** most common in that register (or as common), ** less common, * infrequent, x rare or non-existent.')) : null),
 
-      section('Metadiscourse',
-        h('p', {}, `${plural(r.metadiscourse.counts.total_hits, 'marker')}, ${num(r.metadiscourse.density_per_1000, 1)} per 1,000 words.`),
-        table(['Category', 'Markers', 'Per 1,000 words'], Object.entries(r.metadiscourse.per_category).map(([k, v]) => [MD_CATEGORIES[k]?.label ?? k, num(v.hits), num(v.density_per_1000, 1)]))),
+      r.syntax?.indices ? section(t('Sentences'),
+        h('p', {},
+          t('{perSentence} words per sentence, {perTunit} per T-unit and {perClause} per clause; {clauses} clauses per sentence.', {
+            perSentence: num(r.syntax.indices.mls, 1), perTunit: num(r.syntax.indices.mlt, 1), perClause: num(r.syntax.indices.mlc, 1), clauses: num(r.syntax.indices.c_s, 2),
+          }),
+          ' ', t('Measures after Lu’s L2SCA (Lu 2010), approximated from a dependency parse.')),
+        table([t('Measure'), t('Value')], SYNTAX.flatMap((g) => g.items.map((x) => [t('{name} ({abbr})', { name: t(x.name), abbr: x.abbr }), num(r.syntax.indices[x.key], x.d)])))) : null,
 
-      section(`Spelling (${e.variant === 'us' ? 'US' : 'UK'})`,
-        table(['Found', 'Words'], [
-          ['Possible errors', e.errors.length ? e.errors.map((x) => (x.suggestions?.[0] ? `${x.surface} → ${x.suggestions[0]}` : x.surface)).join(', ') : 'None'],
-          ['Other variety', e.variant_mismatches.length ? e.variant_mismatches.map((x) => x.surface).join(', ') : 'None'],
-          ['Unknown names', e.unknown_names.length ? e.unknown_names.map((x) => x.surface).join(', ') : 'None'],
+      section(t('Metadiscourse'),
+        h('p', {}, tn(r.metadiscourse.counts.total_hits,
+          '{n} metadiscourse marker (Hyland 2005), {density} per 1,000 words.',
+          '{n} metadiscourse markers (Hyland 2005), {density} per 1,000 words.',
+          { density: num(r.metadiscourse.density_per_1000, 1) })),
+        table([t('Category'), t('Markers'), t('Per 1,000 words')], Object.entries(r.metadiscourse.per_category).map(([k, v]) => [MD_CATEGORIES[k] ? t(MD_CATEGORIES[k].label) : k, num(v.hits), num(v.density_per_1000, 1)]))),
+
+      section(t('Spelling ({variety})', { variety: variety(e) }),
+        table([t('Type'), t('Words')], [
+          [t('Possible errors'), english(e.errors.map(fix))],
+          [e.variant === 'us' ? t('Correct only in British English') : t('Correct only in American English'), english(e.variant_mismatches.map((x) => x.surface))],
+          [t('Unknown names'), english(e.unknown_names.map((x) => x.surface))],
         ])),
 
-      section('Lexical diversity',
-        table(['Measure', 'Value', 'Reference'], DIVERSITY.map((x) => [x.name, r.diversity.scores[x.key] == null ? 'Too short' : num(r.diversity.scores[x.key], Math.min(x.d, 2)), x.ref]))),
+      section(t('Lexical diversity'),
+        table([t('Measure'), t('Value'), t('Reference')], DIVERSITY.map((x) => [t(x.name), r.diversity.scores[x.key] == null ? t('Too short') : num(r.diversity.scores[x.key], Math.min(x.d, 2)), x.ref]))),
 
-      section('Text', h('div', { class: 'report-text' }, analysedText(d).split(/\n\s*\n/).map((p) => h('p', {}, p.trim())))),
+      section(t('Text'), h('div', { class: 'report-text', lang: 'en', dir: 'ltr' }, analysedText(d).split(/\n\s*\n/).map((p) => h('p', {}, p.trim())))),
 
       h('footer', {},
-        h('p', {}, h('b', {}, 'Cite: '), citation(d, m).apa),
-        h('p', {}, `Also cite the word lists and formulas you report on (${SITE}/licences). Text SHA-256: ${m.sha256 || 'n/a'}`)));
+        h('p', {}, h('b', {}, t('Cite:')), ' ', en(citation(d, m).apa)),
+        h('p', {}, alsoCite()),
+        h('p', {}, t('Text SHA-256: {hash}', { hash: m.sha256 || t('not available') }))));
   }
 
   function json(d) {
@@ -554,5 +720,5 @@ const Export = (() => {
     return `lexinspect-${day}${slug ? `-${slug}` : ''}${suffix ? `-${suffix}` : ''}.${ext}`;
   }
 
-  return { meta, metaNow, summaryCsv, wordsCsv, xlsx, json, summaryText, citationText, report, filename, columns: COLUMNS };
+  return { meta, metaNow, summaryCsv, summaryCsvMany, wordsCsv, xlsx, json, summaryText, citationText, report, filename, columns: COLUMNS };
 })();

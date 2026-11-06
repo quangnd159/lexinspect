@@ -4,8 +4,8 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>lexinspect — data sources and licences</title>
-  <link rel="stylesheet" href="/static/fonts/fonts.css">
-  <link rel="stylesheet" href="/static/styles.css" />
+  <link rel="stylesheet" href="/static/fonts/fonts.css?v=0.5.0">
+  <link rel="stylesheet" href="/static/styles.css?v=0.5.0" />
 <link rel="icon" type="image/png" sizes="64x64" href="/static/favicon.png">
 <link rel="icon" type="image/png" sizes="64x64" href="/static/favicon-dark.png" media="(prefers-color-scheme: dark)">
 <link rel="apple-touch-icon" sizes="180x180" href="/static/apple-touch-icon.png">
@@ -102,6 +102,21 @@
     <b>en_US:</b> wordlist from SCOWL by Kevin Atkinson and others (permissive SCOWL copyright);
     affix file derived from Geoff Kuenning's Ispell (BSD).</p>
 
+    <h3>Simpler words — <code>alternatives</code></h3>
+    <p><b>Open English WordNet 2025.</b> McCrae, J. P., Rademaker, A., Bond, F., Rudnicka, E., &amp; Fellbaum, C. (2019). English WordNet 2019 – An open-source WordNet for English.
+    Licence: <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">CC BY 4.0</a>, via
+    <a href="https://github.com/globalwordnet/english-wordnet" target="_blank" rel="noopener">globalwordnet/english-wordnet</a>.<br />
+    Each word's main sense was chosen with the tag counts of Princeton WordNet 3.0 (Fellbaum, C. (Ed.) (1998). <i>WordNet: An Electronic Lexical Database.</i> MIT Press).
+    WordNet 3.0 Copyright 2006 by Princeton University. All rights reserved; used under the WordNet 3.0 licence.<br />
+    lexinspect's file combines these synonyms with the CEFR levels and BNC/COCA bands above, and is shared under CC BY-SA 4.0.</p>
+
+    <h3>Level estimate — <code>level</code></h3>
+    <p>The estimate's coefficients were fitted on two collections of graded reading texts, which lexinspect doesn't redistribute:
+    Cambridge English exam passages (Xia, M., Kochmar, E., &amp; Briscoe, T. (2016). Text readability assessment for second language learners. <i>BEA Workshop</i>, 12–22; CC BY-NC-SA 4.0)
+    and ELG-CEFR-EN (Breuker, M. (2023). CEFR labelling and assessment services. In G. Rehm (Ed.), <i>European Language Grid</i>. Springer; CC BY-NC 4.0), both via
+    <a href="https://github.com/UniversalCEFR" target="_blank" rel="noopener">UniversalCEFR</a>.
+    The fitted model is therefore shared under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="noopener">CC BY-NC-SA 4.0</a>: free for teaching and research, not for commercial use.</p>
+
     <h3>Software</h3>
     <p>lexinspect itself is MIT licensed. It stands on
     <a href="https://spacy.io/" target="_blank" rel="noopener">spaCy</a> and its <code>en_core_web_sm</code> model,
@@ -113,6 +128,12 @@
     <a href="https://github.com/productiontype/Newsreader" target="_blank" rel="noopener">Newsreader</a> (The Newsreader Project Authors),
     under the <a href="/static/fonts/OFL.txt" target="_blank" rel="noopener">SIL Open Font License 1.1</a>.
     They're served from this site, so loading the page sends nothing to a font service.</p>
+
+    <h3>Icons</h3>
+    <p><a href="https://lucide.dev/" target="_blank" rel="noopener">Lucide</a> (Lucide Icons and Contributors), under the
+    <a href="https://github.com/lucide-icons/lucide/blob/main/LICENSE" target="_blank" rel="noopener">ISC License</a>;
+    the icons Lucide takes from <a href="https://feathericons.com/" target="_blank" rel="noopener">Feather</a> (Cole Bemis) are MIT licensed.
+    The notices travel with the icons in <code>icons.js</code>.</p>
 
     <p class="fine">The authoritative, versioned copy of this list, with provenance notes for each dataset, is
     <a href="https://github.com/quangnd159/lexinspect/blob/main/src/lexinspect/data/SOURCES.md" target="_blank" rel="noopener"><code>data/SOURCES.md</code></a>.</p>

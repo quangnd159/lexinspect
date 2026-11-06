@@ -11,13 +11,15 @@ lexinspect's code is MIT (the `LICENSE` file at the repository root). **That lic
 | `phrase.json` | Martinez & Schmitt (2012), PHRASE List | No open licence. Used in lexinspect with both authors' permission (Schmitt 2026-10-16, Martinez 2026-10-30) |
 | `metadiscourse.json` | After Hyland (2005); hedges from a public mirror of Appendix A | No stated licence; used for research and education |
 | `spelling.json` | VarCon (Kevin Atkinson, Benjamin Titze) | Permissive notice, reproduced in SOURCES.md |
+| `alternatives.json` | Open English WordNet 2025 synonyms, selected with Princeton WordNet 3.0 tag counts, carrying levels from `cefr.json` and bands from `bnc_coca.json` | CC BY-SA 4.0 (adapts OEWN, CC BY 4.0, and the CC BY-SA lists). WordNet 3.0 notice reproduced in SOURCES.md |
 | `hunspell/` | LibreOffice English dictionaries | en_GB: LGPL. en_US: SCOWL wordlist (permissive) and Ispell affix file (BSD). Full texts in `hunspell/LICENSES/` |
 | `cmudict.zip` | Carnegie Mellon Pronouncing Dictionary 0.7a | BSD-style; notice in the zip's `cmudict/README` |
 | `dale_chall_easy_words.txt` | Dale–Chall list as distributed with textstat | MIT, Copyright (c) 2016 Shivam Bansal; notice in `LICENSES/textstat-MIT.txt` |
+| `level_model.json` | Coefficients of lexinspect's reading-text level estimate, fitted on Cambridge English exam passages (Xia, Kochmar & Briscoe 2016) and ELG-CEFR-EN (Breuker 2023), both via UniversalCEFR | Derived from CC BY-NC-SA 4.0 and CC BY-NC 4.0 data (the Cambridge set's terms also limit derived information to non-commercial research and education), so this file is CC BY-NC-SA 4.0. No dataset text is included |
 
 What this means in practice:
 
 - **Redistributing lexinspect or its data:** keep this file, `SOURCES.md` and the `LICENSES/` folders with it. The CC BY-SA files must stay CC BY-SA and credit their creators.
 - **Free educational or research use** (what the hosted app is) fits every licence above.
-- **Commercial use:** the AWL, PHRASE and metadiscourse lists have no open licence. Ask their authors for permission first, or replace those files. The PHRASE authors' permission covers lexinspect's free use, not commercial use or reuse elsewhere.
+- **Commercial use:** `level_model.json` is non-commercial (CC BY-NC-SA 4.0); drop it, and the level estimate with it, or refit on data you may use. The AWL, PHRASE and metadiscourse lists have no open licence. Ask their authors for permission first, or replace those files. The PHRASE authors' permission covers lexinspect's free use, not commercial use or reuse elsewhere.
 - **Publications:** cite the original creators listed in `SOURCES.md`, not just lexinspect.

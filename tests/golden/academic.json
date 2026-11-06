@@ -1,4 +1,751 @@
 {
+ "alternatives": {
+  "items": [
+   {
+    "count": 1,
+    "lemma": "methodology",
+    "level": "C2",
+    "occurrences": [
+     {
+      "replacements": {},
+      "span": [
+       67,
+       78
+      ],
+      "surface": "methodology",
+      "tag": "NN"
+     }
+    ],
+    "pos": "noun",
+    "suggestions": []
+   },
+   {
+    "count": 1,
+    "lemma": "hypothesis",
+    "level": "C2",
+    "occurrences": [
+     {
+      "replacements": {},
+      "span": [
+       194,
+       204
+      ],
+      "surface": "hypothesis",
+      "tag": "NN"
+     }
+    ],
+    "pos": "noun",
+    "suggestions": []
+   },
+   {
+    "count": 1,
+    "lemma": "cognitive",
+    "level": "C2",
+    "occurrences": [
+     {
+      "replacements": {},
+      "span": [
+       485,
+       494
+      ],
+      "surface": "cognitive",
+      "tag": "JJ"
+     }
+    ],
+    "pos": "adjective",
+    "suggestions": []
+   },
+   {
+    "count": 1,
+    "lemma": "substantially",
+    "level": "C1",
+    "occurrences": [
+     {
+      "replacements": {
+       "considerably": "considerably"
+      },
+      "span": [
+       87,
+       100
+      ],
+      "surface": "substantially",
+      "tag": "RB"
+     }
+    ],
+    "pos": "adverb",
+    "suggestions": [
+     {
+      "band": 3,
+      "level": "B2",
+      "word": "considerably"
+     }
+    ]
+   },
+   {
+    "count": 1,
+    "lemma": "variation",
+    "level": "B2",
+    "occurrences": [
+     {
+      "replacements": {},
+      "span": [
+       53,
+       63
+      ],
+      "surface": "variations",
+      "tag": "NNS"
+     }
+    ],
+    "pos": "noun",
+    "suggestions": []
+   },
+   {
+    "count": 1,
+    "lemma": "outcome",
+    "level": "B2",
+    "occurrences": [
+     {
+      "replacements": {},
+      "span": [
+       111,
+       119
+      ],
+      "surface": "outcomes",
+      "tag": "NNS"
+     }
+    ],
+    "pos": "noun",
+    "suggestions": []
+   },
+   {
+    "count": 1,
+    "lemma": "evaluation",
+    "level": "B2",
+    "occurrences": [
+     {
+      "replacements": {
+       "rating": "rating"
+      },
+      "span": [
+       234,
+       244
+      ],
+      "surface": "evaluation",
+      "tag": "NN"
+     }
+    ],
+    "pos": "noun",
+    "suggestions": [
+     {
+      "band": 1,
+      "level": "A2",
+      "word": "rating"
+     }
+    ]
+   },
+   {
+    "count": 1,
+    "lemma": "comprehensive",
+    "level": "B2",
+    "occurrences": [
+     {
+      "replacements": {},
+      "span": [
+       248,
+       261
+      ],
+      "surface": "comprehensive",
+      "tag": "JJ"
+     }
+    ],
+    "pos": "adjective",
+    "suggestions": []
+   },
+   {
+    "count": 1,
+    "lemma": "exhibit",
+    "level": "B2",
+    "occurrences": [
+     {
+      "replacements": {},
+      "span": [
+       294,
+       303
+      ],
+      "surface": "exhibited",
+      "tag": "VBD"
+     }
+    ],
+    "pos": "verb",
+    "suggestions": []
+   },
+   {
+    "count": 1,
+    "lemma": "consistent",
+    "level": "B2",
+    "occurrences": [
+     {
+      "replacements": {},
+      "span": [
+       304,
+       314
+      ],
+      "surface": "consistent",
+      "tag": "JJ"
+     }
+    ],
+    "pos": "adjective",
+    "suggestions": []
+   },
+   {
+    "count": 1,
+    "lemma": "modification",
+    "level": "B2",
+    "occurrences": [
+     {
+      "replacements": {},
+      "span": [
+       380,
+       393
+      ],
+      "surface": "modifications",
+      "tag": "NNS"
+     }
+    ],
+    "pos": "noun",
+    "suggestions": []
+   },
+   {
+    "count": 1,
+    "lemma": "psychology",
+    "level": "B2",
+    "occurrences": [
+     {
+      "replacements": {},
+      "span": [
+       495,
+       505
+      ],
+      "surface": "psychology",
+      "tag": "NN"
+     }
+    ],
+    "pos": "noun",
+    "suggestions": []
+   },
+   {
+    "count": 1,
+    "lemma": "contemporary",
+    "level": "B2",
+    "occurrences": [
+     {
+      "replacements": {},
+      "span": [
+       510,
+       522
+      ],
+      "surface": "contemporary",
+      "tag": "JJ"
+     }
+    ],
+    "pos": "adjective",
+    "suggestions": []
+   },
+   {
+    "count": 1,
+    "lemma": "preliminary",
+    "level": "B2",
+    "occurrences": [
+     {
+      "replacements": {},
+      "span": [
+       613,
+       624
+      ],
+      "surface": "preliminary",
+      "tag": "JJ"
+     }
+    ],
+    "pos": "adjective",
+    "suggestions": []
+   },
+   {
+    "count": 1,
+    "lemma": "potential",
+    "level": "B2",
+    "occurrences": [
+     {
+      "replacements": {},
+      "span": [
+       646,
+       655
+      ],
+      "surface": "potential",
+      "tag": "JJ"
+     }
+    ],
+    "pos": "adjective",
+    "suggestions": []
+   },
+   {
+    "count": 1,
+    "lemma": "implication",
+    "level": "B2",
+    "occurrences": [
+     {
+      "replacements": {},
+      "span": [
+       656,
+       668
+      ],
+      "surface": "implications",
+      "tag": "NNS"
+     }
+    ],
+    "pos": "noun",
+    "suggestions": []
+   },
+   {
+    "count": 1,
+    "lemma": "analysis",
+    "level": "B1",
+    "occurrences": [
+     {
+      "replacements": {},
+      "span": [
+       14,
+       22
+      ],
+      "surface": "analysis",
+      "tag": "NN"
+     }
+    ],
+    "pos": "noun",
+    "suggestions": []
+   },
+   {
+    "count": 1,
+    "lemma": "demonstrate",
+    "level": "B1",
+    "occurrences": [
+     {
+      "replacements": {
+       "show": "shows"
+      },
+      "span": [
+       23,
+       35
+      ],
+      "surface": "demonstrates",
+      "tag": "VBZ"
+     }
+    ],
+    "pos": "verb",
+    "suggestions": [
+     {
+      "band": 1,
+      "level": "A1",
+      "word": "show"
+     }
+    ]
+   },
+   {
+    "count": 1,
+    "lemma": "investigation",
+    "level": "B1",
+    "occurrences": [
+     {
+      "replacements": {},
+      "span": [
+       159,
+       173
+      ],
+      "surface": "investigations",
+      "tag": "NNS"
+     }
+    ],
+    "pos": "noun",
+    "suggestions": []
+   },
+   {
+    "count": 1,
+    "lemma": "confirm",
+    "level": "B1",
+    "occurrences": [
+     {
+      "replacements": {},
+      "span": [
+       179,
+       188
+      ],
+      "surface": "confirmed",
+      "tag": "VBN"
+     }
+    ],
+    "pos": "verb",
+    "suggestions": []
+   },
+   {
+    "count": 1,
+    "lemma": "participant",
+    "level": "B1",
+    "occurrences": [
+     {
+      "replacements": {},
+      "span": [
+       281,
+       293
+      ],
+      "surface": "participants",
+      "tag": "NNS"
+     }
+    ],
+    "pos": "noun",
+    "suggestions": []
+   },
+   {
+    "count": 1,
+    "lemma": "pattern",
+    "level": "B1",
+    "occurrences": [
+     {
+      "replacements": {},
+      "span": [
+       315,
+       323
+      ],
+      "surface": "patterns",
+      "tag": "NNS"
+     }
+    ],
+    "pos": "noun",
+    "suggestions": []
+   },
+   {
+    "count": 1,
+    "lemma": "expose",
+    "level": "B1",
+    "occurrences": [
+     {
+      "replacements": {},
+      "span": [
+       355,
+       362
+      ],
+      "surface": "exposed",
+      "tag": "VBN"
+     }
+    ],
+    "pos": "verb",
+    "suggestions": []
+   },
+   {
+    "count": 1,
+    "lemma": "environmental",
+    "level": "B1",
+    "occurrences": [
+     {
+      "replacements": {},
+      "span": [
+       366,
+       379
+      ],
+      "surface": "environmental",
+      "tag": "JJ"
+     }
+    ],
+    "pos": "adjective",
+    "suggestions": []
+   },
+   {
+    "count": 1,
+    "lemma": "approach",
+    "level": "B1",
+    "occurrences": [
+     {
+      "replacements": {},
+      "span": [
+       437,
+       445
+      ],
+      "surface": "approach",
+      "tag": "NN"
+     }
+    ],
+    "pos": "noun",
+    "suggestions": []
+   },
+   {
+    "count": 1,
+    "lemma": "derive",
+    "level": "B1",
+    "occurrences": [
+     {
+      "replacements": {},
+      "span": [
+       446,
+       453
+      ],
+      "surface": "derives",
+      "tag": "VBZ"
+     }
+    ],
+    "pos": "verb",
+    "suggestions": []
+   },
+   {
+    "count": 1,
+    "lemma": "principle",
+    "level": "B1",
+    "occurrences": [
+     {
+      "replacements": {},
+      "span": [
+       471,
+       481
+      ],
+      "surface": "principles",
+      "tag": "NNS"
+     }
+    ],
+    "pos": "noun",
+    "suggestions": []
+   },
+   {
+    "count": 1,
+    "lemma": "researcher",
+    "level": "B1",
+    "occurrences": [
+     {
+      "replacements": {},
+      "span": [
+       537,
+       548
+      ],
+      "surface": "Researchers",
+      "tag": "NNS"
+     }
+    ],
+    "pos": "noun",
+    "suggestions": []
+   },
+   {
+    "count": 1,
+    "lemma": "consequently",
+    "level": "B1",
+    "occurrences": [
+     {
+      "replacements": {},
+      "span": [
+       549,
+       561
+      ],
+      "surface": "consequently",
+      "tag": "RB"
+     }
+    ],
+    "pos": "adverb",
+    "suggestions": []
+   },
+   {
+    "count": 1,
+    "lemma": "recommend",
+    "level": "B1",
+    "occurrences": [
+     {
+      "replacements": {},
+      "span": [
+       562,
+       571
+      ],
+      "surface": "recommend",
+      "tag": "VBP"
+     }
+    ],
+    "pos": "verb",
+    "suggestions": []
+   },
+   {
+    "count": 1,
+    "lemma": "finding",
+    "level": "B1",
+    "occurrences": [
+     {
+      "replacements": {},
+      "span": [
+       625,
+       633
+      ],
+      "surface": "findings",
+      "tag": "NNS"
+     }
+    ],
+    "pos": "noun",
+    "suggestions": []
+   },
+   {
+    "count": 1,
+    "lemma": "policy",
+    "level": "B1",
+    "occurrences": [
+     {
+      "replacements": {},
+      "span": [
+       685,
+       691
+      ],
+      "surface": "policy",
+      "tag": "NN"
+     }
+    ],
+    "pos": "noun",
+    "suggestions": []
+   },
+   {
+    "count": 1,
+    "lemma": "significant",
+    "level": "A2",
+    "occurrences": [
+     {
+      "replacements": {
+       "important": "important"
+      },
+      "span": [
+       41,
+       52
+      ],
+      "surface": "significant",
+      "tag": "JJ"
+     }
+    ],
+    "pos": "adjective",
+    "suggestions": [
+     {
+      "band": 1,
+      "level": "A1",
+      "word": "important"
+     }
+    ]
+   },
+   {
+    "count": 1,
+    "lemma": "produce",
+    "level": "A2",
+    "occurrences": [
+     {
+      "replacements": {},
+      "span": [
+       79,
+       86
+      ],
+      "surface": "produce",
+      "tag": "VBP"
+     }
+    ],
+    "pos": "verb",
+    "suggestions": []
+   },
+   {
+    "count": 1,
+    "lemma": "research",
+    "level": "A2",
+    "occurrences": [
+     {
+      "replacements": {},
+      "span": [
+       272,
+       280
+      ],
+      "surface": "Research",
+      "tag": "NN"
+     }
+    ],
+    "pos": "noun",
+    "suggestions": []
+   },
+   {
+    "count": 1,
+    "lemma": "further",
+    "level": "A2",
+    "occurrences": [
+     {
+      "replacements": {},
+      "span": [
+       572,
+       579
+      ],
+      "surface": "further",
+      "tag": "JJ"
+     }
+    ],
+    "pos": "adjective",
+    "suggestions": []
+   },
+   {
+    "count": 1,
+    "lemma": "study",
+    "level": "A2",
+    "occurrences": [
+     {
+      "replacements": {
+       "survey": "surveys"
+      },
+      "span": [
+       593,
+       600
+      ],
+      "surface": "studies",
+      "tag": "NNS"
+     }
+    ],
+    "pos": "noun",
+    "suggestions": [
+     {
+      "band": 3,
+      "level": "A1",
+      "word": "survey"
+     }
+    ]
+   },
+   {
+    "count": 1,
+    "lemma": "explore",
+    "level": "A2",
+    "occurrences": [
+     {
+      "replacements": {},
+      "span": [
+       638,
+       645
+      ],
+      "surface": "explore",
+      "tag": "VB"
+     }
+    ],
+    "pos": "verb",
+    "suggestions": []
+   },
+   {
+    "count": 1,
+    "lemma": "educational",
+    "level": "A2",
+    "occurrences": [
+     {
+      "replacements": {},
+      "span": [
+       673,
+       684
+      ],
+      "surface": "educational",
+      "tag": "JJ"
+     }
+    ],
+    "pos": "adjective",
+    "suggestions": []
+   }
+  ],
+  "source": "Synonyms: Open English WordNet 2025 (CC BY 4.0); sense frequencies: WordNet 3.0 (Princeton). Levels: CEFR-J 1.5 + Octanove C1/C2. Bands: Nation BNC/COCA."
+ },
  "awl": {
   "counts": {
    "awl_families": 38,
@@ -718,7 +1465,7 @@
   }
  },
  "cefr": {
-  "caveat": "Heuristic only. Based on CEFR-J 1.5 + Octanove C1/C2 1.0; not Cambridge EVP. estimated_level_95th is the lowest level whose cumulative coverage reaches 95%. It describes the vocabulary used, not the writer's proficiency. In lexinspect's Study 5 it was within one level of graded reading texts' level 84-89% of the time but exact only 43-54% (texts with no level counted as C2), rated C1-C2 texts low, and carried almost no information on learner writing. Cite both sources. Combine this with readability, BNC/COCA and diversity signals before reporting a level.",
+  "caveat": "Heuristic only. Based on CEFR-J 1.5 + Octanove C1/C2 1.0; not Cambridge EVP. estimated_level_95th is the lowest level whose cumulative coverage reaches 95%. It describes the vocabulary used, not the writer's proficiency. In lexinspect's CEFR benchmark (docs/validation/study5-cefr.md) it was within one level of graded reading texts' level 84-89% of the time but exact only 43-54% (texts with no level counted as C2), rated C1-C2 texts low, and carried almost no information on learner writing. Cite both sources. Combine this with readability, BNC/COCA and diversity signals before reporting a level.",
   "counts": {
    "content_tokens": 75,
    "off_list_tokens": 15,
@@ -1168,6 +1915,25 @@
   "unknown_names": [],
   "variant": "gb",
   "variant_mismatches": []
+ },
+ "level": {
+  "applicable": false,
+  "caveat": "An estimate of the CEFR level of a reading text (material written or chosen for learners), learned from Cambridge exam passages and ELG-CEFR-EN graded texts. It describes the text, not a writer's proficiency: do not use it to grade learner writing, where it does no better than always answering B2. Not applicable under 100 words.",
+  "confidence": null,
+  "contributions": [],
+  "evaluation": {
+   "cross_dataset_within_one_worst": 0.8276,
+   "held_out_exact": 0.517,
+   "held_out_qwk": 0.761,
+   "held_out_within_one": 0.9221,
+   "n_texts": 706,
+   "range_contains_true_level": 0.8824,
+   "text": "Tested on 706 exam and graded reading passages it hadn't seen (5-fold cross-validation), the estimate was within one level of the published level 92% of the time and exactly right 52% of the time; the shown range contained the published level 88% of the time. Trained on one collection and tested on the other, within-one accuracy was 83% at worst. It is for reading texts, not for grading writing."
+  },
+  "level": null,
+  "probabilities": null,
+  "range": null,
+  "reason": "The text has 75 words; the level estimate needs at least 100. On short texts one or two words decide the level."
  },
  "metadiscourse": {
   "counts": {
@@ -2351,6 +3117,131 @@
    "unique_types_excluding_numbers": 69
   },
   "excluded_digits": []
+ },
+ "syntax": {
+  "counts": {
+   "clauses": 6,
+   "complex_nominals": 18,
+   "complex_t_units": 1,
+   "coordinate_phrases": 2,
+   "dependent_clauses": 1,
+   "passive_clauses": 0,
+   "sentences": 5,
+   "t_units": 5,
+   "verb_phrases": 8,
+   "words": 75
+  },
+  "dependency": {
+   "mean_dependency_distance": 1.814,
+   "mean_parse_depth": 5.2
+  },
+  "indices": {
+   "c_s": 1.2,
+   "c_t": 1.2,
+   "cn_c": 3.0,
+   "cn_t": 3.6,
+   "cp_c": 0.333,
+   "cp_t": 0.4,
+   "ct_t": 0.2,
+   "dc_c": 0.167,
+   "dc_t": 0.2,
+   "mlc": 12.5,
+   "mls": 15.0,
+   "mlt": 15.0,
+   "t_s": 1.0,
+   "vp_t": 1.6
+  },
+  "passive": {
+   "clauses": 0,
+   "share_of_clauses": 0.0
+  },
+  "phrasal": {
+   "attributive_adjectives": 20,
+   "attributive_adjectives_per_1000_words": 266.67,
+   "premodifying_nouns": 1,
+   "premodifying_nouns_per_1000_words": 13.33,
+   "prepositional_postmodifiers": 6,
+   "prepositional_postmodifiers_per_1000_words": 80.0
+  },
+  "reliability": {
+   "notes": [
+    "Only 75 words. Syntactic complexity ratios need 100+ words; on shorter texts one sentence swings every index."
+   ],
+   "reliable": false
+  },
+  "sentences": [
+   {
+    "clauses": 2,
+    "dependent_clauses": 1,
+    "depth": 5,
+    "mdd": 2.0,
+    "passive": 0,
+    "span": [
+     0,
+     147
+    ],
+    "t_units": 1,
+    "words": 16
+   },
+   {
+    "clauses": 1,
+    "dependent_clauses": 0,
+    "depth": 5,
+    "mdd": 1.667,
+    "passive": 0,
+    "span": [
+     148,
+     271
+    ],
+    "t_units": 1,
+    "words": 13
+   },
+   {
+    "clauses": 1,
+    "dependent_clauses": 0,
+    "depth": 4,
+    "mdd": 1.75,
+    "passive": 0,
+    "span": [
+     272,
+     394
+    ],
+    "t_units": 1,
+    "words": 13
+   },
+   {
+    "clauses": 1,
+    "dependent_clauses": 0,
+    "depth": 6,
+    "mdd": 1.6,
+    "passive": 0,
+    "span": [
+     395,
+     536
+    ],
+    "t_units": 1,
+    "words": 16
+   },
+   {
+    "clauses": 1,
+    "dependent_clauses": 0,
+    "depth": 6,
+    "mdd": 2.0,
+    "passive": 0,
+    "span": [
+     537,
+     692
+    ],
+    "t_units": 1,
+    "words": 17
+   }
+  ],
+  "validity": {
+   "evidence": "Not yet validated against L2SCA output. A cruder UD label-counting approach correlated r = .90 with L2SCA's clause count, .63 for dependent clauses and .68 for coordinate phrases on 135 Japanese EFL paragraphs (Spring & Johnson 2022).",
+   "method": "Lu's (2010) L2SCA units re-derived from spaCy's dependency parse (en_core_web_sm) instead of Tregex patterns over Stanford constituency trees. Rules follow the Tregex patterns; counts will differ from L2SCA's on the same text wherever the two parsers or the two representations disagree.",
+   "population": "Parsers are trained on edited native-speaker English; learner English parses less accurately, so counts on learner texts carry more error.",
+   "status": "approximation"
+  }
  },
  "tagger": {
   "counts": {

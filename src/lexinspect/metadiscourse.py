@@ -58,11 +58,6 @@ Marker lists are curated from canonical Hyland 2005 reproductions; the hedges
 category mirrors Appendix A. Self-mentions also include `this paper/study`
 standing in for the writers, an adaptation of Hyland, who lists *the paper
 proposes* among frame markers (2005, p. 51). See data/SOURCES.md.
-
-The checks added in 0.4.0 belong to fix families (`_fix_families`) so the
-Study 4 fix-check can measure each against 0.3.3; all of them are on. Six of
-the twelve families (MD-A, MD-B, MD-C, MD-E, MD-F, MD-G) were reverted to
-0.3.3 after the first fix-check round and have no rules here.
 """
 
 from __future__ import annotations
@@ -77,7 +72,6 @@ from importlib import resources
 from typing import Any
 
 from lexinspect._context import prev_word, rephrasing_that_is
-from lexinspect._fix_families import enabled
 from lexinspect._text import Analysis, ensure
 
 
@@ -352,7 +346,7 @@ _OWN_WORK_NOUNS = frozenset(
 def exclusive_we(tok) -> bool:
     """`we`-forms used by writers about their own work (`we found`, `our results`).
 
-    SX-01: also `we`/`us` with a past-tense main verb other than `be`/`have`,
+    Also `we`/`us` with a past-tense main verb other than `be`/`have`,
     which usually reports the writers' own procedure (`we recruited`;
     Harwood 2005). Inclusive past-tense `we` (`as we saw above`) is misread
     as exclusive: a known cost."""
@@ -361,12 +355,7 @@ def exclusive_we(tok) -> bool:
         return True
     if tok.lower_ in ("our", "ours"):
         return tok.head.lower_ in _OWN_WORK_NOUNS
-    return (
-        enabled("MD-I")
-        and tok.lower_ in ("we", "us")
-        and v.tag_ == "VBD"
-        and v.lemma_ not in ("be", "have")
-    )
+    return tok.lower_ in ("we", "us") and v.tag_ == "VBD" and v.lemma_ not in ("be", "have")
 
 
 def epistemic_must(tok) -> bool:
@@ -476,7 +465,7 @@ _rule(
         or ((n := _next(t)) is not None and n.text == ",")
     ),
 )
-_rule("called|known as", "code_glosses", lambda t: t.tag_ == "VBN")
+_rule("called", "code_glosses", lambda t: t.tag_ == "VBN")
 _rule("meaning", "code_glosses", lambda t: t.tag_ == "VBG")
 _rule("or", "code_glosses", lambda t: False)  # `or` as a gloss needs a human
 _rule("as", "evidentials", lambda t: False)  # bare `as`: the multi-word evidentials cover it
@@ -489,33 +478,16 @@ _rule(
 _rule("you|your|yours", "engagement_markers", lambda t: True)
 
 
-# --- 0.4.0 checks -------------------------------------------------------------
-# Each replaces the 0.3.3 check for its markers while its fix family is enabled
-# (`_fix_families`). Ids (MD-01 …) are those of the Study 4 fix ledger; the
-# guideline references are to docs/validation/study4-guidelines.md.
-
-
-def _fixed(family: str, markers: str, category: str, fn: Rule) -> None:
-    for m in markers.split("|"):
-        base = _RULES.get((m, category))
-
-        def rule(tok, fn=fn, base=base) -> bool:
-            if enabled(family):
-                return fn(tok)
-            return base is None or base(tok)
-
-        _RULES[(m, category)] = rule
-
-
-# MD-D: code glosses -------------------------------------------------------------
+# Code glosses -------------------------------------------------------------------
 
 
 def not_degree(tok) -> bool:
-    """MD-14. `particularly`/`especially` modifying an adverb, a predicative
-    adjective, or an attributive adjective when the degree word directly follows
-    a determiner or possessive (`an especially good way`) grade it: degree words, which neither gloss nor boost
-    (guidelines A4, code glosses; Huddleston & Pullum 2002, ch. 6). Focusing
-    `especially swallows`, `and especially distributive justice` stay."""
+    """`particularly`/`especially` modifying an adverb, a predicative
+    adjective, or an attributive adjective when the degree word directly
+    follows a determiner or possessive (`an especially good way`) grade it:
+    they are degree words, which neither gloss nor boost (Huddleston & Pullum
+    2002, ch. 6). Focusing uses (`especially swallows`, `and especially
+    distributive justice`) still count."""
     if tok.dep_ != "advmod":
         return True
     h = tok.head
@@ -551,7 +523,7 @@ _CHANGE_OF_STATE = frozenset(
 
 
 def naming_known_as(tok) -> bool:
-    """MD-15. `became/came/grew known as` reports a change of reputation, not
+    """`became/came/grew known as` reports a change of reputation, not
     the writer naming a term for the reader."""
     p = prev_word(tok)
     return tok.tag_ == "VBN" and not (
@@ -559,10 +531,10 @@ def naming_known_as(tok) -> bool:
     )
 
 
-_fixed("MD-D", "that is", "code_glosses", rephrasing_that_is)  # MD-13
-_fixed("MD-D", "particularly|especially", "code_glosses", not_degree)
-_fixed("MD-D", "particularly", "boosters", not_degree)
-_fixed("MD-D", "known as", "code_glosses", naming_known_as)
+_rule("that is", "code_glosses", rephrasing_that_is)
+_rule("particularly|especially", "code_glosses", not_degree)
+_rule("particularly", "boosters", not_degree)
+_rule("known as", "code_glosses", naming_known_as)
 
 
 # Where a marker is listed under several categories, which to try first.
@@ -600,12 +572,10 @@ def _reassign(marker: str, chosen: tuple[str, str], tok) -> tuple[str, str]:
     if cat != "boosters":
         return chosen
     p = prev_word(tok)
-    # MD-21: `or indeed X`, or `, indeed,` before a noun phrase, offers a
-    # reformulation (guidelines A5: in fact / indeed); `and indeed` + modifier
-    # escalates and stays a booster.
+    # `or indeed X`, or `, indeed,` before a noun phrase, offers a
+    # reformulation; `and indeed` + modifier escalates and stays a booster.
     if (
-        enabled("MD-D")
-        and marker == "indeed"
+        marker == "indeed"
         and p is not None
         and (p.lower_ == "or" or (p.text == "," and tok.head.pos_ in ("NOUN", "PROPN")))
     ):
@@ -625,7 +595,7 @@ def _assign(marker: str, entries: list[tuple[str, str]], first_tok) -> tuple[str
     return None
 
 
-# MD-32: quotation marks, per paragraph. A paragraph ends at a blank line (a
+# Quotation marks, per paragraph. A paragraph ends at a blank line (a
 # whitespace run with two newlines or more, as in `_nlp`); a single line
 # break doesn't end it. Supported pairs: curly double, straight double and
 # curly single quotes, where a curly single quote between letters is an
@@ -637,7 +607,7 @@ _PARAGRAPHS = re.compile(r"(\n[^\S\n]*\n\s*)")
 
 
 def _possessive_apostrophes(doc) -> frozenset[int]:
-    """Audit r2 S4: character offsets of `’` tokens that mark a possessive
+    """Character offsets of `’` tokens that mark a possessive
     (dependency `case` or tag POS) of the word straight before them (`the
     students’ work`). Such a mark doesn't close a curly single quotation. One
     the parser takes for punctuation still closes it (`‘… the bosses’`)."""
@@ -721,9 +691,9 @@ def _segments(doc):
 def analyze(text: str, *, analysis: Analysis | None = None) -> dict[str, Any]:
     a = ensure(text, analysis)
     index, max_len = _index()
-    # MD-32: a quotation is someone else's voice, a mentioned word or a title
-    # (guidelines A3); nothing inside one is the writer's metadiscourse.
-    quoted = _quoted(a.doc.text, _possessive_apostrophes(a.doc)) if enabled("MD-H") else None
+    # A quotation is someone else's voice, a mentioned word or a title;
+    # nothing inside one is the writer's metadiscourse.
+    quoted = _quoted(a.doc.text, _possessive_apostrophes(a.doc))
 
     hits: list[dict[str, Any]] = []
     for run in _segments(a.doc):
@@ -731,7 +701,7 @@ def analyze(text: str, *, analysis: Analysis | None = None) -> dict[str, Any]:
         i, n = 0, len(run)
         while i < n:
             consumed = 1
-            if quoted is not None and _inside(quoted, run[i].idx):
+            if _inside(quoted, run[i].idx):
                 i += 1
                 continue
             for span_len in range(min(max_len, n - i), 0, -1):
